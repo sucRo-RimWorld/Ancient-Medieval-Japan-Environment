@@ -10,7 +10,7 @@ namespace AncientMedievalJapan.Environment
     {
         public static void Postfix(PlanetTile tile, ref float __result)
         {
-            if (!tile.Valid)
+            if (!tile.Valid || !tile.Layer.IsRootSurface)
             {
                 return;
             }
