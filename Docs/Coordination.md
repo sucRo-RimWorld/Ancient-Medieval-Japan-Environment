@@ -46,8 +46,8 @@ River XML and the first C# world-generation prototype are now implemented in sou
 - Large/Huge natural spawning disabled while their Defs remain available;
 - Vanilla Terrain generation is now Harmony-postfixed: Vanilla runs normally first, then Environment applies Japan-oriented elevation/coastline, hilliness, annual-temperature and rainfall transforms and reselects the biome;
 - seasonal amplitude uses the Environment 8–16 C curve on the root surface;
-- separate daily random variation is reduced to 4/7 of Vanilla on the root surface;
-- Dev Mode diagnostics automatically log terrain/coast/hilliness and river statistics;
+- separate daily random variation is reduced to 3/7 of Vanilla on the root surface after CCTO climate calibration;
+- Alpha diagnostics automatically log terrain/coast/hilliness and river statistics;
 - Harmony is the sole technical dependency;
 - `run-tests.bat` builds the DLL and validates the installed RimWorld 1.6 source-Def assumptions.
 
@@ -144,6 +144,10 @@ Collect time below growth thresholds **10 / 8 / 5 / 0 C** and cold-death thresho
 
 Automatic climate-calibration diagnostics are implemented in `ClimateCalibrationDiagnostics.cs`. Fresh world finalization selects warm/temperate/cool lowland plus highland representatives and samples `TileTemperaturesComp.OutdoorTemperatureAt` hourly for one 60-day year, including threshold-hours and lethal-event duration statistics. Implementation commit: `9d2e70dde20dfa709fb7bfe5d6ff992bc24df884`.
 
+**First CCTO hourly calibration:** the warm, cool-lowland and highland signals matched intent, but the representative 14 C temperate lowland reached **-8.4 C** and spent **2 h below Barley's -8 C death threshold**. CCTO's cold-death path runs from the plant long-tick check and kills immediately on actual ambient temperature strictly below the threshold, so the brief event is gameplay-significant rather than ignorable. The representative also spent 136 h below -1 C and 70 h below -4 C, which correctly preserves Rice and millet winter risk. Warm lowland had no time below -1 C; cool lowland and highland had 195 h / 338 h below -8 C respectively.
+
+**Calibration change:** keep the seasonal-amplitude curve and Vanilla ±7 C sun-cycle unchanged, but reduce the separate daily random variation from ~±4 C to **~±3 C (3/7 Vanilla)**. This targets the isolated central-lowland Barley failure without weakening northern/highland winter lethality. Implementation commit: `2df9de31cabc3cae5aab52b66f4ae7624bba6529`; validator lock: `2187c482e5d4df676f19ff19a2e2fde4ecb29765`.
+
 **Build/static gate:** PASS after the climate-calibration diagnostics were added. The earlier CS0016 failure was a local DLL file lock from RimWorld still having `AncientMedievalJapanEnvironment.dll` mapped; closing RimWorld and rerunning the gate succeeded. This was not a code compilation failure.
 
-**Next action:** generate one fresh world and inspect the four `[AMJ Environment] Climate calibration` lines. Use those results to decide whether the current ±8..16 C seasonal curve and ~±4 C daily random variation produce the intended Rice/Awa/Hie/Barley climate signals.
+**Next action:** pull/rebuild, generate one fresh world with the ~±3 C random scale, and inspect the four `[AMJ Environment] Climate calibration` lines. Use those results to decide whether the current ±8..16 C seasonal curve and ~±3 C daily random variation produce the intended Rice/Awa/Hie/Barley climate signals.
