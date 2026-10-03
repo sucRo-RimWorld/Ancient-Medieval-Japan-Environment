@@ -94,4 +94,31 @@ Alpha diagnostics were therefore made independent of Dev Mode and an assembly/Ha
 
 **Current local verification gate:** pull latest `main`, rebuild with `run-tests.bat`, fully restart RimWorld, then confirm `[AMJ Environment] Assembly loaded; Harmony patches applied.` plus the three current world-generation diagnostic lines before evaluating balance.
 
+**Current second-pass smoke:** runtime and balance targets are aligned on the first valid current-DLL seed.
+
+Observed:
+- Vanilla: land 61,209; coastal land 3,084; coastal share **5.0%**;
+- Environment: land 61,674; coastal land 4,655; coastal share **7.5%**;
+- same-seed coastline multiplier: **1.50x**;
+- land count delta: **+0.76%**, indicating the coastline target was achieved primarily by increased coastal complexity rather than by flooding land;
+- land annual mean: **-8.0..20.0 C**, avg **11.8 C**;
+- land elevation: **0..3366 m**;
+- highlands: >=1500 m **7.0%**, >=2500 m **0.4%**, >=3000 m present but rounded to 0.0% in the old diagnostic precision;
+- Hilliness: **25.0 / 20.0 / 25.0 / 25.0 / 5.0%**, exactly matching the current Alpha distribution target;
+- river tiles: 6,511 / 119,904 = **5.4% of all tiles**; Creek 3,387, River 2,895; no Large/Huge.
+
+Interpretation:
+- coastline, Hilliness, annual-mean range, and rare highland generation all meet the current single-seed Alpha intent;
+- river size filtering remains correct;
+- this is not yet a final lock because the design requires several seeds and the previous river percentage used all world tiles rather than land tiles.
+
+Diagnostics were expanded before multi-seed validation:
+- same-seed coast multiplier and land-count delta are now printed directly;
+- >=2500 m and >=3000 m highlands include counts and finer percentages;
+- land rainfall and biome distribution are logged;
+- river diagnostics now include river-bearing **land-tile share** in addition to all-tile share.
+Commit: `81c7729be58ed1b8b2af5cd69a3eb598c74b2cdc`.
+
+**Next action:** rebuild, then generate at least two additional seeds at the same planet coverage and compare the expanded Environment diagnostics. If the terrain/coast/climate distributions remain stable, lock the Alpha world-generation baseline and move to CCTO hourly/daily climate sampling.
+
 **Result / references:** initial design `9f5fd58c77b8e9ae5bad00851189d0127a122925`; CCTO calibration `e93da687fcd543f6d3ec94d5398fc604c0559749`; river patch `40d2b6b5615ea26ac6d91ee10f2433e3bd474829` + compatibility hardening `8aee69c23726a08f72b101ccd22a1e2065846364`; terrain prototype `8080b41f144fbacbf31411e11b7853860cd5703b`; climate hooks `16d870ee74a8e259de8233bfc84148ae48cfcf4d` / `b8b84723adf254b3f1bbed7a75cce5223a16222e`; build/static gate `aa87755d6099e89fda36de40acf358fd9bfebb68`, `a1da1cf981d22239f1833765835106804636814c`, `3d5fb2e52058f7d518b56e98620de3ee2af92fc4`; diagnostics `3403742e6c57d89c611cb94f338fff2ff15ef647`.
