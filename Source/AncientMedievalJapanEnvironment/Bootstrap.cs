@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Linq;
 using HarmonyLib;
 using RimWorld.Planet;
 using Verse;
@@ -17,6 +18,19 @@ namespace AncientMedievalJapan.Environment
             harmony.PatchAll();
 
             Log.Message("[AMJ Environment] Assembly loaded; Harmony patches applied.");
+
+            ModContentPack environmentPack = LoadedModManager.RunningModsListForReading
+                .FirstOrDefault(mod => mod.PackageIdPlayerFacing == "sucro.ancientmedievaljapan.environment");
+            bool quickstartsActive =
+                ModLister.GetActiveModWithIdentifier("rimworks.quickstarts", true) != null;
+            string loadFolders = environmentPack == null
+                ? "(Environment ModContentPack not found)"
+                : string.Join(" | ", environmentPack.foldersToLoadDescendingOrder.ToArray());
+
+            Log.Message(
+                "[AMJ Environment] Dev load-folder diagnostic" +
+                " | quickstartsActive=" + quickstartsActive +
+                " | folders=" + loadFolders);
 
             Type cachedType = typeof(TileTemperaturesComp).GetNestedType(
                 "CachedTileTemperatureData",
