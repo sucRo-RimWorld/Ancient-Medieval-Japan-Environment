@@ -60,13 +60,13 @@ The values below are **Alpha baselines**. They are authoritative starting values
 Target generated land range:
 
 - minimum annual mean: **-8 C**
-- maximum annual mean: **21 C**
+- maximum annual mean: **20 C**
 
 Typical lowland bands:
 
-- southern warm lowland: **19–21 C**
+- southern warm lowland: **17–20 C**
 - central temperate lowland: **12–16 C**
-- northern cool lowland: **5–8 C**
+- northern cool lowland: **5–9 C**
 
 High elevations may fall below the lowland bands through elevation cooling, but land annual means remain clamped to the global Alpha range.
 
@@ -87,6 +87,18 @@ Seasonal amplitude should remain large enough for both summer heat and winter co
 - cool north: approximately **±15–16 C**
 
 Exact curve values are implementation details and may be adjusted after generated-world sampling.
+
+#### Daily temperature variation
+
+RimWorld's actual outdoor temperature includes seasonal shift, a fixed day/night sun-cycle component, and a separate daily random variation. Because CCTO evaluates the plant's actual ambient temperature, a short cold dip can cross a plant's lethal threshold even when the seasonal mean is much warmer.
+
+Alpha policy:
+
+- keep the Vanilla day/night sun-cycle amplitude unchanged initially;
+- reduce the separate daily random temperature variation from Vanilla's approximately **±7 C** maximum scale to approximately **±4 C**;
+- if playtesting still causes excessive one-night crop deaths, adjust this random component before weakening the crop-specific CCTO thresholds.
+
+This keeps weather variability while avoiding a continental-style random swing overwhelming the Japan-oriented seasonal climate.
 
 ### 3.2 Elevation
 
@@ -232,7 +244,7 @@ Such a feature may combine map generation, rock walls, water terrain, visual eff
 ## 7. Compatibility principles
 
 - AMJ Core: optional integration. Environment conditions may influence the context in which AMJ crops are chosen, but crop balance remains owned by Core.
-- CCTO: optional integration. CCTO remains responsible for crop cold-death semantics.
+- CCTO: optional integration. CCTO remains responsible for crop cold-death semantics. Environment does not duplicate or override those crop thresholds; it uses the published CCTO/AMJ values as climate-calibration reference points.
 - ReGrowth 2: implementation/reference target, not a dependency.
 - other biome/worldgen mods: compatibility should favor explicit targeted patches rather than broad destructive replacement where possible.
 
@@ -251,10 +263,42 @@ For several seeds at common planet coverage values, collect at minimum:
 - coastal land-tile ratio relative to Vanilla using the same coverage;
 - biome distribution.
 
+### 8.1 CCTO / AMJ crop-climate calibration
+
+Environment climate balance must be checked against the authoritative CCTO thresholds used by AMJ rather than against annual mean temperature alone.
+
+Primary calibration crops:
+
+| Crop | Active-growth minimum | Cold-death threshold | Intended climate signal |
+|---|---:|---:|---|
+| Rice | 10 C | -1 C | warm-season crop; winter growth stops broadly and frost is dangerous |
+| Foxtail millet / Awa | 8 C | -4 C | somewhat more cold-tolerant than rice, but not a winter crop |
+| Japanese barnyard millet / Hie | 5 C | -4 C | longer cool-season tolerance than Awa/rice |
+| Barley | 0 C | -8 C | the main cold-tolerant annual reference |
+
+These values are owned by CCTO/AMJ, not by Environment.
+
+Generated-climate acceptance intent:
+
+- **southern warm lowlands:** rice and other warm crops have a long season; winter nights may stop growth and occasionally threaten frost-sensitive crops, while barley is normally safe;
+- **central temperate lowlands:** rice and millets stop growing for winter and can be killed by frost if left standing; barley normally remains the safer cold-season annual, though the colder inland edge may threaten it;
+- **northern cool lowlands / highlands:** ordinary annual crops cannot remain safely exposed through winter; even barley can face lethal cold, while dormancy-capable perennial crops gain a clear role.
+
+Validation must sample actual hourly/daily outdoor temperatures, not only the tile annual mean.
+
+For representative southern, central, northern and highland tiles, collect:
+- days/hours below 10 C, 8 C, 5 C and 0 C;
+- days/hours below -1 C, -4 C and -8 C;
+- the number and duration of isolated threshold-crossing cold events;
+- resulting growing-season length for the representative crops.
+
+If a region's gameplay does not match the intended signal above, adjust Environment climate variation before changing the established CCTO crop thresholds.
+
 Gameplay smoke tests should then confirm:
 - usable settlement sites still exist;
 - Flat land is limited but not frustratingly rare;
 - rivers are noticeably more common without dominating maps;
 - no natural Large/Huge rivers are produced;
 - northern/highland areas remain meaningfully colder;
-- southern lowlands remain warm without creating tropical-world conditions.
+- southern lowlands remain warm without creating tropical-world conditions;
+- crop-season behavior follows the CCTO calibration intent rather than being dominated by isolated random temperature spikes.
