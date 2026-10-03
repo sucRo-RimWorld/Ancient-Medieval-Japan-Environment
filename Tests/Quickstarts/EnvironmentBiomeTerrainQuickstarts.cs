@@ -6,6 +6,15 @@ using Verse;
 
 namespace AncientMedievalJapan.Environment.Quicktests
 {
+    [StaticConstructorOnStartup]
+    public static class QuicktestAssemblyBootstrap
+    {
+        static QuicktestAssemblyBootstrap()
+        {
+            Log.Message("[AMJ Environment Quicktest] Developer quicktest assembly loaded.");
+        }
+    }
+
     public abstract class BiomeTerrainQuickstartBase : AbstractQuickstart
     {
         protected abstract string TargetBiomeDefName { get; }
