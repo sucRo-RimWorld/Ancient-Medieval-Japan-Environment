@@ -219,6 +219,77 @@ foreach ($expected in @(
 }
 Pass "AMJ Alpha vegetation-band BiomeDefs and workers are present"
 
+$naturalTerrainPath = Join-Path $RepoRoot "Defs\TerrainDefs\AMJ_NaturalTerrains.xml"
+if (-not (Test-Path $naturalTerrainPath)) {
+    Fail "AMJ natural terrain Defs were not found."
+}
+try {
+    [xml]$naturalTerrains = Get-Content -LiteralPath $naturalTerrainPath -Raw
+}
+catch {
+    Fail "AMJ natural terrain XML is not well formed: $($_.Exception.Message)"
+}
+$thinSoil = $naturalTerrains.Defs.TerrainDef | Where-Object { $_.defName -eq "AMJ_ThinSoil" }
+if (-not $thinSoil) {
+    Fail "Missing AMJ_ThinSoil TerrainDef."
+}
+if ([double]$thinSoil.fertility -ne 0.50) {
+    Fail "AMJ_ThinSoil fertility must be 0.50."
+}
+Pass "AMJ thin-soil natural terrain is present at fertility 0.50"
+
+$biomeDefsRaw = Get-Content -LiteralPath $biomeDefsPath -Raw
+foreach ($expected in @(
+    "<terrain>AMJ_ThinSoil</terrain>",
+    "<terrain>Gravel</terrain>",
+    "<max>0.30</max>",
+    "<max>0.35</max>",
+    "<max>0.50</max>",
+    "<max>0.65</max>"
+)) {
+    if (-not $biomeDefsRaw.Contains($expected)) {
+        Fail "AMJ biome soil distribution is missing expected marker: $expected"
+    }
+}
+Pass "AMJ biome low-fertility terrain thresholds are present"
+
+$moTerrainPatchPath = Join-Path $RepoRoot "Patches\Compatibility\MedievalOverhaul.xml"
+if (-not (Test-Path $moTerrainPatchPath)) {
+    Fail "Medieval Overhaul terrain compatibility patch was not found."
+}
+$moTerrainPatch = Get-Content -LiteralPath $moTerrainPatchPath -Raw
+foreach ($expected in @(
+    'MayRequire="DankPyon.Medieval.Overhaul"',
+    'DankPyon_DarkForest',
+    'AMJ_ThinSoil',
+    '<max>0.40</max>',
+    '<max>0.60</max>',
+    '<max>0.90</max>'
+)) {
+    if (-not $moTerrainPatch.Contains($expected)) {
+        Fail "MO natural-soil compatibility patch is missing expected marker: $expected"
+    }
+}
+Pass "MO Dark Forest natural-soil compatibility is present"
+
+$mapTerrainDiagnosticsPath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\MapTerrainDiagnostics.cs"
+if (-not (Test-Path $mapTerrainDiagnosticsPath)) {
+    Fail "MapTerrainDiagnostics.cs was not found."
+}
+$mapTerrainDiagnostics = Get-Content -LiteralPath $mapTerrainDiagnosticsPath -Raw
+foreach ($expected in @(
+    '[HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.GenerateMap))]',
+    '"[AMJ Environment] Map terrain summary"',
+    '"AMJ_ThinSoil"',
+    '"DankPyon_DarkForest"'
+)) {
+    if (-not $mapTerrainDiagnostics.Contains($expected)) {
+        Fail "Map terrain diagnostics are missing expected marker: $expected"
+    }
+}
+Pass "Map terrain-share diagnostics are present"
+
+
 
 
 Write-Host ""
