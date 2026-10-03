@@ -176,6 +176,50 @@ foreach ($expected in @(
 }
 Pass "Japan vegetation-band preview diagnostics are present"
 
+$biomeDefsPath = Join-Path $RepoRoot "Defs\BiomeDefs\AMJ_Biomes.xml"
+if (-not (Test-Path $biomeDefsPath)) {
+    Fail "AMJ biome Defs were not found."
+}
+
+try {
+    [xml]$biomeDefs = Get-Content -LiteralPath $biomeDefsPath -Raw
+}
+catch {
+    Fail "AMJ biome Def XML is not well formed: $($_.Exception.Message)"
+}
+
+$expectedBiomeDefs = @(
+    "AMJ_WarmTemperateForest",
+    "AMJ_CoolTemperateForest",
+    "AMJ_SubalpineForest",
+    "AMJ_AlpineZone"
+)
+foreach ($defName in $expectedBiomeDefs) {
+    if (-not ($biomeDefs.Defs.BiomeDef | Where-Object { $_.defName -eq $defName })) {
+        Fail "Missing AMJ BiomeDef: $defName"
+    }
+}
+
+$biomeWorkerSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\JapanBiomeWorkers.cs"
+if (-not (Test-Path $biomeWorkerSourcePath)) {
+    Fail "JapanBiomeWorkers.cs was not found."
+}
+$biomeWorkerSource = Get-Content -LiteralPath $biomeWorkerSourcePath -Raw
+foreach ($expected in @(
+    "BiomeWorker_AMJWarmTemperateForest",
+    "BiomeWorker_AMJCoolTemperateForest",
+    "BiomeWorker_AMJSubalpineForest",
+    "BiomeWorker_AMJAlpineZone",
+    "WetlandThreshold = 0.5f",
+    "return 38f"
+)) {
+    if (-not $biomeWorkerSource.Contains($expected)) {
+        Fail "Japan biome worker source is missing expected marker: $expected"
+    }
+}
+Pass "AMJ Alpha vegetation-band BiomeDefs and workers are present"
+
+
 
 Write-Host ""
 Write-Host "[OK] AMJ Environment static validation passed"
