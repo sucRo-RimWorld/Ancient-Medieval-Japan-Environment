@@ -153,3 +153,23 @@ Automatic climate-calibration diagnostics are implemented in `ClimateCalibration
 **Final ~±3 C re-run:** PASS. Warm lowland stayed above -1 C; temperate lowland stayed above -8 C while still spending substantial winter time below -1 C and -4 C; cool lowland and highland remained well below -8 C for long periods. The intended Rice/Awa/Hie/Barley regional separation is therefore preserved.
 
 **Result:** ENV-002 complete. Further climate tuning is deferred unless gameplay testing finds a concrete mismatch.
+
+
+### ENV-003 — Japan vegetation bands and biome structure
+
+**Requested by:** Environment/design  
+**Owner:** Environment/biomes  
+**Status:** IN PROGRESS
+
+Move from the accepted climate/worldgen baseline into Japan-oriented biome and wild-vegetation structure.
+
+Decision:
+- use four coarse natural vegetation bands: WarmTemperate >=15 C, CoolTemperate 8..15 C, Subalpine 0..8 C, Alpine <0 C;
+- treat swampiness >=0.5 as a wetland candidate overlay;
+- do not repurpose Vanilla TropicalRainforest/TemperateForest/BorealForest/Tundra Defs because their animals, diseases, weather and compatibility semantics would become misleading;
+- create AMJ-owned BiomeDefs after validating band shares;
+- ReGrowth 2 is reference only; do not copy restricted code/assets.
+
+A preview diagnostic is implemented as `[AMJ Environment] Japan vegetation-band preview`. Commit: `4a2bf50600fbaec0a7cb5fafec02119e594c7fef`.
+
+**Next action:** rebuild and generate one representative world. Check the vegetation-band preview share. If the shape is sensible, implement the first AMJ-owned forest BiomeDefs using temporary Vanilla world textures and no final art.
