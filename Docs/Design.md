@@ -483,3 +483,89 @@ First runtime distribution with Medieval Overhaul active:
 - remaining Vanilla tropical/temperate biomes: small residual shares.
 
 This is accepted as a valid coexistence result rather than treated as an AMJ-band failure. MO Dark Forest is a specialized naturally generated biome with its own score rules and is allowed to replace part of the otherwise suitable AMJ cool/subalpine climate space. Exact AMJ biome percentages are therefore mod-list dependent and are not balance targets.
+
+
+## 10. Natural soil fertility
+
+### 10.1 Responsibility and purpose
+
+Environment owns **naturally generated soil quality**. Core/MO own player-created agricultural improvements such as paddies, plowed soil and other cultivated terrain.
+
+The goal is not to make farming uniformly worse. Low-fertility terrain should create meaningful land-use and crop-selection differences:
+- fertile lowlands remain valuable;
+- ordinary soil remains the common baseline;
+- stony/poor ground makes low-fertility-tolerant crops more useful;
+- highland regions become progressively harder to cultivate without making them completely sterile.
+
+### 10.2 Existing terrain reuse
+
+Do not duplicate Vanilla/MO terrain roles unnecessarily.
+
+Relevant existing values:
+- `SoilRich`: fertility **1.40**;
+- `Soil`: fertility **1.00**;
+- `Gravel` / stony soil: fertility **0.70**;
+- `Sand`: fertility **0.10** and no `GrowSoil` affordance;
+- MO `DankPyon_PlowedSoil`: fertility **1.25**, a player-created agricultural improvement and therefore outside Environment's natural-terrain responsibility.
+
+Because Gravel already provides a 0.70 low-fertility step, Alpha adds only **one** additional natural growable terrain rather than creating multiple nearly identical poor-soil Defs.
+
+### 10.3 AMJ Thin Soil
+
+`AMJ_ThinSoil`:
+- fertility: **0.50**;
+- growable (`GrowSoil`);
+- normal natural-ground building affordances retained so fertility is the main gameplay distinction rather than construction prohibition;
+- slightly higher path cost than ordinary Soil/Gravel;
+- placeholder appearance reuses/tints a Vanilla natural texture; final terrain art is deferred.
+
+Do not add a separate 0.40 "very poor soil" during Alpha. The current useful ladder is:
+
+`Thin Soil 0.50 -> Gravel 0.70 -> Soil 1.00 -> Rich Soil 1.40`.
+
+Add another tier only if playtesting demonstrates a distinct gameplay role.
+
+### 10.4 Initial biome distribution thresholds
+
+RimWorld map generation creates a local fertility-noise field and resolves `BiomeDef.terrainsByFertility` against that value. Environment uses this existing XML mechanism; no custom map-generation C# is required for the terrain placement itself.
+
+Initial Alpha thresholds:
+
+| Biome | Thin Soil | Gravel | Soil | Rich Soil |
+|---|---:|---:|---:|---:|
+| Warm-temperate | <0.30 | 0.30-0.50 | 0.50-0.87 | >=0.87 |
+| Cool-temperate | <0.35 | 0.35-0.55 | 0.55-0.87 | >=0.87 |
+| Subalpine | <0.50 | 0.50-0.70 | 0.70-0.92 | >=0.92 |
+| Alpine | <0.65 | 0.65-0.90 | >=0.90 | none |
+
+These are generation-noise thresholds, not terrain fertility values. They intentionally make lower-quality soil more common as the climate/elevation band becomes harsher.
+
+### 10.5 Medieval Overhaul coexistence
+
+Because MO is the standard AMJ coexistence target, `DankPyon_DarkForest` receives a targeted compatibility patch to use the same natural-soil ladder while remaining entirely MO-owned in biome identity, plants, animals, weather and special content.
+
+Dark Forest initial thresholds:
+- Thin Soil <0.40;
+- Gravel 0.40-0.60;
+- Soil 0.60-0.90;
+- Rich Soil >=0.90.
+
+This compatibility patch does **not** replace the MO biome or its terrain patch makers.
+
+### 10.6 Runtime validation
+
+During Alpha, fresh maps in the four AMJ biomes and MO Dark Forest log:
+
+`[AMJ Environment] Map terrain summary`
+
+with shares for Thin Soil / Gravel / Soil / Rich Soil / other terrain.
+
+Acceptance intent:
+- Warm/Cool maps retain substantial ordinary Soil and some Rich Soil;
+- Thin Soil is visible but not dominant in ordinary lowland forest;
+- Subalpine shows a clear shift toward Thin Soil + Gravel;
+- Alpine is dominated by poor/stony ground but still has limited growable patches;
+- MO Dark Forest continues to generate correctly with its own special terrain patches;
+- thresholds are tuned from map-generation results, not by changing terrain fertility values to force a desired percentage.
+
+Existing maps are not retroactively rewritten; the natural-soil pass applies when generating new maps.
