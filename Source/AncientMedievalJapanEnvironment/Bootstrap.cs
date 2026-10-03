@@ -9,7 +9,7 @@ namespace AncientMedievalJapan.Environment
     [StaticConstructorOnStartup]
     public static class Bootstrap
     {
-        private const float DailyVariationScale = 4f / 7f;
+        private const float DailyVariationScale = 3f / 7f;
 
         static Bootstrap()
         {
