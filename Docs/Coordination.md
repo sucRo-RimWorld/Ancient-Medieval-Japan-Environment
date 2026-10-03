@@ -220,7 +220,18 @@ Implementation: `8f0324b1476ce9f7ffd082f74114d8bd6bda19ee` (TerrainDef), `dc9dec
 
 **Def error found during fixed-biome runs:** `AMJ_ThinSoil makes terrain filth and also accepts it.` Cause: AMJ_ThinSoil declared `generatedFilth=Filth_Dirt` without inheriting Vanilla `NaturalTerrainBase`, leaving `filthAcceptanceMask` at TerrainDef's default `Any`. Fix: inherit `NaturalTerrainBase` and align with Vanilla soil semantics using `categoryType=Soil` and the `Soil` tag. Implementation: `7646617cec9272d1589c308fdd65abda4c3e7c07`; validator: `f626fbc21dee496be824a36bf3005a0a438307bc`.
 
-**Next action:** pull/rebuild and verify the AMJ_ThinSoil config error is gone. Then continue fixed-biome sampling (Alpine and MO Dark Forest) before changing fertility thresholds; investigate the Subalpine Other=61% composition if it remains unusually high.
+**Fixed-biome runtime follow-up:** Dark Forest reported Thin/Gravel/Soil/Rich/Other = 8.9/14.0/6.4/18.1/52.6%. Its high Rich and Other shares differ sharply from the AMJ forest biomes and should be interpreted with MO's own terrain patch makers before changing Environment thresholds.
+
+The first Alpine Quicktest attempt exposed two developer-tooling errors rather than terrain-balance failures:
+- climate calibration still ran from `World.FinalizeInit`, where RimWorks Quickstarts has generated the world but `gameStartAbsTick` is not yet initialized; `TileTemperaturesComp` therefore logged the TicksAbs error;
+- the Alpine selector required a normally valid settlement tile, but the generated rare Alpine band had none.
+
+Fixes:
+- climate calibration now runs from `Game.InitNewGame` after the absolute start tick exists: `535338a7186c937d0c465f8b40b1719af9c2e827`;
+- fixed-biome Quicktests retain normal settlement preference but may use an unoccupied non-settleable target-biome tile, including Impassable only as the final developer-only fallback: `09eb629ab0bdd84bb72856dcf6d7c17e00223f83`;
+- map terrain diagnostics now log the five largest Defs making up `Other`: `d14bfb197bad14a8ae4350a58b02e16521e9fa0f`.
+
+**Next action:** pull/rebuild, rerun Alpine, and capture the full terrain summary including `OtherTop`. If Alpine succeeds, rerun Dark Forest once with the expanded diagnostic so its 52.6% Other share can be attributed before any fertility-threshold change.
 
 ### TEST-001 — AMJ-wide runtime ERROR gate policy
 
