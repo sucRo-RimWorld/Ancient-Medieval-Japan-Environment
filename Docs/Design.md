@@ -283,7 +283,30 @@ For several seeds at common planet coverage values, collect at minimum:
 - coastal land-tile ratio relative to Vanilla using the same coverage;
 - biome distribution.
 
-### 8.1 CCTO / AMJ crop-climate calibration
+### 8.1 Alpha world-generation baseline acceptance
+
+The second-pass world-generation baseline is accepted for the current Alpha after three current-DLL seeds at the same common planet coverage.
+
+Observed ranges across the three seeds:
+- same-seed coastal-land multiplier vs Vanilla: **1.43x–1.50x** (mean approximately **1.48x**);
+- land-count change vs same-seed Vanilla: approximately **-0.6% to +4.4%**;
+- land annual-mean temperature: approximately **-8 C to 20 C** on every seed, with whole-land averages **11.5–12.0 C**;
+- land maximum elevation: **3141–3800 m**;
+- land at or above 1500 m: **7.0–12.1%**;
+- land at or above 2500 m: **0.4–1.73%**;
+- land at or above 3000 m: rare, from approximately **0.03% to 0.55%** where fine diagnostics were available;
+- Hilliness: **25 / 20 / 25 / 25 / 5%** by construction on every current seed;
+- land rainfall in the expanded-diagnostic seeds: **832–2917**, with land averages **1223–1416**;
+- river-bearing land-tile share in the expanded-diagnostic seeds: **7.9–8.8%**;
+- generated natural river sizes: **Creek and River only**; no LargeRiver/HugeRiver.
+
+The coastline target is therefore being met primarily through increased coastal complexity rather than large-scale land loss.
+
+Biome histograms from validation runs are **not** treated as standalone Environment baseline values when additional biome-providing mods are active. The Environment acceptance criterion is the climate/terrain envelope and coherent biome selection; exact biome percentages remain mod-list dependent.
+
+This locks the current terrain/coast/elevation/rainfall/river Alpha baseline. Further changes require a demonstrated gameplay or compatibility problem rather than additional tuning toward one seed.
+
+### 8.2 CCTO / AMJ crop-climate calibration
 
 Environment climate balance must be checked against the authoritative CCTO thresholds used by AMJ rather than against annual mean temperature alone.
 
