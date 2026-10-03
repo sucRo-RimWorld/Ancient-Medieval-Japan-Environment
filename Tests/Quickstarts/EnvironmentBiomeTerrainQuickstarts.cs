@@ -46,11 +46,19 @@ namespace AncientMedievalJapan.Environment.Quicktests
         public override void PostApplyConfiguration()
         {
             bool forcedNonSettlementTile;
-            PlanetTile tile = FindTargetTile(TargetBiomeDefName, out forcedNonSettlementTile);
+            bool forcedBiome;
+            string originalBiome;
+            float targetBiomeScore;
+            PlanetTile tile = FindTargetTile(
+                TargetBiomeDefName,
+                out forcedNonSettlementTile,
+                out forcedBiome,
+                out originalBiome,
+                out targetBiomeScore);
             if (!tile.Valid)
             {
                 throw new InvalidOperationException(
-                    "No world tile found for biome " + TargetBiomeDefName + ".");
+                    "No usable world tile found for biome test " + TargetBiomeDefName + ".");
             }
 
             Find.GameInitData.startingTile = tile;
@@ -62,15 +70,24 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " tile=" + tile +
                 " hilliness=" + worldTile.hilliness +
                 " forcedNonSettlementTile=" + forcedNonSettlementTile +
+                " forcedBiome=" + forcedBiome +
+                " originalBiome=" + originalBiome +
+                " targetBiomeScore=" + targetBiomeScore.ToString("F2") +
                 " rainfall=" + worldTile.rainfall.ToString("F0") +
                 " annualTemp=" + worldTile.temperature.ToString("F1"));
         }
 
         private static PlanetTile FindTargetTile(
             string biomeDefName,
-            out bool forcedNonSettlementTile)
+            out bool forcedNonSettlementTile,
+            out bool forcedBiome,
+            out string originalBiome,
+            out float targetBiomeScore)
         {
             forcedNonSettlementTile = false;
+            forcedBiome = false;
+            originalBiome = biomeDefName;
+            targetBiomeScore = 0f;
 
             Hilliness[] preferredHilliness =
             {
@@ -80,6 +97,78 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 Hilliness.Mountainous
             };
 
+            PlanetTile exactTile = FindExactBiomeTile(
+                biomeDefName,
+                preferredHilliness,
+                true);
+            if (exactTile.Valid)
+            {
+                return exactTile;
+            }
+
+            Hilliness[] fallbackHilliness =
+            {
+                Hilliness.Flat,
+                Hilliness.SmallHills,
+                Hilliness.LargeHills,
+                Hilliness.Mountainous,
+                Hilliness.Impassable
+            };
+
+            exactTile = FindExactBiomeTile(
+                biomeDefName,
+                fallbackHilliness,
+                false);
+            if (exactTile.Valid)
+            {
+                forcedNonSettlementTile =
+                    !TileFinder.IsValidTileForNewSettlement(exactTile);
+                return exactTile;
+            }
+
+            BiomeDef targetBiome =
+                DefDatabase<BiomeDef>.GetNamedSilentFail(biomeDefName);
+            if (targetBiome == null)
+            {
+                return PlanetTile.Invalid;
+            }
+
+            PlanetTile proxyTile = FindWorkerEligibleProxy(
+                targetBiome,
+                fallbackHilliness,
+                out targetBiomeScore);
+
+            if (!proxyTile.Valid && biomeDefName == "AMJ_AlpineZone")
+            {
+                proxyTile = FindColdestAlpineProxy(
+                    fallbackHilliness,
+                    out targetBiomeScore);
+            }
+
+            if (!proxyTile.Valid)
+            {
+                return PlanetTile.Invalid;
+            }
+
+            SurfaceTile proxy = Find.WorldGrid[proxyTile];
+            originalBiome =
+                proxy.PrimaryBiome == null
+                    ? "null"
+                    : proxy.PrimaryBiome.defName;
+
+            proxy.PrimaryBiome = targetBiome;
+            forcedBiome = true;
+            forcedNonSettlementTile =
+                !TileFinder.IsValidTileForNewSettlement(proxyTile);
+
+            return proxyTile;
+        }
+
+        private static PlanetTile FindExactBiomeTile(
+            string biomeDefName,
+            Hilliness[] preferredHilliness,
+            bool requireValidSettlement)
+        {
             for (int h = 0; h < preferredHilliness.Length; h++)
             {
                 for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
@@ -93,38 +182,15 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     }
 
                     PlanetTile tile = candidate.tile;
-                    if (TileFinder.IsValidTileForNewSettlement(tile))
+                    if (requireValidSettlement)
                     {
-                        return tile;
+                        if (TileFinder.IsValidTileForNewSettlement(tile))
+                        {
+                            return tile;
+                        }
                     }
-                }
-            }
-
-            Hilliness[] fallbackHilliness =
-            {
-                Hilliness.Flat,
-                Hilliness.SmallHills,
-                Hilliness.LargeHills,
-                Hilliness.Mountainous,
-                Hilliness.Impassable
-            };
-
-            for (int h = 0; h < fallbackHilliness.Length; h++)
-            {
-                for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
-                {
-                    SurfaceTile candidate = Find.WorldGrid[i];
-                    if (candidate.PrimaryBiome == null ||
-                        candidate.PrimaryBiome.defName != biomeDefName ||
-                        candidate.hilliness != fallbackHilliness[h])
+                    else if (!Find.WorldObjects.AnyWorldObjectAt(tile))
                     {
-                        continue;
-                    }
-
-                    PlanetTile tile = candidate.tile;
-                    if (!Find.WorldObjects.AnyWorldObjectAt(tile))
-                    {
-                        forcedNonSettlementTile = true;
                         return tile;
                     }
                 }
@@ -132,7 +198,88 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
             return PlanetTile.Invalid;
         }
-    }
+
+        private static PlanetTile FindWorkerEligibleProxy(
+            BiomeDef targetBiome,
+            Hilliness[] preferredHilliness,
+            out float bestScore)
+        {
+            bestScore = 0f;
+
+            for (int h = 0; h < preferredHilliness.Length; h++)
+            {
+                PlanetTile bestTile = PlanetTile.Invalid;
+                float bestForHilliness = 0f;
+
+                for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+                {
+                    SurfaceTile candidate = Find.WorldGrid[i];
+                    if (candidate.WaterCovered ||
+                        candidate.hilliness != preferredHilliness[h] ||
+                        Find.WorldObjects.AnyWorldObjectAt(candidate.tile))
+                    {
+                        continue;
+                    }
+
+                    float score = targetBiome.Worker.GetScore(
+                        targetBiome,
+                        candidate,
+                        candidate.tile);
+                    if (score > bestForHilliness)
+                    {
+                        bestForHilliness = score;
+                        bestTile = candidate.tile;
+                    }
+                }
+
+                if (bestTile.Valid)
+                {
+                    bestScore = bestForHilliness;
+                    return bestTile;
+                }
+            }
+
+            return PlanetTile.Invalid;
+        }
+
+        private static PlanetTile FindColdestAlpineProxy(
+            Hilliness[] preferredHilliness,
+            out float proxyScore)
+        {
+            proxyScore = 0f;
+
+            for (int h = 0; h < preferredHilliness.Length; h++)
+            {
+                PlanetTile bestTile = PlanetTile.Invalid;
+                float coldestTemperature = float.MaxValue;
+
+                for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+                {
+                    SurfaceTile candidate = Find.WorldGrid[i];
+                    if (candidate.WaterCovered ||
+                        candidate.hilliness != preferredHilliness[h] ||
+                        candidate.rainfall < 800f ||
+                        candidate.swampiness >= 0.5f ||
+                        Find.WorldObjects.AnyWorldObjectAt(candidate.tile))
+                    {
+                        continue;
+                    }
+
+                    if (candidate.temperature < coldestTemperature)
+                    {
+                        coldestTemperature = candidate.temperature;
+                        bestTile = candidate.tile;
+                    }
+                }
+
+                if (bestTile.Valid)
+                {
+                    return bestTile;
+                }
+            }
+
+            return PlanetTile.Invalid;
+        }
 
     public sealed class AMJWarmTemperateTerrainQuickstart : BiomeTerrainQuickstartBase
     {
