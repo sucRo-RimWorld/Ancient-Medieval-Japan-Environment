@@ -59,4 +59,33 @@ The previous build/static PASS predates this integration change and is no longer
 
 **Next action:** pull the latest main and rerun `run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. If it passes, relaunch RimWorld with Harmony + Environment, enable Dev Mode, and generate the first test world. Use the `[AMJ Environment] Terrain summary` and `[AMJ Environment] River summary` log lines to compare the generated result against the Alpha targets. Climate validation must then use actual temperature samples against the CCTO/AMJ 10/8/5/0 C growth thresholds and -1/-4/-8 C cold-death reference thresholds, not annual mean alone.
 
+**First successful world-generation smoke:** PASS for runtime execution, but balance requires another iteration.
+
+Observed summary:
+- tiles: 119,904;
+- land: 54,546;
+- coastal land: 4,167 / **7.6%**;
+- annual-mean range: **4.0..20.0 C**;
+- transformed elevation range: **-300..2034 m**;
+- Hilliness: Flat **27.1%**, Small **36.9%**, Large **22.0%**, Mountainous **10.2%**, Impassable **3.7%**;
+- river tiles: 5,181 / **4.3%** of all tiles;
+- river edges: 5,000;
+- Creek: 2,582; River: 2,418;
+- **no LargeRiver/HugeRiver generated**, matching the intended river-size rule.
+
+Interpretation:
+- river size filtering is working and the 4.3% river-tile share is suitable for continued testing;
+- Small Hills are substantially over target while Mountainous terrain is substantially under target;
+- maximum elevation 2034 m is too low to exercise the intended rare >3000 m highlands;
+- because elevation is too low, the generated annual-mean minimum only reached 4 C and did not exercise the intended cold/highland range;
+- coastline cannot yet be judged against the 1.5x target because the Vanilla same-seed baseline was not logged.
+
+Second-pass implementation:
+- Hilliness now uses a spatial ruggedness ranking aimed at the 25/20/25/25/5 Alpha distribution instead of incremental Vanilla-category promotion;
+- Large/Mountainous/Impassable tiles receive progressively stronger elevation uplift, with rare high peaks capped at 3800 m;
+- diagnostics now log the Vanilla same-seed coastal baseline before Environment modification and report land-only temperature/elevation plus >=1500/2500/3000 m shares.
+Implementation commits: `c87fe52cc5451ae8ca3059fc90a4f0b971ec486a`, `a2256bd84cc4dd55a5ceb8944c7d09978f5f575f`.
+
+**Next action:** pull/rebuild, generate another Dev Mode world, and capture all three AMJ Environment diagnostic lines. Compare coastline against the same-seed Vanilla baseline and verify the revised Hilliness/highland/temperature distribution before changing river values.
+
 **Result / references:** initial design `9f5fd58c77b8e9ae5bad00851189d0127a122925`; CCTO calibration `e93da687fcd543f6d3ec94d5398fc604c0559749`; river patch `40d2b6b5615ea26ac6d91ee10f2433e3bd474829` + compatibility hardening `8aee69c23726a08f72b101ccd22a1e2065846364`; terrain prototype `8080b41f144fbacbf31411e11b7853860cd5703b`; climate hooks `16d870ee74a8e259de8233bfc84148ae48cfcf4d` / `b8b84723adf254b3f1bbed7a75cce5223a16222e`; build/static gate `aa87755d6099e89fda36de40acf358fd9bfebb68`, `a1da1cf981d22239f1833765835106804636814c`, `3d5fb2e52058f7d518b56e98620de3ee2af92fc4`; diagnostics `3403742e6c57d89c611cb94f338fff2ff15ef647`.
