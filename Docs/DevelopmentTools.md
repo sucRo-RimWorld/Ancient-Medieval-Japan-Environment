@@ -35,8 +35,9 @@ After a successful build, start RimWorld with:
 With Dev Mode enabled, Environment writes compact world-generation diagnostics:
 
 - `[AMJ Environment] Vanilla terrain baseline` — Vanilla land count and coastal-land share before Environment transforms;
-- `[AMJ Environment] Terrain summary` — Environment land/coastal share, land annual-mean temperature range, land elevation/highland shares, ocean-floor minimum, and Hilliness percentages;
-- `[AMJ Environment] River summary` — river-bearing tile share, unique river edges, and RiverDef counts.
+- `[AMJ Environment] Terrain summary` — Environment land/coastal share, same-seed coast multiplier vs Vanilla, land-count delta, land annual-mean temperature range, land elevation/highland shares, ocean-floor minimum, and Hilliness percentages;
+- `[AMJ Environment] Climate/biome summary` — land rainfall min/max/average and land biome counts/shares;
+- `[AMJ Environment] River summary` — river-bearing tile counts, all-tile share, **land-tile share**, unique river edges, and RiverDef counts.
 
 Create several worlds and check:
 
