@@ -436,3 +436,35 @@ The target is not equal shares. Expected shape:
 - wetland candidates should remain a minority.
 
 If this shape is stable, proceed to AMJ BiomeDefs and vegetation composition. Do not tune the locked world-generation climate merely to force biome percentages.
+
+Observed preview on the first validation seed:
+- WarmTemperate: **27.5%**;
+- CoolTemperate: **51.4%**;
+- Subalpine: **19.5%**;
+- Alpine: **1.7%**;
+- swampiness >=0.5 candidates: **0.7%**.
+
+This matches the intended shape closely enough that no climate/worldgen retuning is required.
+
+### 9.5 Alpha BiomeDef implementation
+
+The first AMJ-owned biome pass is implemented with four BiomeDefs:
+- `AMJ_WarmTemperateForest`;
+- `AMJ_CoolTemperateForest`;
+- `AMJ_SubalpineForest`;
+- `AMJ_AlpineZone`.
+
+Biome workers:
+- use the accepted annual-mean temperature bands;
+- require rainfall >=800;
+- exclude swampiness >=0.5 so existing wetland biomes continue to handle the initial 0.7% wetland minority;
+- return an ordinary score centered near 38, sufficient to supersede broad Vanilla biome workers inside the AMJ climate bands without globally disabling third-party natural biomes.
+
+Alpha content policy:
+- world-map textures temporarily reuse nearest Vanilla biome textures;
+- wild plants use existing Vanilla Defs only;
+- wildlife pools are temporary Vanilla-backed functional placeholders so generated maps are not empty, not a historical fauna specification;
+- no final textures, new plant graphics, regional weather effects, or Japan-specific wild-plant Defs are part of this pass;
+- all placeholder content must be revisited after runtime distribution/map-generation validation.
+
+The next validation gate is runtime, not further spreadsheet-style tuning: generate a world and verify that actual biome counts are dominated by the four AMJ BiomeDefs while swamp tiles still resolve to appropriate wetland/compatibility biomes.
