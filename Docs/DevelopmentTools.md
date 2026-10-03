@@ -58,7 +58,7 @@ Create several worlds and check:
 
 ## Climate/CCTO validation
 
-Fresh world creation automatically emits four `[AMJ Environment] Climate calibration` lines for warm lowland, temperate lowland, cool lowland and highland representatives. Each line samples RimWorld's actual outdoor-temperature API once per in-game hour for a full 60-day year (1440 samples).
+New-game initialization emits four `[AMJ Environment] Climate calibration` lines for warm lowland, temperate lowland, cool lowland and highland representatives. The diagnostic runs from `Game.InitNewGame` after `gameStartAbsTick` has been initialized; it must not sample `TileTemperaturesComp` from `World.FinalizeInit`, because Quickstarts generates the world before that absolute game-start tick exists. Each line samples RimWorld's actual outdoor-temperature API once per in-game hour for a full 60-day year (1440 samples).
 
 Reference thresholds:
 - growth: 10 / 8 / 5 / 0 C;
@@ -126,8 +126,9 @@ All five:
 - generate a normal **250x250** map;
 - select the requested biome after world generation and before map generation;
 - prefer Flat, then Small Hills, Large Hills, and Mountainous valid settlement tiles in that order;
+- if a requested biome has no normally settleable tile (notably rare Alpine worlds), fall back only for this developer Quicktest to an unoccupied tile of that biome, including Impassable as the last resort; this does not change normal settlement rules;
 - log the selected tile as `[AMJ Environment Quicktest] Selected tile`;
-- then use the normal map generator, so `[AMJ Environment] Map terrain summary` reports Thin Soil / Gravel / Soil / Rich Soil / Other shares.
+- then use the normal map generator, so `[AMJ Environment] Map terrain summary` reports Thin Soil / Gravel / Soil / Rich Soil / Other shares plus the five most common terrain Defs inside `Other`.
 
 Use these fixed-biome Quicktests for ENV-004 terrain-threshold comparison instead of Vanilla/random QuickTest. Keeping the same seed and hilliness preference removes most start-tile noise from cross-biome comparisons.
 
