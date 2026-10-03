@@ -126,6 +126,17 @@ if (-not $terrainSource.Contains("EnvironmentTerrainProcessor.Apply(seed, layer)
 }
 Pass "Environment terrain processing uses Harmony postfix with no custom WorldGenStep XML type"
 
+$bootstrapSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\Bootstrap.cs"
+if (-not (Test-Path $bootstrapSourcePath)) {
+    Fail "Environment Bootstrap.cs was not found."
+}
+$bootstrapSource = Get-Content -LiteralPath $bootstrapSourcePath -Raw
+if (-not $bootstrapSource.Contains("DailyVariationScale = 3f / 7f")) {
+    Fail "Environment daily random temperature scale is not the calibrated 3/7 value."
+}
+Pass "Daily random temperature variation uses calibrated ~3 C scale"
+
+
 $climateSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\ClimateCalibrationDiagnostics.cs"
 if (-not (Test-Path $climateSourcePath)) {
     Fail "Climate calibration diagnostics source was not found."
