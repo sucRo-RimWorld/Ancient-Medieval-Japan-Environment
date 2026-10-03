@@ -21,6 +21,14 @@
       <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\Unity.Mathematics.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Unity.Collections">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\Unity.Collections.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="0Harmony">
       <HintPath>$(HarmonyDll)</HintPath>
       <Private>false</Private>
