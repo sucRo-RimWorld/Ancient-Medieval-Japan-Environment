@@ -186,3 +186,24 @@ Implementation commits: `c84eaf9549c21c644b3da21eed4d5558c7f8ce4c`, `3e973f5f5b5
 **Compatibility decision:** the four AMJ biomes are baseline vegetation bands, not exclusive replacements. **MO is a standard AMJ coexistence target**, not merely another optional biome mod: Environment stays technically loadable without MO, but normal AMJ play is expected to include MO. MO-owned specialized natural biomes such as Dark Forest should therefore remain available through normal BiomeWorker competition where their climate rules fit. A brief attempted score increase that would have forced AMJ ownership over MO Dark Forest was reverted. Coexistence implementation commit: `3e5dedf94743baaea7248f0073882cde0a7ddf9f`; validator restore: `7ff5ad1d637f8e5b9e4f6af790466359b1331065`.
 
 **Next action:** open one map in each practical AMJ biome (WarmTemperate, CoolTemperate, Subalpine, and Alpine if a reachable tile exists) to catch missing Def references or map-generation issues. After that smoke gate, proceed to the planned low-fertility natural terrain pass before Japan-specific wild-plant/weather content.
+
+
+### ENV-004 — Low-fertility natural terrain
+
+**Requested by:** Environment/design  
+**Owner:** Environment/terrain  
+**Status:** IN PROGRESS
+
+Add meaningful naturally poor growable ground after the initial biome structure, without duplicating Vanilla Gravel or MO agricultural improvements.
+
+Implemented Alpha pass:
+- one new `AMJ_ThinSoil` TerrainDef at fertility **0.50**;
+- reuse Vanilla `Gravel` at **0.70**, `Soil` at **1.00**, and `SoilRich` at **1.40** rather than adding a redundant second poor-soil tier;
+- biome-specific `terrainsByFertility` thresholds make poor/stony ground progressively more common from warm/cool forest toward subalpine/alpine;
+- targeted MO Dark Forest compatibility preserves the MO biome while applying the same natural-soil ladder;
+- player-created MO `DankPyon_PlowedSoil` remains untouched;
+- fresh-map diagnostics report terrain shares automatically.
+
+Implementation: `8f0324b1476ce9f7ffd082f74114d8bd6bda19ee` (TerrainDef), `dc9dec1e5c5936261fc825b0dba05a818d1c878b` (AMJ biome distribution), `0869bd7d9c4f3fdabef3b811050ccf9be1a9ee07` (MO compatibility), `0e88f29467b3237bc160733eb799b164c710e654` (map diagnostics).
+
+**Next action:** rebuild and generate representative WarmTemperate, CoolTemperate, Subalpine and (if practical) Alpine maps, plus MO Dark Forest when convenient. Compare `[AMJ Environment] Map terrain summary` shares and visually confirm that poor ground is patchy rather than map-dominating. Adjust generation thresholds only if needed; keep the accepted 0.50 terrain fertility fixed unless crop gameplay demonstrates a problem.
