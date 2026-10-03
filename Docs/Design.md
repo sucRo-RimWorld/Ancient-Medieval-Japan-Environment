@@ -32,7 +32,7 @@ AMJ Core remains responsible for the minimum Terrain/Defs required for its agric
 
 AMJ Core, CCTO, MO and other AMJ mods are optional compatibility targets, not hard dependencies.
 
-**Harmony is the sole current technical dependency.** It is required only for temperature-runtime hooks that RimWorld 1.6 does not expose through Def/XML: the Environment seasonal-amplitude curve and the reduced daily random temperature variation.
+**Harmony is the sole current technical dependency.** It is used for the post-Vanilla terrain transformation and for temperature-runtime hooks that RimWorld 1.6 does not expose cleanly through Def/XML.
 
 ## 2. Design goal
 
@@ -225,12 +225,13 @@ Therefore the following Environment responsibilities cannot be implemented robus
 - increased coastline complexity.
 
 Implementation architecture:
-- replace only the Vanilla `Terrain` `WorldGenStepDef.worldGenStep` worker;
-- the Environment worker **inherits `WorldGenStep_Terrain` and runs the Vanilla terrain pass first**;
-- after Vanilla terrain exists, Environment applies its elevation/coastline, hilliness, annual-temperature and rainfall transforms;
+- keep the Vanilla `Terrain` `WorldGenStepDef` unchanged;
+- Harmony-postfix `WorldGenStep_Terrain.GenerateFresh`;
+- after Vanilla terrain generation completes, Environment applies its elevation/coastline, hilliness, annual-temperature and rainfall transforms;
 - Environment then re-runs natural biome selection using the adjusted tile values;
 - all changes are limited to the root surface layer;
-- later Vanilla world-gen steps, including rivers, roads and factions, consume the adjusted terrain normally.
+- later Vanilla world-gen steps, including rivers, roads and factions, consume the adjusted terrain normally;
+- do **not** reference an Environment custom `WorldGenStep` class from XML. This avoids Def-load-time type-resolution failure and reduces conflict surface with Vanilla Def loading.
 
 Runtime temperature hooks:
 - Harmony overrides the root-surface seasonal shift to an **±8 C → ±16 C** south-to-north curve;
