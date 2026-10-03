@@ -356,7 +356,7 @@ CCTO checks cold-death through the plant's normal long-tick path and kills immed
 Calibration decision:
 - keep the current seasonal-amplitude curve and Vanilla ±7 C sun-cycle component;
 - reduce only the separate daily random component from ~±4 C to **~±3 C** (3/7 of Vanilla);
-- re-run the same four representative diagnostics before accepting the CCTO climate calibration.
+- the re-run passed, so the ~±3 C random scale is accepted as the Alpha CCTO climate baseline.
 
 This is the smallest change that removes a one-night random-spike failure mode in central lowlands while preserving clearly lethal Barley conditions in cool lowlands and highlands.
 
