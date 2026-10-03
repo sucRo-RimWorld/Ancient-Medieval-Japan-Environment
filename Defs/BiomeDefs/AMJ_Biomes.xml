@@ -25,8 +25,18 @@
     <diseaseMtbDays>50</diseaseMtbDays>
     <terrainsByFertility>
       <li>
-        <terrain>Soil</terrain>
+        <terrain>AMJ_ThinSoil</terrain>
         <min>-999</min>
+        <max>0.30</max>
+      </li>
+      <li>
+        <terrain>Gravel</terrain>
+        <min>0.30</min>
+        <max>0.50</max>
+      </li>
+      <li>
+        <terrain>Soil</terrain>
+        <min>0.50</min>
         <max>0.87</max>
       </li>
       <li>
@@ -89,8 +99,18 @@
     <diseaseMtbDays>55</diseaseMtbDays>
     <terrainsByFertility>
       <li>
-        <terrain>Soil</terrain>
+        <terrain>AMJ_ThinSoil</terrain>
         <min>-999</min>
+        <max>0.35</max>
+      </li>
+      <li>
+        <terrain>Gravel</terrain>
+        <min>0.35</min>
+        <max>0.55</max>
+      </li>
+      <li>
+        <terrain>Soil</terrain>
+        <min>0.55</min>
         <max>0.87</max>
       </li>
       <li>
@@ -154,13 +174,23 @@
     <diseaseMtbDays>65</diseaseMtbDays>
     <terrainsByFertility>
       <li>
-        <terrain>Soil</terrain>
+        <terrain>AMJ_ThinSoil</terrain>
         <min>-999</min>
-        <max>0.87</max>
+        <max>0.50</max>
+      </li>
+      <li>
+        <terrain>Gravel</terrain>
+        <min>0.50</min>
+        <max>0.70</max>
+      </li>
+      <li>
+        <terrain>Soil</terrain>
+        <min>0.70</min>
+        <max>0.92</max>
       </li>
       <li>
         <terrain>SoilRich</terrain>
-        <min>0.87</min>
+        <min>0.92</min>
         <max>999</max>
       </li>
     </terrainsByFertility>
@@ -213,12 +243,17 @@
     <diseaseMtbDays>85</diseaseMtbDays>
     <terrainsByFertility>
       <li>
-        <terrain>Soil</terrain>
+        <terrain>AMJ_ThinSoil</terrain>
         <min>-999</min>
+        <max>0.65</max>
+      </li>
+      <li>
+        <terrain>Gravel</terrain>
+        <min>0.65</min>
         <max>0.90</max>
       </li>
       <li>
-        <terrain>SoilRich</terrain>
+        <terrain>Soil</terrain>
         <min>0.90</min>
         <max>999</max>
       </li>
