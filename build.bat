@@ -15,6 +15,8 @@ if not exist "%CSC%" (
 set "MANAGED=%RIMWORLD_DIR%\RimWorldWin64_Data\Managed"
 set "ASSEMBLY_CSHARP=%MANAGED%\Assembly-CSharp.dll"
 set "UNITY_CORE=%MANAGED%\UnityEngine.CoreModule.dll"
+set "UNITY_MATH=%MANAGED%\Unity.Mathematics.dll"
+set "UNITY_COLLECTIONS=%MANAGED%\Unity.Collections.dll"
 set "NETSTANDARD=%MANAGED%\netstandard.dll"
 
 if not exist "%ASSEMBLY_CSHARP%" (
@@ -26,6 +28,18 @@ if not exist "%ASSEMBLY_CSHARP%" (
 if not exist "%UNITY_CORE%" (
     echo [ERROR] UnityEngine.CoreModule.dll was not found:
     echo         %UNITY_CORE%
+    exit /b 1
+)
+
+if not exist "%UNITY_MATH%" (
+    echo [ERROR] Unity.Mathematics.dll was not found:
+    echo         %UNITY_MATH%
+    exit /b 1
+)
+
+if not exist "%UNITY_COLLECTIONS%" (
+    echo [ERROR] Unity.Collections.dll was not found:
+    echo         %UNITY_COLLECTIONS%
     exit /b 1
 )
 
@@ -82,6 +96,8 @@ echo.
 "%CSC%" /nologo /target:library /optimize+ /out:"%OUTPUT_DLL%" ^
     /reference:"%ASSEMBLY_CSHARP%" ^
     /reference:"%UNITY_CORE%" ^
+    /reference:"%UNITY_MATH%" ^
+    /reference:"%UNITY_COLLECTIONS%" ^
     /reference:"%NETSTANDARD%" ^
     /reference:"%HARMONY_DLL%" ^
     !SOURCES!
