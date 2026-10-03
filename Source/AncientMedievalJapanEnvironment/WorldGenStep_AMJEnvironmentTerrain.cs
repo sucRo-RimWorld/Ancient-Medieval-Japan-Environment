@@ -19,6 +19,12 @@ namespace AncientMedievalJapan.Environment
 
     public static class EnvironmentTerrainProcessor
     {
+        private sealed class RuggedTile
+        {
+            public SurfaceTile tile;
+            public float score;
+        }
+
         private const float MinElevation = -300f;
         private const float MaxElevation = 3800f;
         private const float CoastInfluenceElevation = 600f;
@@ -41,6 +47,8 @@ namespace AncientMedievalJapan.Environment
                 return;
             }
 
+            WorldGenDiagnostics.LogVanillaTerrainBaseline(layer);
+
             int stableSeed = GenText.StableStringHash(seed);
             ModuleBase coastNoise = new Perlin(
                 0.08,
@@ -58,6 +66,10 @@ namespace AncientMedievalJapan.Environment
                 Gen.HashCombineInt(stableSeed, 584903),
                 QualityMode.High);
 
+            List<RuggedTile> ruggedLand = new List<RuggedTile>();
+
+            // Pass 1: reshape elevation/coastline and collect a continuous
+            // ruggedness score for every resulting land tile.
             for (int i = 0; i < layer.TilesCount; i++)
             {
                 PlanetTile planetTile = new PlanetTile(i, layer);
@@ -68,27 +80,92 @@ namespace AncientMedievalJapan.Environment
                 }
 
                 Vector3 center = layer.GetTileCenter(planetTile);
+                float ruggedness = (float)ruggednessNoise.GetValue(center);
 
-                tile.elevation = AdjustElevation(tile.elevation, coastNoise.GetValue(center));
+                tile.elevation = AdjustBaseElevation(
+                    tile.elevation,
+                    coastNoise.GetValue(center));
 
                 if (tile.elevation <= 0f)
                 {
                     tile.hilliness = Hilliness.Flat;
                     tile.swampiness = 0f;
+                    continue;
+                }
+
+                // Elevation contributes to the rank but noise remains the
+                // dominant term so mountain belts stay spatially coherent.
+                float elevationFactor = Mathf.Clamp01(tile.elevation / 2000f);
+                ruggedLand.Add(new RuggedTile
+                {
+                    tile = tile,
+                    score = ruggedness + elevationFactor * 0.55f
+                });
+            }
+
+            // Pass 2: rank land by ruggedness. This deliberately targets the
+            // Alpha 25/20/25/25/5 gameplay distribution rather than relying
+            // on Vanilla's planet-scale Hilliness thresholds.
+            ruggedLand.Sort(delegate(RuggedTile a, RuggedTile b)
+            {
+                return a.score.CompareTo(b.score);
+            });
+
+            int landCount = ruggedLand.Count;
+            int flatEnd = Mathf.RoundToInt(landCount * 0.25f);
+            int smallEnd = flatEnd + Mathf.RoundToInt(landCount * 0.20f);
+            int largeEnd = smallEnd + Mathf.RoundToInt(landCount * 0.25f);
+            int mountainousEnd = largeEnd + Mathf.RoundToInt(landCount * 0.25f);
+
+            for (int i = 0; i < landCount; i++)
+            {
+                RuggedTile sample = ruggedLand[i];
+                Hilliness hilliness;
+
+                if (i < flatEnd)
+                {
+                    hilliness = Hilliness.Flat;
+                }
+                else if (i < smallEnd)
+                {
+                    hilliness = Hilliness.SmallHills;
+                }
+                else if (i < largeEnd)
+                {
+                    hilliness = Hilliness.LargeHills;
+                }
+                else if (i < mountainousEnd)
+                {
+                    hilliness = Hilliness.Mountainous;
                 }
                 else
                 {
-                    tile.hilliness = AdjustHilliness(
-                        tile.hilliness,
-                        tile.elevation,
-                        ruggednessNoise.GetValue(center));
+                    hilliness = Hilliness.Impassable;
+                }
 
-                    if (tile.hilliness == Hilliness.LargeHills ||
-                        tile.hilliness == Hilliness.Mountainous ||
-                        tile.hilliness == Hilliness.Impassable)
-                    {
-                        tile.swampiness = 0f;
-                    }
+                sample.tile.hilliness = hilliness;
+                sample.tile.elevation = ApplyMountainUplift(
+                    sample.tile.elevation,
+                    hilliness,
+                    sample.score);
+
+                if (hilliness == Hilliness.LargeHills ||
+                    hilliness == Hilliness.Mountainous ||
+                    hilliness == Hilliness.Impassable)
+                {
+                    sample.tile.swampiness = 0f;
+                }
+            }
+
+            // Pass 3: temperature/rainfall/biome must use the final adjusted
+            // elevation and Hilliness.
+            for (int i = 0; i < layer.TilesCount; i++)
+            {
+                PlanetTile planetTile = new PlanetTile(i, layer);
+                SurfaceTile tile = layer.Tiles[i] as SurfaceTile;
+                if (tile == null)
+                {
+                    continue;
                 }
 
                 tile.temperature = CalculateAnnualMeanTemperature(
@@ -102,7 +179,9 @@ namespace AncientMedievalJapan.Environment
             WorldGenDiagnostics.LogTerrainSummary(layer);
         }
 
-        private static float AdjustElevation(float vanillaElevation, double coastNoiseValue)
+        private static float AdjustBaseElevation(
+            float vanillaElevation,
+            double coastNoiseValue)
         {
             float elevation;
 
@@ -126,42 +205,31 @@ namespace AncientMedievalJapan.Environment
             return Mathf.Clamp(elevation, MinElevation, MaxElevation);
         }
 
-        private static Hilliness AdjustHilliness(
-            Hilliness vanilla,
+        private static float ApplyMountainUplift(
             float elevation,
-            double ruggednessNoiseValue)
+            Hilliness hilliness,
+            float ruggednessScore)
         {
-            float noise = (float)ruggednessNoiseValue;
+            float uplift = 0f;
 
-            Hilliness result = vanilla;
-
-            if (vanilla == Hilliness.Flat && noise > -0.20f)
+            switch (hilliness)
             {
-                result = noise > 0.35f ? Hilliness.LargeHills : Hilliness.SmallHills;
-            }
-            else if (vanilla == Hilliness.SmallHills && noise > 0.20f)
-            {
-                result = Hilliness.LargeHills;
-            }
-            else if (vanilla == Hilliness.LargeHills && noise > 0.40f)
-            {
-                result = Hilliness.Mountainous;
-            }
-            else if (vanilla == Hilliness.Mountainous && noise > 0.82f)
-            {
-                result = Hilliness.Impassable;
+                case Hilliness.LargeHills:
+                    uplift = 250f;
+                    break;
+                case Hilliness.Mountainous:
+                    uplift = 750f;
+                    break;
+                case Hilliness.Impassable:
+                    uplift = 1400f;
+                    break;
             }
 
-            if (elevation >= 2500f && (int)result < (int)Hilliness.Mountainous)
-            {
-                result = Hilliness.Mountainous;
-            }
-            else if (elevation >= 1500f && (int)result < (int)Hilliness.LargeHills)
-            {
-                result = Hilliness.LargeHills;
-            }
+            // Within the same class, more rugged tiles receive a little more
+            // relief. This creates rare high peaks without lifting all land.
+            uplift += Mathf.Max(0f, ruggednessScore - 0.45f) * 450f;
 
-            return result;
+            return Mathf.Clamp(elevation + uplift, 0f, MaxElevation);
         }
 
         private static float CalculateAnnualMeanTemperature(float latitude, float elevation)
