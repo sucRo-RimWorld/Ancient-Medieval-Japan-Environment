@@ -237,7 +237,9 @@ The fixed-biome Quicktest now distinguishes natural-world placement from terrain
 
 The separate startup error `No textures found at path Things/Item/Resource/PlantFoodRaw/RawLentils` is not emitted by Environment and is independent of the Alpine selector failure; do not treat it as an Environment terrain-balance result.
 
-**Next action:** pull/rebuild, rerun Alpine, and capture both `[AMJ Environment Quicktest] Selected tile` and the full `[AMJ Environment] Map terrain summary` including `OtherTop`. Then rerun Dark Forest once for `OtherTop` attribution before changing fertility thresholds.
+**Local build finding after synthetic-biome fallback:** the normal Environment DLL built, but the developer Quicktest DLL failed with CS0266 because `Find.WorldGrid[PlanetTile]` exposes the base `Tile` type while the fallback assigned it directly to `SurfaceTile`. All Quicktest world-grid reads that require `SurfaceTile` now use an explicit `as SurfaceTile` cast with null handling. Fix commit: `4dda399fa08ee5ceb28d826bc048f16bebd018dd`.
+
+**Next action:** pull/rebuild. Do not treat the Quicktest gate as passing until the local rerun confirms the developer DLL compiles. After that, rerun Alpine and capture both `[AMJ Environment Quicktest] Selected tile` and the full `[AMJ Environment] Map terrain summary` including `OtherTop`; then rerun Dark Forest once for `OtherTop` attribution before changing fertility thresholds.
 
 ### TEST-001 — AMJ-wide runtime ERROR gate policy
 
