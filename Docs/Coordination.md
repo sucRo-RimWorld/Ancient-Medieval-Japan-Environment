@@ -212,4 +212,6 @@ Implementation: `8f0324b1476ce9f7ffd082f74114d8bd6bda19ee` (TerrainDef), `dc9dec
 
 **Load-diagnosis note:** the developer Quicktest DLL can build successfully yet still fail to appear in the Quickstarts picker if RimWorld never loads the conditional `DevQuickstarts` folder. The Quicktest assembly now emits `[AMJ Environment Quicktest] Developer quicktest assembly loaded.` from a static constructor so runtime loading can be verified directly. Diagnostic commit: `7316c9a7e8ee3b4a3c209e5da8ce8e467763dbb8`.
 
-**Next action:** pull/rebuild with Quickstarts installed, fully restart RimWorld, then search Player.log for `[AMJ Environment Quicktest] Developer quicktest assembly loaded.`. If present but the five entries are absent, investigate Quickstarts type discovery; if absent, investigate Environment `loadFolders.xml` routing.
+**Runtime diagnosis after missing Quicktest load marker:** the conditional XML syntax matches RimWorld 1.6 source, so do not change it blindly. Environment's main assembly now logs whether `rimworks.quickstarts` is active and the exact `foldersToLoadDescendingOrder` selected for Environment as `[AMJ Environment] Dev load-folder diagnostic`. Implementation: `f18676b13c0885c1de9fe1c4346e643effd730aa`; validator: `8f21f274c7258f01227fb4370d81a6063277b17b`.
+
+**Next action:** pull/rebuild, fully restart RimWorld, then inspect only the `[AMJ Environment] Dev load-folder diagnostic` line. This will distinguish an inactive/mismatched Quickstarts package ID from a loadFolders routing failure without further guesswork.
