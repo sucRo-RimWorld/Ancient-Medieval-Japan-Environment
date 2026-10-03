@@ -90,6 +90,8 @@ namespace AncientMedievalJapan.Environment
                 tile.rainfall = Mathf.Clamp(800f + tile.rainfall * 0.55f, 800f, 3000f);
                 tile.PrimaryBiome = SelectBiome(tile, planetTile, layer);
             }
+
+            WorldGenDiagnostics.LogTerrainSummary(layer);
         }
 
         private static float AdjustElevation(float vanillaElevation, double coastNoiseValue)
