@@ -158,6 +158,25 @@ foreach ($expected in @(
 }
 Pass "Automatic CCTO climate-calibration diagnostics are present"
 
+$diagnosticsSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\WorldGenDiagnostics.cs"
+if (-not (Test-Path $diagnosticsSourcePath)) {
+    Fail "WorldGenDiagnostics.cs was not found."
+}
+$diagnosticsSource = Get-Content -LiteralPath $diagnosticsSourcePath -Raw
+foreach ($expected in @(
+    '"[AMJ Environment] Japan vegetation-band preview"',
+    'tile.temperature >= 15f',
+    'tile.temperature >= 8f',
+    'tile.temperature >= 0f',
+    'tile.swampiness >= 0.5f'
+)) {
+    if (-not $diagnosticsSource.Contains($expected)) {
+        Fail "Japan vegetation-band preview is missing expected source marker: $expected"
+    }
+}
+Pass "Japan vegetation-band preview diagnostics are present"
+
+
 Write-Host ""
 Write-Host "[OK] AMJ Environment static validation passed"
 exit 0
