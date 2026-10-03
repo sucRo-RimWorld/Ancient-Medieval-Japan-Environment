@@ -238,6 +238,20 @@ if ([double]$thinSoil.fertility -ne 0.50) {
 }
 Pass "AMJ thin-soil natural terrain is present at fertility 0.50"
 
+$thinSoilRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "Defs\TerrainDefs\AMJ_NaturalTerrains.xml") -Raw
+foreach ($expected in @(
+    '<TerrainDef ParentName="NaturalTerrainBase">',
+    '<categoryType>Soil</categoryType>',
+    '<li>Soil</li>',
+    '<generatedFilth>Filth_Dirt</generatedFilth>'
+)) {
+    if (-not $thinSoilRaw.Contains($expected)) {
+        Fail "AMJ_ThinSoil is missing Vanilla-compatible natural-soil marker: $expected"
+    }
+}
+Pass "AMJ thin soil inherits Vanilla natural-terrain filth acceptance"
+
+
 $biomeDefsRaw = Get-Content -LiteralPath $biomeDefsPath -Raw
 foreach ($expected in @(
     "<terrain>AMJ_ThinSoil</terrain>",
