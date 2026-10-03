@@ -10,7 +10,7 @@ namespace AncientMedievalJapan.Environment
     {
         public static void LogVanillaTerrainBaseline(PlanetLayer layer)
         {
-            if (!Prefs.DevMode || !layer.IsRootSurface)
+            if (!layer.IsRootSurface)
             {
                 return;
             }
@@ -28,7 +28,7 @@ namespace AncientMedievalJapan.Environment
 
         public static void LogTerrainSummary(PlanetLayer layer)
         {
-            if (!Prefs.DevMode || !layer.IsRootSurface)
+            if (!layer.IsRootSurface)
             {
                 return;
             }
@@ -181,7 +181,7 @@ namespace AncientMedievalJapan.Environment
     {
         public static void Postfix(PlanetLayer layer)
         {
-            if (!Prefs.DevMode || !layer.IsRootSurface)
+            if (!layer.IsRootSurface)
             {
                 return;
             }
