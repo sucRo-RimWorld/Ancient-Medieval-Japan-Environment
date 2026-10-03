@@ -144,7 +144,8 @@ if (-not (Test-Path $climateSourcePath)) {
 
 $climateSource = Get-Content -LiteralPath $climateSourcePath -Raw
 foreach ($expected in @(
-    '[HarmonyPatch(typeof(World), "FinalizeInit")]',
+    '[HarmonyPatch(typeof(Game), "InitNewGame")]',
+    'Find.TickManager.gameStartAbsTick == 0',
     'OutdoorTemperatureAt(tile, absTick)',
     '10f, 8f, 5f, 0f, -1f, -4f, -8f',
     '"WarmLowland"',
@@ -295,7 +296,9 @@ foreach ($expected in @(
     '[HarmonyPatch(typeof(MapGenerator), "GenerateMap")]',
     '"[AMJ Environment] Map terrain summary"',
     '"AMJ_ThinSoil"',
-    '"DankPyon_DarkForest"'
+    '"DankPyon_DarkForest"',
+    '" | OtherTop="',
+    'Dictionary<string, int> otherTerrains'
 )) {
     if (-not $mapTerrainDiagnostics.Contains($expected)) {
         Fail "Map terrain diagnostics are missing expected marker: $expected"
@@ -351,6 +354,9 @@ foreach ($expected in @(
     'AMJDarkForestTerrainQuickstart',
     'Find.GameInitData.startingTile = tile;',
     'Hilliness.Flat',
+    'Hilliness.Impassable',
+    'forcedNonSettlementTile',
+    'Find.WorldObjects.AnyWorldObjectAt(tile)',
     'AMJ-Environment-Terrain-Alpha'
 )) {
     if (-not $quicktestSource.Contains($expected)) {
