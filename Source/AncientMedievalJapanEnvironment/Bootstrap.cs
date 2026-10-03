@@ -21,15 +21,26 @@ namespace AncientMedievalJapan.Environment
 
             ModContentPack environmentPack = LoadedModManager.RunningModsListForReading
                 .FirstOrDefault(mod => mod.PackageIdPlayerFacing == "sucro.ancientmedievaljapan.environment");
-            bool quickstartsActive =
-                ModLister.GetActiveModWithIdentifier("rimworks.quickstarts", true) != null;
+            ModMetaData quickstartsByExpectedId =
+                ModLister.GetActiveModWithIdentifier("rimworks.quickstarts", true);
+            string quickstartsCandidates = string.Join(
+                " || ",
+                LoadedModManager.RunningModsListForReading
+                    .Where(mod =>
+                        mod.Name.IndexOf("Quickstart", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                        mod.PackageIdPlayerFacing.IndexOf("quickstart", StringComparison.OrdinalIgnoreCase) >= 0)
+                    .Select(mod =>
+                        mod.Name + " [" + mod.PackageIdPlayerFacing + "]")
+                    .ToArray());
+
             string loadFolders = environmentPack == null
                 ? "(Environment ModContentPack not found)"
                 : string.Join(" | ", environmentPack.foldersToLoadDescendingOrder.ToArray());
 
             Log.Message(
                 "[AMJ Environment] Dev load-folder diagnostic" +
-                " | quickstartsActive=" + quickstartsActive +
+                " | expectedIdActive=" + (quickstartsByExpectedId != null) +
+                " | candidates=" + (quickstartsCandidates.Length == 0 ? "(none)" : quickstartsCandidates) +
                 " | folders=" + loadFolders);
 
             Type cachedType = typeof(TileTemperaturesComp).GetNestedType(
