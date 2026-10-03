@@ -181,4 +181,8 @@ A preview diagnostic is implemented as `[AMJ Environment] Japan vegetation-band 
 - no final art yet.
 Implementation commits: `c84eaf9549c21c644b3da21eed4d5558c7f8ce4c`, `3e973f5f5b5c4a984e35d1b44fd08de158fbfa5e`. Static validation commit: `14fa045d6d3e8aa794673a92389bde2469cc76ae`.
 
-**Next action:** pull/rebuild and generate one fresh world. Inspect `Climate/biome summary` to verify the four AMJ BiomeDefs actually win their intended bands and that the wetland minority remains available to wetland/compatibility biomes. Then open one map in each practical AMJ biome to catch missing Def references or map-generation issues before adding Japan-specific wild plants/weather.
+**Runtime biome distribution:** PASS for coexistence. With Medieval Overhaul active, the first measured world produced AMJ WarmTemperate **27.0%**, CoolTemperate **43.7%**, Subalpine **7.2%**, Alpine **0.3%**, MO Dark Forest **16.3%**, Temperate Swamp **2.0%**, plus small residual Vanilla shares. The lower AMJ Subalpine/Alpine shares are partly explained by specialized MO biome competition rather than a climate-band generation failure.
+
+**Compatibility decision:** the four AMJ biomes are baseline vegetation bands, not exclusive replacements. MO and other specialized naturally generated biomes should remain able to coexist through normal BiomeWorker scoring. A brief attempted score increase that would have forced AMJ ownership over MO Dark Forest was reverted. Coexistence implementation commit: `3e5dedf94743baaea7248f0073882cde0a7ddf9f`; validator restore: `7ff5ad1d637f8e5b9e4f6af790466359b1331065`.
+
+**Next action:** open one map in each practical AMJ biome (WarmTemperate, CoolTemperate, Subalpine, and Alpine if a reachable tile exists) to catch missing Def references or map-generation issues. After that smoke gate, proceed to the planned low-fertility natural terrain pass before Japan-specific wild-plant/weather content.
