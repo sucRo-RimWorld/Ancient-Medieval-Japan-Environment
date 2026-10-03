@@ -45,11 +45,12 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
         public override void PostApplyConfiguration()
         {
-            PlanetTile tile = FindTargetTile(TargetBiomeDefName);
+            bool forcedNonSettlementTile;
+            PlanetTile tile = FindTargetTile(TargetBiomeDefName, out forcedNonSettlementTile);
             if (!tile.Valid)
             {
                 throw new InvalidOperationException(
-                    "No valid settlement tile found for biome " + TargetBiomeDefName + ".");
+                    "No world tile found for biome " + TargetBiomeDefName + ".");
             }
 
             Find.GameInitData.startingTile = tile;
@@ -60,12 +61,17 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " | biome=" + TargetBiomeDefName +
                 " tile=" + tile +
                 " hilliness=" + worldTile.hilliness +
+                " forcedNonSettlementTile=" + forcedNonSettlementTile +
                 " rainfall=" + worldTile.rainfall.ToString("F0") +
                 " annualTemp=" + worldTile.temperature.ToString("F1"));
         }
 
-        private static PlanetTile FindTargetTile(string biomeDefName)
+        private static PlanetTile FindTargetTile(
+            string biomeDefName,
+            out bool forcedNonSettlementTile)
         {
+            forcedNonSettlementTile = false;
+
             Hilliness[] preferredHilliness =
             {
                 Hilliness.Flat,
@@ -89,6 +95,36 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     PlanetTile tile = candidate.tile;
                     if (TileFinder.IsValidTileForNewSettlement(tile))
                     {
+                        return tile;
+                    }
+                }
+            }
+
+            Hilliness[] fallbackHilliness =
+            {
+                Hilliness.Flat,
+                Hilliness.SmallHills,
+                Hilliness.LargeHills,
+                Hilliness.Mountainous,
+                Hilliness.Impassable
+            };
+
+            for (int h = 0; h < fallbackHilliness.Length; h++)
+            {
+                for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+                {
+                    SurfaceTile candidate = Find.WorldGrid[i];
+                    if (candidate.PrimaryBiome == null ||
+                        candidate.PrimaryBiome.defName != biomeDefName ||
+                        candidate.hilliness != fallbackHilliness[h])
+                    {
+                        continue;
+                    }
+
+                    PlanetTile tile = candidate.tile;
+                    if (!Find.WorldObjects.AnyWorldObjectAt(tile))
+                    {
+                        forcedNonSettlementTile = true;
                         return tile;
                     }
                 }
