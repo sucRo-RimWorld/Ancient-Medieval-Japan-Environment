@@ -111,4 +111,66 @@ if errorlevel 1 (
 echo.
 echo [OK] Build succeeded:
 echo      %OUTPUT_DLL%
+
+rem Developer-only fixed-biome Quickstarts. This assembly is loaded only when
+rem rimworks.quickstarts is active through loadFolders.xml.
+set "QUICKSTART_ROOT=%STEAMAPPS%\workshop\content\294100\3793646067"
+set "QUICKSTART_DLL="
+
+for %%P in (
+    "%QUICKSTART_ROOT%\1.6\Assemblies\Quickstarts.dll"
+    "%QUICKSTART_ROOT%\Current\Assemblies\Quickstarts.dll"
+    "%QUICKSTART_ROOT%\Assemblies\Quickstarts.dll"
+) do (
+    if not defined QUICKSTART_DLL if exist "%%~P" set "QUICKSTART_DLL=%%~fP"
+)
+
+if not defined QUICKSTART_DLL if exist "%QUICKSTART_ROOT%" (
+    for /r "%QUICKSTART_ROOT%" %%F in (Quickstarts.dll) do (
+        if not defined QUICKSTART_DLL set "QUICKSTART_DLL=%%~fF"
+    )
+)
+
+if defined QUICKSTART_DLL (
+    set "QUICKTEST_SOURCE=%ROOT%Tests\Quickstarts\EnvironmentBiomeTerrainQuickstarts.cs"
+    set "QUICKTEST_OUTPUT_DIR=%ROOT%DevQuickstarts\Assemblies"
+    set "QUICKTEST_OUTPUT_DLL=!QUICKTEST_OUTPUT_DIR!\AncientMedievalJapanEnvironment.Quicktests.dll"
+
+    if not exist "!QUICKTEST_SOURCE!" (
+        echo [ERROR] Environment Quickstart source was not found:
+        echo         !QUICKTEST_SOURCE!
+        exit /b 1
+    )
+
+    if not exist "!QUICKTEST_OUTPUT_DIR!" mkdir "!QUICKTEST_OUTPUT_DIR!"
+
+    echo.
+    echo Quickstarts: !QUICKSTART_DLL!
+    echo Quicktests : !QUICKTEST_OUTPUT_DLL!
+    echo.
+
+    "%CSC%" /nologo /target:library /optimize+ /out:"!QUICKTEST_OUTPUT_DLL!" ^
+        /reference:"%ASSEMBLY_CSHARP%" ^
+        /reference:"%UNITY_CORE%" ^
+        /reference:"%UNITY_MATH%" ^
+        /reference:"%UNITY_COLLECTIONS%" ^
+        /reference:"%NETSTANDARD%" ^
+        /reference:"!QUICKSTART_DLL!" ^
+        "!QUICKTEST_SOURCE!"
+
+    if errorlevel 1 (
+        echo.
+        echo [ERROR] Environment Quickstart build failed.
+        exit /b 1
+    )
+
+    echo.
+    echo [OK] Fixed-biome Quickstarts built:
+    echo      !QUICKTEST_OUTPUT_DLL!
+) else (
+    echo.
+    echo [INFO] Quickstarts ^(Workshop 3793646067^) was not found.
+    echo        Skipping developer-only fixed-biome Quickstart assembly.
+)
+
 exit /b 0
