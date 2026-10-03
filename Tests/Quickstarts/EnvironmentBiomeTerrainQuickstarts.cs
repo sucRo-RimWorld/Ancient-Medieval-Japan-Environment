@@ -280,6 +280,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
             return PlanetTile.Invalid;
         }
+    }
 
     public sealed class AMJWarmTemperateTerrainQuickstart : BiomeTerrainQuickstartBase
     {
