@@ -32,7 +32,7 @@ After a successful build, start RimWorld with:
 - Ancient & Medieval Japan: Environment;
 - no other world-generation/biome overhaul for the first smoke.
 
-With Dev Mode enabled, Environment writes compact world-generation diagnostics:
+During the current Alpha, Environment always writes compact world-generation diagnostics:
 
 - `[AMJ Environment] Vanilla terrain baseline` — Vanilla land count and coastal-land share before Environment transforms;
 - `[AMJ Environment] Terrain summary` — Environment land/coastal share, same-seed coast multiplier vs Vanilla, land-count delta, land annual-mean temperature range, land elevation/highland shares, ocean-floor minimum, and Hilliness percentages;
