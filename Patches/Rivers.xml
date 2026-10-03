@@ -15,12 +15,36 @@
   <Operation Class="PatchOperationSequence">
     <operations>
 
-      <li Class="PatchOperationAdd">
-        <xpath>/Defs/RiverDef[defName="Creek"]</xpath>
-        <value>
-          <spawnFlowThreshold>30000</spawnFlowThreshold>
-          <spawnChance>0.70</spawnChance>
-        </value>
+      <li Class="PatchOperationConditional">
+        <xpath>/Defs/RiverDef[defName="Creek"]/spawnFlowThreshold</xpath>
+        <match Class="PatchOperationReplace">
+          <xpath>/Defs/RiverDef[defName="Creek"]/spawnFlowThreshold</xpath>
+          <value>
+            <spawnFlowThreshold>30000</spawnFlowThreshold>
+          </value>
+        </match>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/RiverDef[defName="Creek"]</xpath>
+          <value>
+            <spawnFlowThreshold>30000</spawnFlowThreshold>
+          </value>
+        </nomatch>
+      </li>
+
+      <li Class="PatchOperationConditional">
+        <xpath>/Defs/RiverDef[defName="Creek"]/spawnChance</xpath>
+        <match Class="PatchOperationReplace">
+          <xpath>/Defs/RiverDef[defName="Creek"]/spawnChance</xpath>
+          <value>
+            <spawnChance>0.70</spawnChance>
+          </value>
+        </match>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/RiverDef[defName="Creek"]</xpath>
+          <value>
+            <spawnChance>0.70</spawnChance>
+          </value>
+        </nomatch>
       </li>
 
       <li Class="PatchOperationReplace">
