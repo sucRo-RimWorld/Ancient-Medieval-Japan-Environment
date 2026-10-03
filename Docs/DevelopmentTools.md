@@ -23,6 +23,12 @@ The build script:
 - compiles `Source/AncientMedievalJapanEnvironment/*.cs`;
 - writes `Assemblies/AncientMedievalJapanEnvironment.dll`.
 
+## Automated runtime-error policy
+
+The AMJ project-wide test policy is that any automated test which launches RimWorld must capture an isolated runtime log and fail if the repository-owned mod emits an ERROR-level entry. A passing scenario count does not override a mod-origin runtime error.
+
+Environment's current `run-tests.bat` is still a build + static-validation gate and does **not** launch RimWorld, so it cannot truthfully report a runtime-log result. The manual runtime smoke and fixed-biome Quickstarts remain separate for now. When Environment gains an automated RimWorld runtime harness, the mod-origin ERROR gate is mandatory from the first version of that harness.
+
 ## First runtime smoke
 
 The static validator also confirms that the obsolete custom Terrain worker XML patch is absent and that terrain processing is wired through a Harmony postfix.
