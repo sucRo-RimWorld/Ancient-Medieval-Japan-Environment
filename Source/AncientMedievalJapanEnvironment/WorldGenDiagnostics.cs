@@ -8,6 +8,24 @@ namespace AncientMedievalJapan.Environment
 {
     public static class WorldGenDiagnostics
     {
+        public static void LogVanillaTerrainBaseline(PlanetLayer layer)
+        {
+            if (!Prefs.DevMode || !layer.IsRootSurface)
+            {
+                return;
+            }
+
+            int land;
+            int coastalLand;
+            CountLandAndCoast(layer, out land, out coastalLand);
+
+            Log.Message(
+                "[AMJ Environment] Vanilla terrain baseline" +
+                " | land=" + land +
+                " coastalLand=" + coastalLand +
+                " coastalShare=" + Percent(coastalLand, land));
+        }
+
         public static void LogTerrainSummary(PlanetLayer layer)
         {
             if (!Prefs.DevMode || !layer.IsRootSurface)
@@ -22,12 +40,16 @@ namespace AncientMedievalJapan.Environment
             int large = 0;
             int mountainous = 0;
             int impassable = 0;
+            int elevation1500 = 0;
+            int elevation2500 = 0;
+            int elevation3000 = 0;
 
             float minTemperature = float.MaxValue;
             float maxTemperature = float.MinValue;
             float sumTemperature = 0f;
-            float minElevation = float.MaxValue;
-            float maxElevation = float.MinValue;
+            float minLandElevation = float.MaxValue;
+            float maxLandElevation = float.MinValue;
+            float minOceanElevation = float.MaxValue;
 
             List<PlanetTile> neighbors = new List<PlanetTile>();
 
@@ -35,19 +57,28 @@ namespace AncientMedievalJapan.Environment
             {
                 Tile tile = layer.Tiles[i];
 
-                if (tile.temperature < minTemperature) minTemperature = tile.temperature;
-                if (tile.temperature > maxTemperature) maxTemperature = tile.temperature;
-                sumTemperature += tile.temperature;
-
-                if (tile.elevation < minElevation) minElevation = tile.elevation;
-                if (tile.elevation > maxElevation) maxElevation = tile.elevation;
-
                 if (tile.WaterCovered)
                 {
+                    if (tile.elevation < minOceanElevation)
+                    {
+                        minOceanElevation = tile.elevation;
+                    }
+
                     continue;
                 }
 
                 land++;
+
+                if (tile.temperature < minTemperature) minTemperature = tile.temperature;
+                if (tile.temperature > maxTemperature) maxTemperature = tile.temperature;
+                sumTemperature += tile.temperature;
+
+                if (tile.elevation < minLandElevation) minLandElevation = tile.elevation;
+                if (tile.elevation > maxLandElevation) maxLandElevation = tile.elevation;
+
+                if (tile.elevation >= 1500f) elevation1500++;
+                if (tile.elevation >= 2500f) elevation2500++;
+                if (tile.elevation >= 3000f) elevation3000++;
 
                 switch (tile.hilliness)
                 {
@@ -73,8 +104,8 @@ namespace AncientMedievalJapan.Environment
                 }
             }
 
-            float averageTemperature = layer.TilesCount > 0
-                ? sumTemperature / layer.TilesCount
+            float averageTemperature = land > 0
+                ? sumTemperature / land
                 : 0f;
 
             Log.Message(
@@ -83,16 +114,55 @@ namespace AncientMedievalJapan.Environment
                 " land=" + land +
                 " coastalLand=" + coastalLand +
                 " coastalShare=" + Percent(coastalLand, land) +
-                " | annualMean=" + minTemperature.ToString("F1") +
+                " | landAnnualMean=" + minTemperature.ToString("F1") +
                 ".." + maxTemperature.ToString("F1") +
                 " avg=" + averageTemperature.ToString("F1") +
-                " | elevation=" + minElevation.ToString("F0") +
-                ".." + maxElevation.ToString("F0") + "m" +
+                " | landElevation=" + minLandElevation.ToString("F0") +
+                ".." + maxLandElevation.ToString("F0") + "m" +
+                " oceanFloorMin=" + minOceanElevation.ToString("F0") + "m" +
+                " highland>=1500m=" + Percent(elevation1500, land) +
+                " >=2500m=" + Percent(elevation2500, land) +
+                " >=3000m=" + Percent(elevation3000, land) +
                 " | hilliness Flat=" + Percent(flat, land) +
                 " Small=" + Percent(small, land) +
                 " Large=" + Percent(large, land) +
                 " Mountainous=" + Percent(mountainous, land) +
                 " Impassable=" + Percent(impassable, land));
+        }
+
+        private static void CountLandAndCoast(
+            PlanetLayer layer,
+            out int land,
+            out int coastalLand)
+        {
+            land = 0;
+            coastalLand = 0;
+            List<PlanetTile> neighbors = new List<PlanetTile>();
+
+            for (int i = 0; i < layer.TilesCount; i++)
+            {
+                Tile tile = layer.Tiles[i];
+                if (tile.WaterCovered)
+                {
+                    continue;
+                }
+
+                land++;
+                neighbors.Clear();
+
+                PlanetTile planetTile = new PlanetTile(i, layer);
+                Find.WorldGrid.GetTileNeighbors(planetTile, neighbors);
+
+                for (int n = 0; n < neighbors.Count; n++)
+                {
+                    Tile neighbor = layer.Tiles[neighbors[n].tileId];
+                    if (neighbor.WaterCovered)
+                    {
+                        coastalLand++;
+                        break;
+                    }
+                }
+            }
         }
 
         private static string Percent(int value, int total)
