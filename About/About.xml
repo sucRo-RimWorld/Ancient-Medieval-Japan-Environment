@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Ancient &amp; Medieval Japan: Environment</name>
+  <author>sucRo0629</author>
+  <packageId>sucro.ancientmedievaljapan.environment</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+
+  <description>Development build of Ancient &amp; Medieval Japan: Environment.
+
+Reworks RimWorld world generation toward a pre-Edo Japan-like environmental profile, including climate, terrain, rivers, coastlines, biomes, vegetation, weather, and seasonal scenery.
+
+Ancient &amp; Medieval Japan Core is not required.</description>
+</ModMetaData>
