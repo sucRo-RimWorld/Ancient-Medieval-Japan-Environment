@@ -221,3 +221,15 @@ Implementation: `8f0324b1476ce9f7ffd082f74114d8bd6bda19ee` (TerrainDef), `dc9dec
 **Def error found during fixed-biome runs:** `AMJ_ThinSoil makes terrain filth and also accepts it.` Cause: AMJ_ThinSoil declared `generatedFilth=Filth_Dirt` without inheriting Vanilla `NaturalTerrainBase`, leaving `filthAcceptanceMask` at TerrainDef's default `Any`. Fix: inherit `NaturalTerrainBase` and align with Vanilla soil semantics using `categoryType=Soil` and the `Soil` tag. Implementation: `7646617cec9272d1589c308fdd65abda4c3e7c07`; validator: `f626fbc21dee496be824a36bf3005a0a438307bc`.
 
 **Next action:** pull/rebuild and verify the AMJ_ThinSoil config error is gone. Then continue fixed-biome sampling (Alpine and MO Dark Forest) before changing fertility thresholds; investigate the Subalpine Other=61% composition if it remains unusually high.
+
+### TEST-001 — AMJ-wide runtime ERROR gate policy
+
+**Requested by:** project-wide automated-test policy  
+**Owner:** testing/tooling  
+**Status:** DONE (policy) / runtime harness not yet present
+
+AMJ automated tests that launch RimWorld must capture an isolated runtime log and fail on ERROR-level entries attributed to the repository-owned mod, even when scenario counts otherwise pass.
+
+Environment's current `run-tests.bat` is a build + static-validation gate only and does not launch RimWorld, so it does not fabricate a runtime-log result. The requirement is now fixed in `AGENTS.md` and `Docs/DevelopmentTools.md`: when an automated RimWorld runtime harness is added to Environment, the mod-origin ERROR gate is mandatory from the first version.
+
+Policy commits: `2a86387ebf1bfe5d3de3fbf09de93800cace0e74`, `7148ff5df9cdc2078e55c4233bf4b60e1e112c70`.
