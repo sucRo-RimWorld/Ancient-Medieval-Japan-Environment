@@ -126,6 +126,27 @@ if (-not $terrainSource.Contains("EnvironmentTerrainProcessor.Apply(seed, layer)
 }
 Pass "Environment terrain processing uses Harmony postfix with no custom WorldGenStep XML type"
 
+$climateSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\ClimateCalibrationDiagnostics.cs"
+if (-not (Test-Path $climateSourcePath)) {
+    Fail "Climate calibration diagnostics source was not found."
+}
+
+$climateSource = Get-Content -LiteralPath $climateSourcePath -Raw
+foreach ($expected in @(
+    '[HarmonyPatch(typeof(World), "FinalizeInit")]',
+    'OutdoorTemperatureAt(tile, absTick)',
+    '10f, 8f, 5f, 0f, -1f, -4f, -8f',
+    '"WarmLowland"',
+    '"TemperateLowland"',
+    '"CoolLowland"',
+    '"Highland"'
+)) {
+    if (-not $climateSource.Contains($expected)) {
+        Fail "Climate calibration diagnostics are missing expected source marker: $expected"
+    }
+}
+Pass "Automatic CCTO climate-calibration diagnostics are present"
+
 Write-Host ""
 Write-Host "[OK] AMJ Environment static validation passed"
 exit 0
