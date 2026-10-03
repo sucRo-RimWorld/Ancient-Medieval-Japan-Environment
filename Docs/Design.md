@@ -368,3 +368,71 @@ Gameplay smoke tests should then confirm:
 - northern/highland areas remain meaningfully colder;
 - southern lowlands remain warm without creating tropical-world conditions;
 - crop-season behavior follows the CCTO calibration intent rather than being dominated by isolated random temperature spikes.
+
+
+## 9. Biome and vegetation architecture
+
+### 9.1 Natural vegetation model
+
+The Environment biome model should follow Japan's broad natural forest zonation rather than Vanilla's continental labels.
+
+Research basis:
+- Ministry of the Environment, "Vegetation of Japan": https://www.biodic.go.jp/reports/2-2/aa029.html
+- the broad natural sequence is evergreen broad-leaved forest -> deciduous broad-leaved forest -> evergreen coniferous forest from warmer to colder conditions, with a similar vertical transition as elevation increases;
+- the same source identifies warm-temperate evergreen broadleaf forest, cool-temperate deciduous broadleaf forest, and subarctic/subalpine evergreen conifer forest as the major broad zones.
+
+For Alpha gameplay, use four coarse climate bands:
+- **Warm-temperate forest:** annual mean >= **15 C**;
+- **Cool-temperate forest:** annual mean >= **8 C** and < 15 C;
+- **Subalpine forest:** annual mean >= **0 C** and < 8 C;
+- **Alpine zone:** annual mean < **0 C**.
+
+These thresholds are gameplay approximations, not literal botanical boundaries. The existing Environment temperature/elevation model already makes the same sequence occur both northward and upward.
+
+Wetlands are treated as a moisture/topography overlay on those climate bands rather than as a separate latitude zone. Initial diagnostic candidate threshold: **swampiness >= 0.5**.
+
+### 9.2 Biome Def strategy
+
+Do **not** repurpose Vanilla `TropicalRainforest`, `TemperateForest`, `BorealForest` or `Tundra` into AMJ-specific biomes.
+
+Reason:
+- those Defs also own animal pools, diseases, terrain generation, weather, forage behavior and compatibility targets;
+- changing their meaning would make unrelated patches and content inherit the wrong semantic assumptions;
+- for example, scoring Vanilla `TropicalRainforest` as a Japanese warm-temperate forest would still retain tropical disease/animal/content assumptions unless most of the Def were replaced.
+
+Instead:
+- add AMJ-owned BiomeDefs for the accepted vegetation zones;
+- use temporary Vanilla world textures during Alpha where needed; final biome artwork remains deferred until Environment mechanics and distribution are stable;
+- start each biome from the nearest Vanilla gameplay profile, then replace vegetation/weather/terrain details deliberately rather than by hidden inheritance;
+- keep exact animal additions outside Environment unless required for biome functionality;
+- allow third-party naturally generated biomes to remain compatible through normal worker scoring rather than globally suppressing all non-AMJ BiomeDefs.
+
+### 9.3 ReGrowth 2 reference policy
+
+ReGrowth 2 remains an implementation/reference target, not a dependency.
+
+Useful reference patterns:
+- biome-specific wild-plant lists;
+- rainfall-sensitive weather commonality;
+- lightweight biome workers for optional regional sub-biomes;
+- visual/seasonal atmosphere added without replacing unrelated core systems.
+
+Do not copy ReGrowth source code, textures, sounds or other restricted assets. Implement AMJ behavior independently and use compatibility patches only when needed.
+
+### 9.4 Validation before BiomeDef implementation
+
+Before creating the four AMJ BiomeDefs, log the distribution of the proposed climate bands over generated land:
+- WarmTemperate >=15 C;
+- CoolTemperate 8..15 C;
+- Subalpine 0..8 C;
+- Alpine <0 C;
+- swampiness >=0.5 candidates.
+
+The target is not equal shares. Expected shape:
+- cool-temperate should be the largest or one of the largest settled bands;
+- warm-temperate should be common but concentrated toward warmer lowlands;
+- subalpine should be meaningful but clearly smaller;
+- alpine should be rare;
+- wetland candidates should remain a minority.
+
+If this shape is stable, proceed to AMJ BiomeDefs and vegetation composition. Do not tune the locked world-generation climate merely to force biome percentages.
