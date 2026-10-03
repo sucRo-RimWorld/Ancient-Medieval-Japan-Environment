@@ -289,6 +289,62 @@ foreach ($expected in @(
 }
 Pass "Map terrain-share diagnostics are present"
 
+$loadFoldersPath = Join-Path $RepoRoot "loadFolders.xml"
+if (-not (Test-Path $loadFoldersPath)) {
+    Fail "loadFolders.xml was not found."
+}
+$loadFoldersRaw = Get-Content -LiteralPath $loadFoldersPath -Raw
+foreach ($expected in @(
+    '<li>/</li>',
+    '<li IfModActive="rimworks.quickstarts">DevQuickstarts</li>'
+)) {
+    if (-not $loadFoldersRaw.Contains($expected)) {
+        Fail "loadFolders.xml is missing expected Quickstarts gating marker: $expected"
+    }
+}
+Pass "Developer Quickstarts are gated behind rimworks.quickstarts"
+
+$aboutRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml") -Raw
+if (-not $aboutRaw.Contains('<li>rimworks.quickstarts</li>')) {
+    Fail "About.xml must load after Quickstarts when that mod is active."
+}
+Pass "Environment declares optional Quickstarts load order"
+
+$quicktestSourcePath = Join-Path $RepoRoot "Tests\Quickstarts\EnvironmentBiomeTerrainQuickstarts.cs"
+if (-not (Test-Path $quicktestSourcePath)) {
+    Fail "Fixed-biome Quickstart source was not found."
+}
+$quicktestSource = Get-Content -LiteralPath $quicktestSourcePath -Raw
+foreach ($expected in @(
+    'AMJWarmTemperateTerrainQuickstart',
+    'AMJCoolTemperateTerrainQuickstart',
+    'AMJSubalpineTerrainQuickstart',
+    'AMJAlpineTerrainQuickstart',
+    'AMJDarkForestTerrainQuickstart',
+    'Find.GameInitData.startingTile = tile;',
+    'Hilliness.Flat',
+    'AMJ-Environment-Terrain-Alpha'
+)) {
+    if (-not $quicktestSource.Contains($expected)) {
+        Fail "Fixed-biome Quickstart source is missing expected marker: $expected"
+    }
+}
+Pass "Five deterministic fixed-biome Quickstarts are present"
+
+$steamapps = [System.IO.Path]::GetFullPath((Join-Path $RimWorldDir "..\.."))
+$quickstartsRoot = Join-Path $steamapps "workshop\content\294100\3793646067"
+if (Test-Path $quickstartsRoot) {
+    $quickstartsDll = Get-ChildItem -Path $quickstartsRoot -Filter "Quickstarts.dll" -Recurse -File -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($null -ne $quickstartsDll) {
+        $quicktestDll = Join-Path $RepoRoot "DevQuickstarts\Assemblies\AncientMedievalJapanEnvironment.Quicktests.dll"
+        if (-not (Test-Path $quicktestDll)) {
+            Fail "Quickstarts is installed but the Environment fixed-biome Quicktest DLL was not built."
+        }
+        Pass "Fixed-biome Quicktest DLL was built against installed Quickstarts"
+    }
+}
+
+
 
 
 
