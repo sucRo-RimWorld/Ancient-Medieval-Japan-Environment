@@ -17,10 +17,11 @@ namespace AncientMedievalJapan.Environment
 
         public static float BandScore(Tile tile, float centerTemperature)
         {
-            // Deliberately high enough to beat the broad Vanilla biome workers
-            // inside the AMJ climate envelope, but still ordinary BiomeWorker
-            // scoring so a compatibility biome with a stronger score can win.
-            return 38f - System.Math.Abs(tile.temperature - centerTemperature) * 0.25f;
+            // AMJ vegetation bands are authoritative for ordinary non-wetland
+            // land inside the Environment climate envelope. This must beat
+            // broad Vanilla workers and MO's common Dark Forest score (40)
+            // without globally disabling third-party BiomeDefs.
+            return 50f - System.Math.Abs(tile.temperature - centerTemperature) * 0.25f;
         }
     }
 
