@@ -73,3 +73,26 @@ Current calibrated runtime target:
 - separate daily random variation: **~±3 C** (3/7 of Vanilla).
 
 The previous ~±4 C pass allowed a representative 14 C central lowland to dip below Barley's -8 C death threshold for 2 hours, so the random component was reduced before changing any CCTO crop threshold.
+
+
+## Biome/vegetation validation
+
+Current Alpha adds four AMJ-owned vegetation-band biomes with temporary Vanilla-backed art/content:
+- `AMJ_WarmTemperateForest`;
+- `AMJ_CoolTemperateForest`;
+- `AMJ_SubalpineForest`;
+- `AMJ_AlpineZone`.
+
+After a successful build, generate a fresh world and inspect:
+- `[AMJ Environment] Japan vegetation-band preview`;
+- `[AMJ Environment] Climate/biome summary`.
+
+Expected first-pass behavior:
+- CoolTemperate should remain the largest band;
+- WarmTemperate should be common;
+- Subalpine should be meaningful but smaller;
+- Alpine should be rare;
+- swampiness >=0.5 remains outside the AMJ forest workers so existing wetland biomes can still generate;
+- the climate/worldgen baseline should not be retuned merely to force exact biome shares.
+
+At this stage, Vanilla world textures, existing Vanilla plants, and a minimal Vanilla wildlife pool are placeholders. Do not begin final image work until biome placement and map generation are stable.
