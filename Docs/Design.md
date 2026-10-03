@@ -329,11 +329,19 @@ Generated-climate acceptance intent:
 
 Validation must sample actual hourly/daily outdoor temperatures, not only the tile annual mean.
 
-For representative southern, central, northern and highland tiles, collect:
-- days/hours below 10 C, 8 C, 5 C and 0 C;
-- days/hours below -1 C, -4 C and -8 C;
-- the number and duration of isolated threshold-crossing cold events;
-- resulting growing-season length for the representative crops.
+Current Alpha diagnostic implementation:
+- after fresh world creation, select four non-impassable representative root-surface tiles: warm lowland, temperate lowland, cool lowland and highland;
+- prefer Northern Hemisphere tiles for consistent seasonal orientation, with all-surface fallback if a representative cannot be found there;
+- lowland representatives are selected below 300 m near annual means 18.5 C / 14 C / 7 C;
+- the highland representative is selected between 1500–3200 m near 2 C annual mean;
+- sample the public RimWorld `TileTemperaturesComp.OutdoorTemperatureAt(PlanetTile, absTick)` API once per in-game hour across all 60 days of one year (1440 samples per representative);
+- because this uses the game API after Harmony initialization, samples include the Environment seasonal-amplitude hook, reduced daily random variation, and Vanilla sun-cycle component rather than a separate approximation.
+
+For each representative, collect:
+- actual yearly min/max;
+- hours and equivalent days below 10 C, 8 C, 5 C and 0 C;
+- hours/days below -1 C, -4 C and -8 C;
+- event count, count of short events (<=6 h), and maximum continuous duration for each lethal threshold.
 
 If a region's gameplay does not match the intended signal above, adjust Environment climate variation before changing the established CCTO crop thresholds.
 
