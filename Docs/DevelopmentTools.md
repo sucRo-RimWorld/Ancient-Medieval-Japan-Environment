@@ -52,11 +52,13 @@ Create several worlds and check:
 
 ## Climate/CCTO validation
 
-For representative southern, central, northern and highland tiles, inspect actual outdoor temperature through the year.
+Fresh world creation automatically emits four `[AMJ Environment] Climate calibration` lines for warm lowland, temperate lowland, cool lowland and highland representatives. Each line samples RimWorld's actual outdoor-temperature API once per in-game hour for a full 60-day year (1440 samples).
 
 Reference thresholds:
 - growth: 10 / 8 / 5 / 0 C;
 - cold death: -1 / -4 / -8 C.
+
+Each calibration line includes actual yearly min/max, hours/days below every reference threshold, and lethal-cold event counts/durations.
 
 The first balance goal is qualitative:
 - southern lowlands: long warm season; barley normally safe;
