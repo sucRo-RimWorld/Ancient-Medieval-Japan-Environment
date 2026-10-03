@@ -8,7 +8,11 @@ Default RimWorld path:
 
 `D:\SteamLibrary\steamapps\common\RimWorld`
 
-Run from the repository root:
+Run the combined build/static gate from the repository root:
+
+`run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+
+For build only:
 
 `build.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
 
@@ -25,6 +29,11 @@ After a successful build, start RimWorld with:
 - Harmony;
 - Ancient & Medieval Japan: Environment;
 - no other world-generation/biome overhaul for the first smoke.
+
+With Dev Mode enabled, Environment writes two compact log lines after world generation:
+
+- `[AMJ Environment] Terrain summary` — land count, coastal-land share, annual-mean temperature range, elevation range, and Hilliness percentages;
+- `[AMJ Environment] River summary` — river-bearing tile share, unique river edges, and RiverDef counts.
 
 Create several worlds and check:
 
