@@ -150,7 +150,12 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 return PlanetTile.Invalid;
             }
 
-            SurfaceTile proxy = Find.WorldGrid[proxyTile];
+            SurfaceTile proxy = Find.WorldGrid[proxyTile] as SurfaceTile;
+            if (proxy == null)
+            {
+                return PlanetTile.Invalid;
+            }
+
             originalBiome =
                 proxy.PrimaryBiome == null
                     ? "null"
@@ -173,7 +178,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
                 {
-                    SurfaceTile candidate = Find.WorldGrid[i];
+                    SurfaceTile candidate = Find.WorldGrid[i] as SurfaceTile;
+                    if (candidate == null)
+                    {
+                        continue;
+                    }
                     if (candidate.PrimaryBiome == null ||
                         candidate.PrimaryBiome.defName != biomeDefName ||
                         candidate.hilliness != preferredHilliness[h])
@@ -213,7 +222,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
                 for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
                 {
-                    SurfaceTile candidate = Find.WorldGrid[i];
+                    SurfaceTile candidate = Find.WorldGrid[i] as SurfaceTile;
+                    if (candidate == null)
+                    {
+                        continue;
+                    }
                     if (candidate.WaterCovered ||
                         candidate.hilliness != preferredHilliness[h] ||
                         Find.WorldObjects.AnyWorldObjectAt(candidate.tile))
@@ -255,7 +268,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
                 for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
                 {
-                    SurfaceTile candidate = Find.WorldGrid[i];
+                    SurfaceTile candidate = Find.WorldGrid[i] as SurfaceTile;
+                    if (candidate == null)
+                    {
+                        continue;
+                    }
                     if (candidate.WaterCovered ||
                         candidate.hilliness != preferredHilliness[h] ||
                         candidate.rainfall < 800f ||
