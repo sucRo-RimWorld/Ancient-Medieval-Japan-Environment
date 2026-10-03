@@ -96,3 +96,33 @@ Expected first-pass behavior:
 - the climate/worldgen baseline should not be retuned merely to force exact biome shares.
 
 At this stage, Vanilla world textures, existing Vanilla plants, and a minimal Vanilla wildlife pool are placeholders. Do not begin final image work until biome placement and map generation are stable.
+
+
+## Fixed-biome Quicktests
+
+When the RimWorks Quickstarts mod (Workshop **3793646067**) is installed and active, `build.bat` also compiles a developer-only assembly:
+
+`DevQuickstarts/Assemblies/AncientMedievalJapanEnvironment.Quicktests.dll`
+
+`loadFolders.xml` loads that assembly only while `rimworks.quickstarts` is active, so Quickstarts is **not** a normal Environment dependency.
+
+The Quicktest picker exposes five deterministic terrain-validation starts:
+
+- `AMJWarmTemperateTerrainQuickstart`
+- `AMJCoolTemperateTerrainQuickstart`
+- `AMJSubalpineTerrainQuickstart`
+- `AMJAlpineTerrainQuickstart`
+- `AMJDarkForestTerrainQuickstart`
+
+All five:
+- use world seed `AMJ-Environment-Terrain-Alpha`;
+- use 5% planet coverage;
+- generate a normal **250x250** map;
+- select the requested biome after world generation and before map generation;
+- prefer Flat, then Small Hills, Large Hills, and Mountainous valid settlement tiles in that order;
+- log the selected tile as `[AMJ Environment Quicktest] Selected tile`;
+- then use the normal map generator, so `[AMJ Environment] Map terrain summary` reports Thin Soil / Gravel / Soil / Rich Soil / Other shares.
+
+Use these fixed-biome Quicktests for ENV-004 terrain-threshold comparison instead of Vanilla/random QuickTest. Keeping the same seed and hilliness preference removes most start-tile noise from cross-biome comparisons.
+
+If Quickstarts is not installed, the normal Environment DLL still builds and the developer Quicktest assembly is skipped.
