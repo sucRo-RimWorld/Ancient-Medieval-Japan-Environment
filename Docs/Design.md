@@ -525,11 +525,11 @@ Do not add a separate 0.40 "very poor soil" during Alpha. The current useful lad
 
 Add another tier only if playtesting demonstrates a distinct gameplay role.
 
-### 10.4 Initial biome distribution thresholds
+### 10.4 Accepted Alpha biome distribution thresholds
 
 RimWorld map generation creates a local fertility-noise field and resolves `BiomeDef.terrainsByFertility` against that value. Environment uses this existing XML mechanism; no custom map-generation C# is required for the terrain placement itself.
 
-Initial Alpha thresholds:
+Accepted Alpha thresholds:
 
 | Biome | Thin Soil | Gravel | Soil | Rich Soil |
 |---|---:|---:|---:|---:|
@@ -567,5 +567,24 @@ Acceptance intent:
 - Alpine is dominated by poor/stony ground but still has limited growable patches;
 - MO Dark Forest continues to generate correctly with its own special terrain patches;
 - thresholds are tuned from map-generation results, not by changing terrain fertility values to force a desired percentage.
+
+Fixed-biome Alpha validation results:
+
+| Biome | Thin Soil | Gravel | Soil | Rich Soil | Other |
+|---|---:|---:|---:|---:|---:|
+| Warm-temperate | 11.3% | 35.5% | 27.4% | 3.2% | 22.5% |
+| Cool-temperate | 16.3% | 37.8% | 29.8% | 4.1% | 12.0% |
+| Subalpine | 16.9% | 16.5% | 4.8% | 0.8% | 61.0% |
+| Alpine | 61.6% | 24.4% | 2.6% | 0.0% | 11.4% |
+| MO Dark Forest | 8.9% | 14.0% | 6.4% | 18.1% | 52.6% |
+
+Interpretation:
+- among the four fertility-ladder terrains only, Subalpine is approximately **43.3% Thin / 42.3% Gravel / 12.4% Soil / 2.0% Rich**;
+- among the four fertility-ladder terrains only, Alpine is approximately **69.6% Thin / 27.5% Gravel / 3.0% Soil / 0% Rich**;
+- Subalpine's large Other share is overwhelmingly natural rough rock: `Limestone_Rough` 34.2% of all cells and `Slate_Rough` 26.1%, together accounting for about 99% of its Other category;
+- Alpine's Other share is likewise mostly rough rock/natural wall terrain, not unexpected fertile ground;
+- MO Dark Forest intentionally retains its own terrain patch makers. Its large `MossyTerrain`, `SoilRich`, rough-rock, mud and shallow-water shares therefore preserve MO biome identity rather than indicate a failed Environment threshold patch.
+
+Result: the Alpha natural-soil thresholds above are accepted without numerical retuning. Further changes require a concrete gameplay or compatibility finding rather than preference from a single terrain percentage.
 
 Existing maps are not retroactively rewritten; the natural-soil pass applies when generating new maps.
