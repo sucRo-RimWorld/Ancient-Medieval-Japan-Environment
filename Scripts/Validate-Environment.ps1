@@ -356,6 +356,10 @@ foreach ($expected in @(
     'Hilliness.Flat',
     'Hilliness.Impassable',
     'forcedNonSettlementTile',
+    'forcedBiome',
+    'targetBiome.Worker.GetScore',
+    'proxy.PrimaryBiome = targetBiome;',
+    'FindColdestAlpineProxy',
     'Find.WorldObjects.AnyWorldObjectAt(tile)',
     'AMJ-Environment-Terrain-Alpha'
 )) {
