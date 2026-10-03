@@ -405,7 +405,8 @@ Instead:
 - use temporary Vanilla world textures during Alpha where needed; final biome artwork remains deferred until Environment mechanics and distribution are stable;
 - start each biome from the nearest Vanilla gameplay profile, then replace vegetation/weather/terrain details deliberately rather than by hidden inheritance;
 - keep exact animal additions outside Environment unless required for biome functionality;
-- allow third-party naturally generated biomes to remain compatible through normal worker scoring rather than globally suppressing all non-AMJ BiomeDefs.
+- allow third-party naturally generated biomes to remain compatible through normal worker scoring rather than globally suppressing all non-AMJ BiomeDefs;
+- treat the four AMJ biomes as **baseline vegetation bands**, not an exclusive world-biome replacement. Specialized biomes from Medieval Overhaul and other compatible mods should be able to replace part of a matching climate band when their own workers score higher.
 
 ### 9.3 ReGrowth 2 reference policy
 
@@ -458,7 +459,7 @@ Biome workers:
 - use the accepted annual-mean temperature bands;
 - require rainfall >=800;
 - exclude swampiness >=0.5 so existing wetland biomes continue to handle the initial 0.7% wetland minority;
-- return an ordinary score centered near 38, sufficient to supersede broad Vanilla biome workers inside the AMJ climate bands without globally disabling third-party natural biomes.
+- return an ordinary score centered near 38, sufficient to establish the AMJ baseline over broad Vanilla workers while intentionally allowing stronger specialized workers from MO or other compatible mods to coexist.
 
 Alpha content policy:
 - world-map textures temporarily reuse nearest Vanilla biome textures;
@@ -467,4 +468,15 @@ Alpha content policy:
 - no final textures, new plant graphics, regional weather effects, or Japan-specific wild-plant Defs are part of this pass;
 - all placeholder content must be revisited after runtime distribution/map-generation validation.
 
-The next validation gate is runtime, not further spreadsheet-style tuning: generate a world and verify that actual biome counts are dominated by the four AMJ BiomeDefs while swamp tiles still resolve to appropriate wetland/compatibility biomes.
+The next validation gate is runtime, not further spreadsheet-style tuning: generate a world and verify that the four AMJ baseline biomes occupy substantial shares, swamp tiles still resolve to wetland/compatibility biomes, and specialized mod biomes can coexist without preventing the AMJ climate bands from appearing.
+
+First runtime distribution with Medieval Overhaul active:
+- AMJ WarmTemperate: **27.0%**;
+- AMJ CoolTemperate: **43.7%**;
+- AMJ Subalpine: **7.2%**;
+- AMJ Alpine: **0.3%**;
+- MO Dark Forest: **16.3%**;
+- Temperate Swamp: **2.0%**;
+- remaining Vanilla tropical/temperate biomes: small residual shares.
+
+This is accepted as a valid coexistence result rather than treated as an AMJ-band failure. MO Dark Forest is a specialized naturally generated biome with its own score rules and is allowed to replace part of the otherwise suitable AMJ cool/subalpine climate space. Exact AMJ biome percentages are therefore mod-list dependent and are not balance targets.
