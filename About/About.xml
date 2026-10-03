@@ -23,5 +23,7 @@
 
 Reworks RimWorld world generation toward a pre-Edo Japan-like environmental profile, including climate, terrain, rivers, coastlines, biomes, vegetation, weather, and seasonal scenery.
 
-Ancient &amp; Medieval Japan Core is not required.</description>
+Ancient &amp; Medieval Japan Core is not required.
+
+Save compatibility: Use a new game to evaluate world and terrain generation. Adding to existing saves has not been verified. Removing this mod from saves that use its custom biomes or terrains is not recommended.</description>
 </ModMetaData>

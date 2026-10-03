@@ -256,3 +256,16 @@ AMJ automated tests that launch RimWorld must capture an isolated runtime log an
 Environment's current `run-tests.bat` is a build + static-validation gate only and does not launch RimWorld, so it does not fabricate a runtime-log result. The requirement is now fixed in `AGENTS.md` and `Docs/DevelopmentTools.md`: when an automated RimWorld runtime harness is added to Environment, the mod-origin ERROR gate is mandatory from the first version.
 
 Policy commits: `2a86387ebf1bfe5d3de3fbf09de93800cace0e74`, `7148ff5df9cdc2078e55c4233bf4b60e1e112c70`.
+
+
+### DOC-001 — Shared public-description format and save compatibility
+
+**Requested by:** author / public-description policy (2026-10-04 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE (repository documentation)
+
+All AMJ-related mod descriptions must include save compatibility. CCTO is the evolving format baseline. Durable shared policy: [Docs/ModDescriptionGuidelines.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md). Addition/removal safety must reflect each mod's actual implementation; custom content and world-generation mods do not inherit CCTO's safe-removal claim.
+
+About.xml now states the development build's save-compatibility limits; AGENTS.md points to the shared policy for future README/Workshop preparation.
+
+**Next action:** Use the shared CCTO-based format when preparing the public description; verify save addition/removal before making stronger claims.
