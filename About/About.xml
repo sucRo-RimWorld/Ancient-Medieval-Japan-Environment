@@ -16,6 +16,7 @@
 
   <loadAfter>
     <li>brrainz.harmony</li>
+    <li>rimworks.quickstarts</li>
   </loadAfter>
 
   <description>Development build of Ancient &amp; Medieval Japan: Environment.
