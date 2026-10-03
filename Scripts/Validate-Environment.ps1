@@ -211,7 +211,7 @@ foreach ($expected in @(
     "BiomeWorker_AMJSubalpineForest",
     "BiomeWorker_AMJAlpineZone",
     "WetlandThreshold = 0.5f",
-    "return 50f"
+    "return 38f"
 )) {
     if (-not $biomeWorkerSource.Contains($expected)) {
         Fail "Japan biome worker source is missing expected marker: $expected"
