@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    Alpha placeholder art: reuses/tints a Vanilla natural terrain texture.
+    Final Environment terrain artwork is intentionally deferred.
+  -->
+  <TerrainDef>
+    <defName>AMJ_ThinSoil</defName>
+    <label>thin soil</label>
+    <description>Thin, stony soil with limited depth and nutrients. It can be cultivated, but only hardy crops make efficient use of it.</description>
+    <texturePath>Terrain/Surfaces/Gravel</texturePath>
+    <color>(0.78, 0.70, 0.58)</color>
+    <edgeType>FadeRough</edgeType>
+    <renderPrecedence>322</renderPrecedence>
+    <pathCost>3</pathCost>
+    <statBases>
+      <Beauty>-1</Beauty>
+      <Cleanliness>-1</Cleanliness>
+    </statBases>
+    <scatterType>Rocky</scatterType>
+    <affordances>
+      <li>Light</li>
+      <li>Medium</li>
+      <li>Heavy</li>
+      <li>GrowSoil</li>
+      <li>Diggable</li>
+    </affordances>
+    <generatedFilth>Filth_Dirt</generatedFilth>
+    <fertility>0.50</fertility>
+    <takeFootprints>true</takeFootprints>
+  </TerrainDef>
+</Defs>
