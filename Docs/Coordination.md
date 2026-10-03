@@ -134,7 +134,7 @@ The current terrain/coast/elevation/rainfall/river Alpha baseline is now locked 
 
 **Requested by:** Environment/design  
 **Owner:** Environment/climate  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Validate the locked world-generation baseline against actual RimWorld 1.6 outdoor temperatures used by CCTO rather than annual mean alone.
 
@@ -150,4 +150,6 @@ Automatic climate-calibration diagnostics are implemented in `ClimateCalibration
 
 **Build/static gate:** PASS after the climate-calibration diagnostics were added. The earlier CS0016 failure was a local DLL file lock from RimWorld still having `AncientMedievalJapanEnvironment.dll` mapped; closing RimWorld and rerunning the gate succeeded. This was not a code compilation failure.
 
-**Next action:** pull/rebuild, generate one fresh world with the ~±3 C random scale, and inspect the four `[AMJ Environment] Climate calibration` lines. Use those results to decide whether the current ±8..16 C seasonal curve and ~±3 C daily random variation produce the intended Rice/Awa/Hie/Barley climate signals.
+**Final ~±3 C re-run:** PASS. Warm lowland stayed above -1 C; temperate lowland stayed above -8 C while still spending substantial winter time below -1 C and -4 C; cool lowland and highland remained well below -8 C for long periods. The intended Rice/Awa/Hie/Barley regional separation is therefore preserved.
+
+**Result:** ENV-002 complete. Further climate tuning is deferred unless gameplay testing finds a concrete mismatch.
