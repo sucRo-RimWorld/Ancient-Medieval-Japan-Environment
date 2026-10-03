@@ -18,12 +18,14 @@ For build only:
 
 The build script:
 - locates RimWorld 1.6 `Assembly-CSharp.dll`;
-- locates `UnityEngine.CoreModule.dll` and `netstandard.dll`;
+- locates `UnityEngine.CoreModule.dll`, `Unity.Mathematics.dll`, `Unity.Collections.dll`, and `netstandard.dll`;
 - locates Harmony from Steam Workshop item 2009463077;
 - compiles `Source/AncientMedievalJapanEnvironment/*.cs`;
 - writes `Assemblies/AncientMedievalJapanEnvironment.dll`.
 
 ## First runtime smoke
+
+The static validator also confirms that the obsolete custom Terrain worker XML patch is absent and that terrain processing is wired through a Harmony postfix.
 
 After a successful build, start RimWorld with:
 - Harmony;
