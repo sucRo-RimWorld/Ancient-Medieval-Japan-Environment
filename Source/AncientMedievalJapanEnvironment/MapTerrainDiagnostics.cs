@@ -3,7 +3,7 @@ using Verse;
 
 namespace AncientMedievalJapan.Environment
 {
-    [HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.GenerateMap))]
+    [HarmonyPatch(typeof(MapGenerator), "GenerateMap")]
     public static class MapTerrainDiagnostics
     {
         public static void Postfix(Map __result)
