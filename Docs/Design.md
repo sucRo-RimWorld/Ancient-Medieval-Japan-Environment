@@ -123,6 +123,8 @@ Conceptual elevation bands:
 
 Values above 3000 m should be uncommon.
 
+Current Alpha implementation applies additional relief only to Large Hills / Mountainous / Impassable tiles after coastline/land classification, so lowlands remain low while rare highland peaks can approach the upper range.
+
 ### 3.3 Hilliness
 
 Initial land-tile distribution target:
@@ -138,6 +140,8 @@ Initial land-tile distribution target:
 This is a gameplay abstraction of a mountainous archipelago. "Mountainous country" is represented across Small Hills, Large Hills and Mountainous rather than making most settlements Mountainous/Impassable.
 
 The target should be evaluated statistically over multiple generated worlds rather than requiring exact percentages per seed.
+
+Current Alpha implementation uses a spatial ruggedness score (terrain noise plus elevation influence), ranks generated land tiles by that score, and maps the resulting bands toward the 25/20/25/25/5 target. This replaces the first prototype's incremental promotion rules, which overproduced Small Hills and underproduced Mountainous terrain.
 
 ### 3.4 Rivers
 
