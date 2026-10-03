@@ -241,7 +241,9 @@ The separate startup error `No textures found at path Things/Item/Resource/Plant
 
 **Local build/static rerun:** PASS after `4dda399fa08ee5ceb28d826bc048f16bebd018dd`; both the normal Environment DLL and the developer fixed-biome Quicktest DLL compiled, and the static validation gate completed successfully.
 
-**Next action:** rerun Alpine and capture both `[AMJ Environment Quicktest] Selected tile` and the full `[AMJ Environment] Map terrain summary` including `OtherTop`; then rerun Dark Forest once for `OtherTop` attribution before changing fertility thresholds.
+**Alpine fixed-biome terrain result:** map generation succeeded. Terrain share was ThinSoil **61.6%**, Gravel **24.4%**, Soil **2.6%**, RichSoil **0.0%**, Other **11.4%**. Within only the four fertility-ladder terrains, this is approximately Thin **69.6%**, Gravel **27.5%**, Soil **3.0%**, Rich **0%**, so the Alpine threshold design is producing the intended severe fertility degradation. `OtherTop` was dominated by rough rock/natural wall terrain: `DankPyon_NaturalWall_Clay_Rough` 8.5% of all cells and `Slate_Rough` 2.0%; together they account for about 92% of Alpine's Other category. The remaining listed Other entries were individually <=0.2%. No fertility-threshold change is indicated by this Alpine sample.
+
+**Next action:** rerun Dark Forest once with the expanded `OtherTop` diagnostic. Compare its large RichSoil/Other shares against MO terrain patch makers before deciding whether Environment's Dark Forest fertility thresholds need any adjustment. The Alpine `Selected tile` line is still useful for recording whether the run used the synthetic biome proxy, but the map-terrain result itself is now valid for ENV-004 threshold testing.
 
 ### TEST-001 — AMJ-wide runtime ERROR gate policy
 
