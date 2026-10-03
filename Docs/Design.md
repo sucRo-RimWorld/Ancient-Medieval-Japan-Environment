@@ -97,7 +97,7 @@ RimWorld's actual outdoor temperature includes seasonal shift, a fixed day/night
 Alpha policy:
 
 - keep the Vanilla day/night sun-cycle amplitude unchanged initially;
-- reduce the separate daily random temperature variation from Vanilla's approximately **±7 C** maximum scale to approximately **±4 C**;
+- reduce the separate daily random temperature variation from Vanilla's approximately **±7 C** maximum scale to approximately **±3 C**;
 - if playtesting still causes excessive one-night crop deaths, adjust this random component before weakening the crop-specific CCTO thresholds.
 
 This keeps weather variability while avoiding a continental-style random swing overwhelming the Japan-oriented seasonal climate.
@@ -239,7 +239,7 @@ Implementation architecture:
 
 Runtime temperature hooks:
 - Harmony overrides the root-surface seasonal shift to an **±8 C → ±16 C** south-to-north curve;
-- Harmony scales the separate root-surface daily random variation from the Vanilla ~±7 C scale to **~±4 C**;
+- Harmony scales the separate root-surface daily random variation from the Vanilla ~±7 C scale to **~±3 C**;
 - the normal day/night sun-cycle component remains Vanilla for the Alpha baseline.
 
 Use the smallest world-generation code layer that can own these calculations without unrelated runtime systems.
@@ -344,6 +344,21 @@ For each representative, collect:
 - event count, count of short events (<=6 h), and maximum continuous duration for each lethal threshold.
 
 If a region's gameplay does not match the intended signal above, adjust Environment climate variation before changing the established CCTO crop thresholds.
+
+First hourly calibration result with the ~±4 C random scale:
+- warm lowland (annual 18.5 C): actual -0.6..37.6 C; no time below the Rice -1 C death threshold;
+- temperate lowland (annual 14.0 C): actual -8.4..35.9 C; 136 h below -1 C, 70 h below -4 C, and **2 h below -8 C**;
+- cool lowland (annual 7.0 C): actual -17.1..32.7 C; 195 h below -8 C;
+- highland (annual 2.0 C, 1643 m): actual -21.1..25.4 C; 338 h below -8 C.
+
+CCTO checks cold-death through the plant's normal long-tick path and kills immediately when actual ambient temperature is strictly below the configured threshold. Therefore the temperate representative's 2 h below -8 C is sufficient to threaten Barley even though the event is brief. That conflicts with the intended signal that Barley should normally remain the safer central-lowland annual.
+
+Calibration decision:
+- keep the current seasonal-amplitude curve and Vanilla ±7 C sun-cycle component;
+- reduce only the separate daily random component from ~±4 C to **~±3 C** (3/7 of Vanilla);
+- re-run the same four representative diagnostics before accepting the CCTO climate calibration.
+
+This is the smallest change that removes a one-night random-spike failure mode in central lowlands while preserving clearly lethal Barley conditions in cool lowlands and highlands.
 
 Gameplay smoke tests should then confirm:
 - usable settlement sites still exist;
