@@ -7,6 +7,17 @@
     <li>1.6</li>
   </supportedVersions>
 
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+    </li>
+  </modDependencies>
+
+  <loadAfter>
+    <li>brrainz.harmony</li>
+  </loadAfter>
+
   <description>Development build of Ancient &amp; Medieval Japan: Environment.
 
 Reworks RimWorld world generation toward a pre-Edo Japan-like environmental profile, including climate, terrain, rivers, coastlines, biomes, vegetation, weather, and seasonal scenery.
