@@ -304,6 +304,20 @@ foreach ($expected in @(
 }
 Pass "Developer Quickstarts are gated behind rimworks.quickstarts"
 
+$bootstrapPath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\Bootstrap.cs"
+$bootstrapSource = Get-Content -LiteralPath $bootstrapPath -Raw
+foreach ($expected in @(
+    '[AMJ Environment] Dev load-folder diagnostic',
+    'GetActiveModWithIdentifier("rimworks.quickstarts", true)',
+    'foldersToLoadDescendingOrder'
+)) {
+    if (-not $bootstrapSource.Contains($expected)) {
+        Fail "Bootstrap is missing expected dev load-folder diagnostic marker: $expected"
+    }
+}
+Pass "Runtime load-folder diagnostic is present"
+
+
 $aboutRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml") -Raw
 if (-not $aboutRaw.Contains('<li>rimworks.quickstarts</li>')) {
     Fail "About.xml must load after Quickstarts when that mod is active."
