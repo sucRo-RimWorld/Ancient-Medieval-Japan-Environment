@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
@@ -7,7 +8,16 @@ using Verse.Noise;
 
 namespace AncientMedievalJapan.Environment
 {
-    public class WorldGenStep_AMJEnvironmentTerrain : WorldGenStep_Terrain
+    [HarmonyPatch(typeof(WorldGenStep_Terrain), "GenerateFresh")]
+    public static class Patch_WorldGenStep_Terrain_GenerateFresh
+    {
+        public static void Postfix(string seed, PlanetLayer layer)
+        {
+            EnvironmentTerrainProcessor.Apply(seed, layer);
+        }
+    }
+
+    public static class EnvironmentTerrainProcessor
     {
         private const float MinElevation = -300f;
         private const float MaxElevation = 3800f;
@@ -24,10 +34,8 @@ namespace AncientMedievalJapan.Environment
             new CurvePoint(1f, 5f)
         };
 
-        public override void GenerateFresh(string seed, PlanetLayer layer)
+        public static void Apply(string seed, PlanetLayer layer)
         {
-            base.GenerateFresh(seed, layer);
-
             if (!layer.IsRootSurface)
             {
                 return;
