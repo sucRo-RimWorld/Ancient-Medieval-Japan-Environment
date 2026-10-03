@@ -6,7 +6,7 @@ using Verse;
 
 namespace AncientMedievalJapan.Environment
 {
-    [HarmonyPatch(typeof(World), "FinalizeInit")]
+    [HarmonyPatch(typeof(Game), "InitNewGame")]
     public static class ClimateCalibrationDiagnostics
     {
         private const int HoursPerYear = 60 * 24;
@@ -17,27 +17,30 @@ namespace AncientMedievalJapan.Environment
             10f, 8f, 5f, 0f, -1f, -4f, -8f
         };
 
-        public static void Postfix(World __instance, bool fromLoad)
+        public static void Postfix()
         {
-            if (fromLoad || __instance == null || __instance.grid == null ||
-                __instance.tileTemperatures == null)
+            World world = Find.World;
+            if (world == null || world.grid == null ||
+                world.tileTemperatures == null ||
+                Find.TickManager == null ||
+                Find.TickManager.gameStartAbsTick == 0)
             {
                 return;
             }
 
-            PlanetLayer layer = __instance.grid.Surface;
+            PlanetLayer layer = world.grid.Surface;
             if (layer == null || layer.TilesCount == 0)
             {
                 return;
             }
 
-            LogRepresentative(__instance, layer, "WarmLowland",
+            LogRepresentative(world, layer, "WarmLowland",
                 FindRepresentative(layer, 18.5f, 0f, 300f, 100f));
-            LogRepresentative(__instance, layer, "TemperateLowland",
+            LogRepresentative(world, layer, "TemperateLowland",
                 FindRepresentative(layer, 14f, 0f, 300f, 100f));
-            LogRepresentative(__instance, layer, "CoolLowland",
+            LogRepresentative(world, layer, "CoolLowland",
                 FindRepresentative(layer, 7f, 0f, 300f, 100f));
-            LogRepresentative(__instance, layer, "Highland",
+            LogRepresentative(world, layer, "Highland",
                 FindRepresentative(layer, 2f, 1500f, 3200f, 1900f));
         }
 
