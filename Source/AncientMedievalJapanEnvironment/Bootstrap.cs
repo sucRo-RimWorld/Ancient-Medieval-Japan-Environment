@@ -16,6 +16,8 @@ namespace AncientMedievalJapan.Environment
             Harmony harmony = new Harmony("sucro.ancientmedievaljapan.environment");
             harmony.PatchAll();
 
+            Log.Message("[AMJ Environment] Assembly loaded; Harmony patches applied.");
+
             Type cachedType = typeof(TileTemperaturesComp).GetNestedType(
                 "CachedTileTemperatureData",
                 BindingFlags.NonPublic);
