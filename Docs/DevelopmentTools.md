@@ -126,7 +126,9 @@ All five:
 - generate a normal **250x250** map;
 - select the requested biome after world generation and before map generation;
 - prefer Flat, then Small Hills, Large Hills, and Mountainous valid settlement tiles in that order;
-- if a requested biome has no normally settleable tile (notably rare Alpine worlds), fall back only for this developer Quicktest to an unoccupied tile of that biome, including Impassable as the last resort; this does not change normal settlement rules;
+- if the requested biome exists but has no normally settleable tile, fall back only for this developer Quicktest to an unoccupied tile of that biome, including Impassable as the last resort;
+- if another biome wins every tile that the requested biome worker considers eligible (possible for rare Alpine under MO coexistence), select a deterministic worker-eligible proxy tile and replace only that world tile's `PrimaryBiome` for the developer Quicktest before map generation; Alpine has a final coldest-land proxy fallback so the terrain-threshold test remains runnable even when the fixed 5% world contains zero natural Alpine tiles;
+- forced proxy use is logged as `forcedBiome=True` with `originalBiome` and `targetBiomeScore`; it validates map terrain generation for that BiomeDef, **not** natural biome frequency or normal settlement availability; normal Environment world generation and settlement rules are unchanged;
 - log the selected tile as `[AMJ Environment Quicktest] Selected tile`;
 - then use the normal map generator, so `[AMJ Environment] Map terrain summary` reports Thin Soil / Gravel / Soil / Rich Soil / Other shares plus the five most common terrain Defs inside `Other`.
 
