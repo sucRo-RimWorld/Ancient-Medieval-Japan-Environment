@@ -4,13 +4,14 @@
     Alpha placeholder art: reuses/tints a Vanilla natural terrain texture.
     Final Environment terrain artwork is intentionally deferred.
   -->
-  <TerrainDef>
+  <TerrainDef ParentName="NaturalTerrainBase">
     <defName>AMJ_ThinSoil</defName>
     <label>thin soil</label>
     <description>Thin, stony soil with limited depth and nutrients. It can be cultivated, but only hardy crops make efficient use of it.</description>
     <texturePath>Terrain/Surfaces/Gravel</texturePath>
     <color>(0.78, 0.70, 0.58)</color>
     <edgeType>FadeRough</edgeType>
+    <categoryType>Soil</categoryType>
     <renderPrecedence>322</renderPrecedence>
     <pathCost>3</pathCost>
     <statBases>
@@ -28,5 +29,8 @@
     <generatedFilth>Filth_Dirt</generatedFilth>
     <fertility>0.50</fertility>
     <takeFootprints>true</takeFootprints>
+    <tags>
+      <li>Soil</li>
+    </tags>
   </TerrainDef>
 </Defs>
