@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    Japan-oriented Alpha river profile:
+    - Creek: natural spawn threshold 30,000; spawn chance 0.70
+    - River: natural spawn threshold 75,000; spawn chance 0.80
+    - LargeRiver / HugeRiver: remain defined for compatibility but do not
+      start naturally during world generation.
+
+    River flow in RimWorld accumulates rainfall, so these values must be
+    revalidated after the Environment rainfall model is implemented.
+  -->
+
+  <Operation Class="PatchOperationSequence">
+    <operations>
+
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/RiverDef[defName="Creek"]</xpath>
+        <value>
+          <spawnFlowThreshold>30000</spawnFlowThreshold>
+          <spawnChance>0.70</spawnChance>
+        </value>
+      </li>
+
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/RiverDef[defName="River"]/spawnFlowThreshold</xpath>
+        <value>
+          <spawnFlowThreshold>75000</spawnFlowThreshold>
+        </value>
+      </li>
+
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/RiverDef[defName="River"]/spawnChance</xpath>
+        <value>
+          <spawnChance>0.80</spawnChance>
+        </value>
+      </li>
+
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/RiverDef[defName="LargeRiver"]/spawnFlowThreshold</xpath>
+        <value>
+          <spawnFlowThreshold>0</spawnFlowThreshold>
+        </value>
+      </li>
+
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/RiverDef[defName="HugeRiver"]/spawnFlowThreshold</xpath>
+        <value>
+          <spawnFlowThreshold>0</spawnFlowThreshold>
+        </value>
+      </li>
+
+    </operations>
+  </Operation>
+
+</Patch>
