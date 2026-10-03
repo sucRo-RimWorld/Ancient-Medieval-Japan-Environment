@@ -32,9 +32,10 @@ After a successful build, start RimWorld with:
 - Ancient & Medieval Japan: Environment;
 - no other world-generation/biome overhaul for the first smoke.
 
-With Dev Mode enabled, Environment writes two compact log lines after world generation:
+With Dev Mode enabled, Environment writes compact world-generation diagnostics:
 
-- `[AMJ Environment] Terrain summary` — land count, coastal-land share, annual-mean temperature range, elevation range, and Hilliness percentages;
+- `[AMJ Environment] Vanilla terrain baseline` — Vanilla land count and coastal-land share before Environment transforms;
+- `[AMJ Environment] Terrain summary` — Environment land/coastal share, land annual-mean temperature range, land elevation/highland shares, ocean-floor minimum, and Hilliness percentages;
 - `[AMJ Environment] River summary` — river-bearing tile share, unique river edges, and RiverDef counts.
 
 Create several worlds and check:
