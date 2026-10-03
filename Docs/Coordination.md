@@ -144,4 +144,6 @@ Collect time below growth thresholds **10 / 8 / 5 / 0 C** and cold-death thresho
 
 Automatic climate-calibration diagnostics are implemented in `ClimateCalibrationDiagnostics.cs`. Fresh world finalization selects warm/temperate/cool lowland plus highland representatives and samples `TileTemperaturesComp.OutdoorTemperatureAt` hourly for one 60-day year, including threshold-hours and lethal-event duration statistics. Implementation commit: `9d2e70dde20dfa709fb7bfe5d6ff992bc24df884`.
 
-**Next action:** pull/rebuild with `run-tests.bat`, generate one fresh world, and inspect the four `[AMJ Environment] Climate calibration` lines. Use those results to decide whether the current ±8..16 C seasonal curve and ~±4 C daily random variation produce the intended Rice/Awa/Hie/Barley climate signals.
+**Build/static gate:** PASS after the climate-calibration diagnostics were added. The earlier CS0016 failure was a local DLL file lock from RimWorld still having `AncientMedievalJapanEnvironment.dll` mapped; closing RimWorld and rerunning the gate succeeded. This was not a code compilation failure.
+
+**Next action:** generate one fresh world and inspect the four `[AMJ Environment] Climate calibration` lines. Use those results to decide whether the current ±8..16 C seasonal curve and ~±4 C daily random variation produce the intended Rice/Awa/Hie/Barley climate signals.
