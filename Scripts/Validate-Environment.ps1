@@ -65,8 +65,7 @@ Pass "Vanilla Terrain WorldGenStep source structure matches Environment assumpti
 
 foreach ($relative in @(
     "About\About.xml",
-    "Patches\Rivers.xml",
-    "Patches\WorldGeneration.xml"
+    "Patches\Rivers.xml"
 )) {
     $path = Join-Path $RepoRoot $relative
     if (-not (Test-Path $path)) {
@@ -108,11 +107,24 @@ foreach ($expected in @(
 }
 Pass "River Alpha patch values are present"
 
-$worldPatchText = Get-Content -LiteralPath (Join-Path $RepoRoot "Patches\WorldGeneration.xml") -Raw
-if (-not $worldPatchText.Contains("AncientMedievalJapan.Environment.WorldGenStep_AMJEnvironmentTerrain")) {
-    Fail "WorldGeneration.xml does not select the Environment Terrain worker."
+$worldPatchPath = Join-Path $RepoRoot "Patches\WorldGeneration.xml"
+if (Test-Path $worldPatchPath) {
+    Fail "Obsolete Patches\WorldGeneration.xml is still present. Terrain processing must not reference a custom WorldGenStep type from XML."
 }
-Pass "Environment Terrain worker patch is present"
+
+$terrainSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\WorldGenStep_AMJEnvironmentTerrain.cs"
+if (-not (Test-Path $terrainSourcePath)) {
+    Fail "Environment terrain Harmony source was not found."
+}
+
+$terrainSource = Get-Content -LiteralPath $terrainSourcePath -Raw
+if (-not $terrainSource.Contains('[HarmonyPatch(typeof(WorldGenStep_Terrain), "GenerateFresh")]')) {
+    Fail "Environment terrain source does not patch Vanilla WorldGenStep_Terrain.GenerateFresh."
+}
+if (-not $terrainSource.Contains("EnvironmentTerrainProcessor.Apply(seed, layer);")) {
+    Fail "Environment terrain Harmony postfix does not invoke the terrain processor."
+}
+Pass "Environment terrain processing uses Harmony postfix with no custom WorldGenStep XML type"
 
 Write-Host ""
 Write-Host "[OK] AMJ Environment static validation passed"
