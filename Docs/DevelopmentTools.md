@@ -66,3 +66,10 @@ The first balance goal is qualitative:
 - northern/highlands: normal annual crops cannot safely overwinter outdoors.
 
 Do not retune CCTO crop thresholds to compensate for Environment world-generation errors. Adjust Environment climate first.
+
+Current calibrated runtime target:
+- seasonal amplitude: ±8 C south to ±16 C north;
+- Vanilla sun-cycle: unchanged at ±7 C;
+- separate daily random variation: **~±3 C** (3/7 of Vanilla).
+
+The previous ~±4 C pass allowed a representative 14 C central lowland to dip below Barley's -8 C death threshold for 2 hours, so the random component was reduced before changing any CCTO crop threshold.
