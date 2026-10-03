@@ -43,4 +43,4 @@ The authoritative Alpha targets are in `Docs/Design.md`.
 
 **Next action:** implement the river XML patch first, then prototype the minimal C# world-generation layer required for temperature/elevation/hilliness/coastline generation.
 
-**Result / references:** initial design pending first implementation commit.
+**Result / references:** authoritative initial world-generation design `9f5fd58c77b8e9ae5bad00851189d0127a122925`.
