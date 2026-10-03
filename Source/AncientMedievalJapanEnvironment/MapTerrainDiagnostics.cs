@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using Verse;
 
@@ -25,6 +26,7 @@ namespace AncientMedievalJapan.Environment
             int rich = 0;
             int other = 0;
             int total = 0;
+            Dictionary<string, int> otherTerrains = new Dictionary<string, int>();
 
             foreach (IntVec3 cell in __result.AllCells)
             {
@@ -47,6 +49,12 @@ namespace AncientMedievalJapan.Environment
                         break;
                     default:
                         other++;
+                        int count;
+                        if (!otherTerrains.TryGetValue(terrain.defName, out count))
+                        {
+                            count = 0;
+                        }
+                        otherTerrains[terrain.defName] = count + 1;
                         break;
                 }
             }
@@ -59,7 +67,41 @@ namespace AncientMedievalJapan.Environment
                 " Gravel=" + Format(gravel, total) +
                 " Soil=" + Format(soil, total) +
                 " RichSoil=" + Format(rich, total) +
-                " Other=" + Format(other, total));
+                " Other=" + Format(other, total) +
+                " | OtherTop=" + FormatTopOther(otherTerrains, total));
+        }
+
+        private static string FormatTopOther(
+            Dictionary<string, int> otherTerrains,
+            int total)
+        {
+            List<KeyValuePair<string, int>> entries =
+                new List<KeyValuePair<string, int>>(otherTerrains);
+            entries.Sort(delegate(
+                KeyValuePair<string, int> left,
+                KeyValuePair<string, int> right)
+            {
+                return right.Value.CompareTo(left.Value);
+            });
+
+            int limit = entries.Count < 5 ? entries.Count : 5;
+            if (limit == 0)
+            {
+                return "(none)";
+            }
+
+            string result = "";
+            for (int i = 0; i < limit; i++)
+            {
+                if (i > 0)
+                {
+                    result += ", ";
+                }
+
+                result += entries[i].Key + "=" + Format(entries[i].Value, total);
+            }
+
+            return result;
         }
 
         private static string Format(int value, int total)
