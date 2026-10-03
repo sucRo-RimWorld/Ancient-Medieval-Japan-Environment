@@ -42,9 +42,12 @@ namespace AncientMedievalJapan.Environment
             }
         }
 
-        private static void ScaleDailyVariationPostfix(ref float __result)
+        private static void ScaleDailyVariationPostfix(PlanetTile ___tile, ref float __result)
         {
-            __result *= DailyVariationScale;
+            if (___tile.Valid && ___tile.Layer.IsRootSurface)
+            {
+                __result *= DailyVariationScale;
+            }
         }
     }
 }
