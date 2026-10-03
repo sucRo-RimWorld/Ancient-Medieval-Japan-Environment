@@ -142,11 +142,11 @@ namespace AncientMedievalJapan.Environment
                 result = Hilliness.Impassable;
             }
 
-            if (elevation >= 2500f && result < Hilliness.Mountainous)
+            if (elevation >= 2500f && (int)result < (int)Hilliness.Mountainous)
             {
                 result = Hilliness.Mountainous;
             }
-            else if (elevation >= 1500f && result < Hilliness.LargeHills)
+            else if (elevation >= 1500f && (int)result < (int)Hilliness.LargeHills)
             {
                 result = Hilliness.LargeHills;
             }
