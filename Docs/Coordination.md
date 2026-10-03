@@ -231,7 +231,13 @@ Fixes:
 - fixed-biome Quicktests retain normal settlement preference but may use an unoccupied non-settleable target-biome tile, including Impassable only as the final developer-only fallback: `09eb629ab0bdd84bb72856dcf6d7c17e00223f83`;
 - map terrain diagnostics now log the five largest Defs making up `Other`: `d14bfb197bad14a8ae4350a58b02e16521e9fa0f`.
 
-**Next action:** pull/rebuild, rerun Alpine, and capture the full terrain summary including `OtherTop`. If Alpine succeeds, rerun Dark Forest once with the expanded diagnostic so its 52.6% Other share can be attributed before any fertility-threshold change.
+**Second Alpine retry finding:** the fixed 5% seed contained **zero natural `AMJ_AlpineZone` tiles**, so even the non-settlement fallback could not select one. This is compatible with normal biome competition: a target worker can be eligible while another biome (notably MO Dark Forest in overlapping cold/wet climates) wins the final `PrimaryBiome`.
+
+The fixed-biome Quicktest now distinguishes natural-world placement from terrain-threshold testing. It first prefers an exact normal settlement tile, then any exact unoccupied target-biome tile. If the target biome is absent, it selects a tile on which the target biome worker scores positively and temporarily changes only that tile's `PrimaryBiome` for the developer test. Alpine additionally falls back to the coldest suitable land tile if the 5% world has no worker-positive Alpine proxy. The selected tile logs `forcedBiome`, `originalBiome`, and `targetBiomeScore`. This does not modify normal worldgen or settlement behavior. Implementation commits: `819445d5fb2e26e52f932017ec4153bf30c47a7e`, syntax follow-up `0d4e6e4b9f591d2338ace576d3376ae8442fcdd2`.
+
+The separate startup error `No textures found at path Things/Item/Resource/PlantFoodRaw/RawLentils` is not emitted by Environment and is independent of the Alpine selector failure; do not treat it as an Environment terrain-balance result.
+
+**Next action:** pull/rebuild, rerun Alpine, and capture both `[AMJ Environment Quicktest] Selected tile` and the full `[AMJ Environment] Map terrain summary` including `OtherTop`. Then rerun Dark Forest once for `OtherTop` attribution before changing fertility thresholds.
 
 ### TEST-001 — AMJ-wide runtime ERROR gate policy
 
