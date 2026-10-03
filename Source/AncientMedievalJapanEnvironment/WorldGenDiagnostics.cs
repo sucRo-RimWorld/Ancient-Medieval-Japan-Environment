@@ -50,6 +50,11 @@ namespace AncientMedievalJapan.Environment
             int elevation1500 = 0;
             int elevation2500 = 0;
             int elevation3000 = 0;
+            int warmTemperate = 0;
+            int coolTemperate = 0;
+            int subalpine = 0;
+            int alpine = 0;
+            int wetlandCandidates = 0;
 
             float minTemperature = float.MaxValue;
             float maxTemperature = float.MinValue;
@@ -79,6 +84,28 @@ namespace AncientMedievalJapan.Environment
                 }
 
                 land++;
+
+                if (tile.temperature >= 15f)
+                {
+                    warmTemperate++;
+                }
+                else if (tile.temperature >= 8f)
+                {
+                    coolTemperate++;
+                }
+                else if (tile.temperature >= 0f)
+                {
+                    subalpine++;
+                }
+                else
+                {
+                    alpine++;
+                }
+
+                if (tile.swampiness >= 0.5f)
+                {
+                    wetlandCandidates++;
+                }
 
                 if (tile.rainfall < minRainfall) minRainfall = tile.rainfall;
                 if (tile.rainfall > maxRainfall) maxRainfall = tile.rainfall;
@@ -187,6 +214,19 @@ namespace AncientMedievalJapan.Environment
                 ".." + maxRainfall.ToString("F0") +
                 " avg=" + averageRainfall.ToString("F0") +
                 " | " + biomeBreakdown);
+
+            Log.Message(
+                "[AMJ Environment] Japan vegetation-band preview" +
+                " | WarmTemperate>=15C=" + warmTemperate +
+                " (" + Percent(warmTemperate, land) + ")" +
+                " CoolTemperate=8..15C=" + coolTemperate +
+                " (" + Percent(coolTemperate, land) + ")" +
+                " Subalpine=0..8C=" + subalpine +
+                " (" + Percent(subalpine, land) + ")" +
+                " Alpine<0C=" + alpine +
+                " (" + Percent(alpine, land) + ")" +
+                " | swampiness>=0.5=" + wetlandCandidates +
+                " (" + Percent(wetlandCandidates, land) + ")");
         }
 
         private static void CountLandAndCoast(
