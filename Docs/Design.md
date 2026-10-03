@@ -30,7 +30,9 @@ Environment does not own:
 
 AMJ Core remains responsible for the minimum Terrain/Defs required for its agriculture to function. Environment may alter the *distribution/context* of land, but does not become a prerequisite for Core agriculture.
 
-AMJ Core, CCTO, MO and other AMJ mods are optional compatibility targets, not hard dependencies.
+Environment remains technically standalone: AMJ Core, CCTO and Medieval Overhaul are not hard dependencies.
+
+However, the **normal AMJ play configuration is expected to coexist with Medieval Overhaul (MO)**. MO compatibility is therefore a first-class design requirement rather than an incidental third-party compatibility case. Environment must not unnecessarily suppress, replace or invalidate MO-owned biomes, plants, terrain or other environmental content when both mods are active.
 
 **Harmony is the sole current technical dependency.** It is used for the post-Vanilla terrain transformation and for temperature-runtime hooks that RimWorld 1.6 does not expose cleanly through Def/XML.
 
@@ -263,8 +265,9 @@ Such a feature may combine map generation, rock walls, water terrain, visual eff
 
 ## 7. Compatibility principles
 
-- AMJ Core: optional integration. Environment conditions may influence the context in which AMJ crops are chosen, but crop balance remains owned by Core.
-- CCTO: optional integration. CCTO remains responsible for crop cold-death semantics. Environment does not duplicate or override those crop thresholds; it uses the published CCTO/AMJ values as climate-calibration reference points.
+- **Medieval Overhaul (MO): standard AMJ coexistence target.** Environment does not require MO to load, but normal AMJ usage assumes both are present. MO-owned environmental content, including specialized natural biomes such as Dark Forest, should remain available where compatible with Environment climate/worldgen. Conflicts should be solved by targeted compatibility rules rather than by making AMJ biomes globally authoritative.
+- AMJ Core: optional technical integration. Environment conditions may influence the context in which AMJ crops are chosen, but crop balance remains owned by Core.
+- CCTO: optional technical integration. CCTO remains responsible for crop cold-death semantics. Environment does not duplicate or override those crop thresholds; it uses the published CCTO/AMJ values as climate-calibration reference points.
 - ReGrowth 2: implementation/reference target, not a dependency.
 - other biome/worldgen mods: compatibility should favor explicit targeted patches rather than broad destructive replacement where possible.
 
