@@ -172,4 +172,13 @@ Decision:
 
 A preview diagnostic is implemented as `[AMJ Environment] Japan vegetation-band preview`. Commit: `4a2bf50600fbaec0a7cb5fafec02119e594c7fef`.
 
-**Next action:** rebuild and generate one representative world. Check the vegetation-band preview share. If the shape is sensible, implement the first AMJ-owned forest BiomeDefs using temporary Vanilla world textures and no final art.
+**Vegetation-band preview:** PASS. First representative world: WarmTemperate **27.5%**, CoolTemperate **51.4%**, Subalpine **19.5%**, Alpine **1.7%**, swampiness>=0.5 **0.7%**. This matches the intended shape; the locked worldgen climate does not need retuning.
+
+**Implemented Alpha biome pass:**
+- custom workers for the four accepted climate bands, excluding swampiness>=0.5;
+- AMJ-owned BiomeDefs `AMJ_WarmTemperateForest`, `AMJ_CoolTemperateForest`, `AMJ_SubalpineForest`, `AMJ_AlpineZone`;
+- temporary Vanilla world textures, existing Vanilla wild plants, and minimal Vanilla wildlife placeholders only;
+- no final art yet.
+Implementation commits: `c84eaf9549c21c644b3da21eed4d5558c7f8ce4c`, `3e973f5f5b5c4a984e35d1b44fd08de158fbfa5e`. Static validation commit: `14fa045d6d3e8aa794673a92389bde2469cc76ae`.
+
+**Next action:** pull/rebuild and generate one fresh world. Inspect `Climate/biome summary` to verify the four AMJ BiomeDefs actually win their intended bands and that the wetland minority remains available to wetland/compatibility biomes. Then open one map in each practical AMJ biome to catch missing Def references or map-generation issues before adding Japan-specific wild plants/weather.
