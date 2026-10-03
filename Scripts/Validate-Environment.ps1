@@ -278,7 +278,7 @@ if (-not (Test-Path $mapTerrainDiagnosticsPath)) {
 }
 $mapTerrainDiagnostics = Get-Content -LiteralPath $mapTerrainDiagnosticsPath -Raw
 foreach ($expected in @(
-    '[HarmonyPatch(typeof(MapGenerator), nameof(MapGenerator.GenerateMap))]',
+    '[HarmonyPatch(typeof(MapGenerator), "GenerateMap")]',
     '"[AMJ Environment] Map terrain summary"',
     '"AMJ_ThinSoil"',
     '"DankPyon_DarkForest"'
