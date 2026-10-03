@@ -30,7 +30,9 @@ Environment does not own:
 
 AMJ Core remains responsible for the minimum Terrain/Defs required for its agriculture to function. Environment may alter the *distribution/context* of land, but does not become a prerequisite for Core agriculture.
 
-AMJ Core, CCTO, MO and other AMJ mods are optional compatibility targets, not hard dependencies unless a later implementation proves a minimal technical dependency unavoidable.
+AMJ Core, CCTO, MO and other AMJ mods are optional compatibility targets, not hard dependencies.
+
+**Harmony is the sole current technical dependency.** It is required only for temperature-runtime hooks that RimWorld 1.6 does not expose through Def/XML: the Environment seasonal-amplitude curve and the reduced daily random temperature variation.
 
 ## 2. Design goal
 
@@ -221,6 +223,19 @@ Therefore the following Environment responsibilities cannot be implemented robus
 - Japan-oriented elevation distribution;
 - target hilliness distribution;
 - increased coastline complexity.
+
+Implementation architecture:
+- replace only the Vanilla `Terrain` `WorldGenStepDef.worldGenStep` worker;
+- the Environment worker **inherits `WorldGenStep_Terrain` and runs the Vanilla terrain pass first**;
+- after Vanilla terrain exists, Environment applies its elevation/coastline, hilliness, annual-temperature and rainfall transforms;
+- Environment then re-runs natural biome selection using the adjusted tile values;
+- all changes are limited to the root surface layer;
+- later Vanilla world-gen steps, including rivers, roads and factions, consume the adjusted terrain normally.
+
+Runtime temperature hooks:
+- Harmony overrides the root-surface seasonal shift to an **±8 C → ±16 C** south-to-north curve;
+- Harmony scales the separate root-surface daily random variation from the Vanilla ~±7 C scale to **~±4 C**;
+- the normal day/night sun-cycle component remains Vanilla for the Alpha baseline.
 
 Use the smallest world-generation code layer that can own these calculations without unrelated runtime systems.
 
