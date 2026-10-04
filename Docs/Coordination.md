@@ -358,7 +358,7 @@ Implementation/test coverage:
 - dedicated River and Coast handoff Quickstarts: `b6189c8c5b0e172020dd8cdc225e6415d755f180`;
 - standalone runtime runner now includes both handoff tests: `71fd964f8b194ce3ee3feee94fdc1311998f7636`;
 - static validator covers both tests/runner entries: `6680f276ab1cf5dd16026a4e775fde0ad3278d32`;
-- design source of truth: `PENDING_DESIGN_COMMIT`.
+- design source of truth: `2816449f2c90d27b8f117d47e2e991b1d13ba232`.
 
 **Verification status:** not yet rerun locally after adding the two handoff Quickstarts.
 
