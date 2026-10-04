@@ -254,6 +254,21 @@ foreach ($defName in $expectedWildPlants) {
 }
 Pass "AMJ wild plants explicitly preserve the Vanilla-style 0 C growth baseline"
 
+$wildPlantRaw = Get-Content -LiteralPath $wildPlantsPath -Raw
+foreach ($expected in @(
+    '<visualSizeRange Inherit="False">',
+    '<min>1.25</min>',
+    '<max>2.7</max>',
+    '<min>0.45</min>',
+    '<max>0.75</max>'
+)) {
+    if (-not $wildPlantRaw.Contains($expected)) {
+        Fail "AMJ wild plant inherited visual-size override is missing expected marker: $expected"
+    }
+}
+Pass "Custom Shirabiso/Haimatsu visual-size ranges replace inherited FloatRange nodes cleanly"
+
+
 $cctoPatchPath = Join-Path $RepoRoot "Patches\Compatibility\CCTO.xml"
 if (-not (Test-Path -LiteralPath $cctoPatchPath)) {
     Fail "Optional CCTO compatibility patch was not found."
@@ -525,7 +540,8 @@ foreach ($expected in @(
     'AMJAlpineTerrainQuickstart',
     'quickstartreport',
     'Validate-EnvironmentRuntimeLog.ps1',
-    'CctoCompatibilityOnly'
+    'CctoCompatibilityOnly',
+    'preLaunchErrors'
 )) {
     if (-not $runtimeRunner.Contains($expected)) {
         Fail "Vegetation runtime runner is missing expected marker: $expected"
