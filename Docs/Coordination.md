@@ -717,5 +717,12 @@ Implementation:
 - static validation now locks both files, both AMJE paths, PNG structure, and absence of the former TreeMaple placeholders: `af0fb7608c3fa1d0f3f3ec29877b9ba3637a66bd`;
 - canonical art-direction record: `b21471b8e1bb7de1d328c9fb5055c12993463863`.
 
-**Next action:** pull/build and use the focused WarmTemperate texture-debug run to verify leafy beech scale/readability. Then force/check a leafless seasonal state if practical; once the pair is accepted in game, draft the Japanese historical description for author review before any English translation.
+The first binary transfer of the approved beech sprites was malformed and was correctly rejected by the AMJE PNG-structure gate (`Beech_A.png`). The Def/path integration itself was correct; only the PNG payloads needed replacement.
+
+Corrective binary transfer:
+- leafy source was re-read directly from the validated 256x256 PNG and committed without manual reconstruction; current Git blob SHA `f6866dc5faa5ad4293f8bd1e72cc43b6668265f9`;
+- leafless source was transferred the same way; current Git blob SHA `c9fdc9b87e6b559ab2a2ff9788b6d015593b8406`;
+- corrective commit: `b7027fc930d77a9b079ace5b5f9d663ade2f236c`.
+
+**Next action:** pull and rerun `run-tests.bat`. The PNG structure gate should now pass for both beech assets. If static validation passes, continue with the focused WarmTemperate in-game check before drafting the Japanese historical description.
 
