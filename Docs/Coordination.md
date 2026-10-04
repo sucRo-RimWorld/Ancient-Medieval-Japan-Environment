@@ -215,7 +215,15 @@ Implementation:
 - four-run PowerShell runner: `9b59e34892919edfa8711fcddac9e64c21c1a197`;
 - one-command batch entry point: `8621ca8e5bf0bc4d828aa98b50409b019fdb07e2`.
 
-**Next action:** pull and run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. Do not mark the vegetation runtime gate PASS until the local automated run completes. Final plant images remain deferred; manual testing is not required for the placeholder vegetation distribution unless the automated counts expose a balance issue.
+**First automated runtime run:** FAIL, and the gate correctly exposed two independent issues before vegetation assertions could run.
+
+1. With the isolated profile intentionally excluding Medieval Overhaul, `Patches/Compatibility/MedievalOverhaul.xml` still attempted its Dark Forest `PatchOperationReplace`. The top-level operation-level `MayRequire` did not skip the patch in this structure. The compatibility patch is now wrapped in `PatchOperationSequence` with `MayRequire="DankPyon.Medieval.Overhaul"` on the child replace operation, so Environment can load cleanly without MO. Fix: `67ae970dd8bb2dc2dd9466594816470d8ed59ad5`.
+
+2. The fixed 5% world had no usable WarmTemperate tile and no worker-positive proxy, so the test stopped with `No usable world tile found for biome test AMJ_WarmTemperateForest`. Fixed-biome developer tests now have a final generic synthetic-climate fallback: select the nearest unoccupied land tile, set only that test tile to the target band's representative annual temperature (17.5 / 11.5 / 4 / -4 C), ensure rainfall >=800 and swampiness <0.5, then assign the requested biome. This is test-only and does not alter normal world generation. Fix: `195cc8dd5ba12ad6f42e468dfd43c8923400cb19`.
+
+Static validator synchronized with both fixes.
+
+**Next action:** pull and rerun `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. Do not mark the vegetation runtime gate PASS until the four automated biome runs complete successfully.
 
 
 ### ENV-004 — Low-fertility natural terrain
