@@ -267,11 +267,16 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 fallbackHilliness,
                 out targetBiomeScore);
 
-            if (!proxyTile.Valid && biomeDefName == "AMJ_AlpineZone")
+            bool forcedClimate = false;
+            float forcedTemperature = 0f;
+
+            if (!proxyTile.Valid)
             {
-                proxyTile = FindColdestAlpineProxy(
+                proxyTile = FindClosestClimateProxy(
+                    biomeDefName,
                     fallbackHilliness,
-                    out targetBiomeScore);
+                    out forcedTemperature);
+                forcedClimate = proxyTile.Valid;
             }
 
             if (!proxyTile.Valid)
@@ -290,10 +295,36 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     ? "null"
                     : proxy.PrimaryBiome.defName;
 
+            if (forcedClimate)
+            {
+                proxy.temperature = forcedTemperature;
+                if (proxy.rainfall < 800f)
+                {
+                    proxy.rainfall = 800f;
+                }
+                if (proxy.swampiness >= 0.5f)
+                {
+                    proxy.swampiness = 0f;
+                }
+
+                targetBiomeScore = targetBiome.Worker.GetScore(
+                    targetBiome,
+                    proxy,
+                    proxy.tile);
+            }
+
             proxy.PrimaryBiome = targetBiome;
             forcedBiome = true;
             forcedNonSettlementTile =
                 !TileFinder.IsValidTileForNewSettlement(proxyTile);
+
+            Log.Message(
+                "[AMJ Environment Quicktest] Proxy fallback" +
+                " | biome=" + biomeDefName +
+                " forcedClimate=" + forcedClimate +
+                " temperature=" + proxy.temperature.ToString("F1") +
+                " rainfall=" + proxy.rainfall.ToString("F0") +
+                " swampiness=" + proxy.swampiness.ToString("F2"));
 
             return proxyTile;
         }
@@ -384,36 +415,34 @@ namespace AncientMedievalJapan.Environment.Quicktests
             return PlanetTile.Invalid;
         }
 
-        private static PlanetTile FindColdestAlpineProxy(
+        private static PlanetTile FindClosestClimateProxy(
+            string biomeDefName,
             Hilliness[] preferredHilliness,
-            out float proxyScore)
+            out float forcedTemperature)
         {
-            proxyScore = 0f;
+            forcedTemperature = TargetRepresentativeTemperature(biomeDefName);
 
             for (int h = 0; h < preferredHilliness.Length; h++)
             {
                 PlanetTile bestTile = PlanetTile.Invalid;
-                float coldestTemperature = float.MaxValue;
+                float bestDistance = float.MaxValue;
 
                 for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
                 {
                     SurfaceTile candidate = Find.WorldGrid[i] as SurfaceTile;
-                    if (candidate == null)
-                    {
-                        continue;
-                    }
-                    if (candidate.WaterCovered ||
+                    if (candidate == null ||
+                        candidate.WaterCovered ||
                         candidate.hilliness != preferredHilliness[h] ||
-                        candidate.rainfall < 800f ||
-                        candidate.swampiness >= 0.5f ||
                         Find.WorldObjects.AnyWorldObjectAt(candidate.tile))
                     {
                         continue;
                     }
 
-                    if (candidate.temperature < coldestTemperature)
+                    float distance =
+                        System.Math.Abs(candidate.temperature - forcedTemperature);
+                    if (distance < bestDistance)
                     {
-                        coldestTemperature = candidate.temperature;
+                        bestDistance = distance;
                         bestTile = candidate.tile;
                     }
                 }
@@ -426,6 +455,29 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
             return PlanetTile.Invalid;
         }
+
+        private static float TargetRepresentativeTemperature(string biomeDefName)
+        {
+            if (biomeDefName == "AMJ_WarmTemperateForest")
+            {
+                return 17.5f;
+            }
+            if (biomeDefName == "AMJ_CoolTemperateForest")
+            {
+                return 11.5f;
+            }
+            if (biomeDefName == "AMJ_SubalpineForest")
+            {
+                return 4f;
+            }
+            if (biomeDefName == "AMJ_AlpineZone")
+            {
+                return -4f;
+            }
+
+            return 10f;
+        }
+
     }
 
     public sealed class AMJWarmTemperateTerrainQuickstart : BiomeTerrainQuickstartBase
