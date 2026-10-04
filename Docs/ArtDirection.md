@@ -129,6 +129,25 @@ Visual role:
 
 This is the most important silhouette distinction for keeping the alpine zone above the treeline.
 
+## Retextured plant description policy
+
+Every plant whose in-game artwork is replaced by AMJE must also receive an AMJE-authored description so the visual pass does not retain text that conflicts with AMJE's tone or environmental role.
+
+This applies to:
+- AMJE-owned structural plants;
+- Vanilla tree Defs retextured by AMJE;
+- Medieval Overhaul tree Defs conditionally retextured by AMJE when MO is active.
+
+Text changes are presentation/localization only. They must not imply mechanical changes that AMJE does not actually make, and MO-owned plants must retain their original gameplay/fantasy identity even when their wording is rewritten for consistency.
+
+Authoring workflow:
+1. write the Japanese description first;
+2. have the author review and approve the Japanese wording;
+3. only after Japanese approval, translate that approved text into English;
+4. keep the English version semantically aligned with the approved Japanese source rather than independently rewriting it.
+
+Labels should remain unchanged unless there is a separate concrete naming issue. The current requirement is to replace unsuitable or tonally inconsistent descriptions, not to rename every retextured plant.
+
 ## Thin Soil technical direction
 
 `AMJ_ThinSoil` currently reuses/tints Vanilla Gravel.
