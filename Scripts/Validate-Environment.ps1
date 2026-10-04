@@ -415,13 +415,70 @@ foreach ($expected in @(
     'proxy.PrimaryBiome = targetBiome;',
     'FindColdestAlpineProxy',
     'Find.WorldObjects.AnyWorldObjectAt(tile)',
-    'AMJ-Environment-Terrain-Alpha'
+    'AMJ-Environment-Terrain-Alpha',
+    'QuickstartVerification Verify()',
+    'AMJ_Tree_Shii',
+    'AMJ_Tree_Beech',
+    'AMJ_Tree_Shirabiso',
+    'AMJ_Shrub_Haimatsu',
+    'MaxTargetCellFraction',
+    '"[AMJ Environment Vegetation] biome="'
 )) {
     if (-not $quicktestSource.Contains($expected)) {
         Fail "Fixed-biome Quickstart source is missing expected marker: $expected"
     }
 }
 Pass "Five deterministic fixed-biome Quickstarts are present"
+
+foreach ($relative in @(
+    "run-runtime-tests.bat",
+    "Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1",
+    "Scripts\Run-EnvironmentVegetationQuickstarts.ps1",
+    "Scripts\Validate-EnvironmentRuntimeLog.ps1"
+)) {
+    $path = Join-Path $RepoRoot $relative
+    if (-not (Test-Path -LiteralPath $path)) {
+        Fail "Environment runtime-test harness file is missing: $relative"
+    }
+}
+
+$runtimeBatch = Get-Content -LiteralPath (Join-Path $RepoRoot "run-runtime-tests.bat") -Raw
+foreach ($expected in @(
+    'run-tests.bat',
+    'Run-EnvironmentVegetationQuickstarts.ps1',
+    'TestResults\VegetationRuntime'
+)) {
+    if (-not $runtimeBatch.Contains($expected)) {
+        Fail "run-runtime-tests.bat is missing expected marker: $expected"
+    }
+}
+
+$runtimeRunner = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Run-EnvironmentVegetationQuickstarts.ps1") -Raw
+foreach ($expected in @(
+    'AMJWarmTemperateTerrainQuickstart',
+    'AMJCoolTemperateTerrainQuickstart',
+    'AMJSubalpineTerrainQuickstart',
+    'AMJAlpineTerrainQuickstart',
+    'quickstartreport',
+    'Validate-EnvironmentRuntimeLog.ps1'
+)) {
+    if (-not $runtimeRunner.Contains($expected)) {
+        Fail "Vegetation runtime runner is missing expected marker: $expected"
+    }
+}
+
+$runtimeLogValidator = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Validate-EnvironmentRuntimeLog.ps1") -Raw
+foreach ($expected in @(
+    'sucro.ancientmedievaljapan.environment',
+    'Level:\s*ERROR',
+    'Environment-origin runtime ERROR'
+)) {
+    if (-not $runtimeLogValidator.Contains($expected)) {
+        Fail "Environment runtime ERROR gate is missing expected marker: $expected"
+    }
+}
+Pass "Automated four-biome vegetation runtime harness and mod-origin ERROR gate are present"
+
 
 $steamapps = [System.IO.Path]::GetFullPath((Join-Path $RimWorldDir "..\.."))
 $quickstartsRoot = Join-Path $steamapps "workshop\content\294100\3793646067"
