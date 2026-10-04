@@ -531,6 +531,11 @@ The current four-biome automated runtime gate passed in full after the optional-
 
 Cold-tolerance compatibility for AMJE-owned plants is owned by **AMJE**, not by the CCTO repository.
 
+Product/balance positioning:
+- **AMJE standalone** must be a complete and enjoyable "medieval Japan-like environment" mod for players who want the geography, climate, terrain, biomes and vegetation without adopting CCTO's stricter crop/plant cold simulation;
+- **AMJE + CCTO** is the higher-realism configuration. CCTO adds species-specific minimum-growth temperatures plus cold death/dormancy behavior, making seasonal and regional plant survival more demanding;
+- CCTO is therefore an optional realism layer, not a missing piece required to make AMJE function.
+
 Dependency direction:
 - AMJE does **not** require CCTO;
 - CCTO does **not** need to know that AMJE exists;
