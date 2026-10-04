@@ -93,6 +93,7 @@ Accepted ENV-010 production treatment:
 - keep the hue relationships from the accepted comparison, but lower foliage saturation by roughly one visual step so the tree sits naturally against RimWorld's brown/grey terrain and existing muted vegetation;
 - especially suppress the brightest yellow-green highlights and the orange saturation of the trunk while preserving value contrast;
 - do not reduce contrast by thinning the outline or flattening all shading; simplification comes from larger shape masses and fewer color steps.
+- **Accepted in-game on 2026-10-04:** the final 256x256 Sudajii sprite is approved for production after WarmTemperate visual review; scale, silhouette, muted palette, thick outline, transparent base, and removal of the green ground ring are all accepted.
 
 Avoid:
 - European oak silhouette;
