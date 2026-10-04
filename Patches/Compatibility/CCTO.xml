@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <!--
+    AMJ Environment owns compatibility for its own plants.
+    Without CCTO the PlantDefs keep their explicit Vanilla-style 0 C minimum
+    growth temperature. When CCTO is active, only these AMJE-owned plants are
+    upgraded to CCTO's separated growth/cold-response model.
+  -->
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <!-- Sudajii / warm-temperate evergreen broadleaf -->
+      <li Class="PatchOperationReplace" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Tree_Shii"]/plant/minGrowthTemperature</xpath>
+        <value>
+          <minGrowthTemperature>8</minGrowthTemperature>
+        </value>
+      </li>
+      <li Class="PatchOperationAddModExtension" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Tree_Shii"]</xpath>
+        <value>
+          <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+            <coldDeathTemperature>-8</coldDeathTemperature>
+          </li>
+        </value>
+      </li>
+
+      <!-- Japanese beech / cool-temperate deciduous broadleaf -->
+      <li Class="PatchOperationReplace" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Tree_Beech"]/plant/minGrowthTemperature</xpath>
+        <value>
+          <minGrowthTemperature>5</minGrowthTemperature>
+        </value>
+      </li>
+      <li Class="PatchOperationAddModExtension" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Tree_Beech"]</xpath>
+        <value>
+          <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+            <coldDormancy>true</coldDormancy>
+          </li>
+        </value>
+      </li>
+
+      <!-- Shirabiso fir / subalpine evergreen conifer -->
+      <li Class="PatchOperationReplace" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Tree_Shirabiso"]/plant/minGrowthTemperature</xpath>
+        <value>
+          <minGrowthTemperature>0</minGrowthTemperature>
+        </value>
+      </li>
+      <li Class="PatchOperationAddModExtension" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Tree_Shirabiso"]</xpath>
+        <value>
+          <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+            <coldDeathTemperature>-35</coldDeathTemperature>
+          </li>
+        </value>
+      </li>
+
+      <!-- Haimatsu dwarf pine / alpine evergreen scrub -->
+      <li Class="PatchOperationReplace" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Shrub_Haimatsu"]/plant/minGrowthTemperature</xpath>
+        <value>
+          <minGrowthTemperature>0</minGrowthTemperature>
+        </value>
+      </li>
+      <li Class="PatchOperationAddModExtension" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Shrub_Haimatsu"]</xpath>
+        <value>
+          <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+            <coldDeathTemperature>-35</coldDeathTemperature>
+          </li>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+</Patch>
