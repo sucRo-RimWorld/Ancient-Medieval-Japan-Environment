@@ -227,7 +227,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     {
                         return GetAnimalCommonality(
                             biome,
-                            animalDefName) < 0f;
+                            animalDefName) <= 0f;
                     });
             }
 
@@ -302,8 +302,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             BiomeDef biome,
             string animalDefName)
         {
-            if (biome == null ||
-                biome.wildAnimals == null)
+            if (biome == null)
             {
                 return -1f;
             }
@@ -317,18 +316,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 return -1f;
             }
 
-            for (int i = 0; i < biome.wildAnimals.Count; i++)
-            {
-                AnimalCommonalityRecord record =
-                    biome.wildAnimals[i];
-                if (record != null &&
-                    record.animal == pawnKind)
-                {
-                    return record.commonality;
-                }
-            }
-
-            return -1f;
+            return biome.CommonalityOfAnimal(pawnKind);
         }
 
         private static void AddSeasonalSceneryAssertions(
