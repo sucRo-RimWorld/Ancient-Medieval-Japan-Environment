@@ -6,6 +6,7 @@
 $ErrorActionPreference = "Stop"
 
 $RepoRoot = Split-Path -Parent $PSScriptRoot
+. (Join-Path $PSScriptRoot 'PngImageData.ps1')
 $CoreDefs = Join-Path $RimWorldDir "Data\Core\Defs"
 $RiverDefsPath = Join-Path $CoreDefs "RiverDefs\RiverDefs.xml"
 $WorldGeneratorPath = Join-Path $CoreDefs "WorldGeneration\WorldGenerator.xml"
@@ -109,7 +110,10 @@ function Test-PngStructure([string]$Path) {
         $offset = $chunkEnd
     }
 
-    return $sawIend
+    if (-not $sawIend) { return $false }
+    try { [AMJPngImageData]::Validate($bytes) }
+    catch { return $false }
+    return $true
 }
 
 if (-not (Test-Path $RiverDefsPath)) {

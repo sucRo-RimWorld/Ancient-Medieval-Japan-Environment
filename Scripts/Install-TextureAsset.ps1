@@ -19,6 +19,7 @@
 
 $ErrorActionPreference = "Stop"
 $RepoRoot = Split-Path -Parent $PSScriptRoot
+. (Join-Path $PSScriptRoot 'PngImageData.ps1')
 
 function Fail([string]$Message) {
     Write-Host "[ERROR] $Message" -ForegroundColor Red
@@ -177,6 +178,7 @@ function Get-PngAssetInfo(
         throw "PNG does not contain an alpha channel or tRNS transparency: $Path"
     }
 
+    [AMJPngImageData]::Validate($bytes)
     $hash = (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash
 
     return [pscustomobject]@{

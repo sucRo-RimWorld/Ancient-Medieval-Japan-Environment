@@ -6,10 +6,13 @@ on:
       - '**/*.ps1'
       - 'run-tests.bat'
       - 'run-texture-debug.bat'
+      - 'Textures/**/*.png'
+      - 'Tests/*.ps1'
       - '.github/workflows/powershell-syntax.yml'
   pull_request:
     paths:
       - '**/*.ps1'
+      - 'Textures/**/*.png'
       - 'run-tests.bat'
       - '.github/workflows/powershell-syntax.yml'
 
@@ -25,8 +28,42 @@ jobs:
         shell: pwsh
         run: ./Scripts/Validate-PowerShellSyntax.ps1
 
+      - name: Validate decoded production PNGs and corruption regression
+        shell: pwsh
+        run: ./Tests/Test-PngImageData.ps1
+
       - name: Smoke texture Golden Path exact-copy helper
         shell: pwsh
+        run: |
+          ./Scripts/Install-TextureAsset.ps1 `
+            -SourcePath ./Textures/Things/Plant/AMJ/Shii/Shii_A.png `
+            -DestinationRelativePath TestResults/GoldenPath/Shii_A.png `
+            -Force
+
+          $sourceHash = (Get-FileHash ./Textures/Things/Plant/AMJ/Shii/Shii_A.png -Algorithm SHA256).Hash
+          $copyHash = (Get-FileHash ./TestResults/GoldenPath/Shii_A.png -Algorithm SHA256).Hash
+
+          if ($sourceHash -ne $copyHash) {
+            throw "Golden Path smoke hash mismatch: source=$sourceHash copy=$copyHash"
+          }
+
+  windows-powershell:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run repository PowerShell syntax preflight
+        shell: powershell
+        run: ./Scripts/Validate-PowerShellSyntax.ps1
+
+      - name: Validate decoded production PNGs and corruption regression
+        shell: powershell
+        run: ./Tests/Test-PngImageData.ps1
+
+      - name: Smoke texture Golden Path exact-copy helper
+        shell: powershell
         run: |
           ./Scripts/Install-TextureAsset.ps1 `
             -SourcePath ./Textures/Things/Plant/AMJ/Shii/Shii_A.png `
