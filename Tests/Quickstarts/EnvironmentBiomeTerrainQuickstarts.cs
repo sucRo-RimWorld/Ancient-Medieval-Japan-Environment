@@ -1,4 +1,5 @@
 using System;
+using HarmonyLib;
 using RimWorks.Quickstarts;
 using RimWorks.Quickstarts.Verification;
 using RimWorld;
@@ -12,7 +13,91 @@ namespace AncientMedievalJapan.Environment.Quicktests
     {
         static QuicktestAssemblyBootstrap()
         {
-            Log.Message("[AMJ Environment Quicktest] Developer quicktest assembly loaded.");
+            new Harmony(
+                "sucro.ancientmedievaljapan.environment.quicktests")
+                .PatchAll(typeof(QuicktestAssemblyBootstrap).Assembly);
+
+            Log.Message(
+                "[AMJ Environment Quicktest] Developer quicktest assembly loaded.");
+        }
+    }
+
+    [HarmonyPatch(typeof(MapDrawLayer), "GetSubMesh")]
+    public static class BadRenderMaterialDiagnostics
+    {
+        public static int BadMaterialUseCount;
+
+        [HarmonyPrefix]
+        public static void Prefix(
+            MapDrawLayer __instance,
+            UnityEngine.Material material)
+        {
+            if (string.IsNullOrEmpty(
+                Environment.GetEnvironmentVariable("RIMWORLD_QUICKSTART")))
+            {
+                return;
+            }
+
+            if (!IsBadRenderMaterial(material))
+            {
+                return;
+            }
+
+            BadMaterialUseCount++;
+
+            string layer =
+                __instance == null
+                    ? "<null>"
+                    : __instance.GetType().FullName;
+            string materialName =
+                material == null
+                    ? "<null>"
+                    : material.name;
+            string textureName =
+                material == null || material.mainTexture == null
+                    ? "<null>"
+                    : material.mainTexture.name;
+
+            int key =
+                0x4A4D4500 ^
+                (layer == null ? 0 : layer.GetHashCode());
+
+            Log.ErrorOnce(
+                "[AMJ Environment BadRenderMaterial]" +
+                " layer=" + layer +
+                " material=" + materialName +
+                " texture=" + textureName,
+                key);
+        }
+
+        private static bool IsBadRenderMaterial(
+            UnityEngine.Material material)
+        {
+            if (material == null)
+            {
+                return false;
+            }
+
+            if (material == BaseContent.BadMat)
+            {
+                return true;
+            }
+
+            if (material.mainTexture == null)
+            {
+                return false;
+            }
+
+            UnityEngine.Texture texture = material.mainTexture;
+            return texture == BaseContent.BadTex ||
+                string.Equals(
+                    texture.name,
+                    "ERRORTEX",
+                    StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(
+                    texture.name,
+                    "BadTex",
+                    StringComparison.OrdinalIgnoreCase);
         }
     }
 
@@ -124,6 +209,13 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     return map != null &&
                         map.Biome != null &&
                         map.Biome.defName == TargetBiomeDefName;
+                });
+
+            verification.Assert(
+                "map render pipeline emitted no BadTex submesh materials",
+                delegate
+                {
+                    return BadRenderMaterialDiagnostics.BadMaterialUseCount == 0;
                 });
 
             AddWeatherAssertions(verification, map == null ? null : map.Biome);
