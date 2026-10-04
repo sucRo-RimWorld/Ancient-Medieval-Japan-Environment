@@ -11,6 +11,8 @@ set "TEST_SAVEDATA=%RESULT_ROOT%\SaveData"
 set "REPORT_DIR=%RESULT_ROOT%\Reports"
 set "CCTO_SAVEDATA=%RESULT_ROOT%\SaveData-CCTO"
 set "CCTO_REPORT_DIR=%RESULT_ROOT%\Reports-CCTO"
+set "MO_SAVEDATA=%RESULT_ROOT%\SaveData-MO"
+set "MO_REPORT_DIR=%RESULT_ROOT%\Reports-MO"
 set "QUICKTEST_DLL=%ROOT%DevQuickstarts\Assemblies\AncientMedievalJapanEnvironment.Quicktests.dll"
 
 call "%ROOT%run-tests.bat" "%RIMWORLD_DIR%"
@@ -90,6 +92,42 @@ if defined CCTO_INSTALLED (
     echo [INFO] CCTO is not installed locally; skipping optional AMJE + CCTO runtime compatibility check.
 )
 
+set "MO_READY="
+if exist "%RIMWORLD_DIR%\..\..\workshop\content\294100\3219596926\About\About.xml" (
+    if exist "%RIMWORLD_DIR%\..\..\workshop\content\294100\2023507013\About\About.xml" (
+        if exist "%RIMWORLD_DIR%\..\..\workshop\content\294100\3210544395\About\About.xml" (
+            set "MO_READY=1"
+        )
+    )
+)
+
+if defined MO_READY (
+    echo.
+    echo Preparing isolated AMJE + Medieval Overhaul tree-texture audit profile...
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1" ^
+        -OutputRoot "%MO_SAVEDATA%" ^
+        -IncludeMedievalOverhaul
+    if errorlevel 1 (
+        set "RESULT=2"
+        goto :report
+    )
+
+    echo.
+    echo Running focused AMJE + Medieval Overhaul tree graphic-state audit...
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-EnvironmentVegetationQuickstarts.ps1" ^
+        -ExePath "%RIMWORLD_EXE%" ^
+        -SaveDataFolder "%MO_SAVEDATA%" ^
+        -ResultDir "%MO_REPORT_DIR%" ^
+        -TimeoutSeconds 180 ^
+        -TreeTextureAuditOnly
+
+    set "RESULT=!ERRORLEVEL!"
+) else (
+    echo.
+    echo [INFO] Medieval Overhaul or one of its required framework mods is not installed in the expected Workshop paths.
+    echo        Skipping optional AMJE + Medieval Overhaul tree-texture audit.
+)
+
 :report
 echo.
 if "%RESULT%"=="0" (
@@ -105,5 +143,9 @@ echo   %REPORT_DIR%
 if defined CCTO_INSTALLED (
     echo CCTO compatibility reports:
     echo   %CCTO_REPORT_DIR%
+)
+if defined MO_READY (
+    echo Medieval Overhaul tree-texture audit reports:
+    echo   %MO_REPORT_DIR%
 )
 exit /b %RESULT%
