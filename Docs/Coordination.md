@@ -724,5 +724,7 @@ Corrective binary transfer:
 - leafless source was transferred the same way; current Git blob SHA `c9fdc9b87e6b559ab2a2ff9788b6d015593b8406`;
 - corrective commit: `b7027fc930d77a9b079ace5b5f9d663ade2f236c`.
 
-**Next action:** pull and rerun `run-tests.bat`. The PNG structure gate should now pass for both beech assets. If static validation passes, continue with the focused WarmTemperate in-game check before drafting the Japanese historical description.
+The author reran `run-tests.bat` after the corrected binary transfer and confirmed it passes. Static PNG structure, Def path, and placeholder-regression validation are therefore clean for both Japanese beech states.
+
+**Next action:** run the focused WarmTemperate texture-debug profile and inspect the leafy Japanese beech in game for scale, silhouette, outline weight, palette, and UI icon. If the leafy state is accepted, check the leafless seasonal state next; only after both are visually accepted should the Japanese historical description be drafted for author review.
 
