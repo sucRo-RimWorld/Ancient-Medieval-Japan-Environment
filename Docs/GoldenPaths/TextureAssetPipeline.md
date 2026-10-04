@@ -8,6 +8,10 @@ It exists because the Sudajii and Japanese beech work demonstrated that a visual
 
 The rule is therefore: **do not improvise a new transfer/install path for each texture. Reuse this pipeline.**
 
+## Generation prerequisite
+
+For tree/plant sprites, begin with [RetextureGeneration.md](RetextureGeneration.md). It preserves the current visual rules and actually viewed/attached reference images across chat changes, and requires an approved target design before generation. This document begins at the subsequent production-source approval/install stage.
+
 ## Golden Path
 
 ### 1. Approve the source image before touching the Def

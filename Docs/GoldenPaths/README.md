@@ -23,3 +23,5 @@ A one-off trivial text edit with no reusable procedure can be marked N/A. A work
 ## Current Golden Paths
 
 - [Texture Asset Golden Path](TextureAssetPipeline.md) — production PNG validation/install, Def-switch order, automated gate, and correct-biome runtime review for ENV-010 art.
+
+- [Retexture Generation / New-Chat Start Procedure](RetextureGeneration.md) — required generation preflight, actual approved references, proposal/approval sequence, shared prompt, and candidate review before the production texture pipeline.

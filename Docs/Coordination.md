@@ -24,6 +24,14 @@ Primary design source:
 - **DONE** — completed and reflected in the proper source of truth
 - **ARCHIVED** — retained for history only
 
+## Active tree-art handoff
+
+- **Current stage:** focused beech appearance accepted; no new Shirabiso image generated.
+- **Next target:** Shirabiso, then Haimatsu.
+- **Approval state:** Shirabiso composition/design proposal was presented but has not yet been approved. The author's latest request is to preserve generation rules across new chats; do not treat that request as image approval.
+- **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`, with canonical visual rules in `Docs/ArtDirection.md` and production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
+- **Reference state:** accepted production Sudajii / leafy beech / leafless beech paths are listed in the generation procedure. Fetch and view the actual PNGs before generation.
+
 ## Current coordination items
 
 ### ENV-001 — Initial Japan-style world generation
@@ -828,3 +836,14 @@ After the repaired leafy-beech PNG and decoded-image regression gate were merged
 This confirmation does not supply a new automated runtime report or separately describe forced leafless/seasonal-switch coverage. Preserve that distinction; do not fabricate a runtime suite PASS from the visual confirmation. The accepted assets and existing exact-byte/decoded-image regression guards remain unchanged.
 
 **Next action:** prepare the Shirabiso source-art proposal using the tall-conifer category and accepted Sudajii/beech style baselines. Proposed structure: a compact upright conifer with broad, irregular layered needle masses, limited muted grey/blue-green color steps, subtle gradients, a visible short grey-brown trunk, thick dark outline, transparent background and no ground base/snow. Present the proposal before generation; this is not yet an author-approved new asset or a Def-path change. Haimatsu follows Shirabiso.
+
+
+### ENV-010 new-chat generation continuity (2026-10-05 JST)
+
+**Requested by:** author, before Shirabiso generation  
+**Owner:** Environment/art + documentation  
+**Status:** DONE (repository instructions / reusable generation entry)
+
+The generation entry is now `Docs/GoldenPaths/RetextureGeneration.md`, required from AGENTS and linked from ArtDirection, the Golden Path index and TextureAssetPipeline. It carries current-source reading, actual reference viewing/attachment, precise approval-stage recovery, proposal-before-generation, the complete shared prompt and candidate review into every new/resumed tree-art task. Visual specifications remain owned by ArtDirection; current progress remains only on main Coordination.
+
+No image was generated and no production asset or Def was changed for this request. Shirabiso's previously presented design remains awaiting author approval. The top Active tree-art handoff is the current restart position. Existing beech/Sudajii visual results and PNG regression gates are preserved.

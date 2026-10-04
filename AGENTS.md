@@ -7,6 +7,7 @@ Before starting work in this repository:
 1. Read this file.
 2. Read the authoritative coordination log at `main:Docs/Coordination.md`.
 3. Check for OPEN / IN PROGRESS items owned by the current workstream before starting new work.
+4. For plant/tree image-generation or retexture work, enter through `Docs/GoldenPaths/RetextureGeneration.md` before any generation call. Read its current main version, load and actually view the accepted reference PNGs, and carry its complete shared prompt into the generator.
 
 ## Cross-chat / cross-agent coordination
 
@@ -120,3 +121,7 @@ Do not design each asset from scratch. Reuse the shared AMJE baseline for:
 - normal-game-zoom readability over fine detail.
 
 Use accepted Sudajii and Japanese beech assets as the current evergreen-broadleaf and deciduous-broadleaf reference baselines. Production transfer/integration must separately follow `Docs/GoldenPaths/TextureAssetPipeline.md`.
+
+## New-chat image-generation continuity
+
+For every new chat or resumed tree/plant art task, follow `Docs/GoldenPaths/RetextureGeneration.md`. Read the shared and species rules, actually view and attach the accepted baseline images, recover the precise approval stage from main Coordination, and present the species composition/design before generation unless that exact proposal already has author approval. Preserve the full baseline prompt when adding species-specific details; do not regenerate the style from memory. Rule-saving/new-chat requests do not approve a pending image proposal. Record durable approvals in ArtDirection and current progress in main Coordination before handoff.
