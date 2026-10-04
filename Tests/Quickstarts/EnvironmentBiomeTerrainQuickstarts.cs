@@ -202,7 +202,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
         private static bool CctoIsActive()
         {
-            return LoadedModManager.GetActiveModWithIdentifier(
+            return ModLister.GetActiveModWithIdentifier(
                 "sucro.cropcoldtoleranceoverhaul",
                 true) != null;
         }
