@@ -76,6 +76,8 @@ Alpha art policy:
 - avoid photographic rendering; target a painted game-sprite look compatible with RimWorld's natural assets;
 - do not bake dynamic snow into plant textures.
 
+Production texture transfer, validation, Def-switch ordering, and focused runtime review must follow `Docs/GoldenPaths/TextureAssetPipeline.md`. Do not invent a per-asset binary-transfer path after the source art is approved.
+
 ### Sudajii
 
 Visual role:
