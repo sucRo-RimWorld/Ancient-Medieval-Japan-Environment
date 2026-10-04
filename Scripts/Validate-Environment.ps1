@@ -330,6 +330,43 @@ foreach ($defName in $expectedBiomeDefs) {
 }
 Pass "AMJ biomes exclude the retired foreign/modern wildlife placeholders"
 
+$expectedWildlife = @{
+    "AMJ_WarmTemperateForest" = @(
+        "Hare", "Squirrel", "Rat", "Deer", "WildBoar",
+        "Fox_Red", "Wolf_Timber", "Bear_Grizzly"
+    )
+    "AMJ_CoolTemperateForest" = @(
+        "Hare", "Squirrel", "Rat", "Deer", "WildBoar",
+        "Fox_Red", "Wolf_Timber", "Bear_Grizzly"
+    )
+    "AMJ_SubalpineForest" = @(
+        "Hare", "Snowhare", "Deer", "WildBoar",
+        "Fox_Red", "Wolf_Timber", "Bear_Grizzly"
+    )
+    "AMJ_AlpineZone" = @(
+        "Hare", "Snowhare", "Deer", "Fox_Red", "Wolf_Timber"
+    )
+}
+
+foreach ($defName in $expectedBiomeDefs) {
+    $biome = $biomeDefs.Defs.BiomeDef | Where-Object { $_.defName -eq $defName }
+    foreach ($animalDefName in $expectedWildlife[$defName]) {
+        $node = $biome.wildAnimals.($animalDefName)
+        if ($null -eq $node) {
+            Fail "$defName is missing accepted Vanilla wildlife proxy: $animalDefName"
+        }
+
+        $commonality = [double]::Parse(
+            $node.InnerText,
+            [System.Globalization.CultureInfo]::InvariantCulture)
+        if ($commonality -le 0) {
+            Fail "$defName wildlife proxy must have positive commonality: $animalDefName"
+        }
+    }
+}
+Pass "AMJ biomes keep the accepted Vanilla wildlife proxy pools"
+
+
 
 $wildPlantsPath = Join-Path $RepoRoot "Defs\ThingDefs_Plants\AMJ_WildPlants.xml"
 if (-not (Test-Path $wildPlantsPath)) {
@@ -628,6 +665,10 @@ foreach ($expected in @(
     'ExpectedWeatherCommonality',
     '"[AMJ Environment Weather] biome="',
     'AddSeasonalSceneryAssertions',
+    'AddWildlifeAssertions',
+    'ExpectedWildlifeForBiome',
+    'excludes wildlife placeholder',
+    'keeps wildlife proxy',
     'Japanese beech has a loaded leafless graphic',
     '_FallBehaviorEnabled',
     'Vanilla snow weather remains available for seasonal scenery',
