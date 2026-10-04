@@ -256,6 +256,8 @@ Implementation:
 - isolated optional-CCTO profile support: `d69428bb7bfe2ae9952d9b4920fb265abdb030e4`;
 - focused compatibility runtime mode: `a7bbae4f6c3bad52fa6c1e63b9ff0ff6b540bed6`;
 - one-command optional CCTO sub-gate: `81ba86a3cf7917fb663084ae2f151eae60d7a61e`;
+- standalone loaded-Def isolation assertions: `574077b196d26c50922ae9fc56cac641e2400eb8`;
+- optional-sub-gate exit-code handling: `43ecf5f52666bb3641fc1ddc581b50450199742e`;
 - static validator: `719a91373d4b38a105c3ec7582ca588301b92ccd`;
 - design source of truth: `cbf246511026b45ee687c402b8a7d75510623522`;
 - development tooling docs: `8ea3386080de63218e23021d2fa4f20cbc65dda3`.
