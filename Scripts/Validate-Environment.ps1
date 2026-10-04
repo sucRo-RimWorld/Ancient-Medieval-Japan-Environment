@@ -432,6 +432,20 @@ foreach ($expected in @(
 }
 Pass "AMJ seasonal plant profiles preserve one deciduous representative and three evergreen structural plants"
 
+$shiiTexturePath = Join-Path $RepoRoot "Textures\Things\Plant\AMJ\Shii\Shii_A.png"
+if (-not (Test-Path -LiteralPath $shiiTexturePath)) {
+    Fail "Final Sudajii texture is missing: Textures/Things/Plant/AMJ/Shii/Shii_A.png"
+}
+if (-not $wildPlantRaw.Contains('<texPath>Things/Plant/AMJ/Shii</texPath>')) {
+    Fail "AMJ_Tree_Shii does not point to the final AMJE Sudajii texture folder."
+}
+if ($wildPlantRaw.Contains('<defName>AMJ_Tree_Shii</defName>') -and
+    $wildPlantRaw.Contains('<texPath>Things/Plant/TreeOak</texPath>')) {
+    Fail "AMJ_Tree_Shii still references the Vanilla TreeOak placeholder."
+}
+Pass "Final Sudajii texture exists and AMJ_Tree_Shii uses the AMJE-owned path"
+
+
 
 
 $cctoPatchPath = Join-Path $RepoRoot "Patches\Compatibility\CCTO.xml"
