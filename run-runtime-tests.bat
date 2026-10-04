@@ -87,6 +87,7 @@ if defined CCTO_INSTALLED (
         -CctoCompatibilityOnly
 
     set "RESULT=!ERRORLEVEL!"
+    if not "!RESULT!"=="0" goto :report
 ) else (
     echo.
     echo [INFO] CCTO is not installed locally; skipping optional AMJE + CCTO runtime compatibility check.
