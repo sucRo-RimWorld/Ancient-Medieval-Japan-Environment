@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    Japan-specific structural vegetation for the four AMJ climate-band biomes.
+    Alpha uses Vanilla graphics as temporary placeholders; final plant artwork is deferred.
+    These Defs intentionally add no new harvested item types.
+  -->
+
+  <ThingDef ParentName="TreeBase">
+    <defName>AMJ_Tree_Shii</defName>
+    <label>shii tree</label>
+    <description>An evergreen broadleaf tree characteristic of Japan-like warm-temperate forests. It forms dense, dark canopies and yields sturdy hardwood.</description>
+    <graphicData>
+      <texPath>Things/Plant/TreeOak</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <shadowData>
+        <volume>(0.2, 0.35, 0.13)</volume>
+        <offset>(-0.03,0,-0.44)</offset>
+      </shadowData>
+    </graphicData>
+    <statBases>
+      <Beauty>2</Beauty>
+    </statBases>
+    <plant>
+      <growDays>30</growDays>
+      <harvestWork>1000</harvestWork>
+      <harvestYield>42</harvestYield>
+      <wildClusterWeight>36</wildClusterWeight>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="DeciduousTreeBase">
+    <defName>AMJ_Tree_Beech</defName>
+    <label>Japanese beech</label>
+    <description>A large deciduous broadleaf tree characteristic of Japan-like cool-temperate forests and mountain slopes.</description>
+    <graphicData>
+      <texPath>Things/Plant/TreeMaple</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <shadowData>
+        <volume>(0.16, 0.33, 0.12)</volume>
+        <offset>(0,0,-0.44)</offset>
+      </shadowData>
+    </graphicData>
+    <statBases>
+      <Beauty>2</Beauty>
+    </statBases>
+    <plant>
+      <growDays>30</growDays>
+      <leaflessGraphicPath>Things/Plant/TreeMaple_Leafless</leaflessGraphicPath>
+      <harvestWork>950</harvestWork>
+      <harvestYield>40</harvestYield>
+      <wildClusterWeight>38</wildClusterWeight>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="TreeBase">
+    <defName>AMJ_Tree_Shirabiso</defName>
+    <label>shiraso fir</label>
+    <description>A cold-tolerant evergreen fir characteristic of Japan-like subalpine conifer forests.</description>
+    <graphicData>
+      <texPath>Things/Plant/TreePine</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <shadowData>
+        <volume>(0.15, 0.3, 0.15)</volume>
+        <offset>(0,0,-0.38)</offset>
+      </shadowData>
+    </graphicData>
+    <statBases>
+      <Beauty>2</Beauty>
+      <Nutrition>1.25</Nutrition>
+    </statBases>
+    <ingestible />
+    <plant>
+      <growDays>28</growDays>
+      <visualSizeRange>
+        <min>1.25</min>
+        <max>2.7</max>
+      </visualSizeRange>
+      <harvestWork>850</harvestWork>
+      <harvestYield>30</harvestYield>
+      <wildClusterWeight>34</wildClusterWeight>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="BushBase">
+    <defName>AMJ_Shrub_Haimatsu</defName>
+    <label>haimatsu dwarf pine</label>
+    <description>A low, creeping evergreen pine that forms dense thickets above the forest line in Japan-like alpine terrain.</description>
+    <graphicData>
+      <texPath>Things/Plant/TreePine</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <drawSize>0.65</drawSize>
+      <shadowData>
+        <volume>(0.20, 0.12, 0.12)</volume>
+        <offset>(0,0,-0.10)</offset>
+      </shadowData>
+    </graphicData>
+    <fillPercent>0.18</fillPercent>
+    <pathCost>22</pathCost>
+    <plant>
+      <fertilityMin>0.05</fertilityMin>
+      <fertilitySensitivity>0.20</fertilitySensitivity>
+      <growDays>18</growDays>
+      <wildClusterRadius>7</wildClusterRadius>
+      <wildClusterWeight>28</wildClusterWeight>
+      <visualSizeRange>
+        <min>0.45</min>
+        <max>0.75</max>
+      </visualSizeRange>
+      <topWindExposure>0.18</topWindExposure>
+    </plant>
+  </ThingDef>
+</Defs>
