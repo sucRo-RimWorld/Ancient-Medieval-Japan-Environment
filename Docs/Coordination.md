@@ -815,3 +815,16 @@ Reusable prevention is implemented in `Scripts/PngImageData.ps1`, called by both
 **Result / references:** PR #4 squash-merged after the successful checks; implementation/PNG/Golden Path commit `1a24e11755c24c2109b7ceebd9628601c62f1f12`. Durable procedure is in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 
 **Next action:** pull main and run `run-texture-debug.bat "D:\\SteamLibrary\\steamapps\\common\\RimWorld" CoolTemperate` for leafy/leafless beech appearance and seasonal continuity. This environment did not contain RimWorld, so no new runtime/build or in-game visual PASS is claimed. After author acceptance, lock the ArtDirection visual result and continue to Shirabiso, then Haimatsu using the existing Golden Path.
+
+
+### ENV-010 Japanese beech focused appearance accepted (2026-10-05 JST)
+
+**Requested by:** author confirmation after focused texture debug  
+**Owner:** Environment/art  
+**Status:** DONE (reported focused appearance review)
+
+After the repaired leafy-beech PNG and decoded-image regression gate were merged in `1a24e11755c24c2109b7ceebd9628601c62f1f12`, the author replied `問題なし` to the CoolTemperate focused-debug check. Record this as acceptance of the current in-game beech appearance. Canonical acceptance is reflected in `Docs/ArtDirection.md`.
+
+This confirmation does not supply a new automated runtime report or separately describe forced leafless/seasonal-switch coverage. Preserve that distinction; do not fabricate a runtime suite PASS from the visual confirmation. The accepted assets and existing exact-byte/decoded-image regression guards remain unchanged.
+
+**Next action:** prepare the Shirabiso source-art proposal using the tall-conifer category and accepted Sudajii/beech style baselines. Proposed structure: a compact upright conifer with broad, irregular layered needle masses, limited muted grey/blue-green color steps, subtle gradients, a visible short grey-brown trunk, thick dark outline, transparent background and no ground base/snow. Present the proposal before generation; this is not yet an author-approved new asset or a Def-path change. Haimatsu follows Shirabiso.

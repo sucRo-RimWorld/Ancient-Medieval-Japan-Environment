@@ -247,7 +247,8 @@ Accepted source-art direction:
 - low-saturation yellow-green/olive foliage, lighter than Sudajii;
 - thick near-black outline and simplified AMJ crop/Sudajii visual weight remain shared;
 - no baked ground/grass base;
-- leafy source sprite approved by the author on 2026-10-04 and integrated at `Textures/Things/Plant/AMJ/Beech/Beech_A.png`; in-game scale/readability still requires focused validation.
+- leafy source sprite approved by the author on 2026-10-04 and integrated at `Textures/Things/Plant/AMJ/Beech/Beech_A.png`;
+- **Focused in-game review accepted on 2026-10-05:** after the decoded-PNG repair in `1a24e11755c24c2109b7ceebd9628601c62f1f12`, the author reported no issues with the CoolTemperate focused check. The current leafy beech is accepted for production appearance. The report did not separately identify a forced leafless/seasonal-switch check; keep that specific coverage distinct from the confirmed focused appearance review.
 
 ### Japanese beech — leafless
 
