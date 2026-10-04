@@ -4,18 +4,18 @@ setlocal EnableExtensions
 set "RIMWORLD_DIR=%~1"
 if not defined RIMWORLD_DIR set "RIMWORLD_DIR=D:\SteamLibrary\steamapps\common\RimWorld"
 
-set "BIOME=%~2"
-if not defined BIOME set "BIOME=CoolTemperate"
+set "TEXTURE_TARGET=%~2"
+if not defined TEXTURE_TARGET set "TEXTURE_TARGET=Cool"
 
-set "TEXTURE_DEBUG_TARGET="
-if /I "%BIOME%"=="WarmTemperate" set "TEXTURE_DEBUG_TARGET=AMJWarmTemperateTerrainQuickstart"
-if /I "%BIOME%"=="CoolTemperate" set "TEXTURE_DEBUG_TARGET=AMJCoolTemperateTerrainQuickstart"
-if /I "%BIOME%"=="Subalpine" set "TEXTURE_DEBUG_TARGET=AMJSubalpineTerrainQuickstart"
-if /I "%BIOME%"=="Alpine" set "TEXTURE_DEBUG_TARGET=AMJAlpineTerrainQuickstart"
+set "TEXTURE_QUICKSTART="
+if /I "%TEXTURE_TARGET%"=="Warm" set "TEXTURE_QUICKSTART=AMJWarmTemperateTerrainQuickstart"
+if /I "%TEXTURE_TARGET%"=="Cool" set "TEXTURE_QUICKSTART=AMJCoolTemperateTerrainQuickstart"
+if /I "%TEXTURE_TARGET%"=="Subalpine" set "TEXTURE_QUICKSTART=AMJSubalpineTerrainQuickstart"
+if /I "%TEXTURE_TARGET%"=="Alpine" set "TEXTURE_QUICKSTART=AMJAlpineTerrainQuickstart"
 
-if not defined TEXTURE_DEBUG_TARGET (
-    echo [ERROR] Unknown texture-debug biome selector: %BIOME%
-    echo         Expected one of: WarmTemperate, CoolTemperate, Subalpine, Alpine
+if not defined TEXTURE_QUICKSTART (
+    echo [ERROR] Unknown texture-debug biome alias: %TEXTURE_TARGET%
+    echo         Expected one of: Warm, Cool, Subalpine, Alpine
     exit /b 2
 )
 
@@ -23,7 +23,7 @@ set "ROOT=%~dp0"
 set "RIMWORLD_EXE=%RIMWORLD_DIR%\RimWorldWin64.exe"
 set "RESULT_ROOT=%ROOT%TestResults\TextureDebug"
 set "TEST_SAVEDATA=%RESULT_ROOT%\SaveData"
-set "LOG=%RESULT_ROOT%\%TEXTURE_DEBUG_TARGET%.log"
+set "LOG=%RESULT_ROOT%\%TEXTURE_QUICKSTART%.log"
 set "QUICKTEST_DLL=%ROOT%DevQuickstarts\Assemblies\AncientMedievalJapanEnvironment.Quicktests.dll"
 
 call "%ROOT%run-tests.bat" "%RIMWORLD_DIR%"
@@ -54,23 +54,22 @@ if errorlevel 1 exit /b 2
 
 echo.
 echo ============================================================
-echo Running focused %BIOME% texture-debug Quickstart
+echo Running focused %TEXTURE_TARGET% texture-debug Quickstart
 echo ============================================================
-echo Target: %TEXTURE_DEBUG_TARGET%
+echo Quickstart: %TEXTURE_QUICKSTART%
 echo This mode intentionally omits Quickstarts verification/report flags.
 echo RimWorld will stay open until you close it manually.
 echo The isolated profile has Dev Mode enabled.
-echo Use the biome where the target plant naturally occurs.
 echo Log:
 echo   %LOG%
 echo.
 
-set "RIMWORLD_QUICKSTART=%TEXTURE_DEBUG_TARGET%"
+set "RIMWORLD_QUICKSTART=%TEXTURE_QUICKSTART%"
 
 "%RIMWORLD_EXE%" ^
     -savedatafolder="%TEST_SAVEDATA%" ^
     -logFile "%LOG%" ^
-    -quickstart=%TEXTURE_DEBUG_TARGET%
+    -quickstart=%TEXTURE_QUICKSTART%
 
 set "RESULT=%ERRORLEVEL%"
 echo.
