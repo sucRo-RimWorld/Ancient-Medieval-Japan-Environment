@@ -511,7 +511,16 @@ Harness correction:
 - realtime tracing now skips `Graphic_Shadow` before probing `MatAt`, and the assertion explicitly refers to non-shadow BadTex materials: `42ee30a048316ecd00dd5f70b59aa1aa892b380c`;
 - static validation locks the Graphic_Shadow false-positive guard in place: `b7692029f3751ac7e1a3c72a5210877fc3508f3c`.
 
-**Next action:** pull/build and rerun the normal runtime gate while confirming the visual question marks still appear. If no genuine pre-atlas or realtime Thing hit appears after the shadow exclusion, the next diagnostic layer should target Fleck-specific rendering and any direct `Graphics.DrawMesh` paths.
+The user confirmed the visible red question marks still appear after excluding the intentional `Graphic_Shadow` sentinel, while the runtime gate passes. The informational line about Medieval Overhaul is expected: this Quickstart profile does not load MO at runtime, and MO tree-path coverage remains static-only. It is not evidence that the visible placeholders come from MO.
+
+Video/frame review shows many roughly pawn/cell-sized red-question-mark placeholders distributed across the generated map. The prior generic `Graphic.Draw` tracer does not cover RimWorld 1.6 pawn bodies: pawn rendering uses `PawnRenderNodeWorker.GetFinalizedMaterial` and the render-tree pipeline directly. This is now the next targeted gap rather than immediately blaming Flecks.
+
+Pawn render-node diagnostic:
+- Quicktests now Harmony-postfix `PawnRenderNodeWorker.GetFinalizedMaterial` and emit `[AMJ Environment PawnRenderBadMaterial]` with pawn def/kind, label, position, node class, primary graphic path, material/texture, and apparel/hediff/gene context if an actual pawn render node resolves BadTex;
+- implementation: `ddbf164838e166098f188ec9c337a51bbfdc81fa`;
+- static validation locks the new pawn-render trace and assertion in place: `b8946fc2408f88ac5c006df791a4b1e593ba659c`.
+
+**Next action:** pull/build and rerun the normal runtime gate while confirming the placeholders still appear. If a pawn/animal body or apparel node is the source, expect `[AMJ Environment PawnRenderBadMaterial] def=... kind=... node=... path=...`. If this remains clean as well, proceed to Fleck-specific `Graphic_Fleck.DrawFleck` / direct `Graphics.DrawMesh` paths.
 
 
 ### ENV-004 — Low-fertility natural terrain
