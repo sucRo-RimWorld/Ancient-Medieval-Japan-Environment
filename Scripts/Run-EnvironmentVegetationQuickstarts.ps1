@@ -8,7 +8,9 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$ResultDir,
 
-    [int]$TimeoutSeconds = 180
+    [int]$TimeoutSeconds = 180,
+
+    [switch]$CctoCompatibilityOnly
 )
 
 $ErrorActionPreference = "Stop"
@@ -24,12 +26,19 @@ if (-not (Test-Path -LiteralPath $ExePath)) {
 
 New-Item -ItemType Directory -Force -Path $ResultDir | Out-Null
 
-$scenarios = @(
-    "AMJWarmTemperateTerrainQuickstart",
-    "AMJCoolTemperateTerrainQuickstart",
-    "AMJSubalpineTerrainQuickstart",
-    "AMJAlpineTerrainQuickstart"
-)
+if ($CctoCompatibilityOnly) {
+    $scenarios = @(
+        "AMJWarmTemperateTerrainQuickstart"
+    )
+}
+else {
+    $scenarios = @(
+        "AMJWarmTemperateTerrainQuickstart",
+        "AMJCoolTemperateTerrainQuickstart",
+        "AMJSubalpineTerrainQuickstart",
+        "AMJAlpineTerrainQuickstart"
+    )
+}
 
 $validator = Join-Path $PSScriptRoot "Validate-EnvironmentRuntimeLog.ps1"
 if (-not (Test-Path -LiteralPath $validator)) {
@@ -119,5 +128,10 @@ foreach ($name in $scenarios) {
 }
 
 Write-Host ""
-Write-Host "[OK] All four Environment vegetation runtime Quickstarts passed." -ForegroundColor Green
+if ($CctoCompatibilityOnly) {
+    Write-Host "[OK] AMJE + CCTO loaded-Def compatibility Quickstart passed." -ForegroundColor Green
+}
+else {
+    Write-Host "[OK] All four Environment vegetation runtime Quickstarts passed." -ForegroundColor Green
+}
 exit 0
