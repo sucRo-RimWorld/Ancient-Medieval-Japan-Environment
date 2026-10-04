@@ -422,9 +422,9 @@ Art policy:
 
 Art direction source of truth: `Docs/ArtDirection.md`; initial direction `6c310e7efb1fb0ae2a03e87cda7d803bffd398a8`, expanded Vanilla/MO retexture scope `d973f30d70235c6060e68fcd8aa574964454c6c5`.
 
-**Current state:** specification complete; binary art assets are not yet added to the repository. Existing Vanilla placeholder paths remain authoritative until each final asset is created and integrated.
+**Current state:** the ENV-010 atlas direction has been visually accepted by the author as the style baseline. The accepted look is smooth/high-resolution rather than pixel-like, simplified/deformed relative to the earliest concept, lower-saturation while preserving the approved hue relationships, and consistent across AMJE/Vanilla/MO vegetation. The composite atlas remains a reference board only; binary production assets are still not yet integrated into the repository.
 
-**Next action:** create/integrate the first final asset, preferably Sudajii, then update only that Def path and verify runtime load/visual scale before moving through the remaining assets.
+**Next action:** produce the first individual production asset, Sudajii, on transparent background using the adopted atlas style. After visual acceptance, add the actual PNG to the mod, switch only `AMJ_Tree_Shii` to the new path, and run the normal missing-texture/runtime-error gate before proceeding to the next asset.
 
 
 ### ENV-004 — Low-fertility natural terrain
