@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <AMJ_Tree_Shii.label>スダジイ</AMJ_Tree_Shii.label>
+  <AMJ_Tree_Shii.description>暖温帯の照葉樹林を代表する常緑広葉樹。密な樹冠をつくり、丈夫な木材を得られる。</AMJ_Tree_Shii.description>
+
+  <AMJ_Tree_Beech.label>ブナ</AMJ_Tree_Beech.label>
+  <AMJ_Tree_Beech.description>冷温帯の山地林を代表する大型の落葉広葉樹。</AMJ_Tree_Beech.description>
+
+  <AMJ_Tree_Shirabiso.label>シラビソ</AMJ_Tree_Shirabiso.label>
+  <AMJ_Tree_Shirabiso.description>亜高山帯の針葉樹林を代表する、寒冷地に適応した常緑針葉樹。</AMJ_Tree_Shirabiso.description>
+
+  <AMJ_Shrub_Haimatsu.label>ハイマツ</AMJ_Shrub_Haimatsu.label>
+  <AMJ_Shrub_Haimatsu.description>森林限界より上の高山帯で、地面を這うように密な群落をつくる常緑の低木性マツ。</AMJ_Shrub_Haimatsu.description>
+</LanguageData>
