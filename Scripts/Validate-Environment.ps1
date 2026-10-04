@@ -261,7 +261,7 @@ if (-not (Test-Path $wildPlantJaPath)) {
     Fail "Japanese localization for AMJ wild plants was not found."
 }
 try {
-    [xml]$wildPlantJa = Get-Content -LiteralPath $wildPlantJaPath -Raw
+    [xml]$wildPlantJa = Get-Content -LiteralPath $wildPlantJaPath -Raw -Encoding UTF8
 }
 catch {
     Fail "Japanese wild-plant localization XML is not well formed: $($_.Exception.Message)"
