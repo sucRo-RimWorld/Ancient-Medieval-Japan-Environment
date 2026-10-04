@@ -159,7 +159,7 @@ Automatic climate-calibration diagnostics are implemented in `ClimateCalibration
 
 **Requested by:** Environment/design  
 **Owner:** Environment/biomes  
-**Status:** DONE
+**Status:** IN PROGRESS
 
 Move from the accepted climate/worldgen baseline into Japan-oriented biome and wild-vegetation structure.
 
@@ -223,9 +223,19 @@ Implementation:
 
 Static validator synchronized with both fixes.
 
-**Final automated runtime result:** PASS. The full one-command vegetation runtime gate completed successfully for WarmTemperate, CoolTemperate, Subalpine, and Alpine after the optional-MO guard and generic synthetic-climate fallback fixes. All Quickstart assertions passed, live log capture was complete, Alpine Haimatsu / full-size timber safety limits passed, and no Environment-origin ERROR entry caused the gate to fail.
+**Runtime report audit correction:** the later exported Quickstarts reports showed that the nominal four-biome PASS was a false positive at the harness level. Every standalone report had `passed=true`, `failed=0`, and all vegetation assertions passed, but also `preLaunchErrors=2`. The corresponding startup log errors were AMJE-owned XML inheritance failures:
 
-**Result:** ENV-003 is complete for the Alpha structural vegetation stage. The accepted composition/commonality values and automated runtime acceptance criteria are recorded in `Docs/Design.md`. Final plant artwork remains deferred to the later visual-art pass; no additional manual placeholder-distribution smoke is required by default.
+- Shirabiso: inherited `visualSizeRange` text `1.5~2.0` was merged with child `<min>1.25</min><max>2.7</max>`;
+- Haimatsu: inherited `visualSizeRange` text `0.7~1.1` was merged with child `<min>0.45</min><max>0.75</max>`.
+
+The structural distribution measurements themselves were otherwise healthy: Warm Shii 3.21%, Cool Beech 3.21%, Subalpine Shirabiso 1.29%, Alpine Haimatsu 0.69%, with Alpine full-size Pine+Birch only 0.02%. These values do not indicate balance retuning.
+
+Fixes:
+- both custom FloatRange overrides now use `Inherit="False"`: `fe6f641d671af41979b36dfc8649d17fb37f4b5e`;
+- the runner now fails when `preLaunchErrors > 0`: `aa6b7098d825f0e7de67803d1f4053ad909d7cbe`;
+- static regression checks cover both fixes: `5a8d195529318b7802c95a02423246c40cb06c57`.
+
+**Result:** ENV-003 is reopened until the four-biome isolated runtime gate is rerun with `preLaunchErrors=0`. Final art remains deferred.
 
 
 ### ENV-005 — Optional CCTO integration for AMJE plants
@@ -265,7 +275,9 @@ Implementation:
 - product/balance positioning (AMJE standalone complete, CCTO optional realism layer): `5a104a8f09ac084fbd61aebedbfe82b02a5ba57e`;
 - development tooling docs: `8ea3386080de63218e23021d2fa4f20cbc65dda3`.
 
-**Verification status:** not yet rerun locally after this ownership change. The previous vegetation runtime PASS predates the new optional CCTO layer and must not be reused as the compatibility PASS.
+**Verification status:** exported standalone and AMJE+CCTO reports confirm that all loaded-Def CCTO assertions themselves passed, including the 0/5/8 C growth values, dormancy/death behavior, and exactly one CCTO extension per AMJE target. However, the same two AMJE `visualSizeRange` startup XML errors appeared in the CCTO report as `preLaunchErrors=2`. Therefore ENV-005 is **not** accepted yet; the compatibility assertions are good, but the corrected package must rerun with `preLaunchErrors=0`.
+
+The report-audit fixes are shared with ENV-003: `fe6f641d671af41979b36dfc8649d17fb37f4b5e`, `aa6b7098d825f0e7de67803d1f4053ad909d7cbe`, `5a8d195529318b7802c95a02423246c40cb06c57`.
 
 **First post-change local build finding:** the normal Environment DLL built, but the developer Quicktest DLL failed because RimWorld 1.6 exposes `GetActiveModWithIdentifier` on `Verse.ModLister`, not `Verse.LoadedModManager`. The CCTO-active probe now uses `ModLister.GetActiveModWithIdentifier(..., true)`. Fix: `6e2ad338228fc380342e444e81a79eb45bd385a6`; validator lock: `57233f5ef00aef3af82f00503a39c36ba30ae170`.
 
