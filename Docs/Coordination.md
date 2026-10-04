@@ -320,7 +320,7 @@ The remaining startup WARN messages are generic RimWorld metadata warnings about
 
 **Requested by:** Environment/design  
 **Owner:** Environment/seasonal scenery  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Alpha decision:
 - do not add a custom seasonal-scene controller;
@@ -334,9 +334,11 @@ Implementation/test coverage:
 - static validation of deciduous/evergreen profile and test markers: `213aa5a9404e4bb327a4493ed8f8bfc9ddfac525`;
 - design source of truth: `b3aa742f9b8c4a4c7479546def9fbc5db81b26d1`.
 
-**Verification status:** not yet rerun locally after the seasonal-scenery assertions were added.
+**Final automated runtime result:** PASS. WarmTemperate and CoolTemperate passed **31/31** assertions, Subalpine and Alpine passed **29/29**, and the focused AMJE+CCTO run passed **43/43**. Every report returned `preLaunchErrors=0`, `logErrors=0`, `captureLive=true`, and `logTruncated=false`. The new seasonal checks confirmed the loaded beech leafless graphic, inherited Vanilla fall-shader behavior, evergreen status of Sudajii/Shirabiso/Haimatsu, and positive SnowGentle/SnowHard snow rates.
 
-**Next action:** run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. All four standalone biomes and the optional AMJE+CCTO sub-gate must remain clean with the new seasonal-scene assertions. No manual visual test is required yet because all custom plant art is still intentionally deferred.
+One existing Environment warning may appear in the small fixed-world Quickstarts when climate calibration cannot find a Highland representative tile. It is a non-fatal diagnostic from the calibration sampler, not a seasonal-scene failure and not an ERROR-level event.
+
+**Result:** ENV-007 complete. No custom seasonal controller is needed for Alpha. Final texture/visual quality remains deferred to the final-art pass.
 
 
 ### ENV-004 — Low-fertility natural terrain
