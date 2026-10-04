@@ -699,5 +699,7 @@ Locked production direction:
 
 Canonical art-direction update: `0815e0257deaa4b39fd41fe5231426a5215f5306`.
 
-**Next action:** produce the standalone transparent Sudajii sprite in this locked direction, visually approve it, then replace the current `Shii_A.png` and rerun the focused WarmTemperate texture-debug check before the full runtime regression gate.
+The standalone Sudajii sprite was then generated in the locked C-direction and approved by the author. It has been normalized to the existing 256x256 production canvas with transparent background, no ground/grass ring, muted olive/forest foliage, restrained trunk saturation, and the accepted simplified silhouette. The production asset now replaces the prior Sudajii image at `Textures/Things/Plant/AMJ/Shii/Shii_A.png`: `5f557021e0087c4d9c465ae9d133326fb1f87618`.
+
+**Next action:** pull and run `run-texture-debug.bat` once to confirm the new sprite's in-game scale, silhouette, outline weight, UI icon, and lack of ground-ring artifacts. If accepted, run the normal runtime gate once as regression coverage, then proceed to the next ENV-010 tree asset and its Japanese-first historical description review.
 
