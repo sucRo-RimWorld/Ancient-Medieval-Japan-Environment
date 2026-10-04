@@ -38,7 +38,31 @@ The build script:
 
 The AMJ project-wide test policy is that any automated test which launches RimWorld must capture an isolated runtime log and fail if the repository-owned mod emits an ERROR-level entry. A passing scenario count does not override a mod-origin runtime error.
 
-Environment's current `run-tests.bat` is still a build + static-validation gate and does **not** launch RimWorld, so it cannot truthfully report a runtime-log result. The manual runtime smoke and fixed-biome Quickstarts remain separate for now. When Environment gains an automated RimWorld runtime harness, the mod-origin ERROR gate is mandatory from the first version of that harness.
+`run-tests.bat` remains the fast build + static-validation gate and does **not** launch RimWorld.
+
+Environment also has an automated RimWorld runtime gate:
+
+`run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`
+
+The runtime gate:
+- runs the normal build/static gate first;
+- creates an isolated save-data profile under `TestResults/VegetationRuntime/SaveData` and does not modify the user's normal `ModsConfig.xml` or `Prefs.xml`;
+- enables only Core, Harmony, RimLogging, Quickstarts, and Environment in that isolated profile;
+- launches WarmTemperate, CoolTemperate, Subalpine, and Alpine fixed-biome Quickstarts sequentially from the command line;
+- writes one Quickstarts JSON report and one runtime log per biome;
+- exits RimWorld automatically after each verification run;
+- fails if a Quickstart assertion fails, if live log capture is incomplete, if a run times out, or if the isolated runtime log contains an Environment-origin ERROR.
+
+The current vegetation assertions verify:
+- the generated map uses the requested AMJ biome;
+- the band-specific structural plant actually generates;
+- Shii / Beech / Shirabiso / Haimatsu each exceed the configured secondary tree species in their target biome;
+- Haimatsu occupies at most 5% of all map cells;
+- full-size Pine + Birch together occupy at most 1% of Alpine cells.
+
+The runtime suite also writes `[AMJ Environment Vegetation]` count/share summaries so balance can be reviewed without manual log counting.
+
+Manual testing is still reserved for genuinely visual or experiential checks, especially final artwork appearance. Placeholder-era vegetation presence, dominance, alpine blockage safety, and runtime errors are automated and should not be rechecked manually by default.
 
 ## First runtime smoke
 
