@@ -235,6 +235,8 @@ Static validator synchronized with both fixes.
 **Status:** IN PROGRESS
 
 Ownership decision:
+- AMJE standalone is intentionally a complete "medieval Japan-like environment" experience without CCTO;
+- CCTO is an optional realism layer: combining it with AMJE adds stricter species-specific cold-growth/death/dormancy behavior rather than unlocking basic Environment functionality;
 - AMJE owns cold-tolerance compatibility for AMJE-owned plants;
 - CCTO remains unaware of AMJE and receives no AMJE-specific balance/code;
 - AMJE remains fully usable without CCTO;
@@ -263,6 +265,8 @@ Implementation:
 - development tooling docs: `8ea3386080de63218e23021d2fa4f20cbc65dda3`.
 
 **Verification status:** not yet rerun locally after this ownership change. The previous vegetation runtime PASS predates the new optional CCTO layer and must not be reused as the compatibility PASS.
+
+**First post-change local build finding:** the normal Environment DLL built, but the developer Quicktest DLL failed because RimWorld 1.6 exposes `GetActiveModWithIdentifier` on `Verse.ModLister`, not `Verse.LoadedModManager`. The CCTO-active probe now uses `ModLister.GetActiveModWithIdentifier(..., true)`. Fix: `6e2ad338228fc380342e444e81a79eb45bd385a6`; validator lock: `PENDING_THIS_COMMIT`.
 
 **Next action:** run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. The existing four-biome standalone gate must still pass; because CCTO is installed in the current development environment, the new focused AMJE+CCTO loaded-Def sub-gate should also run and pass before ENV-005 is closed.
 
