@@ -76,7 +76,6 @@
       <Rat>1</Rat>
       <Deer>0.6</Deer>
       <WildBoar>0.6</WildBoar>
-      <Raccoon>0.4</Raccoon>
       <Fox_Red>0.08</Fox_Red>
       <Wolf_Timber>0.05</Wolf_Timber>
       <Bear_Grizzly>0.05</Bear_Grizzly>
@@ -152,7 +151,6 @@
       <Rat>1</Rat>
       <Deer>0.7</Deer>
       <WildBoar>0.6</WildBoar>
-      <Raccoon>0.4</Raccoon>
       <Fox_Red>0.08</Fox_Red>
       <Wolf_Timber>0.06</Wolf_Timber>
       <Bear_Grizzly>0.05</Bear_Grizzly>
@@ -223,12 +221,10 @@
       <Hare>1</Hare>
       <Snowhare>0.8</Snowhare>
       <Deer>0.6</Deer>
-      <Elk>0.5</Elk>
       <WildBoar>0.4</WildBoar>
       <Fox_Red>0.07</Fox_Red>
       <Wolf_Timber>0.07</Wolf_Timber>
       <Bear_Grizzly>0.06</Bear_Grizzly>
-      <Lynx>0.05</Lynx>
     </wildAnimals>
   </BiomeDef>
 
@@ -288,11 +284,9 @@
     <wildAnimals>
       <Hare>0.8</Hare>
       <Snowhare>1.2</Snowhare>
-      <Elk>0.5</Elk>
-      <Ibex>0.6</Ibex>
-      <Fox_Arctic>0.05</Fox_Arctic>
+      <Deer>0.4</Deer>
+      <Fox_Red>0.05</Fox_Red>
       <Wolf_Timber>0.05</Wolf_Timber>
-      <Lynx>0.05</Lynx>
     </wildAnimals>
   </BiomeDef>
 </Defs>
