@@ -847,3 +847,9 @@ This confirmation does not supply a new automated runtime report or separately d
 The generation entry is now `Docs/GoldenPaths/RetextureGeneration.md`, required from AGENTS and linked from ArtDirection, the Golden Path index and TextureAssetPipeline. It carries current-source reading, actual reference viewing/attachment, precise approval-stage recovery, proposal-before-generation, the complete shared prompt and candidate review into every new/resumed tree-art task. Visual specifications remain owned by ArtDirection; current progress remains only on main Coordination.
 
 No image was generated and no production asset or Def was changed for this request. Shirabiso's previously presented design remains awaiting author approval. The top Active tree-art handoff is the current restart position. Existing beech/Sudajii visual results and PNG regression gates are preserved.
+
+### ART-TEMPLATE-001 — AMJ shared pixel-exact components
+
+**Status:** DONE (policy binding); family registration required before derivatives
+
+Core policy/tooling is published in commit `7ce9af2ce4b3cf3bce1efda89ca1b199ab4efc36`: `Docs/GoldenPaths/FixedImageTemplates.md` and `Scripts/Art/fixed_template.py`. These Environment instructions bind to that shared policy. Reused visible components require hashed masters/masks and zero protected RGBA pixel differences. Distinct species keep species-specific structure. No asset/Def was changed; no generation or runtime test was performed. Shirabiso approval remains pending. Register a template before making a derivative that declares shared fixed parts.
