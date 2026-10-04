@@ -460,7 +460,7 @@ MO runtime-harness follow-up:
 Second MO runtime attempt also exceeded the 360-second outer timeout. The previous MO timeout log stopped during very early mod loading, before Quickstarts/AMJE initialization, so repeatedly extending the timeout is not a useful default gate. The MO tree-link check is therefore moved to a deterministic static audit of the installed MO 1.6 Defs and texture files.
 
 MO timeout pivot:
-- new `Scripts/Validate-MedievalOverhaulTreeTextures.ps1` scans installed MO 1.6 `TreeBase` / `DeciduousTreeBase` Defs and checks base plus configured leafless/immature/polluted/snow-state texture paths against MO texture roots: `37cfa2cafe8dc88db597bd549d0ba9f7c7457363`;
+- new `Scripts/Validate-MedievalOverhaulTreeTextures.ps1` scans installed MO 1.6 `TreeBase` / `DeciduousTreeBase` Defs and checks base plus configured leafless/immature/polluted/snow-state texture paths against MO texture roots: `37cfa2cafe8dc88db597bd549d0ba9f7c7457363`, with PowerShell variable-delimiting fix `2fc70cee687356afcb585d81b8092727b7804936`;
 - the static MO audit now runs from `run-tests.bat`: `aeefd28ded6fab2d26dd8d85b016183860764d30`;
 - the hanging isolated MO runtime profile is removed from the default runtime gate; AMJE and CCTO runtime checks remain unchanged: `a7fe02a2e739874b0274dd14952dad06a931d954`;
 - static validation locks the new audit path in place: `6d2fb435ee1cd2deefb5e5b8d97ffd038ae6630c`.
