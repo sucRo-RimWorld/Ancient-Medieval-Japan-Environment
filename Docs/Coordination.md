@@ -159,7 +159,7 @@ Automatic climate-calibration diagnostics are implemented in `ClimateCalibration
 
 **Requested by:** Environment/design  
 **Owner:** Environment/biomes  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Move from the accepted climate/worldgen baseline into Japan-oriented biome and wild-vegetation structure.
 
@@ -235,14 +235,16 @@ Fixes:
 - the runner now fails when `preLaunchErrors > 0`: `aa6b7098d825f0e7de67803d1f4053ad909d7cbe`;
 - static regression checks cover both fixes: `5a8d195529318b7802c95a02423246c40cb06c57`.
 
-**Result:** ENV-003 is reopened until the four-biome isolated runtime gate is rerun with `preLaunchErrors=0`. Final art remains deferred.
+**Final clean rerun:** PASS. All four standalone reports returned `passed=true`, `failed=0`, `preLaunchErrors=0`, `captureLive=true`, and `logTruncated=false`; no report log contained a structured `Level: ERROR` entry. Current target shares were Shii **3.14%**, Beech **3.22%**, Shirabiso **1.29%**, and Haimatsu **0.68%**. Alpine full-size Pine+Birch was **0.03%**, well below the 1% safety limit.
+
+**Result:** ENV-003 is complete for the Alpha structural vegetation stage. The composition/commonality values remain accepted without retuning. Final art remains deferred to the visual-art pass.
 
 
 ### ENV-005 — Optional CCTO integration for AMJE plants
 
 **Requested by:** Environment/design  
 **Owner:** Environment/compatibility  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Ownership decision:
 - AMJE standalone is intentionally a complete "medieval Japan-like environment" experience without CCTO;
@@ -281,7 +283,9 @@ The report-audit fixes are shared with ENV-003: `fe6f641d671af41979b36dfc8649d17
 
 **First post-change local build finding:** the normal Environment DLL built, but the developer Quicktest DLL failed because RimWorld 1.6 exposes `GetActiveModWithIdentifier` on `Verse.ModLister`, not `Verse.LoadedModManager`. The CCTO-active probe now uses `ModLister.GetActiveModWithIdentifier(..., true)`. Fix: `6e2ad338228fc380342e444e81a79eb45bd385a6`; validator lock: `57233f5ef00aef3af82f00503a39c36ba30ae170`.
 
-**Next action:** run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. The existing four-biome standalone gate must still pass; because CCTO is installed in the current development environment, the new focused AMJE+CCTO loaded-Def sub-gate should also run and pass before ENV-005 is closed.
+**Final clean AMJE+CCTO rerun:** PASS. The focused compatibility report returned **29/29 assertions passed**, `preLaunchErrors=0`, complete live log capture, and no structured `Level: ERROR` entry. Loaded Def checks confirmed the intended two-layer values for all four AMJE plants and exactly one CCTO extension per target.
+
+**Result:** ENV-005 is complete. AMJE remains fully functional standalone with its Vanilla-style temperature baseline, while CCTO remains an optional higher-realism layer owned through AMJE's conditional compatibility patch.
 
 
 ### ENV-004 — Low-fertility natural terrain
