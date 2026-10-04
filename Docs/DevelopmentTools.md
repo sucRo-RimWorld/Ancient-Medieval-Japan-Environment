@@ -62,6 +62,16 @@ The current vegetation assertions verify:
 
 The runtime suite also writes `[AMJ Environment Vegetation]` count/share summaries so balance can be reviewed without manual log counting.
 
+If CCTO is installed either as the local development mod (`RimWorld/Mods/CropColdToleranceOverhaul`) or Workshop item `3812412548`, the same `run-runtime-tests.bat` command automatically adds a second isolated profile containing CCTO + AMJE. A focused WarmTemperate Quickstart then verifies the loaded Def values for all four AMJE plants:
+- Sudajii: 8 C / fixed death -8 C;
+- Beech: 5 C / cold dormancy;
+- Shirabiso: 0 C / fixed death -35 C;
+- Haimatsu: 0 C / fixed death -35 C;
+- exactly one CCTO extension on each target.
+
+If CCTO is not installed, this optional compatibility sub-gate is reported as skipped; the standalone Environment runtime gate remains valid because CCTO is not a dependency.
+
+
 Manual testing is still reserved for genuinely visual or experiential checks, especially final artwork appearance. Placeholder-era vegetation presence, dominance, alpine blockage safety, and runtime errors are automated and should not be rechecked manually by default.
 
 ## First runtime smoke
