@@ -106,6 +106,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 string.Equals(
                     texture.name,
                     "BadTex",
+                    StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(
+                    texture.name,
+                    "BadTexture",
                     StringComparison.OrdinalIgnoreCase);
         }
     }
@@ -753,6 +757,27 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
 
             verification.Assert(
+                "Sudajii UI icon resolves a non-BadTex texture",
+                delegate
+                {
+                    return shii != null &&
+                        shii.uiIcon != null &&
+                        shii.uiIcon != BaseContent.BadTex &&
+                        !string.Equals(
+                            shii.uiIcon.name,
+                            "ERRORTEX",
+                            StringComparison.OrdinalIgnoreCase) &&
+                        !string.Equals(
+                            shii.uiIcon.name,
+                            "BadTex",
+                            StringComparison.OrdinalIgnoreCase) &&
+                        !string.Equals(
+                            shii.uiIcon.name,
+                            "BadTexture",
+                            StringComparison.OrdinalIgnoreCase);
+                });
+
+            verification.Assert(
                 "Japanese beech leafy graphic resolves a non-BadTex texture",
                 delegate
                 {
@@ -1008,6 +1033,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 !string.Equals(
                     texture.name,
                     "BadTex",
+                    StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(
+                    texture.name,
+                    "BadTexture",
                     StringComparison.OrdinalIgnoreCase);
         }
 
