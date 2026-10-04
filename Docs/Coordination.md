@@ -288,6 +288,32 @@ The report-audit fixes are shared with ENV-003: `fe6f641d671af41979b36dfc8649d17
 **Result:** ENV-005 is complete. AMJE remains fully functional standalone with its Vanilla-style temperature baseline, while CCTO remains an optional higher-realism layer owned through AMJE's conditional compatibility patch.
 
 
+### ENV-006 — Regional weather baseline
+
+**Requested by:** Environment/design  
+**Owner:** Environment/weather  
+**Status:** IN PROGRESS
+
+Alpha policy:
+- reuse the eight Vanilla WeatherDefs rather than introducing AMJ-specific weather types;
+- let Vanilla rainfall-factor curves and temperature ranges provide the first layer of regional/seasonal differentiation;
+- keep Warm/Cool liquid precipitation and fog stronger than Subalpine/Alpine;
+- progressively increase snow commonality toward Subalpine/Alpine;
+- make dry thunderstorms rare in the humid-Japan baseline while retaining rainy thunderstorms as the more common severe-storm proxy;
+- do not add calendar-specific Baiu/Akisame/typhoon weighting yet;
+- do not fake Sea-of-Japan-side vs Pacific-side winter exposure from vegetation-band names alone.
+
+Implementation:
+- dry-thunderstorm commonality reduced to 0.1 in Warm/Cool/Subalpine and 0.05 in Alpine: `d695f3cc74ec50effd75c65ae8955c3d6976a603`;
+- fixed-biome Quickstarts now assert all eight loaded weather commonalities and rainy > dry thunderstorm: `098e9b55f968b0eb17f4bb98a9cf17d153ec5895`;
+- static validator locks the accepted table: `dbf80ab37c56da734646aba770e9d43e48096dca`;
+- design source of truth and JMA research basis: `4561fdb8cee7ead6c9cf042adea78bd4f26244fa`.
+
+**Verification status:** not yet rerun locally after the weather baseline change.
+
+**Next action:** run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. The four standalone fixed-biome Quickstarts must pass the new weather assertions with `preLaunchErrors=0` and no Environment-origin ERROR. The optional AMJE+CCTO sub-gate should also remain green because CCTO must not alter weather.
+
+
 ### ENV-004 — Low-fertility natural terrain
 
 **Requested by:** Environment/design  
