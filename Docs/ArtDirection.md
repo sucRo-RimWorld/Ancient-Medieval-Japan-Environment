@@ -64,7 +64,10 @@ RimWorld's `Graphic_Collection` loads every texture found inside the configured 
 
 Alpha art policy:
 - begin with **one strong final texture per state** rather than producing many variants immediately;
-- use the accepted ENV-010 visual direction: rounded, simplified painted shapes; smooth high-resolution edges rather than pixel-art; reduced saturation while preserving the approved hue relationships; limited but not posterized color palette;
+- use the **adopted ENV-010 atlas style** as the visual baseline for AMJE, Vanilla retextures, and optional MO retextures;
+- the adopted style is rounded and simplified rather than botanically literal, with smooth high-resolution edges rather than pixel-art;
+- saturation is reduced relative to the first concept pass, while the approved hue relationships remain intact;
+- use a restrained but not posterized palette, soft painted shading, and clear silhouette separation at RimWorld gameplay zoom;
 - keep transparent backgrounds;
 - no baked terrain, UI border, text, or decorative frame;
 - use RimWorld-readable top-down/three-quarter plant silhouettes rather than botanical illustration plates;
@@ -228,3 +231,18 @@ Human visual review is still required for:
 - whether Warm/Cool/Subalpine/Alpine are distinguishable on the world map.
 
 This is one of the few project stages where manual visual review is intentionally required.
+
+## Adopted style baseline
+
+The author accepted the final ENV-010 atlas direction after iterative comparison.
+
+The accepted characteristics are:
+- smoother/high-resolution rendering than the rejected pixel-like pass;
+- stronger simplification/deformation than the initial more naturalistic concept;
+- lower saturation than the initial concept, but without shifting the established warm/cool hue relationships;
+- rounded, readable foliage masses and simplified branch/trunk shapes;
+- enough internal shading to remain game-art rather than flat iconography;
+- consistent treatment across AMJE, Vanilla retextures, Medieval Overhaul retextures, low vegetation, and world/terrain examples.
+
+The atlas itself is a **style/reference board**, not a shippable sprite sheet. Production assets are generated or painted individually from this baseline so that transparency, crop, scale, and RimWorld path structure can be controlled per Def/state.
+
