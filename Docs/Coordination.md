@@ -520,7 +520,17 @@ Pawn render-node diagnostic:
 - implementation: `ddbf164838e166098f188ec9c337a51bbfdc81fa`;
 - static validation locks the new pawn-render trace and assertion in place: `b8946fc2408f88ac5c006df791a4b1e593ba659c`.
 
-**Next action:** pull/build and rerun the normal runtime gate while confirming the placeholders still appear. If a pawn/animal body or apparel node is the source, expect `[AMJ Environment PawnRenderBadMaterial] def=... kind=... node=... path=...`. If this remains clean as well, proceed to Fleck-specific `Graphic_Fleck.DrawFleck` / direct `Graphics.DrawMesh` paths.
+The user noted that the placeholder count is visually too high to make ordinary pawns a strong explanation, and that the first WarmTemperate Quickstart reproduces the issue every run. For iterative diagnosis, repeatedly launching the full six-scenario runtime suite is unnecessary; keep the full suite as the final regression gate, but use a focused WarmTemperate-only interactive runner during root-cause investigation.
+
+Focused interactive texture-debug runner:
+- new `run-texture-debug.bat` builds/static-validates, prepares the same isolated Dev Mode profile, launches only `AMJWarmTemperateTerrainQuickstart`, and intentionally omits Quickstarts verify/report flags so RimWorld stays open until the user closes it manually;
+- this lets the user select/inspect a visible red-question-mark object directly while all current quicktest Harmony diagnostics remain active through `RIMWORLD_QUICKSTART`;
+- implementation: `cebf28d972452009098532225d30641719b53efd`;
+- static validation ensures the helper stays WarmTemperate-only and does not accidentally add auto-exit `-quickstartreport` / `-quickstartverify` flags: `977beab5ea5e1ff07a9f5c7ed3cc0d27c237096f`.
+
+The full `run-runtime-tests.bat` remains unchanged and should still be used once the defect is fixed to prove all biome + river/coast + optional CCTO runtime coverage.
+
+**Next action:** use `run-texture-debug.bat`, let the WarmTemperate map remain open, and manually select/inspect one of the question-mark objects. If it is selectable, capture the in-game label/inspect identity; if it is not selectable, that is itself strong evidence that the source is a non-Thing render path (Fleck/overlay/direct draw), and diagnostics should move there.
 
 
 ### ENV-004 — Low-fertility natural terrain
