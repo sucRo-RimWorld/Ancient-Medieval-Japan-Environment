@@ -796,3 +796,22 @@ Canonical art-direction commit: `447b55e082b5e08e0c083e37f5f81dc92e458651`. Agen
 Production binary transfer/integration remains governed separately by `Docs/GoldenPaths/TextureAssetPipeline.md`.
 
 **Next action:** continue Japanese beech visual validation, then apply the fixed visual rules + existing texture Golden Path to Shirabiso, Haimatsu, and subsequent Vanilla/MO tree retextures.
+
+
+### ENV-010 leafy-beech payload recovery and decoded-PNG regression gate (2026-10-05 JST)
+
+**Requested by:** continuation of Environment texture work  
+**Owner:** Environment/art + tooling  
+**Status:** DONE (binary recovery / automated gate); IN PROGRESS (focused visual review)
+
+The focused preflight found that the current leafy `Beech_A.png` blob `c0928ef133866cefb006dade3240238412190d39` passed chunk CRC validation but failed zlib decompression and normal Pillow image decoding. The earlier CRC-only correction therefore did not resolve the image payload corruption; prior static PASS must not be treated as proof that this image was decodable.
+
+Recovery used the pre-CRC-rewrite payload's original stored IDAT CRC and its zlib Adler-32 as independent checks. Exactly one two-byte correction satisfied both checks and restored the expected 65,792 decoded scanline bytes for a 256x256, 8-bit indexed PNG. Offsets relative to the original file: 11783 (26 -> 30) and 12611 (188 -> 124). The recovered image also passed all PNG chunk CRCs, legal scanline filters, Pillow loading, and visual comparison with the accepted leafy source. The approved original pair was resolved from `libfile_d663b627e21c81919d33a20cc804444f`; no art was regenerated.
+
+Current leafy production blob: `7face00d1128333b5fa6e1ab419d3424bc21b6dd`. SHA-256: `88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072`. Sudajii and leafless beech also passed independent chunk/decoded-image checks; they were not changed.
+
+Reusable prevention is implemented in `Scripts/PngImageData.ps1`, called by both the exact-copy installer and the static PNG gate. It validates zlib/DEFLATE, Adler-32, decoded scanline sizes/filters, and Adam7 pass sizes without a Python dependency. `Tests/Test-PngImageData.ps1` validates every production PNG and rejects a CRC-valid / zlib-corrupt fixture. The workflow now runs explicit Ubuntu PowerShell 7 and Windows PowerShell 5.1 jobs and triggers for production PNG changes. The transient `matrix.shell` workflow mistake (run 37218721890) was fixed on the PR before merging; PR run 37218817889 passed both jobs, including syntax, production PNG decoding, the corruption regression and exact-copy smoke.
+
+**Result / references:** PR #4 squash-merged after the successful checks; implementation/PNG/Golden Path commit `1a24e11755c24c2109b7ceebd9628601c62f1f12`. Durable procedure is in `Docs/GoldenPaths/TextureAssetPipeline.md`.
+
+**Next action:** pull main and run `run-texture-debug.bat "D:\\SteamLibrary\\steamapps\\common\\RimWorld" CoolTemperate` for leafy/leafless beech appearance and seasonal continuity. This environment did not contain RimWorld, so no new runtime/build or in-game visual PASS is claimed. After author acceptance, lock the ArtDirection visual result and continue to Shirabiso, then Haimatsu using the existing Golden Path.
