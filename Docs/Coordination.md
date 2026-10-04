@@ -499,6 +499,9 @@ The separate startup error `No textures found at path Things/Item/Resource/Plant
 
 **Result:** ENV-004 accepted and locked for Alpha with no threshold retuning. Warm/Cool retain substantial ordinary soil; Subalpine shifts strongly toward Thin+Gravel among growable fertility terrains; Alpine is overwhelmingly poor/stony; and MO Dark Forest retains its own special terrain-patch identity. The accepted values and runtime evidence are now recorded in `Docs/Design.md`. Future changes require a concrete gameplay or compatibility finding.
 
+
+**Core integration audit (2026-10-04):** AMJ Core has reconciled its older duplicate terrain/Hilliness ownership text with Environment. Core now treats fertility **0.50** as the shared low-fertility integration point: Soba/Kibi/Awa/Hie/Barley remain sowable, MO Wheat at fertilityMin 0.70 does not, and the intended growth-factor order is Soba > Kibi > Awa > Hie > Barley. Core does **not** request a 0.40 Environment terrain; Soba's 0.40 fertilityMin remains a crop property/compatibility floor. No Environment implementation change is requested. Core design reconciliation: `c841b66547f51af79743a72d3db20d38b7345816`; Core regression coverage: `201bbe90aa92a0d2d55ac9d1d16c92bdf6f28c11`.
+
 ### TEST-001 — AMJ-wide runtime ERROR gate policy
 
 **Requested by:** project-wide automated-test policy  
