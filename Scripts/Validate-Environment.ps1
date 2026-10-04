@@ -20,6 +20,61 @@ function Pass([string]$Message) {
     Write-Host "[OK] $Message"
 }
 
+function Test-PngStructure([string]$Path) {
+    [byte[]]$bytes = [System.IO.File]::ReadAllBytes($Path)
+    [byte[]]$signature = @(137, 80, 78, 71, 13, 10, 26, 10)
+
+    if ($bytes.Length -lt 20) {
+        return $false
+    }
+
+    for ($i = 0; $i -lt $signature.Length; $i++) {
+        if ($bytes[$i] -ne $signature[$i]) {
+            return $false
+        }
+    }
+
+    [int64]$offset = 8
+    $firstChunk = $true
+    $sawIend = $false
+
+    while (($offset + 12) -le $bytes.Length) {
+        [uint64]$length =
+            ([uint64]$bytes[$offset] * 16777216) +
+            ([uint64]$bytes[$offset + 1] * 65536) +
+            ([uint64]$bytes[$offset + 2] * 256) +
+            [uint64]$bytes[$offset + 3]
+
+        [int64]$chunkEnd = $offset + 12 + [int64]$length
+        if ($chunkEnd -gt $bytes.Length) {
+            return $false
+        }
+
+        $chunkType =
+            [System.Text.Encoding]::ASCII.GetString(
+                $bytes,
+                [int]$offset + 4,
+                4)
+
+        if ($firstChunk -and $chunkType -ne "IHDR") {
+            return $false
+        }
+        $firstChunk = $false
+
+        if ($chunkType -eq "IEND") {
+            if ($length -ne 0 -or $chunkEnd -ne $bytes.Length) {
+                return $false
+            }
+            $sawIend = $true
+            break
+        }
+
+        $offset = $chunkEnd
+    }
+
+    return $sawIend
+}
+
 if (-not (Test-Path $RiverDefsPath)) {
     Fail "RimWorld RiverDefs.xml was not found: $RiverDefsPath"
 }
@@ -437,6 +492,9 @@ $shiiTexturePath = Join-Path $RepoRoot "Textures\Things\Plant\AMJ\Shii\Shii_A.pn
 if (-not (Test-Path -LiteralPath $shiiTexturePath)) {
     Fail "Final Sudajii texture is missing: Textures/Things/Plant/AMJ/Shii/Shii_A.png"
 }
+if (-not (Test-PngStructure $shiiTexturePath)) {
+    Fail "Final Sudajii PNG is structurally invalid: Textures/Things/Plant/AMJ/Shii/Shii_A.png"
+}
 if (-not $wildPlantRaw.Contains('<texPath>Things/Plant/AMJ/Shii</texPath>')) {
     Fail "AMJ_Tree_Shii does not point to the final AMJE Sudajii texture folder."
 }
@@ -696,6 +754,8 @@ foreach ($expected in @(
     'keeps wildlife proxy',
     'Japanese beech has a loaded leafless graphic',
     'Sudajii graphic resolves a non-BadTex texture',
+    'Sudajii UI icon resolves a non-BadTex texture',
+    '"BadTexture"',
     'Japanese beech leafy graphic resolves a non-BadTex texture',
     'Japanese beech leafless graphic resolves a non-BadTex texture',
     'Shirabiso graphic resolves a non-BadTex texture',
