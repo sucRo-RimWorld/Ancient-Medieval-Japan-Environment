@@ -495,6 +495,22 @@ if (-not (Test-Path -LiteralPath $shiiTexturePath)) {
 if (-not (Test-PngStructure $shiiTexturePath)) {
     Fail "Final Sudajii PNG is structurally invalid: Textures/Things/Plant/AMJ/Shii/Shii_A.png"
 }
+
+$textureRoot = Join-Path $RepoRoot "Textures"
+if (Test-Path -LiteralPath $textureRoot) {
+    $pngFiles =
+        Get-ChildItem -LiteralPath $textureRoot -Filter "*.png" -Recurse -File
+
+    foreach ($pngFile in $pngFiles) {
+        if (-not (Test-PngStructure $pngFile.FullName)) {
+            $relativePng =
+                $pngFile.FullName.Substring($RepoRoot.Length).TrimStart("\")
+            Fail "AMJE PNG is structurally invalid: $relativePng"
+        }
+    }
+
+    Pass "AMJE PNG assets have valid chunk structure"
+}
 if (-not $wildPlantRaw.Contains('<texPath>Things/Plant/AMJ/Shii</texPath>')) {
     Fail "AMJ_Tree_Shii does not point to the final AMJE Sudajii texture folder."
 }
