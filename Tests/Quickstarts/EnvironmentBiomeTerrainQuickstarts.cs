@@ -127,6 +127,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
 
             AddWeatherAssertions(verification, map == null ? null : map.Biome);
+            AddSeasonalSceneryAssertions(verification);
 
             int targetCount = CountThings(map, TargetPlantDefName);
             int cellCount = map == null ? 0 : map.cellIndices.NumGridCells;
@@ -200,6 +201,100 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " cctoActive=" + CctoIsActive());
 
             return verification;
+        }
+
+        private static void AddSeasonalSceneryAssertions(
+            QuickstartVerification verification)
+        {
+            ThingDef beech =
+                DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Beech");
+            ThingDef shii =
+                DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Shii");
+            ThingDef shirabiso =
+                DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Shirabiso");
+            ThingDef haimatsu =
+                DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Shrub_Haimatsu");
+
+            verification.Assert(
+                "Japanese beech has a loaded leafless graphic",
+                delegate
+                {
+                    return beech != null &&
+                        beech.plant != null &&
+                        beech.plant.leaflessGraphic != null;
+                });
+
+            verification.Assert(
+                "Japanese beech keeps Vanilla fall shader behavior",
+                delegate
+                {
+                    return beech != null &&
+                        HasShaderParameter(
+                            beech.graphicData,
+                            "_FallBehaviorEnabled");
+                });
+
+            verification.Assert(
+                "warm/subalpine/alpine structural evergreens stay non-leafless",
+                delegate
+                {
+                    return shii != null &&
+                        shirabiso != null &&
+                        haimatsu != null &&
+                        shii.plant.leaflessGraphic == null &&
+                        shirabiso.plant.leaflessGraphic == null &&
+                        haimatsu.plant.leaflessGraphic == null;
+                });
+
+            WeatherDef gentle =
+                DefDatabase<WeatherDef>.GetNamedSilentFail("SnowGentle");
+            WeatherDef hard =
+                DefDatabase<WeatherDef>.GetNamedSilentFail("SnowHard");
+
+            verification.Assert(
+                "Vanilla snow weather remains available for seasonal scenery",
+                delegate
+                {
+                    return gentle != null &&
+                        hard != null &&
+                        gentle.snowRate > 0f &&
+                        hard.snowRate > 0f;
+                });
+        }
+
+        private static bool HasShaderParameter(
+            GraphicData graphicData,
+            string parameterName)
+        {
+            if (graphicData == null ||
+                graphicData.shaderParameters == null)
+            {
+                return false;
+            }
+
+            System.Reflection.FieldInfo nameField =
+                typeof(ShaderParameter).GetField(
+                    "name",
+                    System.Reflection.BindingFlags.Instance |
+                    System.Reflection.BindingFlags.NonPublic);
+
+            if (nameField == null)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < graphicData.shaderParameters.Count; i++)
+            {
+                ShaderParameter parameter =
+                    graphicData.shaderParameters[i];
+                if (parameter != null &&
+                    (string)nameField.GetValue(parameter) == parameterName)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static void AddWeatherAssertions(
