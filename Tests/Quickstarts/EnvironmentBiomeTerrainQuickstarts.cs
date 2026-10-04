@@ -471,13 +471,16 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     ref failedStates,
                     ref failures);
 
-                AuditOptionalTreeGraphicState(
-                    def,
-                    "polluted",
-                    "pollutedGraphicPath",
-                    def.plant.pollutedGraphic,
-                    ref failedStates,
-                    ref failures);
+                if (ModsConfig.BiotechActive)
+                {
+                    AuditOptionalTreeGraphicState(
+                        def,
+                        "polluted",
+                        "pollutedGraphicPath",
+                        def.plant.pollutedGraphic,
+                        ref failedStates,
+                        ref failures);
+                }
 
                 AuditOptionalTreeGraphicState(
                     def,
