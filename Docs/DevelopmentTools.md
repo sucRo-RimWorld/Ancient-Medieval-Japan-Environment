@@ -65,7 +65,8 @@ The current vegetation/weather assertions verify:
 - Sudajii, Shirabiso and Haimatsu remain non-leafless evergreen structural plants;
 - Vanilla gentle/hard snow weather remains available with positive snow rates;
 - a river-bearing Environment world tile retains the Vanilla River mutator and generates River-tagged local terrain;
-- a coastal Environment world tile retains the Vanilla Coast mutator and generates Ocean-tagged local terrain.
+- a coastal Environment world tile retains the Vanilla Coast mutator and generates Ocean-tagged local terrain;
+- each AMJ biome excludes Raccoon/Elk/Ibex/Fox_Arctic/Lynx and retains its accepted positive Vanilla wildlife proxy set through loaded BiomeDef commonality lookup.
 
 The runtime suite also writes `[AMJ Environment Vegetation]` count/share summaries so balance can be reviewed without manual log counting.
 
