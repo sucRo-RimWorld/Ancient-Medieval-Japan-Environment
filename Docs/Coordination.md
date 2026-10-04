@@ -530,7 +530,16 @@ Focused interactive texture-debug runner:
 
 The full `run-runtime-tests.bat` remains unchanged and should still be used once the defect is fixed to prove all biome + river/coast + optional CCTO runtime coverage.
 
-**Next action:** use `run-texture-debug.bat`, let the WarmTemperate map remain open, and manually select/inspect one of the question-mark objects. If it is selectable, capture the in-game label/inspect identity; if it is not selectable, that is itself strong evidence that the source is a non-Thing render path (Fleck/overlay/direct draw), and diagnostics should move there.
+The focused interactive run resolved the object identity: the user selected one of the visible red question marks and the inspect panel identified it as **Sudajii / `AMJ_Tree_Shii`**. The large number of placeholders is consistent with WarmTemperate's high Sudajii wild-plant commonality; the pawn-render hypothesis is no longer relevant to this defect.
+
+Binary inspection then found the direct cause in `Textures/Things/Plant/AMJ/Shii/Shii_A.png`: the PNG had valid IHDR and PLTE chunks but a malformed transition after the indexed-color transparency (`tRNS`) chunk. Three stray bytes occurred before the valid IDAT chunk, so standard PNG chunk traversal failed and RimWorld's texture loader fell back to the red `BadTexture` placeholder. The image's IDAT payload itself was intact.
+
+Fix and regression coverage:
+- repaired the existing accepted Sudajii PNG without replacing the artwork; the malformed bytes were removed, the `tRNS` CRC was corrected, and the repaired file now parses as IHDR/PLTE/tRNS/IDAT/IEND with valid boundaries: `0421396e6184fdc12933d07db0bf88990b43ab9d`;
+- Quicktest BadTex detection now also recognizes the runtime texture name `BadTexture`, and Sudajii's resolved UI icon is explicitly asserted non-BadTex: `1eacad99783d5e0de5e0a0cd84183053e2c4b85e`, follow-up collection-path guard `69013cbaa5cb3c01fe7ded3167953fb3c3e7439b`;
+- static validation now checks PNG chunk structure, first for Sudajii and then recursively for all AMJE PNG assets so future generated art cannot silently ship a malformed image: `2f0a868fe438b8f54fde3476b48923af887a1867`, `d615543c312b429e37c8a3fb33c0f53538ea0a7d`.
+
+**Next action:** pull/build and rerun `run-texture-debug.bat`. Confirm that Sudajii now renders normally both on the map and in its inspect/UI icon. Once confirmed, run the normal runtime gate once as the regression check, then continue ENV-010 with the remaining planned tree retextures and Japanese-first description review.
 
 
 ### ENV-004 — Low-fertility natural terrain
