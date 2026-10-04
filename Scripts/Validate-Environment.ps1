@@ -20,6 +20,31 @@ function Pass([string]$Message) {
     Write-Host "[OK] $Message"
 }
 
+function Get-PngCrc32(
+    [byte[]]$Bytes,
+    [int]$Offset,
+    [int]$Count
+) {
+    [uint32]$crc = 4294967295
+
+    for ($i = $Offset; $i -lt ($Offset + $Count); $i++) {
+        [uint32]$value = [uint32]($crc -bxor [uint32]$Bytes[$i])
+
+        for ($bit = 0; $bit -lt 8; $bit++) {
+            if (($value -band 1) -ne 0) {
+                $value = [uint32](([uint32]($value -shr 1)) -bxor [uint32]3988292384)
+            }
+            else {
+                $value = [uint32]($value -shr 1)
+            }
+        }
+
+        $crc = $value
+    }
+
+    return [uint32]($crc -bxor [uint32]4294967295)
+}
+
 function Test-PngStructure([string]$Path) {
     [byte[]]$bytes = [System.IO.File]::ReadAllBytes($Path)
     [byte[]]$signature = @(137, 80, 78, 71, 13, 10, 26, 10)
@@ -45,7 +70,8 @@ function Test-PngStructure([string]$Path) {
             ([uint64]$bytes[$offset + 2] * 256) +
             [uint64]$bytes[$offset + 3]
 
-        [int64]$chunkEnd = $offset + 12 + [int64]$length
+        [int64]$dataEnd = $offset + 8 + [int64]$length
+        [int64]$chunkEnd = $dataEnd + 4
         if ($chunkEnd -gt $bytes.Length) {
             return $false
         }
@@ -60,6 +86,17 @@ function Test-PngStructure([string]$Path) {
             return $false
         }
         $firstChunk = $false
+
+        [uint32]$storedCrc =
+            ([uint32]$bytes[$dataEnd] * 16777216) +
+            ([uint32]$bytes[$dataEnd + 1] * 65536) +
+            ([uint32]$bytes[$dataEnd + 2] * 256) +
+            [uint32]$bytes[$dataEnd + 3]
+
+        [uint32]$computedCrc = Get-PngCrc32 $bytes ([int]$offset + 4) ([int]$length + 4)
+        if ($storedCrc -ne $computedCrc) {
+            return $false
+        }
 
         if ($chunkType -eq "IEND") {
             if ($length -ne 0 -or $chunkEnd -ne $bytes.Length) {
