@@ -228,6 +228,43 @@ Static validator synchronized with both fixes.
 **Result:** ENV-003 is complete for the Alpha structural vegetation stage. The accepted composition/commonality values and automated runtime acceptance criteria are recorded in `Docs/Design.md`. Final plant artwork remains deferred to the later visual-art pass; no additional manual placeholder-distribution smoke is required by default.
 
 
+### ENV-005 — Optional CCTO integration for AMJE plants
+
+**Requested by:** Environment/design  
+**Owner:** Environment/compatibility  
+**Status:** IN PROGRESS
+
+Ownership decision:
+- AMJE owns cold-tolerance compatibility for AMJE-owned plants;
+- CCTO remains unaware of AMJE and receives no AMJE-specific balance/code;
+- AMJE remains fully usable without CCTO;
+- AMJE conditionally uses CCTO's public XML-facing `ColdToleranceExtension` only when CCTO is active.
+
+Two-layer temperature model:
+- standalone AMJE explicitly keeps the Vanilla-style `minGrowthTemperature=0 C` baseline on Sudajii, Beech, Shirabiso, and Haimatsu;
+- with CCTO active, AMJE's own optional compatibility patch changes the four targets to:
+  - Sudajii: min growth 8 C, fixed death -8 C;
+  - Beech: min growth 5 C, cold dormancy;
+  - Shirabiso: min growth 0 C, fixed death -35 C;
+  - Haimatsu: min growth 0 C, fixed death -35 C.
+
+Implementation:
+- explicit standalone baseline: `89cf48d65786547b6a7f3fb8dd2027313ef07adf`;
+- AMJE-owned optional CCTO patch: `ac99339fc70f290b39ca06b6702a0b4a2e9d1faf`;
+- optional load order, not dependency: `f1967a832005bef342aa87999b35bf3fe9dbddbd`;
+- runtime loaded-Def assertions: `13772aec27dbccef01889ae59dfa6a66a8b462b1`;
+- isolated optional-CCTO profile support: `d69428bb7bfe2ae9952d9b4920fb265abdb030e4`;
+- focused compatibility runtime mode: `a7bbae4f6c3bad52fa6c1e63b9ff0ff6b540bed6`;
+- one-command optional CCTO sub-gate: `81ba86a3cf7917fb663084ae2f151eae60d7a61e`;
+- static validator: `719a91373d4b38a105c3ec7582ca588301b92ccd`;
+- design source of truth: `cbf246511026b45ee687c402b8a7d75510623522`;
+- development tooling docs: `8ea3386080de63218e23021d2fa4f20cbc65dda3`.
+
+**Verification status:** not yet rerun locally after this ownership change. The previous vegetation runtime PASS predates the new optional CCTO layer and must not be reused as the compatibility PASS.
+
+**Next action:** run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. The existing four-biome standalone gate must still pass; because CCTO is installed in the current development environment, the new focused AMJE+CCTO loaded-Def sub-gate should also run and pass before ENV-005 is closed.
+
+
 ### ENV-004 — Low-fertility natural terrain
 
 **Requested by:** Environment/design  
