@@ -316,6 +316,29 @@ The remaining startup WARN messages are generic RimWorld metadata warnings about
 **Result:** ENV-006 complete. Calendar-specific Baiu/Akisame/typhoon weighting and Sea-of-Japan/Pacific-side winter exposure remain deferred unless a later gameplay finding justifies the added system complexity.
 
 
+### ENV-007 — Seasonal scenery baseline
+
+**Requested by:** Environment/design  
+**Owner:** Environment/seasonal scenery  
+**Status:** IN PROGRESS
+
+Alpha decision:
+- do not add a custom seasonal-scene controller;
+- reuse Vanilla snow accumulation/rendering from SnowGentle/SnowHard;
+- use Japanese beech as the deciduous structural representative through `DeciduousTreeBase`, inherited fall shader behavior, and its leafless graphic;
+- keep Sudajii, Shirabiso and Haimatsu evergreen;
+- defer final AMJE-specific plant/environment artwork until the final-art pass.
+
+Implementation/test coverage:
+- loaded seasonal-scene runtime assertions: `fcca9ce0c3b33fa61ab2b89dce4d9ece685fc784`;
+- static validation of deciduous/evergreen profile and test markers: `213aa5a9404e4bb327a4493ed8f8bfc9ddfac525`;
+- design source of truth: `PENDING_DESIGN_COMMIT`.
+
+**Verification status:** not yet rerun locally after the seasonal-scenery assertions were added.
+
+**Next action:** run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. All four standalone biomes and the optional AMJE+CCTO sub-gate must remain clean with the new seasonal-scene assertions. No manual visual test is required yet because all custom plant art is still intentionally deferred.
+
+
 ### ENV-004 — Low-fertility natural terrain
 
 **Requested by:** Environment/design  
