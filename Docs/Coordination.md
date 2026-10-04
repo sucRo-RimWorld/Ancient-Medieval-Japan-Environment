@@ -394,6 +394,35 @@ Implementation/test history:
 **Result:** the Alpha wildlife layer is a functional Vanilla proxy baseline only. Future Japan-specific animals, textures or animal-resource loops require a separate owning feature/mod and should not silently expand Environment's scope.
 
 
+### ENV-010 — Final Environment art pass
+
+**Requested by:** Environment/release readiness  
+**Owner:** Environment/art  
+**Status:** IN PROGRESS
+
+All functional Alpha Environment gates are now complete, so the project can enter the previously deferred final-art stage.
+
+Minimum final-art scope:
+- 5 plant-state images: Sudajii, leafy Japanese beech, leafless Japanese beech, Shirabiso, Haimatsu;
+- 1 seamless Thin Soil texture;
+- 4 world-biome textures: WarmTemperate, CoolTemperate, Subalpine, Alpine.
+
+Total minimum: **10 image assets**.
+
+Art policy:
+- start with one final texture per plant/state; the existing `Graphic_Random` implementation can load a one-texture folder and accept more variants later;
+- preserve Vanilla seasonal systems rather than baking snow/autumn state into evergreen/base textures;
+- only switch Def paths after the corresponding binary asset actually exists;
+- final visual review is intentionally manual for silhouette, scale, tiling, color/contrast, and world-map distinction;
+- automated validation must continue to catch missing-texture/runtime ERRORs after each asset is integrated.
+
+Art direction source of truth: `Docs/ArtDirection.md` at `6c310e7efb1fb0ae2a03e87cda7d803bffd398a8`.
+
+**Current state:** specification complete; binary art assets are not yet added to the repository. Existing Vanilla placeholder paths remain authoritative until each final asset is created and integrated.
+
+**Next action:** create/integrate the first final asset, preferably Sudajii, then update only that Def path and verify runtime load/visual scale before moving through the remaining assets.
+
+
 ### ENV-004 — Low-fertility natural terrain
 
 **Requested by:** Environment/design  
