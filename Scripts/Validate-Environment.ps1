@@ -638,6 +638,16 @@ if (-not $aboutRaw.Contains('<li>sucro.cropcoldtoleranceoverhaul</li>')) {
 }
 Pass "Environment declares optional Quickstarts/CCTO load order"
 
+$buildSource = Get-Content -LiteralPath (Join-Path $RepoRoot "build.bat") -Raw
+foreach ($expected in @(
+    '/reference:"%HARMONY_DLL%"',
+    'AncientMedievalJapanEnvironment.Quicktests.dll'
+)) {
+    if (-not $buildSource.Contains($expected)) {
+        Fail "build.bat is missing expected Quicktest Harmony marker: $expected"
+    }
+}
+
 $quicktestSourcePath = Join-Path $RepoRoot "Tests\Quickstarts\EnvironmentBiomeTerrainQuickstarts.cs"
 if (-not (Test-Path $quicktestSourcePath)) {
     Fail "Fixed-biome Quickstart source was not found."
@@ -697,6 +707,11 @@ foreach ($expected in @(
     'AddTerrainScatterTextureAssertions',
     '[AMJ Environment TerrainScatterTextureAudit] BAD',
     'all terrain scatter graphics resolve non-BadTex textures',
+    'BadRenderMaterialDiagnostics',
+    '[AMJ Environment BadRenderMaterial]',
+    'MapDrawLayer',
+    'GetSubMesh',
+    'map render pipeline emitted no BadTex submesh materials',
     'all loaded tree graphic states resolve non-BadTex textures',
     '[AMJ Environment TreeTextureAudit]',
     'leaflessSnowOverlayGraphicPath',
