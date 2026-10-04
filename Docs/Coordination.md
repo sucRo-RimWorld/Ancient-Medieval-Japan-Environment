@@ -743,5 +743,11 @@ The focused-debug validator has now been made target-agnostic. Instead of requir
 
 This removes the need to rewrite the static validator every time the focused texture-debug biome changes. Commit: `a7f7cbb7db10170cd9cdd5803abdc0b64ee60362`.
 
+A parser failure then exposed that commit `a7f7cbb7db10170cd9cdd5803abdc0b64ee60362` had accidentally truncated the replacement block inside `Validate-Environment.ps1`: the regex string for `RIMWORLD_QUICKSTART` was left unterminated and the remainder of the intended validation block was missing. The many later errors involving method calls and ampersands were cascading parser errors from that single unterminated string.
+
+The complete target-agnostic texture-debug validation block has now been restored: `9d80bfdbf0c7fe68ec32c50b90473f40663fc8b5`.
+
+Because this class of error has recurred during PowerShell edits, repository-level prevention was added as well: `.github/workflows/powershell-syntax.yml` parses every `.ps1` with PowerShell's own AST parser on pushes and pull requests that touch PowerShell files. This is intended to catch malformed scripts on GitHub before the author discovers them during a local run. CI commit: `e3cf52307b9933dad57aab1640923c927de8dc23`.
+
 **Next action:** pull and rerun `run-tests.bat`. If it passes, run `run-texture-debug.bat`; the current focused target remains CoolTemperate for Japanese beech. Inspect leafy beech in game, then check the leafless state.
 
