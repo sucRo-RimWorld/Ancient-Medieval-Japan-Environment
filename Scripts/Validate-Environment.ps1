@@ -351,13 +351,14 @@ $expectedWildlife = @{
 foreach ($defName in $expectedBiomeDefs) {
     $biome = $biomeDefs.Defs.BiomeDef | Where-Object { $_.defName -eq $defName }
     foreach ($animalDefName in $expectedWildlife[$defName]) {
-        $node = $biome.wildAnimals.($animalDefName)
+        $node = $biome.wildAnimals.SelectSingleNode($animalDefName)
         if ($null -eq $node) {
             Fail "$defName is missing accepted Vanilla wildlife proxy: $animalDefName"
         }
 
         $commonality = [double]::Parse(
-            $node.InnerText,
+            $node.InnerText.Trim(),
+            [System.Globalization.NumberStyles]::Float,
             [System.Globalization.CultureInfo]::InvariantCulture)
         if ($commonality -le 0) {
             Fail "$defName wildlife proxy must have positive commonality: $animalDefName"
