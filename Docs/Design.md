@@ -750,3 +750,46 @@ The first post-change automated runtime rerun passed cleanly in all four AMJ bio
 
 The Alpha regional weather baseline is therefore accepted.
 
+## 12. Seasonal scenery baseline
+
+### 12.1 Alpha principle
+
+Environment should not add a parallel seasonal-scenery system when RimWorld already provides the required visual state changes.
+
+The Alpha seasonal-scene model is therefore:
+- use Environment's accepted seasonal temperature curve and weather baseline;
+- let Vanilla snow weather and SnowGrid provide winter ground/plant snow presentation;
+- use one deciduous AMJE structural tree (Japanese beech) for autumn/leafless seasonal contrast;
+- keep Sudajii, Shirabiso and Haimatsu evergreen so the four vegetation bands do not all change identically;
+- defer all final AMJE-specific plant textures and other purely visual assets until the final-art pass.
+
+No new Harmony patch, GameCondition, WeatherDef or seasonal calendar controller is added for this stage.
+
+### 12.2 Deciduous / evergreen structure
+
+`AMJ_Tree_Beech` inherits `DeciduousTreeBase`. This preserves Vanilla's fall-color shader parameters and uses a leafless graphic when the plant enters Vanilla's leafless state.
+
+The other three structural plants intentionally remain non-deciduous:
+- `AMJ_Tree_Shii` — evergreen warm-temperate broadleaf;
+- `AMJ_Tree_Shirabiso` — evergreen subalpine conifer;
+- `AMJ_Shrub_Haimatsu` — evergreen alpine dwarf pine.
+
+This creates the intended broad visual progression without inventing AMJE-specific seasonal logic.
+
+### 12.3 Snow
+
+AMJE uses Vanilla `SnowGentle` and `SnowHard`. Both have positive snow rates and feed Vanilla's existing snow accumulation/rendering system.
+
+Because the accepted AMJE weather table already shifts colder bands toward more snow commonality, and the accepted climate model produces winter freezing conditions, snow scenery is treated as an emergent result of the existing temperature + weather systems rather than a separate Environment feature.
+
+### 12.4 Validation
+
+The fixed-biome runtime gate verifies loaded seasonal-scene prerequisites:
+- Japanese beech has a loaded leafless graphic;
+- Japanese beech retains the inherited `_FallBehaviorEnabled` shader parameter;
+- Sudajii, Shirabiso and Haimatsu do not acquire a leafless graphic;
+- Vanilla SnowGentle and SnowHard remain loaded with positive snow rates;
+- no pre-launch or Environment-origin runtime ERROR occurs.
+
+These checks validate integration/state wiring, not artistic quality. Final texture appearance remains a manual visual check at the final-art stage.
+
