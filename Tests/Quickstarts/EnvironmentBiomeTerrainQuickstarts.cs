@@ -126,6 +126,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         map.Biome.defName == TargetBiomeDefName;
                 });
 
+            AddWeatherAssertions(verification, map == null ? null : map.Biome);
+
             int targetCount = CountThings(map, TargetPlantDefName);
             int cellCount = map == null ? 0 : map.cellIndices.NumGridCells;
             float targetFraction =
@@ -198,6 +200,148 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " cctoActive=" + CctoIsActive());
 
             return verification;
+        }
+
+        private static void AddWeatherAssertions(
+            QuickstartVerification verification,
+            BiomeDef biome)
+        {
+            verification.Assert(
+                "AMJ biome has exactly eight baseline weather entries",
+                delegate
+                {
+                    return biome != null &&
+                        biome.baseWeatherCommonalities != null &&
+                        biome.baseWeatherCommonalities.Count == 8;
+                });
+
+            string[] weatherDefNames =
+            {
+                "Clear",
+                "Fog",
+                "Rain",
+                "DryThunderstorm",
+                "RainyThunderstorm",
+                "FoggyRain",
+                "SnowGentle",
+                "SnowHard"
+            };
+
+            for (int i = 0; i < weatherDefNames.Length; i++)
+            {
+                string weatherDefName = weatherDefNames[i];
+                float expected = ExpectedWeatherCommonality(
+                    biome == null ? null : biome.defName,
+                    weatherDefName);
+                float actual = GetWeatherCommonality(
+                    biome,
+                    weatherDefName);
+
+                verification.Assert(
+                    (biome == null ? "null" : biome.defName) +
+                        " weather " + weatherDefName +
+                        " commonality=" + expected.ToString("0.##"),
+                    delegate
+                    {
+                        return System.Math.Abs(actual - expected) < 0.001f;
+                    });
+            }
+
+            float dry = GetWeatherCommonality(biome, "DryThunderstorm");
+            float rainy = GetWeatherCommonality(biome, "RainyThunderstorm");
+
+            verification.Assert(
+                "rainy thunderstorm is more common than dry thunderstorm",
+                delegate { return rainy > dry; });
+
+            Log.Message(
+                "[AMJ Environment Weather] biome=" +
+                (biome == null ? "null" : biome.defName) +
+                " Clear=" + GetWeatherCommonality(biome, "Clear").ToString("0.##") +
+                " Fog=" + GetWeatherCommonality(biome, "Fog").ToString("0.##") +
+                " Rain=" + GetWeatherCommonality(biome, "Rain").ToString("0.##") +
+                " DryThunderstorm=" + dry.ToString("0.##") +
+                " RainyThunderstorm=" + rainy.ToString("0.##") +
+                " FoggyRain=" + GetWeatherCommonality(biome, "FoggyRain").ToString("0.##") +
+                " SnowGentle=" + GetWeatherCommonality(biome, "SnowGentle").ToString("0.##") +
+                " SnowHard=" + GetWeatherCommonality(biome, "SnowHard").ToString("0.##"));
+        }
+
+        private static float ExpectedWeatherCommonality(
+            string biomeDefName,
+            string weatherDefName)
+        {
+            if (weatherDefName == "Clear")
+            {
+                return 16f;
+            }
+
+            if (biomeDefName == "AMJ_WarmTemperateForest")
+            {
+                if (weatherDefName == "Fog") return 1.5f;
+                if (weatherDefName == "Rain") return 3f;
+                if (weatherDefName == "DryThunderstorm") return 0.1f;
+                if (weatherDefName == "RainyThunderstorm") return 1.5f;
+                if (weatherDefName == "FoggyRain") return 1.5f;
+                if (weatherDefName == "SnowGentle") return 2f;
+                if (weatherDefName == "SnowHard") return 1f;
+            }
+            else if (biomeDefName == "AMJ_CoolTemperateForest")
+            {
+                if (weatherDefName == "Fog") return 1.5f;
+                if (weatherDefName == "Rain") return 3f;
+                if (weatherDefName == "DryThunderstorm") return 0.1f;
+                if (weatherDefName == "RainyThunderstorm") return 1.5f;
+                if (weatherDefName == "FoggyRain") return 1.5f;
+                if (weatherDefName == "SnowGentle") return 4f;
+                if (weatherDefName == "SnowHard") return 3f;
+            }
+            else if (biomeDefName == "AMJ_SubalpineForest")
+            {
+                if (weatherDefName == "Fog") return 1f;
+                if (weatherDefName == "Rain") return 2f;
+                if (weatherDefName == "DryThunderstorm") return 0.1f;
+                if (weatherDefName == "RainyThunderstorm") return 1f;
+                if (weatherDefName == "FoggyRain") return 1f;
+                if (weatherDefName == "SnowGentle") return 7f;
+                if (weatherDefName == "SnowHard") return 7f;
+            }
+            else if (biomeDefName == "AMJ_AlpineZone")
+            {
+                if (weatherDefName == "Fog") return 1f;
+                if (weatherDefName == "Rain") return 1f;
+                if (weatherDefName == "DryThunderstorm") return 0.05f;
+                if (weatherDefName == "RainyThunderstorm") return 0.5f;
+                if (weatherDefName == "FoggyRain") return 0.5f;
+                if (weatherDefName == "SnowGentle") return 12f;
+                if (weatherDefName == "SnowHard") return 12f;
+            }
+
+            return -999f;
+        }
+
+        private static float GetWeatherCommonality(
+            BiomeDef biome,
+            string weatherDefName)
+        {
+            if (biome == null || biome.baseWeatherCommonalities == null)
+            {
+                return -999f;
+            }
+
+            for (int i = 0; i < biome.baseWeatherCommonalities.Count; i++)
+            {
+                WeatherCommonalityRecord record =
+                    biome.baseWeatherCommonalities[i];
+                if (record != null &&
+                    record.weather != null &&
+                    record.weather.defName == weatherDefName)
+                {
+                    return record.commonality;
+                }
+            }
+
+            return -999f;
         }
 
         private static bool CctoIsActive()
