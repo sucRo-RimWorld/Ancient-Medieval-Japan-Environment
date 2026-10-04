@@ -49,7 +49,7 @@
       <Clear>16</Clear>
       <Fog>1.5</Fog>
       <Rain>3</Rain>
-      <DryThunderstorm>0.5</DryThunderstorm>
+      <DryThunderstorm>0.1</DryThunderstorm>
       <RainyThunderstorm>1.5</RainyThunderstorm>
       <FoggyRain>1.5</FoggyRain>
       <SnowGentle>2</SnowGentle>
@@ -124,7 +124,7 @@
       <Clear>16</Clear>
       <Fog>1.5</Fog>
       <Rain>3</Rain>
-      <DryThunderstorm>0.5</DryThunderstorm>
+      <DryThunderstorm>0.1</DryThunderstorm>
       <RainyThunderstorm>1.5</RainyThunderstorm>
       <FoggyRain>1.5</FoggyRain>
       <SnowGentle>4</SnowGentle>
@@ -200,7 +200,7 @@
       <Clear>16</Clear>
       <Fog>1</Fog>
       <Rain>2</Rain>
-      <DryThunderstorm>0.5</DryThunderstorm>
+      <DryThunderstorm>0.1</DryThunderstorm>
       <RainyThunderstorm>1</RainyThunderstorm>
       <FoggyRain>1</FoggyRain>
       <SnowGentle>7</SnowGentle>
@@ -265,7 +265,7 @@
       <Clear>16</Clear>
       <Fog>1</Fog>
       <Rain>1</Rain>
-      <DryThunderstorm>0.25</DryThunderstorm>
+      <DryThunderstorm>0.05</DryThunderstorm>
       <RainyThunderstorm>0.5</RainyThunderstorm>
       <FoggyRain>0.5</FoggyRain>
       <SnowGentle>12</SnowGentle>
