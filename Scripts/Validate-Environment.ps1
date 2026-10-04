@@ -806,7 +806,7 @@ if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
 foreach ($pair in @(
     @($workshopJaRaw, '現在はAlphaです。', 'Japanese Workshop Alpha stage'),
     @($workshopJaRaw, 'Ancient & Medieval Japan Coreは不要です。', 'Japanese Workshop Core independence'),
-    @($workshopJaRaw, 'CCTOは任意です。', 'Japanese Workshop CCTO optionality'),
+    @($workshopJaRaw, 'Crop Cold Tolerance Overhaul（CCTO）は任意です。', 'Japanese Workshop CCTO optionality'),
     @($workshopEnRaw, 'Currently Alpha.', 'English Workshop Alpha stage'),
     @($workshopEnRaw, 'Ancient & Medieval Japan Core is not required.', 'English Workshop Core independence'),
     @($workshopEnRaw, 'Crop Cold Tolerance Overhaul (CCTO) is optional.', 'English Workshop CCTO optionality')
