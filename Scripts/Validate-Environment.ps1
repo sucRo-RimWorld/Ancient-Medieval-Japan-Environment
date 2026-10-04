@@ -720,7 +720,8 @@ foreach ($relative in @(
     "run-runtime-tests.bat",
     "Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1",
     "Scripts\Run-EnvironmentVegetationQuickstarts.ps1",
-    "Scripts\Validate-EnvironmentRuntimeLog.ps1"
+    "Scripts\Validate-EnvironmentRuntimeLog.ps1",
+    "Scripts\Validate-MedievalOverhaulTreeTextures.ps1"
 )) {
     $path = Join-Path $RepoRoot $relative
     if (-not (Test-Path -LiteralPath $path)) {
@@ -738,18 +739,35 @@ foreach ($expected in @(
     'Reports-CCTO',
     '-IncludeCCTO',
     '-CctoCompatibilityOnly',
-    'MO_READY',
-    'SaveData-MO',
-    'Reports-MO',
-    '3219596926',
-    '2023507013',
-    '3210544395',
-    '-IncludeMedievalOverhaul',
-    '-TreeTextureAuditOnly',
-    '-TimeoutSeconds 360'
+    'Medieval Overhaul tree-path validation is handled by the static gate'
 )) {
     if (-not $runtimeBatch.Contains($expected)) {
         Fail "run-runtime-tests.bat is missing expected marker: $expected"
+    }
+}
+
+$runTestsSource = Get-Content -LiteralPath (Join-Path $RepoRoot "run-tests.bat") -Raw
+foreach ($expected in @(
+    'Validate-MedievalOverhaulTreeTextures.ps1',
+    'Auditing installed Medieval Overhaul tree texture references'
+)) {
+    if (-not $runTestsSource.Contains($expected)) {
+        Fail "run-tests.bat is missing expected MO static-audit marker: $expected"
+    }
+}
+
+$moTreeAudit = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Validate-MedievalOverhaulTreeTextures.ps1") -Raw
+foreach ($expected in @(
+    '3219596926',
+    'TreeBase',
+    'DeciduousTreeBase',
+    'leaflessGraphicPath',
+    'immatureGraphicPath',
+    'Test-TexturePath',
+    'Medieval Overhaul tree texture references resolve'
+)) {
+    if (-not $moTreeAudit.Contains($expected)) {
+        Fail "MO tree-texture static audit is missing expected marker: $expected"
     }
 }
 
