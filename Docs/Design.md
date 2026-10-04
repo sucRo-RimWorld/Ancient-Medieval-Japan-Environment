@@ -485,6 +485,47 @@ First runtime distribution with Medieval Overhaul active:
 This is accepted as a valid coexistence result rather than treated as an AMJ-band failure. MO Dark Forest is a specialized naturally generated biome with its own score rules and is allowed to replace part of the otherwise suitable AMJ cool/subalpine climate space. Exact AMJ biome percentages are therefore mod-list dependent and are not balance targets.
 
 
+### 9.6 Japan-specific structural wild vegetation
+
+After the biome-placement and natural-soil gates passed, Environment moves from Vanilla-only vegetation placeholders to a deliberately small Japan-specific structural set.
+
+Research basis:
+- Ministry of the Environment vegetation classification identifies warm-temperate forests with shii/oak evergreen broadleaf communities such as Sudajii and tabu forests, cool-temperate forests with beech/mizunara communities, subalpine forests with evergreen conifers such as shirabiso/oshirabiso/kometsuga, and alpine vegetation with haimatsu scrub and alpine grassland;
+- historical-vegetation research also shows that human activity from the Yayoi period through the medieval period increased pine, grassland and secondary-forest signatures in many settled regions. AMJ should therefore not render every lowland forest as an untouched climax forest.
+
+Sources:
+- https://www.biodic.go.jp/reports/3-4/hyo/c090.html
+- https://www.biodic.go.jp/reports/2-2/aa029.html
+- https://www.ffpri.go.jp/labs/prdb/sirabiso.html
+- https://www.biodic.go.jp/reports2/5th/vgt_en/5_vgt_en.pdf
+- https://www.jstage.jst.go.jp/article/jaqua/advpub/0/advpub_62.2211/_article/-char/en
+
+Alpha structural set:
+
+| Climate band | AMJ plant | Role |
+|---|---|---|
+| Warm-temperate | `AMJ_Tree_Shii` / Sudajii | evergreen broadleaf canopy dominant |
+| Cool-temperate | `AMJ_Tree_Beech` / Japanese beech | deciduous broadleaf canopy dominant |
+| Subalpine | `AMJ_Tree_Shirabiso` / shirabiso fir | evergreen conifer canopy dominant |
+| Alpine | `AMJ_Shrub_Haimatsu` / haimatsu dwarf pine | low alpine scrub dominant above treeline |
+
+Scope rules:
+- keep the set deliberately small; generic grass, moss, brambles, bushes and secondary tree components continue to reuse Vanilla PlantDefs;
+- keep some Vanilla oak/maple/birch/pine/bamboo in the biome pools at lower commonality so maps do not imply untouched single-species climax forest and can also stand in for secondary vegetation during Alpha;
+- add no new food, medicine, fiber or other harvested item types in this pass. Gatherable-resource design belongs to the relevant AMJ resource/gathering systems and should be coordinated separately;
+- the three AMJ trees yield ordinary Vanilla wood only;
+- haimatsu is a low shrub rather than a normal timber tree, preserving alpine timber scarcity;
+- all four new plants use Vanilla graphics as temporary placeholders. Final plant artwork remains deferred until vegetation distribution and gameplay are accepted.
+
+Initial wild-plant commonality:
+- Warm-temperate: Shii **2.0**, with Oak 0.4, Poplar 0.15, Maple 0.25 and Bamboo 0.5 retained as secondary components;
+- Cool-temperate: Beech **1.8**, with Oak 0.6, Maple 0.8, Birch 0.6 and Pine 0.35 retained;
+- Subalpine: Shirabiso **2.6**, Pine 0.9 and Birch 0.5;
+- Alpine: Haimatsu **1.3**, with full-size Pine/Birch reduced to 0.02 each.
+
+The next gate is runtime map validation. Use the fixed-biome Quicktests to verify that the intended structural species are visibly present/dominant without producing excessive movement blockage, timber abundance, or plant-generation errors. Do not create final plant textures before this gate passes.
+
+
 ## 10. Natural soil fertility
 
 ### 10.1 Responsibility and purpose
