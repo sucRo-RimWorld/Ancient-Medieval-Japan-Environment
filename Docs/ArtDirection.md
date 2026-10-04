@@ -131,7 +131,9 @@ This is the most important silhouette distinction for keeping the alpine zone ab
 
 ## Retextured plant description policy
 
-Every plant whose in-game artwork is replaced by AMJE must also receive an AMJE-authored description so the visual pass does not retain text that conflicts with AMJE's tone or environmental role.
+This section is the ENV-010 application of the AMJ-wide historical description policy in Ancient-Medieval-Japan-Core `Docs/HistoricalDescriptionGuidelines.md`.
+
+Every plant whose in-game artwork is replaced by AMJE must also receive an AMJE-authored description so the visual pass does not retain text that conflicts with AMJE's tone, environmental role, or ancient/medieval Japanese historical context. This is a minimum requirement for the art scope; the shared AMJ policy is broader and also applies to Vanilla/MO items, plants, and animals that AMJ explicitly adopts, patches, selects, or localizes.
 
 This applies to:
 - AMJE-owned structural plants;
