@@ -840,6 +840,8 @@ Each test:
 
 These tests do not lock an exact local water-cell percentage. Local map geometry is still Vanilla behavior; AMJE only needs to guarantee that its modified world rivers/coasts continue to reach that behavior.
 
+The first local rerun of the combined Environment runtime gate after adding the River/Coast handoff Quickstarts was reported **PASS** by the author. This confirms the Alpha handoff path is accepted: AMJE world-level river/coast changes continue to reach Vanilla local-map generation without requiring a custom local-water generator. Exact assertion counts and water-cell counts were not recorded from that run, so they are intentionally not treated as design constants.
+
 ### 13.3 Waterfalls remain deferred
 
 The existence of working Vanilla local rivers does not change the Waterfall decision in Section 6.
