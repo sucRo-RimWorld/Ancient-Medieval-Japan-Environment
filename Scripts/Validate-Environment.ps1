@@ -243,6 +243,49 @@ foreach ($defName in $expectedWildPlants) {
 }
 Pass "Four Japan-specific structural wild PlantDefs are present"
 
+foreach ($defName in $expectedWildPlants) {
+    $plantDef = $wildPlants.Defs.ThingDef | Where-Object { $_.defName -eq $defName }
+    if ($null -eq $plantDef.plant.minGrowthTemperature) {
+        Fail "AMJ wild PlantDef does not explicitly declare Vanilla baseline minGrowthTemperature: $defName"
+    }
+    if ([double]$plantDef.plant.minGrowthTemperature -ne 0) {
+        Fail "AMJ wild PlantDef Vanilla baseline minGrowthTemperature must be 0 C: $defName"
+    }
+}
+Pass "AMJ wild plants explicitly preserve the Vanilla-style 0 C growth baseline"
+
+$cctoPatchPath = Join-Path $RepoRoot "Patches\Compatibility\CCTO.xml"
+if (-not (Test-Path -LiteralPath $cctoPatchPath)) {
+    Fail "Optional CCTO compatibility patch was not found."
+}
+try {
+    [xml]$cctoPatchXml = Get-Content -LiteralPath $cctoPatchPath -Raw
+}
+catch {
+    Fail "Optional CCTO compatibility XML is not well formed: $($_.Exception.Message)"
+}
+$cctoPatchRaw = Get-Content -LiteralPath $cctoPatchPath -Raw
+foreach ($expected in @(
+    'PatchOperationSequence',
+    'MayRequire="sucro.cropcoldtoleranceoverhaul"',
+    'AMJ_Tree_Shii',
+    '<minGrowthTemperature>8</minGrowthTemperature>',
+    '<coldDeathTemperature>-8</coldDeathTemperature>',
+    'AMJ_Tree_Beech',
+    '<minGrowthTemperature>5</minGrowthTemperature>',
+    '<coldDormancy>true</coldDormancy>',
+    'AMJ_Tree_Shirabiso',
+    '<coldDeathTemperature>-35</coldDeathTemperature>',
+    'AMJ_Shrub_Haimatsu',
+    'CropColdToleranceOverhaul.ColdToleranceExtension'
+)) {
+    if (-not $cctoPatchRaw.Contains($expected)) {
+        Fail "Optional CCTO compatibility patch is missing expected marker: $expected"
+    }
+}
+Pass "AMJE owns a conditional CCTO compatibility layer for its four wild plants"
+
+
 $biomeDefsRawForPlants = Get-Content -LiteralPath $biomeDefsPath -Raw
 foreach ($expected in @(
     '<AMJ_Tree_Shii>2.0</AMJ_Tree_Shii>',
@@ -395,7 +438,10 @@ $aboutRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml") -Ra
 if (-not $aboutRaw.Contains('<li>rimworks.quickstarts</li>')) {
     Fail "About.xml must load after Quickstarts when that mod is active."
 }
-Pass "Environment declares optional Quickstarts load order"
+if (-not $aboutRaw.Contains('<li>sucro.cropcoldtoleranceoverhaul</li>')) {
+    Fail "About.xml must load after CCTO when that optional compatibility target is active."
+}
+Pass "Environment declares optional Quickstarts/CCTO load order"
 
 $quicktestSourcePath = Join-Path $RepoRoot "Tests\Quickstarts\EnvironmentBiomeTerrainQuickstarts.cs"
 if (-not (Test-Path $quicktestSourcePath)) {
@@ -427,7 +473,14 @@ foreach ($expected in @(
     'AMJ_Tree_Shirabiso',
     'AMJ_Shrub_Haimatsu',
     'MaxTargetCellFraction',
-    '"[AMJ Environment Vegetation] biome="'
+    '"[AMJ Environment Vegetation] biome="',
+    'CctoIsActive()',
+    'AddCctoCompatibilityAssertions',
+    'CropColdToleranceOverhaul.ColdToleranceExtension',
+    'AMJ_Tree_Shii',
+    'AMJ_Tree_Beech',
+    'AMJ_Tree_Shirabiso',
+    'AMJ_Shrub_Haimatsu'
 )) {
     if (-not $quicktestSource.Contains($expected)) {
         Fail "Fixed-biome Quickstart source is missing expected marker: $expected"
@@ -451,7 +504,12 @@ $runtimeBatch = Get-Content -LiteralPath (Join-Path $RepoRoot "run-runtime-tests
 foreach ($expected in @(
     'run-tests.bat',
     'Run-EnvironmentVegetationQuickstarts.ps1',
-    'TestResults\VegetationRuntime'
+    'TestResults\VegetationRuntime',
+    'CCTO_INSTALLED',
+    'SaveData-CCTO',
+    'Reports-CCTO',
+    '-IncludeCCTO',
+    '-CctoCompatibilityOnly'
 )) {
     if (-not $runtimeBatch.Contains($expected)) {
         Fail "run-runtime-tests.bat is missing expected marker: $expected"
@@ -465,7 +523,8 @@ foreach ($expected in @(
     'AMJSubalpineTerrainQuickstart',
     'AMJAlpineTerrainQuickstart',
     'quickstartreport',
-    'Validate-EnvironmentRuntimeLog.ps1'
+    'Validate-EnvironmentRuntimeLog.ps1',
+    'CctoCompatibilityOnly'
 )) {
     if (-not $runtimeRunner.Contains($expected)) {
         Fail "Vegetation runtime runner is missing expected marker: $expected"
