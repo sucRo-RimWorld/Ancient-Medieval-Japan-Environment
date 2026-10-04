@@ -679,3 +679,25 @@ The prior ENV-010 rule requiring rewritten descriptions for AMJE-retextured plan
 Descriptions should contain supported historical facts and meaningful modern differences where supportable, with Japanese drafted and author-approved before English translation. Retexture work still carries a mandatory description review as a minimum art-pass requirement.
 
 **Result / references:** shared policy in Core `Docs/HistoricalDescriptionGuidelines.md` commit `ca17b37eb3cca5266d1f62a2d73f527a503d76e5`; AMJE AGENTS `0e1b74173eca79dde09dffa2287fc5f72a583c27`; ArtDirection alignment `3b8b7c753b79951b315c2ffe31822416a31595c8`.
+
+### ENV-010 Sudajii final visual direction
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** art/localization  
+**Status:** IN PROGRESS
+
+The Sudajii in-game comparison was reviewed against actual AMJE terrain and the current AMJ crop-art baseline. The author selected the strongest simplified/deformed **C-direction** and then approved a lower-saturation refinement for production.
+
+Locked production direction:
+- remove the baked green ground/grass ring entirely;
+- use a thicker near-black outer outline;
+- simplify foliage into larger/chunkier masses with fewer internal color clusters;
+- keep the approved hue relationships but reduce foliage saturation, especially the brightest yellow-green highlights;
+- reduce trunk orange saturation while preserving value contrast;
+- keep transparent background and no decorative ground base;
+- target the same simplified visual weight as the current AMJ crop sprites rather than the earlier more detailed Sudajii pass.
+
+Canonical art-direction update: `0815e0257deaa4b39fd41fe5231426a5215f5306`.
+
+**Next action:** produce the standalone transparent Sudajii sprite in this locked direction, visually approve it, then replace the current `Shii_A.png` and rerun the focused WarmTemperate texture-debug check before the full runtime regression gate.
+
