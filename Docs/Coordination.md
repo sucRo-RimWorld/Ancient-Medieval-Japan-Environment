@@ -707,5 +707,15 @@ The author completed the focused WarmTemperate visual check and accepted the fin
 
 The author confirmed the normal Environment runtime gate passes with the accepted Sudajii asset in place. Sudajii is therefore complete for ENV-010 visual implementation and regression coverage.
 
-**Next action:** continue ENV-010 with the next planned asset, leafy Japanese beech (`AMJ_Tree_Beech`), followed by its matching leafless state. Use the accepted Sudajii/C-direction as the visual-weight baseline while keeping beech lighter/open-crowned with a pale-grey trunk, and preserve Vanilla's dynamic seasonal color behavior. After the visual pair is accepted, draft the Japanese historical description for author review before any English translation.
+The author approved the revised Japanese beech pair after rejecting the first pass as too similar to Sudajii. The accepted pair has a visibly open, horizontally spreading crown, exposed branch structure, pale grey-beige bark, lower-saturation lighter foliage, and a matching broad leafless branching silhouette.
+
+Implementation:
+- leafy sprite: `Textures/Things/Plant/AMJ/Beech/Beech_A.png`;
+- leafless sprite: `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png`;
+- `AMJ_Tree_Beech` now points to those AMJE-owned paths instead of Vanilla `TreeMaple` placeholders;
+- integration commit: `8d0eeabf808ec4cbe37a78745675e9aa39561466`;
+- static validation now locks both files, both AMJE paths, PNG structure, and absence of the former TreeMaple placeholders: `af0fb7608c3fa1d0f3f3ec29877b9ba3637a66bd`;
+- canonical art-direction record: `b21471b8e1bb7de1d328c9fb5055c12993463863`.
+
+**Next action:** pull/build and use the focused WarmTemperate texture-debug run to verify leafy beech scale/readability. Then force/check a leafless seasonal state if practical; once the pair is accepted in game, draft the Japanese historical description for author review before any English translation.
 
