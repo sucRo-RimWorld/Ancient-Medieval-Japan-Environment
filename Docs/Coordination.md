@@ -705,5 +705,7 @@ The exact validated 256x256 source PNG was then transferred without manual base6
 
 The author completed the focused WarmTemperate visual check and accepted the final Sudajii sprite in game. The rendered tree now sits naturally against the terrain, the green ground ring is gone, and the muted C-style silhouette/outline treatment is approved. Canonical art-direction acceptance: `ee61dba6614e1344a96284b669f8983cee16af99`.
 
-**Next action:** run the normal runtime gate once as regression coverage. After that, continue ENV-010 with the next planned tree retexture and its Japanese-first historical description review.
+The author confirmed the normal Environment runtime gate passes with the accepted Sudajii asset in place. Sudajii is therefore complete for ENV-010 visual implementation and regression coverage.
+
+**Next action:** continue ENV-010 with the next planned asset, leafy Japanese beech (`AMJ_Tree_Beech`), followed by its matching leafless state. Use the accepted Sudajii/C-direction as the visual-weight baseline while keeping beech lighter/open-crowned with a pale-grey trunk, and preserve Vanilla's dynamic seasonal color behavior. After the visual pair is accepted, draft the Japanese historical description for author review before any English translation.
 
