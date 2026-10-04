@@ -10,7 +10,9 @@ param(
 
     [int]$TimeoutSeconds = 180,
 
-    [switch]$CctoCompatibilityOnly
+    [switch]$CctoCompatibilityOnly,
+
+    [switch]$TreeTextureAuditOnly
 )
 
 $ErrorActionPreference = "Stop"
@@ -26,7 +28,11 @@ if (-not (Test-Path -LiteralPath $ExePath)) {
 
 New-Item -ItemType Directory -Force -Path $ResultDir | Out-Null
 
-if ($CctoCompatibilityOnly) {
+if ($CctoCompatibilityOnly -and $TreeTextureAuditOnly) {
+    Fail "CctoCompatibilityOnly and TreeTextureAuditOnly cannot be used together."
+}
+
+if ($CctoCompatibilityOnly -or $TreeTextureAuditOnly) {
     $scenarios = @(
         "AMJWarmTemperateTerrainQuickstart"
     )
@@ -136,6 +142,9 @@ foreach ($name in $scenarios) {
 Write-Host ""
 if ($CctoCompatibilityOnly) {
     Write-Host "[OK] AMJE + CCTO loaded-Def compatibility Quickstart passed." -ForegroundColor Green
+}
+elseif ($TreeTextureAuditOnly) {
+    Write-Host "[OK] Loaded tree graphic-state texture audit passed." -ForegroundColor Green
 }
 else {
     Write-Host "[OK] Environment vegetation + river/coast runtime Quickstarts passed." -ForegroundColor Green
