@@ -16,6 +16,7 @@
 
   <loadAfter>
     <li>brrainz.harmony</li>
+    <li>sucro.cropcoldtoleranceoverhaul</li>
     <li>rimworks.quickstarts</li>
   </loadAfter>
 
