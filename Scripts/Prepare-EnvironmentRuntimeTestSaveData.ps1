@@ -3,7 +3,9 @@ param(
     [string]$OutputRoot,
 
     [string]$SourceModsConfigPath =
-        "$env:USERPROFILE\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config\ModsConfig.xml"
+        "$env:USERPROFILE\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config\ModsConfig.xml",
+
+    [switch]$IncludeCCTO
 )
 
 $ErrorActionPreference = "Stop"
@@ -28,9 +30,14 @@ $required = @(
     "brrainz.harmony",
     "ludeon.rimworld",
     "rimworks.rimlogging",
-    "rimworks.quickstarts",
-    "sucro.ancientmedievaljapan.environment"
+    "rimworks.quickstarts"
 )
+
+if ($IncludeCCTO) {
+    $required += "sucro.cropcoldtoleranceoverhaul"
+}
+
+$required += "sucro.ancientmedievaljapan.environment"
 
 $configDir = Join-Path $OutputRoot "Config"
 $configPath = Join-Path $configDir "ModsConfig.xml"
@@ -119,6 +126,9 @@ finally {
 }
 
 Write-Host "[OK] Prepared isolated Environment runtime-test profile."
+if ($IncludeCCTO) {
+    Write-Host "[OK] Optional CCTO compatibility profile enabled."
+}
 Write-Host "     $OutputRoot"
 Write-Host "[OK] Dev mode enabled only in isolated test Prefs.xml."
 Write-Host ""
