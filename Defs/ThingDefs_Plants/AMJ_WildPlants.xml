@@ -75,7 +75,7 @@
     <plant>
       <growDays>28</growDays>
       <minGrowthTemperature>0</minGrowthTemperature>
-      <visualSizeRange>
+      <visualSizeRange Inherit="False">
         <min>1.25</min>
         <max>2.7</max>
       </visualSizeRange>
@@ -107,7 +107,7 @@
       <minGrowthTemperature>0</minGrowthTemperature>
       <wildClusterRadius>7</wildClusterRadius>
       <wildClusterWeight>28</wildClusterWeight>
-      <visualSizeRange>
+      <visualSizeRange Inherit="False">
         <min>0.45</min>
         <max>0.75</max>
       </visualSizeRange>
