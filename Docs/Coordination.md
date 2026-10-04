@@ -483,7 +483,16 @@ Terrain-scatter diagnostic extension:
 - each fixed-biome Quickstart now collects the scatter types actually present on map terrain, checks every referenced loaded `ScatterableDef.mat.mainTexture` for null/BadTex/ERRORTEX, and logs exact defName/scatterType/texturePath on failure: `6de0ed9adcde6823d6f71d6e34d09744b695c035`;
 - static validation locks the new `[AMJ Environment TerrainScatterTextureAudit] BAD` path in place: `b6b6d3db2e18270d99200175639c9852e725962a`.
 
-**Next action:** pull and rerun the normal runtime gate. If terrain scatter is the source, WarmTemperate should now fail with `[AMJ Environment TerrainScatterTextureAudit] BAD def=...`, directly identifying the missing scatter texture. If this audit also passes despite visible question marks, inspect terrain base materials / section-layer overlays next.
+The user reran WarmTemperate with visible red question marks still present, yet the plant, non-plant Thing, and terrain-scatter audits all passed. This rules out their source materials at the data-object level, but not the actual material handed to RimWorld's map section renderer.
+
+Render-pipeline diagnostic extension:
+- the developer Quicktest assembly now Harmony-patches `MapDrawLayer.GetSubMesh(Material)`, the common path used by static map section layers (terrain, terrain scatter, map-mesh Things, etc.), and emits `[AMJ Environment BadRenderMaterial]` as an ERROR whenever the actual render material is `BaseContent.BadMat` or uses `BaseContent.BadTex`/ERRORTEX: `a58053f875131a90f4f859723db4ce251015c0df`;
+- Quicktest compilation now explicitly references Harmony: `b93f50402e91c4554fa70e506ced15181d2a2046`;
+- static validation locks the render-material interceptor and Harmony reference in place: `8f924aa69154b1e0fde3b479ebfc75ca9ee87466`.
+
+This is intentionally lower-level than the previous Def/Thing/scatter checks. If the visible question marks are produced by any static section layer, the next run should fail and the error will name the exact layer class (for example `SectionLayer_Terrain`, `SectionLayer_TerrainScatter`, or `SectionLayer_Things`), avoiding further guessing.
+
+**Next action:** pull/build and rerun the normal runtime gate. Capture the first `[AMJ Environment BadRenderMaterial] layer=...` line if it appears. If visible question marks still occur while this interceptor also stays clean, the remaining path is a realtime renderer such as Fleck/Mote/Graphics.DrawMesh rather than the static map mesh.
 
 
 ### ENV-004 — Low-fertility natural terrain
