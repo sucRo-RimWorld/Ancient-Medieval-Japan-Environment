@@ -5,7 +5,9 @@ param(
     [string]$SourceModsConfigPath =
         "$env:USERPROFILE\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config\ModsConfig.xml",
 
-    [switch]$IncludeCCTO
+    [switch]$IncludeCCTO,
+
+    [switch]$IncludeMedievalOverhaul
 )
 
 $ErrorActionPreference = "Stop"
@@ -32,6 +34,12 @@ $required = @(
     "rimworks.rimlogging",
     "rimworks.quickstarts"
 )
+
+if ($IncludeMedievalOverhaul) {
+    $required += "OskarPotocki.VanillaFactionsExpanded.Core"
+    $required += "syrchalis.processor.framework"
+    $required += "DankPyon.Medieval.Overhaul"
+}
 
 if ($IncludeCCTO) {
     $required += "sucro.cropcoldtoleranceoverhaul"
@@ -128,6 +136,9 @@ finally {
 Write-Host "[OK] Prepared isolated Environment runtime-test profile."
 if ($IncludeCCTO) {
     Write-Host "[OK] Optional CCTO compatibility profile enabled."
+}
+if ($IncludeMedievalOverhaul) {
+    Write-Host "[OK] Optional Medieval Overhaul tree-texture audit profile enabled."
 }
 Write-Host "     $OutputRoot"
 Write-Host "[OK] Dev mode enabled only in isolated test Prefs.xml."
