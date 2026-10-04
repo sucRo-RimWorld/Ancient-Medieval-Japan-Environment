@@ -472,13 +472,23 @@ Policy commits: `2a86387ebf1bfe5d3de3fbf09de93800cace0e74`, `7148ff5df9cdc2078e5
 
 **Requested by:** author / public-description policy (2026-10-04 JST)  
 **Owner:** Documentation/release  
-**Status:** DONE (repository documentation)
+**Status:** DONE (public source files prepared; Steam page not yet published)
 
 All AMJ-related mod descriptions must include save compatibility. CCTO is the evolving format baseline. Durable shared policy: [Docs/ModDescriptionGuidelines.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md). Addition/removal safety must reflect each mod's actual implementation; custom content and world-generation mods do not inherit CCTO's safe-removal claim.
 
 About.xml now states the development build's save-compatibility limits; AGENTS.md points to the shared policy for future README/Workshop preparation.
 
-**Next action:** Use the shared CCTO-based format when preparing the public description; verify save addition/removal before making stronger claims.
+Public source preparation is now complete:
+- detailed README source: `fa998e2e0f8a690f6b0add09146d3247dd3366f4`;
+- Japanese Workshop source written first: `c2686e93378b14aceb0270c758e1bebb9ec9325a`;
+- English translation synchronized from the Japanese source: `105c181b69c1ce402a6467b5e9478d2a057a2db0`;
+- Workshop presentation/authoring policy: `a3c951739bcbf5624009740c6b1c0df7014ce334`;
+- About.xml Alpha positioning and save-compatibility wording: `72f93c6d93b2a9b9fb8e47a95ff54688b3e5f14e`;
+- public-description static validation: `06f7aa605d6d4519fa2ae643fa18055847fbe9a0`, marker correction `274b9cac3f4544fab1b2dc49c5a7ec45134a8679`.
+
+Japanese Workshop source is **3692 UTF-8 bytes** and English is **3616 bytes**, both below the 8,000-byte policy limit.
+
+**Result:** repository-side public copy is prepared. This does **not** claim that the Steam Workshop page itself has been created or updated. Final screenshots/art should be completed before public release presentation is treated as finished.
 
 
 ### TEST-POLICY-002 — RimTest Redux / Pickle automation-first policy
