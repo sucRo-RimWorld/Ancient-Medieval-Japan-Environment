@@ -60,7 +60,10 @@ The current vegetation/weather assertions verify:
 - Haimatsu occupies at most 5% of all map cells;
 - full-size Pine + Birch together occupy at most 1% of Alpine cells;
 - each AMJ biome loads exactly the accepted eight Vanilla weather entries with the locked Alpha commonality values;
-- rainy thunderstorms remain more common than dry thunderstorms in every AMJ biome.
+- rainy thunderstorms remain more common than dry thunderstorms in every AMJ biome;
+- Japanese beech keeps its loaded leafless graphic and inherited Vanilla fall-shader behavior;
+- Sudajii, Shirabiso and Haimatsu remain non-leafless evergreen structural plants;
+- Vanilla gentle/hard snow weather remains available with positive snow rates.
 
 The runtime suite also writes `[AMJ Environment Vegetation]` count/share summaries so balance can be reviewed without manual log counting.
 
