@@ -115,6 +115,10 @@ foreach ($name in $scenarios) {
         Fail "$name verification failed. See $report" 1
     }
 
+    if ([int]$result.preLaunchErrors -gt 0) {
+        Fail "$name recorded $($result.preLaunchErrors) pre-launch ERROR entries. See $report and $log" 1
+    }
+
     if (-not $result.captureLive -or $result.logTruncated) {
         Fail "$name could not prove complete live log capture." 1
     }
