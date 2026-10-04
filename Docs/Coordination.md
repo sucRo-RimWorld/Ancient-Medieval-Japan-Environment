@@ -703,5 +703,7 @@ The standalone Sudajii sprite was then generated in the locked C-direction and a
 
 The exact validated 256x256 source PNG was then transferred without manual base64 transcription and now replaces `Textures/Things/Plant/AMJ/Shii/Shii_A.png`. GitHub blob SHA is `62d795d9717a3ad4d61827bfb470cd7b3cfc7000`; corrective commit: `81a2c60af98553610c87d6606b0eba71d05b2a6a`. This file is the approved C-direction asset: transparent background, no ground/grass ring, muted olive/forest foliage, restrained trunk saturation, and the accepted simplified silhouette.
 
-**Next action:** pull and run `run-tests.bat` first; the PNG structure gate should now pass. Then run `run-texture-debug.bat` once to confirm in-game scale, silhouette, outline weight, UI icon, and lack of ground-ring artifacts. Only after that visual confirmation, run the normal runtime gate once as regression coverage and continue ENV-010.
+The author completed the focused WarmTemperate visual check and accepted the final Sudajii sprite in game. The rendered tree now sits naturally against the terrain, the green ground ring is gone, and the muted C-style silhouette/outline treatment is approved. Canonical art-direction acceptance: `ee61dba6614e1344a96284b669f8983cee16af99`.
+
+**Next action:** run the normal runtime gate once as regression coverage. After that, continue ENV-010 with the next planned tree retexture and its Japanese-first historical description review.
 
