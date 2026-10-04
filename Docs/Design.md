@@ -523,9 +523,11 @@ Initial wild-plant commonality:
 - Subalpine: Shirabiso **2.6**, Pine 0.9 and Birch 0.5;
 - Alpine: Haimatsu **1.3**, with full-size Pine/Birch reduced to 0.02 each.
 
-Automated runtime map validation is now the acceptance gate for this Alpha vegetation set. The four fixed-biome Quickstarts run against an isolated profile and verify target-biome identity, target structural-plant generation, dominance over configured secondary tree species, Alpine Haimatsu coverage <=5% of all cells, Alpine full-size Pine+Birch coverage <=1% of all cells, complete live log capture, and no Environment-origin ERROR entries.
+Automated runtime map validation is the acceptance gate for this Alpha vegetation set. The four fixed-biome Quickstarts run against an isolated profile and verify target-biome identity, target structural-plant generation, dominance over configured secondary tree species, Alpine Haimatsu coverage <=5% of all cells, Alpine full-size Pine+Birch coverage <=1% of all cells, complete live log capture, no Environment-origin live ERROR entries, and **zero Quickstarts pre-launch ERROR entries**.
 
-The current four-biome automated runtime gate passed in full after the optional-MO patch guard and synthetic-climate test fallback fixes. Therefore the Alpha structural vegetation composition and commonality values above are accepted without retuning. Final plant artwork remains deferred to the later visual-art pass; numerical distribution and runtime correctness do not require another manual smoke by default.
+A later report audit found that an earlier nominal Quickstarts PASS was incomplete: all vegetation assertions passed, but every report contained `preLaunchErrors=2`. The corresponding startup log entries were AMJE-owned XML inheritance errors on Shirabiso and Haimatsu `visualSizeRange`: the inherited parent FloatRange text and child min/max nodes were being merged into one invalid node. The two child ranges now explicitly use `Inherit="False"`, and the runtime runner now fails on any nonzero `preLaunchErrors` in the isolated profile.
+
+Therefore the structural composition/commonality values themselves remain unchanged, but the Alpha runtime acceptance is **pending a clean rerun with preLaunchErrors=0**. Final plant artwork remains deferred to the later visual-art pass.
 
 #### Optional CCTO integration ownership
 
