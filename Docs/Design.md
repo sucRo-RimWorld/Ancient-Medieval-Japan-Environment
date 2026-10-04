@@ -793,3 +793,12 @@ The fixed-biome runtime gate verifies loaded seasonal-scene prerequisites:
 
 These checks validate integration/state wiring, not artistic quality. Final texture appearance remains a manual visual check at the final-art stage.
 
+The first automated runtime rerun after adding these checks passed cleanly:
+- WarmTemperate: **31/31** assertions;
+- CoolTemperate: **31/31**;
+- Subalpine: **29/29**;
+- Alpine: **29/29**;
+- AMJE+CCTO focused run: **43/43**.
+
+All reports had `preLaunchErrors=0`, `logErrors=0`, complete live capture, and no truncated logs. The seasonal-scenery baseline is therefore accepted for Alpha without adding a custom seasonal controller.
+
