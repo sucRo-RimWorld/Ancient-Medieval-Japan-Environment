@@ -475,6 +475,7 @@ foreach ($expected in @(
     'MaxTargetCellFraction',
     '"[AMJ Environment Vegetation] biome="',
     'CctoIsActive()',
+    'ModLister.GetActiveModWithIdentifier',
     'AddCctoCompatibilityAssertions',
     'CropColdToleranceOverhaul.ColdToleranceExtension',
     'AMJ_Tree_Shii',
