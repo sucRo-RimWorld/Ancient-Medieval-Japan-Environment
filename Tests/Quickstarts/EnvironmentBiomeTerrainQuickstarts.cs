@@ -131,6 +131,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             AddWildlifeAssertions(verification, map == null ? null : map.Biome);
             AddLivePlantTextureAssertions(verification, map);
             AddLiveThingTextureAssertions(verification, map);
+            AddTerrainScatterTextureAssertions(verification, map);
 
             if (TargetBiomeDefName == "AMJ_WarmTemperateForest")
             {
@@ -732,6 +733,102 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     return map != null &&
                         scannedThings > 0 &&
                         badThings == 0;
+                });
+        }
+
+        private static void AddTerrainScatterTextureAssertions(
+            QuickstartVerification verification,
+            Map map)
+        {
+            int referencedScatterDefs = 0;
+            int badScatterDefs = 0;
+            string failures = "";
+
+            System.Collections.Generic.HashSet<string> scatterTypes =
+                new System.Collections.Generic.HashSet<string>();
+
+            if (map != null)
+            {
+                foreach (IntVec3 cell in map.AllCells)
+                {
+                    TerrainDef terrain = map.terrainGrid.TerrainAt(cell);
+                    if (terrain != null &&
+                        !string.IsNullOrEmpty(terrain.scatterType))
+                    {
+                        scatterTypes.Add(terrain.scatterType);
+                    }
+                }
+            }
+
+            foreach (ScatterableDef def in DefDatabase<ScatterableDef>.AllDefsListForReading)
+            {
+                if (def == null ||
+                    string.IsNullOrEmpty(def.scatterType) ||
+                    !scatterTypes.Contains(def.scatterType))
+                {
+                    continue;
+                }
+
+                referencedScatterDefs++;
+
+                UnityEngine.Material material = def.mat;
+                if (MaterialHasNonBadTexture(material))
+                {
+                    continue;
+                }
+
+                badScatterDefs++;
+
+                string texture =
+                    material == null || material.mainTexture == null
+                        ? "<null>"
+                        : material.mainTexture.name;
+
+                if (!string.IsNullOrEmpty(failures))
+                {
+                    failures += "; ";
+                }
+
+                failures +=
+                    def.defName +
+                    ":type=" +
+                    def.scatterType +
+                    " path=" +
+                    (def.texturePath ?? "<null>") +
+                    " texture=" +
+                    texture;
+
+                Log.Warning(
+                    "[AMJ Environment TerrainScatterTextureAudit] BAD" +
+                    " def=" + def.defName +
+                    " scatterType=" + def.scatterType +
+                    " path=" + (def.texturePath ?? "<null>") +
+                    " texture=" + texture);
+            }
+
+            string typeSummary = "";
+            foreach (string scatterType in scatterTypes)
+            {
+                if (!string.IsNullOrEmpty(typeSummary))
+                {
+                    typeSummary += ",";
+                }
+                typeSummary += scatterType;
+            }
+
+            Log.Message(
+                "[AMJ Environment TerrainScatterTextureAudit]" +
+                " scatterTypes={" + typeSummary + "}" +
+                " referencedDefs=" + referencedScatterDefs +
+                " badDefs=" + badScatterDefs +
+                " failures={" + failures + "}");
+
+            verification.Assert(
+                "all terrain scatter graphics resolve non-BadTex textures",
+                delegate
+                {
+                    return map != null &&
+                        badScatterDefs == 0;
                 });
         }
 
