@@ -726,5 +726,12 @@ Corrective binary transfer:
 
 The author reran `run-tests.bat` after the corrected binary transfer and confirmed it passes. Static PNG structure, Def path, and placeholder-regression validation are therefore clean for both Japanese beech states.
 
-**Next action:** run the focused WarmTemperate texture-debug profile and inspect the leafy Japanese beech in game for scale, silhouette, outline weight, palette, and UI icon. If the leafy state is accepted, check the leafless seasonal state next; only after both are visually accepted should the Japanese historical description be drafted for author review.
+The focused check exposed two separate issues:
+
+1. The debug runner was still opening WarmTemperate, where Japanese beech does not naturally populate. The author had to spawn a beech manually. The focused runner now targets `AMJCoolTemperateTerrainQuickstart`, where `AMJ_Tree_Beech` is the intended natural structural tree: `da47b7b9e911bb2f38136b7ba884c99d54997be9`.
+2. The manually spawned leafy beech rendered as the red question mark. Binary inspection showed that the PNG's chunk boundaries were valid, so the old static structure gate passed, but the `IDAT` CRC was wrong. The leafless PNG CRCs were already valid. The leafy PNG was repaired in place by recalculating only the stored IDAT CRC; current leafy blob SHA `c0928ef133866cefb006dade3240238412190d39`, corrective commit `1900bf107143aa025ed9713c408b8847425f8712`.
+
+The static PNG validator now checks CRCs for every PNG chunk in addition to signature/chunk boundaries, preventing this class of false PASS: `25ccb50389f3b4dd6497cd78ad84849bfe0388cd`.
+
+**Next action:** pull and run `run-tests.bat` again to exercise the upgraded CRC-aware PNG gate. If it passes, run `run-texture-debug.bat`; it will now open CoolTemperate, so leafy Japanese beech should appear naturally without Dev Tool spawning. Inspect its in-game scale/silhouette/icon, then check the leafless state.
 
