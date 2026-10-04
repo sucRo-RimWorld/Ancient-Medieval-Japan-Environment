@@ -770,3 +770,15 @@ The author reran `run-tests.bat` after the self-rooting preflight fix and confir
 
 **Next action:** resume the focused Japanese beech visual check with `run-texture-debug.bat`. The runner currently targets CoolTemperate so `AMJ_Tree_Beech` should appear naturally. Inspect the leafy sprite first; if accepted, check the leafless seasonal state next.
 
+### ENV-010 Golden Path — production texture pipeline
+
+**Requested by:** author / Environment art  
+**Owner:** Environment/art + tooling  
+**Status:** DONE
+
+The successful Sudajii/Japanese-beech lessons are now captured as a reusable production-texture Golden Path. The Environment repository already contains the concrete implementation in `Docs/GoldenPaths/TextureAssetPipeline.md` and `Scripts/Install-TextureAsset.ps1`, with exact-byte SHA-256 copy verification, PNG signature/chunk/CRC/dimension/transparency validation, Def-switch ordering, repository static gates, and correct-biome focused runtime review. `run-texture-debug.bat` now accepts a biome selector instead of requiring a code edit for each target. The implementation and CI smoke coverage were merged in `8a2307e45bf669a154a1236297695be3f2a03cc2`; the corresponding GitHub PowerShell/Golden-Path workflow run completed successfully.
+
+The AMJ-wide Golden Path closeout rule is additionally referenced from Environment `AGENTS.md` in `6c6d6a2aae3a80c3650f30049982fe8a36f01ea7`, pointing to Core `Docs/DevelopmentGoldenPathGuidelines.md`.
+
+**Next action:** resume Japanese beech visual validation using the repository Golden Path rather than ad-hoc binary transfer/debug-runner edits.
+
