@@ -33,7 +33,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             UnityEngine.Material material)
         {
             if (string.IsNullOrEmpty(
-                Environment.GetEnvironmentVariable("RIMWORLD_QUICKSTART")))
+                System.Environment.GetEnvironmentVariable("RIMWORLD_QUICKSTART")))
             {
                 return;
             }
