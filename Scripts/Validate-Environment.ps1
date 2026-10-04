@@ -293,6 +293,44 @@ foreach ($expected in @(
 }
 Pass "AMJ Alpha vegetation-band BiomeDefs and workers are present"
 
+$biomeJaPath = Join-Path $RepoRoot "Languages\Japanese\DefInjected\BiomeDef\AMJ_Biomes.xml"
+if (-not (Test-Path $biomeJaPath)) {
+    Fail "Japanese localization for AMJ biomes was not found."
+}
+try {
+    [xml]$biomeJa = Get-Content -LiteralPath $biomeJaPath -Raw -Encoding UTF8
+}
+catch {
+    Fail "Japanese AMJ biome localization XML is not well formed: $($_.Exception.Message)"
+}
+foreach ($defName in $expectedBiomeDefs) {
+    if ($null -eq $biomeJa.LanguageData.($defName + ".label")) {
+        Fail "Missing Japanese label for AMJ biome: $defName"
+    }
+    if ($null -eq $biomeJa.LanguageData.($defName + ".description")) {
+        Fail "Missing Japanese description for AMJ biome: $defName"
+    }
+}
+Pass "All four AMJ biomes have Japanese labels and descriptions"
+
+$forbiddenWildlife = @(
+    "Raccoon",
+    "Elk",
+    "Ibex",
+    "Fox_Arctic",
+    "Lynx"
+)
+foreach ($defName in $expectedBiomeDefs) {
+    $biome = $biomeDefs.Defs.BiomeDef | Where-Object { $_.defName -eq $defName }
+    foreach ($animalDefName in $forbiddenWildlife) {
+        if ($null -ne $biome.wildAnimals.($animalDefName)) {
+            Fail "$defName still contains non-Japan Alpha wildlife placeholder: $animalDefName"
+        }
+    }
+}
+Pass "AMJ biomes exclude the retired foreign/modern wildlife placeholders"
+
+
 $wildPlantsPath = Join-Path $RepoRoot "Defs\ThingDefs_Plants\AMJ_WildPlants.xml"
 if (-not (Test-Path $wildPlantsPath)) {
     Fail "AMJ Japan-specific wild plant Defs were not found."
