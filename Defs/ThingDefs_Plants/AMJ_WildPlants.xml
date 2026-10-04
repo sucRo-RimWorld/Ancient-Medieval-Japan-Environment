@@ -23,6 +23,7 @@
     </statBases>
     <plant>
       <growDays>30</growDays>
+      <minGrowthTemperature>0</minGrowthTemperature>
       <harvestWork>1000</harvestWork>
       <harvestYield>42</harvestYield>
       <wildClusterWeight>36</wildClusterWeight>
@@ -46,6 +47,7 @@
     </statBases>
     <plant>
       <growDays>30</growDays>
+      <minGrowthTemperature>0</minGrowthTemperature>
       <leaflessGraphicPath>Things/Plant/TreeMaple_Leafless</leaflessGraphicPath>
       <harvestWork>950</harvestWork>
       <harvestYield>40</harvestYield>
@@ -72,6 +74,7 @@
     <ingestible />
     <plant>
       <growDays>28</growDays>
+      <minGrowthTemperature>0</minGrowthTemperature>
       <visualSizeRange>
         <min>1.25</min>
         <max>2.7</max>
@@ -101,6 +104,7 @@
       <fertilityMin>0.05</fertilityMin>
       <fertilitySensitivity>0.20</fertilitySensitivity>
       <growDays>18</growDays>
+      <minGrowthTemperature>0</minGrowthTemperature>
       <wildClusterRadius>7</wildClusterRadius>
       <wildClusterWeight>28</wildClusterWeight>
       <visualSizeRange>
