@@ -341,6 +341,30 @@ One existing Environment warning may appear in the small fixed-world Quickstarts
 **Result:** ENV-007 complete. No custom seasonal controller is needed for Alpha. Final texture/visual quality remains deferred to the final-art pass.
 
 
+### ENV-008 — River/coast world-to-map handoff
+
+**Requested by:** Environment/design  
+**Owner:** Environment/world-to-map integration  
+**Status:** IN PROGRESS
+
+Decision:
+- AMJE continues to own river/coast distribution at world level only;
+- do not add a custom local-map river/coast generator;
+- rely on RimWorld 1.6 `WorldGenStep_Mutators` and Vanilla `River` / `Coast` tile mutators;
+- validate that Environment-generated river/coastal world tiles still produce actual local River/Ocean terrain;
+- keep waterfalls deferred.
+
+Implementation/test coverage:
+- dedicated River and Coast handoff Quickstarts: `b6189c8c5b0e172020dd8cdc225e6415d755f180`;
+- standalone runtime runner now includes both handoff tests: `71fd964f8b194ce3ee3feee94fdc1311998f7636`;
+- static validator covers both tests/runner entries: `6680f276ab1cf5dd16026a4e775fde0ad3278d32`;
+- design source of truth: `PENDING_DESIGN_COMMIT`.
+
+**Verification status:** not yet rerun locally after adding the two handoff Quickstarts.
+
+**Next action:** run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. In addition to the four biome runs, the standalone suite must pass `AMJRiverMapHandoffQuickstart` and `AMJCoastMapHandoffQuickstart` with actual River/Ocean cells, `preLaunchErrors=0`, and no Environment-origin ERROR.
+
+
 ### ENV-004 — Low-fertility natural terrain
 
 **Requested by:** Environment/design  
