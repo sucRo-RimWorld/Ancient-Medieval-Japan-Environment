@@ -745,7 +745,8 @@ foreach ($expected in @(
     '2023507013',
     '3210544395',
     '-IncludeMedievalOverhaul',
-    '-TreeTextureAuditOnly'
+    '-TreeTextureAuditOnly',
+    '-TimeoutSeconds 360'
 )) {
     if (-not $runtimeBatch.Contains($expected)) {
         Fail "run-runtime-tests.bat is missing expected marker: $expected"
@@ -776,6 +777,7 @@ foreach ($expected in @(
     'Validate-EnvironmentRuntimeLog.ps1',
     'CctoCompatibilityOnly',
     'TreeTextureAuditOnly',
+    '[WAIT]',
     'preLaunchErrors'
 )) {
     if (-not $runtimeRunner.Contains($expected)) {
