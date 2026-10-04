@@ -1,5 +1,5 @@
 @echo off
-setlocal EnableExtensions
+setlocal EnableExtensions EnableDelayedExpansion
 
 set "RIMWORLD_DIR=%~1"
 if not defined RIMWORLD_DIR set "RIMWORLD_DIR=D:\SteamLibrary\steamapps\common\RimWorld"
@@ -57,7 +57,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-Environme
     -ResultDir "%REPORT_DIR%" ^
     -TimeoutSeconds 180
 
-set "RESULT=%ERRORLEVEL%"
+set "RESULT=!ERRORLEVEL!"
 if not "%RESULT%"=="0" goto :report
 
 set "CCTO_INSTALLED="
@@ -84,7 +84,7 @@ if defined CCTO_INSTALLED (
         -TimeoutSeconds 180 ^
         -CctoCompatibilityOnly
 
-    set "RESULT=%ERRORLEVEL%"
+    set "RESULT=!ERRORLEVEL!"
 ) else (
     echo.
     echo [INFO] CCTO is not installed locally; skipping optional AMJE + CCTO runtime compatibility check.
