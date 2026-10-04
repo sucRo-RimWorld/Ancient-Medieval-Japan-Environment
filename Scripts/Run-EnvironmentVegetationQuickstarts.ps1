@@ -36,7 +36,9 @@ else {
         "AMJWarmTemperateTerrainQuickstart",
         "AMJCoolTemperateTerrainQuickstart",
         "AMJSubalpineTerrainQuickstart",
-        "AMJAlpineTerrainQuickstart"
+        "AMJAlpineTerrainQuickstart",
+        "AMJRiverMapHandoffQuickstart",
+        "AMJCoastMapHandoffQuickstart"
     )
 }
 
@@ -136,6 +138,6 @@ if ($CctoCompatibilityOnly) {
     Write-Host "[OK] AMJE + CCTO loaded-Def compatibility Quickstart passed." -ForegroundColor Green
 }
 else {
-    Write-Host "[OK] All four Environment vegetation runtime Quickstarts passed." -ForegroundColor Green
+    Write-Host "[OK] Environment vegetation + river/coast runtime Quickstarts passed." -ForegroundColor Green
 }
 exit 0
