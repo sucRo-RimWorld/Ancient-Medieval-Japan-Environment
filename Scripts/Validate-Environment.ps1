@@ -756,6 +756,7 @@ Pass "Deterministic Environment Quickstarts and tree-texture audit hooks are pre
 
 foreach ($relative in @(
     "run-runtime-tests.bat",
+    "run-texture-debug.bat",
     "Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1",
     "Scripts\Run-EnvironmentVegetationQuickstarts.ps1",
     "Scripts\Validate-EnvironmentRuntimeLog.ps1",
@@ -781,6 +782,30 @@ foreach ($expected in @(
 )) {
     if (-not $runtimeBatch.Contains($expected)) {
         Fail "run-runtime-tests.bat is missing expected marker: $expected"
+    }
+}
+
+$textureDebugBatch = Get-Content -LiteralPath (Join-Path $RepoRoot "run-texture-debug.bat") -Raw
+foreach ($expected in @(
+    'AMJWarmTemperateTerrainQuickstart',
+    'TestResults\TextureDebug',
+    'RIMWORLD_QUICKSTART',
+    'RimWorld will stay open until you close it manually',
+    'Prepare-EnvironmentRuntimeTestSaveData.ps1'
+)) {
+    if (-not $textureDebugBatch.Contains($expected)) {
+        Fail "run-texture-debug.bat is missing expected focused-debug marker: $expected"
+    }
+}
+foreach ($forbidden in @(
+    '-quickstartreport',
+    '-quickstartverify',
+    'AMJCoolTemperateTerrainQuickstart',
+    'AMJSubalpineTerrainQuickstart',
+    'AMJAlpineTerrainQuickstart'
+)) {
+    if ($textureDebugBatch.Contains($forbidden)) {
+        Fail "run-texture-debug.bat must remain focused/non-auto-exit; forbidden marker found: $forbidden"
     }
 }
 
