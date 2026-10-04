@@ -85,3 +85,17 @@ PowerShell changes must not be committed directly to `main`.
 - `run-tests.bat` must execute `Scripts/Validate-PowerShellSyntax.ps1` before build/static validation so local test runs fail fast on parser errors.
 - Avoid large string-replacement edits to `Validate-Environment.ps1`; when changing a focused block, re-read the edited range and the end of file before merge to detect truncation or duplicated tails.
 
+## Golden Path capture rule (AMJ common)
+
+When work reaches a verified successful state, perform a Golden Path capture before declaring the task complete.
+
+- Preserve the known-good sequence in repository documentation whenever the procedure is reusable.
+- Automate deterministic/repeatable steps instead of relying on memory or chat history.
+- Add regression coverage for failure classes discovered during the work when practical.
+- Keep manual verification only for checks that genuinely require human judgment.
+- Reuse an existing Golden Path before inventing a new per-task workflow; update the Golden Path when the procedure changes.
+- "Worked once" is not sufficient for recurring/debug-heavy work. The target state is: worked once -> documented -> automated where deterministic -> regression-locked.
+- Trivial edits with no reusable procedure may be treated as Golden Path N/A.
+
+AMJE's repository index is `Docs/GoldenPaths/README.md`. Production texture work must follow `Docs/GoldenPaths/TextureAssetPipeline.md`.
+
