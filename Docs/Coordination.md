@@ -206,7 +206,16 @@ Implementation commits:
 
 **Local build/static rerun:** PASS after the UTF-8 validator fix. The Japan-specific vegetation PlantDefs, biome wiring, Japanese localization, normal Environment DLL, developer Quicktest DLL, and static validation gate all completed successfully.
 
-**Next action:** use the four fixed-biome Quicktests (WarmTemperate, CoolTemperate, Subalpine, Alpine) to verify runtime generation without Environment-origin errors and check the intended structural progression: Shii -> Beech -> Shirabiso -> Haimatsu. Pay particular attention to haimatsu movement blockage and to limited timber availability in Subalpine/Alpine. Final plant images remain deferred until this runtime gate passes.
+**Runtime validation automation:** the four manual vegetation Quicktests have been replaced by a one-command isolated runtime gate. Each fixed-biome Quickstart now implements `Verify()` assertions for biome identity, target structural-plant generation, target dominance over secondary trees, and Alpine safety limits (Haimatsu <=5% of cells; full-size Pine+Birch <=1%). The suite prepares an isolated Core+Harmony+RimLogging+Quickstarts+Environment profile, launches the four biomes sequentially, writes JSON/log output, exits automatically, and fails on Environment-origin ERROR entries.
+
+Implementation:
+- Quickstart vegetation assertions: `afd57825808691b48b6ea5d1ac0247954103573d`;
+- isolated runtime profile: `65ac0924de6f2edb664b9fc129adffe587a2fa35`;
+- mod-origin runtime ERROR gate: `7c251c6301d9373cffb989d2e12abf74e4a3113e`;
+- four-run PowerShell runner: `9b59e34892919edfa8711fcddac9e64c21c1a197`;
+- one-command batch entry point: `8621ca8e5bf0bc4d828aa98b50409b019fdb07e2`.
+
+**Next action:** pull and run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. Do not mark the vegetation runtime gate PASS until the local automated run completes. Final plant images remain deferred; manual testing is not required for the placeholder vegetation distribution unless the automated counts expose a balance issue.
 
 
 ### ENV-004 — Low-fertility natural terrain
@@ -274,11 +283,11 @@ The separate startup error `No textures found at path Things/Item/Resource/Plant
 
 **Requested by:** project-wide automated-test policy  
 **Owner:** testing/tooling  
-**Status:** DONE (policy) / runtime harness not yet present
+**Status:** DONE
 
 AMJ automated tests that launch RimWorld must capture an isolated runtime log and fail on ERROR-level entries attributed to the repository-owned mod, even when scenario counts otherwise pass.
 
-Environment's current `run-tests.bat` is a build + static-validation gate only and does not launch RimWorld, so it does not fabricate a runtime-log result. The requirement is now fixed in `AGENTS.md` and `Docs/DevelopmentTools.md`: when an automated RimWorld runtime harness is added to Environment, the mod-origin ERROR gate is mandatory from the first version.
+Environment's `run-tests.bat` remains a build + static-validation gate only. A separate `run-runtime-tests.bat` now launches four fixed-biome vegetation Quickstarts against an isolated test profile, writes separate runtime logs/reports, and fails on Environment-origin ERROR entries in addition to Quickstart assertion failures. The user's normal mod list and preferences are not modified.
 
 Policy commits: `2a86387ebf1bfe5d3de3fbf09de93800cace0e74`, `7148ff5df9cdc2078e55c4233bf4b60e1e112c70`.
 
