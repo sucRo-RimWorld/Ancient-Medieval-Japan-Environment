@@ -1,5 +1,6 @@
 using System;
 using RimWorks.Quickstarts;
+using RimWorks.Quickstarts.Verification;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
@@ -18,6 +19,31 @@ namespace AncientMedievalJapan.Environment.Quicktests
     public abstract class BiomeTerrainQuickstartBase : AbstractQuickstart
     {
         protected abstract string TargetBiomeDefName { get; }
+
+        protected virtual string TargetPlantDefName
+        {
+            get { return null; }
+        }
+
+        protected virtual string[] SecondaryPlantDefNames
+        {
+            get { return new string[0]; }
+        }
+
+        protected virtual float MaxTargetCellFraction
+        {
+            get { return 1f; }
+        }
+
+        protected virtual string[] LimitedTimberPlantDefNames
+        {
+            get { return new string[0]; }
+        }
+
+        protected virtual float MaxLimitedTimberCellFraction
+        {
+            get { return 1f; }
+        }
 
         public override TaggedString description
         {
@@ -75,6 +101,109 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " targetBiomeScore=" + targetBiomeScore.ToString("F2") +
                 " rainfall=" + worldTile.rainfall.ToString("F0") +
                 " annualTemp=" + worldTile.temperature.ToString("F1"));
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            if (string.IsNullOrEmpty(TargetPlantDefName))
+            {
+                return null;
+            }
+
+            QuickstartVerification verification = new QuickstartVerification();
+            Map map = Find.CurrentMap;
+
+            verification.Assert(
+                "current map exists",
+                delegate { return map != null; });
+
+            verification.Assert(
+                "map biome matches " + TargetBiomeDefName,
+                delegate
+                {
+                    return map != null &&
+                        map.Biome != null &&
+                        map.Biome.defName == TargetBiomeDefName;
+                });
+
+            int targetCount = CountThings(map, TargetPlantDefName);
+            int cellCount = map == null ? 0 : map.cellIndices.NumGridCells;
+            float targetFraction =
+                cellCount <= 0 ? 0f : (float)targetCount / (float)cellCount;
+
+            verification.Assert(
+                TargetPlantDefName + " generated",
+                delegate { return targetCount > 0; });
+
+            verification.Assert(
+                TargetPlantDefName + " stays below safety cell fraction",
+                delegate { return targetFraction <= MaxTargetCellFraction; });
+
+            string secondarySummary = "";
+            string[] secondary = SecondaryPlantDefNames;
+            for (int i = 0; i < secondary.Length; i++)
+            {
+                string secondaryDefName = secondary[i];
+                int secondaryCount = CountThings(map, secondaryDefName);
+
+                if (i > 0)
+                {
+                    secondarySummary += ", ";
+                }
+                secondarySummary += secondaryDefName + "=" + secondaryCount;
+
+                verification.Assert(
+                    TargetPlantDefName + " exceeds " + secondaryDefName,
+                    delegate
+                    {
+                        return targetCount > CountThings(map, secondaryDefName);
+                    });
+            }
+
+            int limitedTimberCount = 0;
+            string[] limitedTimber = LimitedTimberPlantDefNames;
+            for (int i = 0; i < limitedTimber.Length; i++)
+            {
+                limitedTimberCount += CountThings(map, limitedTimber[i]);
+            }
+
+            float limitedTimberFraction =
+                cellCount <= 0 ? 0f : (float)limitedTimberCount / (float)cellCount;
+
+            verification.Assert(
+                "limited timber stays below safety cell fraction",
+                delegate
+                {
+                    return limitedTimberFraction <= MaxLimitedTimberCellFraction;
+                });
+
+            Log.Message(
+                "[AMJ Environment Vegetation] biome=" + TargetBiomeDefName +
+                " target=" + TargetPlantDefName +
+                " targetCount=" + targetCount +
+                " targetCellShare=" + (targetFraction * 100f).ToString("F2") + "%" +
+                " secondary={" + secondarySummary + "}" +
+                " limitedTimberCount=" + limitedTimberCount +
+                " limitedTimberCellShare=" +
+                    (limitedTimberFraction * 100f).ToString("F2") + "%");
+
+            return verification;
+        }
+
+        private static int CountThings(Map map, string defName)
+        {
+            if (map == null || string.IsNullOrEmpty(defName))
+            {
+                return 0;
+            }
+
+            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
+            if (def == null)
+            {
+                return 0;
+            }
+
+            return map.listerThings.ThingsOfDef(def).Count;
         }
 
         private static PlanetTile FindTargetTile(
@@ -305,6 +434,25 @@ namespace AncientMedievalJapan.Environment.Quicktests
         {
             get { return "AMJ_WarmTemperateForest"; }
         }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "AMJ_Tree_Shii"; }
+        }
+
+        protected override string[] SecondaryPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreeOak",
+                    "Plant_TreePoplar",
+                    "Plant_TreeMaple",
+                    "Plant_TreeBamboo"
+                };
+            }
+        }
     }
 
     public sealed class AMJCoolTemperateTerrainQuickstart : BiomeTerrainQuickstartBase
@@ -312,6 +460,25 @@ namespace AncientMedievalJapan.Environment.Quicktests
         protected override string TargetBiomeDefName
         {
             get { return "AMJ_CoolTemperateForest"; }
+        }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "AMJ_Tree_Beech"; }
+        }
+
+        protected override string[] SecondaryPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreeOak",
+                    "Plant_TreeMaple",
+                    "Plant_TreeBirch",
+                    "Plant_TreePine"
+                };
+            }
         }
     }
 
@@ -321,6 +488,23 @@ namespace AncientMedievalJapan.Environment.Quicktests
         {
             get { return "AMJ_SubalpineForest"; }
         }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "AMJ_Tree_Shirabiso"; }
+        }
+
+        protected override string[] SecondaryPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreePine",
+                    "Plant_TreeBirch"
+                };
+            }
+        }
     }
 
     public sealed class AMJAlpineTerrainQuickstart : BiomeTerrainQuickstartBase
@@ -328,6 +512,45 @@ namespace AncientMedievalJapan.Environment.Quicktests
         protected override string TargetBiomeDefName
         {
             get { return "AMJ_AlpineZone"; }
+        }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "AMJ_Shrub_Haimatsu"; }
+        }
+
+        protected override string[] SecondaryPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreePine",
+                    "Plant_TreeBirch"
+                };
+            }
+        }
+
+        protected override float MaxTargetCellFraction
+        {
+            get { return 0.05f; }
+        }
+
+        protected override string[] LimitedTimberPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreePine",
+                    "Plant_TreeBirch"
+                };
+            }
+        }
+
+        protected override float MaxLimitedTimberCellFraction
+        {
+            get { return 0.01f; }
         }
     }
 
