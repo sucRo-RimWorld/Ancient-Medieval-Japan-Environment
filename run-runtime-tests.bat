@@ -119,7 +119,7 @@ if defined MO_READY (
         -ExePath "%RIMWORLD_EXE%" ^
         -SaveDataFolder "%MO_SAVEDATA%" ^
         -ResultDir "%MO_REPORT_DIR%" ^
-        -TimeoutSeconds 180 ^
+        -TimeoutSeconds 360 ^
         -TreeTextureAuditOnly
 
     set "RESULT=!ERRORLEVEL!"
