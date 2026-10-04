@@ -467,7 +467,11 @@ MO timeout pivot:
 
 An offline audit of the supplied MO 1.6 source archive found all 15 tree graphic references from the MO tree Defs resolving to PNG assets, including the four Dark Forest great trees and the four fruit-tree base/immature states. This reduces the likelihood that the visible question-mark tree is a simple missing file in MO's own current tree Defs.
 
-**Next action:** pull and run `run-tests.bat` plus the normal `run-runtime-tests.bat`; the latter will no longer spend six minutes on the hanging MO profile. If both pass, identify the visible question-mark object by in-game label/defName or by a targeted live-object diagnostic, because the remaining candidate is likely a state/mod interaction not represented by a missing MO source texture path.
+The revised static gate and normal runtime gate now both pass locally after removing the hanging MO minimal-runtime profile. This confirms AMJE-owned plant graphics, the normal AMJE/CCTO runtime path, and installed MO tree source texture references all pass the current automated coverage.
+
+To minimize manual diagnosis of the still-visible question-mark object, a Dev Mode live-map diagnostic has been added. It scans the actual current map things under the user's normal mod list, resolves each live `thing.Graphic` material (plus plant snow overlays), and logs the exact `defName`, label, map position, graphic class/path and texture name for null/BadTex/ERRORTEX cases: `f3d26cc9142c16f857a26aa3d71deb9484b16686`. Static validation locks this diagnostic in place: `d2ebf5437121b2da8b564973e00675d4e16856b6`.
+
+**Next action:** pull/build, open the affected normal-play map with Dev Mode, run **AMJ Environment > Scan current map for bad live textures**, and inspect the resulting `[AMJ Environment LiveTextureAudit] BAD` line(s). This should identify the actual question-mark object without relying on visual guessing.
 
 
 ### ENV-004 — Low-fertility natural terrain
