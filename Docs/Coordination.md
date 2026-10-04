@@ -159,7 +159,7 @@ Automatic climate-calibration diagnostics are implemented in `ClimateCalibration
 
 **Requested by:** Environment/design  
 **Owner:** Environment/biomes  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Move from the accepted climate/worldgen baseline into Japan-oriented biome and wild-vegetation structure.
 
@@ -223,7 +223,9 @@ Implementation:
 
 Static validator synchronized with both fixes.
 
-**Next action:** pull and rerun `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. Do not mark the vegetation runtime gate PASS until the four automated biome runs complete successfully.
+**Final automated runtime result:** PASS. The full one-command vegetation runtime gate completed successfully for WarmTemperate, CoolTemperate, Subalpine, and Alpine after the optional-MO guard and generic synthetic-climate fallback fixes. All Quickstart assertions passed, live log capture was complete, Alpine Haimatsu / full-size timber safety limits passed, and no Environment-origin ERROR entry caused the gate to fail.
+
+**Result:** ENV-003 is complete for the Alpha structural vegetation stage. The accepted composition/commonality values and automated runtime acceptance criteria are recorded in `Docs/Design.md`. Final plant artwork remains deferred to the later visual-art pass; no additional manual placeholder-distribution smoke is required by default.
 
 
 ### ENV-004 — Low-fertility natural terrain
