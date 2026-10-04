@@ -672,3 +672,77 @@ Interpretation:
 Result: the Alpha natural-soil thresholds above are accepted without numerical retuning. Further changes require a concrete gameplay or compatibility finding rather than preference from a single terrain percentage.
 
 Existing maps are not retroactively rewritten; the natural-soil pass applies when generating new maps.
+
+## 11. Regional weather baseline
+
+### 11.1 Goal and scope
+
+Environment owns regional weather differences, but Alpha should reuse RimWorld's existing weather system before adding custom weather types or seasonal C#.
+
+Research basis:
+- Japan has a humid climate with strong seasonal contrasts; early summer Baiu brings a cloudy/rainy period across most of the country;
+- September rainfall is often increased by the autumn rain front and tropical cyclones;
+- winter precipitation differs strongly by exposure: the Sea of Japan side and mountains receive frequent/heavy snow, while the Pacific side is often drier and sunnier.
+
+References:
+- https://www.data.jma.go.jp/cpd/longfcst/en/tourist.html
+- https://www.data.jma.go.jp/cpd/longfcst/en/tourist_baiu.html
+- https://www.data.jma.go.jp/cpd/longfcst/en/tourist_japan.html
+- https://www.jma.go.jp/jma/kishou/know/kisetsu_riyou/tenkou/Average_Climate_Japan.html
+
+These sources define the climatic shape, not literal RimWorld probabilities. Weather commonalities are gameplay abstractions.
+
+### 11.2 Reuse Vanilla weather mechanics
+
+Do not add AMJ-specific WeatherDefs during Alpha.
+
+Use the existing eight Vanilla entries:
+- Clear;
+- Fog;
+- Rain;
+- DryThunderstorm;
+- RainyThunderstorm;
+- FoggyRain;
+- SnowGentle;
+- SnowHard.
+
+RimWorld 1.6 already supplies two useful environmental filters:
+- weather commonality is multiplied by each WeatherDef's `commonalityRainfallFactor`, so wetter AMJ world tiles naturally receive more rain/fog/snow where the Vanilla WeatherDef defines that curve;
+- Rain / RainyThunderstorm / FoggyRain require non-freezing outdoor temperature, while SnowGentle / SnowHard require freezing outdoor temperature. The accepted AMJ seasonal temperature curve therefore converts part of winter precipitation from rain to snow without Environment adding another seasonal selector.
+
+Vanilla does **not** natively apply month/season-specific commonality curves for Baiu, Akisame or typhoon season. Alpha will not add a Harmony patch solely for calendar-specific weather weighting. Add such a layer only if later gameplay shows that the temperature/rainfall-driven baseline fails to create meaningful seasonal weather.
+
+Likewise, Alpha does not attempt a Sea-of-Japan-side versus Pacific-side winter precipitation split. The current four AMJ vegetation bands encode temperature/elevation, not mountain exposure or ocean-facing aspect; fabricating that distinction from the biome name would be misleading. A later coast/orography feature may provide a proper basis if the gameplay value justifies it.
+
+### 11.3 Accepted Alpha base commonalities
+
+| Biome | Clear | Fog | Rain | Dry thunderstorm | Rainy thunderstorm | Foggy rain | Gentle snow | Hard snow |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Warm-temperate | 16 | 1.5 | 3 | **0.1** | 1.5 | 1.5 | 2 | 1 |
+| Cool-temperate | 16 | 1.5 | 3 | **0.1** | 1.5 | 1.5 | 4 | 3 |
+| Subalpine | 16 | 1 | 2 | **0.1** | 1 | 1 | 7 | 7 |
+| Alpine | 16 | 1 | 1 | **0.05** | 0.5 | 0.5 | 12 | 12 |
+
+Interpretation:
+- warm/cool forest keeps the strongest liquid-precipitation and fog baseline;
+- subalpine/alpine progressively shift commonality toward snow as temperature falls;
+- dry thunderstorms remain possible for gameplay variety but are deliberately rare in the humid-Japan baseline;
+- rainy thunderstorms are always more common than dry thunderstorms;
+- higher AMJ tile rainfall further amplifies precipitation through Vanilla WeatherDef curves, so the table should not be interpreted as final raw percentages.
+
+`RainyThunderstorm` is only a broad severe-rain/storm proxy. Alpha does not claim to simulate a literal typhoon.
+
+### 11.4 Automated validation
+
+The existing four fixed-biome Quickstarts also validate weather.
+
+For each AMJ biome the runtime gate must confirm:
+- exactly the eight accepted Vanilla weather entries are loaded in the isolated profile;
+- all base commonality values equal the table above;
+- rainy-thunderstorm commonality exceeds dry-thunderstorm commonality;
+- no pre-launch ERROR and no Environment-origin runtime ERROR occurs.
+
+The Quickstarts log `[AMJ Environment Weather]` with the loaded commonality table for each biome. This is a Def/runtime integrity gate, not a year-long stochastic weather-frequency test.
+
+A statistical simulation should only be added if later weather changes introduce calendar-specific or dynamic weighting that cannot be proven from loaded Def values.
+
