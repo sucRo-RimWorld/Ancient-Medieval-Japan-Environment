@@ -38,6 +38,7 @@ The helper validates **before and after the copy**:
 - PNG signature;
 - required IHDR / IDAT / IEND chunks;
 - every PNG chunk CRC;
+- IDAT zlib/DEFLATE payload, Adler-32, exact decoded scanline sizes, and legal PNG filters;
 - exact dimensions;
 - alpha/tRNS transparency support by default;
 - SHA-256 equality between source, staging copy, and installed destination.
@@ -77,6 +78,7 @@ The gate must remain responsible for deterministic checks such as:
 - PowerShell syntax;
 - build/static validation;
 - all repository PNG structure/CRC checks;
+- decoded PNG payload validation (a valid chunk CRC alone cannot prove image data is intact);
 - required texture files;
 - expected Def paths;
 - retired placeholder references.
@@ -133,10 +135,27 @@ The pipeline specifically guards against failures already encountered during ENV
 
 - malformed PNG binary transfer despite a visually correct source image;
 - valid chunk boundaries but invalid IDAT CRC;
+- recalculated chunk CRC hiding corrupt compressed image data (the leafy beech failure);
 - Def switched before the final binary was safely installed;
 - debug runner opened a biome where the target plant did not naturally occur;
 - validator hardcoded the previous debug biome;
 - PowerShell validation edits introduced parser corruption.
+
+## Decoded-image regression gate
+
+`Scripts/PngImageData.ps1` supplies the shared .NET payload validator to both
+`Install-TextureAsset.ps1` and `Validate-Environment.ps1`. It validates concatenated
+IDAT data, the zlib header/checksum, scanline byte counts and filters, including
+Adam7 pass sizes. It runs on Windows PowerShell 5.1 and PowerShell 7 without
+an additional image-processing dependency. Existing PNG chunk CRC validation
+remains required; neither layer substitutes for the other.
+
+`Tests/Test-PngImageData.ps1` checks every production PNG and rejects a generated
+fixture whose chunk CRC is correct but zlib checksum is corrupt. The GitHub
+PowerShell gate runs it on PNG changes as well as PowerShell changes.
+
+Do not repair only the stored CRC to make a failing image pass. Restore from
+validated source bytes and require both the structural and decoded-image gates.
 
 ## Completion criterion
 

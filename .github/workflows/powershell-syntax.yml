@@ -6,10 +6,13 @@ on:
       - '**/*.ps1'
       - 'run-tests.bat'
       - 'run-texture-debug.bat'
+      - 'Textures/**/*.png'
+      - 'Tests/*.ps1'
       - '.github/workflows/powershell-syntax.yml'
   pull_request:
     paths:
       - '**/*.ps1'
+      - 'Textures/**/*.png'
       - 'run-tests.bat'
       - '.github/workflows/powershell-syntax.yml'
 
@@ -24,6 +27,10 @@ jobs:
       - name: Run repository PowerShell syntax preflight
         shell: pwsh
         run: ./Scripts/Validate-PowerShellSyntax.ps1
+
+      - name: Validate decoded production PNGs and corruption regression
+        shell: pwsh
+        run: ./Tests/Test-PngImageData.ps1
 
       - name: Smoke texture Golden Path exact-copy helper
         shell: pwsh
