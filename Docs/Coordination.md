@@ -733,5 +733,15 @@ The focused check exposed two separate issues:
 
 The static PNG validator now checks CRCs for every PNG chunk in addition to signature/chunk boundaries, preventing this class of false PASS: `25ccb50389f3b4dd6497cd78ad84849bfe0388cd`.
 
-**Next action:** pull and run `run-tests.bat` again to exercise the upgraded CRC-aware PNG gate. If it passes, run `run-texture-debug.bat`; it will now open CoolTemperate, so leafy Japanese beech should appear naturally without Dev Tool spawning. Inspect its in-game scale/silhouette/icon, then check the leafless state.
+A follow-up static-validation failure exposed another recurring maintenance class: the validator still hardcoded the old WarmTemperate focused-debug target even though the runner had correctly moved to CoolTemperate. This was a stale self-test, not a new texture or Quickstart defect.
+
+The focused-debug validator has now been made target-agnostic. Instead of requiring WarmTemperate and forbidding every other biome, it now:
+- accepts any of the four known AMJE terrain Quickstarts;
+- requires exactly one `RIMWORLD_QUICKSTART` assignment and exactly one `-quickstart=` invocation;
+- requires those two targets to match;
+- continues to forbid report/verify flags so the focused window remains open for manual inspection.
+
+This removes the need to rewrite the static validator every time the focused texture-debug biome changes. Commit: `a7f7cbb7db10170cd9cdd5803abdc0b64ee60362`.
+
+**Next action:** pull and rerun `run-tests.bat`. If it passes, run `run-texture-debug.bat`; the current focused target remains CoolTemperate for Japanese beech. Inspect leafy beech in game, then check the leafless state.
 
