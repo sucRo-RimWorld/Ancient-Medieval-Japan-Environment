@@ -1,0 +1,74 @@
+[h1]Ancient & Medieval Japan: Environment[/h1]
+
+[b]An environment overhaul that reshapes RimWorld world generation toward a Japan-like climate, landscape, and vegetation profile.[/b]
+
+It creates an ancient-to-medieval-Japan-inspired environment with a humid climate, mountainous terrain, frequent short rivers, complex coastlines, temperature-based forest belts, and alpine zones.
+
+Ancient & Medieval Japan Core is not required. [b]If you only want a medieval-Japan-like natural environment, this mod can be used on its own.[/b]
+
+[h2]Main Features[/h2]
+[list]
+[*]Japan-oriented world generation for temperature, elevation, hilliness, and rainfall
+[*]Less flat land and more hills/mountains
+[*]More frequent small-to-medium rivers instead of continental-scale rivers
+[*]More complex coastlines with additional bays, peninsulas, and islands
+[*]Four environment bands: warm-temperate forest / cool-temperate forest / subalpine forest / alpine zone
+[*]Sudajii, Japanese beech, Shirabiso, and Haimatsu as structural representative plants
+[*]Natural soil balance with progressively poorer/stony ground at higher elevations
+[*]Uses Vanilla systems for rain, fog, snow, fall color, and leafless winter states wherever possible
+[/list]
+
+Rather than replacing everything with parallel systems, the mod is designed to reuse RimWorld 1.6 world generation, River / Coast mutators, weather, snow, and deciduous-plant behavior whenever possible.
+
+[h2]Using CCTO[/h2]
+
+[b]Crop Cold Tolerance Overhaul (CCTO) is optional.[/b]
+
+With AMJE alone, its plants keep temperature behavior closer to the Vanilla baseline.
+
+When CCTO is also active, AMJE's own plants receive species-specific minimum growth temperatures plus cold death or dormancy behavior, creating a [b]more realism-focused cold-climate model[/b].
+
+In short:
+[list]
+[*][b]AMJE alone[/b]: a medieval-Japan-like natural environment
+[*][b]AMJE + CCTO[/b]: the same environment with stricter plant cold tolerance
+[/list]
+
+CCTO is not required; AMJE remains complete as a standalone environment mod.
+
+[h2]Medieval Overhaul[/h2]
+
+Medieval Overhaul is also optional, but normal AMJ play is expected to use both.
+
+AMJE does not globally replace MO's natural biome/terrain identity. Specialized content such as Dark Forest is preserved where compatible.
+
+[h2]Dependencies[/h2]
+
+[b]Required:[/b] Harmony
+
+[b]Optional:[/b] Crop Cold Tolerance Overhaul / Medieval Overhaul
+
+Ancient & Medieval Japan Core is not required.
+
+[h2]Save Compatibility[/h2]
+
+[b]A new game is recommended to evaluate the intended world generation, biomes, rivers, coastlines, and terrain.[/b]
+
+Adding AMJE to an existing save has not been verified and does not regenerate an existing world. Some runtime systems, such as temperature behavior, may still be affected.
+
+[b]Removing AMJE from a save that uses its custom biomes, terrain, or plants is not recommended.[/b]
+
+[h2]Development Status[/h2]
+
+Currently Alpha.
+
+The main environment systems are implemented, but the [b]final graphics for Sudajii, Japanese beech, Shirabiso, Haimatsu, and other AMJE visuals are still placeholders[/b]. Final artwork will be produced after functionality and balance are locked.
+
+See the GitHub README / Design documentation for detailed values, rationale, and CCTO integration data.
+
+AI assistance is used for code implementation, documentation, research, and test development. Design, balance decisions, and final testing/review are performed by the author.
+
+MIT License.
+
+[h2]Support[/h2]
+[url=https://ko-fi.com/sucro0629][img]https://img.shields.io/badge/Ko--fi-Support%20me-ff5e5b?logo=ko-fi&logoColor=white[/img][/url]
