@@ -477,7 +477,13 @@ Quickstart live-object audit extension:
 - every fixed-biome Quickstart now scans live non-plant map Things with standard `graphicData`, resolves the actual `thing.Graphic.MatAt(...)`, and logs exact `defName`, label, category, position, runtime type, graphic class/path and texture for null/BadTex/ERRORTEX cases: `4fc048be9ad3cc8afa62609505d000df2f7bc970`;
 - static validation locks the new `[AMJ Environment LiveThingTextureAudit] BAD` assertion path in place: `56bb08d616a2da200758bf64c8e86d656a53be26`.
 
-**Next action:** rerun the normal runtime gate. If the visible question marks are standard map Things, the first affected Quickstart should now fail with a `[AMJ Environment LiveThingTextureAudit] BAD def=...` line naming the exact object. If the visual issue still appears while both live-plant and live-Thing audits pass, move the next diagnostic layer to terrain/overlay rendering rather than continuing to assume an individual tree Def.
+The visible question marks still appear in WarmTemperate while both live-plant and live-non-plant Thing audits pass. Video review shows repeated question-mark decals distributed over open ground rather than attached to ordinary Things. RimWorld's `SectionLayer_TerrainScatter` renders `ScatterableDef` materials directly from each terrain's `scatterType`, outside `map.listerThings`; its generated scatter points use a five-cell minimum spacing, which matches the observed repeated ground pattern. AMJ Thin Soil currently uses `scatterType=Rocky`, so terrain scatter is now the leading candidate.
+
+Terrain-scatter diagnostic extension:
+- each fixed-biome Quickstart now collects the scatter types actually present on map terrain, checks every referenced loaded `ScatterableDef.mat.mainTexture` for null/BadTex/ERRORTEX, and logs exact defName/scatterType/texturePath on failure: `6de0ed9adcde6823d6f71d6e34d09744b695c035`;
+- static validation locks the new `[AMJ Environment TerrainScatterTextureAudit] BAD` path in place: `b6b6d3db2e18270d99200175639c9852e725962a`.
+
+**Next action:** pull and rerun the normal runtime gate. If terrain scatter is the source, WarmTemperate should now fail with `[AMJ Environment TerrainScatterTextureAudit] BAD def=...`, directly identifying the missing scatter texture. If this audit also passes despite visible question marks, inspect terrain base materials / section-layer overlays next.
 
 
 ### ENV-004 — Low-fertility natural terrain
