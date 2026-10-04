@@ -181,6 +181,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 AddCctoCompatibilityAssertions(verification);
             }
+            else
+            {
+                AddStandaloneTemperatureAssertions(verification);
+            }
 
             Log.Message(
                 "[AMJ Environment Vegetation] biome=" + TargetBiomeDefName +
@@ -201,6 +205,39 @@ namespace AncientMedievalJapan.Environment.Quicktests
             return LoadedModManager.GetActiveModWithIdentifier(
                 "sucro.cropcoldtoleranceoverhaul",
                 true) != null;
+        }
+
+        private static void AddStandaloneTemperatureAssertions(
+            QuickstartVerification verification)
+        {
+            string[] defNames =
+            {
+                "AMJ_Tree_Shii",
+                "AMJ_Tree_Beech",
+                "AMJ_Tree_Shirabiso",
+                "AMJ_Shrub_Haimatsu"
+            };
+
+            for (int i = 0; i < defNames.Length; i++)
+            {
+                string defName = defNames[i];
+                ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
+
+                verification.Assert(
+                    defName + " standalone min growth temperature is 0 C",
+                    delegate
+                    {
+                        return def != null &&
+                            System.Math.Abs(def.plant.minGrowthTemperature) < 0.001f;
+                    });
+
+                verification.Assert(
+                    defName + " standalone has no CCTO extension",
+                    delegate
+                    {
+                        return CountCctoExtensions(def) == 0;
+                    });
+            }
         }
 
         private static void AddCctoCompatibilityAssertions(
