@@ -2,8 +2,10 @@
 <Defs>
   <!--
     Alpha biome definitions.
-    World textures and all plant/animal entries are temporary Vanilla-backed
-    placeholders until Environment vegetation content is validated in-game.
+    Japan-specific structural plants are now AMJE-owned Defs, but their final
+    graphics remain deferred. World biome textures and wild-animal composition
+    still reuse Vanilla content unless a later pass gives a concrete reason to
+    replace them.
   -->
 
   <BiomeDef>
