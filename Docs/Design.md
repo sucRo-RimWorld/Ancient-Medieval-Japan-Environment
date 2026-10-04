@@ -527,6 +527,40 @@ Automated runtime map validation is now the acceptance gate for this Alpha veget
 
 The current four-biome automated runtime gate passed in full after the optional-MO patch guard and synthetic-climate test fallback fixes. Therefore the Alpha structural vegetation composition and commonality values above are accepted without retuning. Final plant artwork remains deferred to the later visual-art pass; numerical distribution and runtime correctness do not require another manual smoke by default.
 
+#### Optional CCTO integration ownership
+
+Cold-tolerance compatibility for AMJE-owned plants is owned by **AMJE**, not by the CCTO repository.
+
+Dependency direction:
+- AMJE does **not** require CCTO;
+- CCTO does **not** need to know that AMJE exists;
+- when CCTO is absent, AMJE plants use ordinary RimWorld plant behavior;
+- when CCTO is present, AMJE conditionally patches only its own PlantDefs to use CCTO's public `ColdToleranceExtension`.
+
+This keeps the two mods loosely coupled and allows either mod to be updated or used independently.
+
+Temperature layers:
+
+| Plant | AMJE without CCTO: min growth | AMJE + CCTO: min growth | CCTO cold response |
+|---|---:|---:|---|
+| Sudajii / `AMJ_Tree_Shii` | 0°C | 8°C | death below -8°C |
+| Japanese beech / `AMJ_Tree_Beech` | 0°C | 5°C | cold dormancy |
+| Shirabiso / `AMJ_Tree_Shirabiso` | 0°C | 0°C | death below -35°C |
+| Haimatsu / `AMJ_Shrub_Haimatsu` | 0°C | 0°C | death below -35°C |
+
+The standalone 0°C values are explicit even though RimWorld's `PlantProperties.minGrowthTemperature` default is also 0°C. This makes the Vanilla-style baseline a deliberate AMJE value rather than an accidental inherited default.
+
+The CCTO values are Alpha gameplay values on CCTO's existing scale, not claims of exact physiological lethal temperatures. Beech follows the same deciduous dormancy model as CCTO Oak/Birch/Maple; Shirabiso follows the CCTO Pine/Great Fir subalpine-conifer model; Haimatsu uses the same strong evergreen frost tolerance without inventing a new lower threshold solely for its alpine label. Sudajii uses a warmer 8°C growth threshold and a conservative -8°C lethal threshold appropriate to the warm-temperate role.
+
+Implementation is isolated in `Patches/Compatibility/CCTO.xml` with `MayRequire="sucro.cropcoldtoleranceoverhaul"`. AMJE's base PlantDefs never contain a CCTO class reference.
+
+Automated validation must cover both configurations:
+1. AMJE alone: all four loaded PlantDefs remain at the explicit 0°C baseline and no CCTO dependency is required;
+2. AMJE + CCTO: the four loaded PlantDefs expose the table values above and exactly one `ColdToleranceExtension` each.
+
+The normal four-biome runtime gate remains CCTO-free. If CCTO is installed locally, the one-command runtime gate additionally creates a second isolated AMJE+CCTO profile and runs one focused loaded-Def compatibility Quickstart.
+
+
 
 ## 10. Natural soil fertility
 
