@@ -523,7 +523,9 @@ Initial wild-plant commonality:
 - Subalpine: Shirabiso **2.6**, Pine 0.9 and Birch 0.5;
 - Alpine: Haimatsu **1.3**, with full-size Pine/Birch reduced to 0.02 each.
 
-The next gate is runtime map validation. Use the fixed-biome Quicktests to verify that the intended structural species are visibly present/dominant without producing excessive movement blockage, timber abundance, or plant-generation errors. Do not create final plant textures before this gate passes.
+Automated runtime map validation is now the acceptance gate for this Alpha vegetation set. The four fixed-biome Quickstarts run against an isolated profile and verify target-biome identity, target structural-plant generation, dominance over configured secondary tree species, Alpine Haimatsu coverage <=5% of all cells, Alpine full-size Pine+Birch coverage <=1% of all cells, complete live log capture, and no Environment-origin ERROR entries.
+
+The current four-biome automated runtime gate passed in full after the optional-MO patch guard and synthetic-climate test fallback fixes. Therefore the Alpha structural vegetation composition and commonality values above are accepted without retuning. Final plant artwork remains deferred to the later visual-art pass; numerical distribution and runtime correctness do not require another manual smoke by default.
 
 
 ## 10. Natural soil fertility
