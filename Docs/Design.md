@@ -746,3 +746,7 @@ The Quickstarts log `[AMJ Environment Weather]` with the loaded commonality tabl
 
 A statistical simulation should only be added if later weather changes introduce calendar-specific or dynamic weighting that cannot be proven from loaded Def values.
 
+The first post-change automated runtime rerun passed cleanly in all four AMJ biomes: every standalone report returned `passed=true`, `failed=0`, `preLaunchErrors=0`, and `logErrors=0`. Loaded weather commonalities matched the table exactly in WarmTemperate, CoolTemperate, Subalpine, and Alpine. The optional AMJE+CCTO run also passed all **39/39** assertions with the same clean startup/runtime conditions, confirming that CCTO does not alter the weather baseline.
+
+The Alpha regional weather baseline is therefore accepted.
+
