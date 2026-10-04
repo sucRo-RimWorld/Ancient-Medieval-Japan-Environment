@@ -803,6 +803,24 @@ foreach ($expected in @(
     }
 }
 
+$liveTextureDiagnosticPath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\LiveTextureDiagnostics.cs"
+if (-not (Test-Path -LiteralPath $liveTextureDiagnosticPath)) {
+    Fail "Live texture diagnostic source is missing."
+}
+$liveTextureDiagnostic = Get-Content -LiteralPath $liveTextureDiagnosticPath -Raw
+foreach ($expected in @(
+    'Scan current map for bad live textures',
+    '[AMJ Environment LiveTextureAudit] BAD',
+    'thing.Graphic',
+    'MatAt(thing.Rotation, thing)',
+    'SnowOverlayGraphic',
+    'BaseContent.BadTex'
+)) {
+    if (-not $liveTextureDiagnostic.Contains($expected)) {
+        Fail "Live texture diagnostic is missing expected marker: $expected"
+    }
+}
+
 $runtimeLogValidator = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Validate-EnvironmentRuntimeLog.ps1") -Raw
 foreach ($expected in @(
     'sucro.ancientmedievaljapan.environment',
