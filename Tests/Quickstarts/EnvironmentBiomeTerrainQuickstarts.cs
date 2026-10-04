@@ -1034,6 +1034,208 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
     }
 
+    public abstract class WaterHandoffQuickstartBase : AbstractQuickstart
+    {
+        protected abstract TileMutatorDef TargetMutator { get; }
+
+        protected abstract string TargetTerrainKind { get; }
+
+        public override TaggedString description
+        {
+            get
+            {
+                return "Generates a deterministic 250x250 map on an AMJ Environment " +
+                    TargetTerrainKind + " world tile and verifies Vanilla world-to-map handoff.";
+            }
+        }
+
+        public override int mapSize
+        {
+            get { return 250; }
+        }
+
+        public override float planetCoverage
+        {
+            get { return 0.05f; }
+        }
+
+        public override string seed
+        {
+            get { return "AMJ-Environment-Terrain-Alpha"; }
+        }
+
+        public override void PostApplyConfiguration()
+        {
+            PlanetTile tile = FindWaterHandoffTile(TargetMutator);
+            if (!tile.Valid)
+            {
+                throw new InvalidOperationException(
+                    "No usable world tile found for " +
+                    TargetTerrainKind + " handoff test.");
+            }
+
+            Find.GameInitData.startingTile = tile;
+
+            Tile worldTile = Find.WorldGrid[tile];
+            Log.Message(
+                "[AMJ Environment WaterHandoff] selected" +
+                " | kind=" + TargetTerrainKind +
+                " tile=" + tile +
+                " biome=" +
+                    (worldTile.PrimaryBiome == null
+                        ? "null"
+                        : worldTile.PrimaryBiome.defName) +
+                " hilliness=" + worldTile.hilliness +
+                " mutators=" + MutatorSummary(worldTile));
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification verification = new QuickstartVerification();
+            Map map = Find.CurrentMap;
+
+            verification.Assert(
+                "current map exists",
+                delegate { return map != null; });
+
+            verification.Assert(
+                TargetTerrainKind + " mutator survives world-to-map handoff",
+                delegate
+                {
+                    return map != null &&
+                        map.TileInfo != null &&
+                        map.TileInfo.Mutators != null &&
+                        map.TileInfo.Mutators.Contains(TargetMutator);
+                });
+
+            int matchingCells = CountTargetWaterCells(map);
+
+            verification.Assert(
+                TargetTerrainKind + " terrain generated on local map",
+                delegate { return matchingCells > 0; });
+
+            Log.Message(
+                "[AMJ Environment WaterHandoff] verified" +
+                " | kind=" + TargetTerrainKind +
+                " matchingCells=" + matchingCells +
+                " mapCells=" +
+                    (map == null ? 0 : map.cellIndices.NumGridCells));
+
+            return verification;
+        }
+
+        private int CountTargetWaterCells(Map map)
+        {
+            if (map == null)
+            {
+                return 0;
+            }
+
+            int count = 0;
+            foreach (IntVec3 cell in map.AllCells)
+            {
+                TerrainDef terrain = cell.GetTerrain(map);
+                if (terrain == null)
+                {
+                    continue;
+                }
+
+                if (TargetTerrainKind == "river")
+                {
+                    if (terrain.IsRiver)
+                    {
+                        count++;
+                    }
+                }
+                else if (TargetTerrainKind == "coast")
+                {
+                    if (terrain.IsOcean)
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        private static PlanetTile FindWaterHandoffTile(TileMutatorDef mutator)
+        {
+            PlanetTile fallback = PlanetTile.Invalid;
+
+            for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+            {
+                Tile candidate = Find.WorldGrid[i];
+                if (candidate == null ||
+                    candidate.WaterCovered ||
+                    candidate.Mutators == null ||
+                    !candidate.Mutators.Contains(mutator) ||
+                    Find.WorldObjects.AnyWorldObjectAt(candidate.tile))
+                {
+                    continue;
+                }
+
+                if (TileFinder.IsValidTileForNewSettlement(candidate.tile))
+                {
+                    return candidate.tile;
+                }
+
+                if (!fallback.Valid &&
+                    candidate.hilliness != Hilliness.Impassable)
+                {
+                    fallback = candidate.tile;
+                }
+            }
+
+            return fallback;
+        }
+
+        private static string MutatorSummary(Tile tile)
+        {
+            if (tile == null || tile.Mutators == null)
+            {
+                return "";
+            }
+
+            string summary = "";
+            for (int i = 0; i < tile.Mutators.Count; i++)
+            {
+                if (i > 0)
+                {
+                    summary += ",";
+                }
+                summary += tile.Mutators[i].defName;
+            }
+            return summary;
+        }
+    }
+
+    public sealed class AMJRiverMapHandoffQuickstart : WaterHandoffQuickstartBase
+    {
+        protected override TileMutatorDef TargetMutator
+        {
+            get { return TileMutatorDefOf.River; }
+        }
+
+        protected override string TargetTerrainKind
+        {
+            get { return "river"; }
+        }
+    }
+
+    public sealed class AMJCoastMapHandoffQuickstart : WaterHandoffQuickstartBase
+    {
+        protected override TileMutatorDef TargetMutator
+        {
+            get { return TileMutatorDefOf.Coast; }
+        }
+
+        protected override string TargetTerrainKind
+        {
+            get { return "coast"; }
+        }
+    }
+
     public sealed class AMJWarmTemperateTerrainQuickstart : BiomeTerrainQuickstartBase
     {
         protected override string TargetBiomeDefName
