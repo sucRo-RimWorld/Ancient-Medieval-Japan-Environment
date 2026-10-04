@@ -471,7 +471,13 @@ The revised static gate and normal runtime gate now both pass locally after remo
 
 To minimize manual diagnosis of the still-visible question-mark object, a Dev Mode live-map diagnostic has been added. It scans the actual current map things under the user's normal mod list, resolves each live `thing.Graphic` material (plus plant snow overlays), and logs the exact `defName`, label, map position, graphic class/path and texture name for null/BadTex/ERRORTEX cases: `f3d26cc9142c16f857a26aa3d71deb9484b16686`. Static validation locks this diagnostic in place: `d2ebf5437121b2da8b564973e00675d4e16856b6`.
 
-**Next action:** pull/build, open the affected normal-play map with Dev Mode, run **AMJ Environment > Scan current map for bad live textures**, and inspect the resulting `[AMJ Environment LiveTextureAudit] BAD` line(s). This should identify the actual question-mark object without relying on visual guessing.
+The user clarified that the red question-mark textures were visible during the automated Quickstarts themselves, including both the first WarmTemperate run and the final Alpine run. Video review shows many question-mark tiles/objects across the map rather than one isolated tree. Since the existing live-plant audit still passed, the diagnosis has been widened beyond plants.
+
+Quickstart live-object audit extension:
+- every fixed-biome Quickstart now scans live non-plant map Things with standard `graphicData`, resolves the actual `thing.Graphic.MatAt(...)`, and logs exact `defName`, label, category, position, runtime type, graphic class/path and texture for null/BadTex/ERRORTEX cases: `4fc048be9ad3cc8afa62609505d000df2f7bc970`;
+- static validation locks the new `[AMJ Environment LiveThingTextureAudit] BAD` assertion path in place: `56bb08d616a2da200758bf64c8e86d656a53be26`.
+
+**Next action:** rerun the normal runtime gate. If the visible question marks are standard map Things, the first affected Quickstart should now fail with a `[AMJ Environment LiveThingTextureAudit] BAD def=...` line naming the exact object. If the visual issue still appears while both live-plant and live-Thing audits pass, move the next diagnostic layer to terrain/overlay rendering rather than continuing to assume an individual tree Def.
 
 
 ### ENV-004 — Low-fertility natural terrain
