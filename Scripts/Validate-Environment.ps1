@@ -926,7 +926,6 @@ foreach ($expected in @(
 
 $textureDebugBatch = Get-Content -LiteralPath (Join-Path $RepoRoot "run-texture-debug.bat") -Raw
 foreach ($expected in @(
-    'AMJWarmTemperateTerrainQuickstart',
     'TestResults\TextureDebug',
     'RIMWORLD_QUICKSTART',
     'RimWorld will stay open until you close it manually',
@@ -936,17 +935,236 @@ foreach ($expected in @(
         Fail "run-texture-debug.bat is missing expected focused-debug marker: $expected"
     }
 }
-foreach ($forbidden in @(
-    '-quickstartreport',
-    '-quickstartverify',
+
+$allowedTextureDebugQuickstarts = @(
+    'AMJWarmTemperateTerrainQuickstart',
     'AMJCoolTemperateTerrainQuickstart',
     'AMJSubalpineTerrainQuickstart',
     'AMJAlpineTerrainQuickstart'
+)
+
+$textureDebugEnvMatches =
+    [regex]::Matches(
+        $textureDebugBatch,
+        '(?im)^\s*set\s+"RIMWORLD_QUICKSTART=([^"]+)"\s*
+$runTestsSource = Get-Content -LiteralPath (Join-Path $RepoRoot "run-tests.bat") -Raw
+foreach ($expected in @(
+    'Validate-MedievalOverhaulTreeTextures.ps1',
+    'Auditing installed Medieval Overhaul tree texture references'
+)) {
+    if (-not $runTestsSource.Contains($expected)) {
+        Fail "run-tests.bat is missing expected MO static-audit marker: $expected"
+    }
+}
+
+$moTreeAudit = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Validate-MedievalOverhaulTreeTextures.ps1") -Raw
+foreach ($expected in @(
+    '3219596926',
+    'TreeBase',
+    'DeciduousTreeBase',
+    'leaflessGraphicPath',
+    'immatureGraphicPath',
+    'Test-TexturePath',
+    'Medieval Overhaul tree texture references resolve'
+)) {
+    if (-not $moTreeAudit.Contains($expected)) {
+        Fail "MO tree-texture static audit is missing expected marker: $expected"
+    }
+}
+
+$runtimeProfileBuilder = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1") -Raw
+foreach ($expected in @(
+    'IncludeMedievalOverhaul',
+    'OskarPotocki.VanillaFactionsExpanded.Core',
+    'syrchalis.processor.framework',
+    'DankPyon.Medieval.Overhaul'
+)) {
+    if (-not $runtimeProfileBuilder.Contains($expected)) {
+        Fail "Environment runtime profile builder is missing expected marker: $expected"
+    }
+}
+
+$runtimeRunner = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Run-EnvironmentVegetationQuickstarts.ps1") -Raw
+foreach ($expected in @(
+    'AMJWarmTemperateTerrainQuickstart',
+    'AMJCoolTemperateTerrainQuickstart',
+    'AMJSubalpineTerrainQuickstart',
+    'AMJAlpineTerrainQuickstart',
+    'AMJRiverMapHandoffQuickstart',
+    'AMJCoastMapHandoffQuickstart',
+    'quickstartreport',
+    'Validate-EnvironmentRuntimeLog.ps1',
+    'CctoCompatibilityOnly',
+    'TreeTextureAuditOnly',
+    '[WAIT]',
+    'preLaunchErrors'
+)) {
+    if (-not $runtimeRunner.Contains($expected)) {
+        Fail "Vegetation runtime runner is missing expected marker: $expected"
+    }
+}
+
+$liveTextureDiagnosticPath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\LiveTextureDiagnostics.cs"
+if (-not (Test-Path -LiteralPath $liveTextureDiagnosticPath)) {
+    Fail "Live texture diagnostic source is missing."
+}
+$liveTextureDiagnostic = Get-Content -LiteralPath $liveTextureDiagnosticPath -Raw
+foreach ($expected in @(
+    'Scan current map for bad live textures',
+    '[AMJ Environment LiveTextureAudit] BAD',
+    'thing.Graphic',
+    'MatAt(thing.Rotation, thing)',
+    'SnowOverlayGraphic',
+    'BaseContent.BadTex'
+)) {
+    if (-not $liveTextureDiagnostic.Contains($expected)) {
+        Fail "Live texture diagnostic is missing expected marker: $expected"
+    }
+}
+
+$runtimeLogValidator = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Validate-EnvironmentRuntimeLog.ps1") -Raw
+foreach ($expected in @(
+    'sucro.ancientmedievaljapan.environment',
+    'Level:\s*ERROR',
+    'Environment-origin runtime ERROR'
+)) {
+    if (-not $runtimeLogValidator.Contains($expected)) {
+        Fail "Environment runtime ERROR gate is missing expected marker: $expected"
+    }
+}
+Pass "Automated four-biome vegetation runtime harness and mod-origin ERROR gate are present"
+
+
+$steamapps = [System.IO.Path]::GetFullPath((Join-Path $RimWorldDir "..\.."))
+$quickstartsRoot = Join-Path $steamapps "workshop\content\294100\3793646067"
+if (Test-Path $quickstartsRoot) {
+    $quickstartsDll = Get-ChildItem -Path $quickstartsRoot -Filter "Quickstarts.dll" -Recurse -File -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($null -ne $quickstartsDll) {
+        $quicktestDll = Join-Path $RepoRoot "DevQuickstarts\Assemblies\AncientMedievalJapanEnvironment.Quicktests.dll"
+        if (-not (Test-Path $quicktestDll)) {
+            Fail "Quickstarts is installed but the Environment fixed-biome Quicktest DLL was not built."
+        }
+        Pass "Fixed-biome Quicktest DLL was built against installed Quickstarts"
+    }
+}
+
+
+
+
+
+$publicDocs = @(
+    "README.md",
+    "Docs\WorkshopDescription.md",
+    "Docs\SteamWorkshopDescription-ja.txt",
+    "Docs\SteamWorkshopDescription.txt"
+)
+
+foreach ($relative in $publicDocs) {
+    $path = Join-Path $RepoRoot $relative
+    if (-not (Test-Path -LiteralPath $path)) {
+        Fail "Public description source is missing: $relative"
+    }
+}
+
+$readmeRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "README.md") -Raw -Encoding UTF8
+foreach ($expected in @(
+    'RimWorld 1.6',
+    'Alpha',
+    'Ancient & Medieval Japan Core is not required',
+    'Crop Cold Tolerance Overhaul is optional',
+    'Use a new game',
+    'Removing the mod from a save'
+)) {
+    if (-not $readmeRaw.Contains($expected)) {
+        Fail "README is missing required public-positioning marker: $expected"
+    }
+}
+
+$workshopJaPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription-ja.txt"
+$workshopEnPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription.txt"
+$workshopJaRaw = Get-Content -LiteralPath $workshopJaPath -Raw -Encoding UTF8
+$workshopEnRaw = Get-Content -LiteralPath $workshopEnPath -Raw -Encoding UTF8
+
+if ([System.Text.Encoding]::UTF8.GetByteCount($workshopJaRaw) -gt 8000) {
+    Fail "Japanese Workshop description exceeds 8,000 UTF-8 bytes."
+}
+if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
+    Fail "English Workshop description exceeds 8,000 UTF-8 bytes."
+}
+
+foreach ($pair in @(
+    @($workshopJaRaw, '現在はAlphaです。', 'Japanese Workshop Alpha stage'),
+    @($workshopJaRaw, 'Ancient & Medieval Japan Coreは不要です。', 'Japanese Workshop Core independence'),
+    @($workshopJaRaw, 'Crop Cold Tolerance Overhaul（CCTO）は任意です。', 'Japanese Workshop CCTO optionality'),
+    @($workshopEnRaw, 'Currently Alpha.', 'English Workshop Alpha stage'),
+    @($workshopEnRaw, 'Ancient & Medieval Japan Core is not required.', 'English Workshop Core independence'),
+    @($workshopEnRaw, 'Crop Cold Tolerance Overhaul (CCTO) is optional.', 'English Workshop CCTO optionality')
+)) {
+    if (-not $pair[0].Contains($pair[1])) {
+        Fail "$($pair[2]) marker is missing."
+    }
+}
+
+$aboutPublicRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml") -Raw -Encoding UTF8
+if ($aboutPublicRaw.Contains('Development build')) {
+    Fail "About.xml still describes AMJE as a Development build."
+}
+foreach ($expected in @(
+    '<description>Alpha.',
+    'Ancient &amp; Medieval Japan Core is not required.',
+    'Crop Cold Tolerance Overhaul (CCTO) is optional',
+    'A new game is recommended',
+    'Removing this mod from saves'
+)) {
+    if (-not $aboutPublicRaw.Contains($expected)) {
+        Fail "About.xml is missing required public-positioning marker: $expected"
+    }
+}
+Pass "README / Workshop / About public-positioning sources are present and size-safe"
+
+Write-Host ""
+Write-Host "[OK] AMJ Environment static validation passed"
+exit 0
+)
+
+if ($textureDebugEnvMatches.Count -ne 1) {
+    Fail "run-texture-debug.bat must define exactly one RIMWORLD_QUICKSTART target."
+}
+
+$textureDebugCommandMatches =
+    [regex]::Matches(
+        $textureDebugBatch,
+        '(?im)-quickstart=([A-Za-z0-9_]+)')
+
+if ($textureDebugCommandMatches.Count -ne 1) {
+    Fail "run-texture-debug.bat must invoke exactly one -quickstart target."
+}
+
+$textureDebugEnvTarget =
+    $textureDebugEnvMatches[0].Groups[1].Value
+$textureDebugCommandTarget =
+    $textureDebugCommandMatches[0].Groups[1].Value
+
+if ($allowedTextureDebugQuickstarts -notcontains $textureDebugEnvTarget) {
+    Fail "run-texture-debug.bat uses an unknown RIMWORLD_QUICKSTART target: $textureDebugEnvTarget"
+}
+if ($allowedTextureDebugQuickstarts -notcontains $textureDebugCommandTarget) {
+    Fail "run-texture-debug.bat uses an unknown -quickstart target: $textureDebugCommandTarget"
+}
+if ($textureDebugEnvTarget -ne $textureDebugCommandTarget) {
+    Fail "run-texture-debug.bat has mismatched texture-debug targets: env=$textureDebugEnvTarget command=$textureDebugCommandTarget"
+}
+
+foreach ($forbidden in @(
+    '-quickstartreport',
+    '-quickstartverify'
 )) {
     if ($textureDebugBatch.Contains($forbidden)) {
         Fail "run-texture-debug.bat must remain focused/non-auto-exit; forbidden marker found: $forbidden"
     }
 }
+
+Pass "Focused texture-debug runner uses one valid, internally consistent biome target: $textureDebugCommandTarget"
 
 $runTestsSource = Get-Content -LiteralPath (Join-Path $RepoRoot "run-tests.bat") -Raw
 foreach ($expected in @(
