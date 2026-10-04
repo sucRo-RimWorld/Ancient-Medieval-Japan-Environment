@@ -332,12 +332,39 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Shrub_Haimatsu");
 
             verification.Assert(
+                "Sudajii graphic resolves a non-BadTex texture",
+                delegate
+                {
+                    return shii != null &&
+                        shii.graphicData != null &&
+                        HasLoadedNonBadTexture(shii.graphicData.Graphic);
+                });
+
+            verification.Assert(
+                "Japanese beech leafy graphic resolves a non-BadTex texture",
+                delegate
+                {
+                    return beech != null &&
+                        beech.graphicData != null &&
+                        HasLoadedNonBadTexture(beech.graphicData.Graphic);
+                });
+
+            verification.Assert(
                 "Japanese beech has a loaded leafless graphic",
                 delegate
                 {
                     return beech != null &&
                         beech.plant != null &&
                         beech.plant.leaflessGraphic != null;
+                });
+
+            verification.Assert(
+                "Japanese beech leafless graphic resolves a non-BadTex texture",
+                delegate
+                {
+                    return beech != null &&
+                        beech.plant != null &&
+                        HasLoadedNonBadTexture(beech.plant.leaflessGraphic);
                 });
 
             verification.Assert(
@@ -348,6 +375,24 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         HasShaderParameter(
                             beech.graphicData,
                             "_FallBehaviorEnabled");
+                });
+
+            verification.Assert(
+                "Shirabiso graphic resolves a non-BadTex texture",
+                delegate
+                {
+                    return shirabiso != null &&
+                        shirabiso.graphicData != null &&
+                        HasLoadedNonBadTexture(shirabiso.graphicData.Graphic);
+                });
+
+            verification.Assert(
+                "Haimatsu graphic resolves a non-BadTex texture",
+                delegate
+                {
+                    return haimatsu != null &&
+                        haimatsu.graphicData != null &&
+                        HasLoadedNonBadTexture(haimatsu.graphicData.Graphic);
                 });
 
             verification.Assert(
@@ -376,6 +421,41 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         gentle.snowRate > 0f &&
                         hard.snowRate > 0f;
                 });
+        }
+
+        private static bool HasLoadedNonBadTexture(Graphic graphic)
+        {
+            if (graphic == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                UnityEngine.Material material = graphic.MatSingle;
+                if (material == null || material.mainTexture == null)
+                {
+                    return false;
+                }
+
+                UnityEngine.Texture texture = material.mainTexture;
+                return texture != BaseContent.BadTex &&
+                    !string.Equals(
+                        texture.name,
+                        "ERRORTEX",
+                        StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(
+                        texture.name,
+                        "BadTex",
+                        StringComparison.OrdinalIgnoreCase);
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(
+                    "[AMJ Environment Quicktest] Graphic texture validation failed: " +
+                    ex.GetType().Name + ": " + ex.Message);
+                return false;
+            }
         }
 
         private static bool HasShaderParameter(
