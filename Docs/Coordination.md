@@ -450,9 +450,14 @@ Tree-audit extension:
 
 Expanded audit first-run result: the AMJE-only profile failed on `Plant_TreePine:polluted=Things/Plant/TreePine_Polluted`. This was a test-harness false positive, not evidence of the visible question-mark tree: RimWorld only loads `pollutedGraphic` when Biotech is active, while the isolated AMJE-only profile does not activate Biotech. The audit now checks the polluted tree state only when `ModsConfig.BiotechActive` is true: `16f5dbb583ed7ec9a98b90687d3508df61677a15`; the static validator locks this condition in place: `01d35282578bebf2bed52b5d859cc2e6a62d51d7`.
 
-**Verification status:** previous AMJE-only/CCTO BadTex gates passed locally; the newly expanded all-tree + Medieval Overhaul audit is implemented, and its first AMJE-only run exposed/fixed the Biotech-state false positive. The corrected expanded audit has not yet been rerun locally.
+**Verification status:** previous AMJE-only/CCTO BadTex gates passed locally; the corrected all-tree audit proceeds into the optional Medieval Overhaul profile, but the first focused MO run exceeded the original 180-second outer timeout before producing a report. This is currently treated as a harness-time-budget issue rather than a tree-texture failure because no `BAD def=...` result was produced.
 
-**Next action:** rerun `run-tests.bat` and `run-runtime-tests.bat`. Inspect the optional `Reports-MO` result or any `[AMJ Environment TreeTextureAudit] BAD` line if the focused MO audit fails. If the corrected expanded audit also passes, identify the visible question-mark object by in-game label/defName because it is likely outside the loaded tree graphic states covered by AMJE/MO.
+MO runtime-harness follow-up:
+- the runner now prints a 15-second `[WAIT]` heartbeat while RimWorld is still alive, so slow startup is distinguishable from a frozen console: `1bbb382ce4702e82871b10bdcc2da1bf39ed099b`;
+- the focused Medieval Overhaul profile timeout is extended from 180 to 360 seconds: `e22e76922e9de519ce621e5e7e8447c0b573e950`;
+- static validation locks both the MO-specific 360-second timeout and heartbeat marker in place: `31e291906c3a421b0b65443d2e832c129da9bb9b`.
+
+**Next action:** pull and rerun the runtime gate. During the MO phase, confirm whether heartbeat output continues and whether the focused audit finishes within 360 seconds. If it still times out, inspect `Reports-MO/AMJWarmTemperateTerrainQuickstart.log` to distinguish slow MO initialization from a startup deadlock; if it finishes and emits `[AMJ Environment TreeTextureAudit] BAD`, use that def/state/path as the missing-tree candidate.
 
 
 ### ENV-004 — Low-fertility natural terrain
