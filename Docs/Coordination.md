@@ -204,7 +204,9 @@ Implementation commits:
 
 **Local static-gate finding:** the first vegetation validation run failed before XML semantics because Windows PowerShell 5.1 decoded the BOM-less Japanese localization file with the local ANSI code page. The repository file itself is valid UTF-8, but the validator's plain `Get-Content` produced mojibake and consumed bytes around closing tags, making the decoded text appear malformed. The validator now reads the Japanese localization explicitly with `-Encoding UTF8`. Fix commit: `f400a230f366f96d46387630aa844d4d9ae9e090`.
 
-**Next action:** rerun the local build/static gate. Do not mark the vegetation gate as passing until the rerun succeeds. After that, use the four fixed-biome Quicktests to verify that the new structural plants generate without errors and produce the intended warm/cool/subalpine/alpine visual progression. Check especially whether haimatsu creates excessive movement blockage and whether subalpine/alpine timber availability remains suitably limited. Final plant images remain deferred until this runtime gate passes.
+**Local build/static rerun:** PASS after the UTF-8 validator fix. The Japan-specific vegetation PlantDefs, biome wiring, Japanese localization, normal Environment DLL, developer Quicktest DLL, and static validation gate all completed successfully.
+
+**Next action:** use the four fixed-biome Quicktests (WarmTemperate, CoolTemperate, Subalpine, Alpine) to verify runtime generation without Environment-origin errors and check the intended structural progression: Shii -> Beech -> Shirabiso -> Haimatsu. Pay particular attention to haimatsu movement blockage and to limited timber availability in Subalpine/Alpine. Final plant images remain deferred until this runtime gate passes.
 
 
 ### ENV-004 — Low-fertility natural terrain
