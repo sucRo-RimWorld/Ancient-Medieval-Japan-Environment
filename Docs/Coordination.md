@@ -488,7 +488,8 @@ The user reran WarmTemperate with visible red question marks still present, yet 
 Render-pipeline diagnostic extension:
 - the developer Quicktest assembly now Harmony-patches `MapDrawLayer.GetSubMesh(Material)`, the common path used by static map section layers (terrain, terrain scatter, map-mesh Things, etc.), and emits `[AMJ Environment BadRenderMaterial]` as an ERROR whenever the actual render material is `BaseContent.BadMat` or uses `BaseContent.BadTex`/ERRORTEX: `a58053f875131a90f4f859723db4ce251015c0df`;
 - Quicktest compilation now explicitly references Harmony: `b93f50402e91c4554fa70e506ced15181d2a2046`;
-- static validation locks the render-material interceptor and Harmony reference in place: `8f924aa69154b1e0fde3b479ebfc75ca9ee87466`.
+- first local build after this change failed because `Environment.GetEnvironmentVariable` was resolved against the enclosing `AncientMedievalJapan.Environment` namespace instead of `System.Environment`; fixed by fully qualifying the runtime API: `77968bd4d566530713f359a6a00ee341b3e308f1`;
+- static validation locks the render-material interceptor, Harmony reference, and fully-qualified environment lookup in place: `8f924aa69154b1e0fde3b479ebfc75ca9ee87466`, `9b970172077dd784963251220fcedb510edb9249`.
 
 This is intentionally lower-level than the previous Def/Thing/scatter checks. If the visible question marks are produced by any static section layer, the next run should fail and the error will name the exact layer class (for example `SectionLayer_Terrain`, `SectionLayer_TerrainScatter`, or `SectionLayer_Things`), avoiding further guessing.
 
