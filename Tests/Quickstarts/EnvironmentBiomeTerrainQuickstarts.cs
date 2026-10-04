@@ -177,6 +177,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     return limitedTimberFraction <= MaxLimitedTimberCellFraction;
                 });
 
+            if (CctoIsActive())
+            {
+                AddCctoCompatibilityAssertions(verification);
+            }
+
             Log.Message(
                 "[AMJ Environment Vegetation] biome=" + TargetBiomeDefName +
                 " target=" + TargetPlantDefName +
@@ -185,9 +190,166 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " secondary={" + secondarySummary + "}" +
                 " limitedTimberCount=" + limitedTimberCount +
                 " limitedTimberCellShare=" +
-                    (limitedTimberFraction * 100f).ToString("F2") + "%");
+                    (limitedTimberFraction * 100f).ToString("F2") + "%" +
+                " cctoActive=" + CctoIsActive());
 
             return verification;
+        }
+
+        private static bool CctoIsActive()
+        {
+            return LoadedModManager.GetActiveModWithIdentifier(
+                "sucro.cropcoldtoleranceoverhaul",
+                true) != null;
+        }
+
+        private static void AddCctoCompatibilityAssertions(
+            QuickstartVerification verification)
+        {
+            AddCctoPlantAssertions(
+                verification,
+                "AMJ_Tree_Shii",
+                8f,
+                false,
+                -8f);
+
+            AddCctoPlantAssertions(
+                verification,
+                "AMJ_Tree_Beech",
+                5f,
+                true,
+                float.NaN);
+
+            AddCctoPlantAssertions(
+                verification,
+                "AMJ_Tree_Shirabiso",
+                0f,
+                false,
+                -35f);
+
+            AddCctoPlantAssertions(
+                verification,
+                "AMJ_Shrub_Haimatsu",
+                0f,
+                false,
+                -35f);
+        }
+
+        private static void AddCctoPlantAssertions(
+            QuickstartVerification verification,
+            string defName,
+            float expectedMinGrowth,
+            bool expectedDormancy,
+            float expectedDeath)
+        {
+            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
+
+            verification.Assert(
+                defName + " exists for CCTO compatibility",
+                delegate { return def != null; });
+
+            verification.Assert(
+                defName + " CCTO min growth temperature",
+                delegate
+                {
+                    return def != null &&
+                        System.Math.Abs(
+                            def.plant.minGrowthTemperature -
+                            expectedMinGrowth) < 0.001f;
+                });
+
+            DefModExtension extension = FindCctoExtension(def);
+
+            verification.Assert(
+                defName + " has exactly one CCTO extension",
+                delegate
+                {
+                    return def != null &&
+                        CountCctoExtensions(def) == 1;
+                });
+
+            verification.Assert(
+                defName + " CCTO dormancy flag",
+                delegate
+                {
+                    if (extension == null)
+                    {
+                        return false;
+                    }
+
+                    System.Reflection.FieldInfo field =
+                        extension.GetType().GetField("coldDormancy");
+                    return field != null &&
+                        (bool)field.GetValue(extension) == expectedDormancy;
+                });
+
+            verification.Assert(
+                defName + " CCTO cold death threshold",
+                delegate
+                {
+                    if (extension == null)
+                    {
+                        return false;
+                    }
+
+                    System.Reflection.FieldInfo field =
+                        extension.GetType().GetField("coldDeathTemperature");
+                    if (field == null)
+                    {
+                        return false;
+                    }
+
+                    float actual = (float)field.GetValue(extension);
+                    if (float.IsNaN(expectedDeath))
+                    {
+                        return float.IsNaN(actual);
+                    }
+
+                    return System.Math.Abs(actual - expectedDeath) < 0.001f;
+                });
+        }
+
+        private static DefModExtension FindCctoExtension(ThingDef def)
+        {
+            if (def == null || def.modExtensions == null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < def.modExtensions.Count; i++)
+            {
+                DefModExtension extension = def.modExtensions[i];
+                if (extension != null &&
+                    extension.GetType().FullName ==
+                        "CropColdToleranceOverhaul.ColdToleranceExtension")
+                {
+                    return extension;
+                }
+            }
+
+            return null;
+        }
+
+        private static int CountCctoExtensions(ThingDef def)
+        {
+            if (def == null || def.modExtensions == null)
+            {
+                return 0;
+            }
+
+            int count = 0;
+            for (int i = 0; i < def.modExtensions.Count; i++)
+            {
+                DefModExtension extension = def.modExtensions[i];
+                if (extension != null &&
+                    extension.GetType().FullName ==
+                        "CropColdToleranceOverhaul.ColdToleranceExtension")
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         private static int CountThings(Map map, string defName)
