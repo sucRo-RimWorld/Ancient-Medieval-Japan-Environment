@@ -781,4 +781,18 @@ The successful Sudajii/Japanese-beech lessons are now captured as a reusable pro
 The AMJ-wide Golden Path closeout rule is additionally referenced from Environment `AGENTS.md` in `6c6d6a2aae3a80c3650f30049982fe8a36f01ea7`, pointing to Core `Docs/DevelopmentGoldenPathGuidelines.md`.
 
 **Next action:** resume Japanese beech visual validation using the repository Golden Path rather than ad-hoc binary transfer/debug-runner edits.
+### ENV-010 visual-style baseline — retexture rules
 
+**Requested by:** author / Environment art  
+**Owner:** Environment/art  
+**Status:** DONE
+
+The shared visual language for AMJE tree/plant retextures is now canonical in `Docs/ArtDirection.md` under **Retexture visual-style rules**. The rule set locks strong simplification/deformation, thick dark outlines, restrained low-to-medium saturation, limited color steps, transparent/no-ground-base sprites, structural rather than recolor-only species differentiation, deciduous leafy/leafless continuity, and normal-game-zoom readability.
+
+Category baselines are also fixed for evergreen broadleaf, deciduous broadleaf, tall conifer, and low/dwarf conifer work. Accepted Sudajii and Japanese beech art are the current reference baselines for evergreen-broadleaf and deciduous-broadleaf retextures. Future species should declare their category and structural differences from those baselines before source-art generation.
+
+Canonical art-direction commit: `447b55e082b5e08e0c083e37f5f81dc92e458651`. Agent enforcement/reference commit: `a970a4bb12df937a7f08a9240e00b30248e63c2d`.
+
+Production binary transfer/integration remains governed separately by `Docs/GoldenPaths/TextureAssetPipeline.md`.
+
+**Next action:** continue Japanese beech visual validation, then apply the fixed visual rules + existing texture Golden Path to Shirabiso, Haimatsu, and subsequent Vanilla/MO tree retextures.
