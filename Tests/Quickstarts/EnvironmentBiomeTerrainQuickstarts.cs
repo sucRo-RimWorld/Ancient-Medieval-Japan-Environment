@@ -180,6 +180,16 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 return;
             }
 
+            // Graphic_Shadow intentionally inherits Graphic.MatAt/MatSingle,
+            // which return BaseContent.BadMat. Its DrawWorker does not use
+            // that material; it renders with MatBases.SunShadowFade instead.
+            // Probing MatAt here would therefore report every pawn shadow as
+            // a false BadTex hit.
+            if (__instance is Graphic_Shadow)
+            {
+                return;
+            }
+
             UnityEngine.Material material = null;
             try
             {
@@ -425,7 +435,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
 
             verification.Assert(
-                "realtime Thing graphics emitted no BadTex materials",
+                "realtime Thing graphics emitted no non-shadow BadTex materials",
                 delegate
                 {
                     return RealtimeBadGraphicDiagnostics.BadGraphicDrawCount == 0 &&
