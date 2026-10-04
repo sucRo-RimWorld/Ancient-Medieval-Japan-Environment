@@ -130,6 +130,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             AddSeasonalSceneryAssertions(verification);
             AddWildlifeAssertions(verification, map == null ? null : map.Biome);
             AddLivePlantTextureAssertions(verification, map);
+            AddLiveThingTextureAssertions(verification, map);
 
             if (TargetBiomeDefName == "AMJ_WarmTemperateForest")
             {
@@ -603,6 +604,135 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     texture.name,
                     "BadTex",
                     StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static void AddLiveThingTextureAssertions(
+            QuickstartVerification verification,
+            Map map)
+        {
+            int scannedThings = 0;
+            int badThings = 0;
+            string failures = "";
+
+            if (map != null)
+            {
+                foreach (Thing thing in map.listerThings.AllThings)
+                {
+                    if (thing == null ||
+                        thing.Destroyed ||
+                        thing is Plant ||
+                        thing.def == null ||
+                        thing.def.graphicData == null)
+                    {
+                        continue;
+                    }
+
+                    scannedThings++;
+                    Graphic graphic = null;
+                    UnityEngine.Material material = null;
+
+                    try
+                    {
+                        graphic = thing.Graphic;
+                        material =
+                            graphic == null
+                                ? null
+                                : graphic.MatAt(thing.Rotation, thing);
+
+                        if (!MaterialHasNonBadTexture(material))
+                        {
+                            badThings++;
+
+                            string path =
+                                graphic == null || graphic.path == null
+                                    ? "<null>"
+                                    : graphic.path;
+                            string texture =
+                                material == null || material.mainTexture == null
+                                    ? "<null>"
+                                    : material.mainTexture.name;
+
+                            if (!string.IsNullOrEmpty(failures))
+                            {
+                                failures += "; ";
+                            }
+
+                            failures +=
+                                thing.def.defName +
+                                "=" +
+                                path +
+                                " texture=" +
+                                texture;
+
+                            Log.Warning(
+                                "[AMJ Environment LiveThingTextureAudit] BAD" +
+                                " def=" + thing.def.defName +
+                                " label=" + thing.LabelNoCount +
+                                " category=" + thing.def.category +
+                                " pos=" + thing.Position +
+                                " type=" + thing.GetType().FullName +
+                                " graphic=" +
+                                    (graphic == null
+                                        ? "<null>"
+                                        : graphic.GetType().FullName) +
+                                " path=" + path +
+                                " texture=" + texture);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        badThings++;
+
+                        if (!string.IsNullOrEmpty(failures))
+                        {
+                            failures += "; ";
+                        }
+
+                        failures +=
+                            thing.def.defName +
+                            ":exception=" +
+                            ex.GetType().Name +
+                            ":" +
+                            ex.Message;
+
+                        Log.Warning(
+                            "[AMJ Environment LiveThingTextureAudit] EXCEPTION" +
+                            " def=" + thing.def.defName +
+                            " label=" + thing.LabelNoCount +
+                            " category=" + thing.def.category +
+                            " pos=" + thing.Position +
+                            " type=" + thing.GetType().FullName +
+                            " graphic=" +
+                                (graphic == null
+                                    ? "<null>"
+                                    : graphic.GetType().FullName) +
+                            " path=" +
+                                (graphic == null || graphic.path == null
+                                    ? "<null>"
+                                    : graphic.path) +
+                            " exception=" + ex.GetType().Name +
+                            ": " + ex.Message);
+                    }
+                }
+            }
+
+            Log.Message(
+                "[AMJ Environment LiveThingTextureAudit] scannedThings=" +
+                scannedThings +
+                " badThings=" +
+                badThings +
+                " failures={" +
+                failures +
+                "}");
+
+            verification.Assert(
+                "all live non-plant Thing graphics resolve non-BadTex textures",
+                delegate
+                {
+                    return map != null &&
+                        scannedThings > 0 &&
+                        badThings == 0;
+                });
         }
 
         private static void AddTreeTextureAuditAssertions(
