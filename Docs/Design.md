@@ -802,3 +802,47 @@ The first automated runtime rerun after adding these checks passed cleanly:
 
 All reports had `preLaunchErrors=0`, `logErrors=0`, complete live capture, and no truncated logs. The seasonal-scenery baseline is therefore accepted for Alpha without adding a custom seasonal controller.
 
+## 13. World-to-map river and coast handoff
+
+### 13.1 Ownership
+
+Environment owns the **world-level** frequency and shape context of rivers/coasts:
+- Creek / River spawn thresholds and chances;
+- no natural Large/Huge rivers;
+- increased coastal-tile frequency and coastline complexity.
+
+Environment does **not** implement a second local-map river or coast generator.
+
+RimWorld 1.6 already converts world information into map features through `WorldGenStep_Mutators`:
+- a coastal world tile receives the Vanilla `Coast` tile mutator;
+- a river-bearing world tile receives the Vanilla `River` mutator in the Core-only path;
+- those workers generate ocean water, beach terrain, moving river water and the associated local water data.
+
+AMJE therefore keeps this boundary:
+1. alter world distribution;
+2. preserve the Vanilla world-to-map handoff;
+3. add custom local-water generation only if a later gameplay feature genuinely requires behavior Vanilla cannot express.
+
+This is intentionally compatible with other systems that also understand Vanilla Coast/River mutators.
+
+### 13.2 Alpha validation
+
+Two deterministic developer Quickstarts validate the handoff:
+- `AMJRiverMapHandoffQuickstart`;
+- `AMJCoastMapHandoffQuickstart`.
+
+Each test:
+- selects an unoccupied land world tile carrying the corresponding Vanilla mutator;
+- generates a normal 250x250 local map;
+- verifies the mutator remains present on `map.TileInfo`;
+- verifies at least one local terrain cell is tagged `River` or `Ocean`, respectively;
+- remains under the standard isolated-runtime ERROR gate.
+
+These tests do not lock an exact local water-cell percentage. Local map geometry is still Vanilla behavior; AMJE only needs to guarantee that its modified world rivers/coasts continue to reach that behavior.
+
+### 13.3 Waterfalls remain deferred
+
+The existence of working Vanilla local rivers does not change the Waterfall decision in Section 6.
+
+A true or pseudo-waterfall would require additional local-map logic beyond the standard River mutator and is not needed for the Alpha environment loop. It remains deferred until there is a concrete gameplay/visual reason to add it.
+
