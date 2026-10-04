@@ -422,9 +422,16 @@ Art policy:
 
 Art direction source of truth: `Docs/ArtDirection.md`; initial direction `6c310e7efb1fb0ae2a03e87cda7d803bffd398a8`, expanded Vanilla/MO retexture scope `d973f30d70235c6060e68fcd8aa574964454c6c5`.
 
-**Current state:** the ENV-010 atlas direction has been visually accepted by the author as the style baseline. The accepted look is smooth/high-resolution rather than pixel-like, simplified/deformed relative to the earliest concept, lower-saturation while preserving the approved hue relationships, and consistent across AMJE/Vanilla/MO vegetation. The composite atlas remains a reference board only; binary production assets are still not yet integrated into the repository.
+**Current state:** the ENV-010 atlas direction is the accepted style baseline. The first production asset, Sudajii, has now been extracted/reworked from that accepted direction into an AMJE-owned transparent PNG and integrated at `Textures/Things/Plant/AMJ/Shii/Shii_A.png`.
 
-**Next action:** produce the first individual production asset, Sudajii, on transparent background using the adopted atlas style. After visual acceptance, add the actual PNG to the mod, switch only `AMJ_Tree_Shii` to the new path, and run the normal missing-texture/runtime-error gate before proceeding to the next asset.
+Integration commits:
+- binary Sudajii asset: `94898bcd1dff5023a21b559fab01b990b2f0e832`;
+- `AMJ_Tree_Shii` switched from the Vanilla TreeOak placeholder folder to `Things/Plant/AMJ/Shii`: `fad9938eb10e8cff2e8d8381c9622a7b505c5a6b`;
+- static missing-texture / placeholder-path regression check: `74883e61a5761baca1dd6b751019390171e97e08`.
+
+**Verification status:** repository/static integration is prepared, but the new texture path has not yet been rerun through RimWorld after this asset switch.
+
+**Next action:** run the normal Environment test/runtime gate and visually inspect Sudajii scale/silhouette in WarmTemperate. If clean, retain this asset and proceed to the leafy/leafless Japanese beech pair.
 
 
 ### ENV-004 — Low-fertility natural terrain
