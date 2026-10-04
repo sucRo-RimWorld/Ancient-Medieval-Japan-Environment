@@ -106,3 +106,17 @@ Follow the AMJ shared Golden Path policy in Ancient-Medieval-Japan-Core `Docs/De
 After a non-trivial task succeeds, especially after debugging or failed attempts, do not move on with only the working implementation. Record the successful reusable procedure in the owning repository, automate deterministic/repetitive steps, and add regression guards for failure modes discovered during the work. For recurring work, completion includes the reusable documented/automated path, not only the one successful result.
 
 `Docs/Coordination.md` remains status/handoff only; the procedure itself must live in durable repository documentation/scripts.
+## Retexture visual-style rule
+
+Tree/plant retextures must follow the canonical shared visual-style rules in `Docs/ArtDirection.md` under **Retexture visual-style rules**, then add only species-specific differences.
+
+Do not design each asset from scratch. Reuse the shared AMJE baseline for:
+- strong simplification/deformation rather than botanical realism;
+- thick dark outline and restrained low-to-medium saturation;
+- limited color steps with only subtle gradient variation;
+- transparent background with no decorative ground base;
+- species differentiation through silhouette/structure, not color alone;
+- leafy/leafless continuity for deciduous trees;
+- normal-game-zoom readability over fine detail.
+
+Use accepted Sudajii and Japanese beech assets as the current evergreen-broadleaf and deciduous-broadleaf reference baselines. Production transfer/integration must separately follow `Docs/GoldenPaths/TextureAssetPipeline.md`.
