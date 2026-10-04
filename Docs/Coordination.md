@@ -402,12 +402,16 @@ Implementation/test history:
 
 All functional Alpha Environment gates are now complete, so the project can enter the previously deferred final-art stage.
 
-Minimum final-art scope:
-- 5 plant-state images: Sudajii, leafy Japanese beech, leafless Japanese beech, Shirabiso, Haimatsu;
+Expanded minimum final-art scope after Vanilla/MO audit:
+- 5 AMJE plant-state images: Sudajii, leafy Japanese beech, leafless Japanese beech, Shirabiso, Haimatsu;
+- 12 Vanilla tree-state retextures used by AMJE / normal MO coexistence: Oak, Maple, Poplar, Birch, Willow (leafy + leafless), Pine, Bamboo;
+- 7 optional Medieval Overhaul tree-state retextures: Great Oak, Great Iter, Great Willow (leafy + leafless), Great Fir;
 - 1 seamless Thin Soil texture;
 - 4 world-biome textures: WarmTemperate, CoolTemperate, Subalpine, Alpine.
 
-Total minimum: **10 image assets**.
+Total minimum: **29 image assets**.
+
+The retexture scope is visual only. Vanilla Def mechanics are unchanged; MO Def mechanics/content identity are unchanged and MO graphic-path patches apply only when MO is active.
 
 Art policy:
 - start with one final texture per plant/state; the existing `Graphic_Random` implementation can load a one-texture folder and accept more variants later;
@@ -416,7 +420,7 @@ Art policy:
 - final visual review is intentionally manual for silhouette, scale, tiling, color/contrast, and world-map distinction;
 - automated validation must continue to catch missing-texture/runtime ERRORs after each asset is integrated.
 
-Art direction source of truth: `Docs/ArtDirection.md` at `6c310e7efb1fb0ae2a03e87cda7d803bffd398a8`.
+Art direction source of truth: `Docs/ArtDirection.md`; initial direction `6c310e7efb1fb0ae2a03e87cda7d803bffd398a8`, expanded Vanilla/MO retexture scope `PENDING_ART_SCOPE_COMMIT`.
 
 **Current state:** specification complete; binary art assets are not yet added to the repository. Existing Vanilla placeholder paths remain authoritative until each final asset is created and integrated.
 
