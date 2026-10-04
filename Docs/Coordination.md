@@ -345,7 +345,7 @@ One existing Environment warning may appear in the small fixed-world Quickstarts
 
 **Requested by:** Environment/design  
 **Owner:** Environment/world-to-map integration  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Decision:
 - AMJE continues to own river/coast distribution at world level only;
@@ -360,9 +360,9 @@ Implementation/test coverage:
 - static validator covers both tests/runner entries: `6680f276ab1cf5dd16026a4e775fde0ad3278d32`;
 - design source of truth: `2816449f2c90d27b8f117d47e2e991b1d13ba232`.
 
-**Verification status:** not yet rerun locally after adding the two handoff Quickstarts.
+**Final local runtime result:** PASS, reported by the author after running the combined Environment runtime gate with the new River and Coast handoff Quickstarts enabled. The run therefore satisfies the current gate as implemented, including the River/Ocean terrain assertions and the existing pre-launch/runtime ERROR checks. Detailed assertion counts and water-cell counts were not supplied for this run and are not recorded as fixed evidence.
 
-**Next action:** run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. In addition to the four biome runs, the standalone suite must pass `AMJRiverMapHandoffQuickstart` and `AMJCoastMapHandoffQuickstart` with actual River/Ocean cells, `preLaunchErrors=0`, and no Environment-origin ERROR.
+**Result:** ENV-008 complete. AMJE retains world-level ownership only; Vanilla River/Coast mutators remain the accepted local-map generation path. Waterfalls remain deferred.
 
 
 ### ENV-004 — Low-fertility natural terrain
