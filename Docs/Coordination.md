@@ -332,7 +332,7 @@ Alpha decision:
 Implementation/test coverage:
 - loaded seasonal-scene runtime assertions: `fcca9ce0c3b33fa61ab2b89dce4d9ece685fc784`;
 - static validation of deciduous/evergreen profile and test markers: `213aa5a9404e4bb327a4493ed8f8bfc9ddfac525`;
-- design source of truth: `PENDING_DESIGN_COMMIT`.
+- design source of truth: `b3aa742f9b8c4a4c7479546def9fbc5db81b26d1`.
 
 **Verification status:** not yet rerun locally after the seasonal-scenery assertions were added.
 
