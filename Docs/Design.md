@@ -527,7 +527,7 @@ Automated runtime map validation is the acceptance gate for this Alpha vegetatio
 
 A later report audit found that an earlier nominal Quickstarts PASS was incomplete: all vegetation assertions passed, but every report contained `preLaunchErrors=2`. The corresponding startup log entries were AMJE-owned XML inheritance errors on Shirabiso and Haimatsu `visualSizeRange`: the inherited parent FloatRange text and child min/max nodes were being merged into one invalid node. The two child ranges now explicitly use `Inherit="False"`, and the runtime runner now fails on any nonzero `preLaunchErrors` in the isolated profile.
 
-Therefore the structural composition/commonality values themselves remain unchanged, but the Alpha runtime acceptance is **pending a clean rerun with preLaunchErrors=0**. Final plant artwork remains deferred to the later visual-art pass.
+A clean rerun after those fixes passed in full. All four standalone biome reports have `passed=true`, `failed=0`, `preLaunchErrors=0`, complete live log capture, and no ERROR-level runtime entries. The current measured structural shares are Warm Shii **3.14%**, Cool Beech **3.22%**, Subalpine Shirabiso **1.29%**, and Alpine Haimatsu **0.68%**; Alpine full-size Pine+Birch remains only **0.03%**. The Alpha structural vegetation composition/commonality values are therefore accepted without retuning. Final plant artwork remains deferred to the later visual-art pass.
 
 #### Optional CCTO integration ownership
 
