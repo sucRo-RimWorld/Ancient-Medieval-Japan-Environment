@@ -155,6 +155,7 @@ if defined QUICKSTART_DLL (
         /reference:"%UNITY_MATH%" ^
         /reference:"%UNITY_COLLECTIONS%" ^
         /reference:"%NETSTANDARD%" ^
+        /reference:"%HARMONY_DLL%" ^
         /reference:"!QUICKSTART_DLL!" ^
         "!QUICKTEST_SOURCE!"
 
