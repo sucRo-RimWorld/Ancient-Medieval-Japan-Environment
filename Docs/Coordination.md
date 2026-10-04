@@ -646,3 +646,15 @@ This documentation update does not claim new runtime coverage or a new test PASS
 **Next action:** apply this policy to subsequent feature, fix and release work; record unautomated coverage explicitly and move reproducible checks into the automated gate.
 
 **Result / references:** AGENTS policy commit `32d067ab2057ba032ccb21bdc371f3b2a6770d74`; development workflow commit `8a6106bc4aab214d3da77f75207c76d6e5bdb816`.
+
+### ENV-010 text/localization rule — retextured plants
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** art/localization  
+**Status:** IN PROGRESS
+
+All plants whose artwork is replaced by AMJE now also require an AMJE-authored description. This includes AMJE-owned structural plants, Vanilla tree Defs retextured by AMJE, and MO tree Defs conditionally retextured by AMJE. Labels remain unchanged unless a separate naming issue is identified; this requirement is specifically about replacing unsuitable/inconsistent descriptions.
+
+Authoring flow is fixed: draft Japanese first, author reviews/approves the Japanese wording, then translate only the approved Japanese text into English. English should remain semantically aligned with the approved Japanese source rather than becoming an independent rewrite.
+
+Canonical policy is recorded in `Docs/ArtDirection.md`: `4881b88a2efcbbc560429026329b2e1a34ee4a0c`.
