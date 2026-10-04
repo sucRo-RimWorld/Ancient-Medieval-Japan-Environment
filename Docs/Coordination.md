@@ -429,13 +429,17 @@ Integration commits:
 - `AMJ_Tree_Shii` switched from the Vanilla TreeOak placeholder folder to `Things/Plant/AMJ/Shii`: `fad9938eb10e8cff2e8d8381c9622a7b505c5a6b`;
 - static missing-texture / placeholder-path regression check: `74883e61a5761baca1dd6b751019390171e97e08`.
 
-**Verification status:** the normal build/static gate now passes after the final Sudajii asset switch and validator fixes. Runtime verification is still pending.
+**Verification status:** the normal build/static gate passes after the final Sudajii asset switch and validator fixes. The latest isolated runtime reports generated AMJE vegetation successfully and did not show a missing-texture error, but the runtime suite previously verified only that plant Defs/instances existed, not that their resolved material textures were non-BadTex.
 
 Static-gate follow-up commits:
 - UTF-8 BOM fix for Windows PowerShell 5.1 validator parsing: `b4d873dfe2a36b5f73a3d82870352d2a57a7e19f`;
 - wildlife XML commonality parse fix: `d8c523b31431388467f52c6b1728dc8b67f09489`.
 
-**Next action:** run the Environment runtime gate and visually inspect Sudajii scale/silhouette in WarmTemperate. If clean, retain this asset and proceed to the leafy/leafless Japanese beech pair.
+BadTex runtime coverage added:
+- plant graphic assertions now resolve the live `Graphic.MatSingle.mainTexture` for Sudajii, Japanese beech leafy/leafless, Shirabiso and Haimatsu and require a non-null, non-`BaseContent.BadTex`/ERRORTEX texture: `37c89ea3f862d5d27dba5b8fb4d9eaa681fe6f0c`;
+- static validator locks those runtime assertions in place: `3056060f3188d0f17930c5bcb4bf81dc72104fd0`.
+
+**Next action:** rerun `run-tests.bat` and `run-runtime-tests.bat` with the new BadTex assertions. If both pass, visually inspect Sudajii scale/silhouette in WarmTemperate; then retain the asset and proceed to the leafy/leafless Japanese beech pair.
 
 
 ### ENV-004 — Low-fertility natural terrain
