@@ -310,6 +310,87 @@ namespace AncientMedievalJapan.Environment.Quicktests
         }
     }
 
+    [HarmonyPatch(typeof(PawnRenderNodeWorker), "GetFinalizedMaterial")]
+    public static class PawnRenderBadMaterialDiagnostics
+    {
+        public static int BadMaterialUseCount;
+
+        [HarmonyPostfix]
+        public static void Postfix(
+            PawnRenderNode node,
+            PawnDrawParms parms,
+            UnityEngine.Material __result)
+        {
+            if (string.IsNullOrEmpty(
+                System.Environment.GetEnvironmentVariable("RIMWORLD_QUICKSTART")) ||
+                parms.pawn == null ||
+                node == null ||
+                !BadRenderMaterialDiagnostics.IsBadRenderMaterial(__result))
+            {
+                return;
+            }
+
+            BadMaterialUseCount++;
+
+            Pawn pawn = parms.pawn;
+            Graphic primaryGraphic = node.PrimaryGraphic;
+            string materialName =
+                __result == null
+                    ? "<null>"
+                    : __result.name;
+            string textureName = "<no _MainTex>";
+
+            if (__result != null && __result.HasProperty("_MainTex"))
+            {
+                textureName =
+                    __result.mainTexture == null
+                        ? "<null>"
+                        : __result.mainTexture.name;
+            }
+
+            string nodeContext = "";
+            if (node.apparel != null && node.apparel.def != null)
+            {
+                nodeContext = " apparel=" + node.apparel.def.defName;
+            }
+            else if (node.hediff != null && node.hediff.def != null)
+            {
+                nodeContext = " hediff=" + node.hediff.def.defName;
+            }
+            else if (node.gene != null && node.gene.def != null)
+            {
+                nodeContext = " gene=" + node.gene.def.defName;
+            }
+
+            int key =
+                0x4A4D4900 ^
+                (pawn.def == null || pawn.def.defName == null
+                    ? 0
+                    : pawn.def.defName.GetHashCode()) ^
+                node.GetType().FullName.GetHashCode();
+
+            Log.ErrorOnce(
+                "[AMJ Environment PawnRenderBadMaterial]" +
+                " def=" + (pawn.def == null ? "<null>" : pawn.def.defName) +
+                " kind=" + (pawn.kindDef == null ? "<null>" : pawn.kindDef.defName) +
+                " label=" + pawn.LabelNoCount +
+                " pos=" + pawn.Position +
+                " node=" + node.GetType().FullName +
+                " graphic=" +
+                    (primaryGraphic == null
+                        ? "<null>"
+                        : primaryGraphic.GetType().FullName) +
+                " path=" +
+                    (primaryGraphic == null || primaryGraphic.path == null
+                        ? "<null>"
+                        : primaryGraphic.path) +
+                " material=" + materialName +
+                " texture=" + textureName +
+                nodeContext,
+                key);
+        }
+    }
+
     public abstract class BiomeTerrainQuickstartBase : AbstractQuickstart
     {
         protected abstract string TargetBiomeDefName { get; }
@@ -440,6 +521,13 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 {
                     return RealtimeBadGraphicDiagnostics.BadGraphicDrawCount == 0 &&
                         RealtimeBadGraphicFromDefDiagnostics.BadGraphicDrawCount == 0;
+                });
+
+            verification.Assert(
+                "pawn render nodes emitted no BadTex materials",
+                delegate
+                {
+                    return PawnRenderBadMaterialDiagnostics.BadMaterialUseCount == 0;
                 });
 
             AddWeatherAssertions(verification, map == null ? null : map.Biome);
