@@ -448,9 +448,11 @@ Tree-audit extension:
 - `run-runtime-tests.bat` automatically runs the optional MO profile when MO and both required framework Workshop mods are installed: `7985593955576535ea4b9eb251facb1a057ddccc`, with CCTO failure preservation fix `8a16eb847904458b45835bb8919de9ca393c0326`;
 - static validator locks the expanded audit harness in place: `11c69e2cec9c873d508e7d1d903f14d37aef86da`.
 
-**Verification status:** previous AMJE-only/CCTO BadTex gates passed locally; the newly expanded all-tree + Medieval Overhaul audit is implemented but has not yet been rerun locally.
+Expanded audit first-run result: the AMJE-only profile failed on `Plant_TreePine:polluted=Things/Plant/TreePine_Polluted`. This was a test-harness false positive, not evidence of the visible question-mark tree: RimWorld only loads `pollutedGraphic` when Biotech is active, while the isolated AMJE-only profile does not activate Biotech. The audit now checks the polluted tree state only when `ModsConfig.BiotechActive` is true: `16f5dbb583ed7ec9a98b90687d3508df61677a15`; the static validator locks this condition in place: `01d35282578bebf2bed52b5d859cc2e6a62d51d7`.
 
-**Next action:** rerun `run-tests.bat` and `run-runtime-tests.bat`. Inspect the optional `Reports-MO` result or any `[AMJ Environment TreeTextureAudit] BAD` line if the focused MO audit fails. If the expanded audit also passes, identify the visible question-mark object by in-game label/defName because it is likely outside the loaded tree graphic states covered by AMJE/MO.
+**Verification status:** previous AMJE-only/CCTO BadTex gates passed locally; the newly expanded all-tree + Medieval Overhaul audit is implemented, and its first AMJE-only run exposed/fixed the Biotech-state false positive. The corrected expanded audit has not yet been rerun locally.
+
+**Next action:** rerun `run-tests.bat` and `run-runtime-tests.bat`. Inspect the optional `Reports-MO` result or any `[AMJ Environment TreeTextureAudit] BAD` line if the focused MO audit fails. If the corrected expanded audit also passes, identify the visible question-mark object by in-game label/defName because it is likely outside the loaded tree graphic states covered by AMJE/MO.
 
 
 ### ENV-004 — Low-fertility natural terrain
