@@ -505,7 +505,13 @@ Deeper render-path tracing:
 - implementation: `7ccd9b38c5c69580a961c672e086b3abb41ed4e5`;
 - static validation locks all three new trace markers/assertions in place: `cf29a5d60da56539a9a76f197b0d4d7a726811a5`.
 
-**Next action:** pull/build and rerun the normal runtime gate while confirming the visible question marks still appear. If the source is atlas-backed static graphics, expect `[AMJ Environment PreAtlasBadTexture]`; if it is a realtime Thing/Mote path, expect `[AMJ Environment RealtimeBadGraphic]` or `RealtimeBadGraphicFromDef`. If all three remain clean, target Fleck-specific `Graphic_Fleck.DrawFleck` and any direct `Graphics.DrawMesh` paths next.
+Latest WarmTemperate rerun triggered the new realtime tracer, but the three hits were all intentional pawn shadow graphics: Human, YorkshireTerrier, and Hare were reported as `Verse.Graphic_Shadow` with `BadTexture`. This is a harness false positive. Vanilla `Graphic_Shadow` inherits the base `Graphic.MatAt/MatSingle`, which return `BaseContent.BadMat`, but `Graphic_Shadow.DrawWorker` never renders that material; it renders `MatBases.SunShadowFade` directly. The visible question marks therefore remain unexplained by these three errors.
+
+Harness correction:
+- realtime tracing now skips `Graphic_Shadow` before probing `MatAt`, and the assertion explicitly refers to non-shadow BadTex materials: `42ee30a048316ecd00dd5f70b59aa1aa892b380c`;
+- static validation locks the Graphic_Shadow false-positive guard in place: `b7692029f3751ac7e1a3c72a5210877fc3508f3c`.
+
+**Next action:** pull/build and rerun the normal runtime gate while confirming the visual question marks still appear. If no genuine pre-atlas or realtime Thing hit appears after the shadow exclusion, the next diagnostic layer should target Fleck-specific rendering and any direct `Graphics.DrawMesh` paths.
 
 
 ### ENV-004 — Low-fertility natural terrain
