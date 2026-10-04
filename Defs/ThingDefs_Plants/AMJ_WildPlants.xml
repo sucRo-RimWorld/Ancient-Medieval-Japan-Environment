@@ -11,7 +11,7 @@
     <label>shii tree</label>
     <description>An evergreen broadleaf tree characteristic of Japan-like warm-temperate forests. It forms dense, dark canopies and yields sturdy hardwood.</description>
     <graphicData>
-      <texPath>Things/Plant/TreeOak</texPath>
+      <texPath>Things/Plant/AMJ/Shii</texPath>
       <graphicClass>Graphic_Random</graphicClass>
       <shadowData>
         <volume>(0.2, 0.35, 0.13)</volume>
