@@ -497,7 +497,15 @@ Harness correction:
 - render-material probing now first checks `material.HasProperty("_MainTex")`; materials without that shader property are skipped instead of invoking Unity's error-producing getter: `adff36a11f26f27937a0a7cde1b121363ab4d2e7`;
 - static validation locks the safe `_MainTex` guard in place: `d80c81249e0e2df76cfd7ddcab49dfd1674369d1`.
 
-**Next action:** pull/build and rerun the normal runtime gate. The Unity `doesn't have a texture property '_MainTex'` flood should be gone. If the visible question marks are produced by a static section layer using an actual BadTex-bearing material, the corrected interceptor should now emit a single `[AMJ Environment BadRenderMaterial] layer=...` error naming that layer. If it remains clean despite visible question marks, move to realtime Fleck/Mote/Graphics.DrawMesh diagnostics.
+The corrected submesh-material interceptor now runs cleanly: WarmTemperate still visibly shows red question-mark placeholders, but the full Environment runtime gate passes, including AMJE+CCTO. This means the question marks are not being exposed as BadTex on the final static `MapDrawLayer.GetSubMesh` materials. A likely remaining gap is atlas substitution: static sprite paths can pass a BadTex source material into `Graphic.TryGetTextureAtlasReplacementInfo` and then hand a valid atlas material to the section layer, masking the original BadTex from the previous interceptor. Realtime Thing/Mote-style draws also bypass map submesh generation.
+
+Deeper render-path tracing:
+- Quicktests now intercept `Graphic.TryGetTextureAtlasReplacementInfo` before atlas substitution and fail/log `[AMJ Environment PreAtlasBadTexture]` if the source material is BadTex;
+- Quicktests also intercept `Graphic.Draw` and `Graphic.DrawFromDef` to catch realtime Thing/Mote-style BadTex draws with defName, label, position, runtime type and graphic path;
+- implementation: `7ccd9b38c5c69580a961c672e086b3abb41ed4e5`;
+- static validation locks all three new trace markers/assertions in place: `cf29a5d60da56539a9a76f197b0d4d7a726811a5`.
+
+**Next action:** pull/build and rerun the normal runtime gate while confirming the visible question marks still appear. If the source is atlas-backed static graphics, expect `[AMJ Environment PreAtlasBadTexture]`; if it is a realtime Thing/Mote path, expect `[AMJ Environment RealtimeBadGraphic]` or `RealtimeBadGraphicFromDef`. If all three remain clean, target Fleck-specific `Graphic_Fleck.DrawFleck` and any direct `Graphics.DrawMesh` paths next.
 
 
 ### ENV-004 — Low-fertility natural terrain
