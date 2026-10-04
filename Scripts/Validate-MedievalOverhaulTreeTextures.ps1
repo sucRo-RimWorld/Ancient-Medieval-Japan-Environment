@@ -109,7 +109,7 @@ Get-ChildItem -LiteralPath $defsRoot -Recurse -Filter "*.xml" -File | ForEach-Ob
 
             $references++
             if (-not (Test-TexturePath $texPath)) {
-                $entry = "$defName:$($state.Name)=$texPath"
+                $entry = "${defName}:$($state.Name)=$texPath"
                 $missing.Add($entry)
                 Write-Host "[FAIL] Missing MO tree texture: $entry" -ForegroundColor Red
             }
