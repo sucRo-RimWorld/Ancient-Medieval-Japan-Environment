@@ -491,9 +491,13 @@ Render-pipeline diagnostic extension:
 - first local build after this change failed because `Environment.GetEnvironmentVariable` was resolved against the enclosing `AncientMedievalJapan.Environment` namespace instead of `System.Environment`; fixed by fully qualifying the runtime API: `77968bd4d566530713f359a6a00ee341b3e308f1`;
 - static validation locks the render-material interceptor, Harmony reference, and fully-qualified environment lookup in place: `8f924aa69154b1e0fde3b479ebfc75ca9ee87466`, `9b970172077dd784963251220fcedb510edb9249`.
 
-This is intentionally lower-level than the previous Def/Thing/scatter checks. If the visible question marks are produced by any static section layer, the next run should fail and the error will name the exact layer class (for example `SectionLayer_Terrain`, `SectionLayer_TerrainScatter`, or `SectionLayer_Things`), avoiding further guessing.
+This is intentionally lower-level than the previous Def/Thing/scatter checks. The first run with the interceptor did not find a bad submesh material; instead the diagnostic itself caused Unity log flooding by reading `Material.mainTexture` on built-in shader materials that legitimately do not expose `_MainTex` (for example SunShadowFade, EdgeShadow, masks, lighting overlays, and water-depth materials). Quickstarts therefore reported all 54 assertions passing while the overall report failed with 10,000 captured log errors.
 
-**Next action:** pull/build and rerun the normal runtime gate. Capture the first `[AMJ Environment BadRenderMaterial] layer=...` line if it appears. If visible question marks still occur while this interceptor also stays clean, the remaining path is a realtime renderer such as Fleck/Mote/Graphics.DrawMesh rather than the static map mesh.
+Harness correction:
+- render-material probing now first checks `material.HasProperty("_MainTex")`; materials without that shader property are skipped instead of invoking Unity's error-producing getter: `adff36a11f26f27937a0a7cde1b121363ab4d2e7`;
+- static validation locks the safe `_MainTex` guard in place: `d80c81249e0e2df76cfd7ddcab49dfd1674369d1`.
+
+**Next action:** pull/build and rerun the normal runtime gate. The Unity `doesn't have a texture property '_MainTex'` flood should be gone. If the visible question marks are produced by a static section layer using an actual BadTex-bearing material, the corrected interceptor should now emit a single `[AMJ Environment BadRenderMaterial] layer=...` error naming that layer. If it remains clean despite visible question marks, move to realtime Fleck/Mote/Graphics.DrawMesh diagnostics.
 
 
 ### ENV-004 — Low-fertility natural terrain
