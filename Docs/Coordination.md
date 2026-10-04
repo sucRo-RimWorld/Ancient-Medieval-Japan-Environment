@@ -294,3 +294,18 @@ All AMJ-related mod descriptions must include save compatibility. CCTO is the ev
 About.xml now states the development build's save-compatibility limits; AGENTS.md points to the shared policy for future README/Workshop preparation.
 
 **Next action:** Use the shared CCTO-based format when preparing the public description; verify save addition/removal before making stronger claims.
+
+
+### TEST-POLICY-002 — RimTest Redux / Pickle automation-first policy
+
+**Requested by:** author (2026-10-04 JST)  
+**Owner:** Testing/tooling  
+**Status:** DONE (policy documentation)
+
+The shared project policy now prioritizes RimTest Redux / Pickle automated testing and minimizes human manual tests. Durable instructions are in `AGENTS.md` and `Docs/DevelopmentTools.md`. Reproducible logic, loaded Defs, runtime behavior and release regressions should be automated; manual testing is reserved for appearance, readability and play/interaction feel. Build/static checks remain complementary, and runtime suites retain the mandatory mod-origin ERROR gate.
+
+This documentation update does not claim new runtime coverage or a new test PASS. Existing implementation/test history remains unchanged. Environment's runtime harness is still absent; runtime/numeric checks listed in DevelopmentTools are explicitly identified as automation targets.
+
+**Next action:** apply this policy to subsequent feature, fix and release work; record unautomated coverage explicitly and move reproducible checks into the automated gate.
+
+**Result / references:** AGENTS policy commit `32d067ab2057ba032ccb21bdc371f3b2a6770d74`; development workflow commit `8a6106bc4aab214d3da77f75207c76d6e5bdb816`.
