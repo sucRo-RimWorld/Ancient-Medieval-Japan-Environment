@@ -749,5 +749,13 @@ The complete target-agnostic texture-debug validation block has now been restore
 
 Because this class of error has recurred during PowerShell edits, repository-level prevention was added as well: `.github/workflows/powershell-syntax.yml` parses every `.ps1` with PowerShell's own AST parser on pushes and pull requests that touch PowerShell files. This is intended to catch malformed scripts on GitHub before the author discovers them during a local run. CI commit: `e3cf52307b9933dad57aab1640923c927de8dc23`.
 
-**Next action:** pull and rerun `run-tests.bat`. If it passes, run `run-texture-debug.bat`; the current focused target remains CoolTemperate for Japanese beech. Inspect leafy beech in game, then check the leafless state.
+A second parser failure (`UnexpectedToken ')'` near line 1163) showed that `Validate-Environment.ps1` still contained a duplicated trailing validator block after its intended `exit 0`. The extra tail began with a stray `)` and repeated earlier texture-debug/runtime validation content. This was the remaining source of the parser failure.
+
+The validator has now been structurally repaired so it has a single terminal `exit 0` and no duplicated tail. Prevention was strengthened at two levels:
+- local: new `Scripts/Validate-PowerShellSyntax.ps1` parses every repository `.ps1` via PowerShell AST, and `run-tests.bat` executes this preflight before build/static validation;
+- repository process: `AGENTS.md` now requires any future `.ps1` edit to be staged on a temporary branch and merged only after the PowerShell syntax PR check passes. Large direct string-replacement edits to `Validate-Environment.ps1` are explicitly discouraged, with edited-range/end-of-file re-read required before merge.
+
+This repair was deliberately staged on PR #1 rather than written directly to main. The `PowerShell syntax validation` workflow completed successfully on the PR head, and the PR was then squash-merged to main. Merge commit: `5d0a6a3167275d7323da76b1d4b45c692f168d66`.
+
+**Next action:** pull and rerun `run-tests.bat`. The first stage should now be `Checking PowerShell syntax...` and should fail fast with a concise file/line/column message if any future parser corruption exists. If it passes, resume the CoolTemperate beech texture-debug check.
 
