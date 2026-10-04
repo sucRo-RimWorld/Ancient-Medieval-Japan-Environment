@@ -457,7 +457,17 @@ MO runtime-harness follow-up:
 - the focused Medieval Overhaul profile timeout is extended from 180 to 360 seconds: `e22e76922e9de519ce621e5e7e8447c0b573e950`;
 - static validation locks both the MO-specific 360-second timeout and heartbeat marker in place: `31e291906c3a421b0b65443d2e832c129da9bb9b`.
 
-**Next action:** pull and rerun the runtime gate. During the MO phase, confirm whether heartbeat output continues and whether the focused audit finishes within 360 seconds. If it still times out, inspect `Reports-MO/AMJWarmTemperateTerrainQuickstart.log` to distinguish slow MO initialization from a startup deadlock; if it finishes and emits `[AMJ Environment TreeTextureAudit] BAD`, use that def/state/path as the missing-tree candidate.
+Second MO runtime attempt also exceeded the 360-second outer timeout. The previous MO timeout log stopped during very early mod loading, before Quickstarts/AMJE initialization, so repeatedly extending the timeout is not a useful default gate. The MO tree-link check is therefore moved to a deterministic static audit of the installed MO 1.6 Defs and texture files.
+
+MO timeout pivot:
+- new `Scripts/Validate-MedievalOverhaulTreeTextures.ps1` scans installed MO 1.6 `TreeBase` / `DeciduousTreeBase` Defs and checks base plus configured leafless/immature/polluted/snow-state texture paths against MO texture roots: `37cfa2cafe8dc88db597bd549d0ba9f7c7457363`;
+- the static MO audit now runs from `run-tests.bat`: `aeefd28ded6fab2d26dd8d85b016183860764d30`;
+- the hanging isolated MO runtime profile is removed from the default runtime gate; AMJE and CCTO runtime checks remain unchanged: `a7fe02a2e739874b0274dd14952dad06a931d954`;
+- static validation locks the new audit path in place: `6d2fb435ee1cd2deefb5e5b8d97ffd038ae6630c`.
+
+An offline audit of the supplied MO 1.6 source archive found all 15 tree graphic references from the MO tree Defs resolving to PNG assets, including the four Dark Forest great trees and the four fruit-tree base/immature states. This reduces the likelihood that the visible question-mark tree is a simple missing file in MO's own current tree Defs.
+
+**Next action:** pull and run `run-tests.bat` plus the normal `run-runtime-tests.bat`; the latter will no longer spend six minutes on the hanging MO profile. If both pass, identify the visible question-mark object by in-game label/defName or by a targeted live-object diagnostic, because the remaining candidate is likely a state/mod interaction not represented by a missing MO source texture path.
 
 
 ### ENV-004 — Low-fertility natural terrain
