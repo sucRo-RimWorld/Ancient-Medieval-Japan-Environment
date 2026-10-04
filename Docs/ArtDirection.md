@@ -78,6 +78,132 @@ Alpha art policy:
 
 Production texture transfer, validation, Def-switch ordering, and focused runtime review must follow `Docs/GoldenPaths/TextureAssetPipeline.md`. Do not invent a per-asset binary-transfer path after the source art is approved.
 
+## Retexture visual-style rules
+
+These rules are the canonical visual baseline for AMJE tree/plant retextures. Individual species may add stricter requirements, but they should not redefine the shared style from scratch.
+
+### Shared style
+
+- Prefer a **strongly simplified/deformed game-sprite treatment** over botanical realism. The target is recognizable species character at RimWorld gameplay zoom, not illustration-plate accuracy.
+- Build the sprite from **large readable masses**. Avoid dense micro-detail in individual leaves, bark, twigs, or needles that disappears at normal zoom.
+- Use a **clearly readable dark outer outline**, generally near-black or a very dark local hue. Do not thin the outline merely to make the asset look more naturalistic.
+- Keep the palette restrained and generally **low-to-medium saturation** so the asset sits naturally on RimWorld's brown/grey terrain and beside Vanilla/MO vegetation.
+- Keep color steps limited. As a baseline, think in terms of **base color + shadow + highlight**, with only restrained soft gradient variation where it improves volume. Do not add colors simply to increase detail.
+- Avoid very bright lime foliage, highly saturated orange bark, or other accents that make the sprite look pasted on top of the map.
+- Use transparent backgrounds. Do not bake in scenery, UI frames, labels, terrain tiles, circular turf bases, decorative grass rings, or unrelated ground clutter.
+- Prefer smooth high-resolution edges. Do not intentionally introduce pixel-art/dithered rendering unless a separate approved asset class requires it.
+- Do not use photographic or photo-derived surface detail as the final visual language.
+
+### Species differentiation
+
+Species must differ through structure, not only through recoloring.
+
+Use a combination of:
+- overall silhouette;
+- crown width/height;
+- crown density;
+- branch visibility;
+- leaf/needle mass size and arrangement;
+- trunk color, thickness, and visible proportion;
+- branching rhythm;
+- upright versus spreading growth habit.
+
+A recolor of an otherwise identical silhouette is not sufficient for a distinct tree species.
+
+### Trunk and branch treatment
+
+- Use trunk/branch color and shape as a species cue, but keep bark treatment simplified.
+- Express bark mainly through **color blocks, value changes, trunk thickness, and branching structure**, not fine etched texture.
+- Sparse/open crowns should expose more branch structure; dense evergreen crowns may hide more of it.
+- Branch tips must remain thick/simple enough to survive RimWorld zoom reduction.
+
+### Seasonal continuity
+
+For deciduous trees:
+- keep the normal leafy source in neutral healthy foliage rather than baking in autumn/red/orange seasonal color when Vanilla seasonal tinting already provides that behavior;
+- leafy and leafless states must still read as the **same individual species and approximate tree form**;
+- preserve corresponding trunk placement, crown width, overall height, and major branch identity between the two states;
+- do not make the leafless state look like a separate species or a differently scaled tree.
+
+Evergreen base textures must likewise avoid baked winter snow; snow/weather remain runtime systems.
+
+### Ground contact
+
+- End the sprite at the trunk/root/branch silhouette on transparency.
+- Decorative green circles, turf pads, grass rings, and similar base markers are not part of the AMJE tree style.
+- Ground contact should read through the actual plant form rather than an added platform.
+
+### Category baselines
+
+#### Evergreen broadleaf trees
+
+- comparatively dense/heavy crown;
+- broad foliage masses;
+- stable visual weight;
+- avoid evenly spaced round blobs or ornamental symmetry.
+
+Sudajii is the current accepted baseline for this category.
+
+#### Deciduous broadleaf trees
+
+- generally more open than the evergreen-broadleaf baseline;
+- allow visible gaps and readable branch structure;
+- species identity should remain clear in both leafy and leafless states.
+
+Japanese beech is the current accepted baseline for this category.
+
+#### Tall conifers
+
+- retain a clear vertical/conifer identity;
+- use layered, bundled, or irregular needle masses rather than perfect bilateral symmetry;
+- avoid an oversized decorative "Christmas tree" silhouette;
+- remain wide/readable enough not to collapse into a thin line at gameplay zoom.
+
+Shirabiso should use this category while remaining distinct from Vanilla Pine.
+
+#### Low/dwarf conifers
+
+- read immediately as low and spreading rather than as a scaled-down tall conifer;
+- favor horizontal, creeping, wind-shaped, or matted growth;
+- keep the silhouette clearly wider than tall when appropriate to the species;
+- do not imply a normal timber-tree form when the gameplay/ecological role is shrub-like.
+
+Haimatsu is the current accepted target for this category.
+
+### In-game readability
+
+Final human review is performed at normal gameplay zoom. Prioritize:
+- silhouette/species distinction;
+- scale relative to neighboring vegetation;
+- outline weight;
+- palette/saturation against actual terrain;
+- branch/foliage readability;
+- UI icon readability;
+- leafy/leafless continuity where applicable.
+
+Fine details that are visible only when the PNG is enlarged are not a reason to increase complexity.
+
+### Prohibited / strongly discouraged directions
+
+Unless a later asset-specific decision explicitly overrides them, avoid:
+- botanical-plate realism;
+- photographic rendering;
+- pixel-art/dithered treatment;
+- excessive gradients or many small color steps;
+- recolor-only species differentiation;
+- decorative ground bases;
+- highly symmetrical ornamental tree shapes;
+- background/scenery baked into the sprite;
+- saturation high enough to detach the plant visually from the map.
+
+### Baseline references
+
+Use the currently accepted Sudajii and Japanese beech work as the first comparison point for future tree retextures:
+- Sudajii establishes the evergreen-broadleaf baseline: dense chunky crown, muted palette, thick outline, no ground ring.
+- Japanese beech establishes the deciduous-broadleaf baseline: more open/spreading crown, visible branches, pale grey-beige trunk, restrained lighter foliage, matching leafy/leafless identity.
+
+Future tree work should first state its category and the specific structural differences from these accepted baselines before source-art generation begins.
+
 ### Sudajii
 
 Visual role:
