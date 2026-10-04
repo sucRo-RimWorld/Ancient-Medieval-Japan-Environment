@@ -690,6 +690,12 @@ foreach ($expected in @(
     'Japanese beech leafless graphic resolves a non-BadTex texture',
     'Shirabiso graphic resolves a non-BadTex texture',
     'Haimatsu graphic resolves a non-BadTex texture',
+    'AddTreeTextureAuditAssertions',
+    'all loaded tree graphic states resolve non-BadTex textures',
+    '[AMJ Environment TreeTextureAudit]',
+    'leaflessSnowOverlayGraphicPath',
+    'immatureSnowOverlayGraphicPath',
+    'Graphic_Collection',
     'HasLoadedNonBadTexture',
     'BaseContent.BadTex',
     '_FallBehaviorEnabled',
@@ -707,7 +713,7 @@ foreach ($expected in @(
         Fail "Fixed-biome Quickstart source is missing expected marker: $expected"
     }
 }
-Pass "Five deterministic fixed-biome Quickstarts are present"
+Pass "Deterministic Environment Quickstarts and tree-texture audit hooks are present"
 
 foreach ($relative in @(
     "run-runtime-tests.bat",
@@ -730,10 +736,30 @@ foreach ($expected in @(
     'SaveData-CCTO',
     'Reports-CCTO',
     '-IncludeCCTO',
-    '-CctoCompatibilityOnly'
+    '-CctoCompatibilityOnly',
+    'MO_READY',
+    'SaveData-MO',
+    'Reports-MO',
+    '3219596926',
+    '2023507013',
+    '3210544395',
+    '-IncludeMedievalOverhaul',
+    '-TreeTextureAuditOnly'
 )) {
     if (-not $runtimeBatch.Contains($expected)) {
         Fail "run-runtime-tests.bat is missing expected marker: $expected"
+    }
+}
+
+$runtimeProfileBuilder = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1") -Raw
+foreach ($expected in @(
+    'IncludeMedievalOverhaul',
+    'OskarPotocki.VanillaFactionsExpanded.Core',
+    'syrchalis.processor.framework',
+    'DankPyon.Medieval.Overhaul'
+)) {
+    if (-not $runtimeProfileBuilder.Contains($expected)) {
+        Fail "Environment runtime profile builder is missing expected marker: $expected"
     }
 }
 
@@ -748,6 +774,7 @@ foreach ($expected in @(
     'quickstartreport',
     'Validate-EnvironmentRuntimeLog.ps1',
     'CctoCompatibilityOnly',
+    'TreeTextureAuditOnly',
     'preLaunchErrors'
 )) {
     if (-not $runtimeRunner.Contains($expected)) {
