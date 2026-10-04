@@ -943,10 +943,45 @@ $allowedTextureDebugQuickstarts = @(
     'AMJAlpineTerrainQuickstart'
 )
 
-$textureDebugEnvMatches =
-    [regex]::Matches(
-        $textureDebugBatch,
-        '(?im)^\s*set\s+"RIMWORLD_QUICKSTART=([^"]+)"\s*
+$textureDebugEnvMatches = [regex]::Matches(
+    $textureDebugBatch,
+    '(?im)^\s*set\s+"RIMWORLD_QUICKSTART=([^"]+)"\s*$')
+
+if ($textureDebugEnvMatches.Count -ne 1) {
+    Fail "run-texture-debug.bat must define exactly one RIMWORLD_QUICKSTART target."
+}
+
+$textureDebugCommandMatches = [regex]::Matches(
+    $textureDebugBatch,
+    '(?im)-quickstart=([A-Za-z0-9_]+)')
+
+if ($textureDebugCommandMatches.Count -ne 1) {
+    Fail "run-texture-debug.bat must invoke exactly one -quickstart target."
+}
+
+$textureDebugEnvTarget = $textureDebugEnvMatches[0].Groups[1].Value
+$textureDebugCommandTarget = $textureDebugCommandMatches[0].Groups[1].Value
+
+if ($allowedTextureDebugQuickstarts -notcontains $textureDebugEnvTarget) {
+    Fail "run-texture-debug.bat uses an unknown RIMWORLD_QUICKSTART target: $textureDebugEnvTarget"
+}
+if ($allowedTextureDebugQuickstarts -notcontains $textureDebugCommandTarget) {
+    Fail "run-texture-debug.bat uses an unknown -quickstart target: $textureDebugCommandTarget"
+}
+if ($textureDebugEnvTarget -ne $textureDebugCommandTarget) {
+    Fail "run-texture-debug.bat has mismatched texture-debug targets: env=$textureDebugEnvTarget command=$textureDebugCommandTarget"
+}
+
+foreach ($forbidden in @(
+    '-quickstartreport',
+    '-quickstartverify'
+)) {
+    if ($textureDebugBatch.Contains($forbidden)) {
+        Fail "run-texture-debug.bat must remain focused/non-auto-exit; forbidden marker found: $forbidden"
+    }
+}
+
+Pass "Focused texture-debug runner uses one valid, internally consistent biome target: $textureDebugCommandTarget"
 $runTestsSource = Get-Content -LiteralPath (Join-Path $RepoRoot "run-tests.bat") -Raw
 foreach ($expected in @(
     'Validate-MedievalOverhaulTreeTextures.ps1',
