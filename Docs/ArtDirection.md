@@ -4,9 +4,9 @@
 
 Environment intentionally deferred final art until the functional/balance Alpha loop was stable.
 
-The minimum final-art pass contains **10 image assets**:
+The minimum final-art pass now contains **29 image assets**. The scope was expanded after reviewing the Vanilla and Medieval Overhaul trees that actually appear alongside AMJE vegetation.
 
-### Structural plants
+### AMJE structural plants
 
 1. `AMJ_Tree_Shii` — leafy Sudajii / Shii tree
 2. `AMJ_Tree_Beech` — leafy Japanese beech
@@ -14,16 +14,45 @@ The minimum final-art pass contains **10 image assets**:
 4. `AMJ_Tree_Shirabiso` — leafy/evergreen Shirabiso fir
 5. `AMJ_Shrub_Haimatsu` — evergreen Haimatsu dwarf pine
 
+### Vanilla tree retextures used by AMJE / normal MO coexistence
+
+6. `Plant_TreeOak` — leafy
+7. `Plant_TreeOak` — leafless
+8. `Plant_TreeMaple` — leafy
+9. `Plant_TreeMaple` — leafless
+10. `Plant_TreePoplar` — leafy
+11. `Plant_TreePoplar` — leafless
+12. `Plant_TreeBirch` — leafy
+13. `Plant_TreeBirch` — leafless
+14. `Plant_TreeWillow` — leafy
+15. `Plant_TreeWillow` — leafless
+16. `Plant_TreePine` — evergreen
+17. `Plant_TreeBamboo` — evergreen
+
+These retextures intentionally affect the corresponding Vanilla tree Defs wherever they appear while AMJE is active. Creating duplicate AMJ-only tree Defs solely to change graphics would add unnecessary biome/content duplication and compatibility cost.
+
+### Medieval Overhaul conditional tree retextures
+
+18. `DankPyon_GreatOak` — leafy
+19. `DankPyon_GreatOak` — leafless
+20. `DankPyon_GreatIter` — leafy
+21. `DankPyon_GreatIter` — leafless
+22. `DankPyon_GreatFir` — evergreen
+23. `DankPyon_GreatWillow` — leafy
+24. `DankPyon_GreatWillow` — leafless
+
+These are **style harmonization only**. Great Oak / Great Iter / Great Fir / Great Willow remain Medieval Overhaul species/content with their original mechanics, scale, transparency class, harvest behavior, and fantasy identity. AMJE should only replace their graphic paths when MO is active.
+
 ### Natural terrain
 
-6. `AMJ_ThinSoil` — seamless/tileable thin stony soil
+25. `AMJ_ThinSoil` — seamless/tileable thin stony soil
 
 ### World-biome textures
 
-7. `AMJ_WarmTemperateForest`
-8. `AMJ_CoolTemperateForest`
-9. `AMJ_SubalpineForest`
-10. `AMJ_AlpineZone`
+26. `AMJ_WarmTemperateForest`
+27. `AMJ_CoolTemperateForest`
+28. `AMJ_SubalpineForest`
+29. `AMJ_AlpineZone`
 
 No new weather, snow, river, coast, or seasonal-effect art is required for the Alpha pass because those systems intentionally reuse Vanilla rendering.
 
@@ -35,6 +64,7 @@ RimWorld's `Graphic_Collection` loads every texture found inside the configured 
 
 Alpha art policy:
 - begin with **one strong final texture per state** rather than producing many variants immediately;
+- use the accepted ENV-010 visual direction: rounded, simplified painted shapes; smooth high-resolution edges rather than pixel-art; reduced saturation while preserving the approved hue relationships; limited but not posterized color palette;
 - keep transparent backgrounds;
 - no baked terrain, UI border, text, or decorative frame;
 - use RimWorld-readable top-down/three-quarter plant silhouettes rather than botanical illustration plates;
@@ -137,13 +167,36 @@ Do not bake winter snow into world-biome textures; temperature/weather already c
 
 ## Proposed paths
 
-Plant folders:
+AMJE plant folders:
 
 - `Textures/Things/Plant/AMJ/Shii/`
 - `Textures/Things/Plant/AMJ/Beech/`
 - `Textures/Things/Plant/AMJ/Beech_Leafless/`
 - `Textures/Things/Plant/AMJ/Shirabiso/`
 - `Textures/Things/Plant/AMJ/Haimatsu/`
+
+Vanilla retexture folders:
+- `Textures/Things/Plant/AMJ/Retexture/TreeOak/`
+- `Textures/Things/Plant/AMJ/Retexture/TreeOak_Leafless/`
+- `Textures/Things/Plant/AMJ/Retexture/TreeMaple/`
+- `Textures/Things/Plant/AMJ/Retexture/TreeMaple_Leafless/`
+- `Textures/Things/Plant/AMJ/Retexture/TreePoplar/`
+- `Textures/Things/Plant/AMJ/Retexture/TreePoplar_Leafless/`
+- `Textures/Things/Plant/AMJ/Retexture/TreeBirch/`
+- `Textures/Things/Plant/AMJ/Retexture/TreeBirch_Leafless/`
+- `Textures/Things/Plant/AMJ/Retexture/TreeWillow/`
+- `Textures/Things/Plant/AMJ/Retexture/TreeWillow_Leafless/`
+- `Textures/Things/Plant/AMJ/Retexture/TreePine/`
+- `Textures/Things/Plant/AMJ/Retexture/TreeBamboo/`
+
+Medieval Overhaul conditional retexture folders:
+- `Textures/Things/Plant/AMJ/Retexture/MO/GreatOak/`
+- `Textures/Things/Plant/AMJ/Retexture/MO/GreatOak_Leafless/`
+- `Textures/Things/Plant/AMJ/Retexture/MO/GreatIter/`
+- `Textures/Things/Plant/AMJ/Retexture/MO/GreatIter_Leafless/`
+- `Textures/Things/Plant/AMJ/Retexture/MO/GreatFir/`
+- `Textures/Things/Plant/AMJ/Retexture/MO/GreatWillow/`
+- `Textures/Things/Plant/AMJ/Retexture/MO/GreatWillow_Leafless/`
 
 Terrain:
 
@@ -157,6 +210,8 @@ World:
 - `Textures/World/Biomes/AMJ_AlpineZone.png`
 
 The corresponding Def paths should only be switched after each actual asset exists, so the repository never points to missing textures.
+
+Vanilla path replacements should live in an AMJE-owned retexture patch. Medieval Overhaul path replacements must be isolated in an optional compatibility patch guarded by MO's package ID. No MO source asset is copied or edited; AMJE supplies its own replacement textures and changes only the loaded graphic paths when both mods are active.
 
 ## Acceptance
 
