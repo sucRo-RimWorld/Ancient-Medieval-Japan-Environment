@@ -55,7 +55,7 @@
 
   <ThingDef ParentName="TreeBase">
     <defName>AMJ_Tree_Shirabiso</defName>
-    <label>shiraso fir</label>
+    <label>shirabiso fir</label>
     <description>A cold-tolerant evergreen fir characteristic of Japan-like subalpine conifer forests.</description>
     <graphicData>
       <texPath>Things/Plant/TreePine</texPath>
