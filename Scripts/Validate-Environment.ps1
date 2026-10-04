@@ -220,6 +220,60 @@ foreach ($expected in @(
 }
 Pass "AMJ Alpha vegetation-band BiomeDefs and workers are present"
 
+$wildPlantsPath = Join-Path $RepoRoot "Defs\ThingDefs_Plants\AMJ_WildPlants.xml"
+if (-not (Test-Path $wildPlantsPath)) {
+    Fail "AMJ Japan-specific wild plant Defs were not found."
+}
+try {
+    [xml]$wildPlants = Get-Content -LiteralPath $wildPlantsPath -Raw
+}
+catch {
+    Fail "AMJ wild plant XML is not well formed: $($_.Exception.Message)"
+}
+$expectedWildPlants = @(
+    "AMJ_Tree_Shii",
+    "AMJ_Tree_Beech",
+    "AMJ_Tree_Shirabiso",
+    "AMJ_Shrub_Haimatsu"
+)
+foreach ($defName in $expectedWildPlants) {
+    if (-not ($wildPlants.Defs.ThingDef | Where-Object { $_.defName -eq $defName })) {
+        Fail "Missing AMJ wild PlantDef: $defName"
+    }
+}
+Pass "Four Japan-specific structural wild PlantDefs are present"
+
+$biomeDefsRawForPlants = Get-Content -LiteralPath $biomeDefsPath -Raw
+foreach ($expected in @(
+    '<AMJ_Tree_Shii>2.0</AMJ_Tree_Shii>',
+    '<AMJ_Tree_Beech>1.8</AMJ_Tree_Beech>',
+    '<AMJ_Tree_Shirabiso>2.6</AMJ_Tree_Shirabiso>',
+    '<AMJ_Shrub_Haimatsu>1.3</AMJ_Shrub_Haimatsu>'
+)) {
+    if (-not $biomeDefsRawForPlants.Contains($expected)) {
+        Fail "AMJ biome wild-plant composition is missing expected marker: $expected"
+    }
+}
+Pass "Japan-specific structural plants are wired into their target biomes"
+
+$wildPlantJaPath = Join-Path $RepoRoot "Languages\Japanese\DefInjected\ThingDef\AMJ_WildPlants.xml"
+if (-not (Test-Path $wildPlantJaPath)) {
+    Fail "Japanese localization for AMJ wild plants was not found."
+}
+try {
+    [xml]$wildPlantJa = Get-Content -LiteralPath $wildPlantJaPath -Raw
+}
+catch {
+    Fail "Japanese wild-plant localization XML is not well formed: $($_.Exception.Message)"
+}
+foreach ($defName in $expectedWildPlants) {
+    if ($null -eq $wildPlantJa.LanguageData.($defName + ".label")) {
+        Fail "Missing Japanese label for AMJ wild plant: $defName"
+    }
+}
+Pass "Japan-specific wild plants have Japanese labels"
+
+
 $naturalTerrainPath = Join-Path $RepoRoot "Defs\TerrainDefs\AMJ_NaturalTerrains.xml"
 if (-not (Test-Path $naturalTerrainPath)) {
     Fail "AMJ natural terrain Defs were not found."
