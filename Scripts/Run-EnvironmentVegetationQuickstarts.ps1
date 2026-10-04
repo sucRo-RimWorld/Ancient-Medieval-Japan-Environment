@@ -88,7 +88,28 @@ foreach ($name in $scenarios) {
             Fail "Failed to start RimWorld for $name"
         }
 
-        if (-not $process.WaitForExit($TimeoutSeconds * 1000)) {
+        $elapsedSeconds = 0
+        $pollSeconds = 15
+        $finished = $false
+
+        while ($elapsedSeconds -lt $TimeoutSeconds) {
+            $remaining = $TimeoutSeconds - $elapsedSeconds
+            $waitSeconds = [Math]::Min($pollSeconds, $remaining)
+
+            if ($process.WaitForExit($waitSeconds * 1000)) {
+                $finished = $true
+                break
+            }
+
+            $elapsedSeconds += $waitSeconds
+            Write-Host (
+                "[WAIT] " + $name +
+                " is still running (" + $elapsedSeconds +
+                "s / " + $TimeoutSeconds + "s)."
+            )
+        }
+
+        if (-not $finished) {
             Write-Host "[ERROR] $name exceeded the outer timeout." -ForegroundColor Red
             try {
                 $process.Kill()
