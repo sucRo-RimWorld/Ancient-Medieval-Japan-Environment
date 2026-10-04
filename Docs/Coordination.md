@@ -429,9 +429,13 @@ Integration commits:
 - `AMJ_Tree_Shii` switched from the Vanilla TreeOak placeholder folder to `Things/Plant/AMJ/Shii`: `fad9938eb10e8cff2e8d8381c9622a7b505c5a6b`;
 - static missing-texture / placeholder-path regression check: `74883e61a5761baca1dd6b751019390171e97e08`.
 
-**Verification status:** repository/static integration is prepared, but the new texture path has not yet been rerun through RimWorld after this asset switch.
+**Verification status:** the normal build/static gate now passes after the final Sudajii asset switch and validator fixes. Runtime verification is still pending.
 
-**Next action:** run the normal Environment test/runtime gate and visually inspect Sudajii scale/silhouette in WarmTemperate. If clean, retain this asset and proceed to the leafy/leafless Japanese beech pair.
+Static-gate follow-up commits:
+- UTF-8 BOM fix for Windows PowerShell 5.1 validator parsing: `b4d873dfe2a36b5f73a3d82870352d2a57a7e19f`;
+- wildlife XML commonality parse fix: `d8c523b31431388467f52c6b1728dc8b67f09489`.
+
+**Next action:** run the Environment runtime gate and visually inspect Sudajii scale/silhouette in WarmTemperate. If clean, retain this asset and proceed to the leafy/leafless Japanese beech pair.
 
 
 ### ENV-004 — Low-fertility natural terrain
