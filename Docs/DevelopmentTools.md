@@ -53,12 +53,14 @@ The runtime gate:
 - exits RimWorld automatically after each verification run;
 - fails if a Quickstart assertion fails, if live log capture is incomplete, if a run times out, if the isolated runtime log contains an Environment-origin ERROR, **or if Quickstarts reports any pre-launch ERROR entry**. Pre-launch errors are treated as fatal regardless of channel because they occur before reliable live attribution and the profile is intentionally isolated.
 
-The current vegetation assertions verify:
+The current vegetation/weather assertions verify:
 - the generated map uses the requested AMJ biome;
 - the band-specific structural plant actually generates;
 - Shii / Beech / Shirabiso / Haimatsu each exceed the configured secondary tree species in their target biome;
 - Haimatsu occupies at most 5% of all map cells;
-- full-size Pine + Birch together occupy at most 1% of Alpine cells.
+- full-size Pine + Birch together occupy at most 1% of Alpine cells;
+- each AMJ biome loads exactly the accepted eight Vanilla weather entries with the locked Alpha commonality values;
+- rainy thunderstorms remain more common than dry thunderstorms in every AMJ biome.
 
 The runtime suite also writes `[AMJ Environment Vegetation]` count/share summaries so balance can be reviewed without manual log counting.
 
