@@ -51,7 +51,7 @@ The runtime gate:
 - launches WarmTemperate, CoolTemperate, Subalpine, and Alpine fixed-biome Quickstarts sequentially from the command line;
 - writes one Quickstarts JSON report and one runtime log per biome;
 - exits RimWorld automatically after each verification run;
-- fails if a Quickstart assertion fails, if live log capture is incomplete, if a run times out, or if the isolated runtime log contains an Environment-origin ERROR.
+- fails if a Quickstart assertion fails, if live log capture is incomplete, if a run times out, if the isolated runtime log contains an Environment-origin ERROR, **or if Quickstarts reports any pre-launch ERROR entry**. Pre-launch errors are treated as fatal regardless of channel because they occur before reliable live attribution and the profile is intentionally isolated.
 
 The current vegetation assertions verify:
 - the generated map uses the requested AMJ biome;
