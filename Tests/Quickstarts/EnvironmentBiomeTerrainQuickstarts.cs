@@ -128,6 +128,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
             AddWeatherAssertions(verification, map == null ? null : map.Biome);
             AddSeasonalSceneryAssertions(verification);
+            AddWildlifeAssertions(verification, map == null ? null : map.Biome);
 
             int targetCount = CountThings(map, TargetPlantDefName);
             int cellCount = map == null ? 0 : map.cellIndices.NumGridCells;
@@ -201,6 +202,133 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " cctoActive=" + CctoIsActive());
 
             return verification;
+        }
+
+        private static void AddWildlifeAssertions(
+            QuickstartVerification verification,
+            BiomeDef biome)
+        {
+            string[] forbidden =
+            {
+                "Raccoon",
+                "Elk",
+                "Ibex",
+                "Fox_Arctic",
+                "Lynx"
+            };
+
+            for (int i = 0; i < forbidden.Length; i++)
+            {
+                string animalDefName = forbidden[i];
+                verification.Assert(
+                    (biome == null ? "null" : biome.defName) +
+                        " excludes wildlife placeholder " + animalDefName,
+                    delegate
+                    {
+                        return GetAnimalCommonality(
+                            biome,
+                            animalDefName) < 0f;
+                    });
+            }
+
+            string[] required =
+                ExpectedWildlifeForBiome(
+                    biome == null ? null : biome.defName);
+
+            for (int i = 0; i < required.Length; i++)
+            {
+                string animalDefName = required[i];
+                verification.Assert(
+                    (biome == null ? "null" : biome.defName) +
+                        " keeps wildlife proxy " + animalDefName,
+                    delegate
+                    {
+                        return GetAnimalCommonality(
+                            biome,
+                            animalDefName) > 0f;
+                    });
+            }
+        }
+
+        private static string[] ExpectedWildlifeForBiome(
+            string biomeDefName)
+        {
+            if (biomeDefName == "AMJ_WarmTemperateForest" ||
+                biomeDefName == "AMJ_CoolTemperateForest")
+            {
+                return new string[]
+                {
+                    "Hare",
+                    "Squirrel",
+                    "Rat",
+                    "Deer",
+                    "WildBoar",
+                    "Fox_Red",
+                    "Wolf_Timber",
+                    "Bear_Grizzly"
+                };
+            }
+
+            if (biomeDefName == "AMJ_SubalpineForest")
+            {
+                return new string[]
+                {
+                    "Hare",
+                    "Snowhare",
+                    "Deer",
+                    "WildBoar",
+                    "Fox_Red",
+                    "Wolf_Timber",
+                    "Bear_Grizzly"
+                };
+            }
+
+            if (biomeDefName == "AMJ_AlpineZone")
+            {
+                return new string[]
+                {
+                    "Hare",
+                    "Snowhare",
+                    "Deer",
+                    "Fox_Red",
+                    "Wolf_Timber"
+                };
+            }
+
+            return new string[0];
+        }
+
+        private static float GetAnimalCommonality(
+            BiomeDef biome,
+            string animalDefName)
+        {
+            if (biome == null ||
+                biome.wildAnimals == null)
+            {
+                return -1f;
+            }
+
+            PawnKindDef pawnKind =
+                DefDatabase<PawnKindDef>.GetNamedSilentFail(
+                    animalDefName);
+
+            if (pawnKind == null)
+            {
+                return -1f;
+            }
+
+            for (int i = 0; i < biome.wildAnimals.Count; i++)
+            {
+                AnimalCommonalityRecord record =
+                    biome.wildAnimals[i];
+                if (record != null &&
+                    record.animal == pawnKind)
+                {
+                    return record.commonality;
+                }
+            }
+
+            return -1f;
         }
 
         private static void AddSeasonalSceneryAssertions(
