@@ -20,11 +20,11 @@
     <li>rimworks.quickstarts</li>
   </loadAfter>
 
-  <description>Development build of Ancient &amp; Medieval Japan: Environment.
+  <description>Alpha.
 
-Reworks RimWorld world generation toward a pre-Edo Japan-like environmental profile, including climate, terrain, rivers, coastlines, biomes, vegetation, weather, and seasonal scenery.
+A standalone environment overhaul that reshapes RimWorld toward a pre-Edo Japan-like climate and landscape, including world climate, terrain, rivers, coastlines, biomes, vegetation, weather, seasonal scenery, and natural soil distribution.
 
-Ancient &amp; Medieval Japan Core is not required.
+Ancient &amp; Medieval Japan Core is not required. Crop Cold Tolerance Overhaul (CCTO) is optional; when present, AMJE applies a stricter realism-focused cold-response model to its own structural plants. Medieval Overhaul is also optional and treated as a first-class coexistence target.
 
-Save compatibility: Use a new game to evaluate world and terrain generation. Adding to existing saves has not been verified. Removing this mod from saves that use its custom biomes or terrains is not recommended.</description>
+Save compatibility: A new game is recommended to evaluate the intended world/biome/terrain generation. Adding to existing saves has not been verified and does not regenerate the existing world. Removing this mod from saves that use its custom biomes, terrains, or plants is not recommended.</description>
 </ModMetaData>
