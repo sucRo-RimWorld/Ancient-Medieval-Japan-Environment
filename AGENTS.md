@@ -74,3 +74,14 @@ Historical description text is Japanese-first: draft and review Japanese first, 
 ## Public mod descriptions
 
 Use the CCTO-based shared [mod description guidelines](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md) when writing or updating public descriptions. Include save compatibility in every mod description, stating addition/removal conditions accurately for the mod's implementation. Keep README, Workshop English/Japanese BBCode, and About.xml consistent; refine the shared baseline as presentation improves.
+
+## PowerShell change safety
+
+PowerShell changes must not be committed directly to `main`.
+
+- Stage any `.ps1` edit on a temporary branch.
+- Keep `.github/workflows/powershell-syntax.yml` as the repository-level parser gate.
+- Open a pull request and require the PowerShell syntax check to pass before merging the branch to `main`.
+- `run-tests.bat` must execute `Scripts/Validate-PowerShellSyntax.ps1` before build/static validation so local test runs fail fast on parser errors.
+- Avoid large string-replacement edits to `Validate-Environment.ps1`; when changing a focused block, re-read the edited range and the end of file before merge to detect truncation or duplicated tails.
+
