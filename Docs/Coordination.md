@@ -262,11 +262,12 @@ Implementation:
 - optional-sub-gate exit-code handling: `43ecf5f52666bb3641fc1ddc581b50450199742e`;
 - static validator: `719a91373d4b38a105c3ec7582ca588301b92ccd`;
 - design source of truth: `cbf246511026b45ee687c402b8a7d75510623522`;
+- product/balance positioning (AMJE standalone complete, CCTO optional realism layer): `5a104a8f09ac084fbd61aebedbfe82b02a5ba57e`;
 - development tooling docs: `8ea3386080de63218e23021d2fa4f20cbc65dda3`.
 
 **Verification status:** not yet rerun locally after this ownership change. The previous vegetation runtime PASS predates the new optional CCTO layer and must not be reused as the compatibility PASS.
 
-**First post-change local build finding:** the normal Environment DLL built, but the developer Quicktest DLL failed because RimWorld 1.6 exposes `GetActiveModWithIdentifier` on `Verse.ModLister`, not `Verse.LoadedModManager`. The CCTO-active probe now uses `ModLister.GetActiveModWithIdentifier(..., true)`. Fix: `6e2ad338228fc380342e444e81a79eb45bd385a6`; validator lock: `PENDING_THIS_COMMIT`.
+**First post-change local build finding:** the normal Environment DLL built, but the developer Quicktest DLL failed because RimWorld 1.6 exposes `GetActiveModWithIdentifier` on `Verse.ModLister`, not `Verse.LoadedModManager`. The CCTO-active probe now uses `ModLister.GetActiveModWithIdentifier(..., true)`. Fix: `6e2ad338228fc380342e444e81a79eb45bd385a6`; validator lock: `57233f5ef00aef3af82f00503a39c36ba30ae170`.
 
 **Next action:** run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. The existing four-biome standalone gate must still pass; because CCTO is installed in the current development environment, the new focused AMJE+CCTO loaded-Def sub-gate should also run and pass before ENV-005 is closed.
 
