@@ -475,7 +475,7 @@ Pass "Custom Shirabiso/Haimatsu visual-size ranges replace inherited FloatRange 
 foreach ($expected in @(
     '<ThingDef ParentName="DeciduousTreeBase">',
     '<defName>AMJ_Tree_Beech</defName>',
-    '<leaflessGraphicPath>Things/Plant/TreeMaple_Leafless</leaflessGraphicPath>',
+    '<leaflessGraphicPath>Things/Plant/AMJ/Beech_Leafless</leaflessGraphicPath>',
     '<ThingDef ParentName="TreeBase">',
     '<defName>AMJ_Tree_Shii</defName>',
     '<defName>AMJ_Tree_Shirabiso</defName>',
@@ -519,6 +519,32 @@ if ($wildPlantRaw.Contains('<defName>AMJ_Tree_Shii</defName>') -and
     Fail "AMJ_Tree_Shii still references the Vanilla TreeOak placeholder."
 }
 Pass "Final Sudajii texture exists and AMJ_Tree_Shii uses the AMJE-owned path"
+
+$beechLeafyPath = Join-Path $RepoRoot "Textures\Things\Plant\AMJ\Beech\Beech_A.png"
+$beechLeaflessPath = Join-Path $RepoRoot "Textures\Things\Plant\AMJ\Beech_Leafless\Beech_Leafless_A.png"
+foreach ($beechTexture in @(
+    @{ Path = $beechLeafyPath; Label = "leafy" },
+    @{ Path = $beechLeaflessPath; Label = "leafless" }
+)) {
+    if (-not (Test-Path -LiteralPath $beechTexture.Path)) {
+        Fail "Final Japanese beech $($beechTexture.Label) texture is missing: $($beechTexture.Path)"
+    }
+    if (-not (Test-PngStructure $beechTexture.Path)) {
+        Fail "Final Japanese beech $($beechTexture.Label) PNG is structurally invalid: $($beechTexture.Path)"
+    }
+}
+if (-not $wildPlantRaw.Contains('<texPath>Things/Plant/AMJ/Beech</texPath>')) {
+    Fail "AMJ_Tree_Beech does not point to the final AMJE leafy beech texture folder."
+}
+if (-not $wildPlantRaw.Contains('<leaflessGraphicPath>Things/Plant/AMJ/Beech_Leafless</leaflessGraphicPath>')) {
+    Fail "AMJ_Tree_Beech does not point to the final AMJE leafless beech texture folder."
+}
+if ($wildPlantRaw.Contains('<texPath>Things/Plant/TreeMaple</texPath>') -or
+    $wildPlantRaw.Contains('<leaflessGraphicPath>Things/Plant/TreeMaple_Leafless</leaflessGraphicPath>')) {
+    Fail "AMJ_Tree_Beech still references Vanilla TreeMaple placeholder graphics."
+}
+Pass "Final Japanese beech leafy/leafless textures exist and AMJ_Tree_Beech uses AMJE-owned paths"
+
 
 
 
