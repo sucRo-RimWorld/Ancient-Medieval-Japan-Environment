@@ -292,7 +292,7 @@ The report-audit fixes are shared with ENV-003: `fe6f641d671af41979b36dfc8649d17
 
 **Requested by:** Environment/design  
 **Owner:** Environment/weather  
-**Status:** IN PROGRESS
+**Status:** DONE
 
 Alpha policy:
 - reuse the eight Vanilla WeatherDefs rather than introducing AMJ-specific weather types;
@@ -309,9 +309,11 @@ Implementation:
 - static validator locks the accepted table: `dbf80ab37c56da734646aba770e9d43e48096dca`;
 - design source of truth and JMA research basis: `4561fdb8cee7ead6c9cf042adea78bd4f26244fa`.
 
-**Verification status:** not yet rerun locally after the weather baseline change.
+**Final automated runtime result:** PASS. WarmTemperate, CoolTemperate, Subalpine, and Alpine all returned `passed=true`, `failed=0`, `preLaunchErrors=0`, and `logErrors=0`. Every loaded weather commonality matched the accepted Alpha table and rainy thunderstorms remained more common than dry thunderstorms. The optional AMJE+CCTO run also passed **39/39** assertions with `preLaunchErrors=0` and `logErrors=0`, confirming that the optional realism layer does not alter Environment weather.
 
-**Next action:** run `run-runtime-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. The four standalone fixed-biome Quickstarts must pass the new weather assertions with `preLaunchErrors=0` and no Environment-origin ERROR. The optional AMJE+CCTO sub-gate should also remain green because CCTO must not alter weather.
+The remaining startup WARN messages are generic RimWorld metadata warnings about dependencies lacking `downloadUrl` / `steamWorkshopUrl`; they are not Environment runtime errors and are outside this weather gate.
+
+**Result:** ENV-006 complete. Calendar-specific Baiu/Akisame/typhoon weighting and Sea-of-Japan/Pacific-side winter exposure remain deferred unless a later gameplay finding justifies the added system complexity.
 
 
 ### ENV-004 — Low-fertility natural terrain
