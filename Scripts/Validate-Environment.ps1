@@ -201,6 +201,79 @@ foreach ($defName in $expectedBiomeDefs) {
     }
 }
 
+$expectedWeather = @{
+    "AMJ_WarmTemperateForest" = @{
+        "Clear" = 16.0
+        "Fog" = 1.5
+        "Rain" = 3.0
+        "DryThunderstorm" = 0.1
+        "RainyThunderstorm" = 1.5
+        "FoggyRain" = 1.5
+        "SnowGentle" = 2.0
+        "SnowHard" = 1.0
+    }
+    "AMJ_CoolTemperateForest" = @{
+        "Clear" = 16.0
+        "Fog" = 1.5
+        "Rain" = 3.0
+        "DryThunderstorm" = 0.1
+        "RainyThunderstorm" = 1.5
+        "FoggyRain" = 1.5
+        "SnowGentle" = 4.0
+        "SnowHard" = 3.0
+    }
+    "AMJ_SubalpineForest" = @{
+        "Clear" = 16.0
+        "Fog" = 1.0
+        "Rain" = 2.0
+        "DryThunderstorm" = 0.1
+        "RainyThunderstorm" = 1.0
+        "FoggyRain" = 1.0
+        "SnowGentle" = 7.0
+        "SnowHard" = 7.0
+    }
+    "AMJ_AlpineZone" = @{
+        "Clear" = 16.0
+        "Fog" = 1.0
+        "Rain" = 1.0
+        "DryThunderstorm" = 0.05
+        "RainyThunderstorm" = 0.5
+        "FoggyRain" = 0.5
+        "SnowGentle" = 12.0
+        "SnowHard" = 12.0
+    }
+}
+
+foreach ($defName in $expectedBiomeDefs) {
+    $biome = $biomeDefs.Defs.BiomeDef | Where-Object { $_.defName -eq $defName }
+    $weatherNodes = @($biome.baseWeatherCommonalities.ChildNodes | Where-Object { $_.NodeType -eq "Element" })
+
+    if ($weatherNodes.Count -ne 8) {
+        Fail "$defName must define exactly 8 baseline weather commonalities."
+    }
+
+    foreach ($weatherName in $expectedWeather[$defName].Keys) {
+        $node = $biome.baseWeatherCommonalities.SelectSingleNode($weatherName)
+        if ($null -eq $node) {
+            Fail "$defName is missing weather commonality: $weatherName"
+        }
+
+        $actual = [double]::Parse(
+            $node.InnerText,
+            [System.Globalization.CultureInfo]::InvariantCulture)
+        $expected = [double]$expectedWeather[$defName][$weatherName]
+        if ([Math]::Abs($actual - $expected) -gt 0.0001) {
+            Fail "$defName weather commonality mismatch for $weatherName : expected $expected, got $actual"
+        }
+    }
+
+    if ([double]$expectedWeather[$defName]["RainyThunderstorm"] -le
+        [double]$expectedWeather[$defName]["DryThunderstorm"]) {
+        Fail "$defName must prefer rainy thunderstorms over dry thunderstorms."
+    }
+}
+Pass "AMJ regional weather baselines use the accepted humid-Japan Alpha weights"
+
 $biomeWorkerSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\JapanBiomeWorkers.cs"
 if (-not (Test-Path $biomeWorkerSourcePath)) {
     Fail "JapanBiomeWorkers.cs was not found."
@@ -489,6 +562,9 @@ foreach ($expected in @(
     'AMJ_Shrub_Haimatsu',
     'MaxTargetCellFraction',
     '"[AMJ Environment Vegetation] biome="',
+    'AddWeatherAssertions',
+    'ExpectedWeatherCommonality',
+    '"[AMJ Environment Weather] biome="',
     'CctoIsActive()',
     'ModLister.GetActiveModWithIdentifier',
     'AddCctoCompatibilityAssertions',
