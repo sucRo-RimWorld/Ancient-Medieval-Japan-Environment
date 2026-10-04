@@ -74,7 +74,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 key);
         }
 
-        private static bool IsBadRenderMaterial(
+        internal static bool IsBadRenderMaterial(
             UnityEngine.Material material)
         {
             if (material == null)
@@ -107,6 +107,196 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     texture.name,
                     "BadTex",
                     StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    [HarmonyPatch(typeof(Graphic), "TryGetTextureAtlasReplacementInfo")]
+    public static class PreAtlasBadTextureDiagnostics
+    {
+        public static int BadMaterialUseCount;
+
+        [HarmonyPrefix]
+        public static void Prefix(
+            UnityEngine.Material mat,
+            TextureAtlasGroup group)
+        {
+            if (string.IsNullOrEmpty(
+                System.Environment.GetEnvironmentVariable("RIMWORLD_QUICKSTART")))
+            {
+                return;
+            }
+
+            if (!BadRenderMaterialDiagnostics.IsBadRenderMaterial(mat))
+            {
+                return;
+            }
+
+            BadMaterialUseCount++;
+
+            string materialName =
+                mat == null
+                    ? "<null>"
+                    : mat.name;
+            string textureName = "<no _MainTex>";
+
+            if (mat != null && mat.HasProperty("_MainTex"))
+            {
+                textureName =
+                    mat.mainTexture == null
+                        ? "<null>"
+                        : mat.mainTexture.name;
+            }
+
+            int key =
+                0x4A4D4600 ^
+                (materialName == null ? 0 : materialName.GetHashCode()) ^
+                (int)group;
+
+            Log.ErrorOnce(
+                "[AMJ Environment PreAtlasBadTexture]" +
+                " group=" + group +
+                " material=" + materialName +
+                " texture=" + textureName,
+                key);
+        }
+    }
+
+    [HarmonyPatch(typeof(Graphic), "Draw")]
+    public static class RealtimeBadGraphicDiagnostics
+    {
+        public static int BadGraphicDrawCount;
+
+        [HarmonyPrefix]
+        public static void Prefix(
+            Graphic __instance,
+            Rot4 rot,
+            Thing thing)
+        {
+            if (string.IsNullOrEmpty(
+                System.Environment.GetEnvironmentVariable("RIMWORLD_QUICKSTART")) ||
+                __instance == null ||
+                thing == null)
+            {
+                return;
+            }
+
+            UnityEngine.Material material = null;
+            try
+            {
+                material = __instance.MatAt(rot, thing);
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(
+                    "[AMJ Environment RealtimeBadGraphic] MATERIAL-ERROR" +
+                    " def=" + (thing.def == null ? "<null>" : thing.def.defName) +
+                    " type=" + thing.GetType().FullName +
+                    " graphic=" + __instance.GetType().FullName +
+                    " path=" + (__instance.path ?? "<null>") +
+                    " exception=" + ex.GetType().Name +
+                    ": " + ex.Message);
+                return;
+            }
+
+            if (!BadRenderMaterialDiagnostics.IsBadRenderMaterial(material))
+            {
+                return;
+            }
+
+            BadGraphicDrawCount++;
+
+            string textureName = "<no _MainTex>";
+            if (material != null && material.HasProperty("_MainTex"))
+            {
+                textureName =
+                    material.mainTexture == null
+                        ? "<null>"
+                        : material.mainTexture.name;
+            }
+
+            int key =
+                0x4A4D4700 ^
+                (thing.def == null || thing.def.defName == null
+                    ? 0
+                    : thing.def.defName.GetHashCode());
+
+            Log.ErrorOnce(
+                "[AMJ Environment RealtimeBadGraphic]" +
+                " def=" + (thing.def == null ? "<null>" : thing.def.defName) +
+                " label=" + thing.LabelNoCount +
+                " pos=" + thing.Position +
+                " type=" + thing.GetType().FullName +
+                " graphic=" + __instance.GetType().FullName +
+                " path=" + (__instance.path ?? "<null>") +
+                " texture=" + textureName,
+                key);
+        }
+    }
+
+    [HarmonyPatch(typeof(Graphic), "DrawFromDef")]
+    public static class RealtimeBadGraphicFromDefDiagnostics
+    {
+        public static int BadGraphicDrawCount;
+
+        [HarmonyPrefix]
+        public static void Prefix(
+            Graphic __instance,
+            Rot4 rot,
+            ThingDef thingDef)
+        {
+            if (string.IsNullOrEmpty(
+                System.Environment.GetEnvironmentVariable("RIMWORLD_QUICKSTART")) ||
+                __instance == null)
+            {
+                return;
+            }
+
+            UnityEngine.Material material = null;
+            try
+            {
+                material = __instance.MatAt(rot);
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(
+                    "[AMJ Environment RealtimeBadGraphicFromDef] MATERIAL-ERROR" +
+                    " def=" + (thingDef == null ? "<null>" : thingDef.defName) +
+                    " graphic=" + __instance.GetType().FullName +
+                    " path=" + (__instance.path ?? "<null>") +
+                    " exception=" + ex.GetType().Name +
+                    ": " + ex.Message);
+                return;
+            }
+
+            if (!BadRenderMaterialDiagnostics.IsBadRenderMaterial(material))
+            {
+                return;
+            }
+
+            BadGraphicDrawCount++;
+
+            string textureName = "<no _MainTex>";
+            if (material != null && material.HasProperty("_MainTex"))
+            {
+                textureName =
+                    material.mainTexture == null
+                        ? "<null>"
+                        : material.mainTexture.name;
+            }
+
+            int key =
+                0x4A4D4800 ^
+                (thingDef == null || thingDef.defName == null
+                    ? 0
+                    : thingDef.defName.GetHashCode());
+
+            Log.ErrorOnce(
+                "[AMJ Environment RealtimeBadGraphicFromDef]" +
+                " def=" + (thingDef == null ? "<null>" : thingDef.defName) +
+                " graphic=" + __instance.GetType().FullName +
+                " path=" + (__instance.path ?? "<null>") +
+                " texture=" + textureName,
+                key);
         }
     }
 
@@ -225,6 +415,21 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 delegate
                 {
                     return BadRenderMaterialDiagnostics.BadMaterialUseCount == 0;
+                });
+
+            verification.Assert(
+                "pre-atlas map graphics emitted no BadTex materials",
+                delegate
+                {
+                    return PreAtlasBadTextureDiagnostics.BadMaterialUseCount == 0;
+                });
+
+            verification.Assert(
+                "realtime Thing graphics emitted no BadTex materials",
+                delegate
+                {
+                    return RealtimeBadGraphicDiagnostics.BadGraphicDrawCount == 0 &&
+                        RealtimeBadGraphicFromDefDiagnostics.BadGraphicDrawCount == 0;
                 });
 
             AddWeatherAssertions(verification, map == null ? null : map.Biome);
