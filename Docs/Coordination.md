@@ -420,7 +420,7 @@ Art policy:
 - final visual review is intentionally manual for silhouette, scale, tiling, color/contrast, and world-map distinction;
 - automated validation must continue to catch missing-texture/runtime ERRORs after each asset is integrated.
 
-Art direction source of truth: `Docs/ArtDirection.md`; initial direction `6c310e7efb1fb0ae2a03e87cda7d803bffd398a8`, expanded Vanilla/MO retexture scope `PENDING_ART_SCOPE_COMMIT`.
+Art direction source of truth: `Docs/ArtDirection.md`; initial direction `6c310e7efb1fb0ae2a03e87cda7d803bffd398a8`, expanded Vanilla/MO retexture scope `d973f30d70235c6060e68fcd8aa574964454c6c5`.
 
 **Current state:** specification complete; binary art assets are not yet added to the repository. Existing Vanilla placeholder paths remain authoritative until each final asset is created and integrated.
 
