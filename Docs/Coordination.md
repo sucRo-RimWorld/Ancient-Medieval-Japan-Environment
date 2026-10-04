@@ -365,6 +365,35 @@ Implementation/test coverage:
 **Result:** ENV-008 complete. AMJE retains world-level ownership only; Vanilla River/Coast mutators remain the accepted local-map generation path. Waterfalls remain deferred.
 
 
+### ENV-009 — Functional Vanilla wildlife proxy baseline
+
+**Requested by:** Environment/design audit  
+**Owner:** Environment/biomes  
+**Status:** DONE
+
+Responsibility:
+- Environment does not add Japan-specific animal Defs merely for regional flavor;
+- AMJ-owned BiomeDefs still require functional wildlife pools, so Alpha uses curated Vanilla PawnKindDefs as gameplay proxies;
+- proxy names are not literal historical-species claims.
+
+Implemented cleanup:
+- removed Raccoon, Elk, Ibex, Fox_Arctic and Lynx from AMJ biome pools;
+- replaced the Alpine Elk/Ibex/ArcticFox/Lynx placeholder mix with Deer/Fox_Red while retaining existing generic hare/wolf proxies;
+- runtime assertions verify retired placeholders have zero commonality and accepted proxies remain positive through the public `BiomeDef.CommonalityOfAnimal` API.
+
+Implementation/test history:
+- wildlife pool cleanup: `bc949740fad30df8d7cf68169c3c87318de09139`;
+- original runtime proxy assertions: `9cccbc3a80eee3e3ebc7a9550fde01d3093ee11a`;
+- public-API runtime fix: `9d8d4c5ce95753e0e4d0c145dffb9d374aab30c6`;
+- original static/localization coverage: `1d5ad32d47c8da48af9e8ecae8a9c3a37b9c85aa`;
+- static validation now locks the full accepted positive proxy sets as well as the retired list: `bef56f78096fff07eb8c6a80bf53feba48e480b4`;
+- design source of truth and research/proxy interpretation: `6a12906195ba153efc98c67c17f7ddd5fa125894`.
+
+**Runtime status:** PASS by inheritance from the combined Environment runtime gate reported by the author during ENV-008 verification. The wildlife assertions were already present in the Quicktest source before the River/Coast handoff tests were added, so that successful combined run exercised them. No separate manual wildlife smoke is required.
+
+**Result:** the Alpha wildlife layer is a functional Vanilla proxy baseline only. Future Japan-specific animals, textures or animal-resource loops require a separate owning feature/mod and should not silently expand Environment's scope.
+
+
 ### ENV-004 — Low-fertility natural terrain
 
 **Requested by:** Environment/design  
