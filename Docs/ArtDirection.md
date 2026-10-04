@@ -112,12 +112,27 @@ Visual role:
 
 The base art should use neutral healthy foliage rather than permanently orange/red autumn colors, because seasonal color is supplied dynamically.
 
+Accepted source-art direction:
+- visibly more open and horizontally spreading than Sudajii;
+- smaller foliage masses with branch structure visible between them;
+- smooth pale grey-beige trunk rather than warm orange-brown bark;
+- low-saturation yellow-green/olive foliage, lighter than Sudajii;
+- thick near-black outline and simplified AMJ crop/Sudajii visual weight remain shared;
+- no baked ground/grass base;
+- leafy source sprite approved by the author on 2026-10-04 and integrated at `Textures/Things/Plant/AMJ/Beech/Beech_A.png`; in-game scale/readability still requires focused validation.
+
 ### Japanese beech — leafless
 
 Visual role:
 - same approximate trunk/crown proportions as the leafy beech;
 - branching structure should align closely enough that the seasonal switch does not look like a different species/size;
 - no foliage.
+
+Accepted source-art direction:
+- preserve the leafy sprite's pale grey-beige trunk identity and overall crown width;
+- expose a broad, irregular branching fan rather than a narrow upright silhouette;
+- keep branch tips simplified and thick enough to remain readable at game zoom;
+- leafless source sprite approved by the author on 2026-10-04 and integrated at `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png`; in-game seasonal-switch validation remains pending.
 
 ### Shirabiso fir
 
