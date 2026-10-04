@@ -699,7 +699,9 @@ Locked production direction:
 
 Canonical art-direction update: `0815e0257deaa4b39fd41fe5231426a5215f5306`.
 
-The standalone Sudajii sprite was then generated in the locked C-direction and approved by the author. It has been normalized to the existing 256x256 production canvas with transparent background, no ground/grass ring, muted olive/forest foliage, restrained trunk saturation, and the accepted simplified silhouette. The production asset now replaces the prior Sudajii image at `Textures/Things/Plant/AMJ/Shii/Shii_A.png`: `5f557021e0087c4d9c465ae9d133326fb1f87618`.
+The standalone Sudajii sprite was then generated in the locked C-direction and approved by the author. The first GitHub binary write for that final sprite was malformed and was correctly rejected by the new static PNG-structure gate with `Final Sudajii PNG is structurally invalid`; that failed write must not be treated as a valid production asset.
 
-**Next action:** pull and run `run-texture-debug.bat` once to confirm the new sprite's in-game scale, silhouette, outline weight, UI icon, and lack of ground-ring artifacts. If accepted, run the normal runtime gate once as regression coverage, then proceed to the next ENV-010 tree asset and its Japanese-first historical description review.
+The exact validated 256x256 source PNG was then transferred without manual base64 transcription and now replaces `Textures/Things/Plant/AMJ/Shii/Shii_A.png`. GitHub blob SHA is `62d795d9717a3ad4d61827bfb470cd7b3cfc7000`; corrective commit: `81a2c60af98553610c87d6606b0eba71d05b2a6a`. This file is the approved C-direction asset: transparent background, no ground/grass ring, muted olive/forest foliage, restrained trunk saturation, and the accepted simplified silhouette.
+
+**Next action:** pull and run `run-tests.bat` first; the PNG structure gate should now pass. Then run `run-texture-debug.bat` once to confirm in-game scale, silhouette, outline weight, UI icon, and lack of ground-ring artifacts. Only after that visual confirmation, run the normal runtime gate once as regression coverage and continue ENV-010.
 
