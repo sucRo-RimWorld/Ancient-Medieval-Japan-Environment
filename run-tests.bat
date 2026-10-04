@@ -13,5 +13,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0Scripts\Validate-Envir
 if errorlevel 1 exit /b 1
 
 echo.
+echo Auditing installed Medieval Overhaul tree texture references...
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0Scripts\Validate-MedievalOverhaulTreeTextures.ps1" -RimWorldDir "%RIMWORLD_DIR%"
+if errorlevel 1 exit /b 1
+
+echo.
 echo [OK] AMJ Environment build + static validation passed
 exit /b 0
