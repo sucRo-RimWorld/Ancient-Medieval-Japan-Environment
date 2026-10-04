@@ -9,6 +9,8 @@ set "RIMWORLD_EXE=%RIMWORLD_DIR%\RimWorldWin64.exe"
 set "RESULT_ROOT=%ROOT%TestResults\VegetationRuntime"
 set "TEST_SAVEDATA=%RESULT_ROOT%\SaveData"
 set "REPORT_DIR=%RESULT_ROOT%\Reports"
+set "CCTO_SAVEDATA=%RESULT_ROOT%\SaveData-CCTO"
+set "CCTO_REPORT_DIR=%RESULT_ROOT%\Reports-CCTO"
 set "QUICKTEST_DLL=%ROOT%DevQuickstarts\Assemblies\AncientMedievalJapanEnvironment.Quicktests.dll"
 
 call "%ROOT%run-tests.bat" "%RIMWORLD_DIR%"
@@ -56,16 +58,52 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-Environme
     -TimeoutSeconds 180
 
 set "RESULT=%ERRORLEVEL%"
+if not "%RESULT%"=="0" goto :report
 
+set "CCTO_INSTALLED="
+if exist "%RIMWORLD_DIR%\Mods\CropColdToleranceOverhaul\About\About.xml" set "CCTO_INSTALLED=1"
+if exist "%RIMWORLD_DIR%\..\..\workshop\content\294100\3812412548\About\About.xml" set "CCTO_INSTALLED=1"
+
+if defined CCTO_INSTALLED (
+    echo.
+    echo Preparing isolated AMJE + CCTO compatibility profile...
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1" ^
+        -OutputRoot "%CCTO_SAVEDATA%" ^
+        -IncludeCCTO
+    if errorlevel 1 (
+        set "RESULT=2"
+        goto :report
+    )
+
+    echo.
+    echo Running focused AMJE + CCTO loaded-Def compatibility check...
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-EnvironmentVegetationQuickstarts.ps1" ^
+        -ExePath "%RIMWORLD_EXE%" ^
+        -SaveDataFolder "%CCTO_SAVEDATA%" ^
+        -ResultDir "%CCTO_REPORT_DIR%" ^
+        -TimeoutSeconds 180 ^
+        -CctoCompatibilityOnly
+
+    set "RESULT=%ERRORLEVEL%"
+) else (
+    echo.
+    echo [INFO] CCTO is not installed locally; skipping optional AMJE + CCTO runtime compatibility check.
+)
+
+:report
 echo.
 if "%RESULT%"=="0" (
-    echo [OK] Environment vegetation runtime gate passed.
+    echo [OK] Environment runtime gate passed.
 ) else if "%RESULT%"=="124" (
     echo [ERROR] A RimWorld Quickstart exceeded the outer timeout.
 ) else (
-    echo [FAIL] Environment vegetation runtime gate failed.
+    echo [FAIL] Environment runtime gate failed.
 )
 
-echo Reports:
+echo Base reports:
 echo   %REPORT_DIR%
+if defined CCTO_INSTALLED (
+    echo CCTO compatibility reports:
+    echo   %CCTO_REPORT_DIR%
+)
 exit /b %RESULT%
