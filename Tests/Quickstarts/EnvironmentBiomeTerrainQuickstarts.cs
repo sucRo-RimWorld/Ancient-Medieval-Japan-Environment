@@ -130,6 +130,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
             AddSeasonalSceneryAssertions(verification);
             AddWildlifeAssertions(verification, map == null ? null : map.Biome);
 
+            if (TargetBiomeDefName == "AMJ_WarmTemperateForest")
+            {
+                AddTreeTextureAuditAssertions(verification);
+            }
+
             int targetCount = CountThings(map, TargetPlantDefName);
             int cellCount = map == null ? 0 : map.cellIndices.NumGridCells;
             float targetFraction =
@@ -423,6 +428,173 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
         }
 
+        private static void AddTreeTextureAuditAssertions(
+            QuickstartVerification verification)
+        {
+            int auditedTrees = 0;
+            int failedStates = 0;
+            string failures = "";
+
+            foreach (ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
+            {
+                if (def == null ||
+                    def.plant == null ||
+                    !def.plant.IsTree ||
+                    def.graphicData == null)
+                {
+                    continue;
+                }
+
+                auditedTrees++;
+
+                AuditTreeGraphicState(
+                    def,
+                    "base",
+                    def.graphicData.texPath,
+                    def.graphicData.Graphic,
+                    ref failedStates,
+                    ref failures);
+
+                AuditOptionalTreeGraphicState(
+                    def,
+                    "leafless",
+                    "leaflessGraphicPath",
+                    def.plant.leaflessGraphic,
+                    ref failedStates,
+                    ref failures);
+
+                AuditOptionalTreeGraphicState(
+                    def,
+                    "immature",
+                    "immatureGraphicPath",
+                    def.plant.immatureGraphic,
+                    ref failedStates,
+                    ref failures);
+
+                AuditOptionalTreeGraphicState(
+                    def,
+                    "polluted",
+                    "pollutedGraphicPath",
+                    def.plant.pollutedGraphic,
+                    ref failedStates,
+                    ref failures);
+
+                AuditOptionalTreeGraphicState(
+                    def,
+                    "leaflessImmature",
+                    "leaflessImmatureGraphicPath",
+                    def.plant.leaflessImmatureGraphic,
+                    ref failedStates,
+                    ref failures);
+
+                AuditOptionalTreeGraphicState(
+                    def,
+                    "snowOverlay",
+                    "snowOverlayGraphicPath",
+                    def.plant.snowOverlayGraphic,
+                    ref failedStates,
+                    ref failures);
+
+                AuditOptionalTreeGraphicState(
+                    def,
+                    "leaflessSnowOverlay",
+                    "leaflessSnowOverlayGraphicPath",
+                    def.plant.leaflessSnowOverlayGraphic,
+                    ref failedStates,
+                    ref failures);
+
+                AuditOptionalTreeGraphicState(
+                    def,
+                    "immatureSnowOverlay",
+                    "immatureSnowOverlayGraphicPath",
+                    def.plant.immatureSnowOverlayGraphic,
+                    ref failedStates,
+                    ref failures);
+            }
+
+            Log.Message(
+                "[AMJ Environment TreeTextureAudit] auditedTrees=" + auditedTrees +
+                " failedStates=" + failedStates +
+                " failures={" + failures + "}");
+
+            verification.Assert(
+                "all loaded tree graphic states resolve non-BadTex textures",
+                delegate
+                {
+                    return auditedTrees > 0 && failedStates == 0;
+                });
+        }
+
+        private static void AuditOptionalTreeGraphicState(
+            ThingDef def,
+            string stateName,
+            string pathFieldName,
+            Graphic graphic,
+            ref int failedStates,
+            ref string failures)
+        {
+            string path = GetPlantGraphicPath(def.plant, pathFieldName);
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
+            AuditTreeGraphicState(
+                def,
+                stateName,
+                path,
+                graphic,
+                ref failedStates,
+                ref failures);
+        }
+
+        private static string GetPlantGraphicPath(
+            PlantProperties plant,
+            string fieldName)
+        {
+            if (plant == null)
+            {
+                return null;
+            }
+
+            System.Reflection.FieldInfo field =
+                typeof(PlantProperties).GetField(
+                    fieldName,
+                    System.Reflection.BindingFlags.Instance |
+                    System.Reflection.BindingFlags.NonPublic);
+
+            return field == null ? null : field.GetValue(plant) as string;
+        }
+
+        private static void AuditTreeGraphicState(
+            ThingDef def,
+            string stateName,
+            string path,
+            Graphic graphic,
+            ref int failedStates,
+            ref string failures)
+        {
+            if (HasLoadedNonBadTexture(graphic))
+            {
+                return;
+            }
+
+            failedStates++;
+            if (!string.IsNullOrEmpty(failures))
+            {
+                failures += "; ";
+            }
+
+            failures += def.defName + ":" + stateName + "=" +
+                (string.IsNullOrEmpty(path) ? "<empty>" : path);
+
+            Log.Warning(
+                "[AMJ Environment TreeTextureAudit] BAD" +
+                " def=" + def.defName +
+                " state=" + stateName +
+                " path=" + (string.IsNullOrEmpty(path) ? "<empty>" : path));
+        }
+
         private static bool HasLoadedNonBadTexture(Graphic graphic)
         {
             if (graphic == null)
@@ -432,6 +604,36 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
             try
             {
+                Graphic_Collection collection = graphic as Graphic_Collection;
+                if (collection != null)
+                {
+                    System.Reflection.FieldInfo subGraphicsField =
+                        typeof(Graphic_Collection).GetField(
+                            "subGraphics",
+                            System.Reflection.BindingFlags.Instance |
+                            System.Reflection.BindingFlags.NonPublic);
+
+                    Graphic[] subGraphics =
+                        subGraphicsField == null
+                            ? null
+                            : subGraphicsField.GetValue(collection) as Graphic[];
+
+                    if (subGraphics == null || subGraphics.Length == 0)
+                    {
+                        return false;
+                    }
+
+                    for (int i = 0; i < subGraphics.Length; i++)
+                    {
+                        if (!HasLoadedNonBadTexture(subGraphics[i]))
+                        {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                }
+
                 UnityEngine.Material material = graphic.MatSingle;
                 if (material == null || material.mainTexture == null)
                 {
