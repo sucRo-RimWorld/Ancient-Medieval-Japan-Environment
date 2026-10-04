@@ -927,49 +927,20 @@ foreach ($expected in @(
 $textureDebugBatch = Get-Content -LiteralPath (Join-Path $RepoRoot "run-texture-debug.bat") -Raw
 foreach ($expected in @(
     'TestResults\TextureDebug',
-    'RIMWORLD_QUICKSTART',
+    'TEXTURE_DEBUG_TARGET',
+    'RIMWORLD_QUICKSTART=%TEXTURE_DEBUG_TARGET%',
+    '-quickstart=%TEXTURE_DEBUG_TARGET%',
+    'if not defined BIOME set "BIOME=CoolTemperate"',
+    'AMJWarmTemperateTerrainQuickstart',
+    'AMJCoolTemperateTerrainQuickstart',
+    'AMJSubalpineTerrainQuickstart',
+    'AMJAlpineTerrainQuickstart',
     'RimWorld will stay open until you close it manually',
     'Prepare-EnvironmentRuntimeTestSaveData.ps1'
 )) {
     if (-not $textureDebugBatch.Contains($expected)) {
-        Fail "run-texture-debug.bat is missing expected focused-debug marker: $expected"
+        Fail "run-texture-debug.bat is missing expected Golden Path marker: $expected"
     }
-}
-
-$allowedTextureDebugQuickstarts = @(
-    'AMJWarmTemperateTerrainQuickstart',
-    'AMJCoolTemperateTerrainQuickstart',
-    'AMJSubalpineTerrainQuickstart',
-    'AMJAlpineTerrainQuickstart'
-)
-
-$textureDebugEnvMatches = [regex]::Matches(
-    $textureDebugBatch,
-    '(?im)^\s*set\s+"RIMWORLD_QUICKSTART=([^"]+)"\s*$')
-
-if ($textureDebugEnvMatches.Count -ne 1) {
-    Fail "run-texture-debug.bat must define exactly one RIMWORLD_QUICKSTART target."
-}
-
-$textureDebugCommandMatches = [regex]::Matches(
-    $textureDebugBatch,
-    '(?im)-quickstart=([A-Za-z0-9_]+)')
-
-if ($textureDebugCommandMatches.Count -ne 1) {
-    Fail "run-texture-debug.bat must invoke exactly one -quickstart target."
-}
-
-$textureDebugEnvTarget = $textureDebugEnvMatches[0].Groups[1].Value
-$textureDebugCommandTarget = $textureDebugCommandMatches[0].Groups[1].Value
-
-if ($allowedTextureDebugQuickstarts -notcontains $textureDebugEnvTarget) {
-    Fail "run-texture-debug.bat uses an unknown RIMWORLD_QUICKSTART target: $textureDebugEnvTarget"
-}
-if ($allowedTextureDebugQuickstarts -notcontains $textureDebugCommandTarget) {
-    Fail "run-texture-debug.bat uses an unknown -quickstart target: $textureDebugCommandTarget"
-}
-if ($textureDebugEnvTarget -ne $textureDebugCommandTarget) {
-    Fail "run-texture-debug.bat has mismatched texture-debug targets: env=$textureDebugEnvTarget command=$textureDebugCommandTarget"
 }
 
 foreach ($forbidden in @(
@@ -981,7 +952,8 @@ foreach ($forbidden in @(
     }
 }
 
-Pass "Focused texture-debug runner uses one valid, internally consistent biome target: $textureDebugCommandTarget"
+Pass "Focused texture-debug runner supports all four AMJE Golden Path biome targets"
+
 $runTestsSource = Get-Content -LiteralPath (Join-Path $RepoRoot "run-tests.bat") -Raw
 foreach ($expected in @(
     'Validate-MedievalOverhaulTreeTextures.ps1',
