@@ -93,41 +93,10 @@ if defined CCTO_INSTALLED (
     echo [INFO] CCTO is not installed locally; skipping optional AMJE + CCTO runtime compatibility check.
 )
 
-set "MO_READY="
-if exist "%RIMWORLD_DIR%\..\..\workshop\content\294100\3219596926\About\About.xml" (
-    if exist "%RIMWORLD_DIR%\..\..\workshop\content\294100\2023507013\About\About.xml" (
-        if exist "%RIMWORLD_DIR%\..\..\workshop\content\294100\3210544395\About\About.xml" (
-            set "MO_READY=1"
-        )
-    )
-)
-
-if defined MO_READY (
-    echo.
-    echo Preparing isolated AMJE + Medieval Overhaul tree-texture audit profile...
-    powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1" ^
-        -OutputRoot "%MO_SAVEDATA%" ^
-        -IncludeMedievalOverhaul
-    if errorlevel 1 (
-        set "RESULT=2"
-        goto :report
-    )
-
-    echo.
-    echo Running focused AMJE + Medieval Overhaul tree graphic-state audit...
-    powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-EnvironmentVegetationQuickstarts.ps1" ^
-        -ExePath "%RIMWORLD_EXE%" ^
-        -SaveDataFolder "%MO_SAVEDATA%" ^
-        -ResultDir "%MO_REPORT_DIR%" ^
-        -TimeoutSeconds 360 ^
-        -TreeTextureAuditOnly
-
-    set "RESULT=!ERRORLEVEL!"
-) else (
-    echo.
-    echo [INFO] Medieval Overhaul or one of its required framework mods is not installed in the expected Workshop paths.
-    echo        Skipping optional AMJE + Medieval Overhaul tree-texture audit.
-)
+echo.
+echo [INFO] Medieval Overhaul tree-path validation is handled by the static gate.
+echo        The isolated MO runtime profile is disabled because MO startup does not
+echo        reach Quickstarts reliably in this minimal profile.
 
 :report
 echo.
@@ -144,9 +113,5 @@ echo   %REPORT_DIR%
 if defined CCTO_INSTALLED (
     echo CCTO compatibility reports:
     echo   %CCTO_REPORT_DIR%
-)
-if defined MO_READY (
-    echo Medieval Overhaul tree-texture audit reports:
-    echo   %MO_REPORT_DIR%
 )
 exit /b %RESULT%
