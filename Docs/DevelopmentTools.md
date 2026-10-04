@@ -63,7 +63,9 @@ The current vegetation/weather assertions verify:
 - rainy thunderstorms remain more common than dry thunderstorms in every AMJ biome;
 - Japanese beech keeps its loaded leafless graphic and inherited Vanilla fall-shader behavior;
 - Sudajii, Shirabiso and Haimatsu remain non-leafless evergreen structural plants;
-- Vanilla gentle/hard snow weather remains available with positive snow rates.
+- Vanilla gentle/hard snow weather remains available with positive snow rates;
+- a river-bearing Environment world tile retains the Vanilla River mutator and generates River-tagged local terrain;
+- a coastal Environment world tile retains the Vanilla Coast mutator and generates Ocean-tagged local terrain.
 
 The runtime suite also writes `[AMJ Environment Vegetation]` count/share summaries so balance can be reviewed without manual log counting.
 
