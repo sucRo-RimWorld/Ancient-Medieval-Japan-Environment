@@ -341,6 +341,23 @@ foreach ($expected in @(
 }
 Pass "Custom Shirabiso/Haimatsu visual-size ranges replace inherited FloatRange nodes cleanly"
 
+foreach ($expected in @(
+    '<ThingDef ParentName="DeciduousTreeBase">',
+    '<defName>AMJ_Tree_Beech</defName>',
+    '<leaflessGraphicPath>Things/Plant/TreeMaple_Leafless</leaflessGraphicPath>',
+    '<ThingDef ParentName="TreeBase">',
+    '<defName>AMJ_Tree_Shii</defName>',
+    '<defName>AMJ_Tree_Shirabiso</defName>',
+    '<ThingDef ParentName="BushBase">',
+    '<defName>AMJ_Shrub_Haimatsu</defName>'
+)) {
+    if (-not $wildPlantRaw.Contains($expected)) {
+        Fail "AMJ seasonal-scenery plant profile is missing expected marker: $expected"
+    }
+}
+Pass "AMJ seasonal plant profiles preserve one deciduous representative and three evergreen structural plants"
+
+
 
 $cctoPatchPath = Join-Path $RepoRoot "Patches\Compatibility\CCTO.xml"
 if (-not (Test-Path -LiteralPath $cctoPatchPath)) {
@@ -565,6 +582,10 @@ foreach ($expected in @(
     'AddWeatherAssertions',
     'ExpectedWeatherCommonality',
     '"[AMJ Environment Weather] biome="',
+    'AddSeasonalSceneryAssertions',
+    'Japanese beech has a loaded leafless graphic',
+    '_FallBehaviorEnabled',
+    'Vanilla snow weather remains available for seasonal scenery',
     'CctoIsActive()',
     'ModLister.GetActiveModWithIdentifier',
     'AddCctoCompatibilityAssertions',
