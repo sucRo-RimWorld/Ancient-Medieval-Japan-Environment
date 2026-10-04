@@ -1,0 +1,25 @@
+# AMJE Golden Paths
+
+A **Golden Path** is the repository's known-good, repeatable procedure for work that has already reached a verified successful result.
+
+## Completion rule
+
+When a task moves from failing/unknown to a verified PASS, do not immediately move on.
+
+Before the task is considered complete, perform a Golden Path capture check:
+
+1. identify the exact sequence that produced the successful result;
+2. preserve that sequence in repository documentation when it is reusable;
+3. automate every deterministic step that can reasonably be automated;
+4. add regression checks for the failure classes discovered during the work;
+5. leave only genuinely subjective checks—visual quality, feel, readability, artistic judgment—as manual steps;
+6. link the procedure from the owning design/tooling documentation;
+7. update the Golden Path whenever the successful workflow changes.
+
+A one-off trivial text edit with no reusable procedure can be marked N/A. A workflow involving debugging, generated assets, binary transfer, build/test sequencing, runtime setup, release steps, or repeated manual commands is **not** N/A.
+
+"Worked once" is not a stable completion state. The goal is **worked once → documented → automated where deterministic → regression-locked**.
+
+## Current Golden Paths
+
+- [Texture Asset Golden Path](TextureAssetPipeline.md) — production PNG validation/install, Def-switch order, automated gate, and correct-biome runtime review for ENV-010 art.
