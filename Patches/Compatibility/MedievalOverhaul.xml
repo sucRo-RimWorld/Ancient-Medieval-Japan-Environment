@@ -3,32 +3,38 @@
   <!--
     MO is the standard AMJ coexistence target. Keep Dark Forest as an MO-owned
     biome and only align its ordinary natural-soil ladder with Environment.
+    MayRequire is placed on a child operation inside a sequence so the patch
+    is skipped cleanly when Medieval Overhaul is not active.
   -->
-  <Operation Class="PatchOperationReplace" MayRequire="DankPyon.Medieval.Overhaul">
-    <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]/terrainsByFertility</xpath>
-    <value>
-      <terrainsByFertility>
-        <li>
-          <terrain>AMJ_ThinSoil</terrain>
-          <min>-999</min>
-          <max>0.40</max>
-        </li>
-        <li>
-          <terrain>Gravel</terrain>
-          <min>0.40</min>
-          <max>0.60</max>
-        </li>
-        <li>
-          <terrain>Soil</terrain>
-          <min>0.60</min>
-          <max>0.90</max>
-        </li>
-        <li>
-          <terrain>SoilRich</terrain>
-          <min>0.90</min>
-          <max>999</max>
-        </li>
-      </terrainsByFertility>
-    </value>
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <li Class="PatchOperationReplace" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]/terrainsByFertility</xpath>
+        <value>
+          <terrainsByFertility>
+            <li>
+              <terrain>AMJ_ThinSoil</terrain>
+              <min>-999</min>
+              <max>0.40</max>
+            </li>
+            <li>
+              <terrain>Gravel</terrain>
+              <min>0.40</min>
+              <max>0.60</max>
+            </li>
+            <li>
+              <terrain>Soil</terrain>
+              <min>0.60</min>
+              <max>0.90</max>
+            </li>
+            <li>
+              <terrain>SoilRich</terrain>
+              <min>0.90</min>
+              <max>999</max>
+            </li>
+          </terrainsByFertility>
+        </value>
+      </li>
+    </operations>
   </Operation>
 </Patch>
