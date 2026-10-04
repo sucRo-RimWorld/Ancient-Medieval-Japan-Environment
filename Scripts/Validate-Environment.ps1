@@ -763,6 +763,76 @@ if (Test-Path $quickstartsRoot) {
 
 
 
+$publicDocs = @(
+    "README.md",
+    "Docs\WorkshopDescription.md",
+    "Docs\SteamWorkshopDescription-ja.txt",
+    "Docs\SteamWorkshopDescription.txt"
+)
+
+foreach ($relative in $publicDocs) {
+    $path = Join-Path $RepoRoot $relative
+    if (-not (Test-Path -LiteralPath $path)) {
+        Fail "Public description source is missing: $relative"
+    }
+}
+
+$readmeRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "README.md") -Raw -Encoding UTF8
+foreach ($expected in @(
+    'RimWorld 1.6',
+    'Alpha',
+    'Ancient & Medieval Japan Core is not required',
+    'Crop Cold Tolerance Overhaul is optional',
+    'Use a new game',
+    'Removing the mod from a save'
+)) {
+    if (-not $readmeRaw.Contains($expected)) {
+        Fail "README is missing required public-positioning marker: $expected"
+    }
+}
+
+$workshopJaPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription-ja.txt"
+$workshopEnPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription.txt"
+$workshopJaRaw = Get-Content -LiteralPath $workshopJaPath -Raw -Encoding UTF8
+$workshopEnRaw = Get-Content -LiteralPath $workshopEnPath -Raw -Encoding UTF8
+
+if ([System.Text.Encoding]::UTF8.GetByteCount($workshopJaRaw) -gt 8000) {
+    Fail "Japanese Workshop description exceeds 8,000 UTF-8 bytes."
+}
+if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
+    Fail "English Workshop description exceeds 8,000 UTF-8 bytes."
+}
+
+foreach ($pair in @(
+    @($workshopJaRaw, '現在はAlphaです。', 'Japanese Workshop Alpha stage'),
+    @($workshopJaRaw, 'Ancient & Medieval Japan Coreは不要です。', 'Japanese Workshop Core independence'),
+    @($workshopJaRaw, 'CCTOは任意です。', 'Japanese Workshop CCTO optionality'),
+    @($workshopEnRaw, 'Currently Alpha.', 'English Workshop Alpha stage'),
+    @($workshopEnRaw, 'Ancient & Medieval Japan Core is not required.', 'English Workshop Core independence'),
+    @($workshopEnRaw, 'Crop Cold Tolerance Overhaul (CCTO) is optional.', 'English Workshop CCTO optionality')
+)) {
+    if (-not $pair[0].Contains($pair[1])) {
+        Fail "$($pair[2]) marker is missing."
+    }
+}
+
+$aboutPublicRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml") -Raw -Encoding UTF8
+if ($aboutPublicRaw.Contains('Development build')) {
+    Fail "About.xml still describes AMJE as a Development build."
+}
+foreach ($expected in @(
+    '<description>Alpha.',
+    'Ancient &amp; Medieval Japan Core is not required.',
+    'Crop Cold Tolerance Overhaul (CCTO) is optional',
+    'A new game is recommended',
+    'Removing this mod from saves'
+)) {
+    if (-not $aboutPublicRaw.Contains($expected)) {
+        Fail "About.xml is missing required public-positioning marker: $expected"
+    }
+}
+Pass "README / Workshop / About public-positioning sources are present and size-safe"
+
 Write-Host ""
 Write-Host "[OK] AMJ Environment static validation passed"
 exit 0
