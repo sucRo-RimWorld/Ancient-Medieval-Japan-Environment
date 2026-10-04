@@ -709,6 +709,7 @@ foreach ($expected in @(
     'all terrain scatter graphics resolve non-BadTex textures',
     'BadRenderMaterialDiagnostics',
     '[AMJ Environment BadRenderMaterial]',
+    'System.Environment.GetEnvironmentVariable',
     'MapDrawLayer',
     'GetSubMesh',
     'map render pipeline emitted no BadTex submesh materials',
