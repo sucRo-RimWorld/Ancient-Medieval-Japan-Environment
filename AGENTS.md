@@ -63,6 +63,14 @@ The test harness must capture an isolated runtime log and fail the overall test 
 
 Any new RimWorld runtime-test harness added to this repository must include this mod-origin ERROR gate from the start. Static-only validation does not fabricate a runtime-log result; add the gate when runtime automation is introduced.
 
+## Historical description audit (AMJ common)
+
+Follow the shared policy in Ancient-Medieval-Japan-Core `Docs/HistoricalDescriptionGuidelines.md` whenever AMJE uses, retextures, selects, patches, or localizes Vanilla / Medieval Overhaul items, plants, animals, or comparable content.
+
+Inherited Vanilla/MO descriptions must be audited from the perspective of ancient/medieval Japan and rewritten when they are anachronistic, culturally mismatched, misleading, overly modern, or otherwise unsuitable. AMJE-authored descriptions should include supported historical facts and, where supportable, a meaningful difference from modern Japan, modern use, or modern distribution.
+
+Historical description text is Japanese-first: draft and review Japanese first, obtain author approval, then translate only the approved Japanese text into English. Preserve research/source rationale in durable documentation.
+
 ## Public mod descriptions
 
 Use the CCTO-based shared [mod description guidelines](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md) when writing or updating public descriptions. Include save compatibility in every mod description, stating addition/removal conditions accurately for the mod's implementation. Keep README, Workshop English/Japanese BBCode, and About.xml consistent; refine the shared baseline as presentation improves.
