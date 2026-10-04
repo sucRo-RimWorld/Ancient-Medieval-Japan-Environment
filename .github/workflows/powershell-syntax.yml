@@ -4,10 +4,12 @@ on:
   push:
     paths:
       - '**/*.ps1'
+      - 'run-tests.bat'
       - '.github/workflows/powershell-syntax.yml'
   pull_request:
     paths:
       - '**/*.ps1'
+      - 'run-tests.bat'
       - '.github/workflows/powershell-syntax.yml'
 
 jobs:
@@ -18,30 +20,6 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Parse PowerShell scripts
+      - name: Run repository PowerShell syntax preflight
         shell: pwsh
-        run: |
-          $failed = $false
-
-          Get-ChildItem -Path . -Recurse -File -Filter '*.ps1' | ForEach-Object {
-              $tokens = $null
-              $errors = $null
-
-              [System.Management.Automation.Language.Parser]::ParseFile(
-                  $_.FullName,
-                  [ref]$tokens,
-                  [ref]$errors) | Out-Null
-
-              foreach ($parseError in $errors) {
-                  $line = $parseError.Extent.StartLineNumber
-                  $column = $parseError.Extent.StartColumnNumber
-                  Write-Host "::error file=$($_.FullName),line=$line,col=$column::$($parseError.Message)"
-                  $failed = $true
-              }
-          }
-
-          if ($failed) {
-              throw 'PowerShell parser errors were found.'
-          }
-
-          Write-Host '[OK] All PowerShell scripts parsed successfully.'
+        run: ./Scripts/Validate-PowerShellSyntax.ps1

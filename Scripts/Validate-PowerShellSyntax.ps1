@@ -1,9 +1,11 @@
-﻿param(
-    [string]$RepoRoot = (Split-Path -Parent $PSScriptRoot)
-)
-
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 $failed = $false
+
+$RepoRoot = Split-Path -Parent $PSScriptRoot
+if ([string]::IsNullOrWhiteSpace($RepoRoot) -or -not (Test-Path -LiteralPath $RepoRoot -PathType Container)) {
+    Write-Host "[ERROR] Could not resolve repository root from script location: $PSScriptRoot" -ForegroundColor Red
+    exit 1
+}
 
 Get-ChildItem -LiteralPath $RepoRoot -Filter "*.ps1" -Recurse -File |
     Where-Object { $_.FullName -notmatch "\\TestResults\\" } |
