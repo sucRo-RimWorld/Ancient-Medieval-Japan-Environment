@@ -185,7 +185,24 @@ Implementation commits: `c84eaf9549c21c644b3da21eed4d5558c7f8ce4c`, `3e973f5f5b5
 
 **Compatibility decision:** the four AMJ biomes are baseline vegetation bands, not exclusive replacements. **MO is a standard AMJ coexistence target**, not merely another optional biome mod: Environment stays technically loadable without MO, but normal AMJ play is expected to include MO. MO-owned specialized natural biomes such as Dark Forest should therefore remain available through normal BiomeWorker competition where their climate rules fit. A brief attempted score increase that would have forced AMJ ownership over MO Dark Forest was reverted. Coexistence implementation commit: `3e5dedf94743baaea7248f0073882cde0a7ddf9f`; validator restore: `7ff5ad1d637f8e5b9e4f6af790466359b1331065`.
 
-**Next action:** open one map in each practical AMJ biome (WarmTemperate, CoolTemperate, Subalpine, and Alpine if a reachable tile exists) to catch missing Def references or map-generation issues. After that smoke gate, proceed to the planned low-fertility natural terrain pass before Japan-specific wild-plant/weather content.
+**Natural-soil prerequisite:** complete. ENV-004 is locked for Alpha, so ENV-003 has moved into Japan-specific wild vegetation.
+
+**Japan-specific structural vegetation implementation:** added a deliberately small four-PlantDef set using temporary Vanilla graphics:
+- `AMJ_Tree_Shii` — warm-temperate evergreen broadleaf dominant;
+- `AMJ_Tree_Beech` — cool-temperate deciduous broadleaf dominant;
+- `AMJ_Tree_Shirabiso` — subalpine evergreen conifer dominant;
+- `AMJ_Shrub_Haimatsu` — alpine dwarf-pine scrub dominant.
+
+Existing Vanilla oak/maple/birch/pine/bamboo remain at lower commonality as secondary/placeholder components rather than being removed. No new food/medicine/fiber item types were added; the trees yield ordinary wood, while haimatsu is non-timber low scrub. Final graphics remain deferred.
+
+Implementation commits:
+- PlantDefs: `00619f365ffbd4e14d88f3956a5af19cbe1ed60f`;
+- Japanese localization: `f71899c7afdf3bd89456f175f0a1e5f651076652`;
+- biome commonality: `858009e67afd6607652559cdf698d72bf1875fc3`;
+- static validator: `582478b9a6f13ab4fc71e546cdaf600bad6c997c`;
+- design source of truth: `258fd93af61570d9ae0082ef494993969deabf3d`.
+
+**Next action:** run the local build/static gate, then use the four fixed-biome Quicktests to verify that the new structural plants generate without errors and produce the intended warm/cool/subalpine/alpine visual progression. Check especially whether haimatsu creates excessive movement blockage and whether subalpine/alpine timber availability remains suitably limited. Final plant images remain deferred until this runtime gate passes.
 
 
 ### ENV-004 — Low-fertility natural terrain
