@@ -1489,6 +1489,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     !string.Equals(
                         texture.name,
                         "BadTex",
+                        StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(
+                        texture.name,
+                        "BadTexture",
                         StringComparison.OrdinalIgnoreCase);
             }
             catch (Exception ex)
