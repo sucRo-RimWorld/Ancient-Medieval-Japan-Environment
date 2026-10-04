@@ -695,6 +695,7 @@ foreach ($expected in @(
     '[AMJ Environment TreeTextureAudit]',
     'leaflessSnowOverlayGraphicPath',
     'immatureSnowOverlayGraphicPath',
+    'ModsConfig.BiotechActive',
     'Graphic_Collection',
     'HasLoadedNonBadTexture',
     'BaseContent.BadTex',
