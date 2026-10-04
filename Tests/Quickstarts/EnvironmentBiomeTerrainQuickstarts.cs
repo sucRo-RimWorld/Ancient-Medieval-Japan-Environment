@@ -53,10 +53,14 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 material == null
                     ? "<null>"
                     : material.name;
-            string textureName =
-                material == null || material.mainTexture == null
-                    ? "<null>"
-                    : material.mainTexture.name;
+            string textureName = "<no _MainTex>";
+            if (material != null && material.HasProperty("_MainTex"))
+            {
+                textureName =
+                    material.mainTexture == null
+                        ? "<null>"
+                        : material.mainTexture.name;
+            }
 
             int key =
                 0x4A4D4500 ^
@@ -81,6 +85,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
             if (material == BaseContent.BadMat)
             {
                 return true;
+            }
+
+            if (!material.HasProperty("_MainTex"))
+            {
+                return false;
             }
 
             if (material.mainTexture == null)
