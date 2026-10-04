@@ -757,5 +757,14 @@ The validator has now been structurally repaired so it has a single terminal `ex
 
 This repair was deliberately staged on PR #1 rather than written directly to main. The `PowerShell syntax validation` workflow completed successfully on the PR head, and the PR was then squash-merged to main. Merge commit: `5d0a6a3167275d7323da76b1d4b45c692f168d66`.
 
-**Next action:** pull and rerun `run-tests.bat`. The first stage should now be `Checking PowerShell syntax...` and should fail fast with a concise file/line/column message if any future parser corruption exists. If it passes, resume the CoolTemperate beech texture-debug check.
+The first local run of the new syntax preflight exposed a Windows command-line quoting defect rather than a parser defect: `run-tests.bat` passed `%~dp0` as `-RepoRoot "%~dp0"`; because `%~dp0` ends with a backslash, PowerShell received a path with a stray trailing quote and `Get-ChildItem` failed with `Path contains invalid characters`.
+
+The prevention design has been simplified so this argument cannot fail:
+- `Scripts/Validate-PowerShellSyntax.ps1` no longer accepts `RepoRoot`; it derives the repository root only from its own `$PSScriptRoot`;
+- `run-tests.bat` invokes the preflight with no path argument;
+- the GitHub workflow now executes that exact repository preflight script instead of maintaining a second inline parser implementation.
+
+This was staged through PR #2. The actual repository preflight completed successfully in GitHub Actions before merge. Squash merge commit: `4bc33424ed008706aea6c616b7b7956e781004a7`.
+
+**Next action:** pull and rerun `run-tests.bat`. The syntax preflight should now be self-contained and independent of Windows trailing-backslash quoting. If it passes, resume the CoolTemperate Japanese beech texture-debug check.
 
