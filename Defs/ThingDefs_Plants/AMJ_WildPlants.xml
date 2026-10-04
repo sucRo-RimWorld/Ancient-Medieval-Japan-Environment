@@ -35,7 +35,7 @@
     <label>Japanese beech</label>
     <description>A large deciduous broadleaf tree characteristic of Japan-like cool-temperate forests and mountain slopes.</description>
     <graphicData>
-      <texPath>Things/Plant/TreeMaple</texPath>
+      <texPath>Things/Plant/AMJ/Beech</texPath>
       <graphicClass>Graphic_Random</graphicClass>
       <shadowData>
         <volume>(0.16, 0.33, 0.12)</volume>
@@ -48,7 +48,7 @@
     <plant>
       <growDays>30</growDays>
       <minGrowthTemperature>0</minGrowthTemperature>
-      <leaflessGraphicPath>Things/Plant/TreeMaple_Leafless</leaflessGraphicPath>
+      <leaflessGraphicPath>Things/Plant/AMJ/Beech_Leafless</leaflessGraphicPath>
       <harvestWork>950</harvestWork>
       <harvestYield>40</harvestYield>
       <wildClusterWeight>38</wildClusterWeight>
