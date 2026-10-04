@@ -439,7 +439,18 @@ BadTex runtime coverage added:
 - plant graphic assertions now resolve the live `Graphic.MatSingle.mainTexture` for Sudajii, Japanese beech leafy/leafless, Shirabiso and Haimatsu and require a non-null, non-`BaseContent.BadTex`/ERRORTEX texture: `37c89ea3f862d5d27dba5b8fb4d9eaa681fe6f0c`;
 - static validator locks those runtime assertions in place: `3056060f3188d0f17930c5bcb4bf81dc72104fd0`.
 
-**Next action:** rerun `run-tests.bat` and `run-runtime-tests.bat` with the new BadTex assertions. If both pass, visually inspect Sudajii scale/silhouette in WarmTemperate; then retain the asset and proceed to the leafy/leafless Japanese beech pair.
+Follow-up after the BadTex gate passed locally: the user's normal-play `Player.log` did not emit any standard missing-texture/BadTex diagnostic for the visible question-mark tree, so the audit scope is being widened beyond AMJE-owned plants.
+
+Tree-audit extension:
+- all loaded `ThingDef` trees now have their base graphic plus configured leafless/immature/polluted/snow-overlay states resolved and checked for null/BadTex/ERRORTEX; `Graphic_Collection` variants are inspected individually: `bbcf4ae47066d828fa59dc0b1f84de84798823f2`;
+- isolated runtime profiles can now include Medieval Overhaul with its required Vanilla Expanded Framework and Processor Framework dependencies: `f302316f7f14ecd3a73d9343d68d0e83a1216cfa`;
+- focused tree-texture audit runner mode: `4e2c06b2071fd6d3e237ffed5bb3dfd56ee4369c`;
+- `run-runtime-tests.bat` automatically runs the optional MO profile when MO and both required framework Workshop mods are installed: `7985593955576535ea4b9eb251facb1a057ddccc`, with CCTO failure preservation fix `8a16eb847904458b45835bb8919de9ca393c0326`;
+- static validator locks the expanded audit harness in place: `11c69e2cec9c873d508e7d1d903f14d37aef86da`.
+
+**Verification status:** previous AMJE-only/CCTO BadTex gates passed locally; the newly expanded all-tree + Medieval Overhaul audit is implemented but has not yet been rerun locally.
+
+**Next action:** rerun `run-tests.bat` and `run-runtime-tests.bat`. Inspect the optional `Reports-MO` result or any `[AMJ Environment TreeTextureAudit] BAD` line if the focused MO audit fails. If the expanded audit also passes, identify the visible question-mark object by in-game label/defName because it is likely outside the loaded tree graphic states covered by AMJE/MO.
 
 
 ### ENV-004 — Low-fertility natural terrain
