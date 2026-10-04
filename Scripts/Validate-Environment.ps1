@@ -329,6 +329,8 @@ if (-not (Test-Path $moTerrainPatchPath)) {
 $moTerrainPatch = Get-Content -LiteralPath $moTerrainPatchPath -Raw
 foreach ($expected in @(
     'MayRequire="DankPyon.Medieval.Overhaul"',
+    'PatchOperationSequence',
+    '<li Class="PatchOperationReplace" MayRequire="DankPyon.Medieval.Overhaul">',
     'DankPyon_DarkForest',
     'AMJ_ThinSoil',
     '<max>0.40</max>',
@@ -413,7 +415,10 @@ foreach ($expected in @(
     'forcedBiome',
     'targetBiome.Worker.GetScore',
     'proxy.PrimaryBiome = targetBiome;',
-    'FindColdestAlpineProxy',
+    'FindClosestClimateProxy',
+    'TargetRepresentativeTemperature',
+    'forcedClimate',
+    'proxy.temperature = forcedTemperature;',
     'Find.WorldObjects.AnyWorldObjectAt(tile)',
     'AMJ-Environment-Terrain-Alpha',
     'QuickstartVerification Verify()',
