@@ -710,6 +710,7 @@ foreach ($expected in @(
     'BadRenderMaterialDiagnostics',
     '[AMJ Environment BadRenderMaterial]',
     'System.Environment.GetEnvironmentVariable',
+    'material.HasProperty("_MainTex")',
     'MapDrawLayer',
     'GetSubMesh',
     'map render pipeline emitted no BadTex submesh materials',
