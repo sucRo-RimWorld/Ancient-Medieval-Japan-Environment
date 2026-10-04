@@ -129,6 +129,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             AddWeatherAssertions(verification, map == null ? null : map.Biome);
             AddSeasonalSceneryAssertions(verification);
             AddWildlifeAssertions(verification, map == null ? null : map.Biome);
+            AddLivePlantTextureAssertions(verification, map);
 
             if (TargetBiomeDefName == "AMJ_WarmTemperateForest")
             {
@@ -426,6 +427,182 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         gentle.snowRate > 0f &&
                         hard.snowRate > 0f;
                 });
+        }
+
+        private static void AddLivePlantTextureAssertions(
+            QuickstartVerification verification,
+            Map map)
+        {
+            int scannedPlants = 0;
+            int badPlants = 0;
+            string failures = "";
+
+            if (map != null)
+            {
+                foreach (Thing thing in map.listerThings.AllThings)
+                {
+                    Plant plant = thing as Plant;
+                    if (plant == null || plant.Destroyed)
+                    {
+                        continue;
+                    }
+
+                    scannedPlants++;
+
+                    Graphic graphic = null;
+                    try
+                    {
+                        graphic = plant.Graphic;
+                        UnityEngine.Material material =
+                            graphic == null
+                                ? null
+                                : graphic.MatAt(plant.Rotation, plant);
+
+                        if (!MaterialHasNonBadTexture(material))
+                        {
+                            badPlants++;
+                            AppendLivePlantTextureFailure(
+                                plant,
+                                "live",
+                                graphic,
+                                material,
+                                ref failures);
+                        }
+
+                        Graphic snowGraphic = plant.SnowOverlayGraphic;
+                        if (snowGraphic != null)
+                        {
+                            UnityEngine.Material snowMaterial =
+                                snowGraphic.MatSingleFor(plant);
+
+                            if (!MaterialHasNonBadTexture(snowMaterial))
+                            {
+                                badPlants++;
+                                AppendLivePlantTextureFailure(
+                                    plant,
+                                    "snowOverlay",
+                                    snowGraphic,
+                                    snowMaterial,
+                                    ref failures);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        badPlants++;
+                        string failure =
+                            plant.def.defName +
+                            ":exception=" +
+                            ex.GetType().Name +
+                            ":" +
+                            ex.Message;
+
+                        if (!string.IsNullOrEmpty(failures))
+                        {
+                            failures += "; ";
+                        }
+                        failures += failure;
+
+                        Log.Warning(
+                            "[AMJ Environment LivePlantTextureAudit] EXCEPTION" +
+                            " def=" + plant.def.defName +
+                            " label=" + plant.LabelNoCount +
+                            " pos=" + plant.Position +
+                            " graphic=" +
+                                (graphic == null
+                                    ? "<null>"
+                                    : graphic.GetType().FullName) +
+                            " path=" +
+                                (graphic == null || graphic.path == null
+                                    ? "<null>"
+                                    : graphic.path) +
+                            " exception=" + ex.GetType().Name +
+                            ": " + ex.Message);
+                    }
+                }
+            }
+
+            Log.Message(
+                "[AMJ Environment LivePlantTextureAudit] scannedPlants=" +
+                scannedPlants +
+                " badStates=" +
+                badPlants +
+                " failures={" +
+                failures +
+                "}");
+
+            verification.Assert(
+                "all live map plant graphics resolve non-BadTex textures",
+                delegate
+                {
+                    return map != null &&
+                        scannedPlants > 0 &&
+                        badPlants == 0;
+                });
+        }
+
+        private static void AppendLivePlantTextureFailure(
+            Plant plant,
+            string state,
+            Graphic graphic,
+            UnityEngine.Material material,
+            ref string failures)
+        {
+            string path =
+                graphic == null || graphic.path == null
+                    ? "<null>"
+                    : graphic.path;
+            string texture =
+                material == null || material.mainTexture == null
+                    ? "<null>"
+                    : material.mainTexture.name;
+
+            if (!string.IsNullOrEmpty(failures))
+            {
+                failures += "; ";
+            }
+
+            failures +=
+                plant.def.defName +
+                ":" +
+                state +
+                "=" +
+                path +
+                " texture=" +
+                texture;
+
+            Log.Warning(
+                "[AMJ Environment LivePlantTextureAudit] BAD" +
+                " def=" + plant.def.defName +
+                " label=" + plant.LabelNoCount +
+                " state=" + state +
+                " pos=" + plant.Position +
+                " graphic=" +
+                    (graphic == null
+                        ? "<null>"
+                        : graphic.GetType().FullName) +
+                " path=" + path +
+                " texture=" + texture);
+        }
+
+        private static bool MaterialHasNonBadTexture(
+            UnityEngine.Material material)
+        {
+            if (material == null || material.mainTexture == null)
+            {
+                return false;
+            }
+
+            UnityEngine.Texture texture = material.mainTexture;
+            return texture != BaseContent.BadTex &&
+                !string.Equals(
+                    texture.name,
+                    "ERRORTEX",
+                    StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(
+                    texture.name,
+                    "BadTex",
+                    StringComparison.OrdinalIgnoreCase);
         }
 
         private static void AddTreeTextureAuditAssertions(
