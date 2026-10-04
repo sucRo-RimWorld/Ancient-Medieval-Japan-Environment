@@ -766,5 +766,7 @@ The prevention design has been simplified so this argument cannot fail:
 
 This was staged through PR #2. The actual repository preflight completed successfully in GitHub Actions before merge. Squash merge commit: `4bc33424ed008706aea6c616b7b7956e781004a7`.
 
-**Next action:** pull and rerun `run-tests.bat`. The syntax preflight should now be self-contained and independent of Windows trailing-backslash quoting. If it passes, resume the CoolTemperate Japanese beech texture-debug check.
+The author reran `run-tests.bat` after the self-rooting preflight fix and confirmed it passes. The PowerShell syntax guard, build, AMJE static validation, and MO static tree-texture audit are therefore clean in the current main state.
+
+**Next action:** resume the focused Japanese beech visual check with `run-texture-debug.bat`. The runner currently targets CoolTemperate so `AMJ_Tree_Beech` should appear naturally. Inspect the leafy sprite first; if accepted, check the leafless seasonal state next.
 
