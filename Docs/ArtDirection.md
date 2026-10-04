@@ -85,10 +85,21 @@ Visual role:
 - visually heavier/darker than Japanese beech;
 - trunk/branch structure should remain readable beneath the crown.
 
+Accepted ENV-010 production treatment:
+- use the strongest simplified/deformed **C-direction** from the in-game comparison;
+- foliage masses are broad and chunky, with fewer internal clusters than the earlier Sudajii pass;
+- use a clearly thicker, near-black outer outline so the tree reads at the same visual weight as the current AMJ crop sprites;
+- remove the small green ground/grass ring entirely; the sprite must end at the trunk/root silhouette on transparent background;
+- keep the hue relationships from the accepted comparison, but lower foliage saturation by roughly one visual step so the tree sits naturally against RimWorld's brown/grey terrain and existing muted vegetation;
+- especially suppress the brightest yellow-green highlights and the orange saturation of the trunk while preserving value contrast;
+- do not reduce contrast by thinning the outline or flattening all shading; simplification comes from larger shape masses and fewer color steps.
+
 Avoid:
 - European oak silhouette;
 - tropical palm appearance;
-- highly symmetric ornamental tree shape.
+- highly symmetric ornamental tree shape;
+- decorative turf, grass clumps, or a circular ground base baked into the sprite;
+- high-saturation lime highlights that make the tree appear pasted on top of the terrain.
 
 ### Japanese beech — leafy
 
