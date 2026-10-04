@@ -848,3 +848,62 @@ The existence of working Vanilla local rivers does not change the Waterfall deci
 
 A true or pseudo-waterfall would require additional local-map logic beyond the standard River mutator and is not needed for the Alpha environment loop. It remains deferred until there is a concrete gameplay/visual reason to add it.
 
+## 14. Functional wildlife proxy baseline
+
+### 14.1 Responsibility boundary
+
+Environment does not become a Japan-animal content mod.
+
+The four AMJ-owned BiomeDefs still need functional `wildAnimals` pools so generated maps are not empty and ordinary RimWorld wildlife systems continue to work. Alpha therefore uses a **small curated set of Vanilla PawnKindDefs as gameplay proxies**, not as claims that the literal RimWorld species shown on screen are historically exact Japanese taxa.
+
+Japan-specific animal Defs, retextures, subspecies, hunting products or animal-production loops belong in a dedicated content/resource feature or another owning mod if they later become worthwhile.
+
+### 14.2 Research basis and proxy rule
+
+Environment Ministry distribution material identifies native/widely distributed Japanese mammal groups including sika deer, wild boar, foxes, bears and hares. Raccoon, by contrast, is treated by Japan's invasive-species policy as an introduced invasive animal.
+
+References:
+- https://www.env.go.jp/press/files/jp/6252.html
+- https://www.biodic.go.jp/kiso/atlas/pdf/3.mammals.pdf
+- https://www.env.go.jp/nature/intro/2outline/iaslist.html
+
+Alpha interpretation:
+- `Deer` is a functional proxy for Japanese deer / sika-deer ecology;
+- `WildBoar` is a functional proxy for Japanese wild boar;
+- `Fox_Red` is a functional proxy for native Japanese fox populations;
+- `Bear_Grizzly` is only a large-bear gameplay proxy and must not be read as claiming grizzly bears were literally distributed across medieval Japan;
+- `Wolf_Timber` is a large-canid gameplay proxy for the historical Japanese-wolf niche, not a species-level reconstruction;
+- `Hare` / `Snowhare`, `Squirrel` and `Rat` remain generic small-mammal functional proxies.
+
+Do not add Vanilla `Monkey` merely to represent Japanese macaques: RimWorld's Monkey description/graphic semantics represent a generic curly-tailed tropical monkey and are visually misleading as a macaque stand-in. A future Japan-specific macaque requires its own appropriate Def/art or a compatible external animal mod.
+
+### 14.3 Removed placeholders
+
+The following earlier Vanilla placeholders are excluded from all AMJ biome pools:
+- `Raccoon` — modern introduced/invasive species in Japan;
+- `Elk` — use `Deer` as the gameplay proxy instead;
+- `Ibex` — not an appropriate Japan-alpine proxy;
+- `Fox_Arctic` — use `Fox_Red` as the Japan-like proxy;
+- `Lynx` — no broad Japanese medieval counterpart suitable for these generic biome pools.
+
+### 14.4 Accepted Alpha pools
+
+| Biome | Vanilla wildlife proxies |
+|---|---|
+| Warm-temperate | Hare, Squirrel, Rat, Deer, WildBoar, Fox_Red, Wolf_Timber, Bear_Grizzly |
+| Cool-temperate | Hare, Squirrel, Rat, Deer, WildBoar, Fox_Red, Wolf_Timber, Bear_Grizzly |
+| Subalpine | Hare, Snowhare, Deer, WildBoar, Fox_Red, Wolf_Timber, Bear_Grizzly |
+| Alpine | Hare, Snowhare, Deer, Fox_Red, Wolf_Timber |
+
+The exact commonality numbers remain ordinary Alpha gameplay values in `AMJ_Biomes.xml`. They are not historical population-density estimates.
+
+### 14.5 Automated validation
+
+Static validation requires:
+- none of the five retired placeholders appears in any AMJ biome;
+- every accepted proxy for each biome is present with positive commonality.
+
+The fixed-biome runtime Quickstarts repeat the same check through the loaded `BiomeDef.CommonalityOfAnimal` API. This catches Patch/Def interactions that static XML inspection cannot.
+
+The combined Environment runtime gate executed after these assertions were introduced and was later reported PASS by the author during the ENV-008 verification cycle. Because the same Quickstart source already contained the wildlife assertions at that time, the Alpha proxy set is accepted without a separate manual wildlife smoke test.
+
