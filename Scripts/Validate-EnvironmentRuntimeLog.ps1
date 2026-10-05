@@ -1,6 +1,8 @@
 param(
     [Parameter(Mandatory = $true)]
-    [string]$LogPath
+    [string]$LogPath,
+
+    [string]$AdditionalModIdPrefixes = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -15,7 +17,14 @@ if (-not (Test-Path -LiteralPath $LogPath)) {
 }
 
 $text = Get-Content -LiteralPath $LogPath -Raw -Encoding UTF8
-$prefix = "sucro.ancientmedievaljapan.environment"
+$prefixes = New-Object System.Collections.Generic.List[string]
+$prefixes.Add("sucro.ancientmedievaljapan.environment")
+foreach ($value in ($AdditionalModIdPrefixes -split ';')) {
+    $trimmed = $value.Trim()
+    if (-not [string]::IsNullOrWhiteSpace($trimmed)) {
+        $prefixes.Add($trimmed)
+    }
+}
 $errors = New-Object System.Collections.Generic.List[string]
 
 $blocks = [regex]::Matches(
@@ -33,18 +42,22 @@ foreach ($match in $blocks) {
     $channelMatch = [regex]::Match($block, '(?mi)^Channel:\s*Mod\.([^\r\n]+)')
     $owned = $false
 
-    if ($idMatch.Success -and
-        $idMatch.Groups[1].Value.Trim().StartsWith(
-            $prefix,
-            [System.StringComparison]::OrdinalIgnoreCase)) {
-        $owned = $true
-    }
+    foreach ($prefix in $prefixes) {
+        if ($idMatch.Success -and
+            $idMatch.Groups[1].Value.Trim().StartsWith(
+                $prefix,
+                [System.StringComparison]::OrdinalIgnoreCase)) {
+            $owned = $true
+            break
+        }
 
-    if (-not $owned -and $channelMatch.Success -and
-        $channelMatch.Groups[1].Value.Trim().StartsWith(
-            $prefix,
-            [System.StringComparison]::OrdinalIgnoreCase)) {
-        $owned = $true
+        if ($channelMatch.Success -and
+            $channelMatch.Groups[1].Value.Trim().StartsWith(
+                $prefix,
+                [System.StringComparison]::OrdinalIgnoreCase)) {
+            $owned = $true
+            break
+        }
     }
 
     if ($owned) {
@@ -78,5 +91,5 @@ if ($errors.Count -gt 0) {
     exit 1
 }
 
-Write-Host "[OK] No Environment-origin runtime ERROR entries were found." -ForegroundColor Green
+Write-Host "[OK] No owned AMJ runtime ERROR entries were found." -ForegroundColor Green
 exit 0
