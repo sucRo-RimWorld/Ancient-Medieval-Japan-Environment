@@ -118,6 +118,15 @@ Follow the AMJ shared Golden Path policy in Ancient-Medieval-Japan-Core `Docs/De
 After a non-trivial task succeeds, especially after debugging or failed attempts, do not move on with only the working implementation. Record the successful reusable procedure in the owning repository, automate deterministic/repetitive steps, and add regression guards for failure modes discovered during the work. For recurring work, completion includes the reusable documented/automated path, not only the one successful result.
 
 `Docs/Coordination.md` remains status/handoff only; the procedure itself must live in durable repository documentation/scripts.
+## Retexture technical implementation rule
+
+For Vanilla / Medieval Overhaul / other prerequisite-asset retextures, also follow the shared Core source of truth `Docs/RetextureImplementationGuidelines.md`.
+
+- Use AMJE-owned unique texPaths with explicit XML/Patch ownership by default; do not rely only on same-name texture shadowing.
+- Treat each plant/tree target as the complete loaded graphic-state family. Audit mature/base, leafless, immature, polluted and snow-overlay states that actually exist.
+- Keep pure retexture changes visual-only and preserve source rendering metadata unless the replacement technically requires a documented rendering adjustment.
+- Guard optional MO patches and validate the final AMJE path against known explicit-path competitors such as ReGrowth/VTE where they touch the same field.
+
 ## Retexture visual-style rule
 
 Tree/plant retextures must follow the canonical shared visual-style rules in `Docs/ArtDirection.md` under **Retexture visual-style rules**, then add only species-specific differences.
