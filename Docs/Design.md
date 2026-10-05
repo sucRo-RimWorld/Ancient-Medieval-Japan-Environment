@@ -318,8 +318,8 @@ Primary calibration crops:
 | Crop | Active-growth minimum | Cold-death threshold | Intended climate signal |
 |---|---:|---:|---|
 | Rice | 10 C | -1 C | warm-season crop; winter growth stops broadly and frost is dangerous |
-| Foxtail millet / Awa | 8 C | -4 C | somewhat more cold-tolerant than rice, but not a winter crop |
-| Japanese barnyard millet / Hie | 5 C | -4 C | longer cool-season tolerance than Awa/rice |
+| Foxtail millet / Awa | 8 C | -3 C | somewhat more cold-tolerant than rice, but not a winter crop |
+| Japanese barnyard millet / Hie | 5 C | -2 C | longer cool-season growth window than Awa/rice, but not especially frost-hardy |
 | Barley | 0 C | -8 C | the main cold-tolerant annual reference |
 
 These values are owned by CCTO/AMJ, not by Environment.
