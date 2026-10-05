@@ -13,6 +13,8 @@ set "CCTO_SAVEDATA=%RESULT_ROOT%\SaveData-CCTO"
 set "CCTO_REPORT_DIR=%RESULT_ROOT%\Reports-CCTO"
 set "MO_SAVEDATA=%RESULT_ROOT%\SaveData-MO"
 set "MO_REPORT_DIR=%RESULT_ROOT%\Reports-MO"
+set "CORE_SAVEDATA=%RESULT_ROOT%\SaveData-Core"
+set "CORE_REPORT_DIR=%RESULT_ROOT%\Reports-Core"
 set "QUICKTEST_DLL=%ROOT%DevQuickstarts\Assemblies\AncientMedievalJapanEnvironment.Quicktests.dll"
 
 call "%ROOT%run-tests.bat" "%RIMWORLD_DIR%"
@@ -93,6 +95,37 @@ if defined CCTO_INSTALLED (
     echo [INFO] CCTO is not installed locally; skipping optional AMJE + CCTO runtime compatibility check.
 )
 
+set "CORE_INSTALLED="
+if exist "%RIMWORLD_DIR%\Mods\AncientMedievalJapanCore\About\About.xml" set "CORE_INSTALLED=1"
+if exist "%RIMWORLD_DIR%\Mods\Ancient-Medieval-Japan-Core\About\About.xml" set "CORE_INSTALLED=1"
+
+if defined CORE_INSTALLED (
+    echo.
+    echo Preparing isolated AMJ Core + Environment gameplay-integration profile...
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1" ^
+        -OutputRoot "%CORE_SAVEDATA%" ^
+        -IncludeCore
+    if errorlevel 1 (
+        set "RESULT=2"
+        goto :report
+    )
+
+    echo.
+    echo Running four AMJ Core + Environment gameplay-contract Quickstarts...
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-EnvironmentVegetationQuickstarts.ps1" ^
+        -ExePath "%RIMWORLD_EXE%" ^
+        -SaveDataFolder "%CORE_SAVEDATA%" ^
+        -ResultDir "%CORE_REPORT_DIR%" ^
+        -TimeoutSeconds 420 ^
+        -CoreIntegrationOnly
+
+    set "RESULT=!ERRORLEVEL!"
+    if not "!RESULT!"=="0" goto :report
+) else (
+    echo.
+    echo [INFO] AMJ Core is not installed in the local RimWorld Mods folder; skipping optional Core + Environment gameplay-integration runtime check.
+)
+
 echo.
 echo [INFO] Medieval Overhaul tree-path validation is handled by the static gate.
 echo        The isolated MO runtime profile is disabled because MO startup does not
@@ -113,5 +146,9 @@ echo   %REPORT_DIR%
 if defined CCTO_INSTALLED (
     echo CCTO compatibility reports:
     echo   %CCTO_REPORT_DIR%
+)
+if defined CORE_INSTALLED (
+    echo Core + Environment gameplay reports:
+    echo   %CORE_REPORT_DIR%
 )
 exit /b %RESULT%
