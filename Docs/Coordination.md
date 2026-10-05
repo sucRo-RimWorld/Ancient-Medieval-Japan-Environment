@@ -966,3 +966,22 @@ repositories to exercise the newer suites; human visual acceptance stays separat
 
 **Procedure:** Core Docs/IntegratedRuntimeTesting.md and
 Scripts/IntegratedRuntimeDesktop/Run-AMJ-IsolatedDesktop.ps1.
+
+### WORK-001 — Desktop Work: hidden runtime gate + retexture precedent audit
+
+**Requested by:** author (2026-10-05 JST)  
+**Owner:** Desktop Work / Testing + ENV-010 compatibility audit  
+**Status:** OPEN
+
+Cross-repo WORK-001 counterpart. Desktop Work should make Environment's目視不要 runtime tests non-interactive while preserving real graphics-path coverage, then audit existing retexture Mods before finalizing the reusable AMJE Vanilla/MO retexture implementation pattern.
+
+Requirements:
+- read Core WORK-001 for the full representative-mod list and audit matrix;
+- `run-runtime-tests.bat` normal automated path must not open a visible RimWorld window;
+- BadTex / atlas / `Graphic.Draw` coverage must retain real rendering; do not solve visibility by disabling the graphics path;
+- keep a separate explicit visual/debug runner for human texture review;
+- inspect existing retexture Mods' exact local files and classify path-shadow, XML patch, framework variation, C# substitution, dependency/load-order and multi-state texture handling;
+- pay special attention to tree/plant multi-state handling relevant to ENV-010: base, leafless, immature, snow overlays, UI icon resolution, conditional MO activation, and conflicts with broad retexture packs such as Vanilla Textures Expanded / Clean Textures;
+- compare precedent with current Environment graphic-path patching and 1-asset-1-owner policy, then update the owning Design/Golden Path only after evidence-based recommendation.
+
+Do not report the hidden runner as complete until it has actually executed the Environment runtime suite and Core+Environment integration gate without a visible game window and without losing owned ERROR/BadTex detection.
