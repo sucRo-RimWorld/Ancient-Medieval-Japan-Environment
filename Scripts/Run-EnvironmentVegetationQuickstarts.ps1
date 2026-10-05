@@ -12,7 +12,9 @@ param(
 
     [switch]$CctoCompatibilityOnly,
 
-    [switch]$TreeTextureAuditOnly
+    [switch]$TreeTextureAuditOnly,
+
+    [switch]$CoreIntegrationOnly
 )
 
 $ErrorActionPreference = "Stop"
@@ -28,8 +30,14 @@ if (-not (Test-Path -LiteralPath $ExePath)) {
 
 New-Item -ItemType Directory -Force -Path $ResultDir | Out-Null
 
-if ($CctoCompatibilityOnly -and $TreeTextureAuditOnly) {
-    Fail "CctoCompatibilityOnly and TreeTextureAuditOnly cannot be used together."
+$modeCount = @(
+    $CctoCompatibilityOnly,
+    $TreeTextureAuditOnly,
+    $CoreIntegrationOnly
+) | Where-Object { $_ } | Measure-Object | Select-Object -ExpandProperty Count
+
+if ($modeCount -gt 1) {
+    Fail "Only one focused runtime mode may be selected at a time."
 }
 
 if ($CctoCompatibilityOnly -or $TreeTextureAuditOnly) {
@@ -152,7 +160,14 @@ foreach ($name in $scenarios) {
         Fail "$name could not prove complete live log capture." 1
     }
 
-    & powershell -NoProfile -ExecutionPolicy Bypass -File $validator -LogPath $log
+    if ($CoreIntegrationOnly) {
+        & powershell -NoProfile -ExecutionPolicy Bypass -File $validator `
+            -LogPath $log `
+            -AdditionalModIdPrefixes "sucro.ancientmedievaljapan.core"
+    }
+    else {
+        & powershell -NoProfile -ExecutionPolicy Bypass -File $validator -LogPath $log
+    }
     if ($LASTEXITCODE -ne 0) {
         exit 1
     }
@@ -166,6 +181,9 @@ if ($CctoCompatibilityOnly) {
 }
 elseif ($TreeTextureAuditOnly) {
     Write-Host "[OK] Loaded tree graphic-state texture audit passed." -ForegroundColor Green
+}
+elseif ($CoreIntegrationOnly) {
+    Write-Host "[OK] AMJ Core + Environment gameplay-contract Quickstarts passed." -ForegroundColor Green
 }
 else {
     Write-Host "[OK] Environment vegetation + river/coast runtime Quickstarts passed." -ForegroundColor Green
