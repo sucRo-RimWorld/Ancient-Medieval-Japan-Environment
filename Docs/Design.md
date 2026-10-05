@@ -791,7 +791,17 @@ AMJでいう**リテクスチャ**は、Environment独自Defの画像制作だ�
 - 所有先が曖昧な場合は、その資産の**主要なゲーム上・景観上の責務を持つMod**を正本とし、ロード順で勝たせる運用はしない。
 - 前提資産をリテクスチャするという理由だけで、Retexture専用Modへ集約しない。複数AMJ Modから横断的に利用され自然な1所有Modを決められない場合、または独立外観パックとして単独導入価値が生じた場合だけ分離を再検討する。
 
-### 11.5.2 変更範囲
+### 11.5.2 実装方式と変更範囲
+
+技術実装・既存リテクスチャMod監査・競合規則は、Coreの共通正本 [`Docs/RetextureImplementationGuidelines.md`](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/RetextureImplementationGuidelines.md) に従う。
+
+Environmentでは特に以下を固定する。
+
+- Environmentが所有するVanilla / MO樹木は、**AMJE固有texPathへ明示的にPatchする方式を標準**とし、元Modと同名のtexture pathを置いてロード順だけで勝たせる方式には依存しない。
+- Vanilla樹木のPatchはEnvironment所有のretexture patchへ分離する。MO樹木はMO package IDでguardしたoptional compatibility/retexture patchへ分離する。
+- `graphicData/texPath`だけでなく、loaded Defに存在する `leaflessGraphicPath` / `immatureGraphicPath` / `pollutedGraphicPath` / snow overlay系等の**実際に使用される全graphic state**を監査する。ArtDirection上の成木/落葉一覧は最低対象であり、総PNG数の固定値ではない。
+- VTE / ReGrowth等が同じDef fieldを明示Patchする場合、AMJE所有対象では最終loaded pathがAMJE pathになることを保証する。同名ファイルだけを置くtexture packは、AMJEが固有pathへ切り替えた後は原則として直接競合しない。
+- static retextureにC#やvariation frameworkを追加しない。動的表示が本当に必要な別機能だけを例外とする。
 
 - 純粋なリテクスチャでは、対象Defの成長、分布、収量、耐寒性、カテゴリ、ゲームロジック等を変更しない。必要なPatchはgraphic / texPath等の表示差し替えに限定する。
 - ゲームプレイ変更も必要な場合は、リテクスチャに便乗させずEnvironmentの通常仕様として別途設計する。
