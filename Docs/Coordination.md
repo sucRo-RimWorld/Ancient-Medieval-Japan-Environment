@@ -940,3 +940,29 @@ BadTex、Texture Atlas、Graphic.Draw等の描画検証ではrenderingを無効�
 Shared durable source: Core `Docs/DevelopmentGoldenPathGuidelines.md`, commit `a81c0389fb1834a098a462291b3f4814abcffef3`. Repository instruction: `AGENTS.md`, commit `6e33a8c4789b3d22e1b8d98901e0427d06fe636b`.
 
 **Next action:** desktop Work/local Windows toolingで`run-runtime-tests.bat`系の非対話実行経路を実装する。rendering-dependent BadTex coverageを失わず、通常自動ゲートがデスクトップへ表示されないことを確認する。visual/debug runnerは別に保持する。
+
+### TEST-RENDERED-PUBLISH — Isolated rendered runtime tooling (2026-10-05 JST)
+
+**Owner:** Testing/tooling
+**Status:** DONE (tooling publication); latest-main runtime regression pending
+
+The earlier local snapshot passed Core 7/7, Environment six base Quickstarts
+(58/57/54/52/3/3 assertions) and CCTO 70/70, with eight clean runtime logs
+and combined exit 0. Game windows were enumerated on an independent non-visible
+WinSta0 desktop while Direct3D rendering stayed enabled. The first hidden run
+exposed worker-thread texture/map assertions; Core now posts those two steps
+through PickleDriver and checks Unity main-thread execution. New Village Python
+text reads explicitly use UTF-8. The saved launcher rerun passed after a separate
+Haimatsu-review game released its DLL lock. No unrelated process was terminated.
+
+Only this task's tooling/docs are published. Original working folders and other
+local art/Def/review changes are preserved. These changes were transplanted onto
+latest GitHub main, retaining its newer Core eight-scenario suite and Environment
+Core-profile tests. Those newer runtime gates were not executed in the recorded
+run and remain pending. No production art/Def/config change is included.
+
+**Next action:** run the saved isolated desktop launcher against updated local
+repositories to exercise the newer suites; human visual acceptance stays separate.
+
+**Procedure:** Core Docs/IntegratedRuntimeTesting.md and
+Scripts/IntegratedRuntimeDesktop/Run-AMJ-IsolatedDesktop.ps1.
