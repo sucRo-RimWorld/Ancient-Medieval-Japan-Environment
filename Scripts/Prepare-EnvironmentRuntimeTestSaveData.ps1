@@ -7,7 +7,9 @@ param(
 
     [switch]$IncludeCCTO,
 
-    [switch]$IncludeMedievalOverhaul
+    [switch]$IncludeMedievalOverhaul,
+
+    [switch]$IncludeCore
 )
 
 $ErrorActionPreference = "Stop"
@@ -35,10 +37,14 @@ $required = @(
     "rimworks.quickstarts"
 )
 
-if ($IncludeMedievalOverhaul) {
+if ($IncludeMedievalOverhaul -or $IncludeCore) {
     $required += "OskarPotocki.VanillaFactionsExpanded.Core"
     $required += "syrchalis.processor.framework"
     $required += "DankPyon.Medieval.Overhaul"
+}
+
+if ($IncludeCore) {
+    $required += "sucro.ancientmedievaljapan.core"
 }
 
 if ($IncludeCCTO) {
@@ -139,6 +145,9 @@ if ($IncludeCCTO) {
 }
 if ($IncludeMedievalOverhaul) {
     Write-Host "[OK] Optional Medieval Overhaul tree-texture audit profile enabled."
+}
+if ($IncludeCore) {
+    Write-Host "[OK] Optional AMJ Core + Environment gameplay-integration profile enabled."
 }
 Write-Host "     $OutputRoot"
 Write-Host "[OK] Dev mode enabled only in isolated test Prefs.xml."
