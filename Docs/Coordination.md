@@ -881,3 +881,21 @@ The approved generated source was resized once with Lanczos to 256x256 RGBA. Chu
 Execution is in a cloud Linux workspace despite the author using the desktop app. PowerShell and RimWorld are unavailable here; no local build/runtime/visual PASS is claimed.
 
 **Next action:** verify CI, then run `run-tests.bat` and `run-texture-debug.bat "D:\SteamLibrary\steamapps\common\RimWorld" Alpine` in a Windows local execution task. Author review at normal zoom is still required.
+
+### POLICY-001 — AMJ各Modのリテクスチャ所有方針
+
+**Requested by:** author (2026-10-05 JST)  
+**Owner:** Environment art / cross-mod ownership  
+**Status:** DONE — durable design updated
+
+AMJ共通方針に合わせ、Environmentは自分の景観責務に属するVanilla / MO等の前提資産まで画風統一を所有することを正式化した。
+
+- ENV-010のVanilla/MO樹木リテクスチャはEnvironment本体の正式責務であり、別Retexture Modへ移管しない。
+- 同一前提資産を他AMJ Modと競合上書きしない。1資産1所有Modを原則とする。
+- Alpha中のplaceholder / final-art deferは作業順の都合であり、所有責務の移管を意味しない。
+- Japan OnlyはEnvironmentのリテクスチャを担当しない。
+- 横断資産で自然なownerを決められない場合だけ、将来の共通Retexture Modを再検討する。
+
+Durable design source: `Docs/Design.md §11.5 AMJ共通リテクスチャ方針 — Environment所有範囲`, commit `5c836d3907577197396a465dbd88a982f601890b`.
+
+**Next action:** ENV-010は既存Golden Path / ArtDirectionをそのまま使い、Environment-owned Vanilla/MO tree retexturesを継続する。
