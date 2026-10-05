@@ -899,3 +899,30 @@ AMJ共通方針に合わせ、Environmentは自分の景観責務に属するVan
 Durable design source: `Docs/Design.md §11.5 AMJ共通リテクスチャ方針 — Environment所有範囲`, commit `5c836d3907577197396a465dbd88a982f601890b`.
 
 **Next action:** ENV-010は既存Golden Path / ArtDirectionをそのまま使い、Environment-owned Vanilla/MO tree retexturesを継続する。
+
+### TEST-002 — Core + Environment gameplay-contract automation
+
+**Requested by:** author (2026-10-05 JST)  
+**Owner:** Environment runtime integration / Core agriculture contract  
+**Status:** IN PROGRESS — harness implemented; local RimWorld runtime PASS pending
+
+Core + Environmentの独自ゲームプレイ差を、固定バイオームQuickstart上で機械評価する統合ゲートを追加した。
+
+自動評価:
+- 4バイオーム実マップのThin Soil / Gravel / Soil / Rich Soilセル数;
+- Core Stage A作物のロード確認;
+- Soba / BarleyがThin Soilを利用でき、Wheatは利用できないこと;
+- 実マップ土壌分布でSoba/Kibi/Awa/Hie/Barleyの平均肥沃度成長倍率が分化すること;
+- Coreの成長最低温度差が維持されること;
+- Environment年間気候診断の <8C / <0C 時間がWarmLowland→Temperate→Cool→Highlandで寒冷化すること;
+- Environment / Core由来のruntime ERRORゼロ。
+
+`run-runtime-tests.bat` はローカルCoreを検出した場合、MO依存を含む隔離Core+Environmentプロファイルを自動生成し4固定バイオームを追加実行する。
+
+PowerShell syntax workflowは関連スクリプト変更までGreen。Quicktest C#コンパイルと実RimWorld統合実行はこのクラウド環境では未実行。
+
+設計精査中、Environmentの旧気候表に残っていたAwa -4C / Hie -4Cを、Core正本のAwa -3C / Hie -2Cへ同期した。
+
+Durable design source: `Docs/Design.md §8.3 Core + Environment gameplay-contract runtime gate`, commits `14b09c8c05e4ee060446f4ab7d42db9ba94fca2f`, `6a3420b71b6a7fc60b16cbdd4bed73f759a33d2e`.
+
+**Next action:** ローカルで `run-runtime-tests.bat` を実行し、Core profileの4 Quickstartが全件PASSかつowned ERRORゼロになることを確認する。失敗時は数値を緩める前に、実ゲームAPI・土壌セル集計・気候ログのどこが契約と不一致かを特定する。
