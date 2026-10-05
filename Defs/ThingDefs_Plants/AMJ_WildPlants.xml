@@ -60,7 +60,7 @@
     <label>shirabiso fir</label>
     <description>A cold-tolerant evergreen fir characteristic of Japan-like subalpine conifer forests.</description>
     <graphicData>
-      <texPath>Things/Plant/TreePine</texPath>
+      <texPath>Things/Plant/AMJ/Shirabiso</texPath>
       <graphicClass>Graphic_Random</graphicClass>
       <shadowData>
         <volume>(0.15, 0.3, 0.15)</volume>

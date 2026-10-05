@@ -26,11 +26,11 @@ Primary design source:
 
 ## Active tree-art handoff
 
-- **Current stage:** focused beech appearance accepted; no new Shirabiso image generated.
-- **Next target:** Shirabiso, then Haimatsu.
-- **Approval state:** Shirabiso composition/design proposal was presented but has not yet been approved. The author's latest request is to preserve generation rules across new chats; do not treat that request as image approval.
-- **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`, with canonical visual rules in `Docs/ArtDirection.md` and production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
-- **Reference state:** accepted production Sudajii / leafy beech / leafless beech paths are listed in the generation procedure. Fetch and view the actual PNGs before generation.
+- **Current stage:** Shirabiso source art approved and installed; Subalpine in-game review pending.
+- **Next target:** finish Shirabiso focused review, then propose Haimatsu.
+- **Approval state:** author approved the Shirabiso design with `y`, then approved the generated image with `OK` on 2026-10-05 JST.
+- **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
+- **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
 
 ## Current coordination items
 
@@ -853,3 +853,13 @@ No image was generated and no production asset or Def was changed for this reque
 **Status:** DONE (policy binding); family registration required before derivatives
 
 Core policy/tooling is published in commit `7ce9af2ce4b3cf3bce1efda89ca1b199ab4efc36`: `Docs/GoldenPaths/FixedImageTemplates.md` and `Scripts/Art/fixed_template.py`. These Environment instructions bind to that shared policy. Reused visible components require hashed masters/masks and zero protected RGBA pixel differences. Distinct species keep species-specific structure. No asset/Def was changed; no generation or runtime test was performed. Shirabiso approval remains pending. Register a template before making a derivative that declares shared fixed parts.
+
+### ENV-010 Shirabiso source approval and integration (2026-10-05 JST)
+
+**Status:** IN PROGRESS (source approved / installed; runtime visual review pending)
+
+The author approved the standalone generated Shirabiso. The approved source was resized once to 256x256 RGBA using Lanczos; the resulting PNG passed chunk CRC, zlib decompression, decoded byte count, Pillow loading, dimension/alpha and exact-copy checks before the Def path was changed. Production SHA-256: `aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d`. Existing Sudajii/beech files are unchanged. The source/design acceptance is canonical in ArtDirection.
+
+This environment lacks PowerShell and RimWorld: no local PowerShell installer, build, full repository static suite or runtime PASS is claimed. GitHub CI runs the existing PowerShell PNG/payload gates and texture installer smoke. A dedicated Python regression locks the Shirabiso Def/path, production hash, dimensions and transparency. Existing Japanese/English descriptions were reviewed; no text change is introduced in this art-only integration, and the broader historical-description audit remains open.
+
+**Next action:** pull main, run `run-tests.bat`, then `run-texture-debug.bat "D:\SteamLibrary\steamapps\common\RimWorld" Subalpine`. Review natural Shirabiso at normal zoom; record appearance acceptance separately from source approval. Then prepare Haimatsu proposal.

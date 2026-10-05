@@ -7,12 +7,16 @@ on:
       - 'run-tests.bat'
       - 'run-texture-debug.bat'
       - 'Textures/**/*.png'
+      - 'Defs/ThingDefs_Plants/AMJ_WildPlants.xml'
+      - 'Tests/validate_shirabiso_texture.py'
       - 'Tests/*.ps1'
       - '.github/workflows/powershell-syntax.yml'
   pull_request:
     paths:
       - '**/*.ps1'
       - 'Textures/**/*.png'
+      - 'Defs/ThingDefs_Plants/AMJ_WildPlants.xml'
+      - 'Tests/validate_shirabiso_texture.py'
       - 'run-tests.bat'
       - '.github/workflows/powershell-syntax.yml'
 
@@ -23,6 +27,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Validate approved Shirabiso integration
+        run: python Tests/validate_shirabiso_texture.py
 
       - name: Run repository PowerShell syntax preflight
         shell: pwsh
@@ -53,6 +60,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Validate approved Shirabiso integration
+        run: python Tests/validate_shirabiso_texture.py
 
       - name: Run repository PowerShell syntax preflight
         shell: powershell
