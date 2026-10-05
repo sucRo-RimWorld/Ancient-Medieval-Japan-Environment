@@ -26,8 +26,8 @@ Primary design source:
 
 ## Active tree-art handoff
 
-- **Current stage:** Shirabiso source art approved and installed; Subalpine in-game review pending.
-- **Next target:** finish Shirabiso focused review, then propose Haimatsu.
+- **Current stage:** Shirabiso source and reported focused Subalpine appearance accepted.
+- **Next target:** Haimatsu; composition proposal awaiting approval.
 - **Approval state:** author approved the Shirabiso design with `y`, then approved the generated image with `OK` on 2026-10-05 JST.
 - **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 - **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
@@ -863,3 +863,11 @@ The author approved the standalone generated Shirabiso. The approved source was 
 This environment lacks PowerShell and RimWorld: no local PowerShell installer, build, full repository static suite or runtime PASS is claimed. GitHub CI runs the existing PowerShell PNG/payload gates and texture installer smoke. A dedicated Python regression locks the Shirabiso Def/path, production hash, dimensions and transparency. Existing Japanese/English descriptions were reviewed; no text change is introduced in this art-only integration, and the broader historical-description audit remains open.
 
 **Next action:** pull main, run `run-tests.bat`, then `run-texture-debug.bat "D:\SteamLibrary\steamapps\common\RimWorld" Subalpine`. Review natural Shirabiso at normal zoom; record appearance acceptance separately from source approval. Then prepare Haimatsu proposal.
+
+### ENV-010 Shirabiso focused appearance accepted (2026-10-05 JST)
+
+**Status:** DONE (reported visual review)
+
+After integration `e4ca2108f22aaacbead783240c59aab5759f8290` and the Subalpine focused-check instruction, the author replied `OK`. Record reported focused appearance acceptance in ArtDirection. No new runtime report or explicit full automated-suite PASS was supplied.
+
+**Next proposal (not approved):** Haimatsu as a low, wind-shaped creeping pine shrub, clearly wider than tall, several asymmetric spreading needle masses, muted grey/blue-green palette, short partly hidden grey-brown woody branches, thick dark outlines, transparent/no ground/snow. Preserve accepted shared style; no upright miniature-tree silhouette. Present this before generation and await approval.
