@@ -163,7 +163,8 @@ foreach ($name in $scenarios) {
     if ($CoreIntegrationOnly) {
         & powershell -NoProfile -ExecutionPolicy Bypass -File $validator `
             -LogPath $log `
-            -AdditionalModIdPrefixes "sucro.ancientmedievaljapan.core"
+            -AdditionalModIdPrefixes "sucro.ancientmedievaljapan.core" `
+            -RequireClimateGradient
     }
     else {
         & powershell -NoProfile -ExecutionPolicy Bypass -File $validator -LogPath $log
