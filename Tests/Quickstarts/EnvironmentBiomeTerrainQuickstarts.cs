@@ -541,6 +541,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
             AddLiveThingTextureAssertions(verification, map);
             AddTerrainScatterTextureAssertions(verification, map);
 
+            if (CoreIsActive())
+            {
+                AddCoreAgricultureIntegrationAssertions(verification, map);
+            }
+
             if (TargetBiomeDefName == "AMJ_WarmTemperateForest")
             {
                 AddTreeTextureAuditAssertions(verification);
@@ -1679,6 +1684,267 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
 
             return -999f;
+        }
+
+        private static bool CoreIsActive()
+        {
+            return ModLister.GetActiveModWithIdentifier(
+                "sucro.ancientmedievaljapan.core",
+                true) != null;
+        }
+
+        private static void AddCoreAgricultureIntegrationAssertions(
+            QuickstartVerification verification,
+            Map map)
+        {
+            string[] cropDefNames =
+            {
+                "AMJC_Plant_Buckwheat_Soba",
+                "AMJC_Plant_ProsoMillet_Kibi",
+                "AMJC_Plant_FoxtailMillet_Awa",
+                "AMJC_Plant_BarnyardMillet_Hie",
+                "AMJC_Plant_Barley",
+                "DankPyon_Plant_Wheat"
+            };
+
+            ThingDef[] crops = new ThingDef[cropDefNames.Length];
+            bool allLoaded = true;
+            for (int i = 0; i < cropDefNames.Length; i++)
+            {
+                crops[i] = DefDatabase<ThingDef>.GetNamedSilentFail(
+                    cropDefNames[i]);
+                if (crops[i] == null || crops[i].plant == null)
+                {
+                    allLoaded = false;
+                }
+            }
+
+            verification.Assert(
+                "Core Stage A crop Defs are loaded in the Environment integration profile",
+                delegate { return allLoaded; });
+
+            int thin = 0;
+            int gravel = 0;
+            int soil = 0;
+            int rich = 0;
+
+            if (map != null)
+            {
+                foreach (IntVec3 cell in map.AllCells)
+                {
+                    TerrainDef terrain = map.terrainGrid.TerrainAt(cell);
+                    if (terrain == null)
+                    {
+                        continue;
+                    }
+
+                    if (terrain.defName == "AMJ_ThinSoil")
+                    {
+                        thin++;
+                    }
+                    else if (terrain.defName == "Gravel")
+                    {
+                        gravel++;
+                    }
+                    else if (terrain.defName == "Soil")
+                    {
+                        soil++;
+                    }
+                    else if (terrain.defName == "SoilRich")
+                    {
+                        rich++;
+                    }
+                }
+            }
+
+            int ladderCells = thin + gravel + soil + rich;
+
+            verification.Assert(
+                "Environment natural fertility ladder exists on the generated map",
+                delegate { return map != null && ladderCells > 0; });
+
+            verification.Assert(
+                "Environment Thin Soil creates a real low-fertility farming tier",
+                delegate { return thin > 0; });
+
+            if (!allLoaded || ladderCells <= 0)
+            {
+                return;
+            }
+
+            ThingDef soba = crops[0];
+            ThingDef kibi = crops[1];
+            ThingDef awa = crops[2];
+            ThingDef hie = crops[3];
+            ThingDef barley = crops[4];
+            ThingDef wheat = crops[5];
+
+            int sobaSuitable = SuitableNaturalLadderCells(
+                soba, thin, gravel, soil, rich);
+            int barleySuitable = SuitableNaturalLadderCells(
+                barley, thin, gravel, soil, rich);
+            int wheatSuitable = SuitableNaturalLadderCells(
+                wheat, thin, gravel, soil, rich);
+
+            verification.Assert(
+                "Soba remains plantable on every Environment natural farming tier",
+                delegate { return sobaSuitable == ladderCells; });
+
+            verification.Assert(
+                "Barley remains plantable on every Environment natural farming tier",
+                delegate { return barleySuitable == ladderCells; });
+
+            verification.Assert(
+                "Wheat loses exactly the Thin Soil part of the Environment farming ladder",
+                delegate
+                {
+                    return wheatSuitable < sobaSuitable
+                        && sobaSuitable - wheatSuitable == thin;
+                });
+
+            float sobaFactor = AverageNaturalLadderFertilityFactor(
+                soba, thin, gravel, soil, rich);
+            float kibiFactor = AverageNaturalLadderFertilityFactor(
+                kibi, thin, gravel, soil, rich);
+            float awaFactor = AverageNaturalLadderFertilityFactor(
+                awa, thin, gravel, soil, rich);
+            float hieFactor = AverageNaturalLadderFertilityFactor(
+                hie, thin, gravel, soil, rich);
+            float barleyFactor = AverageNaturalLadderFertilityFactor(
+                barley, thin, gravel, soil, rich);
+
+            float maxFactor = System.Math.Max(
+                sobaFactor,
+                System.Math.Max(
+                    kibiFactor,
+                    System.Math.Max(
+                        awaFactor,
+                        System.Math.Max(hieFactor, barleyFactor))));
+            float minFactor = System.Math.Min(
+                sobaFactor,
+                System.Math.Min(
+                    kibiFactor,
+                    System.Math.Min(
+                        awaFactor,
+                        System.Math.Min(hieFactor, barleyFactor))));
+
+            verification.Assert(
+                "Environment soil distribution produces differentiated Stage A crop growth factors",
+                delegate
+                {
+                    return !float.IsNaN(minFactor)
+                        && !float.IsNaN(maxFactor)
+                        && maxFactor - minFactor > 0.01f;
+                });
+
+            verification.Assert(
+                "Soba has the strongest average poor-soil growth factor among pre-wheat Stage A crops",
+                delegate
+                {
+                    return sobaFactor > kibiFactor
+                        && kibiFactor > awaFactor
+                        && awaFactor > hieFactor
+                        && hieFactor > barleyFactor;
+                });
+
+            verification.Assert(
+                "Core cold-growth thresholds remain differentiated under Environment",
+                delegate
+                {
+                    return barley.plant.minGrowthTemperature
+                            < soba.plant.minGrowthTemperature
+                        && System.Math.Abs(
+                            soba.plant.minGrowthTemperature
+                            - hie.plant.minGrowthTemperature) < 0.001f
+                        && soba.plant.minGrowthTemperature
+                            < awa.plant.minGrowthTemperature
+                        && System.Math.Abs(
+                            awa.plant.minGrowthTemperature
+                            - kibi.plant.minGrowthTemperature) < 0.001f;
+                });
+
+            Log.Message(
+                "[AMJ Core+Environment GameplayContract]" +
+                " biome=" +
+                    (map == null || map.Biome == null
+                        ? "null"
+                        : map.Biome.defName) +
+                " ladderCells=" + ladderCells +
+                " thin=" + thin +
+                " gravel=" + gravel +
+                " soil=" + soil +
+                " rich=" + rich +
+                " suitable{soba=" + sobaSuitable +
+                ",barley=" + barleySuitable +
+                ",wheat=" + wheatSuitable + "}" +
+                " fertilityFactor{soba=" + sobaFactor.ToString("F3") +
+                ",kibi=" + kibiFactor.ToString("F3") +
+                ",awa=" + awaFactor.ToString("F3") +
+                ",hie=" + hieFactor.ToString("F3") +
+                ",barley=" + barleyFactor.ToString("F3") + "}");
+        }
+
+        private static int SuitableNaturalLadderCells(
+            ThingDef crop,
+            int thin,
+            int gravel,
+            int soil,
+            int rich)
+        {
+            if (crop == null || crop.plant == null)
+            {
+                return 0;
+            }
+
+            float min = crop.plant.fertilityMin;
+            int result = 0;
+            if (min <= 0.50f + 0.0001f) result += thin;
+            if (min <= 0.70f + 0.0001f) result += gravel;
+            if (min <= 1.00f + 0.0001f) result += soil;
+            if (min <= 1.40f + 0.0001f) result += rich;
+            return result;
+        }
+
+        private static float AverageNaturalLadderFertilityFactor(
+            ThingDef crop,
+            int thin,
+            int gravel,
+            int soil,
+            int rich)
+        {
+            if (crop == null || crop.plant == null)
+            {
+                return float.NaN;
+            }
+
+            float total = 0f;
+            int count = 0;
+
+            AddFertilityTier(crop, 0.50f, thin, ref total, ref count);
+            AddFertilityTier(crop, 0.70f, gravel, ref total, ref count);
+            AddFertilityTier(crop, 1.00f, soil, ref total, ref count);
+            AddFertilityTier(crop, 1.40f, rich, ref total, ref count);
+
+            return count <= 0 ? float.NaN : total / count;
+        }
+
+        private static void AddFertilityTier(
+            ThingDef crop,
+            float fertility,
+            int cells,
+            ref float total,
+            ref int count)
+        {
+            if (cells <= 0 ||
+                crop.plant.fertilityMin > fertility + 0.0001f)
+            {
+                return;
+            }
+
+            float sensitivity = crop.plant.fertilitySensitivity;
+            float factor = fertility * sensitivity + (1f - sensitivity);
+            total += factor * cells;
+            count += cells;
         }
 
         private static bool CctoIsActive()
