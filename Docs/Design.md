@@ -363,15 +363,41 @@ Calibration decision:
 
 This is the smallest change that removes a one-night random-spike failure mode in central lowlands while preserving clearly lethal Barley conditions in cool lowlands and highlands.
 
-Gameplay smoke tests should then confirm:
-- usable settlement sites still exist;
-- Flat land is limited but not frustratingly rare;
-- rivers are noticeably more common without dominating maps;
-- no natural Large/Huge rivers are produced;
-- northern/highland areas remain meaningfully colder;
-- southern lowlands remain warm without creating tropical-world conditions;
-- crop-season behavior follows the CCTO calibration intent rather than being dominated by isolated random temperature spikes.
+The gameplay-validation split is automation-first:
 
+**Automated regression must confirm whenever the condition is mechanically observable:**
+- usable target-biome/map generation succeeds and the runtime gate completes without owned ERROR entries;
+- accepted Hilliness, river/coast, soil-fertility and vegetation distributions remain inside their locked ranges;
+- no natural Large/Huge rivers are produced;
+- the representative annual climate samples preserve a warm-lowland -> temperate -> cool -> highland gradient, including increasing hours below crop-relevant 8 C and 0 C thresholds;
+- when AMJ Core is installed, the four fixed-biome Quickstarts load the Stage A crop Defs and prove that the generated natural fertility ladder creates real crop-choice differences: Soba/Barley can use Thin Soil, Wheat cannot, and fertility sensitivity produces distinct average growth factors;
+- crop/climate integration remains differentiated rather than collapsing to one effective growing window or one universally equivalent soil response.
+
+**Manual playtesting is reserved for conditions that are not adequately reducible to a pass/fail metric:**
+- whether Flat land feels frustratingly rare despite meeting the numerical distribution target;
+- whether the visible river frequency feels intrusive despite staying within the accepted map/world metrics;
+- whether the automated crop-choice differences produce interesting decisions rather than busywork;
+- visual coherence, readability and overall seasonal atmosphere.
+
+The rule is therefore: do not use a manual gameplay smoke test merely to reconfirm a condition that can be asserted from generated maps, loaded Defs, annual temperature samples or deterministic runtime output. Manual review begins after those automated gates pass.
+
+
+### 8.3 Core + Environment gameplay-contract runtime gate
+
+When a local AMJ Core installation is available, `run-runtime-tests.bat` creates an additional isolated **Core + Environment** profile and runs the four fixed-biome Quickstarts with real Core crop Defs loaded alongside Environment.
+
+The integration gate is not a subjective playtest. It automatically checks:
+- Core Stage A crop Def availability under the real combined mod stack;
+- presence of the Environment natural fertility ladder on each generated map;
+- actual Thin Soil coverage creating a sowability gap between low-fertility-tolerant crops and Wheat;
+- map-weighted fertility growth factors remaining different across Soba, Kibi, Awa, Hie and Barley;
+- Core cold-growth thresholds remaining differentiated;
+- representative annual climate diagnostics retaining the accepted warm-to-cold gradient;
+- no Environment- or Core-origin runtime ERROR entries.
+
+The log records the generated terrain-cell counts, sowable-cell counts and average fertility factors so later balance changes can be compared without relying on screenshots or memory.
+
+Future automation should extend this same contract to season-length / expected-harvest opportunity and long-run resource throughput when those can be measured robustly from the actual RimWorld APIs. Such metrics should be added only when they model the real game closely enough to avoid replacing one subjective judgment with a misleading synthetic score.
 
 ## 9. Biome and vegetation architecture
 
