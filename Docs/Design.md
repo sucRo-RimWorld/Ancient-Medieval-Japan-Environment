@@ -750,20 +750,43 @@ The first post-change automated runtime rerun passed cleanly in all four AMJ bio
 
 The Alpha regional weather baseline is therefore accepted.
 
-## 11.5 AMJにおけるリテクスチャの定義とEnvironment所有範囲
+## 11.5 AMJ共通リテクスチャ方針 — Environment所有範囲
 
-AMJでいう**リテクスチャ**は、Environmentが独自追加した樹木・植物だけを描き直すことではなく、**Vanilla・Medieval Overhaul等の前提Modが提供する既存の樹木・植物・地形・環境系テクスチャも、AMJ Environment追加資産と並べた際に画風・輪郭・色数・陰影・解像感が統一されるようEnvironment側から差し替えること**を含む。
+AMJでいう**リテクスチャ**は、Environment独自Defの画像制作だけを指さない。**Environmentが自分の責務範囲で使用・再利用するVanilla / Medieval Overhaul等の前提Mod資産についても、AMJE追加資産と並べた際に画風・輪郭・色数・陰影・情報密度・解像感が統一されるよう、必要なテクスチャをEnvironment側から差し替えること**を含む。
 
-方針:
-- Environmentの景観責務に属する前提Mod資産のリテクスチャはEnvironment本体に含めてよい。
-- 純粋なリテクスチャでは対象Defの成長、分布、収量、耐寒性、ゲームロジック等を変更しない。必要なゲームプレイ変更は別途Environment仕様として扱う。
-- Coreの作物・食材・設備等、Core側の景観責務に属する前提Mod資産はCoreが所有し、Environmentへ集約しない。
-- 前提Mod資産をAMJ画風へ統一するという理由だけで、Retexture専用Modへ分離する必要はない。
-- 同一資産の上書きが複数AMJ Modで競合する、横断的リテクスチャが独立した責務になる、または単独導入需要が明確になる場合のみ共通Retexture Modへの分離を再検討する。
-- Japan Onlyとは責務を分離する。Japan OnlyはMO由来の西洋要素を除去・非表示化するだけで、Environmentのリテクスチャを所有しない。
-- リテクスチャ対象も時代・地域考証を行い、日本の古代～中世景観として不適切な外観へ変更しない。
+目的は前提Mod全体を日本風へ変換することではなく、**Environmentを導入したとき、樹木・植物・地形・自然景観が一つのAMJアートセットとして成立すること**である。
 
-したがって、**Environmentの景観を完成させるために必要な前提Mod資産のリテクスチャは、Environment本体の最終アート工程に含める。**
+### 11.5.1 所有原則
+
+- **Environmentは、環境景観の責務に属する前提Mod資産の画風統一までを原則として所有する。**
+- 対象には、Environmentが景観構成に採用するVanilla / MOの樹木・植物・地形・自然物等が含まれる。
+- Coreの作物・食材・加工設備等、Core側の責務に属する前提資産はCoreが所有し、Environmentへ集約しない。
+- **同一Def / 同一前提資産のテクスチャを複数AMJ Modが競合して上書きしない。AMJ内で1資産1所有Modを原則とする。**
+- 所有先が曖昧な場合は、その資産の**主要なゲーム上・景観上の責務を持つMod**を正本とし、ロード順で勝たせる運用はしない。
+- 前提資産をリテクスチャするという理由だけで、Retexture専用Modへ集約しない。複数AMJ Modから横断的に利用され自然な1所有Modを決められない場合、または独立外観パックとして単独導入価値が生じた場合だけ分離を再検討する。
+
+### 11.5.2 変更範囲
+
+- 純粋なリテクスチャでは、対象Defの成長、分布、収量、耐寒性、カテゴリ、ゲームロジック等を変更しない。必要なPatchはgraphic / texPath等の表示差し替えに限定する。
+- ゲームプレイ変更も必要な場合は、リテクスチャに便乗させずEnvironmentの通常仕様として別途設計する。
+- Vanilla / MOのDefNameや外部参照は可能な限り維持し、前提Modとの互換性を壊さない。
+- **全てのVanilla / MO環境画像を機械的に描き直すことは目的にしない。** AMJE追加資産と並べて明確に浮く、頻繁に表示される、地域景観の統一感へ大きく影響する資産を優先する。
+
+### 11.5.3 時代・地域考証
+
+- リテクスチャも通常のAMJ時代・地域考証対象とする。
+- 画風統一だけなら元の植物・地形等の同一性を保つ。形態や種類の見せ方を日本向けに変更する場合は、AMJ対象時代・対象地域に存在する姿として妥当か確認する。
+- 「日本らしい」という理由だけで時代外・地域外の意匠や植生へ変更しない。
+- 元Defと別種・別物に見えるほどの変更が必要な場合は、単純リテクスチャではなく新Def・互換Patch・分布設計等を含めて責務を再検討する。
+
+### 11.5.4 他Modとの境界と開発順
+
+- **Japan OnlyはEnvironmentのリテクスチャを所有しない。** Japan OnlyはMO由来の西洋要素の除去・非表示化だけを担当する。
+- 専用Retexture Modは標準構成では作らない。1資産1所有Modで整理できない横断案件が生じた場合だけ再検討する。
+- 外部Modの配布テクスチャを複製・改変再配布するのではなく、Environmentが権利上問題のない独自テクスチャを所有し、Patchから参照する。
+- 機能・分布検証が不安定なAlpha段階ではプレースホルダーを許容するが、**Environmentの最終アート工程には、AMJE独自植物だけでなく必要なVanilla / MO前提資産のリテクスチャも含める。**
+- 既存のENV-010対象となっているVanilla/MO樹木リテクスチャは、このEnvironment所有原則に基づく正式な作業であり、別Retexture Modへ移管しない。
+
 
 ## 12. Seasonal scenery baseline
 
@@ -776,7 +799,7 @@ The Alpha seasonal-scene model is therefore:
 - let Vanilla snow weather and SnowGrid provide winter ground/plant snow presentation;
 - use one deciduous AMJE structural tree (Japanese beech) for autumn/leafless seasonal contrast;
 - keep Sudajii, Shirabiso and Haimatsu evergreen so the four vegetation bands do not all change identically;
-- defer all final AMJE-specific plant textures and other purely visual assets until the final-art pass.
+- defer final AMJE-owned plant textures, including required Vanilla/MO retextures, until the final-art pass while mechanics/distribution are still being stabilized; this is scheduling deferral only and does not transfer texture ownership to another Mod.
 
 No new Harmony patch, GameCondition, WeatherDef or seasonal calendar controller is added for this stage.
 
