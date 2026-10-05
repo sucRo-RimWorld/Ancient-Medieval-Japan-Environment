@@ -90,7 +90,7 @@
     <label>haimatsu dwarf pine</label>
     <description>A low, creeping evergreen pine that forms dense thickets above the forest line in Japan-like alpine terrain.</description>
     <graphicData>
-      <texPath>Things/Plant/TreePine</texPath>
+      <texPath>Things/Plant/AMJ/Haimatsu</texPath>
       <graphicClass>Graphic_Random</graphicClass>
       <drawSize>0.65</drawSize>
       <shadowData>

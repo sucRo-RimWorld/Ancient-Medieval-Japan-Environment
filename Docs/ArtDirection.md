@@ -283,6 +283,8 @@ Avoid:
 
 ### Haimatsu dwarf pine
 
+**Source approved 2026-10-05:** author approved the proposal with `y` and the generated candidate with `OK`. Low asymmetric spreading pine shrub, visibly wider than tall, muted grey/blue-green foliage and partly exposed horizontal grey-brown branches, thick dark outlines, transparent/no ground/snow. Production: `Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png` (256x256 RGBA). SHA-256: `44d22e74670bdfe081ef98c8a327700620f3d285e4a86b6dc52625c57daef551`. No shared fixed component is declared. Alpine in-game appearance review remains pending.
+
 Visual role:
 - low, spreading, wind-shaped alpine shrub;
 - clearly wider than tall;

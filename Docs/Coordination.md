@@ -26,9 +26,9 @@ Primary design source:
 
 ## Active tree-art handoff
 
-- **Current stage:** Shirabiso source and reported focused Subalpine appearance accepted.
-- **Next target:** Haimatsu; composition proposal awaiting approval.
-- **Approval state:** author approved the Shirabiso design with `y`, then approved the generated image with `OK` on 2026-10-05 JST.
+- **Current stage:** Haimatsu source approved and installed; Alpine in-game review pending.
+- **Next target:** finish Haimatsu focused Alpine review, then prepare the next Vanilla tree proposal.
+- **Approval state:** Haimatsu design approved with `y`, generated candidate approved with `OK` on 2026-10-05 JST.
 - **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 - **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
 
@@ -871,3 +871,13 @@ This environment lacks PowerShell and RimWorld: no local PowerShell installer, b
 After integration `e4ca2108f22aaacbead783240c59aab5759f8290` and the Subalpine focused-check instruction, the author replied `OK`. Record reported focused appearance acceptance in ArtDirection. No new runtime report or explicit full automated-suite PASS was supplied.
 
 **Next proposal (not approved):** Haimatsu as a low, wind-shaped creeping pine shrub, clearly wider than tall, several asymmetric spreading needle masses, muted grey/blue-green palette, short partly hidden grey-brown woody branches, thick dark outlines, transparent/no ground/snow. Preserve accepted shared style; no upright miniature-tree silhouette. Present this before generation and await approval.
+
+### ENV-010 Haimatsu source approval and integration (2026-10-05 JST)
+
+**Status:** IN PROGRESS (source approved / installed; runtime appearance pending)
+
+The approved generated source was resized once with Lanczos to 256x256 RGBA. Chunk CRC, zlib decompression, decoded scanline/filter checks, Pillow decoding, dimensions, transparency, exact-copy equality and Def-path regression passed. Production SHA-256: `44d22e74670bdfe081ef98c8a327700620f3d285e4a86b6dc52625c57daef551`. Canonical approval is in ArtDirection. Existing assets, plant mechanics and descriptions are unchanged. The reusable TextureAssetPipeline remains the production procedure; a Haimatsu regression joins the existing CI gates.
+
+Execution is in a cloud Linux workspace despite the author using the desktop app. PowerShell and RimWorld are unavailable here; no local build/runtime/visual PASS is claimed.
+
+**Next action:** verify CI, then run `run-tests.bat` and `run-texture-debug.bat "D:\SteamLibrary\steamapps\common\RimWorld" Alpine` in a Windows local execution task. Author review at normal zoom is still required.
