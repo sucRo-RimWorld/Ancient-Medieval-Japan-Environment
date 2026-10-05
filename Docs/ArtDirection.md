@@ -4,7 +4,7 @@
 
 Environment intentionally deferred final art until the functional/balance Alpha loop was stable.
 
-The minimum final-art pass now contains **29 image assets**. The scope was expanded after reviewing the Vanilla and Medieval Overhaul trees that actually appear alongside AMJE vegetation.
+The final-art pass currently tracks **29 primary art targets / baseline states**, but this is **not an exact final PNG count**. The scope was expanded after reviewing the Vanilla and Medieval Overhaul trees that actually appear alongside AMJE vegetation. For any prerequisite tree Def, every additional loaded graphic state that can appear in normal play is part of the same retexture family and must be covered or explicitly documented as an exception.
 
 ### AMJE structural plants
 
@@ -29,7 +29,9 @@ The minimum final-art pass now contains **29 image assets**. The scope was expan
 16. `Plant_TreePine` — evergreen
 17. `Plant_TreeBamboo` — evergreen
 
-These retextures intentionally affect the corresponding Vanilla tree Defs wherever they appear while AMJE is active. Creating duplicate AMJ-only tree Defs solely to change graphics would add unnecessary biome/content duplication and compatibility cost.
+These are the baseline mature/leafless targets used to track art direction. They intentionally affect the corresponding Vanilla tree Defs wherever they appear while AMJE is active. Creating duplicate AMJ-only tree Defs solely to change graphics would add unnecessary biome/content duplication and compatibility cost.
+
+**State-family completion rule:** before any Vanilla tree Def is marked fully retextured, inspect its loaded RimWorld 1.6 `PlantProperties` and include every non-empty state that can be visible in normal play: base, leafless, immature, polluted, leafless-immature, snow-overlay, leafless-snow-overlay, and immature-snow-overlay as applicable. Do not invent a state that the Def does not use. This rule supersedes treating the numbered list above as the exact number of production PNGs.
 
 ### Medieval Overhaul conditional tree retextures
 
@@ -377,6 +379,8 @@ Vanilla retexture folders:
 - `Textures/Things/Plant/AMJ/Retexture/TreePine/`
 - `Textures/Things/Plant/AMJ/Retexture/TreeBamboo/`
 
+For any additional loaded state discovered during integration, use the same AMJE-owned family with an explicit state suffix, e.g. `TreeOak_Immature`, `TreeWillow_Polluted`, `TreePine_Immature`, rather than falling back to the original/broad-pack art. The exact folders are created only for states that the loaded target Def actually uses.
+
 Medieval Overhaul conditional retexture folders:
 - `Textures/Things/Plant/AMJ/Retexture/MO/GreatOak/`
 - `Textures/Things/Plant/AMJ/Retexture/MO/GreatOak_Leafless/`
@@ -399,14 +403,16 @@ World:
 
 The corresponding Def paths should only be switched after each actual asset exists, so the repository never points to missing textures.
 
-Vanilla path replacements should live in an AMJE-owned retexture patch. Medieval Overhaul path replacements must be isolated in an optional compatibility patch guarded by MO's package ID. No MO source asset is copied or edited; AMJE supplies its own replacement textures and changes only the loaded graphic paths when both mods are active.
+Vanilla path replacements should live in an AMJE-owned retexture patch and point to AMJE-owned unique texPaths. Medieval Overhaul path replacements must be isolated in an optional compatibility/retexture patch guarded by MO's package ID. No MO source asset is copied or edited; AMJE supplies its own replacement textures and changes only the loaded graphic paths when both mods are active. Same-name texture shadowing is not the canonical AMJE mechanism. If ReGrowth, VTE, or another active Mod explicitly patches the same loaded Def field, AMJE's ownership contract requires the final loaded path for an AMJE-owned target to resolve to the AMJE path; add only the narrow load-order/compatibility rule needed for that real conflict.
 
 ## Acceptance
 
 Automated/static checks can verify:
 - expected paths exist in Def XML;
-- no placeholder Vanilla texture path remains once a target is converted;
-- runtime loads without missing-texture ERRORs.
+- every owned non-empty loaded graphic state resolves to the expected AMJE path;
+- no placeholder Vanilla/MO or broad-pack path remains on an owned state once that state is converted;
+- optional MO patches are absent/harmless when MO is inactive;
+- runtime loads without missing-texture ERRORs or BadTex.
 
 Human visual review is still required for:
 - scale;
