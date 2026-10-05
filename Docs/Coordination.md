@@ -967,21 +967,28 @@ repositories to exercise the newer suites; human visual acceptance stays separat
 **Procedure:** Core Docs/IntegratedRuntimeTesting.md and
 Scripts/IntegratedRuntimeDesktop/Run-AMJ-IsolatedDesktop.ps1.
 
-### WORK-001 — Desktop Work: hidden runtime gate + retexture precedent audit
+### WORK-001 — Retexture implementation precedent audit
 
 **Requested by:** author (2026-10-05 JST)  
-**Owner:** Desktop Work / Testing + ENV-010 compatibility audit  
-**Status:** OPEN
+**Owner:** ENV-010 art compatibility / implementation  
+**Status:** DONE — audit reflected in Environment design and Golden Path
 
-Cross-repo WORK-001 counterpart. Desktop Work should make Environment's目視不要 runtime tests non-interactive while preserving real graphics-path coverage, then audit existing retexture Mods before finalizing the reusable AMJE Vanilla/MO retexture implementation pattern.
+The earlier handoff bundled runtime testing that the author has confirmed is already finished. No runtime rerun belongs to this item.
 
-Requirements:
-- read Core WORK-001 for the full representative-mod list and audit matrix;
-- `run-runtime-tests.bat` normal automated path must not open a visible RimWorld window;
-- BadTex / atlas / `Graphic.Draw` coverage must retain real rendering; do not solve visibility by disabling the graphics path;
-- keep a separate explicit visual/debug runner for human texture review;
-- inspect existing retexture Mods' exact local files and classify path-shadow, XML patch, framework variation, C# substitution, dependency/load-order and multi-state texture handling;
-- pay special attention to tree/plant multi-state handling relevant to ENV-010: base, leafless, immature, snow overlays, UI icon resolution, conditional MO activation, and conflicts with broad retexture packs such as Vanilla Textures Expanded / Clean Textures;
-- compare precedent with current Environment graphic-path patching and 1-asset-1-owner policy, then update the owning Design/Golden Path only after evidence-based recommendation.
+The cross-project prior-art audit covered VTE / VTE Variations, ReGrowth 2, current MO 1.6.2.2, Clean Textures, Van's retextures, Misc. Training Medieval Retexture, Primitive/Adaptive Primitive Storage, Better Looking Plants, and another current 1.6 plant/mushroom replacement pack.
 
-Do not report the hidden runner as complete until it has actually executed the Environment runtime suite and Core+Environment integration gate without a visible game window and without losing owned ERROR/BadTex detection.
+Environment decision:
+- Vanilla/MO tree retextures point to AMJE-owned unique texPaths through explicit patches;
+- optional MO path replacements remain guarded compatibility work;
+- a tree Def is complete only after all loaded visible graphic states are audited, not merely its mature/leafless baseline;
+- same-path broad packs normally cease to conflict once AMJE points the Def to a unique path;
+- ReGrowth/VTE-style explicit-path competitors require final-loaded-path ownership checks where they touch the same state;
+- no C# or variation framework for ordinary static tree retextures.
+
+Durable sources:
+- shared Core `Docs/RetextureImplementationGuidelines.md` — `e61a6379886d0f8a5ada8edb75a94943572f23ea`;
+- Environment `Docs/Design.md` — `132544092a7552d86f85547c627c757e0412249e`;
+- Environment `Docs/ArtDirection.md` — `b42781ffbab01a70cce52349d858647c3aa18fd7`;
+- Environment texture Golden Path — `1656615b6cb47176d8a0cf3dd4fb07e54739e845`.
+
+**Next action:** continue ENV-010 art in its existing priority order. Before integrating each first Vanilla/MO target, enumerate the target's current loaded graphic states and create the matching AMJE target/state regression entries.
