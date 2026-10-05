@@ -926,3 +926,17 @@ PowerShell syntax workflowは関連スクリプト変更までGreen。Quicktest 
 Durable design source: `Docs/Design.md §8.3 Core + Environment gameplay-contract runtime gate`, commits `14b09c8c05e4ee060446f4ab7d42db9ba94fca2f`, `6a3420b71b6a7fc60b16cbdd4bed73f759a33d2e`.
 
 **Next action:** ローカルで `run-runtime-tests.bat` を実行し、Core profileの4 Quickstartが全件PASSかつowned ERRORゼロになることを確認する。失敗時は数値を緩める前に、実ゲームAPI・土壌セル集計・気候ログのどこが契約と不一致かを特定する。
+
+### TEST-POLICY-003 — Non-interactive runtime tests
+
+**Requested by:** author (2026-10-05 JST)  
+**Owner:** Testing/tooling  
+**Status:** DONE — project-wide policy recorded; runtime harness migration pending
+
+AMJ共通方針として、人間の目視を必要としないQuickstarts / integration / runtime ERROR / map・気候・土壌テストは可視RimWorldウィンドウを出さず実行する。
+
+BadTex、Texture Atlas、Graphic.Draw等の描画検証ではrenderingを無効化せず、仮想/オフスクリーン/非表示表示先で実描画経路を維持する。可視実行は最終texture review等、人間判断が必要な場合だけに限定する。
+
+Shared durable source: Core `Docs/DevelopmentGoldenPathGuidelines.md`, commit `a81c0389fb1834a098a462291b3f4814abcffef3`. Repository instruction: `AGENTS.md`, commit `6e33a8c4789b3d22e1b8d98901e0427d06fe636b`.
+
+**Next action:** desktop Work/local Windows toolingで`run-runtime-tests.bat`系の非対話実行経路を実装する。rendering-dependent BadTex coverageを失わず、通常自動ゲートがデスクトップへ表示されないことを確認する。visual/debug runnerは別に保持する。
