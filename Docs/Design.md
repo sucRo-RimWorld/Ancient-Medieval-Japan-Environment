@@ -750,6 +750,21 @@ The first post-change automated runtime rerun passed cleanly in all four AMJ bio
 
 The Alpha regional weather baseline is therefore accepted.
 
+## 11.5 AMJにおけるリテクスチャの定義とEnvironment所有範囲
+
+AMJでいう**リテクスチャ**は、Environmentが独自追加した樹木・植物だけを描き直すことではなく、**Vanilla・Medieval Overhaul等の前提Modが提供する既存の樹木・植物・地形・環境系テクスチャも、AMJ Environment追加資産と並べた際に画風・輪郭・色数・陰影・解像感が統一されるようEnvironment側から差し替えること**を含む。
+
+方針:
+- Environmentの景観責務に属する前提Mod資産のリテクスチャはEnvironment本体に含めてよい。
+- 純粋なリテクスチャでは対象Defの成長、分布、収量、耐寒性、ゲームロジック等を変更しない。必要なゲームプレイ変更は別途Environment仕様として扱う。
+- Coreの作物・食材・設備等、Core側の景観責務に属する前提Mod資産はCoreが所有し、Environmentへ集約しない。
+- 前提Mod資産をAMJ画風へ統一するという理由だけで、Retexture専用Modへ分離する必要はない。
+- 同一資産の上書きが複数AMJ Modで競合する、横断的リテクスチャが独立した責務になる、または単独導入需要が明確になる場合のみ共通Retexture Modへの分離を再検討する。
+- Japan Onlyとは責務を分離する。Japan OnlyはMO由来の西洋要素を除去・非表示化するだけで、Environmentのリテクスチャを所有しない。
+- リテクスチャ対象も時代・地域考証を行い、日本の古代～中世景観として不適切な外観へ変更しない。
+
+したがって、**Environmentの景観を完成させるために必要な前提Mod資産のリテクスチャは、Environment本体の最終アート工程に含める。**
+
 ## 12. Seasonal scenery baseline
 
 ### 12.1 Alpha principle
