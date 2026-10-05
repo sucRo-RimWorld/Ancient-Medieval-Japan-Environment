@@ -2,7 +2,9 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$LogPath,
 
-    [string]$AdditionalModIdPrefixes = ""
+    [string]$AdditionalModIdPrefixes = "",
+
+    [switch]$RequireClimateGradient
 )
 
 $ErrorActionPreference = "Stop"
@@ -78,7 +80,7 @@ foreach ($match in [regex]::Matches(
 }
 
 if ($errors.Count -gt 0) {
-    Write-Host "[FAIL] Environment-origin runtime ERROR entries were found:" -ForegroundColor Red
+    Write-Host "[FAIL] Owned AMJ runtime ERROR entries were found:" -ForegroundColor Red
     $limit = [Math]::Min($errors.Count, 5)
     for ($i = 0; $i -lt $limit; $i++) {
         Write-Host ""
@@ -89,6 +91,61 @@ if ($errors.Count -gt 0) {
         Write-Host "... plus $($errors.Count - $limit) more Environment runtime ERROR entries."
     }
     exit 1
+}
+
+if ($RequireClimateGradient) {
+    $labels = @("WarmLowland", "TemperateLowland", "CoolLowland", "Highland")
+    $below8 = @{}
+    $below0 = @{}
+
+    foreach ($label in $labels) {
+        $pattern =
+            '\[AMJ Environment\] Climate calibration \| ' +
+            [regex]::Escape($label) +
+            '.*?\| belowHours.*?<8=(\d+)h.*?<0=(\d+)h'
+        $match = [regex]::Match(
+            $text,
+            $pattern,
+            [System.Text.RegularExpressions.RegexOptions]::Singleline)
+
+        if (-not $match.Success) {
+            Fail "Climate calibration line was not found for $label."
+        }
+
+        $below8[$label] = [int]$match.Groups[1].Value
+        $below0[$label] = [int]$match.Groups[2].Value
+    }
+
+    for ($i = 1; $i -lt $labels.Count; $i++) {
+        $warmer = $labels[$i - 1]
+        $colder = $labels[$i]
+
+        if ($below8[$warmer] -gt $below8[$colder]) {
+            Fail "Climate <8C hours are not monotonic: $warmer=$($below8[$warmer]), $colder=$($below8[$colder])."
+        }
+
+        if ($below0[$warmer] -gt $below0[$colder]) {
+            Fail "Climate <0C hours are not monotonic: $warmer=$($below0[$warmer]), $colder=$($below0[$colder])."
+        }
+    }
+
+    if ($below8["WarmLowland"] -ge $below8["Highland"]) {
+        Fail "Climate gradient collapsed for <8C hours: WarmLowland=$($below8["WarmLowland"]), Highland=$($below8["Highland"])."
+    }
+
+    if ($below0["WarmLowland"] -ge $below0["Highland"]) {
+        Fail "Climate gradient collapsed for <0C hours: WarmLowland=$($below0["WarmLowland"]), Highland=$($below0["Highland"])."
+    }
+
+    Write-Host (
+        "[OK] Climate gameplay gradient preserved: " +
+        "<8C Warm/Temperate/Cool/Highland=" +
+        "$($below8["WarmLowland"])/$($below8["TemperateLowland"])/" +
+        "$($below8["CoolLowland"])/$($below8["Highland"]); " +
+        "<0C=" +
+        "$($below0["WarmLowland"])/$($below0["TemperateLowland"])/" +
+        "$($below0["CoolLowland"])/$($below0["Highland"])."
+    ) -ForegroundColor Green
 }
 
 Write-Host "[OK] No owned AMJ runtime ERROR entries were found." -ForegroundColor Green
