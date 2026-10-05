@@ -269,7 +269,7 @@ Accepted source-art direction:
 
 ### Shirabiso fir
 
-**Source approved 2026-10-05:** author approved the generated standalone evergreen sprite. Compact asymmetric layered conifer crown, muted grey/blue-green needle masses, grey-brown exposed trunk, thick dark outline, transparent background without ground/snow. Production texture: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png` (256x256 RGBA). SHA-256: `aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d`. This is a distinct species silhouette; no shared fixed component is declared. In-game Subalpine appearance remains pending.
+**Source approved 2026-10-05:** author approved the generated standalone evergreen sprite. Compact asymmetric layered conifer crown, muted grey/blue-green needle masses, grey-brown exposed trunk, thick dark outline, transparent background without ground/snow. Production texture: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png` (256x256 RGBA). SHA-256: `aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d`. This is a distinct species silhouette; no shared fixed component is declared. **Focused in-game appearance accepted 2026-10-05:** the author replied `OK` after the Subalpine focused-check instruction. Record reported appearance acceptance; this does not supply a new automated runtime log or full-suite result.
 
 Visual role:
 - narrow subalpine evergreen conifer;
