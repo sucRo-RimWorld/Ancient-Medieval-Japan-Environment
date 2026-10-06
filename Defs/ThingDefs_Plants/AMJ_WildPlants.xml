@@ -2,14 +2,14 @@
 <Defs>
   <!--
     Japan-specific structural vegetation for the four AMJ climate-band biomes.
-    Alpha uses Vanilla graphics as temporary placeholders; final plant artwork is deferred.
+    The four custom species use approved AMJE graphics and state variants.
     These Defs intentionally add no new harvested item types.
   -->
 
   <ThingDef ParentName="TreeBase">
     <defName>AMJ_Tree_Shii</defName>
     <label>shii tree</label>
-    <description>An evergreen broadleaf tree characteristic of Japan-like warm-temperate forests. It forms dense, dark canopies and yields sturdy hardwood.</description>
+    <description>An evergreen broadleaf tree characteristic of warm-temperate evergreen forests. Its thick leaves form a dense canopy. Warm-region forests of shii and related trees have supplied people with timber and fuel.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Shii</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -34,7 +34,7 @@
   <ThingDef ParentName="DeciduousTreeBase">
     <defName>AMJ_Tree_Beech</defName>
     <label>Japanese beech</label>
-    <description>A large deciduous broadleaf tree characteristic of Japan-like cool-temperate forests and mountain slopes.</description>
+    <description>A deciduous broadleaf tree characteristic of cool-temperate mountain forests. Its leaves turn yellow-brown in autumn and fall in winter. It has long covered hills and mountains in northern Japan, where primeval forests still remain.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Beech</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -67,7 +67,7 @@
   <ThingDef ParentName="TreeBase">
     <defName>AMJ_Tree_Shirabiso</defName>
     <label>shirabiso fir</label>
-    <description>A cold-tolerant evergreen fir characteristic of Japan-like subalpine conifer forests.</description>
+    <description>An evergreen conifer that forms forests in the subalpine zone of Honshu. It grows with hemlock and Maries fir in mountains above broadleaf forests such as beech forests.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Shirabiso</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -99,7 +99,7 @@
     <defName>AMJ_Shrub_Haimatsu</defName>
     <uiIconPath>Things/Plant/AMJ/Haimatsu/Haimatsu_A</uiIconPath>
     <label>haimatsu dwarf pine</label>
-    <description>A low, creeping evergreen pine that forms dense thickets above the forest line in Japan-like alpine terrain.</description>
+    <description>A low evergreen pine that forms thickets in the alpine zone above the forest line. Adapted to cold and strong winds, it spreads its branches along the ground rather than growing tall.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Haimatsu</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -113,6 +113,12 @@
     <pathCost>22</pathCost>
     <plant>
       <fertilityMin>0.05</fertilityMin>
+      <harvestedThingDef>WoodLog</harvestedThingDef>
+      <harvestYield>8</harvestYield>
+      <harvestTag>Wood</harvestTag>
+      <harvestMinGrowth>0.40</harvestMinGrowth>
+      <harvestWork>350</harvestWork>
+      <harvestFailable>false</harvestFailable>
       <snowOverlayGraphicPath>Things/Plant/AMJ/Haimatsu_Snow</snowOverlayGraphicPath>
       <fertilitySensitivity>0.20</fertilitySensitivity>
       <growDays>18</growDays>

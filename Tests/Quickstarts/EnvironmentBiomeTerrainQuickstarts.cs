@@ -5,6 +5,7 @@ using RimWorks.Quickstarts.Verification;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
+using Verse.AI;
 
 namespace AncientMedievalJapan.Environment.Quicktests
 {
@@ -492,6 +493,13 @@ namespace AncientMedievalJapan.Environment.Quicktests
             QuickstartVerification verification = new QuickstartVerification();
             Map map = Find.CurrentMap;
 
+            string harvestExpected = System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_HARVEST_EXPECTED");
+            if (!string.IsNullOrEmpty(harvestExpected))
+            {
+                AddHarvestOutputAssertions(verification, map, harvestExpected);
+                return verification;
+            }
+
             verification.Assert(
                 "current map exists",
                 delegate { return map != null; });
@@ -623,6 +631,78 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " cctoActive=" + CctoIsActive());
 
             return verification;
+        }
+
+        private static void AddHarvestOutputAssertions(QuickstartVerification verification, Map map, string expected)
+        {
+            string[] names = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu" };
+            int[] yields = { 42, 40, 30, 8 };
+            float originalYieldFactor = Find.Storyteller.difficulty.cropYieldFactor;
+            Find.Storyteller.difficulty.cropYieldFactor = 1f;
+            try
+            {
+            bool mo = ModLister.GetActiveModWithIdentifier("dankpyon.medieval.overhaul", true) != null;
+            verification.Assert("harvest profile matches expected resource", delegate {
+                return map != null && ((expected == "WoodLog" && !mo) || (expected == "DankPyon_RawWood" && mo));
+            });
+            for (int index = 0; index < names.Length; index++)
+            {
+                string name = names[index];
+                ThingDef def = DefDatabase<ThingDef>.GetNamed(name);
+                int expectedYield = yields[index];
+                verification.Assert(name + " loaded harvest resource and base yield", delegate {
+                    return def.plant.harvestedThingDef != null && def.plant.harvestedThingDef.defName == expected &&
+                        def.plant.harvestYield == expectedYield && def.plant.harvestTag == "Wood";
+                });
+                IntVec3 cell = map.Center + new IntVec3(index * 4 - 8, 0, 0);
+                foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 2f, true))
+                {
+                    if (!area.InBounds(map)) continue;
+                    foreach (Thing thing in area.GetThingList(map).ToArray())
+                        if (!(thing is Pawn)) thing.Destroy(DestroyMode.Vanish);
+                    map.terrainGrid.SetTerrain(area, TerrainDefOf.Soil);
+                }
+                Plant plant = (Plant)GenSpawn.Spawn(def, cell, map);
+                plant.Growth = 1f;
+                plant.HitPoints = plant.MaxHitPoints;
+                Pawn pawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
+                pawn.skills.GetSkill(SkillDefOf.Plants).Level = 0;
+                GenSpawn.Spawn(pawn, cell + IntVec3.North, map);
+                map.designationManager.AddDesignation(new Designation(plant, DesignationDefOf.CutPlant));
+                pawn.jobs.StartJob(JobMaker.MakeJob(JobDefOf.CutPlant, plant), JobCondition.InterruptForced);
+                int ticks = 0;
+                while (!plant.Destroyed && ticks++ < 15000)
+                {
+                    pawn.pather.PatherTick();
+                    if (pawn.jobs.curDriver == null) break;
+                    pawn.jobs.curDriver.DriverTick();
+                    if (pawn.jobs.curDriver != null) pawn.jobs.curDriver.DriverTickInterval(1);
+                }
+                int count = 0;
+                bool wrongResource = false;
+                foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 2f, true))
+                {
+                    if (!area.InBounds(map)) continue;
+                    foreach (Thing thing in area.GetThingList(map))
+                    {
+                        if (thing.def.defName == expected) count += thing.stackCount;
+                        if ((thing.def.defName == "WoodLog" || thing.def.defName == "DankPyon_RawWood") && thing.def.defName != expected)
+                            wrongResource = true;
+                    }
+                }
+                bool destroyed = plant.Destroyed;
+                int output = count;
+                bool wrong = wrongResource;
+                verification.Assert(name + " native pawn cutting produces only " + expected, delegate {
+                    return destroyed && output == expectedYield && !wrong;
+                });
+                Log.Message("[AMJ Environment Harvest] plant=" + name + " resource=" + expected + " output=" + count +
+                    " destroyed=" + destroyed + " wrongResource=" + wrongResource + " targetedPawnTicks=" + ticks +
+                    " currentJob=" + (pawn.CurJob == null ? "null" : pawn.CurJob.def.defName));
+                pawn.Destroy(DestroyMode.Vanish);
+            }
+            }
+            finally { Find.Storyteller.difficulty.cropYieldFactor = originalYieldFactor; }
         }
 
         private static void AddWildlifeAssertions(

@@ -2,6 +2,8 @@
 
 Use `Scripts/Build-ReleaseCandidate.py` after the current build/static checks and
 `Tests/validate_plant_visual_coverage.py --self-test --require-complete` pass.
+Before publication, run the [four-species harvest resource gate](PlantHarvestTests.md)
+against the current source. Its result is separate from ZIP startup/map checks.
 The candidate contains About, the production assembly, Defs, translations,
 patches, textures, LICENSE, README and the English/Japanese Workshop copy.
 The distribution loadFolders.xml loads only the root; developer Quickstarts,

@@ -22,6 +22,8 @@ A one-off trivial text edit with no reusable procedure can be marked N/A. A work
 
 ## Current Golden Paths
 
+- [Plant Harvest Resource Tests](PlantHarvestTests.md) — native cutting outputs in Vanilla and actual MO.
+
 - [Rendered Runtime Tests](RenderedRuntimeTests.md) — rendering enabled on an independent non-visible Windows desktop.
 
 - [Plant Visual Coverage Gate](PlantVisualCoverage.md) — per-state approval/evidence and scoped invalidation.
