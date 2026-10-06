@@ -38,7 +38,7 @@ Primary design source:
 
 **Requested by:** author (2026-10-06 JST; AMJ-wide rule cleanup)  
 **Owner:** Environment art / documentation  
-**Status:** DONE
+**Status:** DONE — follow-up audit and art-rule CI green
 
 Environment art documentation now inherits the Core `Docs/ArtStyle.md` project-wide invariants instead of carrying a second full shared prompt/rule set.
 
@@ -52,6 +52,8 @@ Source-of-truth commits:
 - generation entry cleanup: `d9450de315c66ac5ace71b032bf5106d82bee08f`;
 - ArtDirection inheritance/exception clarification: `c8ef22a14769b3e8f708ae0da908d39040fca469`;
 - texture pipeline deduplication: `69d8833629c88d79a91e41e517d7e04c94e31969`.
+
+**Follow-up audit (2026-10-06 JST):** Retexture generation now assembles the current Core+Environment rules instead of using a frozen prompt, does not insert a mandatory pre-generation approval loop, and reviews candidates against the current request plus any already-approved target design. The Golden Path index was synchronized, accepted Sudajii/beech reference blobs are regression-locked, and stale completed visual-review statuses were reconciled. `.github/workflows/art-rule-structure.yml` runs the dedicated documentation/routing guard; run `37442081809` passed.
 
 
 ### ENV-001 — Initial Japan-style world generation
