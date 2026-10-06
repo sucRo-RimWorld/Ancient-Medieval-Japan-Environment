@@ -185,7 +185,7 @@
           "date": "2026-10-06",
           "pending_variant": "leafless",
           "leafy_variant_status": "accepted",
-          "review_reason": "Author rejected revision 2 for ignoring branches; branch-surface contact revision 3 remains unapproved and awaits review.",
+          "review_reason": "Revision 3 appeared behind branches; foreground snow-lip revision 4 covers original upper outline/wood face and remains unapproved.",
           "evidence": "Docs/ValidationEvidence/BeechSnowReview-Snow.log"
         },
         "transition": {

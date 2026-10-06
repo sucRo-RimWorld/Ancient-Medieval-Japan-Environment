@@ -21,7 +21,7 @@ LEAFLESS_BRANCHES = (
     (185, 208, 113, 111, 12), (83, 108, 136, 149, 12),
     (204, 218, 146, 140, 10), (60, 79, 158, 161, 12),
 )
-SNOW_OUTLINE = (55, 53, 43, 255)
+SNOW_OUTLINE = (32, 29, 22, 255)
 SNOW_BASE = (245, 243, 235, 255)
 SNOW_SHADOW = (218, 225, 232, 255)
 
@@ -56,20 +56,23 @@ def build_leafless_clumps(master, anchors=None):
         # Contract is independent of painted alpha and never widened after a leak.
         contract.rectangle((x0-2,min(y0,y1)-depth-7,
                             x1+2,max(y0,y1)+5),fill=255)
-        bottom=branch_surface(master,branch)
+        surface=branch_surface(master,branch)
+        # Opaque snow lip covers the original upper outline/wood face.
+        # Ending at the silhouette edge incorrectly leaves wood in foreground.
+        bottom=[(x,y+4) for x,y in surface]
         top=[]
         for x,y in bottom:
             t=(x-x0)/(x1-x0)
             # Thickness tapers into the branch at both ends, with unequal lobes.
             h=1+depth*(math.sin(math.pi*t)**.7)*(.85+.15*math.sin(t*5+index))
             near=[v for xx,v in bottom if abs(xx-x)<=3]
-            top.append((x,sum(near)/len(near)-h))
+            top.append((x,sum(near)/len(near)-h-4))
         polygon=top+list(reversed(bottom))
         draw.polygon([(round(x*scale),round(y*scale)) for x,y in polygon],fill=SNOW_BASE)
-        shadow=[(x,y-1.8) for x,y in bottom]+list(reversed(bottom))
+        shadow=[(x,y-3.5) for x,y in bottom]+list(reversed(bottom))
         draw.polygon([(round(x*scale),round(y*scale)) for x,y in shadow],fill=SNOW_SHADOW)
         draw.line([(round(x*scale),round(y*scale)) for x,y in polygon+[polygon[0]]],
-                  fill=SNOW_OUTLINE,width=scale,joint='curve')
+                  fill=SNOW_OUTLINE,width=round(1.5*scale),joint='curve')
     layer=high.resize(master.size,Image.Resampling.BOX)
     assert all(not a or m for a,m in zip(layer.getchannel('A').tobytes(),mask.tobytes())), 'Artwork escaped review contract'
     return mask,layer
@@ -130,11 +133,11 @@ def build(leafless):
     if leafless:
         approval_basis = (
             'Rejected by author on 2026-10-06 because snow read as thin '
-            'branch-following lines; branch-contact snow revision 3 awaiting review'
+            'branch-following lines; front-occluding snow revision 4 awaiting review'
         )
         mask_meaning = (
             'Eight narrow branch corridors traced against original opaque upper surfaces; '
-            'unapproved revision 3, unchanged lower trunk and all outside RGBA'
+            'unapproved revision 4, unchanged lower trunk and all outside RGBA'
         )
     else:
         approval_basis = (
@@ -147,7 +150,7 @@ def build(leafless):
     spec = {
         'version': 1,
         'family': f'AMJE-{name}-snow',
-        'template_revision': 'v3-review' if leafless else 'v1',
+        'template_revision': 'v4-review' if leafless else 'v1',
         'production_status': 'review',
         'size': [256, 256],
         'master': {'path': 'master.png', 'sha256': sha(source)},

@@ -42,3 +42,13 @@ Revision 3 keeps the master exact, traces upper branch pixels inside eight prede
 - Revision 3 editable-mask.png: `339e3704d0ae48365df85e56c308ed995ce8abba158b48fdf729da1bf3902170`
 - Revision 3 snow-overlay.png: `6fafc5048ecc8f133a371b35341514909341d59c42fff674a68b390b240d1980`
 - Revision 3 exact-composite.png: `bdd10855ce52784ea8a73d81bb0fc8a6beed0ec6abf2f9daa48abd692627b284`
+
+### Revision 4 — snow foreground occlusion, still unapproved
+
+Author reported that revision 3 looked as though snow was a lower layer. Binary composition was already master -> snow; the visual error was stopping the cap at the wood silhouette, leaving the original upper outline/wood face foreground-visible. Revision 4 retains the same eight branch corridors and unchanged mask/master, but extends an opaque four-pixel snow lip over the original upper branch face. A broad blue-grey front plane and darker contour make the cap thickness visible. The original upper outline and its adjacent wood are covered, not redrawn above snow.
+
+Physical branch support and final visible snow rim are distinct: a front lip may overhang the support edge. Do not force that rim to end at the original silhouette or restore the original wood contour in front. Validate supporting branch overlap across cap width and require opaque snow over the original upper surface/adjacent face. Exact master -> snow composition and a wood-over-snow negative fixture lock order separately. Revision `v4-review` remains REVIEW with no accepted filled exemplar or native visual acceptance.
+- Revision 4 master.png: `24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112`
+- Revision 4 editable-mask.png: `339e3704d0ae48365df85e56c308ed995ce8abba158b48fdf729da1bf3902170`
+- Revision 4 snow-overlay.png: `8b801f585d9f50ba0cbd4f57ea816f42ad365930a764ee4c6542143df00bc61a`
+- Revision 4 exact-composite.png: `6733dc61dde535c145affe757d9e1185c452485b3b6f64c81560658506dce6bc`

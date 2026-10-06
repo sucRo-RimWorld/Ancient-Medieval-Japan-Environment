@@ -8,6 +8,7 @@ sys.path.insert(0,str(root/'Tests/Tools'))
 import fixed_template
 sys.path.insert(0, str(root/'Scripts/Art'))
 from build_haimatsu_snow import components
+from build_beech_snow import branch_surface, LEAFLESS_BRANCHES
 
 
 def validate_leafless_massing(layer, base):
@@ -23,9 +24,10 @@ def validate_leafless_massing(layer, base):
         outline = sum(max(layer.getpixel(p)[:3]) < 100 for p in mass)
         assert outline >= 20, 'Snow needs a strong dark outer contour'
         bottom={x:max(yy for xx,yy in mass if xx==x) for x,y in mass}
-        supported=sum(any(base.getpixel((x,min(base.height-1,y+dy)))[3]>=128
-                          for dy in (0,1)) for x,y in bottom.items())
-        assert supported/len(bottom)>=.90, 'Snow bottom must contact branch across its width'
+        supported=sum(any(base.getpixel((x,yy))[3]>=128
+                          for yy in range(min(y for xx,y in mass if xx==x), min(base.height, y+2)))
+                      for x,y in bottom.items())
+        assert supported/len(bottom)>=.90, 'Snow must overlap a supporting branch across its width'
     return len(masses), len(solid)
 
 
@@ -74,6 +76,14 @@ for name,field in [('Beech','snowOverlayGraphicPath'),('Beech_Leafless','leafles
     assert preview.tobytes()==Image.open(template.parent/'exact-composite.png').convert('RGBA').tobytes()
     assert any(a and not m for a,m in zip(ImageChops.offset(layer,12,0).getchannel('A').tobytes(),mask.tobytes()))
     if name=='Beech_Leafless':
+        for corridor in LEAFLESS_BRANCHES:
+            for x,y in branch_surface(base,corridor)[2:-2]:
+                # Snow must hide the original upper outline and adjacent wood,
+                # not merely sit behind/touch the branch silhouette.
+                assert min(layer.getpixel((x,y))[3],layer.getpixel((x,y+1))[3])>=245, 'Original upper branch face leaks in front of snow'
+        reversed_order=Image.alpha_composite(layer,base)
+        assert reversed_order.tobytes()!=preview.tobytes(), 'Snow layer-order regression fixture ineffective'
+        print('[OK] Snow hides upper branch face; wood-over-snow order rejected')
         count, area = validate_leafless_massing(layer,base)
         print('[OK] Leafless snow supported outlined masses:', count, 'solid pixels:', area)
         spec=json.loads(template.read_text(encoding='utf-8'))
