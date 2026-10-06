@@ -69,7 +69,7 @@
       }
     },
     "AMJ_Tree_Beech": {
-      "complete": true,
+      "complete": false,
       "states": {
         "autumn": {
           "status": "accepted",
@@ -181,24 +181,12 @@
           }
         },
         "snow": {
-          "status": "accepted",
+          "status": "pending",
           "date": "2026-10-06",
-          "author_statement": "OK",
-          "evidence": "Docs/ValidationEvidence/BeechSnowReview-Snow.log",
-          "fingerprint": {
-            "definition": "6e01a21e2e7d7a603d5e9f36dfbd50b4e2639f4a23e9d17a647c25d82d724ba6",
-            "pngs": {
-              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
-              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
-              "Textures/Things/Plant/AMJ/Beech_Snow/Beech_Snow_A.png": "221fdf06941864a7a366819042fe325b15ad587d5af9e3bb914a672b2f3d5f51",
-              "Textures/Things/Plant/AMJ/Beech_Leafless_Snow/Beech_Leafless_Snow_A.png": "3b6e3dabcf402483920ac406d54fa37aef9e9cea06a47bf0c15e9e66a230141f",
-              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
-            }
-          },
-          "reviewed_variants": [
-            "leafy",
-            "leafless"
-          ]
+          "pending_variant": "leafless",
+          "leafy_variant_status": "accepted",
+          "review_reason": "Leafless snow composite rejected because snow read as thin branch-following lines; revised clump-based candidate awaits author review.",
+          "evidence": "Docs/ValidationEvidence/BeechSnowReview-Snow.log"
         },
         "transition": {
           "status": "verified",
