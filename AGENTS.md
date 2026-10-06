@@ -85,6 +85,12 @@ Inherited Vanilla/MO descriptions must be audited from the perspective of ancien
 
 Historical description text is Japanese-first: draft and review Japanese first, obtain author approval, then translate only the approved Japanese text into English. Apply the shared Core name-form rule: begin Japanese descriptions with an established kanji form when one exists, and include recognized aliases / alternate names or common alternate written forms at the opening; do not invent kanji or weakly sourced names. Preserve research/source rationale in durable documentation.
 
+## Mod naming rule (AMJ common)
+
+AMJ Core, Environment, CCTO and future related Mods must not use ASCII `:` or full-width `：` in Mod names. Use ` - ` when a separator is needed. Apply this to `About/About.xml` `<name>` and the corresponding Workshop title / formal README name; check it when creating, renaming or preparing a Mod for publication. YADA uses the display name for an upload staging directory, and an ASCII colon causes that step to fail on Windows. Display-name corrections must preserve `packageId` and existing Workshop IDs.
+
+The shared source of truth is [Mod description guidelines — Mod名のコロン禁止](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md). Colons in description prose, URLs and code syntax are outside this naming rule.
+
 ## Public mod descriptions
 
 Use the CCTO-based shared [mod description guidelines](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md) when writing or updating public descriptions. Include save compatibility in every mod description, stating addition/removal conditions accurately for the mod's implementation. Keep README, Workshop English/Japanese BBCode, and About.xml consistent; refine the shared baseline as presentation improves.
