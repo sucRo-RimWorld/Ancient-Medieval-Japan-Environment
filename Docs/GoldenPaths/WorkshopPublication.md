@@ -129,7 +129,7 @@ Direct3D and independent error captures before accepting the four-profile union.
 Use `--steam` only with the actual installed Workshop root. Candidate union
 success explicitly does not clear the distributed-release HOLD.
 
-## Verified candidate closeout (2026-10-07 JST)
+## Historical 28-file candidate (superseded by subscriber-only policy)
 
 Immutable candidate source commit: `f404769a3c70d44a0471576ff70e95ba6ff04d08`.
 Archive SHA256: `1e81e525da09680c3592c05d89a2cbd332127d9319ec72c982d959f3eb4d11d4`.
@@ -161,8 +161,11 @@ CandidateRuntime-1/2/3. Formal compact evidence and hashes are retained in
 `Docs/ValidationEvidence/WorkshopPublicationAudit.json`,
 `WorkshopCandidateRuntime.json` and `WorkshopCandidateManifest.json`.
 
-Author handoff: upload the manifest-verified Candidate-f404769 runtime root,
-not the dirty development root. Publication may proceed manually with this
-candidate; distributed release approval remains HOLD on manifest8630945342812668549
+The28-file candidate is historical runtime evidence and must not be uploaded:
+README/.rimignore fail the newer shared subscriber contract. The final26-file
+Candidate-a23a9eb uses sourcea23a9eb2b6cac3afd3b876860ae1654327a90370 and
+archive15af3f24ced8988859db0b811ef58348b9b6a05ea77cbf93757176f023be4a99.
+Its shared filtering gate passed; exact four-profile runtime validation is in
+progress at SubscriberCandidateRuntime-1. Distributed approval remains HOLD on manifest8630945342812668549
 until a real Steam download matches the intended payload and passes the actual
 four-profile source/cutting gate. No Workshop file overwrite or upload occurred.
