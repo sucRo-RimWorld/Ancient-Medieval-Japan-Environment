@@ -35,9 +35,9 @@ Primary design source:
 
 ## Active tree-art handoff
 
-- **Current stage:** PR #5 review; leafless beech snow rejected and revised candidate remains unapproved. Accepted base sprites and other reviewed states are preserved.
-- **Next target:** review wider whole-tree accumulation revision 5 of `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` on PR #5; the twelve-cap revision 2 was rejected for ignoring branches. Native visual acceptance remains pending; existing Vanilla/MO retextures stay post-release.
-- **Approval state:** leafless snow is REVIEW, no approved filled exemplar; earlier paired snow OK is superseded for this variant only. Other recorded approvals remain state-specific.
+- **Current stage:** PR #5; leafless beech snow revision 5 source accepted as compromise. Its native appearance remains pending. Accepted base sprites and other reviewed states are preserved.
+- **Next target:** native snow appearance review of the exact adopted revision-5 bytes; source art is accepted and frozen. Existing Vanilla/MO retextures stay post-release.
+- **Approval state:** leafless snow source accepted with `これで妥協する`; template `source_approved`, native appearance pending. Other recorded approvals remain state-specific.
 - **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 - **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
 
@@ -1088,3 +1088,9 @@ Author: `雪が下のレイヤになってるように見える`. Actual composi
 ### ENV-010 — More whole-tree snow requested; revision 5 pending
 
 Author requested `枝だから雪がつもりにくいのはそうだが、もうすこし全体的に積もらせたい`. PR #5 head `e37b4121c2511a4532ac356ccb3611b6ae3f27b9` adds seven upper/outer/lower ledges to the existing eight: fifteen supporting corridors / fourteen connected masses, solid snow 2108 -> 3628 pixels (~1.72x). Foreground occlusion, tapered branch-aligned thickness and exposed trunk/twig structure are retained. New allowed corridors are declared before painting under unapproved `v5-review`; accepted masters and other variants are unchanged. Core protected RGBA=0, support/occlusion/mass/layer-order, PNG and state ledger gates pass. No ImageGen, native/game test or visual acceptance is claimed. Leafless snow remains REVIEW/pending and PR remains draft.
+
+### ENV-010 — Revision 5 adopted as compromise; source frozen
+
+Author: `これで妥協する` (2026-10-06 JST), referring to the presented revision-5 PNG. Record source-art acceptance as compromise. PR #5 commit `9a7af9295724012292d542ef892392f7e2535d0e` records the statement/date/source hash, `v5` / `source_approved`, and prevents the builder from changing accepted source bytes. Images, master and mask remain identical to the adopted revision. Source SHA-256: `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`.
+
+Native game appearance of these exact bytes was not shown in this chat, so it remains separately pending in the coverage ledger. Do not treat this as a new runtime PASS or merge/release authorization. Durable evidence is PR `Docs/ValidationEvidence/BeechLeaflessSnowSourceAcceptance.md` and ArtDirection. Remaining action is native appearance review when continuing release validation; do not regenerate this source or ask again to approve the same presented image.
