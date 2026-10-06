@@ -10,7 +10,7 @@ The rule is therefore: **do not improvise a new transfer/install path for each t
 
 ## Generation prerequisite
 
-For tree/plant sprites, begin with [RetextureGeneration.md](RetextureGeneration.md). It preserves the current visual rules and actually viewed/attached reference images across chat changes, and requires an approved target design before generation. This document begins at the subsequent production-source approval/install stage.
+For tree/plant sprites, begin with [RetextureGeneration.md](RetextureGeneration.md). It loads the current Core shared style, Environment-specific art direction, coordination stage, and actual reference images. This document begins only after source-art approval.
 
 ## Golden Path
 
@@ -173,6 +173,6 @@ For AMJE production art, completion requires:
 
 **approved source → exact-byte install → automated gate PASS → correct natural-biome runtime review → author acceptance → regression/documentation lock.**
 
-## Pixel-exact reused components (AMJ shared policy)
+## Fixed reused components
 
-Follow the Core source of truth [FixedImageTemplates.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/GoldenPaths/FixedImageTemplates.md). Same style does not mean identical parts: species-specific silhouettes remain distinct. Where a trunk, container, title or other component is reused, register an approved lossless master and binary editable mask with SHA-256 hashes in the owning repository, generate only variable material, and composite deterministically. Final decoded protected RGBA pixel differences must be zero; reference-image editing/visual similarity cannot replace this check. Use Core `Scripts/Art/fixed_template.py` for compositing/validation, then retain Environment's PNG integrity/install gates. Read the master/manifest and actually view the approved reference in every new chat. No shared-pixel guarantee may be claimed before the family template and output pass this gate. Existing proposal approval stages are unchanged.
+If a texture intentionally reuses a visible component pixel-exactly, follow Core `Docs/GoldenPaths/FixedImageTemplates.md`. Do not duplicate that policy here.
