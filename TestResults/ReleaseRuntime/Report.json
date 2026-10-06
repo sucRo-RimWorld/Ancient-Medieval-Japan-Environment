@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "date": "2026-10-06 JST",
+  "candidate": "AncientMedievalJapanEnvironment-20261006-150139.zip",
+  "sha256": "d1ecd33a0c18cb2abe665685c9487a60bc257346000bb1faa3d528287109ce0d",
+  "exact_zip_payload": true,
+  "package_id_unchanged": true,
+  "loaded_pack": "AMJE.ReleaseCandidateCheck",
+  "quickstarts": false,
+  "plants": 4,
+  "leafless_and_leafless_snow": true,
+  "haimatsu_ui_scale": 1,
+  "haimatsu_map_draw_size": 2.6,
+  "structured_error_entries": 0,
+  "duplicate_package_ids": 0,
+  "source_about_restored": true,
+  "fixtures_retired": true,
+  "scope": "Standalone startup/data/graphic load smoke with Harmony, Core, RimLogging and an independent test observer. No map-generation or full gameplay test performed in this run."
+}

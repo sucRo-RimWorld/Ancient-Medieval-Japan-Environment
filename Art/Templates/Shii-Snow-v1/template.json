@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "family": "AMJE-Shii-snow",
+  "template_revision": "v1",
+  "production_status": "active",
+  "size": [
+    256,
+    256
+  ],
+  "master": {
+    "path": "master.png",
+    "sha256": "c40603c96e357f210ac394bc5c62f89449b37d43793262d692b604488c28d809"
+  },
+  "editable_mask": {
+    "path": "editable-mask.png",
+    "sha256": "4ded6d5d5bad7f4ea091b840f24bbaba3d7270b6c56e9c724831a7925f82688b"
+  },
+  "approval_basis": "Author accepted current snow as compromise on 2026-10-06; slight left foliage concern retained",
+  "mask_meaning": "Five connected upper/middle-lit foliage masses at threshold 85 from master pixels; left lateral foliage cap follows master upper contour; branches/outer AA protected",
+  "layer_order": [
+    "unchanged Shii master",
+    "registered snow-only layer"
+  ],
+  "material_sha256": "f77fb8d8db633c5c3b7452927e61bbde152a531fbb351c47f0a721587eef6147",
+  "pad_bboxes": [
+    [
+      92,
+      35,
+      194,
+      109
+    ],
+    [
+      179,
+      87,
+      238,
+      170
+    ],
+    [
+      44,
+      68,
+      122,
+      132
+    ],
+    [
+      140,
+      121,
+      201,
+      168
+    ],
+    [
+      54,
+      140,
+      119,
+      179
+    ],
+    [
+      15,
+      138,
+      66,
+      163
+    ]
+  ],
+  "filled_exemplar": {
+    "path": "exact-composite.png",
+    "sha256": "cba57408321e9c521e80437a82b2b31b5376bea6a869018c2fb6fb77babc9859",
+    "size": [
+      256,
+      256
+    ],
+    "evidence": "TestResults/ShiiSnowContour/SnowLeftContour.log"
+  }
+}

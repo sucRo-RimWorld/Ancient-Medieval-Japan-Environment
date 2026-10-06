@@ -106,3 +106,7 @@ Repository:
 `sucRo-RimWorld/Ancient-Medieval-Japan-Environment`.
 
 For any explicitly reused visible component, follow the Core `Docs/GoldenPaths/FixedImageTemplates.md`; ordinary same-style tree sprites do not require fixed-pixel templates.
+
+## Snow-only derivative routing
+
+For aligned snow overlays, follow [PlantSnowOverlayPlan.md](../PlantSnowOverlayPlan.md) in addition to this preflight. Inspect the accepted snow reference as well as the immutable base master. The no-snow rule applies to normal base sprites, not the requested separate overlay. Fixed-pixel success does not establish outline, internal-line, support or massing quality. Local painting and deterministic compositing must pass the same visual audit as generated candidates. Follow Core FixedImageTemplates authorization rules before choosing any new image generation.

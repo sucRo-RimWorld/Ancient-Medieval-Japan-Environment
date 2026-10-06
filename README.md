@@ -31,7 +31,7 @@ Historical and ecological research is used as a reference, but gameplay clarity 
 
 AMJ Environment modifies the root-surface world after Vanilla terrain generation, preserving compatibility with later world-generation systems.
 
-Current Alpha targets include:
+Current Beta targets include:
 
 - land annual mean temperature: approximately **-8°C to 20°C**;
 - southern warm lowlands: roughly **17–20°C** annual mean;
@@ -107,7 +107,7 @@ Generic grasses, mosses, shrubs, secondary trees, and other filler vegetation co
 
 Sudajii, Japanese beech, Shirabiso, and Haimatsu now use AMJE-authored custom graphics. Broader Vanilla / Medieval Overhaul tree retextures remain planned follow-up work after the initial public Beta.
 
-Detailed research rationale and sources are retained in [Docs/Design.md](Docs/Design.md) and [Docs/ArtDirection.md](Docs/ArtDirection.md).
+Sudajii, Japanese beech, Shirabiso, and Haimatsu use AMJE-authored custom artwork, including snow overlays and beech leafless/autumn states. Their production appearance and UI states have been reviewed.\n\nDetailed research rationale and sources are retained in [Docs/Design.md](Docs/Design.md) and [Docs/ArtDirection.md](Docs/ArtDirection.md).
 
 ### Natural soil fertility
 
@@ -131,7 +131,7 @@ AMJ Environment reuses RimWorld's existing weather types rather than adding a pa
 
 Warm/cool forests favor more liquid precipitation and fog, while subalpine/alpine regions shift progressively toward snow. Dry thunderstorms are deliberately rare relative to rainy thunderstorms.
 
-Calendar-specific Baiu, Akisame, and typhoon-season weighting is not part of Alpha. Sea-of-Japan-side versus Pacific-side winter exposure is also deferred until there is a proper geographic basis for it.
+Calendar-specific Baiu, Akisame, and typhoon-season weighting is not part of Beta. Sea-of-Japan-side versus Pacific-side winter exposure is also deferred until there is a proper geographic basis for it.
 
 ### Seasonal scenery
 
@@ -141,7 +141,7 @@ Seasonal presentation uses Vanilla systems:
 - Sudajii, Shirabiso, and Haimatsu remain evergreen;
 - Vanilla SnowGentle / SnowHard and SnowGrid provide winter snow scenery.
 
-No custom seasonal controller is added in Alpha.
+No custom seasonal controller is added in Beta.
 
 ### Functional wildlife proxies
 
@@ -224,7 +224,7 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-The four AMJE structural plants have custom graphics. Broader Vanilla / Medieval Overhaul tree retextures are planned after the initial public Beta, and real-play balance/compatibility feedback may still refine the current baselines.
+The four AMJE structural plants and their required visual states are implemented, including snow overlays and beech leafless/autumn states. Broader Vanilla / Medieval Overhaul tree retextures are planned after the initial public Beta, and real-play balance/compatibility feedback may still refine the current baselines.
 
 ## Research and detailed design
 

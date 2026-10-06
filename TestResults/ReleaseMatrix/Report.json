@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "date": "2026-10-06 JST",
+  "candidate": "AncientMedievalJapanEnvironment-20261006-150139.zip",
+  "sha256": "d1ecd33a0c18cb2abe665685c9487a60bc257346000bb1faa3d528287109ce0d",
+  "results": [
+    {
+      "profile": "Base",
+      "scenario": "AMJAlpineTerrainQuickstart",
+      "passed": 52,
+      "errors": 0
+    },
+    {
+      "profile": "Base",
+      "scenario": "AMJCoastMapHandoffQuickstart",
+      "passed": 3,
+      "errors": 0
+    },
+    {
+      "profile": "Base",
+      "scenario": "AMJCoolTemperateTerrainQuickstart",
+      "passed": 57,
+      "errors": 0
+    },
+    {
+      "profile": "Base",
+      "scenario": "AMJRiverMapHandoffQuickstart",
+      "passed": 3,
+      "errors": 0
+    },
+    {
+      "profile": "Base",
+      "scenario": "AMJSubalpineTerrainQuickstart",
+      "passed": 54,
+      "errors": 0
+    },
+    {
+      "profile": "Base",
+      "scenario": "AMJWarmTemperateTerrainQuickstart",
+      "passed": 58,
+      "errors": 0
+    },
+    {
+      "profile": "CCTO",
+      "scenario": "AMJWarmTemperateTerrainQuickstart",
+      "passed": 70,
+      "errors": 0
+    }
+  ],
+  "exact_payload_unchanged": true,
+  "source_restored": true,
+  "fixtures_retired": true,
+  "scope": "Four biome maps, river/coast world-to-map handoff and CCTO loaded-Def compatibility via external Quickstarts observer. Original release PackageId and runtime-only load folders unchanged. Full MO runtime and extended gameplay not included."
+}

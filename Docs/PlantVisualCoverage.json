@@ -1,0 +1,360 @@
+{
+  "schema": 1,
+  "plants": {
+    "AMJ_Tree_Shii": {
+      "complete": true,
+      "states": {
+        "autumn": {
+          "status": "na",
+          "reason": "evergreen"
+        },
+        "icon": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "OK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-Review.log",
+          "fingerprint": {
+            "definition": "6be82bc7daf1d09af45d806e13407162e7c23d76840912a800fea64c33ade540",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shii/Shii_A.png": "c40603c96e357f210ac394bc5c62f89449b37d43793262d692b604488c28d809"
+            }
+          }
+        },
+        "immature": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "これ何回も見てるけどOK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+          "fingerprint": {
+            "definition": "6be82bc7daf1d09af45d806e13407162e7c23d76840912a800fea64c33ade540",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shii/Shii_A.png": "c40603c96e357f210ac394bc5c62f89449b37d43793262d692b604488c28d809"
+            }
+          }
+        },
+        "leafless": {
+          "status": "na",
+          "reason": "evergreen"
+        },
+        "normal": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "これ何回も見てるけどOK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+          "fingerprint": {
+            "definition": "6be82bc7daf1d09af45d806e13407162e7c23d76840912a800fea64c33ade540",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shii/Shii_A.png": "c40603c96e357f210ac394bc5c62f89449b37d43793262d692b604488c28d809"
+            }
+          }
+        },
+        "snow": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "やや怪しいがこれで妥協",
+          "evidence": "Docs/ValidationEvidence/ShiiSnowContour-SnowLeftContour.log",
+          "fingerprint": {
+            "definition": "8328055b4da52a752f11456da1c39045803b6282b731abfd234cddc28f57588c",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shii/Shii_A.png": "c40603c96e357f210ac394bc5c62f89449b37d43793262d692b604488c28d809",
+              "Textures/Things/Plant/AMJ/Shii_Snow/Shii_Snow_A.png": "5d9376ced78552f64631c89eda662aef51bd6faff4f1e098238ca0aa3c4b8bb7"
+            }
+          },
+          "qualification": "Author accepts current version as a compromise; slight left foliage shape concern remains."
+        },
+        "transition": {
+          "status": "na",
+          "reason": "evergreen"
+        }
+      }
+    },
+    "AMJ_Tree_Beech": {
+      "complete": true,
+      "states": {
+        "autumn": {
+          "status": "accepted",
+          "review_kind": "color",
+          "color_conditions": {
+            "local_hour": 12,
+            "weather": "Clear",
+            "paused": true,
+            "weather_transition_complete": true,
+            "verified": true,
+            "season": "fixed calendar ticksAbs=330000, longitude=5.478611; autumn shader override",
+            "shader_intensity": 1,
+            "zoom": 24,
+            "evidence": "TestResults/BeechNoonClearReview/CoolTemperate.log"
+          },
+          "runtime_observation": {
+            "growth": 1,
+            "position": [
+              153,
+              0,
+              121
+            ],
+            "leafless": false,
+            "texture": "Beech_A",
+            "mod_error_gate": "passed"
+          },
+          "date": "2026-10-05",
+          "author_statement": "では採用で。",
+          "evidence": "Docs/ArtDirection.md#Beech controlled autumn acceptance",
+          "fingerprint": {
+            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+            }
+          },
+          "technical_revalidation": "Exact prior whole-Def/assets reconstructed after excluding unrelated UI/snow-only additions; original acceptance retained."
+        },
+        "icon": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "OK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-Review.log",
+          "fingerprint": {
+            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+            }
+          }
+        },
+        "immature": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "これ何回も見てるけどOK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+          "fingerprint": {
+            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+            }
+          }
+        },
+        "leafless": {
+          "status": "accepted",
+          "runtime_observation": {
+            "log": "TestResults/BeechLeaflessReview/CoolTemperate.log",
+            "mode": "forced via Plant.MakeLeafless(Cold,false); not seasonal timing",
+            "growth": 1,
+            "position": [
+              117,
+              0,
+              51
+            ],
+            "before_leafless": false,
+            "after_leafless": true,
+            "texture": "Beech_Leafless_A",
+            "mod_error_gate": "passed",
+            "human_appearance": "accepted"
+          },
+          "date": "2026-10-05",
+          "author_statement": "問題なし",
+          "evidence": "Docs/ArtDirection.md#Japanese beech — leafless",
+          "fingerprint": {
+            "definition": "e7b43a6b8675fd8ec8ba941f2d77f8bb9f90d56f47bd4b335a7022a363c49233",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112"
+            }
+          },
+          "technical_revalidation": "Original leafless PNG identical; previous explicit 問題なし retained. Autumn shader and snow/UI additions caused overbroad invalidation; current native LeaflessNow/material verified without art replacement."
+        },
+        "normal": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "これ何回も見てるけどOK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+          "fingerprint": {
+            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+            }
+          }
+        },
+        "snow": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "ブナOKなのでPRマージして",
+          "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md",
+          "fingerprint": {
+            "definition": "55a774a1f2773677b1869db113513dffa3f37130a50dc8cc1b06e9ce750f4a87",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Things/Plant/AMJ/Beech_Snow/Beech_Snow_A.png": "221fdf06941864a7a366819042fe325b15ad587d5af9e3bb914a672b2f3d5f51",
+              "Textures/Things/Plant/AMJ/Beech_Leafless_Snow/Beech_Leafless_Snow_A.png": "3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b",
+              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+            }
+          },
+          "reviewed_variants": [
+            "leafy",
+            "leafless"
+          ],
+          "source_art_status": "accepted_as_compromise",
+          "source_author_statement": "これで妥協する",
+          "native_author_statement": "ブナOKなのでPRマージして"
+        },
+        "transition": {
+          "status": "verified",
+          "date": "2026-10-06",
+          "verification_kind": "automated_native_calendar_sampling",
+          "evidence": "Docs/ValidationEvidence/BeechSeasonSampleV5-Season.log",
+          "fingerprint": {
+            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+            }
+          },
+          "scope": "Hourly native calendar/temperature-cache/Plant.TickLong sampling: fall0..1, same-tree cold leafless and recovery, valid textures. Not continuous full-world yearly simulation; no human visual acceptance claimed."
+        }
+      }
+    },
+    "AMJ_Tree_Shirabiso": {
+      "complete": true,
+      "states": {
+        "autumn": {
+          "status": "na",
+          "reason": "evergreen"
+        },
+        "icon": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "OK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-Review.log",
+          "fingerprint": {
+            "definition": "60b039b9c5884b9bc661740f0aeaad386d0987a8469ed68b64403cc163423ed7",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png": "aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d"
+            }
+          }
+        },
+        "immature": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "これ何回も見てるけどOK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+          "fingerprint": {
+            "definition": "60b039b9c5884b9bc661740f0aeaad386d0987a8469ed68b64403cc163423ed7",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png": "aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d"
+            }
+          }
+        },
+        "leafless": {
+          "status": "na",
+          "reason": "evergreen"
+        },
+        "normal": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "これ何回も見てるけどOK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+          "fingerprint": {
+            "definition": "60b039b9c5884b9bc661740f0aeaad386d0987a8469ed68b64403cc163423ed7",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png": "aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d"
+            }
+          }
+        },
+        "snow": {
+          "status": "accepted",
+          "date": "2026-10-05",
+          "author_statement": "これ採用で",
+          "evidence": "Docs/ValidationEvidence/ShirabisoSnowHeavy-Snow.log",
+          "fingerprint": {
+            "definition": "8dd90c7ea9a446c805f7705a0ed29703c56fe06e1ddef48ca007b74e722396f6",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png": "aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d",
+              "Textures/Things/Plant/AMJ/Shirabiso_Snow/Shirabiso_Snow_A.png": "49a98c4b54c6f263c019352aabdbddd7f20cb9aa6b2960e1a23c861e2df31ec6"
+            }
+          }
+        },
+        "transition": {
+          "status": "na",
+          "reason": "evergreen"
+        }
+      }
+    },
+    "AMJ_Shrub_Haimatsu": {
+      "complete": true,
+      "states": {
+        "autumn": {
+          "status": "na",
+          "reason": "evergreen"
+        },
+        "icon": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "ハイマツOK",
+          "evidence": "Docs/ValidationEvidence/HaimatsuInfoReview-Review.log",
+          "fingerprint": {
+            "definition": "4f21c8ddbd1a9cc799277680acd2cb85906ae887f646c75650fba474523224db",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png": "a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6"
+            }
+          }
+        },
+        "immature": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "これ何回も見てるけどOK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+          "fingerprint": {
+            "definition": "c50b0d123ec98927d5f73df8100625e8c7927c8f84bba3fb166c3b6cc9b8ac95",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png": "a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6"
+            }
+          }
+        },
+        "leafless": {
+          "status": "na",
+          "reason": "evergreen"
+        },
+        "normal": {
+          "status": "accepted",
+          "date": "2026-10-06",
+          "author_statement": "これ何回も見てるけどOK",
+          "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+          "fingerprint": {
+            "definition": "c50b0d123ec98927d5f73df8100625e8c7927c8f84bba3fb166c3b6cc9b8ac95",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png": "a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6"
+            }
+          }
+        },
+        "snow": {
+          "status": "accepted",
+          "date": "2026-10-05",
+          "author_statement": "問題なさそう",
+          "evidence": "Docs/ValidationEvidence/HaimatsuSnowMasterRegistered-Snow.log",
+          "fingerprint": {
+            "definition": "7463cc45d379669d65928629bc4fa5183ba2e4d2e6ada6589fa556b086faee3f",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png": "a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6",
+              "Textures/Things/Plant/AMJ/Haimatsu_Snow/Haimatsu_Snow_A.png": "f77fb8d8db633c5c3b7452927e61bbde152a531fbb351c47f0a721587eef6147"
+            }
+          },
+          "technical_revalidation": "Exact prior whole-Def/assets reconstructed after excluding unrelated UI/snow-only additions; original acceptance retained."
+        },
+        "transition": {
+          "status": "na",
+          "reason": "evergreen"
+        }
+      }
+    }
+  },
+  "nonvisual_metadata_update": "2026-10-06: author-approved descriptions and six Haimatsu harvest fields only; normalized remaining Def identical and prior full visual fingerprints verified before migration. No new visual approval claimed.",
+  "fingerprint_schema": 2,
+  "fingerprint_migration": "2026-10-06: schema 2 excludes label/description so Japanese/English prose changes do not invalidate visual approvals; visual Def fields and owned PNG hashes remain guarded."
+}

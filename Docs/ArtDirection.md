@@ -1,5 +1,16 @@
 # AMJ Environment — Final Art Direction
 
+## Current accepted production (2026-10-06 JST)
+
+All four AMJE species have accepted normal, immature, UI and snow appearances.
+Beech leafless/autumn appearances are also accepted; seasonal mechanics are
+verified by bounded native calendar sampling. Docs/PlantVisualCoverage.json is
+the current state record, and --require-complete passes with zero pending rows.
+Historical trial/review entries below do not override these final approvals.
+Haimatsu retains drawSize2.60, visualSizeRange0.45..0.75 and an explicit UI path
+for native UI scale1. Existing Vanilla/MO retextures remain post-release work.
+
+
 ## Scope
 
 Environment intentionally deferred final art until the functional/balance Alpha loop was stable.
@@ -69,13 +80,13 @@ Alpha art policy:
 - use the **adopted ENV-010 atlas style** as the visual baseline for AMJE, Vanilla retextures, and optional MO retextures;
 - the adopted style is rounded and simplified rather than botanically literal, with smooth high-resolution edges rather than pixel-art;
 - saturation is reduced relative to the first concept pass, while the approved hue relationships remain intact;
-- use a restrained but not posterized palette, soft painted shading, and clear silhouette separation at RimWorld gameplay zoom;
+- use a restrained but not posterized palette, limited base/shadow/highlight planes with the restrained tree-volume variation defined below, and clear silhouette separation at RimWorld gameplay zoom;
 - keep transparent backgrounds;
 - no baked terrain, UI border, text, or decorative frame;
 - use RimWorld-readable top-down/three-quarter plant silhouettes rather than botanical illustration plates;
 - preserve clear empty transparent space around branch/needle edges to avoid a rectangular sprite appearance;
 - match existing plant scale through `graphicData.drawSize` / `visualSizeRange` rather than baking excessive canvas padding;
-- avoid photographic rendering; target a painted game-sprite look compatible with RimWorld's natural assets;
+- avoid photographic rendering; target the simplified game-sprite look of the approved AMJE tree references;
 - do not bake dynamic snow into plant textures.
 
 Production texture transfer, validation, Def-switch ordering, and focused runtime review must follow `Docs/GoldenPaths/TextureAssetPipeline.md`. Do not invent a per-asset binary-transfer path after the source art is approved.
@@ -85,6 +96,43 @@ Production texture transfer, validation, Def-switch ordering, and focused runtim
 Before a plant/tree generation call, follow [RetextureGeneration.md](GoldenPaths/RetextureGeneration.md). That procedure reads the current Core `Docs/ArtStyle.md`, this document, the current coordination state, and the actual accepted reference images. Do not preserve a separate frozen style prompt in this repository.
 
 ## Retexture visual-style rules
+
+Shirabiso snow trial (2026-10-05): accepted master unchanged; its own seven
+foliage regions define the snow mask. White/blue-grey snow palette reused from
+accepted Haimatsu, upper branch surfaces covered, trunk/sides/outer AA protected.
+Current snow overlay SHA-256 b2778ae82c1756e3a48715adb80dc289ce7a96dc38bdb12401f33ee0daca2c56.
+Registry Art/Templates/Shirabiso-Snow-v1/template.json remains REVIEW; no snow
+visual acceptance inferred. Native snow display remains depth >0.8.
+
+Haimatsu master-registered snow (2026-10-05): previous approximate snow alignment
+was rejected by author (`まだずれてる。`). Current review overlay uses a binary
+mask registered to the accepted master's own five foliage pads, with generated
+snow material colors and the master's broad shade blocks. Current SHA-256:
+f77fb8d8db633c5c3b7452927e61bbde152a531fbb351c47f0a721587eef6147.
+Registry: Art/Templates/Haimatsu-Snow-v1/template.json (review, not active).
+Protected master RGBA differences=0; native snow threshold and drawSize unchanged.
+Final in-game appearance remains pending.
+
+Haimatsu snow derivative trial (2026-10-05): author authorized proceeding from
+the illustrative combined preview with `良さそうな気はするのでそれで進めて。`.
+Separate snow-only overlay installed at Things/Plant/AMJ/Haimatsu_Snow, SHA-256
+e17099fe45e6106bf0a3a1bd07c40352b8e8d1ec1ad679923d060b083305bdc0.
+Normal master bytes/drawSize remain intact. Native snow overlay routing and
+in-game appearance are reviewed separately; illustrative preview is not exact
+compositing/pixel-registration evidence.
+
+Snow registration correction (2026-10-05): author reported slightly offset snow
+and instructed continuation. Snow-only image edited with the accepted Haimatsu
+master as positional reference; cap coverage reduced to upper pad surfaces.
+Current overlay SHA-256 e1037f0a6c1c264dd10949e01f604bd50df75966147957482a0587041a3d4f7f.
+Actual normalized pixel composite retained at
+Art/Candidates/Haimatsu-Snow/Haimatsu_Snow_ExactComposite.png. Master pixels/size
+remain unchanged; final in-game snow appearance is still pending acceptance.
+
+Accepted-form derivatives (author rule, 2026-10-05): after a tree's shape is
+accepted, generate derived states without renewed pre-generation approval.
+Retain its established form/scale/branch identity and shared style as appropriate
+to the state. This authorization does not replace final in-game appearance review.
 
 These rules are the canonical visual baseline for AMJE tree/plant retextures. Individual species may add stricter requirements, but they should not redefine the shared style from scratch.
 
@@ -288,7 +336,7 @@ Avoid:
 
 ### Haimatsu dwarf pine
 
-**Source approved 2026-10-05:** author approved the proposal with `y` and the generated candidate with `OK`. Low asymmetric spreading pine shrub, visibly wider than tall, muted grey/blue-green foliage and partly exposed horizontal grey-brown branches, thick dark outlines, transparent/no ground/snow. Production: `Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png` (256x256 RGBA). SHA-256: `44d22e74670bdfe081ef98c8a327700620f3d285e4a86b6dc52625c57daef551`. No shared fixed component is declared. Alpine in-game appearance review remains pending.
+**Current production accepted in game 2026-10-05:** author accepted the further-deformed five-mass Haimatsu with `採用で`. Production: `Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png` (256x256 RGBA), SHA-256 `a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6`, drawSize=2.60. Thick dark outlines, coarse rounded foliage pads, simplified woody branches and restrained shading; transparent/no ground/snow. Focused Alpine appearance is accepted; dedicated winter/snow appearance review is not claimed. No shared fixed component is declared.
 
 Visual role:
 - low, spreading, wind-shaped alpine shrub;
@@ -464,3 +512,7 @@ The atlas itself is a **style/reference board**, not a shippable sprite sheet. P
 ## Fixed reused components
 
 When a future Environment asset intentionally reuses a visible component pixel-exactly, follow Core `Docs/GoldenPaths/FixedImageTemplates.md`. Same-style but structurally distinct species do not use fixed-pixel templates.
+
+### Revision 5 native appearance accepted; leafless snow complete (2026-10-06 JST)
+
+Author: `ブナOKなのでPRマージして`. This explicitly closes the separate native-appearance review for the already frozen revision-5 leafless-beech snow source. Keep exact composite SHA-256 `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`, installed snow overlay SHA-256 `3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b`, and leafless master SHA-256 `24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112`. Template v5 is ACTIVE with the approved filled exemplar. The Beech snow ledger row is accepted for both leafy and leafless variants; all current AMJE structural-plant visual states are complete. This approval authorizes PR #5 merge but does not fabricate a new runtime-test PASS.

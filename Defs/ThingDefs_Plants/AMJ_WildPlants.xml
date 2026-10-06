@@ -2,7 +2,7 @@
 <Defs>
   <!--
     Japan-specific structural vegetation for the four AMJ climate-band biomes.
-    Alpha uses Vanilla graphics as temporary placeholders; final plant artwork is deferred.
+    The four custom species use approved AMJE graphics and state variants.
     These Defs intentionally add no new harvested item types.
   -->
 
@@ -26,6 +26,7 @@
       <minGrowthTemperature>0</minGrowthTemperature>
       <harvestWork>1000</harvestWork>
       <harvestYield>42</harvestYield>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Shii_Snow</snowOverlayGraphicPath>
       <wildClusterWeight>36</wildClusterWeight>
     </plant>
   </ThingDef>
@@ -37,6 +38,12 @@
     <graphicData>
       <texPath>Things/Plant/AMJ/Beech</texPath>
       <graphicClass>Graphic_Random</graphicClass>
+      <shaderParameters Inherit="False">
+        <_FallColorSource>(0.3803, 0.4352, 0.1451)</_FallColorSource>
+        <_FallColorDestination>/Other/AMJE_BeechFallGradient</_FallColorDestination>
+        <_FallTransitionRange>(0.02, 0.10)</_FallTransitionRange>
+        <_FallBehaviorEnabled>1</_FallBehaviorEnabled>
+      </shaderParameters>
       <shadowData>
         <volume>(0.16, 0.33, 0.12)</volume>
         <offset>(0,0,-0.44)</offset>
@@ -49,6 +56,8 @@
       <growDays>30</growDays>
       <minGrowthTemperature>0</minGrowthTemperature>
       <leaflessGraphicPath>Things/Plant/AMJ/Beech_Leafless</leaflessGraphicPath>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Beech_Snow</snowOverlayGraphicPath>
+      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/Beech_Leafless_Snow</leaflessSnowOverlayGraphicPath>
       <harvestWork>950</harvestWork>
       <harvestYield>40</harvestYield>
       <wildClusterWeight>38</wildClusterWeight>
@@ -74,6 +83,7 @@
     <ingestible />
     <plant>
       <growDays>28</growDays>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Shirabiso_Snow</snowOverlayGraphicPath>
       <minGrowthTemperature>0</minGrowthTemperature>
       <visualSizeRange Inherit="False">
         <min>1.25</min>
@@ -87,12 +97,13 @@
 
   <ThingDef ParentName="BushBase">
     <defName>AMJ_Shrub_Haimatsu</defName>
+    <uiIconPath>Things/Plant/AMJ/Haimatsu/Haimatsu_A</uiIconPath>
     <label>Haimatsu</label>
     <description>Haimatsu (written 這松 in Japanese) is an evergreen dwarf pine distributed in alpine areas from Hokkaido to central and northern Honshu, where it forms dense creeping thickets above the treeline.\n\nIts relict distribution is thought to reflect northern cold-climate plants that moved south during the glacial periods and remained at high elevations after the climate warmed.\n\nMt. Ontake became a destination for religious ascent from the later medieval period, and today Haimatsu scrub spreads across its alpine zone.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Haimatsu</texPath>
       <graphicClass>Graphic_Random</graphicClass>
-      <drawSize>0.65</drawSize>
+      <drawSize>2.60</drawSize>
       <shadowData>
         <volume>(0.20, 0.12, 0.12)</volume>
         <offset>(0,0,-0.10)</offset>
@@ -102,6 +113,13 @@
     <pathCost>22</pathCost>
     <plant>
       <fertilityMin>0.05</fertilityMin>
+      <harvestedThingDef>WoodLog</harvestedThingDef>
+      <harvestYield>8</harvestYield>
+      <harvestTag>Wood</harvestTag>
+      <harvestMinGrowth>0.40</harvestMinGrowth>
+      <harvestWork>350</harvestWork>
+      <harvestFailable>false</harvestFailable>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Haimatsu_Snow</snowOverlayGraphicPath>
       <fertilitySensitivity>0.20</fertilitySensitivity>
       <growDays>18</growDays>
       <minGrowthTemperature>0</minGrowthTemperature>

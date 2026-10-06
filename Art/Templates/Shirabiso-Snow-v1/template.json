@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "family": "AMJE-Shirabiso-snow",
+  "template_revision": "v1",
+  "production_status": "active",
+  "size": [
+    256,
+    256
+  ],
+  "master": {
+    "path": "master.png",
+    "sha256": "aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d"
+  },
+  "editable_mask": {
+    "path": "editable-mask.png",
+    "sha256": "f08bcb209b6e2d5d4682c3d10cc1121f2426b6ffb5a80866ee736bf287f898c5"
+  },
+  "approval_basis": "Accepted Shirabiso master and heavier snow appearance: これ採用で, 2026-10-05.",
+  "mask_meaning": "Upper 68% of each master foliage column in seven foliage components; branches/outer AA protected",
+  "layer_order": [
+    "unchanged Shirabiso master",
+    "registered snow-only layer"
+  ],
+  "material_sha256": "f77fb8d8db633c5c3b7452927e61bbde152a531fbb351c47f0a721587eef6147",
+  "pad_bboxes": [
+    [
+      50,
+      144,
+      196,
+      219
+    ],
+    [
+      66,
+      107,
+      196,
+      162
+    ],
+    [
+      100,
+      14,
+      168,
+      88
+    ],
+    [
+      82,
+      62,
+      138,
+      106
+    ],
+    [
+      124,
+      87,
+      188,
+      133
+    ],
+    [
+      163,
+      162,
+      212,
+      193
+    ],
+    [
+      59,
+      188,
+      90,
+      204
+    ]
+  ],
+  "filled_exemplar": {
+    "path": "exact-composite.png",
+    "sha256": "d56221fb7b29368f828365dc01a8e967280a4becbc099ca3cb866cc96f190c24",
+    "size": [
+      256,
+      256
+    ],
+    "evidence": "TestResults/ShirabisoSnowHeavy/Snow.log"
+  }
+}

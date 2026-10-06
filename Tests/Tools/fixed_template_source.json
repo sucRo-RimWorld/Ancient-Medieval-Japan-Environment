@@ -1,0 +1,7 @@
+{
+  "owner": "sucRo-RimWorld/Ancient-Medieval-Japan-Core",
+  "path": "Scripts/Art/fixed_template.py",
+  "git_blob": "c451cbede07d9a9b528c76a47124fa645bcc2fb8",
+  "local_sha256": "6c692dd7b99907591a022ffebc5ce3a2aa87d9d6181069ffca1fade21bc5c05b",
+  "usage": "Unmodified fetched Core implementation; retained snapshot for reproducible local review"
+}

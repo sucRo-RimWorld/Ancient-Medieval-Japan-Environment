@@ -118,6 +118,10 @@ Do not use a biome where the target does not naturally spawn and then compensate
 
 At normal game zoom, inspect:
 
+For color/palette comparisons, first apply the fixed local-noon/Clear/paused
+controls and evidence requirements in [PlantVisualCoverage.md](PlantVisualCoverage.md).
+Uncontrolled time/weather screenshots do not justify palette changes.
+
 - silhouette/species distinction;
 - scale;
 - outline weight;
@@ -129,6 +133,8 @@ At normal game zoom, inspect:
 If the image is structurally valid but RimWorld still shows a red question mark, treat that as a runtime loading defect and inspect the actual selected Thing/texture path before regenerating art.
 
 ### 7. Lock the success
+
+Follow [PlantVisualCoverage.md](PlantVisualCoverage.md). Record approval only for the states actually reviewed. Run the coverage validator before handoff; whole-plant completion requires its strict `--require-complete` check. Accepted normal appearance does not close snow, immature, icon or deciduous seasonal reviews.
 
 After the author confirms the in-game result:
 
@@ -176,3 +182,12 @@ For AMJE production art, completion requires:
 ## Fixed reused components
 
 If a texture intentionally reuses a visible component pixel-exactly, follow Core `Docs/GoldenPaths/FixedImageTemplates.md`. Do not duplicate that policy here.
+
+## Focused Haimatsu location aid
+
+When normal-zoom inspection cannot locate Haimatsu, build the existing developer Quickstarts and set `RIMWORLD_AMJE_TEXTURE_REVIEW=1` in the invoking process before running the Alpine texture-debug Quickstart. The Alpine PostLoaded helper counts naturally generated Haimatsu, selects the highest-growth plant and moves the camera to it. The log records count, coordinates and growth under `[AMJ Environment TextureReview]`; zero generated plants emits an ERROR instead of creating a plant. The helper does not alter production density, plant mechanics or graphics.
+
+Before any launch, check that no RimWorld instance is already running. Finish the current test before launching another; never stack an automated verification run behind a visual-review instance. Use a dedicated isolated profile/log for each review and preserve its results. Appearance acceptance remains separate from the count and runtime ERROR gate.
+
+### Legacy placeholder size and detail checks
+Before integrating replacement art, inspect the owning Def's inherited/explicit drawSize and visualSizeRange together with the source PNG's occupied silhouette. A low, wide sprite substituted for a tall placeholder can look much smaller even at identical canvas dimensions. Preserve author-approved scale and judge detail at normal gameplay zoom beside actual neighboring vegetation/rocks. Haimatsu acceptance locks drawSize=2.60 and five coarse foliage pads; its image hash and drawSize are regression-tested.

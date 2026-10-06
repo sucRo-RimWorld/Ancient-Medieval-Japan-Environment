@@ -1,0 +1,125 @@
+{
+  "date": "2026-10-06 JST",
+  "result_path": "D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AncientMedievalJapanEnvironment\\TestResults\\SourceSync\\TestResults\\Harvest-20261006-163518",
+  "scope": "Actual native CutPlant jobs with targeted driver and interval ticks. Mature healthy plants, crop yield factor1, Plants skill0. No autonomous work/hauling/survival claim.",
+  "profiles": {
+    "Vanilla": {
+      "passed": 9,
+      "failed": 0,
+      "runtime_errors": 0,
+      "resource": "WoodLog",
+      "raw_log": "D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AncientMedievalJapanEnvironment\\TestResults\\SourceSync\\TestResults\\Harvest-20261006-163518\\Reports-Vanilla\\AMJWarmTemperateTerrainQuickstart.log",
+      "raw_log_sha256": "5ab794fb155b9098122be53f06b8f33a4e36b62087ffc2a71d0a2c39001b5f6a",
+      "report_sha256": "1a3d7a255a6a4459d33ebe23ada3906e7a1d22e9bc781418ceb518675a90d6b5",
+      "excerpt": "Docs/ValidationEvidence/HarvestOutput-Vanilla.log"
+    },
+    "MO": {
+      "passed": 9,
+      "failed": 0,
+      "runtime_errors": 0,
+      "resource": "DankPyon_RawWood",
+      "raw_log": "D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AncientMedievalJapanEnvironment\\TestResults\\SourceSync\\TestResults\\Harvest-20261006-163518\\Reports-MO\\AMJWarmTemperateTerrainQuickstart.log",
+      "raw_log_sha256": "e846d296a871792a1cd5a660bbbfbb143b3a27e22303b440b90e9f581d84c1cc",
+      "report_sha256": "d2d7172cc50d5608b8737098d3e41195bae51d1f860b1af88ca10827c3175a10",
+      "excerpt": "Docs/ValidationEvidence/HarvestOutput-MO.log"
+    }
+  },
+  "payload_manifest": [
+    {
+      "sha256": "AABB27F4F3E4EB877509EB02F2226A21F3CEFEF72B67030C9C58CC767804A351",
+      "path": "loadFolders.xml"
+    },
+    {
+      "sha256": "CBD2DF40C35A5617DC9F5EF493EB694321CD018151FEB3CAA8EF029D6AD03EA0",
+      "path": "About\\About.xml"
+    },
+    {
+      "sha256": "90CC7CBF7AC593B633D2CBB87C9BAD879DFCC204B96432E71021DE35355750C6",
+      "path": "Assemblies\\AncientMedievalJapanEnvironment.dll"
+    },
+    {
+      "sha256": "B529F6C47D77716CB4A4A3CB01D496DBC481D9AFA658F8EEA14EE19B36B5BA7C",
+      "path": "Defs\\BiomeDefs\\AMJ_Biomes.xml"
+    },
+    {
+      "sha256": "87239AADEC6785911E04FE410D37B46A8DE1631828E775B67B6FBC8874E1ACE4",
+      "path": "Defs\\TerrainDefs\\AMJ_NaturalTerrains.xml"
+    },
+    {
+      "sha256": "537B5B99F0B005C14DFB8F014E03C3CE5438AD4014F0D3A1012A797B43A0C323",
+      "path": "Defs\\ThingDefs_Plants\\AMJ_WildPlants.xml"
+    },
+    {
+      "sha256": "FD13B8291A519CA57D0D7E7CB5153AB83E0F9C071E6C3B0F8BD7D2DC63C51A09",
+      "path": "DevQuickstarts\\Assemblies\\AncientMedievalJapanEnvironment.Quicktests.dll"
+    },
+    {
+      "sha256": "A42E3081AE42C499D8642310349D3BC82906881D38A9DAECFAC14D72839D9FFF",
+      "path": "Languages\\Japanese\\DefInjected\\BiomeDef\\AMJ_Biomes.xml"
+    },
+    {
+      "sha256": "48D0C3118B5A672BD7FB407FAE42E74CD3C8F49496BA02392162E76FA9CEAF26",
+      "path": "Languages\\Japanese\\DefInjected\\TerrainDef\\AMJ_NaturalTerrains.xml"
+    },
+    {
+      "sha256": "A1FC79410311B7636AAC76396982FF0392F1DEDCFAD315F19F7FDC1B4D60E538",
+      "path": "Languages\\Japanese\\DefInjected\\ThingDef\\AMJ_WildPlants.xml"
+    },
+    {
+      "sha256": "EBBBEA4D2868A1C38FBFF3DFD27777125F05C01B8057C6EABA857FDA5E9534A0",
+      "path": "Patches\\Rivers.xml"
+    },
+    {
+      "sha256": "B82490DE06DEB790965320AEA80DE4BA9469F90B51ABBE08E2431DF3C0A32821",
+      "path": "Patches\\Compatibility\\CCTO.xml"
+    },
+    {
+      "sha256": "08639FC0CCD74BB96D0DB1DB4D529288132B106EBCBFCD8274A680ADD6C2C6CA",
+      "path": "Patches\\Compatibility\\MedievalOverhaul.xml"
+    },
+    {
+      "sha256": "EA1F01EC5C6472C96B189EC7823DBFA10ADFCC9F7CD3EF88E7B7E714D7A68C93",
+      "path": "Textures\\Other\\AMJE_BeechFallGradient.png"
+    },
+    {
+      "sha256": "88274EAAC76FC6FB8165C5D155A3008B0384004DBE65B38F2CCE6BADF6C1E072",
+      "path": "Textures\\Things\\Plant\\AMJ\\Beech\\Beech_A.png"
+    },
+    {
+      "sha256": "24F8664BDEDD3EBD0DEE58FE627439B3784B5ECC599AAF49D750832F315BE112",
+      "path": "Textures\\Things\\Plant\\AMJ\\Beech_Leafless\\Beech_Leafless_A.png"
+    },
+    {
+      "sha256": "3B6E3DABCF402483920AC406D54FA37AEF9E9CEA06A47BF0C15E9E66A230141F",
+      "path": "Textures\\Things\\Plant\\AMJ\\Beech_Leafless_Snow\\Beech_Leafless_Snow_A.png"
+    },
+    {
+      "sha256": "221FDF06941864A7A366819042FE325B15AD587D5AF9E3BB914A672B2F3D5F51",
+      "path": "Textures\\Things\\Plant\\AMJ\\Beech_Snow\\Beech_Snow_A.png"
+    },
+    {
+      "sha256": "A20CAC361B08B19B0892D2DCDF88BF40257BF186D3661661941E090F19BF18B6",
+      "path": "Textures\\Things\\Plant\\AMJ\\Haimatsu\\Haimatsu_A.png"
+    },
+    {
+      "sha256": "F77FB8D8DB633C5C3B7452927E61BBDE152A531FBB351C47F0A721587EEF6147",
+      "path": "Textures\\Things\\Plant\\AMJ\\Haimatsu_Snow\\Haimatsu_Snow_A.png"
+    },
+    {
+      "sha256": "C40603C96E357F210AC394BC5C62F89449B37D43793262D692B604488C28D809",
+      "path": "Textures\\Things\\Plant\\AMJ\\Shii\\Shii_A.png"
+    },
+    {
+      "sha256": "5D9376CED78552F64631C89EDA662AEF51BD6FAFF4F1E098238CA0AA3C4B8BB7",
+      "path": "Textures\\Things\\Plant\\AMJ\\Shii_Snow\\Shii_Snow_A.png"
+    },
+    {
+      "sha256": "AAEF0A8DB34426E028FDEBE4A69EFD3AADBC17ED98875E1F74C1BC2DA4147D3D",
+      "path": "Textures\\Things\\Plant\\AMJ\\Shirabiso\\Shirabiso_A.png"
+    },
+    {
+      "sha256": "49A98C4B54C6F263C019352AABDBDDD7F20CB9AA6B2960E1A23C861E2DF31EC6",
+      "path": "Textures\\Things\\Plant\\AMJ\\Shirabiso_Snow\\Shirabiso_Snow_A.png"
+    }
+  ]
+}

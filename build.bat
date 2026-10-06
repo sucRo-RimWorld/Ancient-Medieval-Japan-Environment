@@ -152,6 +152,7 @@ if defined QUICKSTART_DLL (
     "%CSC%" /nologo /target:library /optimize+ /out:"!QUICKTEST_OUTPUT_DLL!" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_CORE%" ^
+        /reference:"%MANAGED%\UnityEngine.IMGUIModule.dll" ^
         /reference:"%UNITY_MATH%" ^
         /reference:"%UNITY_COLLECTIONS%" ^
         /reference:"%NETSTANDARD%" ^

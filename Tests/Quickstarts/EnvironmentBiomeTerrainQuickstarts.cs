@@ -5,6 +5,7 @@ using RimWorks.Quickstarts.Verification;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
+using Verse.AI;
 
 namespace AncientMedievalJapan.Environment.Quicktests
 {
@@ -492,6 +493,13 @@ namespace AncientMedievalJapan.Environment.Quicktests
             QuickstartVerification verification = new QuickstartVerification();
             Map map = Find.CurrentMap;
 
+            string harvestExpected = System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_HARVEST_EXPECTED");
+            if (!string.IsNullOrEmpty(harvestExpected))
+            {
+                AddHarvestOutputAssertions(verification, map, harvestExpected);
+                return verification;
+            }
+
             verification.Assert(
                 "current map exists",
                 delegate { return map != null; });
@@ -623,6 +631,78 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " cctoActive=" + CctoIsActive());
 
             return verification;
+        }
+
+        private static void AddHarvestOutputAssertions(QuickstartVerification verification, Map map, string expected)
+        {
+            string[] names = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu" };
+            int[] yields = { 42, 40, 30, 8 };
+            float originalYieldFactor = Find.Storyteller.difficulty.cropYieldFactor;
+            Find.Storyteller.difficulty.cropYieldFactor = 1f;
+            try
+            {
+            bool mo = ModLister.GetActiveModWithIdentifier("dankpyon.medieval.overhaul", true) != null;
+            verification.Assert("harvest profile matches expected resource", delegate {
+                return map != null && ((expected == "WoodLog" && !mo) || (expected == "DankPyon_RawWood" && mo));
+            });
+            for (int index = 0; index < names.Length; index++)
+            {
+                string name = names[index];
+                ThingDef def = DefDatabase<ThingDef>.GetNamed(name);
+                int expectedYield = yields[index];
+                verification.Assert(name + " loaded harvest resource and base yield", delegate {
+                    return def.plant.harvestedThingDef != null && def.plant.harvestedThingDef.defName == expected &&
+                        def.plant.harvestYield == expectedYield && def.plant.harvestTag == "Wood";
+                });
+                IntVec3 cell = map.Center + new IntVec3(index * 4 - 8, 0, 0);
+                foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 2f, true))
+                {
+                    if (!area.InBounds(map)) continue;
+                    foreach (Thing thing in area.GetThingList(map).ToArray())
+                        if (!(thing is Pawn)) thing.Destroy(DestroyMode.Vanish);
+                    map.terrainGrid.SetTerrain(area, TerrainDefOf.Soil);
+                }
+                Plant plant = (Plant)GenSpawn.Spawn(def, cell, map);
+                plant.Growth = 1f;
+                plant.HitPoints = plant.MaxHitPoints;
+                Pawn pawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
+                pawn.skills.GetSkill(SkillDefOf.Plants).Level = 0;
+                GenSpawn.Spawn(pawn, cell + IntVec3.North, map);
+                map.designationManager.AddDesignation(new Designation(plant, DesignationDefOf.CutPlant));
+                pawn.jobs.StartJob(JobMaker.MakeJob(JobDefOf.CutPlant, plant), JobCondition.InterruptForced);
+                int ticks = 0;
+                while (!plant.Destroyed && ticks++ < 15000)
+                {
+                    pawn.pather.PatherTick();
+                    if (pawn.jobs.curDriver == null) break;
+                    pawn.jobs.curDriver.DriverTick();
+                    if (pawn.jobs.curDriver != null) pawn.jobs.curDriver.DriverTickInterval(1);
+                }
+                int count = 0;
+                bool wrongResource = false;
+                foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 2f, true))
+                {
+                    if (!area.InBounds(map)) continue;
+                    foreach (Thing thing in area.GetThingList(map))
+                    {
+                        if (thing.def.defName == expected) count += thing.stackCount;
+                        if ((thing.def.defName == "WoodLog" || thing.def.defName == "DankPyon_RawWood") && thing.def.defName != expected)
+                            wrongResource = true;
+                    }
+                }
+                bool destroyed = plant.Destroyed;
+                int output = count;
+                bool wrong = wrongResource;
+                verification.Assert(name + " native pawn cutting produces only " + expected, delegate {
+                    return destroyed && output == expectedYield && !wrong;
+                });
+                Log.Message("[AMJ Environment Harvest] plant=" + name + " resource=" + expected + " output=" + count +
+                    " destroyed=" + destroyed + " wrongResource=" + wrongResource + " targetedPawnTicks=" + ticks +
+                    " currentJob=" + (pawn.CurJob == null ? "null" : pawn.CurJob.def.defName));
+                pawn.Destroy(DestroyMode.Vanish);
+            }
+            }
+            finally { Find.Storyteller.difficulty.cropYieldFactor = originalYieldFactor; }
         }
 
         private static void AddWildlifeAssertions(
@@ -2655,8 +2735,332 @@ namespace AncientMedievalJapan.Environment.Quicktests
         }
     }
 
+    public sealed class AMJPlantGrowthReviewQuickstart : BiomeTerrainQuickstartBase
+    {
+        protected override string TargetBiomeDefName { get { return "AMJ_CoolTemperateForest"; } }
+        protected override string TargetPlantDefName { get { return "AMJ_Tree_Beech"; } }
+
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            Map map = Find.CurrentMap;
+            IntVec3 center = map.Center;
+            string[] names = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu" };
+            bool snowReview = System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_SNOW_REVIEW") == "1";
+            bool beechSnowReview = snowReview && System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_BEECH_SNOW_REVIEW") == "1";
+            if (beechSnowReview) names = new string[] { "AMJ_Tree_Beech", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu" };
+            float[] growths = snowReview ? new float[] { 1f, 1f, 1f } : new float[] { 0.1f, 0.5f, 1f };
+            foreach (IntVec3 cell in CellRect.CenteredOn(center, 12))
+            {
+                if (!cell.InBounds(map)) continue;
+                map.roofGrid.SetRoof(cell, null);
+                foreach (Thing thing in cell.GetThingList(map).ToArray())
+                    if (thing is Plant || thing.def.category == ThingCategory.Building) thing.Destroy(DestroyMode.Vanish);
+                map.terrainGrid.SetTerrain(cell, TerrainDefOf.Soil);
+            }
+            for (int row = 0; row < names.Length; row++)
+                for (int column = 0; column < growths.Length; column++)
+                {
+                    Plant plant = (Plant)ThingMaker.MakeThing(DefDatabase<ThingDef>.GetNamed(names[row]));
+                    plant.Growth = growths[column];
+                    IntVec3 position = center + new IntVec3((column - 1) * 5, 0, 8 - row * 5);
+                    GenSpawn.Spawn(plant, position, map);
+                    if (beechSnowReview && row == 1) plant.MakeLeafless(Plant.LeaflessCause.Cold, false);
+                    float snow = snowReview ? column * 0.5f : 0f;
+                    foreach (IntVec3 snowCell in CellRect.CenteredOn(position, 1))
+                        map.snowGrid.SetDepth(snowCell, snow);
+                    UnityEngine.Material material = plant.Graphic.MatAt(plant.Rotation, plant);
+                    bool valid = material != null && material.mainTexture != null && material.mainTexture != BaseContent.BadTex;
+                    if (snowReview && (names[row] == "AMJ_Shrub_Haimatsu" || names[row] == "AMJ_Tree_Shirabiso" || names[row] == "AMJ_Tree_Shii" || names[row] == "AMJ_Tree_Beech"))
+                    {
+                        Graphic overlay = plant.SnowOverlayGraphic;
+                        UnityEngine.Material snowMaterial = overlay == null ? null : overlay.MatSingleFor(plant);
+                        bool snowValid = snowMaterial != null && snowMaterial.mainTexture != null &&
+                            snowMaterial.mainTexture != BaseContent.BadTex;
+                        Log.Message("[AMJ Environment SnowReview] plant=" + names[row] + " growth=" + plant.Growth +
+                            " position=" + position + " leafless=" + plant.LeaflessNow + " snowDepth=" + map.snowGrid.GetDepth(position) +
+                            " snowTexture=" + (snowValid ? snowMaterial.mainTexture.name : "<bad>") + " valid=" + snowValid);
+                        if (!snowValid) Log.Error("[AMJ Environment SnowReview] " + names[row] + " snow overlay missing.");
+                    }
+                    Log.Message("[AMJ Environment GrowthReview] plant=" + names[row] + " growth=" + plant.Growth +
+                        " position=" + position + " leafless=" + plant.LeaflessNow + " snowDepth=" + map.snowGrid.GetDepth(position) +
+                        " texture=" + (valid ? material.mainTexture.name : "<bad>") + " valid=" + valid);
+                    if (!valid) Log.Error("[AMJ Environment GrowthReview] Missing growth-state material.");
+                }
+            float longitude = Find.WorldGrid.LongLatOf(map.Tile).x;
+            long local = Find.TickManager.TicksAbs + GenDate.LocalTicksOffsetFromLongitude(longitude);
+            int delta = (int)(GenDate.TicksPerDay / 2 - ((local % GenDate.TicksPerDay) + GenDate.TicksPerDay) % GenDate.TicksPerDay);
+            Find.TickManager.DebugSetTicksGame(Find.TickManager.TicksGame + delta);
+            WeatherDef clear = DefDatabase<WeatherDef>.GetNamed("Clear");
+            map.weatherManager.TransitionTo(clear);
+            map.weatherManager.lastWeather = clear;
+            map.weatherManager.curWeatherAge = 10000;
+            AccessTools.Field(typeof(PlantFallColors), "FallIntensityOverride").SetValue(null, true);
+            AccessTools.Field(typeof(PlantFallColors), "FallIntensity").SetValue(null, 0f);
+            PlantFallColors.SetFallShaderGlobals(map);
+            Find.TickManager.Pause();
+            CameraJumper.TryJump(center, map);
+            AccessTools.Field(typeof(CameraDriver), "rootSize").SetValue(Find.CameraDriver, 18f);
+            map.skyManager.SkyManagerUpdate();
+            float hour = GenDate.HourFloat(Find.TickManager.TicksAbs, longitude);
+            bool baseline = System.Math.Abs(hour - 12f) < 0.001f && map.weatherManager.curWeather == clear &&
+                map.weatherManager.TransitionLerpFactor >= 1f && Find.TickManager.Paused;
+            Log.Message("[AMJ Environment GrowthReview] baseline localHour=" + hour + " weather=" +
+                map.weatherManager.curWeather.defName + " transition=" + map.weatherManager.TransitionLerpFactor +
+                " paused=" + Find.TickManager.Paused + " zoom=18 fallIntensity=0 verified=" + baseline);
+            if (!baseline) Log.Error("[AMJ Environment GrowthReview] Review baseline failed.");
+            if (System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_HAIMATSU_INFO_REVIEW") == "1")
+            {
+                ThingDef haimatsu = DefDatabase<ThingDef>.GetNamed("AMJ_Shrub_Haimatsu");
+                float scale = GenUI.IconDrawScale(haimatsu);
+                bool valid = haimatsu.uiIcon != null && haimatsu.uiIcon != BaseContent.BadTex;
+                Log.Message("[AMJ Environment InfoReview] icon=" + (valid ? haimatsu.uiIcon.name : "<bad>") +
+                    " scale=" + scale + " mapDrawSize=" + haimatsu.graphicData.drawSize +
+                    " visualRange=" + haimatsu.plant.visualSizeRange + " valid=" + valid);
+                if (!valid || Math.Abs(scale - 1f) > 0.001f || Math.Abs(haimatsu.graphicData.drawSize.x - 2.60f) > 0.001f ||
+                    Math.Abs(haimatsu.plant.visualSizeRange.min - 0.45f) > 0.001f || Math.Abs(haimatsu.plant.visualSizeRange.max - 0.75f) > 0.001f)
+                    Log.Error("[AMJ Environment InfoReview] Haimatsu UI/map scale regression.");
+                var specimens = map.listerThings.ThingsOfDef(haimatsu);
+                Thing actual = specimens.Count > 0 ? specimens[specimens.Count - 1] : null;
+                Find.WindowStack.Add(actual != null ? new Dialog_InfoCard(actual) : new Dialog_InfoCard(haimatsu));
+            }
+
+            if (System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_ICON_REVIEW") == "1")
+                Find.WindowStack.Add(new AMJPlantIconReviewWindow());
+        }
+    }
+
+
+    public sealed class AMJPlantIconReviewWindow : Window
+    {
+        private readonly ThingDef[] plants;
+        public override UnityEngine.Vector2 InitialSize { get { return new UnityEngine.Vector2(570f, 265f); } }
+        public AMJPlantIconReviewWindow()
+        {
+            doCloseX = true;
+            doCloseButton = true;
+            forcePause = true;
+            absorbInputAroundWindow = false;
+            string[] names = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu" };
+            plants = new ThingDef[names.Length];
+            for (int i = 0; i < names.Length; i++)
+            {
+                plants[i] = DefDatabase<ThingDef>.GetNamed(names[i]);
+                bool valid = plants[i].uiIcon != null && plants[i].uiIcon != BaseContent.BadTex;
+                Log.Message("[AMJ Environment IconReview] plant=" + names[i] + " icon=" +
+                    (valid ? plants[i].uiIcon.name : "<bad>") + " valid=" + valid);
+                if (!valid) Log.Error("[AMJ Environment IconReview] Missing icon " + names[i]);
+            }
+        }
+        public override void DoWindowContents(UnityEngine.Rect inRect)
+        {
+            Widgets.Label(new UnityEngine.Rect(0f, 0f, 510f, 28f), "植物アイコン確認（小・大）");
+            for (int i = 0; i < plants.Length; i++)
+            {
+                float x = i * 132f;
+                Widgets.Label(new UnityEngine.Rect(x, 32f, 130f, 28f), plants[i].LabelCap);
+                Widgets.DefIcon(new UnityEngine.Rect(x + 10f, 85f, 32f, 32f), plants[i]);
+                Widgets.DefIcon(new UnityEngine.Rect(x + 54f, 68f, 64f, 64f), plants[i]);
+            }
+        }
+    }
+
+    public sealed class AMJBeechSeasonalSampleQuickstart : BiomeTerrainQuickstartBase
+    {
+        private bool sawLeafless;
+        private bool sawRecovery;
+        private bool validTextures = true;
+        private float minFall = 1f;
+        private float maxFall;
+        protected override string TargetBiomeDefName { get { return "AMJ_CoolTemperateForest"; } }
+        protected override string TargetPlantDefName { get { return "AMJ_Tree_Beech"; } }
+
+        public override void PostApplyConfiguration()
+        {
+            base.PostApplyConfiguration();
+            SurfaceTile coldest = null;
+            for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+            {
+                SurfaceTile tile = Find.WorldGrid[i] as SurfaceTile;
+                if (tile == null || tile.PrimaryBiome.defName != TargetBiomeDefName ||
+                    !TileFinder.IsValidTileForNewSettlement(tile.tile)) continue;
+                if (coldest == null || tile.temperature < coldest.temperature) coldest = tile;
+            }
+            if (coldest != null) Find.GameInitData.startingTile = coldest.tile;
+            Log.Message("[AMJ Environment SeasonSample] natural coldest biome tile=" +
+                Find.GameInitData.startingTile + " annualTemp=" +
+                Find.WorldGrid[Find.GameInitData.startingTile].temperature);
+        }
+
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            Map map = Find.CurrentMap;
+            Plant selected = null;
+            foreach (Thing thing in map.listerThings.AllThings)
+            {
+                Plant plant = thing as Plant;
+                if (plant != null && plant.def.defName == TargetPlantDefName &&
+                    !map.roofGrid.Roofed(plant.Position) &&
+                    plant.Growth >= 0.95f && !plant.Dying &&
+                    (selected == null || plant.Age < selected.Age)) selected = plant;
+            }
+            if (selected == null) { Log.Error("[AMJ Environment SeasonSample] No outdoor beech."); return; }
+            AccessTools.Field(typeof(PlantFallColors), "FallIntensityOverride").SetValue(null, false);
+            UnityEngine.Vector2 longLat = Find.WorldGrid.LongLatOf(map.Tile);
+            int start = Find.TickManager.TicksGame;
+            bool previous = selected.LeaflessNow;
+            float threshold = (float)AccessTools.Property(typeof(Plant), "LeaflessTemperatureThresh").GetValue(selected, null);
+            float minTemperature = float.MaxValue;
+            Log.Message("[AMJ Environment SeasonSample] start thingID=" + selected.thingIDNumber +
+                " pos=" + selected.Position + " latitude=" + longLat.y + " leaflessThreshold=" + threshold +
+                " method=hourly-calendar-sampling-plus-vanilla-TickLong; not full-world tick simulation");
+            for (int step = 0; step <= 1440; step++)
+            {
+                Find.TickManager.DebugSetTicksGame(start + step * GenDate.TicksPerHour);
+                Find.World.tileTemperatures.WorldComponentTick();
+                object temperatureData = AccessTools.Method(typeof(TileTemperaturesComp),
+                    "RetrieveCachedData").Invoke(Find.World.tileTemperatures, new object[] { map.Tile });
+                AccessTools.Method(temperatureData.GetType(), "CheckCache").Invoke(temperatureData, null);
+                map.mapTemperature.TemperatureUpdate();
+                Room room = selected.GetRoom();
+                if (room != null)
+                {
+                    object tracker = AccessTools.Field(typeof(Room), "tempTracker").GetValue(room);
+                    AccessTools.Method(tracker.GetType(), "EqualizeTemperature").Invoke(tracker, null);
+                }
+                map.skyManager.SkyManagerUpdate();
+                selected.TickLong();
+                minTemperature = System.Math.Min(minTemperature, selected.AmbientTemperature);
+                if (selected.Destroyed) { Log.Error("[AMJ Environment SeasonSample] Tracked tree destroyed."); break; }
+                int day = GenDate.DayOfYear(Find.TickManager.TicksAbs, longLat.x);
+                float factor = PlantFallColors.GetFallColorFactor(longLat.y, day);
+                minFall = System.Math.Min(minFall, factor);
+                maxFall = System.Math.Max(maxFall, factor);
+                bool leafless = selected.LeaflessNow;
+                if (leafless) sawLeafless = true;
+                if (sawLeafless && previous && !leafless) sawRecovery = true;
+                UnityEngine.Material material = selected.Graphic.MatAt(selected.Rotation, selected);
+                bool valid = material != null && material.mainTexture != null && material.mainTexture != BaseContent.BadTex;
+                validTextures &= valid;
+                if (step % 24 == 0 || leafless != previous)
+                    Log.Message("[AMJ Environment SeasonSample] step=" + step + " day=" + day +
+                        " ticksAbs=" + Find.TickManager.TicksAbs + " temp=" + selected.AmbientTemperature.ToString("F2") +
+                        " outdoor=" + map.mapTemperature.OutdoorTemp.ToString("F2") +
+                        " fallFactor=" + factor.ToString("F3") + " leafless=" + leafless +
+                        " texture=" + (valid ? material.mainTexture.name : "<bad>"));
+                previous = leafless;
+            }
+            Log.Message("[AMJ Environment SeasonSample] result minFall=" + minFall + " maxFall=" + maxFall +
+                " leafless=" + sawLeafless + " recovered=" + sawRecovery + " validTextures=" + validTextures +
+                " minimumTemperature=" + minTemperature + " leaflessThreshold=" + threshold);
+            // Restore the scheduler's timeline after accelerated calendar sampling.
+            Find.TickManager.DebugSetTicksGame(start);
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            result.Assert("natural calendar fall factor changes without override", delegate { return minFall < 0.1f && maxFall > 0.9f; });
+            result.Assert("same beech naturally becomes leafless", delegate { return sawLeafless; });
+            result.Assert("same beech naturally recovers leaves", delegate { return sawRecovery; });
+            result.Assert("sampled live state textures are valid", delegate { return validTextures; });
+            return result;
+        }
+    }
+
     public sealed class AMJCoolTemperateTerrainQuickstart : BiomeTerrainQuickstartBase
     {
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            string mode = System.Environment.GetEnvironmentVariable(
+                "RIMWORLD_AMJE_BEECH_REVIEW");
+            if (mode != "leafless" && mode != "autumn") return;
+            Map map = Find.CurrentMap;
+            if (map == null) return;
+            Plant selected = null;
+            int count = 0;
+            foreach (Thing thing in map.listerThings.AllThings)
+            {
+                Plant plant = thing as Plant;
+                if (plant == null || plant.Destroyed ||
+                    plant.def.defName != "AMJ_Tree_Beech") continue;
+                count++;
+                if (selected == null || plant.Growth > selected.Growth)
+                    selected = plant;
+            }
+            if (selected == null)
+            {
+                Log.Error("[AMJ Environment BeechReview] No naturally generated beech found.");
+                return;
+            }
+            bool before = selected.LeaflessNow;
+            if (mode == "leafless")
+                selected.MakeLeafless(Plant.LeaflessCause.Cold, false);
+            else
+            {
+                System.Reflection.FieldInfo enabled = AccessTools.Field(
+                    typeof(PlantFallColors), "FallIntensityOverride");
+                System.Reflection.FieldInfo intensity = AccessTools.Field(
+                    typeof(PlantFallColors), "FallIntensity");
+                if (enabled == null || intensity == null)
+                {
+                    Log.Error("[AMJ Environment BeechReview] Native fall controls unavailable.");
+                    return;
+                }
+                enabled.SetValue(null, true);
+                intensity.SetValue(null, 1f);
+                PlantFallColors.SetFallShaderGlobals(map);
+            }
+            CameraJumper.TryJumpAndSelect(selected);
+            if (System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_COLOR_BASELINE") == "1")
+            {
+                float longitude = Find.WorldGrid.LongLatOf(map.Tile).x;
+                long localTicks = Find.TickManager.TicksAbs +
+                    GenDate.LocalTicksOffsetFromLongitude(longitude);
+                long withinDay = ((localTicks % GenDate.TicksPerDay) +
+                    GenDate.TicksPerDay) % GenDate.TicksPerDay;
+                int delta = (int)(GenDate.TicksPerDay / 2 - withinDay);
+                Find.TickManager.DebugSetTicksGame(Find.TickManager.TicksGame + delta);
+                WeatherDef clear = DefDatabase<WeatherDef>.GetNamed("Clear");
+                map.weatherManager.TransitionTo(clear);
+                map.weatherManager.lastWeather = clear;
+                map.weatherManager.curWeatherAge = 10000;
+                Find.TickManager.Pause();
+                AccessTools.Field(typeof(CameraDriver), "rootSize").SetValue(
+                    Find.CameraDriver, 24f);
+                map.skyManager.SkyManagerUpdate();
+                float actualHour = GenDate.HourFloat(Find.TickManager.TicksAbs, longitude);
+                float transition = map.weatherManager.TransitionLerpFactor;
+                bool baselineValid = System.Math.Abs(actualHour - 12f) < 0.001f &&
+                    map.weatherManager.curWeather == clear &&
+                    map.weatherManager.lastWeather == clear &&
+                    transition >= 1f && Find.TickManager.Paused;
+                Log.Message("[AMJ Environment ColorBaseline] localHour=" +
+                    actualHour.ToString("F3") + " weather=" + map.weatherManager.curWeather.defName +
+                    " transition=" + transition + " paused=" + Find.TickManager.Paused +
+                    " ticksAbs=" + Find.TickManager.TicksAbs + " longitude=" + longitude +
+                    " zoom=24 fallIntensity=" + (mode == "autumn" ? "1" : "natural") +
+                    " growth=" + selected.Growth + " verified=" + baselineValid);
+                if (!baselineValid)
+                    Log.Error("[AMJ Environment ColorBaseline] Fixed review conditions failed.");
+            }
+            UnityEngine.Material material = selected.Graphic.MatAt(selected.Rotation, selected);
+            bool valid = material != null && material.mainTexture != null &&
+                material.mainTexture != BaseContent.BadTex;
+            Log.Message("[AMJ Environment BeechReview] mode=forced-" + mode + " count=" +
+                count + " selected=" + selected.Position + " growth=" + selected.Growth +
+                " beforeLeafless=" + before + " afterLeafless=" + selected.LeaflessNow +
+                " texture=" + (material == null || material.mainTexture == null ?
+                    "<null>" : material.mainTexture.name) + " valid=" + valid);
+            if (selected.LeaflessNow != (mode == "leafless") || !valid)
+                Log.Error("[AMJ Environment BeechReview] Review state/texture check failed.");
+            Messages.Message("Beech " + mode + " appearance review: selected " +
+                selected.Position + ". Seasonal transition remains a separate check.",
+                MessageTypeDefOf.NeutralEvent, false);
+        }
+
         protected override string TargetBiomeDefName
         {
             get { return "AMJ_CoolTemperateForest"; }
@@ -2709,6 +3113,40 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
     public sealed class AMJAlpineTerrainQuickstart : BiomeTerrainQuickstartBase
     {
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            if (System.Environment.GetEnvironmentVariable(
+                "RIMWORLD_AMJE_TEXTURE_REVIEW") != "1")
+            {
+                return;
+            }
+
+            Map map = Find.CurrentMap;
+            if (map == null) return;
+            Plant selected = null;
+            int count = 0;
+            foreach (Thing thing in map.listerThings.AllThings)
+            {
+                Plant plant = thing as Plant;
+                if (plant == null || plant.Destroyed ||
+                    plant.def.defName != "AMJ_Shrub_Haimatsu") continue;
+                count++;
+                if (selected == null || plant.Growth > selected.Growth)
+                    selected = plant;
+            }
+            if (selected == null)
+            {
+                Log.Error("[AMJ Environment TextureReview] No naturally generated Haimatsu found.");
+                return;
+            }
+            CameraJumper.TryJumpAndSelect(selected);
+            Log.Message("[AMJ Environment TextureReview] Haimatsu count=" + count +
+                " selected=" + selected.Position + " growth=" + selected.Growth);
+            Messages.Message("Haimatsu: " + count + " naturally generated; selected " +
+                selected.Position, MessageTypeDefOf.NeutralEvent, false);
+        }
+
         protected override string TargetBiomeDefName
         {
             get { return "AMJ_AlpineZone"; }

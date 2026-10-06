@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "family": "AMJE-Beech_Leafless-snow",
+  "template_revision": "v5",
+  "production_status": "active",
+  "size": [
+    256,
+    256
+  ],
+  "master": {
+    "path": "master.png",
+    "sha256": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112"
+  },
+  "editable_mask": {
+    "path": "editable-mask.png",
+    "sha256": "4c64dfa7eadfc7ff905a9889b44d55c16e436630b6ee6f5cb713e0132cc54b46"
+  },
+  "approval_basis": "Revision 5 source accepted as a compromise with これで妥協する, then native appearance accepted with ブナOKなのでPRマージして on 2026-10-06 JST.",
+  "mask_meaning": "Fifteen narrow branch corridors traced against original opaque upper surfaces; source-approved revision 5, unchanged lower trunk and all outside RGBA",
+  "layer_order": [
+    "immutable master",
+    "snow-only overlay"
+  ],
+  "approved_source": {
+    "path": "exact-composite.png",
+    "sha256": "24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126",
+    "date": "2026-10-06",
+    "author_statement": "これで妥協する",
+    "scope": "source composite accepted as compromise; not native game appearance"
+  },
+  "filled_exemplar": {
+    "path": "exact-composite.png",
+    "sha256": "24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126",
+    "size": [
+      256,
+      256
+    ],
+    "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md"
+  }
+}

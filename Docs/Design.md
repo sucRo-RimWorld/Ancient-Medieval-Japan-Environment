@@ -555,6 +555,7 @@ Scope rules:
 - keep the set deliberately small; generic grass, moss, brambles, bushes and secondary tree components continue to reuse Vanilla PlantDefs;
 - keep some Vanilla oak/maple/birch/pine/bamboo in the biome pools at lower commonality so maps do not imply untouched single-species climax forest and can also stand in for secondary vegetation during Alpha;
 - add no new food, medicine, fiber or other harvested item types in this pass. Gatherable-resource design belongs to the relevant AMJ resource/gathering systems and should be coordinated separately;
+- 2026-10-06 wood-yield update: Haimatsu provides a small amount of existing wood (base yield 8), while retaining its low BushBase form. The other base yields are Shii42/Beech40/Shirabiso30. Vanilla yields WoodLog; MO's enabled wood-chain patch substitutes DankPyon_RawWood. This adds no new resource Def. Verify actual cutting outputs with `Docs/GoldenPaths/PlantHarvestTests.md`.
 - the three AMJ trees yield ordinary Vanilla wood only;
 - haimatsu is a low shrub rather than a normal timber tree, preserving alpine timber scarcity;
 - all four new plants use Vanilla graphics as temporary placeholders. Final plant artwork remains deferred until vegetation distribution and gameplay are accepted.
@@ -997,3 +998,6 @@ The fixed-biome runtime Quickstarts repeat the same check through the loaded `Bi
 
 The combined Environment runtime gate executed after these assertions were introduced and was later reported PASS by the author during the ENV-008 verification cycle. Because the same Quickstart source already contained the wildlife assertions at that time, the Alpha proxy set is accepted without a separate manual wildlife smoke test.
 
+
+### First-release artwork scope (author decision, 2026-10-05)
+Finish AMJE's four existing custom plants and their required state graphics/display checks before release. Retextures of existing Vanilla/MO trees are deferred to post-release updates and are not first-release blockers. Verify icons, remaining state display and the actual distribution configuration before release. A visually disruptive existing-tree mismatch may be reconsidered narrowly with evidence; this does not authorize broad retexture work now.

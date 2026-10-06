@@ -80,7 +80,8 @@ $null = $root.AppendChild($version)
 $activeMods = $doc.CreateElement("activeMods")
 foreach ($packageId in $required) {
     $li = $doc.CreateElement("li")
-    $li.InnerText = $packageId
+    # ModsConfig.IsActive lowercases its lookup; stored IDs must also be lowercase.
+    $li.InnerText = $packageId.ToLowerInvariant()
     $null = $activeMods.AppendChild($li)
 }
 $null = $root.AppendChild($activeMods)

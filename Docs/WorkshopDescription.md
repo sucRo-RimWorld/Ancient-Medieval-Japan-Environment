@@ -50,7 +50,7 @@ Emphasize:
 - optional CCTO realism layer;
 - Medieval Overhaul coexistence;
 - save-compatibility limitations;
-- Beta status and the current AMJE structural-plant artwork; broader Vanilla / Medieval Overhaul tree retextures are post-publication follow-up.
+- Beta status and the completed AMJE structural-plant artwork/state variants, including snow overlays and beech leafless/autumn states; broader Vanilla / Medieval Overhaul tree retextures are post-publication follow-up.
 
 For the representative-plant section, keep the Workshop summaries shorter than the in-game historical descriptions. The Workshop should explain the vegetation-band design and provide a short educational note for each plant; the in-game descriptions retain the fuller kanji/alias/historical detail.
 
