@@ -2,7 +2,6 @@
 """Regression checks for AMJE art-rule inheritance and routing."""
 from __future__ import annotations
 
-import re
 import unittest
 from pathlib import Path
 
@@ -71,12 +70,16 @@ class EnvironmentArtRuleStructureTest(unittest.TestCase):
             "ENV-010 Shirabiso source approval and integration (2026-10-05 JST)",
         )
         for heading in expected_done:
-            match = re.search(
-                rf"(?ms)^### {re.escape(heading)}\\s*$.*?^\\*\\*Status:\\*\\* ([^\\n]+)",
-                text,
-            )
-            self.assertIsNotNone(match, heading)
-            self.assertTrue(match.group(1).startswith("DONE"), f"{heading}: {match.group(1)}")
+            marker = f"### {heading}"
+            start = text.find(marker)
+            self.assertGreaterEqual(start, 0, heading)
+            end = text.find("\n### ", start + len(marker))
+            section = text[start:] if end < 0 else text[start:end]
+            status_marker = "**Status:** "
+            status_start = section.find(status_marker)
+            self.assertGreaterEqual(status_start, 0, heading)
+            status = section[status_start + len(status_marker):].splitlines()[0]
+            self.assertTrue(status.startswith("DONE"), f"{heading}: {status}")
 
 
 if __name__ == "__main__":
