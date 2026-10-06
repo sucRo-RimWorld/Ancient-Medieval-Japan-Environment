@@ -1,17 +1,19 @@
-name: Workshop payload regression
+name: Workshop payload filtering
 on:
   push:
     branches: [main]
-    paths: ['Scripts/Build-WorkshopPayload.py', 'Scripts/Build-ReleaseCandidate.py', 'Scripts/Run-WorkshopPayloadTests.py', 'Scripts/Combine-WorkshopPayloadResults.py', 'Scripts/Audit-WorkshopUploadSource.py', 'Tests/test_workshop_payload.py', '.rimignore', '.github/workflows/workshop-payload.yml']
   pull_request:
-    paths: ['Scripts/Build-WorkshopPayload.py', 'Scripts/Build-ReleaseCandidate.py', 'Scripts/Run-WorkshopPayloadTests.py', 'Scripts/Combine-WorkshopPayloadResults.py', 'Scripts/Audit-WorkshopUploadSource.py', 'Tests/test_workshop_payload.py', '.rimignore', '.github/workflows/workshop-payload.yml']
+concurrency:
+  group: workshop-payload-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
-  publication-guards:
+  subscriber-files:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-      - run: python Tests/test_workshop_payload.py
-      - run: python -m py_compile Scripts/Build-WorkshopPayload.py Scripts/Run-WorkshopPayloadTests.py Scripts/Combine-WorkshopPayloadResults.py Scripts/Audit-WorkshopUploadSource.py Scripts/Build-ReleaseCandidate.py
+      - uses: actions/checkout@v5
+      - name: Validate YADA filter and subscriber payload contract
+        run: python Tests/validate_workshop_payload.py
+      - name: Reject stale sources, wrong upload roots and payload mutations
+        run: python Tests/test_workshop_payload.py
+      - name: Compile publication tooling
+        run: python -m py_compile Scripts/Build-WorkshopPayload.py Scripts/Run-WorkshopPayloadTests.py Scripts/Combine-WorkshopPayloadResults.py Scripts/Audit-WorkshopUploadSource.py Scripts/Build-ReleaseCandidate.py

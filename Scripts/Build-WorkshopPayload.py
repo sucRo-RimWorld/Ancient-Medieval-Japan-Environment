@@ -6,13 +6,17 @@ from pathlib import Path
 import subprocess
 import xml.etree.ElementTree as ET
 import zipfile
+import importlib.util
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = 'sucro.ancientmedievaljapan.environment'
 WORKSHOP = '3814638060'
-FOLDERS = ('About', 'Defs', 'Languages', 'Patches', 'Textures')
+FOLDERS = ('About', 'Defs', 'Languages', 'Patches', 'Textures', 'Sounds')
 EXCLUDED = ('Art', 'TestResults', 'Tests', 'Scripts', 'Source', 'DevQuickstarts', '.git', '.github')
 LOAD = b'<?xml version="1.0" encoding="utf-8"?>\n<loadFolders><v1.6><li>/</li></v1.6></loadFolders>\n'
+_spec = importlib.util.spec_from_file_location('subscriber', ROOT / 'Tests/validate_workshop_payload.py')
+subscriber = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(subscriber)
 
 
 def git(*args):
@@ -36,6 +40,8 @@ def validate(data):
         raise ValueError('Windows/YADA-incompatible display name')
     if any(k.split('/')[0] in EXCLUDED for k in data):
         raise ValueError('Development content in payload')
+    if any(not subscriber.subscriber_file(k) for k in data):
+        raise ValueError('Subscriber-unnecessary file in payload')
     if data['loadFolders.xml'] != LOAD:
         raise ValueError('Distribution must load only root')
     if not data.get('Assemblies/AncientMedievalJapanEnvironment.dll', b'').startswith(b'MZ'):
@@ -75,6 +81,10 @@ def build(output, expected_commit, game, preview):
     compiled_sources = {p.relative_to(ROOT).as_posix() for p in (ROOT / 'Source/AncientMedievalJapanEnvironment').rglob('*.cs')}
     if compiled_sources - set(tracked):
         raise ValueError('Untracked production C# source: ' + str(sorted(compiled_sources - set(tracked))))
+    rules = subscriber.patterns((ROOT / '.rimignore').read_text(encoding='utf-8-sig'))
+    kept, leaks, lost = subscriber.audit(tracked, rules)
+    if leaks or lost:
+        raise ValueError('Shared subscriber policy failure: ' + str((leaks, lost)))
     # Runtime files must be tracked; stale untracked PNG/XML cannot enter a release.
     for folder in FOLDERS:
         disk = {p.relative_to(ROOT).as_posix() for p in (ROOT / folder).rglob('*') if p.is_file()}
@@ -84,9 +94,7 @@ def build(output, expected_commit, game, preview):
     subprocess.run(['cmd.exe', '/d', '/c', str(ROOT / 'build.bat'), str(game)], cwd=ROOT, check=True)
     if git('rev-parse', 'HEAD') != head or git('diff', 'HEAD', '--name-only'):
         raise ValueError('Build modified tracked inputs')
-    data = {k: (ROOT / k).read_bytes() for k in tracked if k.split('/')[0] in FOLDERS}
-    for name in ('LICENSE', 'README.md'):
-        data[name] = (ROOT / name).read_bytes()
+    data = {k: (ROOT / k).read_bytes() for k in kept if not k.startswith('Assemblies/') and k != 'loadFolders.xml'}
     data['Assemblies/AncientMedievalJapanEnvironment.dll'] = (ROOT / 'Assemblies/AncientMedievalJapanEnvironment.dll').read_bytes()
     data['About/PublishedFileId.txt'] = (WORKSHOP + '\n').encode()
     preview_bytes = preview.read_bytes()
@@ -94,8 +102,7 @@ def build(output, expected_commit, game, preview):
         raise ValueError('Approved preview must be PNG')
     data['About/Preview.png'] = preview_bytes
     data['loadFolders.xml'] = LOAD
-    # Upload exclusions are also defensive when the extracted root is used by YADA.
-    data['.rimignore'] = (ROOT / '.rimignore').read_bytes()
+    # Root .rimignore is policy/provenance input, never a subscriber file.
     validate(data)
     output.mkdir(parents=True)
     payload = output / 'AncientMedievalJapanEnvironment'
@@ -109,6 +116,7 @@ def build(output, expected_commit, game, preview):
             z.writestr('AncientMedievalJapanEnvironment/' + name, content)
     manifest = {'schema': 1, 'source_commit': head, 'source_tree': git('rev-parse', 'HEAD^{tree}'),
                 'packageId': PACKAGE, 'workshopId': WORKSHOP, 'archive_sha256': digest(archive.read_bytes()),
+                'subscriber_filter_sha256': digest((ROOT / '.rimignore').read_bytes()),
                 'files': inventory(payload), 'built_from': 'clean pinned Git checkout; build.bat executed by builder',
                 'approved_preview_sha256': digest(preview_bytes),
                 'runtime_validation': 'pending; build/static evidence only', 'steam_publication': 'author-manual; not uploaded'}
@@ -121,6 +129,8 @@ def build(output, expected_commit, game, preview):
             if z.read('AncientMedievalJapanEnvironment/' + name) != content:
                 raise ValueError('Archive mismatch')
     verify(payload, manifest_path)
+    subprocess.run(['python', str(ROOT / 'Tests/validate_workshop_payload.py'), '--payload', str(payload),
+                    '--expected-assembly', 'AncientMedievalJapanEnvironment.dll'], check=True)
     print('Candidate:', payload)
     print('Archive SHA256:', manifest['archive_sha256'])
 

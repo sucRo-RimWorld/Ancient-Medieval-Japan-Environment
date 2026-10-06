@@ -87,6 +87,10 @@ Original runtime evidence remains in the location listed by WorkshopRuntimeTests
    `python Scripts/Build-WorkshopPayload.py verify SELECTED_ROOT Manifest.json`.
    Keep manifest outside the upload root. Use the extracted runtime root, with
    original packageId/PublishedFileId, as the author's selected upload source.
+   The subscriber ZIP excludes README, documentation and .rimignore itself;
+   filtering follows the shared Core WorkshopPackaging contract. Run
+   `python Tests/validate_workshop_payload.py --payload SELECTED_ROOT
+   --expected-assembly AncientMedievalJapanEnvironment.dll` too.
    If a copy is made for Mod discovery, verify that copy too. Never overlay it
    into the development or installed Workshop root. Retire duplicate temporary
    discovery copies after author upload. YADA rules are defensive, not provenance.

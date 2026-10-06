@@ -1238,3 +1238,30 @@ Read main AGENTS, TEST-WORKSHOP-001 and WorkshopRuntimeTests before work. Dirty 
 Read-only evidence: all1113 installed Workshop file hashes equal the same relative paths in the dirty development root. Its root Haimatsu Def lacks harvest fields, whereas shipped TestResults/SourceSync/Defs contains the fixed Def. Steam workshop_log records successful content uploads at 23:01 and23:26 on2026-10-06 and the latter preview path under Mods/AncientMedievalJapanEnvironment/About. YADA copies the selected ModMetaData.RootDir through Scanner; the local .rimignore is generic and excludes neither Art nor TestResults. Git's _AMJ_PublishStaging worktree registration points to a missing path. This establishes wrong-root publication and missing payload/provenance gates; no claim that YADA loses XML fields or that an absent staging path was uploaded.
 
 Next: formal immutable main-derived payload builder, exact file/provenance/harvest regression guards, durable Golden Path and candidate tests. No duplicate production behavior patch. Workshop source, normal settings and saves are not changed. Release HOLD until author publication and actual downloaded four-profile/cutting gate.
+
+### POLICY-WORKSHOP-PAYLOAD-001 — Subscriber-only distribution (2026-10-07 JST)
+
+**Requested by:** author
+**Owner:** AMJ shared release / packaging
+**Status:** DONE — repository policy/exclusions; actual Steam update remains separate
+
+Core, Environment and CCTO now route subscriber-only Workshop packaging through
+AGENTS and Core Docs/WorkshopPackaging.md. Root .rimignore excludes Art, Docs,
+README, source, scripts/build tools, tests/fixtures/reports, VCS/editor metadata,
+local overrides, archives and debug leftovers. Runtime assets, About identity,
+loadFolders where used and required license/attribution remain. Development
+originals stay in Git. YADA upstream Scanner.cs confirms inherited basename
+rules; ineffective Patches/_LocalTest.xml is corrected to _LocalTest.xml.
+Do not replace project filters with YADA's generic starter template.
+
+Validation PASS: three tracked-file inventories; nested fixture/path-syntax,
+accidental-runtime-exclusion and actual-payload leakage regressions; Core
+archive/YADA equality and publisher adapter drift checks; corrected whole-Art
+source-exclusion regression; Environment builder fixture retains production DLL
+and root-only loader, and excludes README/Docs/Art/tests. Python/XML/workflow
+syntax checks PASS. These prove packaging/static behavior, not new real-game
+runtime or Steam publication success. Workshop filter CI is added with main-only
+push and canceled superseded runs. Core's standard preparation gates source and
+staged output; Environment's candidate builder gates the actual subscriber files.
+
+**Release-workstream handoff:** PUB-WORKSHOP-002 stays with release/testing. Its\nimmutable/main-derived builder must exclude README/Workshop copy, retain external\nprovenance manifests and run Tests/validate_workshop_payload.py --payload STAGE\n--expected-assembly AncientMedievalJapanEnvironment.dll. The existing builder\nreceived only filtering/final-payload checks. Production XML/DLL/installed\nWorkshop bytes and existing provenance/harvest/runtime release HOLD are unchanged.\n
