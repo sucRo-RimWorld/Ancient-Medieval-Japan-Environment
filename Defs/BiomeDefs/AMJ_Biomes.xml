@@ -11,7 +11,7 @@
   <BiomeDef>
     <defName>AMJ_WarmTemperateForest</defName>
     <label>warm-temperate forest</label>
-    <description>Warm-temperate forest is a humid evergreen broadleaf forest found across the warm-temperate regions of the Japanese archipelago. Evergreen broadleaf trees such as Sudajii dominate, creating a warm, rainy environment.</description>
+    <description>A humid evergreen broadleaf forest found across the warm-temperate regions of the Japanese archipelago. Evergreen broadleaf trees such as Sudajii dominate, creating a warm, rainy environment.</description>
     <workerClass>AncientMedievalJapan.Environment.BiomeWorker_AMJWarmTemperateForest</workerClass>
     <animalDensity>3.8</animalDensity>
     <plantDensity>0.72</plantDensity>
@@ -85,7 +85,7 @@
   <BiomeDef>
     <defName>AMJ_CoolTemperateForest</defName>
     <label>cool-temperate forest</label>
-    <description>Cool-temperate forest is a humid deciduous broadleaf forest representative of the cool-temperate regions of the Japanese archipelago. Forests centered on Japanese beech spread across the landscape, with pronounced seasonal changes in scenery.</description>
+    <description>A humid deciduous broadleaf forest representative of the cool-temperate regions of the Japanese archipelago. Forests centered on Japanese beech spread across the landscape, with pronounced seasonal changes in scenery.</description>
     <workerClass>AncientMedievalJapan.Environment.BiomeWorker_AMJCoolTemperateForest</workerClass>
     <animalDensity>3.5</animalDensity>
     <plantDensity>0.68</plantDensity>
@@ -160,7 +160,7 @@
   <BiomeDef>
     <defName>AMJ_SubalpineForest</defName>
     <label>subalpine forest</label>
-    <description>Subalpine forest is a conifer forest found in cold mountainous and northern regions. Evergreen conifers such as Shirabiso dominate, creating a harsh environment with heavy snowfall.</description>
+    <description>A subalpine conifer forest found in cold mountainous and northern regions. Evergreen conifers such as Shirabiso dominate, creating a harsh environment with heavy snowfall.</description>
     <workerClass>AncientMedievalJapan.Environment.BiomeWorker_AMJSubalpineForest</workerClass>
     <animalDensity>2.5</animalDensity>
     <plantDensity>0.42</plantDensity>
@@ -231,7 +231,7 @@
   <BiomeDef>
     <defName>AMJ_AlpineZone</defName>
     <label>alpine zone</label>
-    <description>Alpine zone is a cold high-elevation environment above the treeline. Tall trees scarcely grow, and the vegetation consists mainly of low shrubs such as Haimatsu and sparse plants.</description>
+    <description>A cold alpine environment above the treeline. Tall trees scarcely grow, and the vegetation consists mainly of low shrubs such as Haimatsu and sparse plants.</description>
     <workerClass>AncientMedievalJapan.Environment.BiomeWorker_AMJAlpineZone</workerClass>
     <animalDensity>1.0</animalDensity>
     <plantDensity>0.14</plantDensity>
