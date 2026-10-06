@@ -15,6 +15,13 @@ it lacks Haimatsu harvest fields. Shipped
 `537b5b99f0b005c14dfb8f014e03c3ce5438ad4014f0d3a1012a797b43a0c323`,
 equal to the fixed current-main XML. The fix was present inside the uploaded
 development tree but outside the root loaded by the game.
+The retained local `TestResults/integrate_approved_descriptions.py` and
+`TestResults/prepare_beta.py` both explicitly set their root to
+`Path(__file__).resolve().parent / 'SourceSync'`; the former proves/tests the
+six Haimatsu harvest-field additions there. Those procedures updated the
+publication PR worktree, not the top-level development Mod. Root About still
+says Alpha while SourceSync/main says Beta. This accounts for both mismatches
+without attributing them to a Steam download failure or XML patch collision.
 
 Steam `workshop_log.txt` records successful uploads on2026-10-06 at23:01:36
 (manifest8889000939694660295) and23:26:10 (manifest8630945342812668549),
@@ -97,3 +104,18 @@ the selected production Mod. Combining both into an early-loaded DLL caused
 ReflectionTypeLoadException during the first candidate run. Keep their assembly
 dependencies separate and retain every per-process Unity error log; overwriting
 one shared error file across six games would lose earlier startup errors.
+
+If the installed Quickstarts throws `Collection was modified` inside its
+`LogCapture.CountErrors/Arm` during startup, retain that failed directory and
+its independent Unity ERROR. Do not suppress the exception, edit Workshop
+dependencies, or count a partially completed profile as PASS. A focused rerun
+uses `--profiles MO CCTO MO-CCTO` (or another explicit subset) with a fresh
+output root and the unchanged payload. Its summary explicitly says it is not
+by itself a complete four-profile gate. Combine only individually completed,
+validated profiles from the identical payload; preserve the failed attempt.
+`Scripts/Combine-WorkshopPayloadResults.py --payload ROOT --manifest MANIFEST
+--results RESULT_DIRECTORY... --output FRESH_REPORT_JSON` rechecks all saved
+reports/full logs, exact retired runtime bytes, real Workshop dependency roots,
+Direct3D and independent error captures before accepting the four-profile union.
+Use `--steam` only with the actual installed Workshop root. Candidate union
+success explicitly does not clear the distributed-release HOLD.

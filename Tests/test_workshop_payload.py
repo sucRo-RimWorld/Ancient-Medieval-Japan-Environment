@@ -75,6 +75,11 @@ class GateTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'tracked modifications'):
                     payload.build(Path(temp) / 'output', sha, Path(temp), file)
                 self.assertFalse((Path(temp) / 'output').exists())
+                file.write_text('approved')
+                stale = Path(temp) / 'Source/AncientMedievalJapanEnvironment/Stale.cs'
+                stale.parent.mkdir(parents=True); stale.write_text('untracked C#')
+                with self.assertRaisesRegex(ValueError, 'Untracked production C#'):
+                    payload.build(Path(temp) / 'output', sha, Path(temp), file)
             finally:
                 payload.ROOT = original
 

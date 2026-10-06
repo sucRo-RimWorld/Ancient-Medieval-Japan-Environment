@@ -1,5 +1,12 @@
 # Release candidate packaging
 
+For any Workshop publication/update, use [WorkshopPublication.md](WorkshopPublication.md)
+and `Scripts/Build-WorkshopPayload.py`. The historical workspace ZIP procedure
+below is retained as local art-review evidence; it does not prove a pinned
+release source or the current native-cutting contract and must not authorize
+uploading the development root. The current builder rebuilds from clean Git,
+and the release gate covers all four profiles including native cutting.
+
 Use `Scripts/Build-ReleaseCandidate.py` after the current build/static checks and
 `Tests/validate_plant_visual_coverage.py --self-test --require-complete` pass.
 Before publication, run the [four-species harvest resource gate](PlantHarvestTests.md)

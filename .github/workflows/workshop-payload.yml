@@ -2,9 +2,9 @@ name: Workshop payload regression
 on:
   push:
     branches: [main]
-    paths: ['Scripts/Build-WorkshopPayload.py', 'Scripts/Run-WorkshopPayloadTests.py', 'Scripts/Audit-WorkshopUploadSource.py', 'Tests/test_workshop_payload.py', '.rimignore', '.github/workflows/workshop-payload.yml']
+    paths: ['Scripts/Build-WorkshopPayload.py', 'Scripts/Build-ReleaseCandidate.py', 'Scripts/Run-WorkshopPayloadTests.py', 'Scripts/Combine-WorkshopPayloadResults.py', 'Scripts/Audit-WorkshopUploadSource.py', 'Tests/test_workshop_payload.py', '.rimignore', '.github/workflows/workshop-payload.yml']
   pull_request:
-    paths: ['Scripts/Build-WorkshopPayload.py', 'Scripts/Run-WorkshopPayloadTests.py', 'Scripts/Audit-WorkshopUploadSource.py', 'Tests/test_workshop_payload.py', '.rimignore', '.github/workflows/workshop-payload.yml']
+    paths: ['Scripts/Build-WorkshopPayload.py', 'Scripts/Build-ReleaseCandidate.py', 'Scripts/Run-WorkshopPayloadTests.py', 'Scripts/Combine-WorkshopPayloadResults.py', 'Scripts/Audit-WorkshopUploadSource.py', 'Tests/test_workshop_payload.py', '.rimignore', '.github/workflows/workshop-payload.yml']
 jobs:
   publication-guards:
     runs-on: ubuntu-latest
@@ -14,4 +14,4 @@ jobs:
         with:
           python-version: '3.10'
       - run: python Tests/test_workshop_payload.py
-      - run: python -m py_compile Scripts/Build-WorkshopPayload.py Scripts/Run-WorkshopPayloadTests.py Scripts/Audit-WorkshopUploadSource.py
+      - run: python -m py_compile Scripts/Build-WorkshopPayload.py Scripts/Run-WorkshopPayloadTests.py Scripts/Combine-WorkshopPayloadResults.py Scripts/Audit-WorkshopUploadSource.py Scripts/Build-ReleaseCandidate.py

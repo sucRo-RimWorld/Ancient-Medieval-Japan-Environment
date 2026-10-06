@@ -72,6 +72,9 @@ def build(output, expected_commit, game, preview):
     if output.exists():
         raise ValueError('Output exists; use a fresh directory')
     tracked = git('ls-files').splitlines()
+    compiled_sources = {p.relative_to(ROOT).as_posix() for p in (ROOT / 'Source/AncientMedievalJapanEnvironment').rglob('*.cs')}
+    if compiled_sources - set(tracked):
+        raise ValueError('Untracked production C# source: ' + str(sorted(compiled_sources - set(tracked))))
     # Runtime files must be tracked; stale untracked PNG/XML cannot enter a release.
     for folder in FOLDERS:
         disk = {p.relative_to(ROOT).as_posix() for p in (ROOT / folder).rglob('*') if p.is_file()}

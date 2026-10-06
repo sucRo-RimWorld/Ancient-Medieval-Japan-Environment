@@ -21,7 +21,7 @@ def call(args, **kwargs):
     subprocess.run([str(a) for a in args], check=True, **kwargs)
 
 
-def run(payload, manifest, output, game, steam):
+def run(payload, manifest, output, game, steam, profiles=PROFILES):
     if 'RimWorldWin64.exe' in subprocess.check_output(['tasklist', '/FI', 'IMAGENAME eq RimWorldWin64.exe'], text=True):
         raise ValueError('An existing game must close before release tests')
     if output.exists():
@@ -73,7 +73,7 @@ def run(payload, manifest, output, game, steam):
         desktop = output / 'IsolatedDesktopRunner.exe'
         call([csc, '/nologo', '/target:exe', '/out:' + str(desktop), ROOT / 'Tests/Release/IsolatedDesktopRunner.cs'])
         summary = {'source': 'Steam downloaded root' if steam else 'main candidate; only fixture About identity changed', 'root': str(payload), 'profiles': {}}
-        for mode in PROFILES:
+        for mode in profiles:
             config_dir = output / ('SaveData-' + mode) / 'Config'; config_dir.mkdir(parents=True)
             config = ET.parse(normal / 'ModsConfig.xml'); active = config.find('activeMods'); active.clear()
             ids = ['brrainz.harmony', 'ludeon.rimworld', 'sucro.amje.payloadgateerrors', 'rimworks.rimlogging', 'rimworks.quickstarts']
@@ -147,6 +147,7 @@ def run(payload, manifest, output, game, steam):
             raise ValueError('Original payload or normal configuration changed')
         (output / 'Preservation.json').write_text(json.dumps({'payload_unchanged': True, 'normal_config_unchanged': True}))
     summary['passed'] = True
+    summary['full_four_profile_gate'] = set(profiles) == set(PROFILES)
     (output / 'Summary.json').write_text(json.dumps(summary, indent=2))
 
 
@@ -157,5 +158,6 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--game', type=Path, default=Path('D:/SteamLibrary/steamapps/common/RimWorld'))
     parser.add_argument('--steam', action='store_true')
+    parser.add_argument('--profiles', nargs='+', choices=PROFILES, default=list(PROFILES), help='Focused rerun; fewer than four profiles cannot alone clear the release gate')
     args = parser.parse_args()
-    run(args.payload.resolve(), args.manifest.resolve() if args.manifest else None, args.output.resolve(), args.game.resolve(), args.steam)
+    run(args.payload.resolve(), args.manifest.resolve() if args.manifest else None, args.output.resolve(), args.game.resolve(), args.steam, args.profiles)

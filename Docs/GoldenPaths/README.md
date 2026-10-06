@@ -22,6 +22,8 @@ A one-off trivial text edit with no reusable procedure can be marked N/A. A work
 
 ## Current Golden Paths
 
+- [Pinned Workshop Publication](WorkshopPublication.md) — proven upload-source audit, immutable runtime payload, exact selected-root verification and author-manual Steam handoff.
+
 - [Actual Workshop Runtime Gate](WorkshopRuntimeTests.md) — source/DLL proof, four real profiles and current harvest regressions without replacing the distributed payload.
 
 - [Plant Harvest Resource Tests](PlantHarvestTests.md) — native cutting outputs in Vanilla and actual MO.
