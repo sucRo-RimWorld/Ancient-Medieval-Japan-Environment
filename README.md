@@ -238,6 +238,8 @@ These retextures are visual-only by default. Existing gameplay behavior and rend
 
 ## Research and detailed design
 
+GitHub repository: [Ancient-Medieval-Japan-Environment](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment).
+
 The detailed design source of truth is:
 
 - [Docs/Design.md](Docs/Design.md)

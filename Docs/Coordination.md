@@ -43,6 +43,18 @@ Primary design source:
 
 ## Current coordination items
 
+### DOC-WORKSHOP-004 — AMJE GitHub repository link
+
+**Requested by:** author (2026-10-06 JST)
+
+**Owner:** Documentation/release
+
+**Status:** DONE — repository-side description sources updated; Steam update remains author-manual
+
+Linked the existing README / Design reference in both Japanese and English Workshop sources to AMJE's own GitHub repository, once per language. README's research/design section now identifies the same repository explicitly. The Workshop-as-README-summary and named-mod-link policies remain unchanged; existing related-mod links and substantive claims are preserved.
+
+Validation: UTF-8 description sizes remain below 8,000 bytes even with Windows CRLF line endings; one AMJE repository BBCode link per language, balanced URL tags, unchanged existing link targets, and clean diff whitespace. Golden Path N/A: trivial documentation-link edit with no new reusable procedure. No runtime or Steam-side update is claimed.
+
 ### DOC-WORKSHOP-003 — linked named mods and post-Beta retexture roadmap
 
 **Requested by:** author (2026-10-06 JST)  

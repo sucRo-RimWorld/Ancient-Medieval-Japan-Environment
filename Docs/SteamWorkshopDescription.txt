@@ -101,7 +101,7 @@ Currently Beta.
 
 The main environment systems are implemented, and [b]Sudajii, Japanese beech, Shirabiso, and Haimatsu now use AMJE-authored custom graphics[/b], including snow overlays and beech leafless/autumn states. Additional Vanilla / Medieval Overhaul tree retextures are planned as follow-up work after the initial public Beta.
 
-See the GitHub README / Design documentation for detailed values, rationale, and CCTO integration data.
+See [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README / Design[/url] for values, rationale, and CCTO data.
 
 AI assistance is used for code implementation, documentation, research, and test development. Design, balance decisions, and final testing/review are performed by the author.
 
