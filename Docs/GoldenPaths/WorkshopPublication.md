@@ -165,7 +165,37 @@ The28-file candidate is historical runtime evidence and must not be uploaded:
 README/.rimignore fail the newer shared subscriber contract. The final26-file
 Candidate-a23a9eb uses sourcea23a9eb2b6cac3afd3b876860ae1654327a90370 and
 archive15af3f24ced8988859db0b811ef58348b9b6a05ea77cbf93757176f023be4a99.
-Its shared filtering gate passed; exact four-profile runtime validation is in
-progress at SubscriberCandidateRuntime-1. Distributed approval remains HOLD on manifest8630945342812668549
+Its shared filtering and exact four-profile runtime gates passed separately at
+SubscriberCandidateRuntime-1. Distributed approval remains HOLD on manifest8630945342812668549
 until a real Steam download matches the intended payload and passes the actual
 four-profile source/cutting gate. No Workshop file overwrite or upload occurred.
+
+## Final subscriber-only candidate (2026-10-07 JST)
+
+The26-file Candidate-a23a9eb is the author-upload handoff. Its original
+packageId and Workshop3814638060 identity are preserved. Source commit
+`a23a9eb2b6cac3afd3b876860ae1654327a90370` is retained in merged PR6;
+production inputs are unchanged on subsequent main documentation commits.
+Archive SHA256: `15af3f24ced8988859db0b811ef58348b9b6a05ea77cbf93757176f023be4a99`.
+
+The actual26-file stage passed the shared subscriber validator with expected
+production DLL. Its freshly built DLL and exact stage were then independently
+rerun in all four profiles: Vanilla227/227, MO227/227, CCTO275/275,
+MO+CCTO275/275; cutting9/9 each, Haimatsu output8. All28 reports were rechecked
+with Combine-WorkshopPayloadResults: actual source/DLL/Def ownership, real
+dependency roots, Direct3D11, complete capture, zero pre-launch/global/Unity
+ERROR, exact retired bytes and normal config preservation. Only temporary
+fixture About name/packageId changed; the publication artifact retains the
+original identity. No failure occurred in this final26-file matrix.
+
+Exact archive/manifest: TestResults/WorkshopReleaseRepair/Candidate-a23a9eb.
+Full evidence: SubscriberCandidateRuntime-1 and SubscriberCandidateRuntimeGate.json.
+Active formal evidence: Docs/ValidationEvidence/WorkshopCandidateManifest.json
+and WorkshopCandidateRuntime.json. The28-file artifacts remain historical.
+Final preservation proof verifies all1113 actual Workshop file hashes and
+installed/latest manifest8630945342812668549 are unchanged.
+
+**Publication decision:** author-manual upload may proceed with this verified
+26-file root after immediately rechecking its manifest. Actual distributed
+release remains HOLD; no Steam repair is claimed. Once Steam downloads a new
+payload, audit that actual root and rerun all four profiles including cutting.

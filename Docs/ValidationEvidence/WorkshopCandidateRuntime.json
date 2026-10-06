@@ -1,9 +1,9 @@
 {
   "date_JST": "2026-10-07",
   "passed": true,
-  "candidate_source_commit": "f404769a3c70d44a0471576ff70e95ba6ff04d08",
-  "candidate_archive_sha256": "1e81e525da09680c3592c05d89a2cbd332127d9319ec72c982d959f3eb4d11d4",
-  "candidate_file_count": 28,
+  "candidate_source_commit": "a23a9eb2b6cac3afd3b876860ae1654327a90370",
+  "candidate_archive_sha256": "15af3f24ced8988859db0b811ef58348b9b6a05ea77cbf93757176f023be4a99",
+  "candidate_file_count": 26,
   "profiles": {
     "Vanilla": {
       "map_assertions": 227,
@@ -41,10 +41,11 @@
     "Haimatsu": 8
   },
   "resource": "WoodLog standalone/CCTO; DankPyon_RawWood MO/MO+CCTO",
-  "failed_attempts": [
-    "CandidateRuntime-1: observer dependency order; fixed by separating early error capture",
-    "CandidateRuntime-2 MO coast: upstream Quickstarts LogCapture.CountErrors concurrency exception; preserved and rerun unchanged payload"
+  "earlier_candidate_attempts": [
+    "Historical28-file CandidateRuntime-1: observer dependency order; fixed by separating early error capture",
+    "Historical28-file CandidateRuntime-2 MO coast: upstream Quickstarts LogCapture.CountErrors concurrency exception; preserved and rerun unchanged payload"
   ],
-  "evidence": "D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AncientMedievalJapanEnvironment\\TestResults\\WorkshopReleaseRepair\\CandidateRuntimeGate.json",
+  "subscriber_contract": "Final26 files exclude README/Docs/.rimignore and pass shared actual-payload validator; final fresh DLL artifact separately retested in all four profiles",
+  "evidence": "D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AncientMedievalJapanEnvironment\\TestResults\\WorkshopReleaseRepair\\SubscriberCandidateRuntimeGate.json",
   "steam_publication": "Not performed; installed manifest still8630945342812668549; not a Workshop PASS"
 }

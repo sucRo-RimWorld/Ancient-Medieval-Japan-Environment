@@ -1233,6 +1233,9 @@ are linked in that document. Production art/Defs/order/saves are preserved.
 **Owner:** Release / testing
 **Status:** IN PROGRESS — actual Steam update remains author-manual
 
+**Closeout:** formal tooling and final26-file candidate are DONE; actual Steam
+release remains author-manual/HOLD. See final PUB-WORKSHOP-002 result below.
+
 Read main AGENTS, TEST-WORKSHOP-001 and WorkshopRuntimeTests before work. Dirty production checkout is preserved; work uses a separate main clone under TestResults/WorkshopReleaseRepair/Repository. Current Steam manifest remains 8630945342812668549.
 
 Read-only evidence: all1113 installed Workshop file hashes equal the same relative paths in the dirty development root. Its root Haimatsu Def lacks harvest fields, whereas shipped TestResults/SourceSync/Defs contains the fixed Def. Steam workshop_log records successful content uploads at 23:01 and23:26 on2026-10-06 and the latter preview path under Mods/AncientMedievalJapanEnvironment/About. YADA copies the selected ModMetaData.RootDir through Scanner; the local .rimignore is generic and excludes neither Art nor TestResults. Git's _AMJ_PublishStaging worktree registration points to a missing path. This establishes wrong-root publication and missing payload/provenance gates; no claim that YADA loses XML fields or that an absent staging path was uploaded.
@@ -1275,3 +1278,45 @@ PR6 merged at aaf798a452af0ad29f2138c8cdb4513be54a6f43 after exact-head PowerShe
 Final26-file candidate: TestResults/WorkshopReleaseRepair/Candidate-a23a9eb; sourcea23a9eb2b6cac3afd3b876860ae1654327a90370, archive SHA25615af3f24ced8988859db0b811ef58348b9b6a05ea77cbf93757176f023be4a99. It preserves identity and current accepted runtime bytes, freshly built production DLL and approved preview. Shared final-payload filter PASS; exact four-profile non-visible Direct3D matrix is running in SubscriberCandidateRuntime-1. Do not upload the historical28-file candidate or development root.
 
 Author-manual upload/download remains separate. No Workshop overwrite/upload, normal config/save change or actual-distribution repair is claimed. Final source/DLL/cutting rerun from newly downloaded Steam bytes is still required to clear HOLD.
+
+### PUB-WORKSHOP-002 — Final subscriber candidate and root-cause closeout
+
+**Status:** DONE (investigation/tooling/verified candidate); STEAM PUBLICATION HANDOFF OPEN
+
+Root cause is evidenced by1113/1113 exact same-path hashes: successful Steam
+uploads carried the unsynchronized dirty development root. Root Haimatsu has
+no harvest fields, while fixed fields exist in the uploaded TestResults/SourceSync
+copy; retained preparation scripts explicitly target SourceSync. Root generic
+YADA exclusions leaked37 Art and988 TestResults files. No claim that the absent
+_AMJ_PublishStaging checkout was uploaded or that YADA removed XML fields.
+Current main and nested fixed XML differ only in later labels/descriptions;
+their remaining parsed Def trees, including all six cutting fields, are equal.
+
+PR6 merged at aaf798a452af0ad29f2138c8cdb4513be54a6f43 with exact-head green
+PowerShell syntax, subscriber/publication regressions, strict plant coverage
+and art-rule checks. Shared policy df986ad is retained. Changes are publishing
+provenance, packaging, tests and procedure; production XML/C#/art are unchanged.
+The historical28-file candidate was superseded, not uploaded.
+
+Final verified26-file root: TestResults/WorkshopReleaseRepair/Candidate-a23a9eb/
+AncientMedievalJapanEnvironment. Sourcea23a9eb2b6cac3afd3b876860ae1654327a90370;
+ZIP SHA25615af3f24ced8988859db0b811ef58348b9b6a05ea77cbf93757176f023be4a99.
+Actual stage filter PASS. Its freshly built DLL/26 files were rerun on non-visible
+Direct3D desktops: Vanilla/MO/CCTO/MO+CCTO six-map counts227/227,227/227,
+275/275,275/275 and native cutting9/9 each, outputs42/40/30/8. All28 reports
+passed source/DLL/ownership, real dependency roots, full capture, zero global
+and independent Unity ERROR, and exact-byte/preservation rechecks. Temporary
+fixture About name/packageId differs only for test selection; original candidate
+identity is retained. Final matrix had no failed scenario.
+
+Full evidence: SubscriberCandidateRuntime-1, SubscriberCandidateRuntimeGate.json,
+UploadSourceAudit.json, WorkshopFinalPreservation.json and appworkshop-final.acf.
+Normal configs/saves and actual Workshop bytes are preserved; all1113 Workshop
+files remain unchanged and installed/latest manifest is8630945342812668549.
+Formal evidence/manifests and reusable automation are in WorkshopPublication.md
+and Docs/ValidationEvidence/Workshop*.json.
+
+**Author release handoff:** proceed manually using the exact verified26-file
+root after selected-root manifest verification. Do not upload the dirty root or
+historical28-file package. Actual distribution is NOT fixed/approved yet.
+Only a real Steam download and four-profile/cutting rerun clear release HOLD.
