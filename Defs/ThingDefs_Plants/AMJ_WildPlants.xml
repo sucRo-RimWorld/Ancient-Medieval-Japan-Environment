@@ -9,7 +9,7 @@
   <ThingDef ParentName="TreeBase">
     <defName>AMJ_Tree_Shii</defName>
     <label>Sudajii</label>
-    <description>Sudajii, also known as Itajii or Nagajii, is an evergreen broadleaf tree representative of warm-temperate evergreen broadleaf forests. It forms a dense crown and yields durable timber.</description>
+    <description>An evergreen broadleaf tree representative of warm-temperate evergreen broadleaf forests. It forms a dense crown and yields durable timber.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Shii</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -33,7 +33,7 @@
   <ThingDef ParentName="DeciduousTreeBase">
     <defName>AMJ_Tree_Beech</defName>
     <label>Japanese beech</label>
-    <description>Japanese beech (Buna; Japanese: 山毛欅, also written 橅 or 椈; also known as Shirobuna or Honbuna) is a large deciduous broadleaf tree representative of cool-temperate mountain forests.</description>
+    <description>A large deciduous broadleaf tree representative of cool-temperate mountain forests.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Beech</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -58,7 +58,7 @@
   <ThingDef ParentName="TreeBase">
     <defName>AMJ_Tree_Shirabiso</defName>
     <label>Shirabiso</label>
-    <description>Shirabiso (Japanese: 白檜曽; also known as Shirabe) is a cold-adapted evergreen conifer representative of subalpine conifer forests.</description>
+    <description>A cold-adapted evergreen conifer representative of subalpine conifer forests.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Shirabiso</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -88,7 +88,7 @@
   <ThingDef ParentName="BushBase">
     <defName>AMJ_Shrub_Haimatsu</defName>
     <label>Haimatsu</label>
-    <description>Haimatsu (Japanese: 這松) is an evergreen shrubby pine that forms dense thickets by creeping along the ground in alpine zones above the treeline.</description>
+    <description>An evergreen shrubby pine that forms dense thickets by creeping along the ground in alpine zones above the treeline.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Haimatsu</texPath>
       <graphicClass>Graphic_Random</graphicClass>
