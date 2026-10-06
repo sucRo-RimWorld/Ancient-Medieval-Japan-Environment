@@ -1,6 +1,6 @@
 # Ancient & Medieval Japan: Environment
 
-**RimWorld 1.6 — Alpha**
+**RimWorld 1.6 — Beta**
 
 A standalone environment overhaul that reshapes RimWorld toward a **pre-Edo Japan-like climate and landscape**, with Japan-oriented world generation, biomes, vegetation, weather, seasonal scenery, rivers, coastlines, and natural soil distribution.
 
@@ -31,7 +31,7 @@ Historical and ecological research is used as a reference, but gameplay clarity 
 
 AMJ Environment modifies the root-surface world after Vanilla terrain generation, preserving compatibility with later world-generation systems.
 
-Current Alpha targets include:
+Current Beta targets include:
 
 - land annual mean temperature: approximately **-8°C to 20°C**;
 - southern warm lowlands: roughly **17–20°C** annual mean;
@@ -99,7 +99,7 @@ AMJ Environment reuses RimWorld's existing weather types rather than adding a pa
 
 Warm/cool forests favor more liquid precipitation and fog, while subalpine/alpine regions shift progressively toward snow. Dry thunderstorms are deliberately rare relative to rainy thunderstorms.
 
-Calendar-specific Baiu, Akisame, and typhoon-season weighting is not part of Alpha. Sea-of-Japan-side versus Pacific-side winter exposure is also deferred until there is a proper geographic basis for it.
+Calendar-specific Baiu, Akisame, and typhoon-season weighting is not part of Beta. Sea-of-Japan-side versus Pacific-side winter exposure is also deferred until there is a proper geographic basis for it.
 
 ### Seasonal scenery
 
@@ -109,7 +109,7 @@ Seasonal presentation uses Vanilla systems:
 - Sudajii, Shirabiso, and Haimatsu remain evergreen;
 - Vanilla SnowGentle / SnowHard and SnowGrid provide winter snow scenery.
 
-No custom seasonal controller is added in Alpha.
+No custom seasonal controller is added in Beta.
 
 ### Functional wildlife proxies
 
@@ -188,11 +188,11 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 ## Current status
 
-**Alpha**
+**Beta**
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-The four custom plants and their required visual states are implemented. Existing Vanilla/MO tree retextures are deferred to post-release updates. Broader real-play balance/compatibility feedback may change Alpha values.
+The four custom plants and their required visual states are implemented. Existing Vanilla/MO tree retextures are deferred to post-release updates. Broader real-play balance/compatibility feedback may change Beta values.
 
 ## Research and detailed design
 

@@ -1080,7 +1080,7 @@ foreach ($relative in $publicDocs) {
 $readmeRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "README.md") -Raw -Encoding UTF8
 foreach ($expected in @(
     'RimWorld 1.6',
-    'Alpha',
+    'Beta',
     'Ancient & Medieval Japan Core is not required',
     'Crop Cold Tolerance Overhaul is optional',
     'Use a new game',
@@ -1104,10 +1104,10 @@ if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
 }
 
 foreach ($pair in @(
-    @($workshopJaRaw, '現在はAlphaです。', 'Japanese Workshop Alpha stage'),
+    @($workshopJaRaw, '現在はBetaです。', 'Japanese Workshop Beta stage'),
     @($workshopJaRaw, 'Ancient & Medieval Japan Coreは不要です。', 'Japanese Workshop Core independence'),
     @($workshopJaRaw, 'Crop Cold Tolerance Overhaul（CCTO）は任意です。', 'Japanese Workshop CCTO optionality'),
-    @($workshopEnRaw, 'Currently Alpha.', 'English Workshop Alpha stage'),
+    @($workshopEnRaw, 'Currently Beta.', 'English Workshop Beta stage'),
     @($workshopEnRaw, 'Ancient & Medieval Japan Core is not required.', 'English Workshop Core independence'),
     @($workshopEnRaw, 'Crop Cold Tolerance Overhaul (CCTO) is optional.', 'English Workshop CCTO optionality')
 )) {
@@ -1121,7 +1121,7 @@ if ($aboutPublicRaw.Contains('Development build')) {
     Fail "About.xml still describes AMJE as a Development build."
 }
 foreach ($expected in @(
-    '<description>Alpha.',
+    '<description>Beta.',
     'Ancient &amp; Medieval Japan Core is not required.',
     'Crop Cold Tolerance Overhaul (CCTO) is optional',
     'A new game is recommended',

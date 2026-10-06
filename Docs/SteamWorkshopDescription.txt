@@ -60,7 +60,7 @@ Adding AMJE to an existing save has not been verified and does not regenerate an
 
 [h2]Development Status[/h2]
 
-Currently Alpha.
+Currently Beta.
 
 The main environment systems and [b]custom artwork for Sudajii, Japanese beech, Shirabiso and Haimatsu[/b] are implemented, including snow overlays and beech leafless/autumn states. Retextures of existing Vanilla/MO trees are planned for post-release updates.
 

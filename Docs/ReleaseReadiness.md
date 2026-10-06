@@ -1,5 +1,11 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+Stable release additionally requires the AMJ combined basic-loop gate defined in
+Core `Docs/ReleaseCriteria.md` (author decision, 2026-10-06 JST). Actual pawn work
+with Core + Environment + real MO, recurring food production, a seasonal cycle
+and save/reload continuity remain OPEN. The results below do not satisfy that
+gate. Beta feedback is useful but its absence is not evidence of success.
+
 All four current AMJE plants have accepted normal/growth, UI and snow appearances.
 Beech leafless/autumn approvals are retained; its automatic seasonal transition is
 verified by bounded native calendar sampling, separately from human acceptance.
