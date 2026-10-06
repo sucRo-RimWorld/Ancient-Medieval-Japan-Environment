@@ -1169,3 +1169,15 @@ AMJ Core・Environment・CCTOおよび今後の関連Modの名称では、半角
 YADAがMod表示名を一時ディレクトリ名に使用し、Windowsで半角コロンによりアップロード前処理が停止した件の再発防止。共通正本はCore `Docs/ModDescriptionGuidelines.md`（commit `695bff2a32a57cdf817b13b255587e749399b417`）。このリポジトリのAGENTSにも規則を反映済み（commit `fb40c1695203650851911fdd0169b6a3d43f9f05`）。
 
 確認時点でCore・Environment・CCTOのAbout.xmlのnameはいずれもコロンなし。今回の変更は文書・運用規則のみで、ゲーム実行時テストやSteam公開の成功を示すものではない。
+
+### DOC-2GAME-001 — Japanese 2game summary and shared formatting
+
+**Requested by:** author (2026-10-06 JST)
+
+**Owner:** Documentation/release
+
+**Status:** DONE — repository source prepared; live 2game publication not claimed
+
+Added Docs/2GameDescription-ja.txt and Docs/2GamePresentation.md using CCTO's short summary and six ▼ sections, plain Japanese and short bullets. Content is contained within README: standalone environment scope, four biome bands/plants, optional CCTO/MO, new-game recommendation, unverified existing-save addition, removal limitations and post-Beta tree retextures. Related published mods link to 2game; AMJ Core links to GitHub because no 2game page ID is recorded. AMJE's own GitHub appears once at the end. No AMJE listing ID is invented.
+
+AGENTS routes 2game work to Core's shared ModDescriptionGuidelines.md, now explicitly covering the AMJ-wide template. Validation: ordered six headings, plain-style/format checks, expected direct links, README/Workshop/About consistency and diff whitespace. Reusable update checks are recorded in Docs/2GamePresentation.md; no new runtime result is needed for this text-only task.

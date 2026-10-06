@@ -1,0 +1,43 @@
+日本列島を意識した気候・地形・植生を、RimWorldの世界生成から作る環境MOD。
+単体で古代～中世日本風の自然環境を楽しめる。
+
+▼ 主な機能
+・湿潤な気候と、丘陵・山地が多い世界を生成
+・短い小～中規模河川を増やし、湾・半島・島がある海岸線を形成
+・暖温帯林、冷温帯林、亜高山帯林、高山帯の4つの環境帯を追加
+・代表植物としてスダジイ、ブナ、シラビソ、ハイマツを追加
+・独自の植物画像を使用し、積雪とブナの紅葉・落葉に対応
+・高地ほど痩せた土や礫地が増える自然土壌バランス
+
+▼ バランス方針
+・現代の県境ではなく、気温と標高に沿う日本の植生帯を表現
+・各環境帯にVanillaの樹木や下草も残し、単一種の森林にはしない
+・天候・積雪・落葉は可能な限りVanillaの仕組みを活用
+・単体では植物の温度挙動をVanillaに近い基準で維持
+・CCTO併用時は代表植物に種類ごとの寒冷耐性を適用
+
+▼ 対応範囲
+・RimWorld 1.6対応、現在はβ版
+・世界生成、気候、河川、海岸、Biome、自然土壌、植物、天候が対象
+・日本語 / English
+
+▼ 対応・互換性
+・必須MOD：Harmony https://rimworld.2game.info/detail.php?id=2009463077
+・任意MOD：Crop Cold Tolerance Overhaul（CCTO） https://rimworld.2game.info/detail.php?id=3812412548
+・任意MOD：Medieval Overhaul https://rimworld.2game.info/detail.php?id=2553700067
+・Medieval OverhaulのDark Forestなど、特殊Biomeは条件に応じて共存
+・Ancient & Medieval Japan Coreは不要 https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core
+
+▼ セーブ互換性
+・本来の世界生成や地形を確認するには新規ゲームを推奨
+・既存セーブへの追加は未検証
+・生成済みのワールドは作り直されない
+・温度挙動など一部のランタイム処理は既存セーブにも影響する可能性がある
+・独自Biome・地形・植物を使うセーブからの途中削除は非推奨
+
+▼ 今後の予定
+・初回β公開後、Vanilla / Medieval Overhaulの既存樹木を段階的にリテクスチャ
+・各樹木が使用する通常・落葉・未成熟・汚染・積雪などの表示状態を対象
+
+詳しい数値や設計意図はAMJEのGitHub README / Designを参照。
+https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment
