@@ -1,0 +1,50 @@
+{
+  "date_JST": "2026-10-07",
+  "passed": true,
+  "candidate_source_commit": "f404769a3c70d44a0471576ff70e95ba6ff04d08",
+  "candidate_archive_sha256": "1e81e525da09680c3592c05d89a2cbd332127d9319ec72c982d959f3eb4d11d4",
+  "candidate_file_count": 28,
+  "profiles": {
+    "Vanilla": {
+      "map_assertions": 227,
+      "native_cutting_assertions": 9,
+      "runtime_errors": 0,
+      "reports": 7
+    },
+    "MO": {
+      "map_assertions": 227,
+      "native_cutting_assertions": 9,
+      "runtime_errors": 0,
+      "reports": 7
+    },
+    "CCTO": {
+      "map_assertions": 275,
+      "native_cutting_assertions": 9,
+      "runtime_errors": 0,
+      "reports": 7
+    },
+    "MO-CCTO": {
+      "map_assertions": 275,
+      "native_cutting_assertions": 9,
+      "runtime_errors": 0,
+      "reports": 7
+    }
+  },
+  "source_validation": "ModContentPack, production DLL, unique plant ownership; real MO/VEF/Processor/CCTO Workshop roots",
+  "rendering": "Direct3D11 enabled on non-visible WinSta0 desktops",
+  "fixture_difference": "Only About name/packageId changed for independent candidate selection; all other candidate bytes exact and original payload preserved",
+  "normal_configuration_unchanged": true,
+  "native_outputs": {
+    "Shii": 42,
+    "Beech": 40,
+    "Shirabiso": 30,
+    "Haimatsu": 8
+  },
+  "resource": "WoodLog standalone/CCTO; DankPyon_RawWood MO/MO+CCTO",
+  "failed_attempts": [
+    "CandidateRuntime-1: observer dependency order; fixed by separating early error capture",
+    "CandidateRuntime-2 MO coast: upstream Quickstarts LogCapture.CountErrors concurrency exception; preserved and rerun unchanged payload"
+  ],
+  "evidence": "D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AncientMedievalJapanEnvironment\\TestResults\\WorkshopReleaseRepair\\CandidateRuntimeGate.json",
+  "steam_publication": "Not performed; installed manifest still8630945342812668549; not a Workshop PASS"
+}

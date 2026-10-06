@@ -13,8 +13,13 @@ Root plant XML SHA256 is
 it lacks Haimatsu harvest fields. Shipped
 `TestResults/SourceSync/Defs/ThingDefs_Plants/AMJ_WildPlants.xml` has SHA256
 `537b5b99f0b005c14dfb8f014e03c3ce5438ad4014f0d3a1012a797b43a0c323`,
-equal to the fixed current-main XML. The fix was present inside the uploaded
-development tree but outside the root loaded by the game.
+containing the same six harvest fields as current main. Current main has since
+changed plant labels/descriptions; its checkout XML hash is
+`6d66a15cffbdd970dc985083fc2bef62a45766203e6d1c3e521370c1e915041a`.
+After removing only label/description nodes, the two parsed Def trees are equal.
+Do not confuse matching cutting behavior with byte-identical entire XML.
+The fix was present inside the uploaded development tree but outside the root
+loaded by the game.
 The retained local `TestResults/integrate_approved_descriptions.py` and
 `TestResults/prepare_beta.py` both explicitly set their root to
 `Path(__file__).resolve().parent / 'SourceSync'`; the former proves/tests the
@@ -119,3 +124,41 @@ reports/full logs, exact retired runtime bytes, real Workshop dependency roots,
 Direct3D and independent error captures before accepting the four-profile union.
 Use `--steam` only with the actual installed Workshop root. Candidate union
 success explicitly does not clear the distributed-release HOLD.
+
+## Verified candidate closeout (2026-10-07 JST)
+
+Immutable candidate source commit: `f404769a3c70d44a0471576ff70e95ba6ff04d08`.
+Archive SHA256: `1e81e525da09680c3592c05d89a2cbd332127d9319ec72c982d959f3eb4d11d4`.
+The payload has28 files, original packageId/Workshop ID, current accepted main
+runtime content and author-approved preview. Subsequent tooling/docs-only
+commits do not change this tested artifact; do not rebuild and substitute a
+new DLL hash without revalidation.
+
+| Profile | Six map/plant/terrain checks | Native cutting | Runtime ERROR |
+| --- | --- | --- | --- |
+| Vanilla Core + candidate |227/227|9/9|0|
+| Core + real MO + candidate |227/227|9/9|0|
+| Core + real CCTO + candidate |275/275|9/9|0|
+| Core + real MO + CCTO + candidate |275/275|9/9|0|
+
+All28 completed reports were rechecked with the saved-log combination gate:
+exact profile membership and source/DLL/Def ownership, real dependency roots,
+Direct3D11, no truncation/pre-launch/global ERROR, seven independent Unity logs
+per profile, four native outputs42/40/30/8, and exact retired runtime bytes.
+Only temporary fixture About identity differed; original candidate, normal
+ModsConfig/Prefs and Workshop payload were preserved. Failed attempts remain
+in CandidateRuntime-1/2; the corrected observer and unchanged candidate rerun
+are recorded separately. This is a candidate PASS, not a Steam PASS.
+
+Local artifact/evidence root:
+`Mods/AncientMedievalJapanEnvironment/TestResults/WorkshopReleaseRepair`:
+Candidate-f404769, CandidateRuntimeGate.json, UploadSourceAudit.json and
+CandidateRuntime-1/2/3. Formal compact evidence and hashes are retained in
+`Docs/ValidationEvidence/WorkshopPublicationAudit.json`,
+`WorkshopCandidateRuntime.json` and `WorkshopCandidateManifest.json`.
+
+Author handoff: upload the manifest-verified Candidate-f404769 runtime root,
+not the dirty development root. Publication may proceed manually with this
+candidate; distributed release approval remains HOLD on manifest8630945342812668549
+until a real Steam download matches the intended payload and passes the actual
+four-profile source/cutting gate. No Workshop file overwrite or upload occurred.

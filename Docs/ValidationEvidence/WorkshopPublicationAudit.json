@@ -1,0 +1,39 @@
+{
+  "date_JST": "2026-10-07",
+  "workshopId": "3814638060",
+  "installed_manifest": "8630945342812668549",
+  "installed_files": 1113,
+  "same_path_development_matches": 1113,
+  "different_or_missing_files": 0,
+  "workshop_development_content": {
+    "Art": 37,
+    "TestResults": 988,
+    "DevQuickstarts": 1
+  },
+  "runtime_root_plant_xml_sha256": "8cf2c9864b8b5a06196126a30928e0ac6e933d4c8a9d319782327f534c4828a4",
+  "fixed_nested_plant_xml_sha256": "537b5b99f0b005c14dfb8f014e03c3ce5438ad4014f0d3a1012a797b43a0c323",
+  "formal_main_checkout_plant_xml_sha256": "6d66a15cffbdd970dc985083fc2bef62a45766203e6d1c3e521370c1e915041a",
+  "main_vs_nested_difference": "Only label/description fields differ; parsed trees equal after removing those fields. Cutting contract is identical.",
+  "root_cause": "Unsynchronized development-root payload was published; fixed formal-main XML existed only under shipped TestResults/SourceSync. Local YADA defaults excluded neither Art nor TestResults. No selected-root provenance/harvest gate existed.",
+  "uploader_implementation": "Cannot prove whether YADA or Vanilla performed final copying; both preserve the selected root content. No attribution to missing _AMJ_PublishStaging checkout.",
+  "source_evidence": "D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AncientMedievalJapanEnvironment\\TestResults\\WorkshopReleaseRepair\\UploadSourceAudit.json",
+  "retained_local_procedures": [
+    "TestResults/integrate_approved_descriptions.py -> SourceSync",
+    "TestResults/prepare_beta.py -> SourceSync"
+  ],
+  "steam_log_evidence": [
+    "[2026-10-06 22:13:59] [AppID 294100] Create new workshop item of type Community for AppID 294100 : 3814638060 (OK)",
+    "[2026-10-06 23:01:36] [AppID 294100] Upload starting for workshop item 3814638060 by AppID 294100",
+    "[2026-10-06 23:01:50] [AppID 294100] Uploaded new content ( ManifestID 8889000939694660295 ) for item 3814638060.",
+    "[2026-10-06 23:01:50] [AppID 294100] Upload finished for workshop item 3814638060 : OK",
+    "[2026-10-06 23:10:42] [AppID 294100] Subscribed to item 3814638060 @ Tue Oct  6 23:10:41 2026",
+    "[2026-10-06 23:10:42] [AppID 294100] Detected workshop change : added subscribed item 3814638060",
+    "[2026-10-06 23:10:42] [AppID 294100] Detected workshop change (latest from server) : changed cached item 3814638060, new manifest 8889000939694660295",
+    "[2026-10-06 23:26:10] [AppID 294100] Upload starting for workshop item 3814638060 by AppID 294100",
+    "[2026-10-06 23:26:18] [AppID 294100] Uploaded new content ( ManifestID 8630945342812668549 ) for item 3814638060.",
+    "[2026-10-06 23:26:20] [AppID 294100] Uploaded new workshop preview file D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\AncientMedievalJapanEnvironment\\About\\Preview.png",
+    "[2026-10-06 23:26:21] [AppID 294100] Upload finished for workshop item 3814638060 : OK",
+    "[2026-10-06 23:53:49] [AppID 294100] Detected workshop change (latest from server) : changed cached item 3814638060, new manifest 8630945342812668549"
+  ],
+  "release_decision": "HOLD actual distribution; candidate gate PASS; author-manual upload/download verification required"
+}
