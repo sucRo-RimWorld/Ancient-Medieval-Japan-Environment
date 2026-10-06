@@ -38,11 +38,18 @@ A Japan-oriented environment overhaul for RimWorld world generation, climate, mo
 
 Emphasize:
 - Japan-oriented environment/world generation;
+- why the four AMJ biomes are simplified vegetation/climate bands rather than prefectural or exclusive biome replacements;
+- one representative structural plant for each band: Sudajii / Japanese beech / Shirabiso / Haimatsu, with the selection rationale;
+- current production images for those four plants in the Workshop body;
 - standalone use without AMJ Core;
 - optional CCTO realism layer;
 - Medieval Overhaul coexistence;
 - save-compatibility limitations;
 - Beta status and the current AMJE structural-plant artwork; broader Vanilla / Medieval Overhaul tree retextures are post-publication follow-up.
+
+For the representative-plant section, keep the Workshop summaries shorter than the in-game historical descriptions. The Workshop should explain the vegetation-band design and provide a short educational note for each plant; the in-game descriptions retain the fuller kanji/alias/historical detail.
+
+The four current Workshop images reference the repository's production PNGs directly through `raw.githubusercontent.com`. If a production path changes, update the Workshop image URL at the same time.
 
 Keep detailed world-generation numbers, full test results, exact plant cold-tolerance values, implementation details, and research rationale in README / Design rather than the Workshop body.
 
