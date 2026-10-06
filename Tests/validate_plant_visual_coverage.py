@@ -14,6 +14,12 @@ SEASONAL = {"leafless", "autumn", "transition"}
 def fingerprint(plant, state=None):
     if state is not None:
         plant = copy.deepcopy(plant)
+        # Player-facing localization/prose is nonvisual and must not invalidate
+        # an already reviewed sprite/state.
+        for field in ("label", "description"):
+            node = plant.find(field)
+            if node is not None:
+                plant.remove(node)
         if state != "icon":
             for field in ("uiIconPath", "uiIconScale", "uiIconOffset", "uiIconColor", "uiIconAngle"):
                 node = plant.find(field)
@@ -131,10 +137,16 @@ def main():
         snow_changed.find('plant/snowOverlayGraphicPath').text = 'missing-test-overlay'
         assert fingerprint(original, 'normal') == fingerprint(snow_changed, 'normal')
         assert fingerprint(original, 'snow') != fingerprint(snow_changed, 'snow')
+        text_changed = copy.deepcopy(original)
+        text_changed.find('label').text = (text_changed.findtext('label') or '') + ' test'
+        text_changed.find('description').text = (text_changed.findtext('description') or '') + ' test'
+        assert fingerprint(original, 'normal') == fingerprint(text_changed, 'normal')
+        assert fingerprint(original, 'icon') == fingerprint(text_changed, 'icon')
+        assert fingerprint(original, 'snow') == fingerprint(text_changed, 'snow')
         size_changed = copy.deepcopy(original)
         ET.SubElement(size_changed.find('graphicData'), 'drawSize').text = '9'
         assert fingerprint(original, 'normal') != fingerprint(size_changed, 'normal')
-        print('[OK] Unrelated UI/snow changes preserve normal approval; icon/snow/size changes invalidate affected states')
+        print('[OK] Text/UI/snow scoping preserves unrelated approvals; icon/snow/size changes invalidate affected states')
 
         deciduous = next(n for n,p in plants.items() if p.findtext('plant/leaflessGraphicPath'))
         broken = copy.deepcopy(data)
