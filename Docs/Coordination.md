@@ -992,3 +992,18 @@ Durable sources:
 - Environment texture Golden Path — `1656615b6cb47176d8a0cf3dd4fb07e54739e845`.
 
 **Next action:** continue ENV-010 art in its existing priority order. Before integrating each first Vanilla/MO target, enumerate the target's current loaded graphic states and create the matching AMJE target/state regression entries.
+
+### DEV-TOOLS-001 — DevKit / Rim Control を開発専用補助ツールとして採用
+
+**Requested by:** author (2026-10-06 JST)  
+**Owner:** Testing/tooling  
+**Status:** DONE (policy documentation)
+
+AMJ共通の対話型開発補助ツールとして、DevKit — Better Dev Mode Menu (Workshop `3814373104`) と Rim Control (Workshop `3774299554`) を採用した。
+
+DevKitはDef検索・スポーン・Debug Action等を用いた目視確認の準備短縮、Rim Controlはゲーム中の数値・visual・placement等の一時変更によるプロトタイピングに使用する。どちらも自動テストの代替や出荷依存にはしない。
+
+Rim Controlで得た採用値はXML / C# / Def / 正式設計書へ正本化し、上書きを無効にしてから静的検証・RimTest Redux・Pickle・runtime gateで再検証する。正式テスト、自動テスト、リリースゲート、通常プロファイルの正式確認では両ツールを無効化する。
+
+**Result / references:** durable rule in `Docs/DevelopmentTools.md`. Documentation-only change; no new runtime PASS is claimed.
+
