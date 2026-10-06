@@ -1,15 +1,16 @@
 # Steam Workshop Presentation — Ancient & Medieval Japan: Environment
 
-`README.md` is the detailed public-content source of truth. Workshop copy is intentionally shorter and focuses on what players need to understand, evaluate, and install the mod.
+`README.md` is the detailed public-content source of truth. The Workshop description is a concise summary of that README: it should select and compress the information players need to understand, evaluate, and install the mod, but it must not introduce substantive features, design rationale, or compatibility claims that are absent from the README.
 
 ## Authoring order
 
 Workshop descriptions are written **Japanese first**.
 
-1. Draft and polish the Japanese description from README/design facts.
-2. Treat the finalized Japanese Workshop text as the wording/content source.
-3. Translate that Japanese text into English without adding or removing substantive claims.
-4. Keep both language versions synchronized.
+1. Update README with the detailed public content first, using Design as the internal factual/rationale source.
+2. Draft and polish a concise Japanese Workshop summary from that README.
+3. Treat the finalized Japanese Workshop text as the wording/content source for Workshop localization.
+4. Translate that Japanese text into English without adding or removing substantive claims.
+5. Keep both Workshop language versions synchronized with each other and substantively contained within README.
 
 Source files:
 - Japanese: `Docs/SteamWorkshopDescription-ja.txt`
