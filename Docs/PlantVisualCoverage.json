@@ -185,7 +185,7 @@
           "date": "2026-10-06",
           "pending_variant": "leafless",
           "leafy_variant_status": "accepted",
-          "review_reason": "Revision 3 appeared behind branches; foreground snow-lip revision 4 covers original upper outline/wood face and remains unapproved.",
+          "review_reason": "Author requested broader whole-tree snow; revision 5 adds seven branch ledges while retaining foreground occlusion and remains unapproved.",
           "evidence": "Docs/ValidationEvidence/BeechSnowReview-Snow.log"
         },
         "transition": {

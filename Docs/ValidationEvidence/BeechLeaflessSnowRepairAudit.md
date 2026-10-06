@@ -52,3 +52,13 @@ Physical branch support and final visible snow rim are distinct: a front lip may
 - Revision 4 editable-mask.png: `339e3704d0ae48365df85e56c308ed995ce8abba158b48fdf729da1bf3902170`
 - Revision 4 snow-overlay.png: `8b801f585d9f50ba0cbd4f57ea816f42ad365930a764ee4c6542143df00bc61a`
 - Revision 4 exact-composite.png: `6733dc61dde535c145affe757d9e1185c452485b3b6f64c81560658506dce6bc`
+
+### Revision 5 — wider whole-tree accumulation, still REVIEW
+
+Author requested more snow overall while retaining the limited accumulation appropriate to branches. Extend the eight existing branch corridors with seven upper/outer/lower ledges, for fifteen supporting corridors and fourteen connected snow masses. Keep foreground lips and original-branch occlusion; the finest outer-left twig uses a smaller lip. Do not fill the canopy, coat all twig tips or paint the vertical trunk.
+
+Solid snow coverage increases from 2108 to 3628 pixels (about 1.72x), distributed across the full crown rather than thickening only existing patches. Original master and accepted other variants stay unchanged. Additional allowed corridors are declared before painting in an unapproved `v5-review` contract; no active/approved mask is modified and no mask is widened from output leaks. Support, opaque upper-wood-face occlusion, mass/outline, layer-order and PNG gates remain required. No source/native visual acceptance is claimed.
+- Revision 5 master.png: `24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112`
+- Revision 5 editable-mask.png: `4c64dfa7eadfc7ff905a9889b44d55c16e436630b6ee6f5cb713e0132cc54b46`
+- Revision 5 snow-overlay.png: `3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b`
+- Revision 5 exact-composite.png: `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`

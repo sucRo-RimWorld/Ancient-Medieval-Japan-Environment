@@ -20,6 +20,11 @@ LEAFLESS_BRANCHES = (
     (164, 174, 88, 83, 8), (44, 59, 115, 113, 10),
     (185, 208, 113, 111, 12), (83, 108, 136, 149, 12),
     (204, 218, 146, 140, 10), (60, 79, 158, 161, 12),
+    # Additional upper, outer and lower ledges for overall accumulation.
+    (112, 125, 31, 38, 8), (145, 162, 58, 50, 9),
+    (173, 187, 67, 69, 9), (28, 44, 104, 105, 9),
+    (218, 235, 103, 102, 9), (170, 193, 177, 176, 10),
+    (86, 102, 173, 177, 9),
 )
 SNOW_OUTLINE = (32, 29, 22, 255)
 SNOW_BASE = (245, 243, 235, 255)
@@ -59,14 +64,15 @@ def build_leafless_clumps(master, anchors=None):
         surface=branch_surface(master,branch)
         # Opaque snow lip covers the original upper outline/wood face.
         # Ending at the silhouette edge incorrectly leaves wood in foreground.
-        bottom=[(x,y+4) for x,y in surface]
+        lip=3 if x0<40 else 4  # thinner overhang on the fine outer-left twig
+        bottom=[(x,y+lip) for x,y in surface]
         top=[]
         for x,y in bottom:
             t=(x-x0)/(x1-x0)
             # Thickness tapers into the branch at both ends, with unequal lobes.
             h=1+depth*(math.sin(math.pi*t)**.7)*(.85+.15*math.sin(t*5+index))
             near=[v for xx,v in bottom if abs(xx-x)<=3]
-            top.append((x,sum(near)/len(near)-h-4))
+            top.append((x,sum(near)/len(near)-h-lip))
         polygon=top+list(reversed(bottom))
         draw.polygon([(round(x*scale),round(y*scale)) for x,y in polygon],fill=SNOW_BASE)
         shadow=[(x,y-3.5) for x,y in bottom]+list(reversed(bottom))
@@ -133,11 +139,11 @@ def build(leafless):
     if leafless:
         approval_basis = (
             'Rejected by author on 2026-10-06 because snow read as thin '
-            'branch-following lines; front-occluding snow revision 4 awaiting review'
+            'branch-following lines; distributed foreground snow revision 5 awaiting review'
         )
         mask_meaning = (
-            'Eight narrow branch corridors traced against original opaque upper surfaces; '
-            'unapproved revision 4, unchanged lower trunk and all outside RGBA'
+            'Fifteen narrow branch corridors traced against original opaque upper surfaces; '
+            'unapproved revision 5, unchanged lower trunk and all outside RGBA'
         )
     else:
         approval_basis = (
@@ -150,7 +156,7 @@ def build(leafless):
     spec = {
         'version': 1,
         'family': f'AMJE-{name}-snow',
-        'template_revision': 'v4-review' if leafless else 'v1',
+        'template_revision': 'v5-review' if leafless else 'v1',
         'production_status': 'review',
         'size': [256, 256],
         'master': {'path': 'master.png', 'sha256': sha(source)},
