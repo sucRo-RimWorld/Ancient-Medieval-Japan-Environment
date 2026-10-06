@@ -26,6 +26,7 @@
       <minGrowthTemperature>0</minGrowthTemperature>
       <harvestWork>1000</harvestWork>
       <harvestYield>42</harvestYield>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Shii_Snow</snowOverlayGraphicPath>
       <wildClusterWeight>36</wildClusterWeight>
     </plant>
   </ThingDef>
@@ -37,6 +38,12 @@
     <graphicData>
       <texPath>Things/Plant/AMJ/Beech</texPath>
       <graphicClass>Graphic_Random</graphicClass>
+      <shaderParameters Inherit="False">
+        <_FallColorSource>(0.3803, 0.4352, 0.1451)</_FallColorSource>
+        <_FallColorDestination>/Other/AMJE_BeechFallGradient</_FallColorDestination>
+        <_FallTransitionRange>(0.02, 0.10)</_FallTransitionRange>
+        <_FallBehaviorEnabled>1</_FallBehaviorEnabled>
+      </shaderParameters>
       <shadowData>
         <volume>(0.16, 0.33, 0.12)</volume>
         <offset>(0,0,-0.44)</offset>
@@ -49,6 +56,8 @@
       <growDays>30</growDays>
       <minGrowthTemperature>0</minGrowthTemperature>
       <leaflessGraphicPath>Things/Plant/AMJ/Beech_Leafless</leaflessGraphicPath>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Beech_Snow</snowOverlayGraphicPath>
+      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/Beech_Leafless_Snow</leaflessSnowOverlayGraphicPath>
       <harvestWork>950</harvestWork>
       <harvestYield>40</harvestYield>
       <wildClusterWeight>38</wildClusterWeight>
@@ -74,6 +83,7 @@
     <ingestible />
     <plant>
       <growDays>28</growDays>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Shirabiso_Snow</snowOverlayGraphicPath>
       <minGrowthTemperature>0</minGrowthTemperature>
       <visualSizeRange Inherit="False">
         <min>1.25</min>
@@ -87,12 +97,13 @@
 
   <ThingDef ParentName="BushBase">
     <defName>AMJ_Shrub_Haimatsu</defName>
+    <uiIconPath>Things/Plant/AMJ/Haimatsu/Haimatsu_A</uiIconPath>
     <label>haimatsu dwarf pine</label>
     <description>A low, creeping evergreen pine that forms dense thickets above the forest line in Japan-like alpine terrain.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Haimatsu</texPath>
       <graphicClass>Graphic_Random</graphicClass>
-      <drawSize>0.65</drawSize>
+      <drawSize>2.60</drawSize>
       <shadowData>
         <volume>(0.20, 0.12, 0.12)</volume>
         <offset>(0,0,-0.10)</offset>
@@ -102,6 +113,7 @@
     <pathCost>22</pathCost>
     <plant>
       <fertilityMin>0.05</fertilityMin>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Haimatsu_Snow</snowOverlayGraphicPath>
       <fertilitySensitivity>0.20</fertilitySensitivity>
       <growDays>18</growDays>
       <minGrowthTemperature>0</minGrowthTemperature>

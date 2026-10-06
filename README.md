@@ -75,7 +75,7 @@ A deliberately small set of Japan-specific structural plants is included:
 
 Generic grasses, mosses, shrubs, secondary trees, and other filler vegetation continue to reuse Vanilla PlantDefs. The goal is to make the vegetation bands structurally legible without turning Environment into a large plant-content mod.
 
-The current plant graphics are still placeholders using Vanilla assets. Final plant artwork is deferred to the final visual pass.
+Sudajii, Japanese beech, Shirabiso and Haimatsu use custom artwork, including snow overlays and beech leafless/autumn states. Their appearance and UI icons have been reviewed. Retextures of existing Vanilla/MO trees are planned for post-release updates.
 
 ### Natural soil fertility
 
@@ -192,7 +192,7 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-Final custom visual assets are still pending, and broader real-play balance/compatibility feedback may change Alpha values.
+The four custom plants and their required visual states are implemented. Existing Vanilla/MO tree retextures are deferred to post-release updates. Broader real-play balance/compatibility feedback may change Alpha values.
 
 ## Research and detailed design
 

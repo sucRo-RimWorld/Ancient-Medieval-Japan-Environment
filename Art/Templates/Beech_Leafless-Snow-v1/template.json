@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "family": "AMJE-Beech_Leafless-snow",
+  "template_revision": "v1",
+  "production_status": "active",
+  "size": [
+    256,
+    256
+  ],
+  "master": {
+    "path": "master.png",
+    "sha256": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112"
+  },
+  "editable_mask": {
+    "path": "editable-mask.png",
+    "sha256": "d8c996a021058b390ba952dfeaccbad75c6199e8f2d1fd08c204fbc447963834"
+  },
+  "approval_basis": "Author accepted native leafy and leafless snow comparison with OK on 2026-10-06",
+  "mask_meaning": "Exposed upper branch pixels",
+  "layer_order": [
+    "immutable master",
+    "snow-only overlay"
+  ],
+  "filled_exemplar": {
+    "path": "exact-composite.png",
+    "sha256": "e3d69440a8a7c337647ce4c92f47339aaaa6fa629b27116ce514c0b79687d55c",
+    "size": [
+      256,
+      256
+    ],
+    "evidence": "TestResults/BeechSnowReview/Snow.log"
+  }
+}

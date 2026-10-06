@@ -62,7 +62,7 @@ Adding AMJE to an existing save has not been verified and does not regenerate an
 
 Currently Alpha.
 
-The main environment systems are implemented, but the [b]final graphics for Sudajii, Japanese beech, Shirabiso, Haimatsu, and other AMJE visuals are still placeholders[/b]. Final artwork will be produced after functionality and balance are locked.
+The main environment systems and [b]custom artwork for Sudajii, Japanese beech, Shirabiso and Haimatsu[/b] are implemented, including snow overlays and beech leafless/autumn states. Retextures of existing Vanilla/MO trees are planned for post-release updates.
 
 See the GitHub README / Design documentation for detailed values, rationale, and CCTO integration data.
 

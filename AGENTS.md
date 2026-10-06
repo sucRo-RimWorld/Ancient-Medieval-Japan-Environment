@@ -8,6 +8,8 @@ Before starting work in this repository:
 2. Read the authoritative coordination log at `main:Docs/Coordination.md`.
 3. Check for OPEN / IN PROGRESS items owned by the current workstream before starting new work.
 4. For plant/tree image-generation or retexture work, enter through `Docs/GoldenPaths/RetextureGeneration.md` before any generation call. Read its current main version, load and actually view the accepted reference PNGs, and carry its complete shared prompt into the generator.
+5. Before resuming plant art, selecting a next target, handing off or claiming completion, read `Docs/GoldenPaths/PlantVisualCoverage.md` and run `Tests/validate_plant_visual_coverage.py`. Resolve/report its pending states first. A whole-plant/all-state completion claim requires `--require-complete` to pass; normal appearance approval alone is never full completion. Existing-tree retextures are deferred by the author; finish pending current-plant states before proposing unrelated art.
+6. Color/palette comparisons must use fixed local time 12:00, Clear weather and a paused map, with the same zoom and season/shader intensity for before/after comparisons. Verify and record actual conditions; requested settings alone are insufficient. Do not judge source colors from uncontrolled dawn/dusk, night or weather screenshots. Follow the color-review controls in `Docs/GoldenPaths/PlantVisualCoverage.md`.
 
 ## Cross-chat / cross-agent coordination
 
@@ -143,6 +145,14 @@ Do not design each asset from scratch. Reuse the shared AMJE baseline for:
 Use accepted Sudajii and Japanese beech assets as the current evergreen-broadleaf and deciduous-broadleaf reference baselines. Production transfer/integration must separately follow `Docs/GoldenPaths/TextureAssetPipeline.md`.
 
 ## New-chat image-generation continuity
+
+Once the author has accepted a tree's shape, generate derivative states without
+requesting pre-generation approval again. This includes snow, seasonal and
+leafless variants based on that accepted form. Preserve the accepted silhouette,
+scale, trunk/branch identity and shared style as appropriate to the state. Record
+the derivation and proceed to validation/in-game review; generation authorization
+does not itself grant final visual acceptance. A new or changed tree form still
+requires a design proposal and approval.
 
 For every new chat or resumed tree/plant art task, follow `Docs/GoldenPaths/RetextureGeneration.md`. Read the shared and species rules, actually view and attach the accepted baseline images, recover the precise approval stage from main Coordination, and present the species composition/design before generation unless that exact proposal already has author approval. Preserve the full baseline prompt when adding species-specific details; do not regenerate the style from memory. Rule-saving/new-chat requests do not approve a pending image proposal. Record durable approvals in ArtDirection and current progress in main Coordination before handoff.
 

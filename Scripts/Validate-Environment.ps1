@@ -1037,7 +1037,7 @@ $runtimeLogValidator = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Va
 foreach ($expected in @(
     'sucro.ancientmedievaljapan.environment',
     'Level:\s*ERROR',
-    'Environment-origin runtime ERROR'
+    'Owned AMJ runtime ERROR'
 )) {
     if (-not $runtimeLogValidator.Contains($expected)) {
         Fail "Environment runtime ERROR gate is missing expected marker: $expected"

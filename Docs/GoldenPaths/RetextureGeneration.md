@@ -29,7 +29,12 @@ unclear, resolve the class before generating.
 4. Fetch and actually view the accepted reference PNGs below. Do not merely read
    filenames, rely on an old conversation image, or claim to have inspected
    pixels that were not opened.
-5. Reuse the existing approved category/style. Present a concise target-specific
+5. **Author exception (2026-10-05):** once a tree's shape is accepted, its derivative
+   states may be generated without renewed pre-generation approval. Preserve the
+   accepted form, scale, branch identity and shared style as appropriate to the
+   state. Snow and other state variants still need asset validation and in-game
+   appearance review; do not infer final acceptance from generation authorization.
+   For a new or changed tree form, reuse the existing approved category/style. Present a concise target-specific
    composition/design proposal **before generation**, then obtain author approval
    for that proposal. If the same proposal already has explicit approval in the
    current handoff, retain it and proceed without asking for approval again.

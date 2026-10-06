@@ -1,0 +1,12 @@
+{
+  "replaced_local_logs": {
+    "TestResults/PlantIconGrowthReviewFinal/Review.log": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-Review.log",
+    "TestResults/PlantIconGrowthReviewFinal/GrowthOnly.log": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+    "TestResults/ShiiSnowContour/SnowLeftContour.log": "Docs/ValidationEvidence/ShiiSnowContour-SnowLeftContour.log",
+    "TestResults/BeechSnowReview/Snow.log": "Docs/ValidationEvidence/BeechSnowReview-Snow.log",
+    "TestResults/BeechSeasonSampleV5/Season.log": "Docs/ValidationEvidence/BeechSeasonSampleV5-Season.log",
+    "TestResults/ShirabisoSnowHeavy/Snow.log": "Docs/ValidationEvidence/ShirabisoSnowHeavy-Snow.log",
+    "TestResults/HaimatsuInfoReview/Review.log": "Docs/ValidationEvidence/HaimatsuInfoReview-Review.log",
+    "TestResults/HaimatsuSnowMasterRegistered/Snow.log": "Docs/ValidationEvidence/HaimatsuSnowMasterRegistered-Snow.log"
+  }
+}

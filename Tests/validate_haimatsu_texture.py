@@ -9,8 +9,9 @@ root = Path(__file__).resolve().parents[1]
 plant = next(x for x in ET.parse(root / 'Defs/ThingDefs_Plants/AMJ_WildPlants.xml').getroot() if x.findtext('defName') == 'AMJ_Shrub_Haimatsu')
 assert plant.findtext('graphicData/texPath') == 'Things/Plant/AMJ/Haimatsu'
 assert plant.findtext('graphicData/graphicClass') == 'Graphic_Random'
+assert float(plant.findtext('graphicData/drawSize')) == 2.60
 b = (root / 'Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png').read_bytes()
-assert hashlib.sha256(b).hexdigest() == '44d22e74670bdfe081ef98c8a327700620f3d285e4a86b6dc52625c57daef551'
+assert hashlib.sha256(b).hexdigest() == 'a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6'
 assert b[:8] == b'\x89PNG\r\n\x1a\n'
 o = 8
 payload = bytearray()

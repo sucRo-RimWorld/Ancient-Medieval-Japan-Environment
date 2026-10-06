@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "family": "AMJE-Haimatsu-snow",
+  "template_revision": "v1",
+  "production_status": "active",
+  "size": [
+    256,
+    256
+  ],
+  "master": {
+    "path": "master.png",
+    "sha256": "a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6"
+  },
+  "editable_mask": {
+    "path": "editable-mask.png",
+    "sha256": "394c6b1cbdc6c988e538c6d09f388af26bc7f70b0e3876abccdb538d3bd09a3e"
+  },
+  "approval_basis": "Accepted Haimatsu master and snow appearance: 問題なさそう, 2026-10-05; native noon/Clear review.",
+  "mask_meaning": "Upper 58% of each master foliage column, foliage alpha >245. All branches/outer antialias protected.",
+  "layer_order": [
+    "unchanged master",
+    "registered snow-only overlay"
+  ],
+  "material_sha256": "e1037f0a6c1c264dd10949e01f604bd50df75966147957482a0587041a3d4f7f",
+  "registration": [
+    {
+      "master_pad_bbox": [
+        57,
+        79,
+        152,
+        135
+      ],
+      "generated_material_bbox": [
+        57,
+        80,
+        158,
+        122
+      ]
+    },
+    {
+      "master_pad_bbox": [
+        6,
+        118,
+        99,
+        178
+      ],
+      "generated_material_bbox": [
+        20,
+        119,
+        95,
+        151
+      ]
+    },
+    {
+      "master_pad_bbox": [
+        132,
+        120,
+        221,
+        166
+      ],
+      "generated_material_bbox": [
+        139,
+        122,
+        223,
+        156
+      ]
+    },
+    {
+      "master_pad_bbox": [
+        81,
+        150,
+        166,
+        195
+      ],
+      "generated_material_bbox": [
+        92,
+        153,
+        164,
+        184
+      ]
+    },
+    {
+      "master_pad_bbox": [
+        202,
+        154,
+        251,
+        185
+      ],
+      "generated_material_bbox": [
+        204,
+        156,
+        252,
+        181
+      ]
+    }
+  ],
+  "filled_exemplar": {
+    "path": "exact-composite.png",
+    "sha256": "5aaec1171e71f07f07968e258ca5ebe036c14fc658fe4a461d507c86be8e1c17",
+    "size": [
+      256,
+      256
+    ],
+    "evidence": "TestResults/HaimatsuSnowMasterRegistered/Snow.log"
+  }
+}
