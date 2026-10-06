@@ -26,6 +26,16 @@ For plant sprites, the current ENV-010 baseline is:
 
 Do not point a Def at a new AMJE texture path before the production PNG exists.
 
+### 1.5 Preserve the accepted source under Art/Sources
+
+After source-art approval and before treating the asset as closed, preserve the exact accepted source bytes under `Art/Sources/`, mirroring the production `Textures/` path where practical.
+
+- Do not re-encode, resize, recolor, or otherwise mutate the approved source merely to archive it.
+- If an active `Art/Templates/` registry already contains the approved master or snow-overlay blob, reuse that exact blob under `Art/Sources/`; the template directory may remain for deterministic builders/tests.
+- A composed review image such as `exact-composite.png` is not the source when the actual production inputs are an unchanged master plus an overlay.
+- Do not promote an unrelated production derivative to source status when the actual accepted source is missing.
+- `Art/` is development-only and is excluded from YADA Workshop uploads by the repository-root `.rimignore`.
+
 ### 2. Validate and install the exact PNG bytes
 
 Use the repository helper:
@@ -177,7 +187,7 @@ A texture task is not complete merely because the source image was approved.
 
 For AMJE production art, completion requires:
 
-**approved source → exact-byte install → automated gate PASS → correct natural-biome runtime review → author acceptance → regression/documentation lock.**
+**approved source → exact-byte preservation in `Art/Sources/` → exact-byte install → automated gate PASS → correct natural-biome runtime review → author acceptance → regression/documentation lock.**
 
 ## Fixed reused components
 

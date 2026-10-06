@@ -153,6 +153,14 @@ For Vanilla / Medieval Overhaul / other prerequisite-asset retextures, also foll
 - Keep pure retexture changes visual-only and preserve source rendering metadata unless the replacement technically requires a documented rendering adjustment.
 - Guard optional MO patches and validate the final AMJE path against known explicit-path competitors such as ReGrowth/VTE where they touch the same field.
 
+## Workshop art-source exclusion
+
+The repository-root `Art/` tree is development-only authoring material and must not be uploaded to Steam Workshop.
+
+- Keep `Art` in the root `.rimignore` so YADA excludes the entire tree recursively.
+- Any future alternate publisher/staging path must exclude the entire `Art/` tree as well.
+- Shippable runtime assets belong under their normal production paths such as `Textures/` or `About/`; do not rely on `Art/` content being present in the published Mod.
+
 ## Art / retexture routing
 
 Do not duplicate detailed art rules in AGENTS.
