@@ -5,7 +5,8 @@ Use `Scripts/Build-ReleaseCandidate.py` after the current build/static checks an
 Before publication, run the [four-species harvest resource gate](PlantHarvestTests.md)
 against the current source. Its result is separate from ZIP startup/map checks.
 The candidate contains About, the production assembly, Defs, translations,
-patches, textures, LICENSE, README and the English/Japanese Workshop copy.
+patches, textures and LICENSE. README and English/Japanese Workshop copy stay
+on GitHub; they are not part of the subscriber payload.
 The distribution loadFolders.xml loads only the root; developer Quickstarts,
 art candidates, scripts and runtime test profiles are excluded.
 
@@ -26,3 +27,12 @@ Retain Tests/Release/ReleaseAudit.cs as an independent observer mod, compiled ag
 ## Exact-package map matrix
 
 Reuse Scripts/Run-EnvironmentVegetationQuickstarts.ps1 with a new result root and isolated base/CCTO profiles. Keep the release ZIP unchanged and root-only; load the compiled DevQuickstarts test DLL from a separate audit observer Mod instead. The matrix observer verifies actual loaded candidate root and all four species images/UI/snow. Tests/Release/IsolatedDesktopRunner.cs retains the Core desktop launcher bindings and runs the driver batch on a non-visible desktop with rendering enabled; timeout kills only its owned process tree. Run six base scenarios followed by CctoCompatibilityOnly. Require successful JSON counts, zero pre-launch errors, complete capture/no truncation, observer PASS in every log, mod-origin/global error gates, unchanged payload hashes, restored source About and retired fixtures. Verified 2026-10-06: 58/57/54/52/3/3 base assertions and70 CCTO, all passed; TestResults/ReleaseMatrix/Report.json. Full MO runtime and long-play remain outside this matrix.
+
+
+## Subscriber payload filtering
+
+Follow Core [Docs/WorkshopPackaging.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/WorkshopPackaging.md).
+Run `python Tests/validate_workshop_payload.py` before staging; the candidate builder
+also audits the actual extracted payload with the expected production DLL.
+README, Docs and provenance/test manifests must remain outside the runtime ZIP.
+Filtering checks are separate from source-provenance, harvest and runtime gates.

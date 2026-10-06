@@ -153,13 +153,15 @@ For Vanilla / Medieval Overhaul / other prerequisite-asset retextures, also foll
 - Keep pure retexture changes visual-only and preserve source rendering metadata unless the replacement technically requires a documented rendering adjustment.
 - Guard optional MO patches and validate the final AMJE path against known explicit-path competitors such as ReGrowth/VTE where they touch the same field.
 
-## Workshop art-source exclusion
+## Workshop distribution rule (AMJ common)
 
-The repository-root `Art/` tree is development-only authoring material and must not be uploaded to Steam Workshop.
+AMJ Core, Environment, CCTO and future related Mods must exclude **all files unnecessary for a Workshop subscriber** through the repository-root `.rimignore`. This includes Art masters/templates, design and development documentation (including README), source, tests/fixtures/reports, scripts/build tools, VCS/editor metadata, local overrides and debug/backup/archive files. Preserve runtime assets, About metadata, loadFolders.xml where used, and legally required licenses/attribution.
 
-- Keep `Art` in the root `.rimignore` so YADA excludes the entire tree recursively.
-- Any future alternate publisher/staging path must exclude the entire `Art/` tree as well.
-- Shippable runtime assets belong under their normal production paths such as `Textures/` or `About/`; do not rely on `Art/` content being present in the published Mod.
+- `.rimignore` is the authoritative exclusion list. YADA uses inherited basename/wildcard rules, not Git-ignore path or negation syntax; exclude `_LocalTest.xml`, not `Patches/_LocalTest.xml`.
+- Adding a file/folder includes deciding whether subscribers need it and updating exclusions when they do not. Preserve development/source material in Git; exclusion is not deletion.
+- Every alternative publisher/archive/staging builder must produce the same subscriber-only payload. Keep adapters synchronized with `.rimignore`; do not maintain independent policy exceptions.
+- Run `python Tests/validate_workshop_payload.py` before publication. Validate the final staging/installed package too; runtime-required DLLs and assets must actually be present. Repository filtering PASS alone is not build/runtime/Steam publication PASS.
+- Shared procedure and payload contract: [Core Docs/WorkshopPackaging.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/WorkshopPackaging.md).
 
 ## Art / retexture routing
 
@@ -175,3 +177,4 @@ For Environment art, use:
 Environment-specific rules may define controlled class differences, such as restrained internal gradient variation for tree sprites, but they must remain compatible with the shared AMJ invariants unless the owning style specification explicitly records an exception.
 
 For Vanilla/MO retexture ownership and texPath behavior, continue to follow the shared Core `Docs/RetextureImplementationGuidelines.md`.
+
