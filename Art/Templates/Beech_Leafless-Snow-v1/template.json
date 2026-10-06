@@ -2,7 +2,7 @@
   "version": 1,
   "family": "AMJE-Beech_Leafless-snow",
   "template_revision": "v1",
-  "production_status": "active",
+  "production_status": "review",
   "size": [
     256,
     256
@@ -15,19 +15,10 @@
     "path": "editable-mask.png",
     "sha256": "d8c996a021058b390ba952dfeaccbad75c6199e8f2d1fd08c204fbc447963834"
   },
-  "approval_basis": "Author accepted native leafy and leafless snow comparison with OK on 2026-10-06",
-  "mask_meaning": "Exposed upper branch pixels",
+  "approval_basis": "Rejected by author on 2026-10-06 because snow read as thin branch-following lines; revised clump-based snow candidate awaiting review",
+  "mask_meaning": "Pending regeneration: rounded review regions expanded from exposed upper wood-edge anchors; snow must read as gravity-horizontal area/mass",
   "layer_order": [
     "immutable master",
     "snow-only overlay"
-  ],
-  "filled_exemplar": {
-    "path": "exact-composite.png",
-    "sha256": "e3d69440a8a7c337647ce4c92f47339aaaa6fa629b27116ce514c0b79687d55c",
-    "size": [
-      256,
-      256
-    ],
-    "evidence": "TestResults/BeechSnowReview/Snow.log"
-  }
+  ]
 }
