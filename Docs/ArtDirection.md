@@ -82,7 +82,7 @@ Production texture transfer, validation, Def-switch ordering, and focused runtim
 
 ## Generation entry and new-chat continuity
 
-Before a plant/tree generation call, follow [RetextureGeneration.md](GoldenPaths/RetextureGeneration.md). It requires reading the current rules, viewing and attaching accepted source references, proposal-before-generation sequencing, the complete reusable prompt, and candidate review. This applies equally in a new chat and an ongoing chat; remembered text or unviewed filenames do not replace the actual baseline. This file remains the visual source of truth; the generation procedure must carry its shared/category/species rules into the actual request.
+Before a plant/tree generation call, follow [RetextureGeneration.md](GoldenPaths/RetextureGeneration.md). That procedure reads the current Core `Docs/ArtStyle.md`, this document, the current coordination state, and the actual accepted reference images. Do not preserve a separate frozen style prompt in this repository.
 
 ## Retexture visual-style rules
 
@@ -90,15 +90,18 @@ These rules are the canonical visual baseline for AMJE tree/plant retextures. In
 
 ### Shared style
 
-- Prefer a **strongly simplified/deformed game-sprite treatment** over botanical realism. The target is recognizable species character at RimWorld gameplay zoom, not illustration-plate accuracy.
-- Build the sprite from **large readable masses**. Avoid dense micro-detail in individual leaves, bark, twigs, or needles that disappears at normal zoom.
-- Use a **clearly readable dark outer outline**, generally near-black or a very dark local hue. Do not thin the outline merely to make the asset look more naturalistic.
-- Keep the palette restrained and generally **low-to-medium saturation** so the asset sits naturally on RimWorld's brown/grey terrain and beside Vanilla/MO vegetation.
-- Keep color steps limited. As a baseline, think in terms of **base color + shadow + highlight**, with only restrained soft gradient variation where it improves volume. Do not add colors simply to increase detail.
-- Avoid very bright lime foliage, highly saturated orange bark, or other accents that make the sprite look pasted on top of the map.
-- Use transparent backgrounds. Do not bake in scenery, UI frames, labels, terrain tiles, circular turf bases, decorative grass rings, or unrelated ground clutter.
-- Prefer smooth high-resolution edges. Do not intentionally introduce pixel-art/dithered rendering unless a separate approved asset class requires it.
-- Do not use photographic or photo-derived surface detail as the final visual language.
+AMJE tree/plant sprites inherit the project-wide invariants in Core `Docs/ArtStyle.md`: silhouette-first simplification, strong readable outlines, restrained palette/detail, no photographic or painterly surface treatment, and readability at gameplay scale.
+
+Environment-specific additions/controlled differences are:
+
+- use stronger structural deformation/simplification than botanical-plate realism;
+- use a clearly readable near-black or very dark local-color outer outline;
+- keep saturation low-to-medium against RimWorld terrain;
+- use limited base/shadow/highlight steps; **restrained soft gradient variation is allowed for tree/plant volume**, which is an explicit class difference from the flatter Core crop/item budget;
+- use smooth high-resolution edges and transparent backgrounds;
+- do not bake in scenery, UI, labels, terrain tiles, turf/grass bases, unrelated ground clutter, or winter snow.
+
+These additions narrow the shared AMJ style for Environment vegetation; they do not replace it.
 
 ### Species differentiation
 
@@ -437,7 +440,6 @@ The accepted characteristics are:
 
 The atlas itself is a **style/reference board**, not a shippable sprite sheet. Production assets are generated or painted individually from this baseline so that transparency, crop, scale, and RimWorld path structure can be controlled per Def/state.
 
+## Fixed reused components
 
-## Pixel-exact reused components (AMJ shared policy)
-
-Follow the Core source of truth [FixedImageTemplates.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/GoldenPaths/FixedImageTemplates.md). Same style does not mean identical parts: species-specific silhouettes remain distinct. Where a trunk, container, title or other component is reused, register an approved lossless master and binary editable mask with SHA-256 hashes in the owning repository, generate only variable material, and composite deterministically. Final decoded protected RGBA pixel differences must be zero; reference-image editing/visual similarity cannot replace this check. Use Core `Scripts/Art/fixed_template.py` for compositing/validation, then retain Environment's PNG integrity/install gates. Read the master/manifest and actually view the approved reference in every new chat. No shared-pixel guarantee may be claimed before the family template and output pass this gate. Existing proposal approval stages are unchanged.
+When a future Environment asset intentionally reuses a visible component pixel-exactly, follow Core `Docs/GoldenPaths/FixedImageTemplates.md`. Same-style but structurally distinct species do not use fixed-pixel templates.
