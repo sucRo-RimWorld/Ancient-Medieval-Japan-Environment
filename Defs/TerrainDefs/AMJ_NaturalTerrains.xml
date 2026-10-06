@@ -7,7 +7,7 @@
   <TerrainDef ParentName="NaturalTerrainBase">
     <defName>AMJ_ThinSoil</defName>
     <label>thin soil</label>
-    <description>Thin soil is natural soil with a shallow soil layer, many stones, and poor nutrients. It can be cultivated, but crops tolerant of poor soil can use it more efficiently.</description>
+    <description>Natural soil with a shallow soil layer, many stones, and poor nutrients. It can be cultivated, but crops tolerant of poor soil can use it more efficiently.</description>
     <texturePath>Terrain/Surfaces/Gravel</texturePath>
     <color>(0.78, 0.70, 0.58)</color>
     <edgeType>FadeRough</edgeType>
