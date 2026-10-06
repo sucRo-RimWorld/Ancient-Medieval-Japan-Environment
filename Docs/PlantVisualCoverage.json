@@ -185,7 +185,7 @@
           "date": "2026-10-06",
           "pending_variant": "leafless",
           "leafy_variant_status": "accepted",
-          "review_reason": "Leafless snow rejected; twelve outlined supported-cap revision 2 is unapproved; current snow log is historical and new native visual review is pending.",
+          "review_reason": "Author rejected revision 2 for ignoring branches; branch-surface contact revision 3 remains unapproved and awaits review.",
           "evidence": "Docs/ValidationEvidence/BeechSnowReview-Snow.log"
         },
         "transition": {

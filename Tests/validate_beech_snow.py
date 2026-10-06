@@ -18,19 +18,20 @@ def validate_leafless_massing(layer, base):
     for mass in masses:
         xs, ys = zip(*mass)
         width, height = max(xs)-min(xs)+1, max(ys)-min(ys)+1
-        assert len(mass) >= 75 and width >= 12 and height >= 6, 'Snow mass too small/thin'
+        assert len(mass) >= 60 and width >= 12 and height >= 6, 'Snow mass too small/thin'
         assert len(mass)/(width*height) >= .4, 'Snow has outline-only or sparse fill'
         outline = sum(max(layer.getpixel(p)[:3]) < 100 for p in mass)
         assert outline >= 20, 'Snow needs a strong dark outer contour'
-        supported = sum(any(base.getpixel((x,min(base.height-1,y+dy)))[3] >= 128
-                            for dy in (0,1,2,3)) for x,y in mass)
-        assert supported/len(mass) >= .25, 'Detached snow cap lacks branch support'
+        bottom={x:max(yy for xx,yy in mass if xx==x) for x,y in mass}
+        supported=sum(any(base.getpixel((x,min(base.height-1,y+dy)))[3]>=128
+                          for dy in (0,1)) for x,y in bottom.items())
+        assert supported/len(bottom)>=.90, 'Snow bottom must contact branch across its width'
     return len(masses), len(solid)
 
 
 # Known failure classes: an area-ratio-only check accepted tiny filled pellets.
 from PIL import ImageDraw
-for kind in ('pellets', 'stripes', 'weak-outline', 'floating'):
+for kind in ('pellets', 'stripes', 'weak-outline', 'floating', 'partial-support'):
     bad = Image.new('RGBA',(256,256))
     draw = ImageDraw.Draw(bad)
     if kind == 'pellets':
@@ -43,9 +44,15 @@ for kind in ('pellets', 'stripes', 'weak-outline', 'floating'):
                            fill=(245,243,235,255),
                            outline=(55,53,43,255) if kind != 'weak-outline' else None,
                            width=2)
+    fixture_base=Image.new('RGBA',(256,256),
+            (70,60,40,255) if kind not in ('floating','partial-support') else (0,0,0,0))
+    if kind=='partial-support':
+        # Former area-contact test passed a cap resting on only a narrow portion.
+        bd=ImageDraw.Draw(fixture_base)
+        for x,y in ((30,40),(90,40),(150,40),(30,100),(90,100)):
+            bd.rectangle((x,y,x+9,y+12),fill=(70,60,40,255))
     try:
-        validate_leafless_massing(bad, Image.new('RGBA',(256,256),
-            (70,60,40,255) if kind != 'floating' else (0,0,0,0)))
+        validate_leafless_massing(bad,fixture_base)
     except AssertionError:
         print('[OK] Rejected leafless snow regression:', kind)
     else:

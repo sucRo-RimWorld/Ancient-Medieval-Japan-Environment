@@ -1,7 +1,7 @@
 {
   "version": 1,
   "family": "AMJE-Beech_Leafless-snow",
-  "template_revision": "v2-review",
+  "template_revision": "v3-review",
   "production_status": "review",
   "size": [
     256,
@@ -13,10 +13,10 @@
   },
   "editable_mask": {
     "path": "editable-mask.png",
-    "sha256": "ec1fbe6e4a2f4fb459510ee90dab1740c694d9e61267b701928232e5318de381"
+    "sha256": "339e3704d0ae48365df85e56c308ed995ce8abba158b48fdf729da1bf3902170"
   },
-  "approval_basis": "Rejected by author on 2026-10-06 because snow read as thin branch-following lines; sparse outlined snow-cap revision 2 awaiting review",
-  "mask_meaning": "Twelve predeclared branch-ledge review regions; fixed before painting; unapproved revision 2, unchanged lower trunk and all outside RGBA",
+  "approval_basis": "Rejected by author on 2026-10-06 because snow read as thin branch-following lines; branch-contact snow revision 3 awaiting review",
+  "mask_meaning": "Eight narrow branch corridors traced against original opaque upper surfaces; unapproved revision 3, unchanged lower trunk and all outside RGBA",
   "layer_order": [
     "immutable master",
     "snow-only overlay"

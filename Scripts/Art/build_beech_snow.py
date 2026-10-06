@@ -13,72 +13,66 @@ sys.path.insert(0, str(ROOT / 'Tests/Tools'))
 import fixed_template
 
 
-# Reviewed branch ledges, not automatically detected twig-edge fragments.
-# x, supporting branch y, width, snow thickness; reviewed against immutable master.
-LEAFLESS_LEDGES = (
-    (94, 62, 22, 9), (134, 79, 23, 10), (55, 78, 24, 9),
-    (157, 91, 24, 9), (207, 102, 24, 10), (43, 116, 25, 10),
-    (181, 117, 27, 11), (95, 131, 20, 9), (204, 142, 27, 11),
-    (46, 160, 30, 12), (81, 174, 24, 10), (173, 175, 25, 11),
+# Each selected corridor follows ONE visible branch, not an arbitrary snow bbox.
+# x0, x1, estimated upper-surface y0/y1, snow depth. All columns must have support.
+LEAFLESS_BRANCHES = (
+    (92, 113, 56, 68, 10), (51, 73, 77, 81, 10),
+    (164, 174, 88, 83, 8), (44, 59, 115, 113, 10),
+    (185, 208, 113, 111, 12), (83, 108, 136, 149, 12),
+    (204, 218, 146, 140, 10), (60, 79, 158, 161, 12),
 )
 SNOW_OUTLINE = (55, 53, 43, 255)
 SNOW_BASE = (245, 243, 235, 255)
 SNOW_SHADOW = (218, 225, 232, 255)
 
 
-def smooth_loop(points):
-    """Periodic cubic contour; large lobes only, no twig-scale bumps."""
-    result = []
-    for i in range(len(points)):
-        a, b, c, d = [points[j % len(points)] for j in (i-1, i, i+1, i+2)]
-        for step in range(10):
-            t = step / 10
-            result.append(tuple(.5 * (2*b[k] + (-a[k]+c[k])*t +
-                (2*a[k]-5*b[k]+4*c[k]-d[k])*t*t +
-                (-a[k]+3*b[k]-3*c[k]+d[k])*t*t*t) for k in (0, 1)))
-    return result
+def branch_surface(master, branch):
+    """Trace actual opaque upper branch pixels inside a declared narrow corridor."""
+    x0,x1,y0,y1,depth = branch
+    surface=[]
+    for x in range(x0,x1+1):
+        target=y0+(y1-y0)*(x-x0)/(x1-x0)
+        rows=[y for y in range(round(target)-3,round(target)+4)
+              if master.getpixel((x,y))[3]>=245]
+        assert rows, f'Branch corridor lacks support at {x}'
+        y=min(rows,key=lambda v:abs(v-target))
+        # Follow the top of this local branch run, not a different twig above it.
+        while y>round(target)-4 and master.getpixel((x,y-1))[3]>=128:
+            y-=1
+        surface.append((x,y))
+    return surface
 
 
 def build_leafless_clumps(master, anchors=None):
-    """Paint twelve supported asymmetric caps using accepted snow color planes.
-
-    The review contract is defined BEFORE drawing. Never derive or enlarge an
-    editable mask from generated alpha to make fixed-pixel validation pass.
-    Master stays unchanged; this unapproved mask revision cannot become active.
-    """
-    scale = 4
-    high = Image.new('RGBA', (master.width * scale, master.height * scale))
-    mask = Image.new('L', master.size)
-    contract = ImageDraw.Draw(mask)
-    draw = ImageDraw.Draw(high)
-    lobes = [(0,.73),(.06,.42),(.20,.33),(.28,.04),(.46,.02),
-             (.59,.25),(.74,.23),(.84,.48),(1,.69),(.96,.89),
-             (.76,.95),(.58,.86),(.38,.98),(.16,.9)]
-    for i, (x, support_y, width, height) in enumerate(LEAFLESS_LEDGES):
-        # Independent allowed region around this ledge; includes edge AA.
-        contract.rectangle((x-3, support_y-height-3,
-                            x+width+3, support_y+4), fill=255)
-        local = [(1-u, v) if i % 2 else (u, v) for u,v in lobes]
-        contour = smooth_loop([(scale*(x+u*width),
-                                scale*(support_y-height+v*height)) for u,v in local])
-        draw.polygon(contour, fill=SNOW_BASE)
-        # One broad shadow plane on the lower surface, no nested capsule lines.
-        shadow = [(x+width*.10,support_y-height*.29),
-                  (x+width*.32,support_y-height*.34),
-                  (x+width*.50,support_y-height*.19),
-                  (x+width*.71,support_y-height*.30),
-                  (x+width*.92,support_y-height*.23),
-                  (x+width*.95,support_y-height*.10),
-                  (x+width*.73,support_y-height*.07),
-                  (x+width*.56,support_y-height*.15),
-                  (x+width*.38,support_y-height*.04),
-                  (x+width*.17,support_y-height*.11)]
-        draw.polygon([(a*scale,b*scale) for a,b in shadow], fill=SNOW_SHADOW)
-        draw.line(contour+[contour[0]], fill=SNOW_OUTLINE,
-                  width=round(1.5*scale), joint='curve')
-    layer = high.resize(master.size, Image.Resampling.BOX)
-    assert all(not a or m for a,m in zip(layer.getchannel('A').tobytes(), mask.tobytes())), 'Artwork escaped review contract'
-    return mask, layer
+    """Use branch-shaped contact boundaries and tapered snow depth above them."""
+    import math
+    scale=4
+    high=Image.new('RGBA',(master.width*scale,master.height*scale))
+    mask=Image.new('L',master.size)
+    draw=ImageDraw.Draw(high)
+    contract=ImageDraw.Draw(mask)
+    for index,branch in enumerate(LEAFLESS_BRANCHES):
+        x0,x1,y0,y1,depth=branch
+        # Contract is independent of painted alpha and never widened after a leak.
+        contract.rectangle((x0-2,min(y0,y1)-depth-7,
+                            x1+2,max(y0,y1)+5),fill=255)
+        bottom=branch_surface(master,branch)
+        top=[]
+        for x,y in bottom:
+            t=(x-x0)/(x1-x0)
+            # Thickness tapers into the branch at both ends, with unequal lobes.
+            h=1+depth*(math.sin(math.pi*t)**.7)*(.85+.15*math.sin(t*5+index))
+            near=[v for xx,v in bottom if abs(xx-x)<=3]
+            top.append((x,sum(near)/len(near)-h))
+        polygon=top+list(reversed(bottom))
+        draw.polygon([(round(x*scale),round(y*scale)) for x,y in polygon],fill=SNOW_BASE)
+        shadow=[(x,y-1.8) for x,y in bottom]+list(reversed(bottom))
+        draw.polygon([(round(x*scale),round(y*scale)) for x,y in shadow],fill=SNOW_SHADOW)
+        draw.line([(round(x*scale),round(y*scale)) for x,y in polygon+[polygon[0]]],
+                  fill=SNOW_OUTLINE,width=scale,joint='curve')
+    layer=high.resize(master.size,Image.Resampling.BOX)
+    assert all(not a or m for a,m in zip(layer.getchannel('A').tobytes(),mask.tobytes())), 'Artwork escaped review contract'
+    return mask,layer
 
 
 def build(leafless):
@@ -136,11 +130,11 @@ def build(leafless):
     if leafless:
         approval_basis = (
             'Rejected by author on 2026-10-06 because snow read as thin '
-            'branch-following lines; sparse outlined snow-cap revision 2 awaiting review'
+            'branch-following lines; branch-contact snow revision 3 awaiting review'
         )
         mask_meaning = (
-            'Twelve predeclared branch-ledge review regions; fixed before painting; '
-            'unapproved revision 2, unchanged lower trunk and all outside RGBA'
+            'Eight narrow branch corridors traced against original opaque upper surfaces; '
+            'unapproved revision 3, unchanged lower trunk and all outside RGBA'
         )
     else:
         approval_basis = (
@@ -153,7 +147,7 @@ def build(leafless):
     spec = {
         'version': 1,
         'family': f'AMJE-{name}-snow',
-        'template_revision': 'v2-review' if leafless else 'v1',
+        'template_revision': 'v3-review' if leafless else 'v1',
         'production_status': 'review',
         'size': [256, 256],
         'master': {'path': 'master.png', 'sha256': sha(source)},

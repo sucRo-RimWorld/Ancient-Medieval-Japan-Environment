@@ -33,3 +33,12 @@ The state ledger self-tests pass with exactly one pending row: AMJ_Tree_Beech/sn
 - editable-mask.png: `ec1fbe6e4a2f4fb459510ee90dab1740c694d9e61267b701928232e5318de381`
 - snow-overlay.png: `811360e723df2ca159dcfebf1d9402331125e2adb895b58d553a1f543ad04f00`
 - exact-composite.png: `5d07c19337ffbc1ebc058562db5352cf82a7c33ac8a8ca2739de755749d63413`
+
+## Superseding author feedback: revision 2 rejected
+
+Author: `あまりに厳しい生成結果 / 枝が考慮されてない`. The preceding revision-2 assessment is superseded. Independent horizontal caps were the specific mistake; nearby wood in the interior did not establish branch-aligned contact.
+
+Revision 3 keeps the master exact, traces upper branch pixels inside eight predeclared narrow corridors, and builds the lower snow edge from those pixels. Tests now inspect each column of the bottom edge and reject partial support. All eight shapes have 100% lower-boundary support at zero/one pixel distance; no new generation, installed-game change or human acceptance is claimed.
+- Revision 3 editable-mask.png: `339e3704d0ae48365df85e56c308ed995ce8abba158b48fdf729da1bf3902170`
+- Revision 3 snow-overlay.png: `6fafc5048ecc8f133a371b35341514909341d59c42fff674a68b390b240d1980`
+- Revision 3 exact-composite.png: `bdd10855ce52784ea8a73d81bb0fc8a6beed0ec6abf2f9daa48abd692627b284`
