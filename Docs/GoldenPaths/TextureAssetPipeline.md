@@ -10,7 +10,7 @@ The rule is therefore: **do not improvise a new transfer/install path for each t
 
 ## Generation prerequisite
 
-For tree/plant sprites, begin with [RetextureGeneration.md](RetextureGeneration.md). It preserves the current visual rules and actually viewed/attached reference images across chat changes, and requires an approved target design before generation. This document begins at the subsequent production-source approval/install stage.
+For tree/plant sprites, begin with [RetextureGeneration.md](RetextureGeneration.md). It preserves the current visual rules and actually viewed/attached reference images across chat changes, and follows the current author request / already-approved target design without adding an automatic extra proposal approval round. This document begins at the subsequent production-source approval/install stage.
 
 ## Golden Path
 

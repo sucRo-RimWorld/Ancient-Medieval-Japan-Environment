@@ -6,9 +6,7 @@ Use this procedure for AMJE plant/tree sprites, including AMJE-owned plants and
 Vanilla/MO tree retextures. It is the generation entry point, before
 [TextureAssetPipeline.md](TextureAssetPipeline.md).
 
-The visual source of truth is [ArtDirection.md](../ArtDirection.md), especially
-**Retexture visual-style rules** and the target species section. This procedure
-controls how those rules reach the actual image-generation request.
+The shared visual source of truth is Core `Docs/ArtStyle.md`; Environment-specific tree/plant rules and accepted species baselines are owned by [ArtDirection.md](../ArtDirection.md). This procedure owns only the generation preflight and handoff, not a second copy of either style guide.
 
 Workshop covers, logos, terrain textures and world-biome images are different
 asset classes. Read their owning specifications; never substitute these tree
@@ -19,8 +17,7 @@ unclear, resolve the class before generating.
 
 1. Read repository `AGENTS.md` and authoritative `main:Docs/Coordination.md`
    first. Read the current main versions, not a remembered chat summary.
-2. Read this procedure, `Docs/ArtDirection.md` (shared rules + target species),
-   and `Docs/GoldenPaths/TextureAssetPipeline.md`.
+2. Read Core `Docs/ArtStyle.md`, this procedure, `Docs/ArtDirection.md` (Environment/category/species additions), and `Docs/GoldenPaths/TextureAssetPipeline.md`.
 3. Resolve the latest OPEN/IN PROGRESS art handoff and distinguish:
    proposed design / author-approved design / generated candidate /
    approved source / installed asset / accepted in-game appearance.
@@ -29,20 +26,9 @@ unclear, resolve the class before generating.
 4. Fetch and actually view the accepted reference PNGs below. Do not merely read
    filenames, rely on an old conversation image, or claim to have inspected
    pixels that were not opened.
-5. **Author exception (2026-10-05):** once a tree's shape is accepted, its derivative
-   states may be generated without renewed pre-generation approval. Preserve the
-   accepted form, scale, branch identity and shared style as appropriate to the
-   state. Snow and other state variants still need asset validation and in-game
-   appearance review; do not infer final acceptance from generation authorization.
-   For a new or changed tree form, reuse the existing approved category/style. Present a concise target-specific
-   composition/design proposal **before generation**, then obtain author approval
-   for that proposal. If the same proposal already has explicit approval in the
-   current handoff, retain it and proceed without asking for approval again.
-6. Build the generation request from the complete shared prompt block below,
-   plus the approved species differences. Attach the actual viewed reference
-   images to the generator. A short handoff does not replace this prompt block.
-7. State the target and inherited baseline briefly to the author, then generate.
-   Do not restart the style design or produce unrequested alternatives.
+5. Reuse the existing approved category/style and any already-approved target design. If no target-specific proposal is already approved, derive the narrowest reasonable composition from the current request and the owning style rules; do not add a mandatory extra approval round unless the user explicitly asks for proposal/review-first work.
+6. Build the generation request from the current Core `ArtStyle.md` invariants plus the applicable Environment/category/species rules in `ArtDirection.md`. Attach the actual viewed reference images. Do not maintain a second frozen style prompt in this procedure.
+7. Generate one candidate for the requested target. Do not restart the style design or produce unrequested alternatives.
 
 When fetching/viewing a required reference is blocked, report that limitation
 and resolve the missing reference before generation. Do not silently substitute
@@ -71,61 +57,20 @@ its reference-image argument. If references are conversation images, include
 the smallest recent-image set that contains every required reference. Do not
 claim that written paths alone attach pixels to a generator.
 
-## Complete shared generation prompt
+## Generation request assembly
 
-Retain every constraint in this block in the actual generation request.
-Replace bracketed fields only with the approved target-specific design. Do not
-drop inherited rules when adding species detail.
+The generation request must carry the **current** applicable rules from:
+- Core `Docs/ArtStyle.md` for AMJ-wide invariants;
+- `Docs/ArtDirection.md` for Environment tree/plant class rules and the target species;
+- the actual accepted reference images opened during preflight.
 
-```text
-Create one standalone [SPECIES / STATE] RimWorld plant sprite.
-The attached approved AMJE Sudajii and Japanese beech sprites are the visual
-style references. Match their visual weight, simplification, outline thickness,
-restrained saturation and shading treatment. Preserve the AMJE shared style;
-apply the approved species structure below rather than copying a broadleaf
-silhouette onto a conifer.
+Do not copy a long frozen prompt into this file. That previously created a second style source that could drift from the project-wide rules. The request should contain only the shared invariants plus the approved target-specific silhouette/structure differences needed for the current asset.
 
-STYLE:
-Strongly simplified/deformed game sprite built from large readable shape
-masses. Thick, clearly readable near-black or very dark local-color outlines.
-Low-to-medium saturation. For each material, use base color + shadow +
-highlight, with only a subtle gradient where useful. Smooth high-resolution
-edges. Readable at normal RimWorld gameplay zoom. Simplified trunk/branch color
-blocks and structure; no fine etched bark, individual leaf/needle micro-detail
-or dense twigs.
-
-SPECIES STRUCTURE:
-[APPROVED CATEGORY, SILHOUETTE, WIDTH/HEIGHT, BRANCH/FOLIAGE ARRANGEMENT,
-TRUNK VISIBILITY AND PALETTE DIFFERENCES]
-Species identity must come from structure as well as color. Avoid ornamental
-bilateral symmetry. For a deciduous pair, preserve trunk position, scale and
-major branch identity between leafy and leafless states.
-
-COMPOSITION AND OUTPUT:
-One isolated sprite with a transparent background, appropriate three-quarter
-RimWorld plant view, complete unclipped silhouette and clear space around the
-edges. No text, labels, UI, comparison sheet, frame or decorative ground base.
-No scenery, grass ring, turf platform, baked ground shadow or baked winter snow.
-Use neutral healthy foliage for deciduous base art; seasonal tint is applied
-in game. Production target is a validated 256x256 transparent PNG, following
-the existing texture pipeline after source approval.
-
-AVOID:
-Botanical-plate realism, photographic surfaces, pixel art, dithering, dense
-micro-detail, many color steps, excessive gradients, thin outlines, bright
-lime foliage, saturated orange bark, recolor-only species differentiation,
-perfect Christmas-tree symmetry and backgrounds baked into the sprite.
-```
-
-Do not ask the generator to invent an alternative style or reinterpret an
-accepted reference. Species-specific requirements may narrow the shared rules;
-a conflicting style change requires an explicit author decision and canonical
-ArtDirection update first.
+If the target-specific request would contradict Core ArtStyle or ArtDirection, stop and resolve the specification first instead of compensating with ad-hoc prompt text.
 
 ## Candidate review and production handoff
 
-Before presenting a generated candidate, compare it against the approved
-proposal and the viewed references:
+Before presenting a generated candidate, compare it against the current user request, any already-approved target design, and the viewed references:
 
 - category/silhouette and species distinction;
 - strong simplification, large masses and thick outline;
@@ -160,6 +105,8 @@ A new chat can start with:
 Repository:
 `sucRo-RimWorld/Ancient-Medieval-Japan-Environment`.
 
-## Pixel-exact reused components (AMJ shared policy)
+For any explicitly reused visible component, follow the Core `Docs/GoldenPaths/FixedImageTemplates.md`; ordinary same-style tree sprites do not require fixed-pixel templates.
 
-Follow the Core source of truth [FixedImageTemplates.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/GoldenPaths/FixedImageTemplates.md). Same style does not mean identical parts: species-specific silhouettes remain distinct. Where a trunk, container, title or other component is reused, register an approved lossless master and binary editable mask with SHA-256 hashes in the owning repository, generate only variable material, and composite deterministically. Final decoded protected RGBA pixel differences must be zero; reference-image editing/visual similarity cannot replace this check. Use Core `Scripts/Art/fixed_template.py` for compositing/validation, then retain Environment's PNG integrity/install gates. Read the master/manifest and actually view the approved reference in every new chat. No shared-pixel guarantee may be claimed before the family template and output pass this gate. Existing proposal approval stages are unchanged.
+## Snow-only derivative routing
+
+For aligned snow overlays, follow [PlantSnowOverlayPlan.md](../PlantSnowOverlayPlan.md) in addition to this preflight. Inspect the accepted snow reference as well as the immutable base master. The no-snow rule applies to normal base sprites, not the requested separate overlay. Fixed-pixel success does not establish outline, internal-line, support or massing quality. Local painting and deterministic compositing must pass the same visual audit as generated candidates. Follow Core FixedImageTemplates authorization rules before choosing any new image generation.

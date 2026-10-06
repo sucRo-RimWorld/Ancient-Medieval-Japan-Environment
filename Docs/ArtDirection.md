@@ -80,13 +80,13 @@ Alpha art policy:
 - use the **adopted ENV-010 atlas style** as the visual baseline for AMJE, Vanilla retextures, and optional MO retextures;
 - the adopted style is rounded and simplified rather than botanically literal, with smooth high-resolution edges rather than pixel-art;
 - saturation is reduced relative to the first concept pass, while the approved hue relationships remain intact;
-- use a restrained but not posterized palette, soft painted shading, and clear silhouette separation at RimWorld gameplay zoom;
+- use a restrained but not posterized palette, limited base/shadow/highlight planes with the restrained tree-volume variation defined below, and clear silhouette separation at RimWorld gameplay zoom;
 - keep transparent backgrounds;
 - no baked terrain, UI border, text, or decorative frame;
 - use RimWorld-readable top-down/three-quarter plant silhouettes rather than botanical illustration plates;
 - preserve clear empty transparent space around branch/needle edges to avoid a rectangular sprite appearance;
 - match existing plant scale through `graphicData.drawSize` / `visualSizeRange` rather than baking excessive canvas padding;
-- avoid photographic rendering; target a painted game-sprite look compatible with RimWorld's natural assets;
+- avoid photographic rendering; target the simplified game-sprite look of the approved AMJE tree references;
 - do not bake dynamic snow into plant textures.
 
 Production texture transfer, validation, Def-switch ordering, and focused runtime review must follow `Docs/GoldenPaths/TextureAssetPipeline.md`. Do not invent a per-asset binary-transfer path after the source art is approved.
@@ -547,3 +547,9 @@ Author: `これ何回も見てるけどOK`. All four normal and immature rows ac
 
 ### Duplicate leafless review corrected; visual coverage closeout (2026-10-06 JST)
 Prior explicit leafless approval `問題なし` confirmed in 2026-10-05 record and ledger prior_acceptance; original leafless PNG exactly identical. Approval restored, not new human acceptance. Overbroad fall-shader invalidation caused redundant review. Native state/material revalidated in BeechLeaflessFinal, fixed noon/Clear. Seasonal transition separately VERIFIED by bounded native calendar sampling; no human visual PASS or full-world-year simulation claimed. Existing Vanilla/MO retextures remain post-release scope.
+
+### Leafless beech snow rejection supersedes earlier acceptance (2026-10-06 JST)
+
+The author's rejection of `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` supersedes the earlier paired `OK` **for the leafless snow variant only**. The earlier leafy snow approval and accepted base/leafless master remain intact. The first repair at `62434d2` is also unapproved: automatically placing a small capsule at each upper-edge component made scattered pellets with weak rims, rather than coarse supported snow masses.
+
+Current replacement is a local, deterministically painted twelve-cap candidate, with dark outer contours and off-white / blue-grey color planes matched to the accepted Haimatsu snow. Cap widths and thicknesses vary; exposed branches, tree position, scale and perspective remain those of the unchanged leafless master. Sparse internal divisions replace layered capsule highlights. Template revision `v2-review` stays `production_status=review`, has no approved filled exemplar, and uses a separately declared unapproved ledge-region contract. It is not an active mask revision. Production snow bytes in this draft PR are for review only; no installed-game or human acceptance is claimed. See `PlantSnowOverlayPlan.md` for preflight, mask and audit rules.

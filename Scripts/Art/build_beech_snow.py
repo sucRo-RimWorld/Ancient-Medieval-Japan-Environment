@@ -1,11 +1,10 @@
 """Produce snow-only layers from fixed beech foliage/branch masters."""
 import hashlib
 import json
-import math
 import sys
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw
 
 from build_haimatsu_snow import components
 
@@ -14,110 +13,71 @@ sys.path.insert(0, str(ROOT / 'Tests/Tools'))
 import fixed_template
 
 
-def connected_parts(points):
-    """Return all 8-connected point groups, including small branch-edge groups."""
-    pending = set(points)
+# Reviewed branch ledges, not automatically detected twig-edge fragments.
+# x, supporting branch y, width, snow thickness; reviewed against immutable master.
+LEAFLESS_LEDGES = (
+    (94, 62, 22, 9), (134, 79, 23, 10), (55, 78, 24, 9),
+    (157, 91, 24, 9), (207, 102, 24, 10), (43, 116, 25, 10),
+    (181, 117, 27, 11), (95, 131, 20, 9), (204, 142, 27, 11),
+    (46, 160, 30, 12), (81, 174, 24, 10), (173, 175, 25, 11),
+)
+SNOW_OUTLINE = (55, 53, 43, 255)
+SNOW_BASE = (245, 243, 235, 255)
+SNOW_SHADOW = (218, 225, 232, 255)
+
+
+def smooth_loop(points):
+    """Periodic cubic contour; large lobes only, no twig-scale bumps."""
     result = []
-    neighbours = ((1, 0), (-1, 0), (0, 1), (0, -1),
-                  (1, 1), (-1, -1), (1, -1), (-1, 1))
-    while pending:
-        start = pending.pop()
-        stack = [start]
-        part = {start}
-        while stack:
-            x, y = stack.pop()
-            for dx, dy in neighbours:
-                point = (x + dx, y + dy)
-                if point in pending:
-                    pending.remove(point)
-                    part.add(point)
-                    stack.append(point)
-        result.append(part)
+    for i in range(len(points)):
+        a, b, c, d = [points[j % len(points)] for j in (i-1, i, i+1, i+2)]
+        for step in range(10):
+            t = step / 10
+            result.append(tuple(.5 * (2*b[k] + (-a[k]+c[k])*t +
+                (2*a[k]-5*b[k]+4*c[k]-d[k])*t*t +
+                (-a[k]+3*b[k]-3*c[k]+d[k])*t*t*t) for k in (0, 1)))
     return result
 
 
-def draw_capsule(image, cx, cy, width, height, fill, scale):
-    """Draw one gravity-horizontal rounded snow pad on a supersampled layer."""
-    x0 = (cx - width / 2) * scale
-    y0 = (cy - height / 2) * scale
-    x1 = (cx + width / 2) * scale
-    y1 = (cy + height / 2) * scale
-    ImageDraw.Draw(image).rounded_rectangle(
-        (round(x0), round(y0), round(x1), round(y1)),
-        radius=max(1, round(height * scale / 2)),
-        fill=fill,
-    )
+def build_leafless_clumps(master, anchors=None):
+    """Paint twelve supported asymmetric caps using accepted snow color planes.
 
-
-def build_leafless_clumps(master, anchors):
-    """Turn thin upper-edge anchors into discrete filled snow masses.
-
-    The anchors locate supported branch tops only. They are not themselves the
-    snow silhouette: broad horizontal pads rise above them so the result reads
-    as accumulated snow rather than a white line traced along each branch.
+    The review contract is defined BEFORE drawing. Never derive or enlarge an
+    editable mask from generated alpha to make fixed-pixel validation pass.
+    Master stays unchanged; this unapproved mask revision cannot become active.
     """
     scale = 4
-    groups = [part for part in connected_parts(anchors) if len(part) >= 5]
-    groups.sort(key=lambda part: (
-        min(y for x, y in part),
-        min(x for x, y in part),
-    ))
     high = Image.new('RGBA', (master.width * scale, master.height * scale))
-
-    for part in groups:
-        xs = [x for x, y in part]
-        ys = [y for x, y in part]
-        size = len(part)
-        span_x = max(xs) - min(xs) + 1
-        span_y = max(ys) - min(ys) + 1
-        cx = sum(xs) / size
-        cy = sum(ys) / size - 1.1
-
-        width = max(4.4, min(12.5, span_x + 3.2 + math.sqrt(size) * 0.4))
-        height = max(3.8, min(6.2, 3.2 + math.sqrt(size) * 0.55))
-
-        if span_y > span_x * 1.15:
-            width = max(4.2, min(7.0, 3.8 + math.sqrt(size) * 0.5))
-            height = max(3.6, min(5.4, 3.2 + math.sqrt(size) * 0.45))
-        if cy < 45:
-            width *= 0.9
-            height *= 0.9
-
-        draw_capsule(high, cx, cy + 0.7, width, height,
-                     (132, 141, 151, 225), scale)
-        draw_capsule(high, cx, cy + 0.35, width * 0.96, height * 0.78,
-                     (169, 184, 202, 255), scale)
-        draw_capsule(high, cx, cy - 0.1, width * 0.92, height * 0.70,
-                     (224, 230, 232, 255), scale)
-        draw_capsule(high, cx, cy - 0.75, width * 0.78, height * 0.42,
-                     (244, 244, 235, 255), scale)
-
-        if size >= 6:
-            side = -1 if int(cx + cy) % 2 else 1
-            bump_width = min(4.8, max(2.6, height * 0.8))
-            bump_height = min(3.8, max(2.2, height * 0.62))
-            bump_x = cx + side * width * 0.16
-            bump_y = cy - height * 0.34
-            draw_capsule(high, bump_x, bump_y, bump_width, bump_height,
-                         (239, 241, 237, 255), scale)
-            draw_capsule(high, bump_x, bump_y - 0.35,
-                         bump_width * 0.75, bump_height * 0.45,
-                         (250, 249, 241, 235), scale)
-
-    layer = high.resize(master.size, Image.Resampling.LANCZOS)
-    core = layer.getchannel('A').point(lambda value: 255 if value > 8 else 0)
-    mask = core.filter(ImageFilter.MaxFilter(3))
-
-    pixels = layer.load()
-    allowed = mask.load()
-    for y in range(master.height):
-        for x in range(master.width):
-            r, g, b, a = pixels[x, y]
-            if not allowed[x, y]:
-                pixels[x, y] = (0, 0, 0, 0)
-            elif not a:
-                pixels[x, y] = (0, 0, 0, 0)
-
+    mask = Image.new('L', master.size)
+    contract = ImageDraw.Draw(mask)
+    draw = ImageDraw.Draw(high)
+    lobes = [(0,.73),(.06,.42),(.20,.33),(.28,.04),(.46,.02),
+             (.59,.25),(.74,.23),(.84,.48),(1,.69),(.96,.89),
+             (.76,.95),(.58,.86),(.38,.98),(.16,.9)]
+    for i, (x, support_y, width, height) in enumerate(LEAFLESS_LEDGES):
+        # Independent allowed region around this ledge; includes edge AA.
+        contract.rectangle((x-3, support_y-height-3,
+                            x+width+3, support_y+4), fill=255)
+        local = [(1-u, v) if i % 2 else (u, v) for u,v in lobes]
+        contour = smooth_loop([(scale*(x+u*width),
+                                scale*(support_y-height+v*height)) for u,v in local])
+        draw.polygon(contour, fill=SNOW_BASE)
+        # One broad shadow plane on the lower surface, no nested capsule lines.
+        shadow = [(x+width*.10,support_y-height*.29),
+                  (x+width*.32,support_y-height*.34),
+                  (x+width*.50,support_y-height*.19),
+                  (x+width*.71,support_y-height*.30),
+                  (x+width*.92,support_y-height*.23),
+                  (x+width*.95,support_y-height*.10),
+                  (x+width*.73,support_y-height*.07),
+                  (x+width*.56,support_y-height*.15),
+                  (x+width*.38,support_y-height*.04),
+                  (x+width*.17,support_y-height*.11)]
+        draw.polygon([(a*scale,b*scale) for a,b in shadow], fill=SNOW_SHADOW)
+        draw.line(contour+[contour[0]], fill=SNOW_OUTLINE,
+                  width=round(1.5*scale), joint='curve')
+    layer = high.resize(master.size, Image.Resampling.BOX)
+    assert all(not a or m for a,m in zip(layer.getchannel('A').tobytes(), mask.tobytes())), 'Artwork escaped review contract'
     return mask, layer
 
 
@@ -135,13 +95,7 @@ def build(leafless):
 
     snow = set()
     if leafless:
-        for x, y in editable:
-            if (y < 195 and (x, y - 1) not in editable and
-                    sum((x + dx, y - 1) not in editable
-                        for dx in (-2, -1, 0, 1, 2)) >= 4):
-                snow.update((x, yy) for yy in range(y, y + 3)
-                            if (x, yy) in editable)
-        mask, layer = build_leafless_clumps(master, snow)
+        mask, layer = build_leafless_clumps(master)
     else:
         for pad in components(editable):
             if len(pad) < 45:
@@ -182,11 +136,11 @@ def build(leafless):
     if leafless:
         approval_basis = (
             'Rejected by author on 2026-10-06 because snow read as thin '
-            'branch-following lines; revised clump-based snow candidate awaiting review'
+            'branch-following lines; sparse outlined snow-cap revision 2 awaiting review'
         )
         mask_meaning = (
-            'Rounded review regions expanded from exposed upper wood-edge anchors; '
-            'snow is gravity-horizontal area/mass, lower trunk remains protected'
+            'Twelve predeclared branch-ledge review regions; fixed before painting; '
+            'unapproved revision 2, unchanged lower trunk and all outside RGBA'
         )
     else:
         approval_basis = (
@@ -199,7 +153,7 @@ def build(leafless):
     spec = {
         'version': 1,
         'family': f'AMJE-{name}-snow',
-        'template_revision': 'v1',
+        'template_revision': 'v2-review' if leafless else 'v1',
         'production_status': 'review',
         'size': [256, 256],
         'master': {'path': 'master.png', 'sha256': sha(source)},
@@ -216,7 +170,7 @@ def build(leafless):
     preview = Image.alpha_composite(master, layer)
     fixed_template.validate(master, mask, preview)
     preview.save(out / 'exact-composite.png')
-    print(name, len(snow), sha(out / 'snow-overlay.png'),
+    print(name, sum(a > 0 for a in layer.getchannel('A').tobytes()), sha(out / 'snow-overlay.png'),
           'protected RGBA differences=0')
 
 
