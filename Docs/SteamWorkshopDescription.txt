@@ -4,7 +4,7 @@
 
 It creates an ancient-to-medieval-Japan-inspired environment with a humid climate, mountainous terrain, frequent short rivers, complex coastlines, temperature-based forest belts, and alpine zones.
 
-Ancient & Medieval Japan Core is not required. [b]If you only want a medieval-Japan-like natural environment, this mod can be used on its own.[/b]
+[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core]Ancient & Medieval Japan Core[/url] is not required. [b]If you only want a medieval-Japan-like natural environment, this mod can be used on its own.[/b]
 
 [h2]Main Features[/h2]
 [list]
@@ -31,7 +31,7 @@ AMJE's biomes are not intended to reproduce modern prefectural or regional borde
 [*][b]Alpine zone[/b]: Haimatsu scrub and alpine vegetation above the treeline
 [/list]
 
-These are not meant to replace all Japanese vegetation with only four biome types. They are [b]baseline bands for a Japan-like natural environment[/b]. Wetlands and specialized biomes such as Medieval Overhaul's Dark Forest can still coexist when their conditions are met.
+These are not meant to replace all Japanese vegetation with only four biome types. They are [b]baseline bands for a Japan-like natural environment[/b]. Wetlands and specialized biomes such as [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]'s Dark Forest can still coexist when their conditions are met.
 
 The biome mixes also avoid presenting every area as untouched single-species climax forest. Historical vegetation research indicates that human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary forest in many settled regions, so Vanilla trees and ground vegetation remain as secondary components.
 
@@ -59,7 +59,7 @@ The in-game descriptions provide additional details on kanji names, aliases, dis
 
 [h2]Using CCTO[/h2]
 
-[b]Crop Cold Tolerance Overhaul (CCTO) is optional.[/b]
+[b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul (CCTO)[/url] is optional.[/b]
 
 With AMJE alone, its plants keep temperature behavior closer to the Vanilla baseline.
 
@@ -81,11 +81,11 @@ AMJE does not globally replace MO's natural biome/terrain identity. Specialized 
 
 [h2]Dependencies[/h2]
 
-[b]Required:[/b] Harmony
+[b]Required:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]
 
-[b]Optional:[/b] Crop Cold Tolerance Overhaul / Medieval Overhaul
+[b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul[/url] / [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
 
-Ancient & Medieval Japan Core is not required.
+[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core]Ancient & Medieval Japan Core[/url] is not required.
 
 [h2]Save Compatibility[/h2]
 
@@ -95,7 +95,7 @@ Adding AMJE to an existing save has not been verified and does not regenerate an
 
 [b]Removing AMJE from a save that uses its custom biomes, terrain, or plants is not recommended.[/b]
 
-[h2]Development Status[/h2]
+[h2]Development Status / Planned Follow-up[/h2]
 
 Currently Beta.
 
