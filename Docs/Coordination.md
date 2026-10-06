@@ -1265,3 +1265,13 @@ push and canceled superseded runs. Core's standard preparation gates source and
 staged output; Environment's candidate builder gates the actual subscriber files.
 
 **Release-workstream handoff:** PUB-WORKSHOP-002 stays with release/testing. Its\nimmutable/main-derived builder must exclude README/Workshop copy, retain external\nprovenance manifests and run Tests/validate_workshop_payload.py --payload STAGE\n--expected-assembly AncientMedievalJapanEnvironment.dll. The existing builder\nreceived only filtering/final-payload checks. Production XML/DLL/installed\nWorkshop bytes and existing provenance/harvest/runtime release HOLD are unchanged.\n
+
+### PUB-WORKSHOP-002 — Formal repair merged; final subscriber candidate testing
+
+**Status:** TOOLING DONE; FINAL CANDIDATE RUNTIME IN PROGRESS; STEAM RELEASE HOLD
+
+PR6 merged at aaf798a452af0ad29f2138c8cdb4513be54a6f43 after exact-head PowerShell syntax, subscriber/publication regressions, plant coverage and art-rule CI passed. No production XML/C#/art change. Shared policy df986ad is retained: README/Docs/.rimignore are excluded; new builder follows the authoritative filter and audits actual staged output. The initial28-file candidate had all four map/cutting gates PASS but is superseded for publication by the subscriber-only policy.
+
+Final26-file candidate: TestResults/WorkshopReleaseRepair/Candidate-a23a9eb; sourcea23a9eb2b6cac3afd3b876860ae1654327a90370, archive SHA25615af3f24ced8988859db0b811ef58348b9b6a05ea77cbf93757176f023be4a99. It preserves identity and current accepted runtime bytes, freshly built production DLL and approved preview. Shared final-payload filter PASS; exact four-profile non-visible Direct3D matrix is running in SubscriberCandidateRuntime-1. Do not upload the historical28-file candidate or development root.
+
+Author-manual upload/download remains separate. No Workshop overwrite/upload, normal config/save change or actual-distribution repair is claimed. Final source/DLL/cutting rerun from newly downloaded Steam bytes is still required to clear HOLD.
