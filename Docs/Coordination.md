@@ -24,15 +24,69 @@ Primary design source:
 - **DONE** — completed and reflected in the proper source of truth
 - **ARCHIVED** — retained for history only
 
+## Release handoff — first public Beta
+
+- **Current priority:** publish the first public AMJ Environment **Beta** before starting Vanilla / Medieval Overhaul tree retextures.
+- **Runtime gate:** Environment runtime testing has already been completed; do not treat the older pending-rerun notes below as a release blocker unless a later code/config change invalidates that result.
+- **Workshop presentation:** cover / preview artwork is already complete in a separate workstream but is not stored in this repository yet. Repository-side README / BBCode / localization can be prepared by agents, but the actual Steam Workshop publication/update is performed manually by the author. Do not mark Steam as updated without author confirmation.
+- **Public copy:** README, About.xml, and Japanese/English Workshop source now use Beta release wording. The internal Design document's "Alpha" baselines remain historical/design-stage terminology and are not public release-stage labels.
+- **Local publication staging:** the current publication workstream uses `D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\_AMJ_PublishStaging`; local staging state may be newer than GitHub main and must not be reconstructed from GitHub alone.
+- **Post-publication:** resume Environment-owned Vanilla / MO tree retextures only after the first public Beta is published.
+
 ## Active tree-art handoff
 
-- **Current stage:** Haimatsu source approved and installed; Alpine in-game review pending.
-- **Next target:** finish Haimatsu focused Alpine review, then prepare the next Vanilla tree proposal.
-- **Approval state:** Haimatsu design approved with `y`, generated candidate approved with `OK` on 2026-10-05 JST.
+- **Current stage:** PR #5; leafless beech snow revision 5 source accepted as compromise. Its native appearance remains pending. Accepted base sprites and other reviewed states are preserved.
+- **Next target:** native snow appearance review of the exact adopted revision-5 bytes; source art is accepted and frozen. Existing Vanilla/MO retextures stay post-release.
+- **Approval state:** leafless snow source accepted with `これで妥協する`; template `source_approved`, native appearance pending. Other recorded approvals remain state-specific.
 - **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 - **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
 
 ## Current coordination items
+
+### DOC-WORKSHOP-002 — Biome rationale and representative-tree section
+
+**Requested by:** author (2026-10-06 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE — Japanese Workshop summary approved and English synchronized
+
+README contains the detailed public explanation of why AMJE uses four broad vegetation/climate bands and why each band receives one AMJE-owned structural representative: Warm-temperate / Sudajii, Cool-temperate / Japanese beech, Subalpine / Shirabiso, Alpine / Haimatsu. It also includes the four AMJE in-game plant graphics and longer ecological/historical summaries.
+
+The approved Japanese Workshop source is the concise summary of that README content. Japanese and English Workshop sources now explain the same biome/plant rationale, embed the four AMJE in-game production PNGs via raw GitHub URLs, and keep the plant notes shorter than README/in-game descriptions. These images are the actual Mod graphics, not real-world tree photographs.
+
+
+### LOC-ENV-001 — Kanji / alias opening pass for current AMJE descriptions
+
+**Requested by:** author (2026-10-06 JST)  
+**Owner:** Environment localization  
+**Status:** DONE — expanded Japanese descriptions approved and English synchronized
+
+The four structural-plant descriptions now use the AMJ educational structure: name/aliases → Japanese distribution/ecological context → supported ancient/medieval role or landscape context → modern difference/use where supportable. Japanese text uses literal `\n\n` paragraph breaks between logical sections for RimWorld readability, and the English Def defaults now translate that approved Japanese content with aligned paragraph structure.
+
+The descriptions deliberately distinguish direct evidence from landscape context. Sudajii uses Early-Jomon Castanopsis fruit-use evidence; Japanese beech uses Jomon vegetation evidence plus late-Heian/medieval Fagus-genus turned-wood evidence; Shirabiso and Haimatsu do not fabricate specific medieval resource uses, and instead connect their verified Mt. Ontake vegetation roles with independently attested later-medieval mountain worship.
+
+Shared durable policy: Core `Docs/HistoricalDescriptionGuidelines.md` commit `9859b6d4a9d6a5a7f4829ae067c5c79318ab57ee`.
+
+### ENV-ART-RULES-011 — shared AMJ art-rule consolidation
+
+**Requested by:** author (2026-10-06 JST; AMJ-wide rule cleanup)  
+**Owner:** Environment art / documentation  
+**Status:** DONE — follow-up audit and art-rule CI green
+
+Environment art documentation now inherits the Core `Docs/ArtStyle.md` project-wide invariants instead of carrying a second full shared prompt/rule set.
+
+- `AGENTS.md` is a routing layer only for art work.
+- `Docs/ArtDirection.md` owns Environment-specific vegetation/terrain/world rules and accepted species baselines. Its restrained soft-gradient allowance is explicitly recorded as a tree/plant class difference from the flatter Core crop/item budget.
+- `Docs/GoldenPaths/RetextureGeneration.md` owns preflight/reference loading only; the duplicated frozen generation prompt was removed.
+- `Docs/GoldenPaths/TextureAssetPipeline.md` owns installation/runtime validation and only points to the shared fixed-template policy when actually needed.
+
+Source-of-truth commits:
+- AGENTS routing: `82497e955bf5aeaa26d6c656724e912ec4045242`;
+- generation entry cleanup: `d9450de315c66ac5ace71b032bf5106d82bee08f`;
+- ArtDirection inheritance/exception clarification: `c8ef22a14769b3e8f708ae0da908d39040fca469`;
+- texture pipeline deduplication: `69d8833629c88d79a91e41e517d7e04c94e31969`.
+
+**Follow-up audit (2026-10-06 JST):** Retexture generation now assembles the current Core+Environment rules instead of using a frozen prompt, does not insert a mandatory pre-generation approval loop, and reviews candidates against the current request plus any already-approved target design. The Golden Path index was synchronized, accepted Sudajii/beech reference blobs are regression-locked, and stale completed visual-review statuses were reconciled. `.github/workflows/art-rule-structure.yml` runs the dedicated documentation/routing guard; run `37442081809` passed.
+
 
 ### ENV-001 — Initial Japan-style world generation
 
@@ -692,7 +746,7 @@ Descriptions should contain supported historical facts and meaningful modern dif
 
 **Requested by:** author (2026-10-04 JST)  
 **Owner:** art/localization  
-**Status:** IN PROGRESS
+**Status:** DONE — accepted production appearance recorded in ArtDirection
 
 The Sudajii in-game comparison was reviewed against actual AMJE terrain and the current AMJ crop-art baseline. The author selected the strongest simplified/deformed **C-direction** and then approved a lower-saturation refinement for production.
 
@@ -810,7 +864,7 @@ Production binary transfer/integration remains governed separately by `Docs/Gold
 
 **Requested by:** continuation of Environment texture work  
 **Owner:** Environment/art + tooling  
-**Status:** DONE (binary recovery / automated gate); IN PROGRESS (focused visual review)
+**Status:** DONE — binary recovery and focused appearance review completed; later acceptance entry is authoritative
 
 The focused preflight found that the current leafy `Beech_A.png` blob `c0928ef133866cefb006dade3240238412190d39` passed chunk CRC validation but failed zlib decompression and normal Pillow image decoding. The earlier CRC-only correction therefore did not resolve the image payload corruption; prior static PASS must not be treated as proof that this image was decodable.
 
@@ -844,7 +898,7 @@ This confirmation does not supply a new automated runtime report or separately d
 **Owner:** Environment/art + documentation  
 **Status:** DONE (repository instructions / reusable generation entry)
 
-The generation entry is now `Docs/GoldenPaths/RetextureGeneration.md`, required from AGENTS and linked from ArtDirection, the Golden Path index and TextureAssetPipeline. It carries current-source reading, actual reference viewing/attachment, precise approval-stage recovery, proposal-before-generation, the complete shared prompt and candidate review into every new/resumed tree-art task. Visual specifications remain owned by ArtDirection; current progress remains only on main Coordination.
+The generation entry is now `Docs/GoldenPaths/RetextureGeneration.md`, required from AGENTS and linked from ArtDirection, the Golden Path index and TextureAssetPipeline. It carries current-source reading, actual reference viewing/attachment, precise work-stage recovery, current Core+Environment style-rule assembly, and candidate review into every new/resumed tree-art task. Visual specifications remain owned by ArtDirection; current progress remains only on main Coordination.
 
 No image was generated and no production asset or Def was changed for this request. Shirabiso's previously presented design remains awaiting author approval. The top Active tree-art handoff is the current restart position. Existing beech/Sudajii visual results and PNG regression gates are preserved.
 
@@ -856,7 +910,7 @@ Core policy/tooling is published in commit `7ce9af2ce4b3cf3bce1efda89ca1b199ab4e
 
 ### ENV-010 Shirabiso source approval and integration (2026-10-05 JST)
 
-**Status:** IN PROGRESS (source approved / installed; runtime visual review pending)
+**Status:** DONE — source/integration and later focused appearance acceptance completed
 
 The author approved the standalone generated Shirabiso. The approved source was resized once to 256x256 RGBA using Lanczos; the resulting PNG passed chunk CRC, zlib decompression, decoded byte count, Pillow loading, dimension/alpha and exact-copy checks before the Def path was changed. Production SHA-256: `aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d`. Existing Sudajii/beech files are unchanged. The source/design acceptance is canonical in ArtDirection.
 
@@ -904,7 +958,7 @@ Durable design source: `Docs/Design.md §11.5 AMJ共通リテクスチャ方針 
 
 **Requested by:** author (2026-10-05 JST)  
 **Owner:** Environment runtime integration / Core agriculture contract  
-**Status:** IN PROGRESS — harness implemented; local RimWorld runtime PASS pending
+**Status:** DONE — runtime/integration gate completed; no release rerun required unless later changes invalidate it
 
 Core + Environmentの独自ゲームプレイ差を、固定バイオームQuickstart上で機械評価する統合ゲートを追加した。
 
@@ -925,7 +979,7 @@ PowerShell syntax workflowは関連スクリプト変更までGreen。Quicktest 
 
 Durable design source: `Docs/Design.md §8.3 Core + Environment gameplay-contract runtime gate`, commits `14b09c8c05e4ee060446f4ab7d42db9ba94fca2f`, `6a3420b71b6a7fc60b16cbdd4bed73f759a33d2e`.
 
-**Next action:** ローカルで `run-runtime-tests.bat` を実行し、Core profileの4 Quickstartが全件PASSかつowned ERRORゼロになることを確認する。失敗時は数値を緩める前に、実ゲームAPI・土壌セル集計・気候ログのどこが契約と不一致かを特定する。
+**Result:** author confirmed the Environment runtime/integration test work is complete. Preserve the existing automated gate for future regressions; do not rerun it solely because publication work resumed.
 
 ### TEST-POLICY-003 — Non-interactive runtime tests
 
@@ -1007,3 +1061,36 @@ Rim Controlで得た採用値はXML / C# / Def / 正式設計書へ正本化し�
 
 **Result / references:** durable rule in `Docs/DevelopmentTools.md`. Documentation-only change; no new runtime PASS is claimed.
 
+
+### ENV-010 — Leafless beech snow rejection audit and repair (2026-10-06 JST)
+
+**Owner:** Environment/art
+**Status:** IN PROGRESS — repaired candidate on draft PR #5; author/native review pending
+
+Author rejected `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` because snow read as thin branch-following lines. The immediate PR repair was deterministic per-edge capsule painting (`853d7f5` -> `62434d2`), which created many tiny pellets and weak rims; area-only regression and output-derived mask did not enforce the visual spec. An unspecified earlier chat-generated image/prompt was not recoverable and is not attributed to an unverified cause.
+
+PR candidate now uses twelve supported asymmetric outlined caps, accepted Haimatsu snow color planes, unchanged leafless master and a predeclared unapproved `v2-review` mask contract. No ImageGen call or native game test was performed. Core protected RGBA gate = 0 differences; PNG CRC/decode, exact overlay/composite, mass/outline/support checks and rejection fixtures pass. Accepted base masters, leafy snow and other species snow are byte-identical. State ledger has one pending snow row; strict completion still fails intentionally. No source approval, merge, release or installed-game change is claimed.
+
+Durable spec/audit/regression changes are on draft PR #5, pushed head `4a1122c27bec8fb768a163c34c41f3950c63def9`; repair commit `b075162` and merge of the concurrent work-push/PR CI distinction are retained. See PR `Docs/PlantSnowOverlayPlan.md`, current-main-aligned `RetextureGeneration.md`, `ArtDirection.md` rejection supersession, and `Docs/ValidationEvidence/BeechLeaflessSnowRepairAudit.md`.
+
+**Next action:** author review of the revision, then native snow review of these exact bytes at fixed local noon/Clear/paused. Keep `production_status=review` and leafless snow pending until explicit acceptance. Steam publication remains the author's manual step.
+
+### ENV-010 — Revision 2 rejected; branch-contact revision 3 pending
+
+Author feedback: `あまりに厳しい生成結果 / 枝が考慮されてない`. Revision 2 is rejected and must not serve as a style/production reference. Its independent horizontal caps and interior wood-proximity test did not establish actual branch contact.
+
+PR #5 now contains `c119755c51eb5d73c1ae8ea9822eb22d6477012a`: eight snow masses whose bottom boundary traces actual upper branch pixels inside narrow declared corridors. Trunk/branch master is unchanged; snow thickness tapers along each branch. All eight bottom boundaries have full contact at zero/one-pixel AA distance; a partial-support regression now fails. Core protected RGBA difference=0; PNG and ledger checks pass. This is geometric/static evidence only. Template is `v3-review`, no filled exemplar; leafless snow remains pending and no game/native visual acceptance is claimed. Durable correction is in PR snow plan, ArtDirection and repair audit.
+
+### ENV-010 — Snow looked behind branches; foreground revision 4 pending
+
+Author: `雪が下のレイヤになってるように見える`. Actual composite order was master -> snow, but revision 3 stopped the cap at the branch silhouette, leaving original wood contour/face visually in front. PR #5 now has `501fc89d06aea530f7bf426802ce9cdd6b5eeaa3`: the same eight corridors and same mask/master with an opaque snow lip covering the original upper wood face, plus blue-grey front thickness. Upper branch outline/adjacent face occlusion, exact composition, reversed-order negative fixture, support/massing, PNG and ledger checks pass. No visual acceptance or game/native test is claimed; template `v4-review` and leafless snow remain REVIEW/pending. Earlier revision-3 acceptance-like geometry statements do not approve this image.
+
+### ENV-010 — More whole-tree snow requested; revision 5 pending
+
+Author requested `枝だから雪がつもりにくいのはそうだが、もうすこし全体的に積もらせたい`. PR #5 head `e37b4121c2511a4532ac356ccb3611b6ae3f27b9` adds seven upper/outer/lower ledges to the existing eight: fifteen supporting corridors / fourteen connected masses, solid snow 2108 -> 3628 pixels (~1.72x). Foreground occlusion, tapered branch-aligned thickness and exposed trunk/twig structure are retained. New allowed corridors are declared before painting under unapproved `v5-review`; accepted masters and other variants are unchanged. Core protected RGBA=0, support/occlusion/mass/layer-order, PNG and state ledger gates pass. No ImageGen, native/game test or visual acceptance is claimed. Leafless snow remains REVIEW/pending and PR remains draft.
+
+### ENV-010 — Revision 5 adopted as compromise; source frozen
+
+Author: `これで妥協する` (2026-10-06 JST), referring to the presented revision-5 PNG. Record source-art acceptance as compromise. PR #5 commit `9a7af9295724012292d542ef892392f7e2535d0e` records the statement/date/source hash, `v5` / `source_approved`, and prevents the builder from changing accepted source bytes. Images, master and mask remain identical to the adopted revision. Source SHA-256: `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`.
+
+Native game appearance of these exact bytes was not shown in this chat, so it remains separately pending in the coverage ledger. Do not treat this as a new runtime PASS or merge/release authorization. Durable evidence is PR `Docs/ValidationEvidence/BeechLeaflessSnowSourceAcceptance.md` and ArtDirection. Remaining action is native appearance review when continuing release validation; do not regenerate this source or ask again to approve the same presented image.

@@ -62,20 +62,52 @@ AMJ Environment adds four natural biome bands:
 - **Subalpine forest** — cold evergreen conifer forest;
 - **Alpine zone** — sparse vegetation and dwarf-pine scrub above the main forest belt.
 
-These AMJ biomes are intentionally not globally authoritative. Specialized biomes from compatible mods such as Medieval Overhaul can still win where appropriate.
+These bands are not prefectural or regional borders. They are a gameplay simplification of the broad natural vegetation sequence seen across the Japanese archipelago: warm-temperate evergreen broadleaf forest gives way to cool-temperate deciduous broadleaf forest, then subalpine evergreen conifers, and finally alpine scrub above the treeline as climate becomes colder northward or with elevation.
+
+The temperature thresholds are therefore approximations for RimWorld rather than literal botanical boundaries. AMJE uses these four BiomeDefs as **baseline vegetation bands**, not as an exclusive replacement for every other biome. Wetlands and stronger specialized biome workers from compatible mods such as Medieval Overhaul can still coexist where their own conditions fit.
+
+The design also avoids presenting every map as untouched single-species climax forest. Historical vegetation research shows that human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions. Vanilla secondary trees, shrubs, grasses, and other filler vegetation therefore remain part of the biome mixes.
 
 ### Structural Japanese vegetation
 
-A deliberately small set of Japan-specific structural plants is included:
+Each of the four AMJ biome bands receives **one AMJE-owned representative structural plant** so the climate band is visually readable at a glance:
 
-- **Sudajii / Shii tree** — warm-temperate evergreen canopy;
-- **Japanese beech** — cool-temperate deciduous canopy;
-- **Shirabiso fir** — subalpine evergreen conifer;
-- **Haimatsu dwarf pine** — alpine scrub.
+- **Warm-temperate forest → Sudajii**
+- **Cool-temperate forest → Japanese beech**
+- **Subalpine forest → Shirabiso**
+- **Alpine zone → Haimatsu**
 
-Generic grasses, mosses, shrubs, secondary trees, and other filler vegetation continue to reuse Vanilla PlantDefs. The goal is to make the vegetation bands structurally legible without turning Environment into a large plant-content mod.
+The selection criterion is not "a famous medieval tree for each biome." The plant must represent the natural vegetation structure of that Japanese climate/elevation band and remain appropriate to an environment whose historical presentation extends into ancient and medieval Japan. Haimatsu is intentionally a low alpine shrub rather than a timber tree, preserving the visual and resource difference above the treeline.
 
-Sudajii, Japanese beech, Shirabiso and Haimatsu use custom artwork, including snow overlays and beech leafless/autumn states. Their appearance and UI icons have been reviewed. Retextures of existing Vanilla/MO trees are planned for post-release updates.
+#### Sudajii — warm-temperate forest
+
+![Sudajii](Textures/Things/Plant/AMJ/Shii/Shii_A.png)
+
+Sudajii is an evergreen canopy tree representative of the warm-temperate lucidophyll forests of southern Honshu, Shikoku, and Kyushu. Castanopsis-dominated evergreen forest was already established in parts of southwestern Japan in the Jomon period, and archaeological evidence also records the use of Castanopsis fruits. Its timber, bark, and edible seeds have all been used by people.
+
+#### Japanese beech — cool-temperate forest
+
+![Japanese beech](Textures/Things/Plant/AMJ/Beech/Beech_A.png)
+
+Japanese beech is one of the major deciduous canopy trees of Japan's cool-temperate mountain forests. Fagus was part of prehistoric cool-temperate forest communities, and archaeological wooden vessels from the late Heian through medieval period include examples made from Fagus wood. In modern Japan, beech is also used for furniture, interior materials, mushroom logs, and fuel.
+
+#### Shirabiso — subalpine forest
+
+![Shirabiso](Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png)
+
+Shirabiso is a major evergreen conifer of Honshu's subalpine forests. On mountains such as Mt. Ontake, Shirabiso and related subalpine conifers form the forest landscape below the alpine zone. Rather than inventing a specific medieval resource use, AMJE treats this forest as part of the mountain landscape that also became associated with ascetic practice and mountain worship.
+
+#### Haimatsu — alpine zone
+
+![Haimatsu](Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png)
+
+Haimatsu is a creeping evergreen dwarf pine of alpine areas from Hokkaido to the high mountains of central and northern Honshu. It forms dense scrub above the treeline and is one of the clearest visual markers of Japanese alpine vegetation. Its distribution also reflects the history of northern cold-climate flora persisting at high elevation after postglacial warming.
+
+Generic grasses, mosses, shrubs, secondary trees, and other filler vegetation continue to reuse Vanilla PlantDefs. The goal is to make the vegetation bands structurally legible without turning Environment into a large plant-content mod or implying that each biome is a monoculture.
+
+Sudajii, Japanese beech, Shirabiso, and Haimatsu now use AMJE-authored custom graphics. Broader Vanilla / Medieval Overhaul tree retextures remain planned follow-up work after the initial public Beta.
+
+Sudajii, Japanese beech, Shirabiso, and Haimatsu use AMJE-authored custom artwork, including snow overlays and beech leafless/autumn states. Their production appearance and UI states have been reviewed.\n\nDetailed research rationale and sources are retained in [Docs/Design.md](Docs/Design.md) and [Docs/ArtDirection.md](Docs/ArtDirection.md).
 
 ### Natural soil fertility
 
@@ -192,7 +224,7 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-The four custom plants and their required visual states are implemented. Existing Vanilla/MO tree retextures are deferred to post-release updates. Broader real-play balance/compatibility feedback may change Beta values.
+The four AMJE structural plants and their required visual states are implemented, including snow overlays and beech leafless/autumn states. Broader Vanilla / Medieval Overhaul tree retextures are planned after the initial public Beta, and real-play balance/compatibility feedback may still refine the current baselines.
 
 ## Research and detailed design
 

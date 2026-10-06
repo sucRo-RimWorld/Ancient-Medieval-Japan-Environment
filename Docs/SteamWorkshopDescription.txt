@@ -20,6 +20,43 @@ Ancient & Medieval Japan Core is not required. [b]If you only want a medieval-Ja
 
 Rather than replacing everything with parallel systems, the mod is designed to reuse RimWorld 1.6 world generation, River / Coast mutators, weather, snow, and deciduous-plant behavior whenever possible.
 
+[h2]Why These Four Environment Bands?[/h2]
+
+AMJE's biomes are not intended to reproduce modern prefectural or regional borders. Using Japan's vegetation classification as a reference, the mod simplifies the [b]major vegetation bands that change with temperature and elevation[/b] into four RimWorld-friendly stages.
+
+[list]
+[*][b]Warm-temperate forest[/b]: evergreen broadleaf lucidophyll forest
+[*][b]Cool-temperate forest[/b]: deciduous broadleaf forest such as beech woodland
+[*][b]Subalpine forest[/b]: evergreen conifer forest such as Shirabiso woodland
+[*][b]Alpine zone[/b]: Haimatsu scrub and alpine vegetation above the treeline
+[/list]
+
+These are not meant to replace all Japanese vegetation with only four biome types. They are [b]baseline bands for a Japan-like natural environment[/b]. Wetlands and specialized biomes such as Medieval Overhaul's Dark Forest can still coexist when their conditions are met.
+
+The biome mixes also avoid presenting every area as untouched single-species climax forest. Historical vegetation research indicates that human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary forest in many settled regions, so Vanilla trees and ground vegetation remain as secondary components.
+
+[h2]Representative Plant for Each Environment Band[/h2]
+
+Each band adds [b]one representative structural plant[/b] so its landscape can be read at a glance. These were not chosen simply as "famous medieval trees." The criterion is whether the plant represents Japan's natural vegetation and can express a landscape connected to ancient and medieval Japan.
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Shii/Shii_A.png[/img]
+[b]Warm-temperate forest — Sudajii[/b]
+A tall evergreen tree representative of the lucidophyll forests of southern Honshu, Shikoku, and Kyushu. Shii trees have long formed part of southwestern Japan's forests; their seeds were eaten, their wood used for buildings and implements, and bark tannin used for dyeing.
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Beech/Beech_A.png[/img]
+[b]Cool-temperate forest — Japanese beech[/b]
+A large deciduous tree representative of Japan's cool-temperate forests. Examples from the late Heian through medieval period show Fagus wood being selectively used for turned wooden objects such as lacquerware.
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png[/img]
+[b]Subalpine forest — Shirabiso[/b]
+A tall evergreen conifer representative of Honshu's subalpine zone. Mountains such as Mt. Ontake carry forests of Shirabiso and related conifers, forming part of the mountain landscape that became a setting for ascetic practice and religious ascent by the later medieval period.
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png[/img]
+[b]Alpine zone — Haimatsu[/b]
+A dwarf pine representative of terrain above the treeline. It forms dense creeping scrub and helps create a distinctly Japanese alpine landscape. AMJE deliberately avoids filling the alpine band with ordinary tall trees, so the treeline difference is visible both in scenery and available timber.
+
+The in-game descriptions provide additional details on kanji names, aliases, distribution, and each plant's relationship to ancient and medieval Japan.
+
 [h2]Using CCTO[/h2]
 
 [b]Crop Cold Tolerance Overhaul (CCTO) is optional.[/b]
@@ -62,7 +99,7 @@ Adding AMJE to an existing save has not been verified and does not regenerate an
 
 Currently Beta.
 
-The main environment systems and [b]custom artwork for Sudajii, Japanese beech, Shirabiso and Haimatsu[/b] are implemented, including snow overlays and beech leafless/autumn states. Retextures of existing Vanilla/MO trees are planned for post-release updates.
+The main environment systems are implemented, and [b]Sudajii, Japanese beech, Shirabiso, and Haimatsu now use AMJE-authored custom graphics[/b], including snow overlays and beech leafless/autumn states. Additional Vanilla / Medieval Overhaul tree retextures are planned as follow-up work after the initial public Beta.
 
 See the GitHub README / Design documentation for detailed values, rationale, and CCTO integration data.
 

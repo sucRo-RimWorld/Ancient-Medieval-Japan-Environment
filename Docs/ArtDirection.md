@@ -93,7 +93,7 @@ Production texture transfer, validation, Def-switch ordering, and focused runtim
 
 ## Generation entry and new-chat continuity
 
-Before a plant/tree generation call, follow [RetextureGeneration.md](GoldenPaths/RetextureGeneration.md). It requires reading the current rules, viewing and attaching accepted source references, proposal-before-generation sequencing, the complete reusable prompt, and candidate review. This applies equally in a new chat and an ongoing chat; remembered text or unviewed filenames do not replace the actual baseline. This file remains the visual source of truth; the generation procedure must carry its shared/category/species rules into the actual request.
+Before a plant/tree generation call, follow [RetextureGeneration.md](GoldenPaths/RetextureGeneration.md). That procedure reads the current Core `Docs/ArtStyle.md`, this document, the current coordination state, and the actual accepted reference images. Do not preserve a separate frozen style prompt in this repository.
 
 ## Retexture visual-style rules
 
@@ -138,15 +138,18 @@ These rules are the canonical visual baseline for AMJE tree/plant retextures. In
 
 ### Shared style
 
-- Prefer a **strongly simplified/deformed game-sprite treatment** over botanical realism. The target is recognizable species character at RimWorld gameplay zoom, not illustration-plate accuracy.
-- Build the sprite from **large readable masses**. Avoid dense micro-detail in individual leaves, bark, twigs, or needles that disappears at normal zoom.
-- Use a **clearly readable dark outer outline**, generally near-black or a very dark local hue. Do not thin the outline merely to make the asset look more naturalistic.
-- Keep the palette restrained and generally **low-to-medium saturation** so the asset sits naturally on RimWorld's brown/grey terrain and beside Vanilla/MO vegetation.
-- Keep color steps limited. As a baseline, think in terms of **base color + shadow + highlight**, with only restrained soft gradient variation where it improves volume. Do not add colors simply to increase detail.
-- Avoid very bright lime foliage, highly saturated orange bark, or other accents that make the sprite look pasted on top of the map.
-- Use transparent backgrounds. Do not bake in scenery, UI frames, labels, terrain tiles, circular turf bases, decorative grass rings, or unrelated ground clutter.
-- Prefer smooth high-resolution edges. Do not intentionally introduce pixel-art/dithered rendering unless a separate approved asset class requires it.
-- Do not use photographic or photo-derived surface detail as the final visual language.
+AMJE tree/plant sprites inherit the project-wide invariants in Core `Docs/ArtStyle.md`: silhouette-first simplification, strong readable outlines, restrained palette/detail, no photographic or painterly surface treatment, and readability at gameplay scale.
+
+Environment-specific additions/controlled differences are:
+
+- use stronger structural deformation/simplification than botanical-plate realism;
+- use a clearly readable near-black or very dark local-color outer outline;
+- keep saturation low-to-medium against RimWorld terrain;
+- use limited base/shadow/highlight steps; **restrained soft gradient variation is allowed for tree/plant volume**, which is an explicit class difference from the flatter Core crop/item budget;
+- use smooth high-resolution edges and transparent backgrounds;
+- do not bake in scenery, UI, labels, terrain tiles, turf/grass bases, unrelated ground clutter, or winter snow.
+
+These additions narrow the shared AMJ style for Environment vegetation; they do not replace it.
 
 ### Species differentiation
 
@@ -364,6 +367,27 @@ Authoring workflow:
 
 Labels should remain unchanged unless there is a separate concrete naming issue. The current requirement is to replace unsuitable or tonally inconsistent descriptions, not to rename every retextured plant.
 
+Japanese opening-name rule (shared AMJ policy): when an established kanji form exists, put it at the start of the description; include recognized aliases / alternate names and common alternate written forms there as well. Do not invent kanji or weakly sourced names. Current structural-plant name evidence: Forestry and Forest Products Research Institute identifies ブナ as 山毛欅 with aliases シロブナ / ホンブナ; Forestry Agency material records 橅 / 椈 as alternate writings, スダジイ aliases イタジイ / ナガジイ, シラビソ alias シラベ, and ハイマツ as 這松. Dictionary references record シラビソ as 白檜曽. English text is translated from the approved Japanese opening rather than independently normalized.
+
+Historical-description research basis for the current four-plant Japanese draft:
+- **Sudajii:** FFPRI identifies it as a warm-temperate evergreen canopy tree, records the aliases イタジイ / ナガジイ, and lists timber, bark-tannin/dye and edible-seed uses. Vegetation-history research places Castanopsis / evergreen broadleaf forest in western Japan by the Early Jomon; the Nara National Research Institute cultural-property database records Early-Jomon use of Castanopsis fruits at the Ireibaru site in Okinawa.
+- **Japanese beech:** FFPRI identifies ブナ as 山毛欅, aliases シロブナ / ホンブナ, and a principal cool-temperate deciduous tree. Vegetation-history research records Fagus in Jomon cool-temperate forests. A Nagano archaeological report records Fagus-genus wood among selectively used turned wooden vessels / lacquerware from the late Heian to medieval period. Forestry Agency material documents modern interior/furniture, mushroom-log and fuel uses.
+- **Shirabiso:** University of Tokyo and FFPRI sources identify 白檜曽 / シラビソ（シラベ） as a major subalpine evergreen conifer. Current Forestry Agency / Environment Ministry descriptions of Mt. Ontake record Shirabiso-dominated subalpine forest, while scholarship on Ontake worship places organized medieval worship / ascent in the later medieval period. The draft therefore describes the forest as part of the mountain-religion landscape without claiming a specific timber use.
+- **Haimatsu:** Forestry Agency and Ministry of the Environment sources identify 這松 as a representative alpine dwarf pine above the treeline. Botanical-history research treats its Japanese alpine distribution as a northern cold-climate lineage left at high elevation after postglacial warming. Current Mt. Ontake vegetation includes Haimatsu above the treeline; the historical sentence separately notes the mountain's later-medieval worship history rather than claiming direct medieval use of Haimatsu.
+
+Key references:
+- FFPRI Sudajii: https://www.ffpri.go.jp/kys/business/jumokuen/jumoku/zukan/sudajii.html
+- FFPRI distribution maps: https://www.ffpri.go.jp/labs/prdb/sudazii.html , https://www.ffpri.go.jp/labs/prdb/buna.html , https://www.ffpri.go.jp/labs/prdb/sirabiso.html
+- FFPRI beech name: https://www.ffpri.go.jp/fsm/business/jumokuen/06_ha/buna.html
+- Early-Jomon Castanopsis use (Nabunken): https://heritagemap.nabunken.go.jp/statistic/64887-%E4%BC%8A%E7%A4%BC%E5%8E%9F%E9%81%BA%E8%B7%A1.html
+- Jomon vegetation / wood use: https://doi.org/10.4116/jaqua.36.329
+- Medieval turned-wood evidence (Nagano archaeological report): https://sitereports.nabunken.go.jp/files/attach/9/9472/7427_1_%E5%B1%8B%E4%BB%A3%E9%81%BA%E8%B7%A1%E7%BE%A4.pdf
+- Forestry Agency beech modern use: https://www.rinya.maff.go.jp/kanto/joetu/invitation/invitation/shinetutrail.html
+- Mt. Ontake vegetation: https://www.rinya.maff.go.jp/chubu/policy/business/conservation/hogorin/2-20.html
+- Later-medieval Ontake worship: https://doi.org/10.57492/sangakushugen.42.0_5
+- Haimatsu alpine ecology: https://www.rinya.maff.go.jp/tohoku/syo/huzisato/zukan/haimatu.html
+- Alpine-flora history / Haimatsu: https://doi.org/10.18942/bunrui.KJ00004872189
+
 ## Thin Soil technical direction
 
 `AMJ_ThinSoil` currently reuses/tints Vanilla Gravel.
@@ -485,93 +509,6 @@ The accepted characteristics are:
 
 The atlas itself is a **style/reference board**, not a shippable sprite sheet. Production assets are generated or painted individually from this baseline so that transparency, crop, scale, and RimWorld path structure can be controlled per Def/state.
 
+## Fixed reused components
 
-## Pixel-exact reused components (AMJ shared policy)
-
-Follow the Core source of truth [FixedImageTemplates.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/GoldenPaths/FixedImageTemplates.md). Same style does not mean identical parts: species-specific silhouettes remain distinct. Where a trunk, container, title or other component is reused, register an approved lossless master and binary editable mask with SHA-256 hashes in the owning repository, generate only variable material, and composite deterministically. Final decoded protected RGBA pixel differences must be zero; reference-image editing/visual similarity cannot replace this check. Use Core `Scripts/Art/fixed_template.py` for compositing/validation, then retain Environment's PNG integrity/install gates. Read the master/manifest and actually view the approved reference in every new chat. No shared-pixel guarantee may be claimed before the family template and output pass this gate. Existing proposal approval stages are unchanged.
-
-### Haimatsu normal-zoom refinement — 2026-10-05
-
-Author accepted the in-game size at graphicData.drawSize=2.60 (visualSizeRange remains 0.45..0.75). The current production image is too detailed relative to neighboring Vanilla plants and rocks at that scale. Refinement direction: preserve low, wide, asymmetric creeping-pine structure and muted olive/grey-green palette; consolidate needle foliage into fewer large, smoothly lobed masses, reduce serrated micro-edges and internal shading subdivisions, and simplify visible woody branches. Keep thick dark outlines, transparent background and no ground base. A revised source candidate requires review before production replacement.
-
-Haimatsu further-deformed source accepted in game on 2026-10-05 with `採用で`: five broad foliage pads, coarse rounded lobes, simplified branches and broad limited shading. Production SHA-256 is a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6 with drawSize=2.60 and visualSizeRange=0.45..0.75. This is the accepted low/dwarf-conifer production reference. Preserve its normal-zoom readability; extra needle/edge/shading micro-detail is not an improvement.
-
-Japanese beech leafless appearance accepted on 2026-10-05: author replied 問題なし after the focused leafless review. The naturally generated mature tree switched to LeaflessNow=True and loaded Beech_Leafless_A without runtime ERROR. This covers leafless appearance, not autumn color or automatic seasonal timing.
-
-### Beech autumn palette trial — 2026-10-05
-Author requested beech-like autumn colors. Trial uses golden yellow, yellow-orange and brown through a beech-only fall lookup texture; leafy/leafless source art, pale trunk and open crown remain unchanged. The palette follows observed beech yellow-to-brown phenology: https://tohoku.env.go.jp/blog/2014/01/1863.html . Autumn appearance and post-shader-change normal/leafless confirmation are pending; retain earlier approvals as historical evidence.
-
-### Color review lighting baseline — author rule (2026-10-05)
-Palette comparisons require fixed local 12:00, Clear weather after transition, a paused map and matching zoom/season/shader intensity. Record actual verified conditions following PlantVisualCoverage. Do not compensate source colors for uncontrolled sunset/night/weather lighting. Current beech autumn palette is pending controlled review; no further palette change is authorized by a lighting observation alone.
-
-### Beech controlled autumn acceptance — 2026-10-05
-
-Author accepted the golden-yellow/yellow-orange/brown beech palette with `では採用で。` after the local-noon Clear screenshot. Current beech-specific fall destination is `/Other/AMJE_BeechFallGradient`, SHA-256 `ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93`. Leafy/leafless source sprites and normal trunk/crown structure are unchanged. Accepted comparison conditions: verified localHour=12.000, Clear, weather transition=1, paused=True, camera rootSize=24, native fallIntensity=1, growth=1, ticksAbs=330000. Runtime evidence is `TestResults/BeechNoonClearReview/CoolTemperate.log`; author screenshot is `C:/Users/sucRo/AppData/Local/Temp/codex-clipboard-074fe799-01bd-45d3-934a-7b6b94d8ac35.png`. This accepts autumn appearance only; automatic seasonal transition and other pending rows remain unverified.
-# Growth-stage acceptance (2026-10-05)
-
-Author accepted the four-species 10%/50%/100% growth comparison with `問題なさそうに見える。` at local noon/Clear/paused. All four immature-state ledger rows are accepted against their current production fingerprints. Evidence: TestResults/PlantGrowthReview/Growth.log. Snow, icon and outstanding beech state reviews remain separate.
-
-### Haimatsu master-registered snow accepted (2026-10-05 JST)
-Author accepted the native snow screenshot with `問題なさそう`. Current snow overlay f77fb8d8db633c5c3b7452927e61bbde152a531fbb351c47f0a721587eef6147 retained. The snow ledger row is accepted against current fingerprint. Fixed-template v1 is ACTIVE with accepted exact composite recorded as filled exemplar; normal/immature pending rows are not inferred accepted from the snow screenshot. No further visual changes.
-
-Shirabiso heavier snow trial: upper registered foliage-column coverage increased to 68% by author request; protected master pixels unchanged. Current overlay SHA-256 49a98c4b54c6f263c019352aabdbddd7f20cb9aa6b2960e1a23c861e2df31ec6. Final native appearance pending.
-
-### Shirabiso heavier snow accepted (2026-10-05 JST)
-Author accepted with `これ採用で`. Retain upper-column 68% coverage and overlay SHA-256 49a98c4b54c6f263c019352aabdbddd7f20cb9aa6b2960e1a23c861e2df31ec6. Shirabiso snow template v1 ACTIVE with accepted filled exemplar; master/branches/sides/outer-edge pixels unchanged. Other pending states are separate.
-
-### Shii snow trial (2026-10-06)
-Separate white/blue-grey snow caps reuse the accepted snow palette, registered to five crown anchors and the original master's foliage pixels. Trunk, branch identity, outline/scale remain fixed. Art/Templates/Shii-Snow-v1 is REVIEW, not active. Current snow overlay SHA-256 3b75aa90715df29ce4dcdc05b324e3ff8d280dd4aff332af55a4579f5ed5ed13. Final native appearance pending author review.
-
-Existing Vanilla/MO tree retextures are deferred to post-release updates by author decision. Initial-release art work remains the four current AMJE plants and their required states.
-
-Shii snow-shape correction (2026-10-06): previous geometric cap layout rejected. Current mask traces the master's seven upper-lit foliage masses directly; no artificial crown partition remains. Current snow overlay SHA-256 d2d7baaa71c3c14d48e4070d79c187eb8ffc636a336e4957abc6f13833da9616. Native appearance acceptance pending; master untouched.
-
-### Shii snow accepted as compromise (2026-10-06 JST)
-Author: `やや怪しいがこれで妥協`. Current overlay 5d9376ced78552f64631c89eda662aef51bd6faff4f1e098238ca0aa3c4b8bb7 retained; slight left foliage snow-shape concern remains. Snow row accepted only; template ACTIVE with exact filled exemplar. Native noon/Clear/paused/zoom18 verified, owned ERROR gate passed. Normal/immature/icon rows remain separate. Next image assets: beech leafy and leafless snow; existing retextures deferred.
-
-Beech snow candidates (2026-10-06): leafy upper-foliage caps; leafless thin snow on exposed upper wood edges. Immutable normal/leafless masters preserved. Both variants pending native appearance review; fixed templates REVIEW.
-
-### Beech leafy and leafless snow accepted (2026-10-06 JST)
-Author: `OK` after paired native snow comparison. Both leafy and leafless snow accepted; corresponding templates ACTIVE with exact filled exemplars. Leafy overlay 221fdf06941864a7a366819042fe325b15ad587d5af9e3bb914a672b2f3d5f51; leafless overlay 3b6e3dabcf402483920ac406d54fa37aef9e9cea06a47bf0c15e9e66a230141f. Native state-specific paths loaded, noon/Clear/paused/zoom18 verified, owned ERROR gate passed. Snow row alone accepted; other states remain separate. All four current species now have accepted snow art. Existing retextures deferred; UI icons and pending rechecks remain.
-
-Haimatsu UI scale fix (2026-10-06): explicit uiIconPath uses unchanged Haimatsu_A. Native UI scale becomes1; map drawSize2.60 and visualSizeRange0.45..0.75 retained. This corrects info-card overflow without changing accepted map appearance; native visual review pending.
-
-### Haimatsu info icon accepted (2026-10-06 JST)
-Author: `ハイマツOK` after actual native info-card review. Icon row accepted against current fingerprint. Explicit uiIconPath retained; live UI scale1, map drawSize2.60 and visual range0.45..0.75 verified. Image bytes unchanged; owned ERROR gate passed. Other pending states remain separate. Owned info-review game closed and fixture archived after acceptance.
-
-### Remaining UI icons accepted (2026-10-06 JST)
-Author: `OK` after native small/large icon panel. Shii/Beech/Shirabiso icon rows accepted; all four species UI icons now accepted. Native texture validity/noon/Clear/paused confirmed, owned ERROR gate passed. Map normal/immature rows remain separate; no completion claim.
-
-### Normal/growth acceptance and duplicate-review prevention (2026-10-06 JST)
-Author: `これ何回も見てるけどOK`. All four normal and immature rows accepted against current growth-only review. Repeated reviews were caused by whole-Def fingerprint invalidation after unrelated snow/UI additions. Fingerprints now ignore UI-only fields outside icon states and snow paths outside snow states, retaining size/art and other fields. Prior approval is restored only when exact former full fingerprint can be reconstructed, not from an assumed visual equivalence.
-
-### Duplicate leafless review corrected; visual coverage closeout (2026-10-06 JST)
-Prior explicit leafless approval `問題なし` confirmed in 2026-10-05 record and ledger prior_acceptance; original leafless PNG exactly identical. Approval restored, not new human acceptance. Overbroad fall-shader invalidation caused redundant review. Native state/material revalidated in BeechLeaflessFinal, fixed noon/Clear. Seasonal transition separately VERIFIED by bounded native calendar sampling; no human visual PASS or full-world-year simulation claimed. Existing Vanilla/MO retextures remain post-release scope.
-
-### Leafless beech snow rejection supersedes earlier acceptance (2026-10-06 JST)
-
-The author's rejection of `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` supersedes the earlier paired `OK` **for the leafless snow variant only**. The earlier leafy snow approval and accepted base/leafless master remain intact. The first repair at `62434d2` is also unapproved: automatically placing a small capsule at each upper-edge component made scattered pellets with weak rims, rather than coarse supported snow masses.
-
-Current replacement is a local, deterministically painted twelve-cap candidate, with dark outer contours and off-white / blue-grey color planes matched to the accepted Haimatsu snow. Cap widths and thicknesses vary; exposed branches, tree position, scale and perspective remain those of the unchanged leafless master. Sparse internal divisions replace layered capsule highlights. Template revision `v2-review` stays `production_status=review`, has no approved filled exemplar, and uses a separately declared unapproved ledge-region contract. It is not an active mask revision. Production snow bytes in this draft PR are for review only; no installed-game or human acceptance is claimed. See `PlantSnowOverlayPlan.md` for preflight, mask and audit rules.
-
-### Revision 2 rejected for branch mismatch — revision 3 pending
-
-The author rejected the twelve-cap repair because it did not consider actual branches. Proximity to any wood pixel was insufficient: a horizontal snow bbox can overlap a branch while its lower edge still floats or crosses the branch direction. Revision 2 is invalid as a production or style reference.
-
-Revision `v3-review` uses eight narrow selected branch corridors on the unchanged master. For every column, trace the original opaque upper surface and use it as the snow contact boundary; upper snow thickness tapers along that boundary rather than imposing an independent horizontal cap. Keep branches below visible. Validate contact along at least 90% of the entire lower boundary with no more than one-pixel AA tolerance, not a fraction of the snow interior. The new partial-support regression rejects the earlier insufficient criterion. Current candidate has full lower-boundary contact on all eight shapes; that proves geometry only, not author visual acceptance. All statuses remain pending/review.
-
-### Revision 4 — snow foreground occlusion, still unapproved
-
-Author reported that revision 3 looked as though snow was a lower layer. Binary composition was already master -> snow; the visual error was stopping the cap at the wood silhouette, leaving the original upper outline/wood face foreground-visible. Revision 4 retains the same eight branch corridors and unchanged mask/master, but extends an opaque four-pixel snow lip over the original upper branch face. A broad blue-grey front plane and darker contour make the cap thickness visible. The original upper outline and its adjacent wood are covered, not redrawn above snow.
-
-Physical branch support and final visible snow rim are distinct: a front lip may overhang the support edge. Do not force that rim to end at the original silhouette or restore the original wood contour in front. Validate supporting branch overlap across cap width and require opaque snow over the original upper surface/adjacent face. Exact master -> snow composition and a wood-over-snow negative fixture lock order separately. Revision `v4-review` remains REVIEW with no accepted filled exemplar or native visual acceptance.
-
-### Revision 5 — wider whole-tree accumulation, still REVIEW
-
-Author requested more snow overall while retaining the limited accumulation appropriate to branches. Extend the eight existing branch corridors with seven upper/outer/lower ledges, for fifteen supporting corridors and fourteen connected snow masses. Keep foreground lips and original-branch occlusion; the finest outer-left twig uses a smaller lip. Do not fill the canopy, coat all twig tips or paint the vertical trunk.
-
-Solid snow coverage increases from 2108 to 3628 pixels (about 1.72x), distributed across the full crown rather than thickening only existing patches. Original master and accepted other variants stay unchanged. Additional allowed corridors are declared before painting in an unapproved `v5-review` contract; no active/approved mask is modified and no mask is widened from output leaks. Support, opaque upper-wood-face occlusion, mass/outline, layer-order and PNG gates remain required. No source/native visual acceptance is claimed.
-
-### Revision 5 source accepted as compromise (2026-10-06 JST)
-
-Author: `これで妥協する`, referring to the presented revision-5 source composite. Record source-art acceptance as a compromise, not a newly completed native-game review. Freeze current image bytes, master/mask and source composition. Template is `v5` / `source_approved`; approved source hash and statement are registered. Keep production activation/native snow coverage distinct; leafless snow ledger remains pending for the native appearance of these exact bytes. No further art adjustment is authorized by this acceptance. See `ValidationEvidence/BeechLeaflessSnowSourceAcceptance.md`.
+When a future Environment asset intentionally reuses a visible component pixel-exactly, follow Core `Docs/GoldenPaths/FixedImageTemplates.md`. Same-style but structurally distinct species do not use fixed-pixel templates.

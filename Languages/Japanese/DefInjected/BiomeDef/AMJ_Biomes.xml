@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
   <AMJ_WarmTemperateForest.label>暖温帯林</AMJ_WarmTemperateForest.label>
-  <AMJ_WarmTemperateForest.description>日本列島の暖温帯に広がる、湿潤な常緑広葉樹林。スダジイなどの照葉樹が優占し、温暖で雨の多い環境を形成する。</AMJ_WarmTemperateForest.description>
+  <AMJ_WarmTemperateForest.description>暖温帯林は、日本列島の暖温帯に広がる湿潤な常緑広葉樹林。スダジイなどの照葉樹が優占し、温暖で雨の多い環境を形成する。</AMJ_WarmTemperateForest.description>
 
   <AMJ_CoolTemperateForest.label>冷温帯林</AMJ_CoolTemperateForest.label>
-  <AMJ_CoolTemperateForest.description>日本列島の冷温帯を代表する、湿潤な落葉広葉樹林。ブナを中心とした森林が広がり、四季による景観の変化が大きい。</AMJ_CoolTemperateForest.description>
+  <AMJ_CoolTemperateForest.description>冷温帯林は、日本列島の冷温帯を代表する湿潤な落葉広葉樹林。ブナを中心とした森林が広がり、四季による景観の変化が大きい。</AMJ_CoolTemperateForest.description>
 
   <AMJ_SubalpineForest.label>亜高山帯林</AMJ_SubalpineForest.label>
-  <AMJ_SubalpineForest.description>寒冷な山地や北方に広がる亜高山帯の針葉樹林。シラビソなどの常緑針葉樹が優占し、積雪の多い厳しい環境となる。</AMJ_SubalpineForest.description>
+  <AMJ_SubalpineForest.description>亜高山帯林は、寒冷な山地や北方に広がる針葉樹林。シラビソなどの常緑針葉樹が優占し、積雪の多い厳しい環境となる。</AMJ_SubalpineForest.description>
 
   <AMJ_AlpineZone.label>高山帯</AMJ_AlpineZone.label>
-  <AMJ_AlpineZone.description>森林限界より上に広がる寒冷な高山環境。高木はほとんど育たず、ハイマツなどの低木と疎らな植生が主体となる。</AMJ_AlpineZone.description>
+  <AMJ_AlpineZone.description>高山帯は、森林限界より上に広がる寒冷な高山環境。高木はほとんど育たず、ハイマツなどの低木と疎らな植生が主体となる。</AMJ_AlpineZone.description>
 </LanguageData>
