@@ -8,8 +8,8 @@
 
   <ThingDef ParentName="TreeBase">
     <defName>AMJ_Tree_Shii</defName>
-    <label>shii tree</label>
-    <description>An evergreen broadleaf tree characteristic of Japan-like warm-temperate forests. It forms dense, dark canopies and yields sturdy hardwood.</description>
+    <label>Sudajii</label>
+    <description>An evergreen broadleaf tree representative of warm-temperate evergreen broadleaf forests. It forms a dense crown and yields durable timber.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Shii</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -33,7 +33,7 @@
   <ThingDef ParentName="DeciduousTreeBase">
     <defName>AMJ_Tree_Beech</defName>
     <label>Japanese beech</label>
-    <description>A large deciduous broadleaf tree characteristic of Japan-like cool-temperate forests and mountain slopes.</description>
+    <description>A large deciduous broadleaf tree representative of cool-temperate mountain forests.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Beech</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -57,8 +57,8 @@
 
   <ThingDef ParentName="TreeBase">
     <defName>AMJ_Tree_Shirabiso</defName>
-    <label>shirabiso fir</label>
-    <description>A cold-tolerant evergreen fir characteristic of Japan-like subalpine conifer forests.</description>
+    <label>Shirabiso</label>
+    <description>A cold-adapted evergreen conifer representative of subalpine conifer forests.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Shirabiso</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -87,8 +87,8 @@
 
   <ThingDef ParentName="BushBase">
     <defName>AMJ_Shrub_Haimatsu</defName>
-    <label>haimatsu dwarf pine</label>
-    <description>A low, creeping evergreen pine that forms dense thickets above the forest line in Japan-like alpine terrain.</description>
+    <label>Haimatsu</label>
+    <description>An evergreen shrubby pine that forms dense thickets by creeping along the ground in alpine zones above the treeline.</description>
     <graphicData>
       <texPath>Things/Plant/AMJ/Haimatsu</texPath>
       <graphicClass>Graphic_Random</graphicClass>
