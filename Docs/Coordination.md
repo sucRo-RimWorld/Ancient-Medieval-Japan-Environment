@@ -1130,3 +1130,15 @@ passed inventory/selftests and all production texture/snow validators.
 Reusable routing and troubleshooting procedure is in
 Docs/GoldenPaths/PlantVisualCoverage.md. Coordination-only updates are excluded
 from this workflow's triggers.
+
+### POLICY-MOD-NAME-001 — Mod名のコロン禁止（2026-10-06 JST）
+
+**Requested by:** author  
+**Owner:** AMJ shared release / documentation  
+**Status:** DONE
+
+AMJ Core・Environment・CCTOおよび今後の関連Modの名称では、半角 `:`・全角 `：` を禁止し、必要な区切りには ` - ` を使用する。About.xmlのname、Workshopタイトル、README等の正式名称に適用する。表示名の修正ではpackageId・既存Workshop IDを維持する。
+
+YADAがMod表示名を一時ディレクトリ名に使用し、Windowsで半角コロンによりアップロード前処理が停止した件の再発防止。共通正本はCore `Docs/ModDescriptionGuidelines.md`（commit `695bff2a32a57cdf817b13b255587e749399b417`）。このリポジトリのAGENTSにも規則を反映済み（commit `fb40c1695203650851911fdd0169b6a3d43f9f05`）。
+
+確認時点でCore・Environment・CCTOのAbout.xmlのnameはいずれもコロンなし。今回の変更は文書・運用規則のみで、ゲーム実行時テストやSteam公開の成功を示すものではない。
