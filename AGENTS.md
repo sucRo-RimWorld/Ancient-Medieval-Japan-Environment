@@ -155,6 +155,12 @@ For Vanilla / Medieval Overhaul / other prerequisite-asset retextures, also foll
 
 ## Workshop distribution rule (AMJ common)
 
+Workshop updates must also follow `Docs/GoldenPaths/WorkshopPublication.md`:
+use a pinned clean source and verify the exact selected upload root against its
+external manifest. Never upload a dirty development root or infer its bytes
+from Git main. Only the actual downloaded source/DLL and four-profile cutting
+gate clear distributed-release HOLD; Steam publication stays author-manual.
+
 AMJ Core, Environment, CCTO and future related Mods must exclude **all files unnecessary for a Workshop subscriber** through the repository-root `.rimignore`. This includes Art masters/templates, design and development documentation (including README), source, tests/fixtures/reports, scripts/build tools, VCS/editor metadata, local overrides and debug/backup/archive files. Preserve runtime assets, About metadata, loadFolders.xml where used, and legally required licenses/attribution.
 
 - `.rimignore` is the authoritative exclusion list. YADA uses inherited basename/wildcard rules, not Git-ignore path or negation syntax; exclude `_LocalTest.xml`, not `Patches/_LocalTest.xml`.
@@ -177,4 +183,3 @@ For Environment art, use:
 Environment-specific rules may define controlled class differences, such as restrained internal gradient variation for tree sprites, but they must remain compatible with the shared AMJ invariants unless the owning style specification explicitly records an exception.
 
 For Vanilla/MO retexture ownership and texPath behavior, continue to follow the shared Core `Docs/RetextureImplementationGuidelines.md`.
-

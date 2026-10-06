@@ -1078,6 +1078,8 @@ foreach ($relative in $publicDocs) {
 }
 
 $readmeRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "README.md") -Raw -Encoding UTF8
+# Public copy links named mods; validate the visible text, not link delimiters.
+$readmeRaw = [regex]::Replace($readmeRaw, '\[([^\]]+)\]\([^\)]+\)', '$1').Replace('**', '')
 foreach ($expected in @(
     'RimWorld 1.6',
     'Beta',
@@ -1095,6 +1097,8 @@ $workshopJaPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription-ja.txt"
 $workshopEnPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription.txt"
 $workshopJaRaw = Get-Content -LiteralPath $workshopJaPath -Raw -Encoding UTF8
 $workshopEnRaw = Get-Content -LiteralPath $workshopEnPath -Raw -Encoding UTF8
+$workshopJaText = [regex]::Replace($workshopJaRaw, '\[(?:/?url[^\]]*|/?b)\]', '')
+$workshopEnText = [regex]::Replace($workshopEnRaw, '\[(?:/?url[^\]]*|/?b)\]', '')
 
 if ([System.Text.Encoding]::UTF8.GetByteCount($workshopJaRaw) -gt 8000) {
     Fail "Japanese Workshop description exceeds 8,000 UTF-8 bytes."
@@ -1104,12 +1108,12 @@ if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
 }
 
 foreach ($pair in @(
-    @($workshopJaRaw, '現在はBetaです。', 'Japanese Workshop Beta stage'),
-    @($workshopJaRaw, 'Ancient & Medieval Japan Coreは不要です。', 'Japanese Workshop Core independence'),
-    @($workshopJaRaw, 'Crop Cold Tolerance Overhaul（CCTO）は任意です。', 'Japanese Workshop CCTO optionality'),
-    @($workshopEnRaw, 'Currently Beta.', 'English Workshop Beta stage'),
-    @($workshopEnRaw, 'Ancient & Medieval Japan Core is not required.', 'English Workshop Core independence'),
-    @($workshopEnRaw, 'Crop Cold Tolerance Overhaul (CCTO) is optional.', 'English Workshop CCTO optionality')
+    @($workshopJaText, '現在はβ版です。', 'Japanese Workshop Beta stage'),
+    @($workshopJaText, 'Ancient & Medieval Japan Coreは不要です。', 'Japanese Workshop Core independence'),
+    @($workshopJaText, 'Crop Cold Tolerance Overhaul（CCTO）は任意です。', 'Japanese Workshop CCTO optionality'),
+    @($workshopEnText, 'Currently Beta.', 'English Workshop Beta stage'),
+    @($workshopEnText, 'Ancient & Medieval Japan Core is not required.', 'English Workshop Core independence'),
+    @($workshopEnText, 'Crop Cold Tolerance Overhaul (CCTO) is optional.', 'English Workshop CCTO optionality')
 )) {
     if (-not $pair[0].Contains($pair[1])) {
         Fail "$($pair[2]) marker is missing."

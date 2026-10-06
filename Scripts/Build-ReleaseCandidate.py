@@ -1,4 +1,4 @@
-"""Build and verify a runtime-only candidate from the current approved workspace."""
+"""Historical local-review ZIP; Workshop provenance uses Build-WorkshopPayload.py."""
 from pathlib import Path
 from datetime import datetime
 import hashlib,json,zipfile,xml.etree.ElementTree as ET
@@ -34,7 +34,6 @@ with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
 with zipfile.ZipFile(archive) as z:
  assert z.testzip() is None
  for name,content in payload.items():assert z.read('AncientMedievalJapanEnvironment/'+name)==content
-manifest={'candidate':archive.name,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'files':{k:hashlib.sha256(v).hexdigest() for k,v in payload.items()},'source':'current local working tree; uncommitted','runtime_validation':'Source build/static and native visual checks passed; this ZIP has not separately undergone a clean installed runtime test','release_load_folders':'root only; development quickstarts excluded'}
+manifest={'candidate':archive.name,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'files':{k:hashlib.sha256(v).hexdigest() for k,v in payload.items()},'source':'current local working tree; uncommitted','runtime_validation':'Not performed by this builder; local review only','workshop_release_gate':False,'publication_procedure':'Docs/GoldenPaths/WorkshopPublication.md','release_load_folders':'root only; development quickstarts excluded'}
 archive.with_suffix('.manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(str(archive));print('PASS: archive CRC/exact bytes, production assembly, four plant state paths and UI fix;',len(payload),'files');print('SHA256',manifest['sha256'])
-
