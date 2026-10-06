@@ -36,7 +36,7 @@ Primary design source:
 ## Active tree-art handoff
 
 - **Current stage:** PR #5 review; leafless beech snow rejected and revised candidate remains unapproved. Accepted base sprites and other reviewed states are preserved.
-- **Next target:** review the repaired `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` on PR #5. Native visual acceptance remains pending; existing Vanilla/MO retextures stay post-release.
+- **Next target:** review branch-contact revision 3 of `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` on PR #5; the twelve-cap revision 2 was rejected for ignoring branches. Native visual acceptance remains pending; existing Vanilla/MO retextures stay post-release.
 - **Approval state:** leafless snow is REVIEW, no approved filled exemplar; earlier paired snow OK is superseded for this variant only. Other recorded approvals remain state-specific.
 - **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 - **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
@@ -1074,3 +1074,9 @@ PR candidate now uses twelve supported asymmetric outlined caps, accepted Haimat
 Durable spec/audit/regression changes are on draft PR #5, pushed head `4a1122c27bec8fb768a163c34c41f3950c63def9`; repair commit `b075162` and merge of the concurrent work-push/PR CI distinction are retained. See PR `Docs/PlantSnowOverlayPlan.md`, current-main-aligned `RetextureGeneration.md`, `ArtDirection.md` rejection supersession, and `Docs/ValidationEvidence/BeechLeaflessSnowRepairAudit.md`.
 
 **Next action:** author review of the revision, then native snow review of these exact bytes at fixed local noon/Clear/paused. Keep `production_status=review` and leafless snow pending until explicit acceptance. Steam publication remains the author's manual step.
+
+### ENV-010 — Revision 2 rejected; branch-contact revision 3 pending
+
+Author feedback: `あまりに厳しい生成結果 / 枝が考慮されてない`. Revision 2 is rejected and must not serve as a style/production reference. Its independent horizontal caps and interior wood-proximity test did not establish actual branch contact.
+
+PR #5 now contains `c119755c51eb5d73c1ae8ea9822eb22d6477012a`: eight snow masses whose bottom boundary traces actual upper branch pixels inside narrow declared corridors. Trunk/branch master is unchanged; snow thickness tapers along each branch. All eight bottom boundaries have full contact at zero/one-pixel AA distance; a partial-support regression now fails. Core protected RGBA difference=0; PNG and ledger checks pass. This is geometric/static evidence only. Template is `v3-review`, no filled exemplar; leafless snow remains pending and no game/native visual acceptance is claimed. Durable correction is in PR snow plan, ArtDirection and repair audit.
