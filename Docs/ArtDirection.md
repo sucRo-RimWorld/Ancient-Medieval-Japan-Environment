@@ -512,3 +512,7 @@ The atlas itself is a **style/reference board**, not a shippable sprite sheet. P
 ## Fixed reused components
 
 When a future Environment asset intentionally reuses a visible component pixel-exactly, follow Core `Docs/GoldenPaths/FixedImageTemplates.md`. Same-style but structurally distinct species do not use fixed-pixel templates.
+
+### Revision 5 native appearance accepted; leafless snow complete (2026-10-06 JST)
+
+Author: `ブナOKなのでPRマージして`. This explicitly closes the separate native-appearance review for the already frozen revision-5 leafless-beech snow source. Keep exact composite SHA-256 `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`, installed snow overlay SHA-256 `3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b`, and leafless master SHA-256 `24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112`. Template v5 is ACTIVE with the approved filled exemplar. The Beech snow ledger row is accepted for both leafy and leafless variants; all current AMJE structural-plant visual states are complete. This approval authorizes PR #5 merge but does not fabricate a new runtime-test PASS.
