@@ -1107,3 +1107,26 @@ PR #5 was synchronized with current main without reverting the newer README / Wo
 
 PR #5 was squash-merged to main as `d38e28544693f8ac2d095143b64a37de68ab887a`. This completes current AMJE structural-plant art for the first public Beta. Existing Vanilla / Medieval Overhaul tree retextures remain explicitly post-publication work.
 
+
+### CI-NOTIFICATION-001 — Repeated plant-coverage failure notifications
+
+**Requested by:** author (2026-10-06 JST)
+**Owner:** CI/tooling
+**Status:** DONE
+
+The earlier label/description fingerprint defect is fixed in merged PR #5.
+Repeated notifications were amplified by feature-branch push + PR duplicate
+execution, broad Docs triggers and expected incomplete draft-review failures.
+Commit f4c86f890161296b36896349593b3ceeb150dc71 restricts pushes to main, scopes
+inputs to actual ledger/art/evidence/Def/test dependencies, cancels superseded
+runs per PR/ref and uses consistency mode on draft PRs. Ready PRs retain the
+strict completion gate, including an explicit ready_for_review event. Existing
+production texture/snow/error guards are unchanged. No account-level email
+notification setting was changed; real validation failures still fail CI.
+
+YAML/routing assertions passed locally. The actual main workflow run
+https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/actions/runs/37469313074
+passed inventory/selftests and all production texture/snow validators.
+Reusable routing and troubleshooting procedure is in
+Docs/GoldenPaths/PlantVisualCoverage.md. Coordination-only updates are excluded
+from this workflow's triggers.
