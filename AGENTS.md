@@ -81,7 +81,7 @@ Follow the shared policy in Ancient-Medieval-Japan-Core `Docs/HistoricalDescript
 
 Inherited Vanilla/MO descriptions must be audited from the perspective of ancient/medieval Japan and rewritten when they are anachronistic, culturally mismatched, misleading, overly modern, or otherwise unsuitable. AMJE-authored descriptions should include supported historical facts and, where supportable, a meaningful difference from modern Japan, modern use, or modern distribution.
 
-Historical description text is Japanese-first: draft and review Japanese first, obtain author approval, then translate only the approved Japanese text into English. Preserve research/source rationale in durable documentation.
+Historical description text is Japanese-first: draft and review Japanese first, obtain author approval, then translate only the approved Japanese text into English. Apply the shared Core name-form rule: begin Japanese descriptions with an established kanji form when one exists, and include recognized aliases / alternate names or common alternate written forms at the opening; do not invent kanji or weakly sourced names. Preserve research/source rationale in durable documentation.
 
 ## Public mod descriptions
 
