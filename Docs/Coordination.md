@@ -49,7 +49,7 @@ Primary design source:
 **Owner:** Environment localization  
 **Status:** IN PROGRESS — expanded Japanese draft prepared; author approval pending; English intentionally deferred
 
-The four structural-plant Japanese descriptions have now been expanded using the AMJ educational structure: name/aliases → Japanese distribution/ecological context → supported ancient/medieval role or landscape context → modern difference/use where supportable. Durable research/source rationale is recorded in `Docs/ArtDirection.md`.
+The four structural-plant Japanese descriptions have now been expanded using the AMJ educational structure: name/aliases → Japanese distribution/ecological context → supported ancient/medieval role or landscape context → modern difference/use where supportable. The current draft also uses literal `\n\n` paragraph breaks between those logical sections for RimWorld readability. Durable research/source rationale is recorded in `Docs/ArtDirection.md`.
 
 The draft deliberately distinguishes direct evidence from landscape context. Sudajii uses Early-Jomon Castanopsis fruit-use evidence; Japanese beech uses Jomon vegetation evidence plus late-Heian/medieval Fagus-genus turned-wood evidence; Shirabiso and Haimatsu do not fabricate specific medieval resource uses, and instead connect their verified Mt. Ontake vegetation roles with independently attested later-medieval mountain worship.
 
