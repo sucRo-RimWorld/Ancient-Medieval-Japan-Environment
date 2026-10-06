@@ -28,7 +28,7 @@ Primary design source:
 
 - **Current priority:** publish the first public AMJ Environment **Beta** before starting Vanilla / Medieval Overhaul tree retextures.
 - **Runtime gate:** Environment runtime testing has already been completed; do not treat the older pending-rerun notes below as a release blocker unless a later code/config change invalidates that result.
-- **Workshop presentation:** cover / preview artwork is already complete in a separate workstream but is not stored in this repository yet.
+- **Workshop presentation:** cover / preview artwork is already complete in a separate workstream but is not stored in this repository yet. Repository-side README / BBCode / localization can be prepared by agents, but the actual Steam Workshop publication/update is performed manually by the author. Do not mark Steam as updated without author confirmation.
 - **Public copy:** README, About.xml, and Japanese/English Workshop source now use Beta release wording. The internal Design document's "Alpha" baselines remain historical/design-stage terminology and are not public release-stage labels.
 - **Local publication staging:** the current publication workstream uses `D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\_AMJ_PublishStaging`; local staging state may be newer than GitHub main and must not be reconstructed from GitHub alone.
 - **Post-publication:** resume Environment-owned Vanilla / MO tree retextures only after the first public Beta is published.
