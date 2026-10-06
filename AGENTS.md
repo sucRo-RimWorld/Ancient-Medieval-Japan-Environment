@@ -11,6 +11,22 @@ Before starting work in this repository:
 5. Before resuming plant art, selecting a next target, handing off or claiming completion, read `Docs/GoldenPaths/PlantVisualCoverage.md` and run `Tests/validate_plant_visual_coverage.py`. Resolve/report its pending states first. A whole-plant/all-state completion claim requires `--require-complete` to pass; normal appearance approval alone is never full completion. Existing-tree retextures are deferred by the author; finish pending current-plant states before proposing unrelated art.
 6. Color/palette comparisons must use fixed local time 12:00, Clear weather and a paused map, with the same zoom and season/shader intensity for before/after comparisons. Verify and record actual conditions; requested settings alone are insufficient. Do not judge source colors from uncontrolled dawn/dusk, night or weather screenshots. Follow the color-review controls in `Docs/GoldenPaths/PlantVisualCoverage.md`.
 
+## Context reconstruction / source hierarchy
+
+For every new chat or agent session working on AMJ or a related mod, rebuild context from repository sources instead of treating accumulated chat history as the primary source of truth:
+
+1. Read this repository's `AGENTS.md` first.
+2. Read the authoritative `main:Docs/Coordination.md`.
+3. Read the relevant authoritative design, code, XML/Defs/Patches, localization, Golden Path, or other repository-owned source-of-truth files for the task.
+4. Use prior chat history or memory only as supplementary context. If it conflicts with repository sources, the repository sources win.
+
+Store information according to this hierarchy:
+
+- Confirmed specifications, design decisions, accepted values, and implementation facts -> the appropriate formal repository source of truth.
+- Cross-chat / cross-agent / cross-workstream handoff, current status, blockers, and requests -> `main:Docs/Coordination.md`.
+- Permanent operating rules that should govern future work -> `AGENTS.md`.
+- Do not leave a durable decision only in chat history or only in `Docs/Coordination.md`.
+
 ## Cross-chat / cross-agent coordination
 
 Do not use the user as a messenger between chats, agents, repositories, or workstreams.
