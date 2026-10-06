@@ -36,7 +36,7 @@ Primary design source:
 ## Active tree-art handoff
 
 - **Current stage:** PR #5 review; leafless beech snow rejected and revised candidate remains unapproved. Accepted base sprites and other reviewed states are preserved.
-- **Next target:** review foreground-occlusion revision 4 of `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` on PR #5; the twelve-cap revision 2 was rejected for ignoring branches. Native visual acceptance remains pending; existing Vanilla/MO retextures stay post-release.
+- **Next target:** review wider whole-tree accumulation revision 5 of `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` on PR #5; the twelve-cap revision 2 was rejected for ignoring branches. Native visual acceptance remains pending; existing Vanilla/MO retextures stay post-release.
 - **Approval state:** leafless snow is REVIEW, no approved filled exemplar; earlier paired snow OK is superseded for this variant only. Other recorded approvals remain state-specific.
 - **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 - **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
@@ -1084,3 +1084,7 @@ PR #5 now contains `c119755c51eb5d73c1ae8ea9822eb22d6477012a`: eight snow masses
 ### ENV-010 — Snow looked behind branches; foreground revision 4 pending
 
 Author: `雪が下のレイヤになってるように見える`. Actual composite order was master -> snow, but revision 3 stopped the cap at the branch silhouette, leaving original wood contour/face visually in front. PR #5 now has `501fc89d06aea530f7bf426802ce9cdd6b5eeaa3`: the same eight corridors and same mask/master with an opaque snow lip covering the original upper wood face, plus blue-grey front thickness. Upper branch outline/adjacent face occlusion, exact composition, reversed-order negative fixture, support/massing, PNG and ledger checks pass. No visual acceptance or game/native test is claimed; template `v4-review` and leafless snow remain REVIEW/pending. Earlier revision-3 acceptance-like geometry statements do not approve this image.
+
+### ENV-010 — More whole-tree snow requested; revision 5 pending
+
+Author requested `枝だから雪がつもりにくいのはそうだが、もうすこし全体的に積もらせたい`. PR #5 head `e37b4121c2511a4532ac356ccb3611b6ae3f27b9` adds seven upper/outer/lower ledges to the existing eight: fifteen supporting corridors / fourteen connected masses, solid snow 2108 -> 3628 pixels (~1.72x). Foreground occlusion, tapered branch-aligned thickness and exposed trunk/twig structure are retained. New allowed corridors are declared before painting under unapproved `v5-review`; accepted masters and other variants are unchanged. Core protected RGBA=0, support/occlusion/mass/layer-order, PNG and state ledger gates pass. No ImageGen, native/game test or visual acceptance is claimed. Leafless snow remains REVIEW/pending and PR remains draft.
