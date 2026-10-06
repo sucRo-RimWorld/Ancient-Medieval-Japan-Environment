@@ -4,7 +4,7 @@
 
 It creates an ancient-to-medieval-Japan-inspired environment with a humid climate, mountainous terrain, frequent short rivers, complex coastlines, temperature-based forest belts, and alpine zones.
 
-[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core]Ancient & Medieval Japan Core[/url] is not required. [b]If you only want a medieval-Japan-like natural environment, this mod can be used on its own.[/b]
+[b]If you only want a medieval-Japan-like natural environment, this mod can be used on its own.[/b]
 
 [h2]Main Features[/h2]
 [list]
@@ -85,7 +85,6 @@ AMJE does not globally replace MO's natural biome/terrain identity. Specialized 
 
 [b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul[/url] / [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
 
-[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core]Ancient & Medieval Japan Core[/url] is not required.
 
 [h2]Save Compatibility[/h2]
 

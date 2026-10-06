@@ -26,7 +26,6 @@
 ・任意MOD：Crop Cold Tolerance Overhaul（CCTO） https://rimworld.2game.info/detail.php?id=3812412548
 ・任意MOD：Medieval Overhaul https://rimworld.2game.info/detail.php?id=2553700067
 ・Medieval OverhaulのDark Forestなど、特殊Biomeは条件に応じて共存
-・Ancient & Medieval Japan Coreは不要 https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core
 
 ▼ セーブ互換性
 ・本来の世界生成や地形を確認するには新規ゲームを推奨

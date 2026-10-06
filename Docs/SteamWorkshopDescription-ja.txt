@@ -4,7 +4,7 @@
 
 古代～中世日本をイメージした、湿潤な気候、山がちな地形、短く多い河川、複雑な海岸線、温度帯ごとの森林、高山帯などをゲーム内に作ります。
 
-[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core]Ancient & Medieval Japan Core[/url]は不要です。[b]中世日本風の自然環境だけ欲しい場合は、このMod単体で遊べます。[/b]
+[b]中世日本風の自然環境だけ欲しい場合は、このMod単体で遊べます。[/b]
 
 [h2]主な特徴[/h2]
 [list]
@@ -85,7 +85,6 @@ MO固有の自然Biomeや地形を一律に置き換えず、Dark Forestなど�
 
 [b]任意:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul[/url] / [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
 
-[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core]Ancient & Medieval Japan Core[/url]は不要です。
 
 [h2]セーブ互換性[/h2]
 
