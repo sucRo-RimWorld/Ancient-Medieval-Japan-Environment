@@ -14,7 +14,7 @@
           "author_statement": "OK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-Review.log",
           "fingerprint": {
-            "definition": "9dff657c286d4aaa0aa4dff390e82e48f467a6d6d1cfdac6b9cc19cc4b490213",
+            "definition": "6be82bc7daf1d09af45d806e13407162e7c23d76840912a800fea64c33ade540",
             "pngs": {
               "Textures/Things/Plant/AMJ/Shii/Shii_A.png": "c40603c96e357f210ac394bc5c62f89449b37d43793262d692b604488c28d809"
             }
@@ -26,7 +26,7 @@
           "author_statement": "これ何回も見てるけどOK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
           "fingerprint": {
-            "definition": "9dff657c286d4aaa0aa4dff390e82e48f467a6d6d1cfdac6b9cc19cc4b490213",
+            "definition": "6be82bc7daf1d09af45d806e13407162e7c23d76840912a800fea64c33ade540",
             "pngs": {
               "Textures/Things/Plant/AMJ/Shii/Shii_A.png": "c40603c96e357f210ac394bc5c62f89449b37d43793262d692b604488c28d809"
             }
@@ -42,7 +42,7 @@
           "author_statement": "これ何回も見てるけどOK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
           "fingerprint": {
-            "definition": "9dff657c286d4aaa0aa4dff390e82e48f467a6d6d1cfdac6b9cc19cc4b490213",
+            "definition": "6be82bc7daf1d09af45d806e13407162e7c23d76840912a800fea64c33ade540",
             "pngs": {
               "Textures/Things/Plant/AMJ/Shii/Shii_A.png": "c40603c96e357f210ac394bc5c62f89449b37d43793262d692b604488c28d809"
             }
@@ -54,7 +54,7 @@
           "author_statement": "やや怪しいがこれで妥協",
           "evidence": "Docs/ValidationEvidence/ShiiSnowContour-SnowLeftContour.log",
           "fingerprint": {
-            "definition": "087e2888587124b5debaac657ad23bd593315086ab837773ee81166e69eabebd",
+            "definition": "8328055b4da52a752f11456da1c39045803b6282b731abfd234cddc28f57588c",
             "pngs": {
               "Textures/Things/Plant/AMJ/Shii/Shii_A.png": "c40603c96e357f210ac394bc5c62f89449b37d43793262d692b604488c28d809",
               "Textures/Things/Plant/AMJ/Shii_Snow/Shii_Snow_A.png": "5d9376ced78552f64631c89eda662aef51bd6faff4f1e098238ca0aa3c4b8bb7"
@@ -100,7 +100,7 @@
           "author_statement": "では採用で。",
           "evidence": "Docs/ArtDirection.md#Beech controlled autumn acceptance",
           "fingerprint": {
-            "definition": "1414ad599488c4dcfca918b41c7096bd2bd6524a2a2ba98d12e5f4ea2862f3a7",
+            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
@@ -115,7 +115,7 @@
           "author_statement": "OK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-Review.log",
           "fingerprint": {
-            "definition": "1414ad599488c4dcfca918b41c7096bd2bd6524a2a2ba98d12e5f4ea2862f3a7",
+            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
@@ -129,7 +129,7 @@
           "author_statement": "これ何回も見てるけどOK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
           "fingerprint": {
-            "definition": "1414ad599488c4dcfca918b41c7096bd2bd6524a2a2ba98d12e5f4ea2862f3a7",
+            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
@@ -158,7 +158,7 @@
           "author_statement": "問題なし",
           "evidence": "Docs/ArtDirection.md#Japanese beech — leafless",
           "fingerprint": {
-            "definition": "7b475bfd94f2547325ea59ece99b59c651e833eac2b795ee076e6899275ed7ed",
+            "definition": "e7b43a6b8675fd8ec8ba941f2d77f8bb9f90d56f47bd4b335a7022a363c49233",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112"
@@ -172,7 +172,7 @@
           "author_statement": "これ何回も見てるけどOK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
           "fingerprint": {
-            "definition": "1414ad599488c4dcfca918b41c7096bd2bd6524a2a2ba98d12e5f4ea2862f3a7",
+            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
@@ -186,7 +186,7 @@
           "author_statement": "ブナOKなのでPRマージして",
           "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md",
           "fingerprint": {
-            "definition": "f4de79a2337ba4ee16412a6e7d470cf18eae25dd5d9817a254502b668d4ba26e",
+            "definition": "55a774a1f2773677b1869db113513dffa3f37130a50dc8cc1b06e9ce750f4a87",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
@@ -209,7 +209,7 @@
           "verification_kind": "automated_native_calendar_sampling",
           "evidence": "Docs/ValidationEvidence/BeechSeasonSampleV5-Season.log",
           "fingerprint": {
-            "definition": "1414ad599488c4dcfca918b41c7096bd2bd6524a2a2ba98d12e5f4ea2862f3a7",
+            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
@@ -233,7 +233,7 @@
           "author_statement": "OK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-Review.log",
           "fingerprint": {
-            "definition": "fc9ca61057bb44713c4875038b5d2de371a6fa691eecc3ef6bea1914549625e9",
+            "definition": "60b039b9c5884b9bc661740f0aeaad386d0987a8469ed68b64403cc163423ed7",
             "pngs": {
               "Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png": "aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d"
             }
@@ -245,7 +245,7 @@
           "author_statement": "これ何回も見てるけどOK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
           "fingerprint": {
-            "definition": "fc9ca61057bb44713c4875038b5d2de371a6fa691eecc3ef6bea1914549625e9",
+            "definition": "60b039b9c5884b9bc661740f0aeaad386d0987a8469ed68b64403cc163423ed7",
             "pngs": {
               "Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png": "aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d"
             }
@@ -261,7 +261,7 @@
           "author_statement": "これ何回も見てるけどOK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
           "fingerprint": {
-            "definition": "fc9ca61057bb44713c4875038b5d2de371a6fa691eecc3ef6bea1914549625e9",
+            "definition": "60b039b9c5884b9bc661740f0aeaad386d0987a8469ed68b64403cc163423ed7",
             "pngs": {
               "Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png": "aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d"
             }
@@ -273,7 +273,7 @@
           "author_statement": "これ採用で",
           "evidence": "Docs/ValidationEvidence/ShirabisoSnowHeavy-Snow.log",
           "fingerprint": {
-            "definition": "766b47f6a2d972d7835460a64bf9a1f4166d8afe4d850146b0b2298a01905e87",
+            "definition": "8dd90c7ea9a446c805f7705a0ed29703c56fe06e1ddef48ca007b74e722396f6",
             "pngs": {
               "Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png": "aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d",
               "Textures/Things/Plant/AMJ/Shirabiso_Snow/Shirabiso_Snow_A.png": "49a98c4b54c6f263c019352aabdbddd7f20cb9aa6b2960e1a23c861e2df31ec6"
@@ -299,7 +299,7 @@
           "author_statement": "ハイマツOK",
           "evidence": "Docs/ValidationEvidence/HaimatsuInfoReview-Review.log",
           "fingerprint": {
-            "definition": "0af14b691f4388e30aed99e5f599e79d470956e18847200d555ebbfcd004e0c3",
+            "definition": "4f21c8ddbd1a9cc799277680acd2cb85906ae887f646c75650fba474523224db",
             "pngs": {
               "Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png": "a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6"
             }
@@ -311,7 +311,7 @@
           "author_statement": "これ何回も見てるけどOK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
           "fingerprint": {
-            "definition": "22a2081a4a40f510904cbf1da09182a0d1f6d350baa5f97d958eab2cb416c60f",
+            "definition": "c50b0d123ec98927d5f73df8100625e8c7927c8f84bba3fb166c3b6cc9b8ac95",
             "pngs": {
               "Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png": "a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6"
             }
@@ -327,7 +327,7 @@
           "author_statement": "これ何回も見てるけどOK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
           "fingerprint": {
-            "definition": "22a2081a4a40f510904cbf1da09182a0d1f6d350baa5f97d958eab2cb416c60f",
+            "definition": "c50b0d123ec98927d5f73df8100625e8c7927c8f84bba3fb166c3b6cc9b8ac95",
             "pngs": {
               "Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png": "a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6"
             }
@@ -339,7 +339,7 @@
           "author_statement": "問題なさそう",
           "evidence": "Docs/ValidationEvidence/HaimatsuSnowMasterRegistered-Snow.log",
           "fingerprint": {
-            "definition": "17cc5c175b49f6d6b8007812e669ca6ca55ac6d54bc1f9d6cfb1fbd53d6a1409",
+            "definition": "7463cc45d379669d65928629bc4fa5183ba2e4d2e6ada6589fa556b086faee3f",
             "pngs": {
               "Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png": "a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6",
               "Textures/Things/Plant/AMJ/Haimatsu_Snow/Haimatsu_Snow_A.png": "f77fb8d8db633c5c3b7452927e61bbde152a531fbb351c47f0a721587eef6147"
@@ -354,5 +354,7 @@
       }
     }
   },
-  "nonvisual_metadata_update": "2026-10-06: author-approved descriptions and six Haimatsu harvest fields only; normalized remaining Def identical and prior full visual fingerprints verified before migration. No new visual approval claimed."
+  "nonvisual_metadata_update": "2026-10-06: author-approved descriptions and six Haimatsu harvest fields only; normalized remaining Def identical and prior full visual fingerprints verified before migration. No new visual approval claimed.",
+  "fingerprint_schema": 2,
+  "fingerprint_migration": "2026-10-06: schema 2 excludes label/description so Japanese/English prose changes do not invalidate visual approvals; visual Def fields and owned PNG hashes remain guarded."
 }
