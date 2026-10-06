@@ -1,0 +1,33 @@
+name: Art rule structure
+
+on:
+  push:
+    paths:
+      - "AGENTS.md"
+      - "Docs/ArtDirection.md"
+      - "Docs/Coordination.md"
+      - "Docs/GoldenPaths/README.md"
+      - "Docs/GoldenPaths/RetextureGeneration.md"
+      - "Docs/GoldenPaths/TextureAssetPipeline.md"
+      - "Tests/test_art_rule_structure.py"
+      - ".github/workflows/art-rule-structure.yml"
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - "Docs/ArtDirection.md"
+      - "Docs/Coordination.md"
+      - "Docs/GoldenPaths/README.md"
+      - "Docs/GoldenPaths/RetextureGeneration.md"
+      - "Docs/GoldenPaths/TextureAssetPipeline.md"
+      - "Tests/test_art_rule_structure.py"
+      - ".github/workflows/art-rule-structure.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate Environment art-rule routing
+        run: python Tests/test_art_rule_structure.py
