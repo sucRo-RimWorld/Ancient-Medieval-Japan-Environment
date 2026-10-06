@@ -22,7 +22,7 @@ Source files:
 
 ## Release stage
 
-RimWorld 1.6 — Alpha
+RimWorld 1.6 — Beta
 
 ## Short description
 
@@ -42,7 +42,7 @@ Emphasize:
 - optional CCTO realism layer;
 - Medieval Overhaul coexistence;
 - save-compatibility limitations;
-- Alpha status and placeholder final artwork.
+- Beta status and the current AMJE structural-plant artwork; broader Vanilla / Medieval Overhaul tree retextures are post-publication follow-up.
 
 Keep detailed world-generation numbers, full test results, exact plant cold-tolerance values, implementation details, and research rationale in README / Design rather than the Workshop body.
 
