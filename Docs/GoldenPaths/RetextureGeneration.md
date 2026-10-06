@@ -70,8 +70,7 @@ If the target-specific request would contradict Core ArtStyle or ArtDirection, s
 
 ## Candidate review and production handoff
 
-Before presenting a generated candidate, compare it against the approved
-proposal and the viewed references:
+Before presenting a generated candidate, compare it against the current user request, any already-approved target design, and the viewed references:
 
 - category/silhouette and species distinction;
 - strong simplification, large masses and thick outline;
