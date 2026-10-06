@@ -321,6 +321,25 @@ Labels should remain unchanged unless there is a separate concrete naming issue.
 
 Japanese opening-name rule (shared AMJ policy): when an established kanji form exists, put it at the start of the description; include recognized aliases / alternate names and common alternate written forms there as well. Do not invent kanji or weakly sourced names. Current structural-plant name evidence: Forestry and Forest Products Research Institute identifies ブナ as 山毛欅 with aliases シロブナ / ホンブナ; Forestry Agency material records 橅 / 椈 as alternate writings, スダジイ aliases イタジイ / ナガジイ, シラビソ alias シラベ, and ハイマツ as 這松. Dictionary references record シラビソ as 白檜曽. English text is translated from the approved Japanese opening rather than independently normalized.
 
+Historical-description research basis for the current four-plant Japanese draft:
+- **Sudajii:** FFPRI identifies it as a warm-temperate evergreen canopy tree, records the aliases イタジイ / ナガジイ, and lists timber, bark-tannin/dye and edible-seed uses. Vegetation-history research places Castanopsis / evergreen broadleaf forest in western Japan by the Early Jomon; the Nara National Research Institute cultural-property database records Early-Jomon use of Castanopsis fruits at the Ireibaru site in Okinawa.
+- **Japanese beech:** FFPRI identifies ブナ as 山毛欅, aliases シロブナ / ホンブナ, and a principal cool-temperate deciduous tree. Vegetation-history research records Fagus in Jomon cool-temperate forests. A Nagano archaeological report records Fagus-genus wood among selectively used turned wooden vessels / lacquerware from the late Heian to medieval period. Forestry Agency material documents modern interior/furniture, mushroom-log and fuel uses.
+- **Shirabiso:** University of Tokyo and FFPRI sources identify 白檜曽 / シラビソ（シラベ） as a major subalpine evergreen conifer. Current Forestry Agency / Environment Ministry descriptions of Mt. Ontake record Shirabiso-dominated subalpine forest, while scholarship on Ontake worship places organized medieval worship / ascent in the later medieval period. The draft therefore describes the forest as part of the mountain-religion landscape without claiming a specific timber use.
+- **Haimatsu:** Forestry Agency and Ministry of the Environment sources identify 這松 as a representative alpine dwarf pine above the treeline. Botanical-history research treats its Japanese alpine distribution as a northern cold-climate lineage left at high elevation after postglacial warming. Current Mt. Ontake vegetation includes Haimatsu above the treeline; the historical sentence separately notes the mountain's later-medieval worship history rather than claiming direct medieval use of Haimatsu.
+
+Key references:
+- FFPRI Sudajii: https://www.ffpri.go.jp/kys/business/jumokuen/jumoku/zukan/sudajii.html
+- FFPRI distribution maps: https://www.ffpri.go.jp/labs/prdb/sudazii.html , https://www.ffpri.go.jp/labs/prdb/buna.html , https://www.ffpri.go.jp/labs/prdb/sirabiso.html
+- FFPRI beech name: https://www.ffpri.go.jp/fsm/business/jumokuen/06_ha/buna.html
+- Early-Jomon Castanopsis use (Nabunken): https://heritagemap.nabunken.go.jp/statistic/64887-%E4%BC%8A%E7%A4%BC%E5%8E%9F%E9%81%BA%E8%B7%A1.html
+- Jomon vegetation / wood use: https://doi.org/10.4116/jaqua.36.329
+- Medieval turned-wood evidence (Nagano archaeological report): https://sitereports.nabunken.go.jp/files/attach/9/9472/7427_1_%E5%B1%8B%E4%BB%A3%E9%81%BA%E8%B7%A1%E7%BE%A4.pdf
+- Forestry Agency beech modern use: https://www.rinya.maff.go.jp/kanto/joetu/invitation/invitation/shinetutrail.html
+- Mt. Ontake vegetation: https://www.rinya.maff.go.jp/chubu/policy/business/conservation/hogorin/2-20.html
+- Later-medieval Ontake worship: https://doi.org/10.57492/sangakushugen.42.0_5
+- Haimatsu alpine ecology: https://www.rinya.maff.go.jp/tohoku/syo/huzisato/zukan/haimatu.html
+- Alpine-flora history / Haimatsu: https://doi.org/10.18942/bunrui.KJ00004872189
+
 ## Thin Soil technical direction
 
 `AMJ_ThinSoil` currently reuses/tints Vanilla Gravel.
