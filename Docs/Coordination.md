@@ -712,7 +712,7 @@ Descriptions should contain supported historical facts and meaningful modern dif
 
 **Requested by:** author (2026-10-04 JST)  
 **Owner:** art/localization  
-**Status:** IN PROGRESS
+**Status:** DONE — accepted production appearance recorded in ArtDirection
 
 The Sudajii in-game comparison was reviewed against actual AMJE terrain and the current AMJ crop-art baseline. The author selected the strongest simplified/deformed **C-direction** and then approved a lower-saturation refinement for production.
 
@@ -830,7 +830,7 @@ Production binary transfer/integration remains governed separately by `Docs/Gold
 
 **Requested by:** continuation of Environment texture work  
 **Owner:** Environment/art + tooling  
-**Status:** DONE (binary recovery / automated gate); IN PROGRESS (focused visual review)
+**Status:** DONE — binary recovery and focused appearance review completed; later acceptance entry is authoritative
 
 The focused preflight found that the current leafy `Beech_A.png` blob `c0928ef133866cefb006dade3240238412190d39` passed chunk CRC validation but failed zlib decompression and normal Pillow image decoding. The earlier CRC-only correction therefore did not resolve the image payload corruption; prior static PASS must not be treated as proof that this image was decodable.
 
@@ -864,7 +864,7 @@ This confirmation does not supply a new automated runtime report or separately d
 **Owner:** Environment/art + documentation  
 **Status:** DONE (repository instructions / reusable generation entry)
 
-The generation entry is now `Docs/GoldenPaths/RetextureGeneration.md`, required from AGENTS and linked from ArtDirection, the Golden Path index and TextureAssetPipeline. It carries current-source reading, actual reference viewing/attachment, precise approval-stage recovery, proposal-before-generation, the complete shared prompt and candidate review into every new/resumed tree-art task. Visual specifications remain owned by ArtDirection; current progress remains only on main Coordination.
+The generation entry is now `Docs/GoldenPaths/RetextureGeneration.md`, required from AGENTS and linked from ArtDirection, the Golden Path index and TextureAssetPipeline. It carries current-source reading, actual reference viewing/attachment, precise work-stage recovery, current Core+Environment style-rule assembly, and candidate review into every new/resumed tree-art task. Visual specifications remain owned by ArtDirection; current progress remains only on main Coordination.
 
 No image was generated and no production asset or Def was changed for this request. Shirabiso's previously presented design remains awaiting author approval. The top Active tree-art handoff is the current restart position. Existing beech/Sudajii visual results and PNG regression gates are preserved.
 
@@ -876,7 +876,7 @@ Core policy/tooling is published in commit `7ce9af2ce4b3cf3bce1efda89ca1b199ab4e
 
 ### ENV-010 Shirabiso source approval and integration (2026-10-05 JST)
 
-**Status:** IN PROGRESS (source approved / installed; runtime visual review pending)
+**Status:** DONE — source/integration and later focused appearance acceptance completed
 
 The author approved the standalone generated Shirabiso. The approved source was resized once to 256x256 RGBA using Lanczos; the resulting PNG passed chunk CRC, zlib decompression, decoded byte count, Pillow loading, dimension/alpha and exact-copy checks before the Def path was changed. Production SHA-256: `aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d`. Existing Sudajii/beech files are unchanged. The source/design acceptance is canonical in ArtDirection.
 
