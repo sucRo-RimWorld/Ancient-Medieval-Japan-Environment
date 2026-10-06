@@ -24,10 +24,17 @@ Primary design source:
 - **DONE** — completed and reflected in the proper source of truth
 - **ARCHIVED** — retained for history only
 
+## Release priority handoff
+
+- **Current priority:** publish the first public AMJ Environment Alpha before starting Vanilla/MO tree retextures.
+- **Art boundary for first publication:** complete the already-integrated AMJE-owned structural vegetation review (including the pending Haimatsu Alpine appearance check) and Workshop presentation assets; Vanilla/MO tree retextures remain Environment-owned work but are post-publication follow-up.
+- **Public-copy state:** repository-side README / Japanese Workshop / English Workshop / About.xml sources are already prepared under DOC-001; the Steam Workshop page itself is not yet published.
+- **Do not start:** `Plant_TreeOak` or any later Vanilla/MO retexture until the first public release is complete, unless the author explicitly changes priority again.
+
 ## Active tree-art handoff
 
 - **Current stage:** Haimatsu source approved and installed; Alpine in-game review pending.
-- **Next target:** finish Haimatsu focused Alpine review, then prepare the next Vanilla tree proposal.
+- **Next target:** finish Haimatsu focused Alpine review as part of publication readiness. After publication, resume with the first Vanilla tree target.
 - **Approval state:** Haimatsu design approved with `y`, generated candidate approved with `OK` on 2026-10-05 JST.
 - **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 - **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
