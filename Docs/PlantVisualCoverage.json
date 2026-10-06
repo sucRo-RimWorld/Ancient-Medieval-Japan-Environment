@@ -69,7 +69,7 @@
       }
     },
     "AMJ_Tree_Beech": {
-      "complete": false,
+      "complete": true,
       "states": {
         "autumn": {
           "status": "accepted",
@@ -181,17 +181,27 @@
           }
         },
         "snow": {
-          "status": "pending",
+          "status": "accepted",
           "date": "2026-10-06",
-          "pending_variant": "leafless",
-          "leafy_variant_status": "accepted",
-          "review_reason": "Revision 5 source composite accepted as a compromise; native appearance of these exact bytes remains unreviewed.",
-          "evidence": "Docs/ValidationEvidence/BeechSnowReview-Snow.log",
-          "source_art_status": "accepted",
+          "author_statement": "ブナOKなのでPRマージして",
+          "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md",
+          "fingerprint": {
+            "definition": "f4de79a2337ba4ee16412a6e7d470cf18eae25dd5d9817a254502b668d4ba26e",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Things/Plant/AMJ/Beech_Snow/Beech_Snow_A.png": "221fdf06941864a7a366819042fe325b15ad587d5af9e3bb914a672b2f3d5f51",
+              "Textures/Things/Plant/AMJ/Beech_Leafless_Snow/Beech_Leafless_Snow_A.png": "3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b",
+              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+            }
+          },
+          "reviewed_variants": [
+            "leafy",
+            "leafless"
+          ],
+          "source_art_status": "accepted_as_compromise",
           "source_author_statement": "これで妥協する",
-          "source_approval_date": "2026-10-06",
-          "source_approval_evidence": "Docs/ValidationEvidence/BeechLeaflessSnowSourceAcceptance.md",
-          "source_composite_sha256": "24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126"
+          "native_author_statement": "ブナOKなのでPRマージして"
         },
         "transition": {
           "status": "verified",
