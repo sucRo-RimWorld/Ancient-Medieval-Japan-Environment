@@ -211,8 +211,7 @@ def build(leafless):
         'mask_meaning': mask_meaning,
         'layer_order': ['immutable master', 'snow-only overlay'],
     }
-    registry.write_text(json.dumps(spec, indent=2) + '
-', encoding='utf-8')
+    registry.write_text(json.dumps(spec, indent=2) + '\n', encoding='utf-8')
 
     preview = Image.alpha_composite(master, layer)
     fixed_template.validate(master, mask, preview)
