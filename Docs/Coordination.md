@@ -1181,3 +1181,48 @@ YADAがMod表示名を一時ディレクトリ名に使用し、Windowsで半角
 Added Docs/2GameDescription-ja.txt and Docs/2GamePresentation.md using CCTO's short summary and six ▼ sections, plain Japanese and short bullets. Content is contained within README: standalone environment scope, four biome bands/plants, optional CCTO/MO, new-game recommendation, unverified existing-save addition, removal limitations and post-Beta tree retextures. Related published mods link to 2game; AMJ Core links to GitHub because no 2game page ID is recorded. AMJE's own GitHub appears once at the end. No AMJE listing ID is invented.
 
 AGENTS routes 2game work to Core's shared ModDescriptionGuidelines.md, now explicitly covering the AMJ-wide template. Validation: ordered six headings, plain-style/format checks, expected direct links, README/Workshop/About consistency and diff whitespace. Reusable update checks are recorded in Docs/2GamePresentation.md; no new runtime result is needed for this text-only task.
+
+### TEST-WORKSHOP-001 — Actual distributed four-profile runtime gate
+
+**Requested by:** author (2026-10-06 JST; closeout 2026-10-07 JST)
+**Owner:** Testing / release
+**Status:** TESTING DONE; RELEASE HANDOFF OPEN — author-manual Workshop payload update required
+
+Actual Workshop3814638060 was tested on a non-visible Windows desktop with
+Direct3D enabled, using six existing map/world/texture/loaded-Def Quickstarts
+per configuration. Vanilla+AMJE227/227, MO+AMJE227/227, CCTO+AMJE275/275,
+MO+CCTO+AMJE275/275; all24 reports have zero runtime/pre-launch ERROR,
+complete live capture and no truncation. An independent observer proves one
+AMJE pack and the production DLL loaded from the actual Workshop directory.
+MO and dependencies were real Workshop versions, not fixtures. MO DarkForest
+final soil patch and AMJE Def ownership also passed supplemental checks.
+
+Applying current-main's existing native-cutting regression to that unchanged
+payload failed7/9 in all four profiles: Haimatsu has no harvested resource and
+produces zero wood. Other three species cut correctly. Current main already
+contains the base8 fix; its existing Vanilla/MO harvest runner was rebuilt and
+rerun with9/9 each and zero Unity/structured ERROR. No new production XML or
+DLL repair was needed. That main-derived fixture PASS is not a Workshop PASS.
+
+**Release request:** manually publish the current accepted runtime payload,
+then test the actual downloaded new manifest. Current Workshop final release
+approval is HOLD on the missing Haimatsu cutting contract. Do not substitute
+the local development Mod or overwrite the installed Workshop files.
+This note is the release-workstream handoff; the user is not asked to relay it.
+
+Inherited warnings were identified: Japanese Vanilla Def-injection36 plus a
+FactionGreetingWarm argument mismatch, installed-mod metadata discovery
+warnings, and absent Highland climate representative in the tiny test world.
+No AMJE translation key error, startup exception, PatchOperation failure or
+CCTO/MO conflict was observed. Long-running play/highland annual coverage is
+outside this short gate.
+
+All1112 original Workshop files and normal configuration hashes remained
+unchanged. Steam externally added only About/preview.png during closeout:
+manifest8889000939694660295 ->8630945342812668549; runtime bytes unchanged.
+No Steam upload is claimed by this testing workstream.
+
+Durable evidence/procedure: Docs/GoldenPaths/WorkshopRuntimeTests.md;
+test-only source/Def observer and deterministic current-regression staging
+helper are retained in Tests/Release and Scripts. Local full logs/manifests
+are linked in that document. Production art/Defs/order/saves are preserved.
