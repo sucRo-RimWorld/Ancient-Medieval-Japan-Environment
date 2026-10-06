@@ -43,6 +43,21 @@ Primary design source:
 
 ## Current coordination items
 
+### DOC-WORKSHOP-003 — linked named mods and post-Beta retexture roadmap
+
+**Requested by:** author (2026-10-06 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE
+
+README remains the detailed public source and now has direct links for Ancient & Medieval Japan Core, CCTO, Medieval Overhaul, and Harmony plus an explicit Planned follow-up section for staged Vanilla / Medieval Overhaul tree retextures.
+
+Japanese Workshop copy was updated first, then English synchronized. Named external/related mods now receive direct links without repeating long URLs on every occurrence: published mods use Steam Workshop links; AMJ Core currently links to its GitHub repository because no public Workshop item is recorded. The development-status heading now explicitly includes future plans, with the existing post-Beta Vanilla / Medieval Overhaul tree-retexture plan retained as the summary.
+
+Current maintained description sizes remain below Steam's 8,000-byte limit: Japanese 7,715 bytes; English 7,838 bytes.
+
+Steam publication itself remains author-manual and is not claimed by these repository changes.
+
+
 ### DOC-WORKSHOP-002 — Biome rationale and representative-tree section
 
 **Requested by:** author (2026-10-06 JST)  
