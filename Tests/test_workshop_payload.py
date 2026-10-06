@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import subprocess
 
 spec = importlib.util.spec_from_file_location('payload', Path(__file__).resolve().parents[1] / 'Scripts/Build-WorkshopPayload.py')
 payload = importlib.util.module_from_spec(spec)
@@ -55,6 +56,27 @@ class GateTests(unittest.TestCase):
     def test_yada_defensive_exclusions(self):
         rules = set((payload.ROOT / '.rimignore').read_text().splitlines())
         self.assertTrue(set(payload.EXCLUDED) <= rules)
+
+    def test_dirty_and_wrong_head_are_rejected_before_build(self):
+        original = payload.ROOT
+        with tempfile.TemporaryDirectory() as temp:
+            payload.ROOT = Path(temp)
+            def git(*args):
+                return subprocess.check_output(['git', '-C', temp, *args], text=True).strip()
+            try:
+                git('init', '-q')
+                file = Path(temp) / 'input.xml'; file.write_text('approved')
+                git('add', 'input.xml')
+                git('-c', 'user.name=Regression', '-c', 'user.email=regression@example.invalid', 'commit', '-qm', 'fixture')
+                sha = git('rev-parse', 'HEAD')
+                with self.assertRaisesRegex(ValueError, 'pinned HEAD'):
+                    payload.build(Path(temp) / 'output', '0' * 40, Path(temp), file)
+                file.write_text('uncommitted change')
+                with self.assertRaisesRegex(ValueError, 'tracked modifications'):
+                    payload.build(Path(temp) / 'output', sha, Path(temp), file)
+                self.assertFalse((Path(temp) / 'output').exists())
+            finally:
+                payload.ROOT = original
 
 
 if __name__ == '__main__':

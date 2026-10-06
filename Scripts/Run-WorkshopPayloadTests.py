@@ -37,8 +37,9 @@ def run(payload, manifest, output, game, steam):
     normal_before = {name: payload_tool.digest((normal / name).read_bytes()) for name in ('ModsConfig.xml', 'Prefs.xml')}
     mods = game / 'Mods'
     observer = mods / 'AMJE.PayloadGateObserver'
+    error_observer = mods / 'AMJE.PayloadGateEarlyErrors'
     fixture = mods / 'AMJE.PayloadGateCandidate'
-    if observer.exists() or fixture.exists():
+    if observer.exists() or fixture.exists() or error_observer.exists():
         raise ValueError('Existing release fixtures require inspection')
     output.mkdir(parents=True)
     (output / 'Before.json').write_text(json.dumps({'payload': before, 'normal': normal_before}, indent=2))
@@ -63,19 +64,25 @@ def run(payload, manifest, output, game, steam):
         references = [managed / x for x in ('Assembly-CSharp.dll', 'UnityEngine.CoreModule.dll', 'UnityEngine.IMGUIModule.dll', 'Unity.Mathematics.dll', 'Unity.Collections.dll', 'netstandard.dll')]
         references += [next((workshop / mod).rglob(dll)) for mod, dll in [('2009463077', '0Harmony.dll'), ('3793646067', 'Quickstarts.dll')]]
         call([csc, '/nologo', '/target:library', '/out:' + str(observer / 'Assemblies/ReleaseGate.dll'),
-              *['/reference:' + str(p) for p in references], generated / 'WorkshopHarvestQuickstarts.cs', ROOT / 'Tests/Release/WorkshopSourceAudit.cs', ROOT / 'Tests/Release/HarvestErrorObserver.cs'])
+              *['/reference:' + str(p) for p in references], generated / 'WorkshopHarvestQuickstarts.cs', ROOT / 'Tests/Release/WorkshopSourceAudit.cs'])
+        error_observer.mkdir(); owned.append(error_observer)
+        (error_observer / 'About').mkdir(); (error_observer / 'Assemblies').mkdir()
+        (error_observer / 'About/About.xml').write_text('<ModMetaData><name>AMJE early Unity errors (temporary)</name><author>AMJ testing</author><packageId>sucro.amje.payloadgateerrors</packageId><supportedVersions><li>1.6</li></supportedVersions></ModMetaData>')
+        call([csc, '/nologo', '/target:library', '/out:' + str(error_observer / 'Assemblies/EarlyErrors.dll'),
+              *['/reference:' + str(managed / p) for p in ('Assembly-CSharp.dll', 'UnityEngine.CoreModule.dll', 'netstandard.dll')], ROOT / 'Tests/Release/HarvestErrorObserver.cs'])
         desktop = output / 'IsolatedDesktopRunner.exe'
         call([csc, '/nologo', '/target:exe', '/out:' + str(desktop), ROOT / 'Tests/Release/IsolatedDesktopRunner.cs'])
         summary = {'source': 'Steam downloaded root' if steam else 'main candidate; only fixture About identity changed', 'root': str(payload), 'profiles': {}}
         for mode in PROFILES:
             config_dir = output / ('SaveData-' + mode) / 'Config'; config_dir.mkdir(parents=True)
             config = ET.parse(normal / 'ModsConfig.xml'); active = config.find('activeMods'); active.clear()
-            ids = ['brrainz.harmony', 'ludeon.rimworld', 'sucro.amje.payloadgateobserver', 'rimworks.rimlogging', 'rimworks.quickstarts']
+            ids = ['brrainz.harmony', 'ludeon.rimworld', 'sucro.amje.payloadgateerrors', 'rimworks.rimlogging', 'rimworks.quickstarts']
             if mode.startswith('MO'):
                 ids += ['oskarpotocki.vanillafactionsexpanded.core', 'syrchalis.processor.framework', 'dankpyon.medieval.overhaul']
             if 'CCTO' in mode:
                 ids += ['sucro.cropcoldtoleranceoverhaul_steam']
             ids += ['sucro.ancientmedievaljapan.environment_steam' if steam else 'sucro.ancientmedievaljapan.environment.releasevalidation']
+            ids += ['sucro.amje.payloadgateobserver']
             for value in ids: ET.SubElement(active, 'li').text = value
             config.write(config_dir / 'ModsConfig.xml', encoding='utf-8', xml_declaration=True)
             prefs = ET.parse(normal / 'Prefs.xml')
@@ -112,7 +119,9 @@ def run(payload, manifest, output, game, steam):
                     if not data['passed'] or data['total'] != count or data['failed'] or data['preLaunchErrors'] or data.get('logErrors', 0) or not data['captureLive'] or data['logTruncated']:
                         raise ValueError('Invalid report: ' + name)
                     log = (directory / (name + '.log')).read_text(encoding='utf-8-sig')
-                    if '[AMJE WorkshopSourceAudit] PASS sourceRoot=' + str(selected) not in log or re.search(r'\[ERROR\]|Level:\s*ERROR', log):
+                    if ('[AMJE WorkshopSourceAudit] PASS sourceRoot=' + str(selected) not in log
+                            or 'Version:  Direct3D 11.0' not in log or '-nographics' in log
+                            or re.search(r'\[ERROR\]|Level:\s*ERROR', log)):
                         raise ValueError('Source/ERROR gate: ' + name)
                     found = re.findall(r'\[AMJE WorkshopSourceAudit\] MOD package=(\S+) root=', log)
                     if sorted(i.lower().removesuffix('_steam') for i in found) != sorted(i.removesuffix('_steam') for i in ids):
@@ -131,7 +140,7 @@ def run(payload, manifest, output, game, steam):
     finally:
         retired = output / 'Retired'; retired.mkdir(exist_ok=True)
         for target in owned:
-            if target.parent != mods or target.name not in ('AMJE.PayloadGateObserver', 'AMJE.PayloadGateCandidate'):
+            if target.parent != mods or target.name not in ('AMJE.PayloadGateObserver', 'AMJE.PayloadGateCandidate', 'AMJE.PayloadGateEarlyErrors'):
                 raise ValueError('Unsafe retirement target')
             shutil.move(str(target), retired / target.name)
         if before != payload_tool.inventory(payload) or any(payload_tool.digest((normal / name).read_bytes()) != value for name, value in normal_before.items()):

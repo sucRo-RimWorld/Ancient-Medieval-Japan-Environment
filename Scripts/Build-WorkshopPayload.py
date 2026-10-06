@@ -79,7 +79,7 @@ def build(output, expected_commit, game, preview):
             raise ValueError('Untracked runtime content: ' + str(sorted(disk - set(tracked))))
     # Build here, never accept an existing developer DLL as provenance.
     subprocess.run(['cmd.exe', '/d', '/c', str(ROOT / 'build.bat'), str(game)], cwd=ROOT, check=True)
-    if git('diff', 'HEAD', '--name-only'):
+    if git('rev-parse', 'HEAD') != head or git('diff', 'HEAD', '--name-only'):
         raise ValueError('Build modified tracked inputs')
     data = {k: (ROOT / k).read_bytes() for k in tracked if k.split('/')[0] in FOLDERS}
     for name in ('LICENSE', 'README.md'):

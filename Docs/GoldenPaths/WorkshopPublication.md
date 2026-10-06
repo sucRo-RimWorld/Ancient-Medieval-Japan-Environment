@@ -44,6 +44,9 @@ with no provenance/exact-payload gate and ineffective development exclusions.
 
 Full read-only comparison is retained locally in
 `Mods/AncientMedievalJapanEnvironment/TestResults/WorkshopReleaseRepair/Audit.json`.
+Reproduce the same-path and actual local YADA-rule comparison with
+`python Scripts/Audit-WorkshopUploadSource.py --workshop INSTALLED_ROOT
+--development DEVELOPMENT_ROOT --output FRESH_EVIDENCE_JSON`.
 Original runtime evidence remains in the location listed by WorkshopRuntimeTests.
 
 ## Reusable sequence
@@ -87,3 +90,10 @@ Original runtime evidence remains in the location listed by WorkshopRuntimeTests
 The source observer defaults to the actual Workshop path; an explicit expected
 root supports candidate validation without asserting that a candidate is Steam.
 Existing game behavior is unchanged: the accepted main Haimatsu fix is reused.
+
+The independent Unity capture Mod loads immediately after Vanilla Core; the
+Quickstarts-dependent source/regression observer loads after Quickstarts and
+the selected production Mod. Combining both into an early-loaded DLL caused
+ReflectionTypeLoadException during the first candidate run. Keep their assembly
+dependencies separate and retain every per-process Unity error log; overwriting
+one shared error file across six games would lose earlier startup errors.

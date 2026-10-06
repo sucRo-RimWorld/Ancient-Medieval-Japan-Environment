@@ -155,6 +155,13 @@ For Vanilla / Medieval Overhaul / other prerequisite-asset retextures, also foll
 
 ## Workshop art-source exclusion
 
+Workshop updates must use a pinned, manifest-verified runtime payload prepared
+through `Docs/GoldenPaths/WorkshopPublication.md`. Do not publish a dirty
+development root or infer upload provenance from Git main. Keep developer tests,
+results, scripts and authoring sources out of the payload; validate the selected
+upload root immediately before the author's manual upload. Only actual Steam
+download/source verification and the four-profile cutting gate clear release HOLD.
+
 The repository-root `Art/` tree is development-only authoring material and must not be uploaded to Steam Workshop.
 
 - Keep `Art` in the root `.rimignore` so YADA excludes the entire tree recursively.
