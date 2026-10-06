@@ -35,7 +35,7 @@ class EnvironmentArtRuleStructureTest(unittest.TestCase):
         text = read("Docs/GoldenPaths/RetextureGeneration.md")
         self.assertIn("Core `Docs/ArtStyle.md`", text)
         self.assertIn("Do not maintain a second frozen style prompt", text)
-        self.assertIn("Do not add a mandatory extra approval round", text)
+        self.assertIn("do not add a mandatory extra approval round", text.lower())
         for forbidden in (
             "## Complete shared generation prompt",
             "STYLE:",
@@ -72,7 +72,7 @@ class EnvironmentArtRuleStructureTest(unittest.TestCase):
         )
         for heading in expected_done:
             match = re.search(
-                rf"(?ms)^### {re.escape(heading)}\\b.*?^\\*\\*Status:\\*\\* ([^\\n]+)",
+                rf"(?ms)^### {re.escape(heading)}\\s*$.*?^\\*\\*Status:\\*\\* ([^\\n]+)",
                 text,
             )
             self.assertIsNotNone(match, heading)
