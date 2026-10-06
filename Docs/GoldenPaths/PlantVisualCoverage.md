@@ -139,3 +139,26 @@ For actual UI icon review set RIMWORLD_AMJE_ICON_REVIEW=1 with AMJPlantGrowthRev
 For Haimatsu native info-card review use RIMWORLD_AMJE_HAIMATSU_INFO_REVIEW=1 and unset icon/snow-review flags. The growth quickstart opens Dialog_InfoCard for an actual spawned Haimatsu. Assert live GenUI.IconDrawScale=1, drawSize=2.60 and visualSizeRange=0.45..0.75. Explicit uiIconPath reuses the accepted sprite and prevents GenUI from applying map drawSize to UI icons; do not compensate by changing map size.
 
 Automatic seasonal transition mechanics may use verified status with automated_native_calendar_sampling evidence, current fingerprint and explicit scope; do not require repeated human approval for mechanics already verified automatically. This differs from accepted visual appearance. Preserve earlier leafless approval when the approved leafless image/size is unchanged and only leafy fall palette/snow/UI settings changed; inspect prior_acceptance before requesting another check.
+
+## GitHub Actions routing and notification noise
+
+The coverage workflow runs for pushes to main and for pull requests targeting
+main. Feature-branch pushes do not also run a duplicate coverage job. Relevant
+paths are the ledger, ArtDirection/snow plan, retained validation evidence,
+Art templates/sources, textures, plant Defs, Tests, art scripts and the workflow
+itself. Unrelated documentation and main Coordination updates do not trigger it.
+Use workflow_dispatch for an explicit diagnostic run.
+
+A draft PR validates inventory/evidence consistency and all existing production
+texture/snow guards. Pending human reviews remain visible but alone are not a
+failure while the PR is a draft. A ready PR still requires --require-complete;
+ready_for_review is an explicit trigger so converting a draft cannot bypass the
+completion gate. Any inventory, evidence, fingerprint or texture error fails
+both draft and ready checks. This is not a replacement for author approval.
+
+Concurrency retains the newest run per PR/ref and cancels superseded active
+runs. Before publishing workflow edits, parse the YAML and check main-only push
+routing, ready_for_review/converted_to_draft triggers, relevant path coverage,
+and the two consistency/completion command conditions. Then confirm the actual
+GitHub Actions run, including production texture/snow validation, succeeds.
+Repair a failing gate before stacking unrelated changes on the same branch.
