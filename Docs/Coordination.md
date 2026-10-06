@@ -1226,3 +1226,15 @@ Durable evidence/procedure: Docs/GoldenPaths/WorkshopRuntimeTests.md;
 test-only source/Def observer and deterministic current-regression staging
 helper are retained in Tests/Release and Scripts. Local full logs/manifests
 are linked in that document. Production art/Defs/order/saves are preserved.
+
+
+### PUB-WORKSHOP-002 — Upload-root provenance and release gate repair (2026-10-07 JST)
+
+**Owner:** Release / testing
+**Status:** IN PROGRESS — actual Steam update remains author-manual
+
+Read main AGENTS, TEST-WORKSHOP-001 and WorkshopRuntimeTests before work. Dirty production checkout is preserved; work uses a separate main clone under TestResults/WorkshopReleaseRepair/Repository. Current Steam manifest remains 8630945342812668549.
+
+Read-only evidence: all1113 installed Workshop file hashes equal the same relative paths in the dirty development root. Its root Haimatsu Def lacks harvest fields, whereas shipped TestResults/SourceSync/Defs contains the fixed Def. Steam workshop_log records successful content uploads at 23:01 and23:26 on2026-10-06 and the latter preview path under Mods/AncientMedievalJapanEnvironment/About. YADA copies the selected ModMetaData.RootDir through Scanner; the local .rimignore is generic and excludes neither Art nor TestResults. Git's _AMJ_PublishStaging worktree registration points to a missing path. This establishes wrong-root publication and missing payload/provenance gates; no claim that YADA loses XML fields or that an absent staging path was uploaded.
+
+Next: formal immutable main-derived payload builder, exact file/provenance/harvest regression guards, durable Golden Path and candidate tests. No duplicate production behavior patch. Workshop source, normal settings and saves are not changed. Release HOLD until author publication and actual downloaded four-profile/cutting gate.
