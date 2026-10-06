@@ -47,26 +47,22 @@ Primary design source:
 
 **Requested by:** author (2026-10-06 JST)  
 **Owner:** Documentation/release  
-**Status:** IN PROGRESS — README detailed source updated; Japanese Workshop summary drafted; English translation intentionally deferred pending Japanese approval
+**Status:** DONE — Japanese Workshop summary approved and English synchronized
 
-README now contains the detailed public explanation of why AMJE uses four broad vegetation/climate bands and why each band receives one AMJE-owned structural representative: Warm-temperate / Sudajii, Cool-temperate / Japanese beech, Subalpine / Shirabiso, Alpine / Haimatsu. It also includes the four production plant images and longer ecological/historical summaries.
+README contains the detailed public explanation of why AMJE uses four broad vegetation/climate bands and why each band receives one AMJE-owned structural representative: Warm-temperate / Sudajii, Cool-temperate / Japanese beech, Subalpine / Shirabiso, Alpine / Haimatsu. It also includes the four AMJE in-game plant graphics and longer ecological/historical summaries.
 
-The Japanese Workshop source is the concise summary of that README content. It explains the same biome/plant rationale, embeds the four production PNGs via raw GitHub URLs, and keeps the plant notes shorter than README/in-game descriptions. Workshop must not become the only location for substantive public information.
-
-Do not translate the new Workshop section into English until the author approves the Japanese wording, per the project-wide Japanese-first publication rule.
+The approved Japanese Workshop source is the concise summary of that README content. Japanese and English Workshop sources now explain the same biome/plant rationale, embed the four AMJE in-game production PNGs via raw GitHub URLs, and keep the plant notes shorter than README/in-game descriptions. These images are the actual Mod graphics, not real-world tree photographs.
 
 
 ### LOC-ENV-001 — Kanji / alias opening pass for current AMJE descriptions
 
 **Requested by:** author (2026-10-06 JST)  
 **Owner:** Environment localization  
-**Status:** IN PROGRESS — expanded Japanese draft prepared; author approval pending; English intentionally deferred
+**Status:** DONE — expanded Japanese descriptions approved and English synchronized
 
-The four structural-plant Japanese descriptions have now been expanded using the AMJ educational structure: name/aliases → Japanese distribution/ecological context → supported ancient/medieval role or landscape context → modern difference/use where supportable. The current draft also uses literal `\n\n` paragraph breaks between those logical sections for RimWorld readability. Durable research/source rationale is recorded in `Docs/ArtDirection.md`.
+The four structural-plant descriptions now use the AMJ educational structure: name/aliases → Japanese distribution/ecological context → supported ancient/medieval role or landscape context → modern difference/use where supportable. Japanese text uses literal `\n\n` paragraph breaks between logical sections for RimWorld readability, and the English Def defaults now translate that approved Japanese content with aligned paragraph structure.
 
-The draft deliberately distinguishes direct evidence from landscape context. Sudajii uses Early-Jomon Castanopsis fruit-use evidence; Japanese beech uses Jomon vegetation evidence plus late-Heian/medieval Fagus-genus turned-wood evidence; Shirabiso and Haimatsu do not fabricate specific medieval resource uses, and instead connect their verified Mt. Ontake vegetation roles with independently attested later-medieval mountain worship.
-
-The English Def descriptions remain deliberately unsynchronized until the author approves these expanded Japanese descriptions. Do not translate an intermediate Japanese draft.
+The descriptions deliberately distinguish direct evidence from landscape context. Sudajii uses Early-Jomon Castanopsis fruit-use evidence; Japanese beech uses Jomon vegetation evidence plus late-Heian/medieval Fagus-genus turned-wood evidence; Shirabiso and Haimatsu do not fabricate specific medieval resource uses, and instead connect their verified Mt. Ontake vegetation roles with independently attested later-medieval mountain worship.
 
 Shared durable policy: Core `Docs/HistoricalDescriptionGuidelines.md` commit `9859b6d4a9d6a5a7f4829ae067c5c79318ab57ee`.
 
