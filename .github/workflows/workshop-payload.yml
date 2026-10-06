@@ -1,0 +1,17 @@
+name: Workshop payload regression
+on:
+  push:
+    branches: [main]
+    paths: ['Scripts/Build-WorkshopPayload.py', 'Scripts/Run-WorkshopPayloadTests.py', 'Tests/test_workshop_payload.py', '.rimignore', '.github/workflows/workshop-payload.yml']
+  pull_request:
+    paths: ['Scripts/Build-WorkshopPayload.py', 'Scripts/Run-WorkshopPayloadTests.py', 'Tests/test_workshop_payload.py', '.rimignore', '.github/workflows/workshop-payload.yml']
+jobs:
+  publication-guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: python Tests/test_workshop_payload.py
+      - run: python -m py_compile Scripts/Build-WorkshopPayload.py Scripts/Run-WorkshopPayloadTests.py

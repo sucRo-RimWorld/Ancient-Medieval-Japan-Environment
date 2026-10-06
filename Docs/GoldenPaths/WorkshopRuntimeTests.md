@@ -1,5 +1,8 @@
 # Actual Workshop payload release gate
 
+Publication provenance and candidate preparation: [WorkshopPublication.md](WorkshopPublication.md).
+The map-only PASS does not clear the current native-cutting release contract.
+
 ## 2026-10-06/07 JST result
 
 The installed Steam payload is Workshop **3814638060**, packageId

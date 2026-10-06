@@ -1,3 +1,20 @@
 # YADA Workshop upload exclusions.
 # Art contains development-only masters, templates, and authoring files.
 Art
+TestResults
+Tests
+Scripts
+Source
+DevQuickstarts
+.git
+.github
+AGENTS.md
+Docs
+*.bat
+*.ps1
+*.py
+*.pdb
+*.pyc
+__pycache__
+obj
+bin

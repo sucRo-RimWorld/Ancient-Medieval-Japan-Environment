@@ -12,7 +12,9 @@ public static class WorkshopSourceAudit {
   var mods=LoadedModManager.RunningModsListForReading;
   foreach(var m in mods) Log.Message("[AMJE WorkshopSourceAudit] MOD package="+m.PackageIdPlayerFacing+" root="+m.RootDir);
   var packs=mods.Where(m=>m.PackageIdPlayerFacing.StartsWith("sucro.ancientmedievaljapan.environment",StringComparison.OrdinalIgnoreCase)).ToArray();
-  string expected=@"D:\SteamLibrary\steamapps\workshop\content\294100\3814638060";
+  string expected=System.Environment.GetEnvironmentVariable("AMJE_EXPECTED_PAYLOAD_ROOT");
+  if(String.IsNullOrEmpty(expected)) expected=@"D:\SteamLibrary\steamapps\workshop\content\294100\3814638060";
+  expected=Path.GetFullPath(expected).TrimEnd('\\');
   if(packs.Length!=1 || !String.Equals(Path.GetFullPath(packs[0].RootDir).TrimEnd('\\'),expected,StringComparison.OrdinalIgnoreCase)) throw new Exception("Workshop source mismatch");
   var assembly=AppDomain.CurrentDomain.GetAssemblies().Single(a=>a.GetName().Name=="AncientMedievalJapanEnvironment");
   if(!assembly.Location.StartsWith(expected+"\\",StringComparison.OrdinalIgnoreCase)) throw new Exception("Production assembly source mismatch: "+assembly.Location);
@@ -36,6 +38,6 @@ public static class WorkshopSourceAudit {
    File.WriteAllText(output,builder.ToString(),Encoding.UTF8);
    Log.Message("[AMJE WorkshopSourceAudit] Translation diagnostics saved="+output);
   }
-  Log.Message("[AMJE WorkshopSourceAudit] PASS workshopId=3814638060 root="+packs[0].RootDir+" assembly="+assembly.Location);
+  Log.Message("[AMJE WorkshopSourceAudit] PASS sourceRoot="+packs[0].RootDir+" assembly="+assembly.Location);
  }catch(Exception e){Log.Error("[AMJE WorkshopSourceAudit] ERROR "+e);}}
 }
