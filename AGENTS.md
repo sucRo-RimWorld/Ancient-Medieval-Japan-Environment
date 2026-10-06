@@ -7,7 +7,7 @@ Before starting work in this repository:
 1. Read this file.
 2. Read the authoritative coordination log at `main:Docs/Coordination.md`.
 3. Check for OPEN / IN PROGRESS items owned by the current workstream before starting new work.
-4. For plant/tree image-generation or retexture work, enter through `Docs/GoldenPaths/RetextureGeneration.md` before any generation call. Read its current main version, load and actually view the accepted reference PNGs, and carry its complete shared prompt into the generator.
+4. For plant/tree art, follow the art routing section below.
 
 ## Cross-chat / cross-agent coordination
 
@@ -127,25 +127,17 @@ For Vanilla / Medieval Overhaul / other prerequisite-asset retextures, also foll
 - Keep pure retexture changes visual-only and preserve source rendering metadata unless the replacement technically requires a documented rendering adjustment.
 - Guard optional MO patches and validate the final AMJE path against known explicit-path competitors such as ReGrowth/VTE where they touch the same field.
 
-## Retexture visual-style rule
+## Art / retexture routing
 
-Tree/plant retextures must follow the canonical shared visual-style rules in `Docs/ArtDirection.md` under **Retexture visual-style rules**, then add only species-specific differences.
+Do not duplicate detailed art rules in AGENTS.
 
-Do not design each asset from scratch. Reuse the shared AMJE baseline for:
-- strong simplification/deformation rather than botanical realism;
-- thick dark outline and restrained low-to-medium saturation;
-- limited color steps with only subtle gradient variation;
-- transparent background with no decorative ground base;
-- species differentiation through silhouette/structure, not color alone;
-- leafy/leafless continuity for deciduous trees;
-- normal-game-zoom readability over fine detail.
+For Environment art, use:
+1. Core `Docs/ArtStyle.md` — AMJ-wide visual invariants;
+2. `Docs/ArtDirection.md` — Environment-specific tree/plant/terrain/world style and accepted species baselines;
+3. `Docs/GoldenPaths/RetextureGeneration.md` — generation entry/preflight only;
+4. `Docs/GoldenPaths/TextureAssetPipeline.md` — installation/export/validation;
+5. Core `Docs/GoldenPaths/FixedImageTemplates.md` only when a visible component is intentionally reused pixel-exactly.
 
-Use accepted Sudajii and Japanese beech assets as the current evergreen-broadleaf and deciduous-broadleaf reference baselines. Production transfer/integration must separately follow `Docs/GoldenPaths/TextureAssetPipeline.md`.
+Environment-specific rules may define controlled class differences, such as restrained internal gradient variation for tree sprites, but they must remain compatible with the shared AMJ invariants unless the owning style specification explicitly records an exception.
 
-## New-chat image-generation continuity
-
-For every new chat or resumed tree/plant art task, follow `Docs/GoldenPaths/RetextureGeneration.md`. Read the shared and species rules, actually view and attach the accepted baseline images, recover the precise approval stage from main Coordination, and present the species composition/design before generation unless that exact proposal already has author approval. Preserve the full baseline prompt when adding species-specific details; do not regenerate the style from memory. Rule-saving/new-chat requests do not approve a pending image proposal. Record durable approvals in ArtDirection and current progress in main Coordination before handoff.
-
-## Pixel-exact reused components (AMJ shared policy)
-
-Follow the Core source of truth [FixedImageTemplates.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/GoldenPaths/FixedImageTemplates.md). Same style does not mean identical parts: species-specific silhouettes remain distinct. Where a trunk, container, title or other component is reused, register an approved lossless master and binary editable mask with SHA-256 hashes in the owning repository, generate only variable material, and composite deterministically. Final decoded protected RGBA pixel differences must be zero; reference-image editing/visual similarity cannot replace this check. Use Core `Scripts/Art/fixed_template.py` for compositing/validation, then retain Environment's PNG integrity/install gates. Read the master/manifest and actually view the approved reference in every new chat. No shared-pixel guarantee may be claimed before the family template and output pass this gate. Existing proposal approval stages are unchanged.
+For Vanilla/MO retexture ownership and texPath behavior, continue to follow the shared Core `Docs/RetextureImplementationGuidelines.md`.
