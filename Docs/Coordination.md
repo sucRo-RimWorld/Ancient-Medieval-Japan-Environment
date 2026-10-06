@@ -35,9 +35,9 @@ Primary design source:
 
 ## Active tree-art handoff
 
-- **Current stage:** Haimatsu source approved and installed; Alpine in-game review pending.
-- **Next target:** finish Haimatsu focused Alpine review, then prepare the next Vanilla tree proposal.
-- **Approval state:** Haimatsu design approved with `y`, generated candidate approved with `OK` on 2026-10-05 JST.
+- **Current stage:** PR #5 review; leafless beech snow rejected and revised candidate remains unapproved. Accepted base sprites and other reviewed states are preserved.
+- **Next target:** review the repaired `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` on PR #5. Native visual acceptance remains pending; existing Vanilla/MO retextures stay post-release.
+- **Approval state:** leafless snow is REVIEW, no approved filled exemplar; earlier paired snow OK is superseded for this variant only. Other recorded approvals remain state-specific.
 - **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 - **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
 
@@ -1061,3 +1061,16 @@ Rim Controlで得た採用値はXML / C# / Def / 正式設計書へ正本化し�
 
 **Result / references:** durable rule in `Docs/DevelopmentTools.md`. Documentation-only change; no new runtime PASS is claimed.
 
+
+### ENV-010 — Leafless beech snow rejection audit and repair (2026-10-06 JST)
+
+**Owner:** Environment/art
+**Status:** IN PROGRESS — repaired candidate on draft PR #5; author/native review pending
+
+Author rejected `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` because snow read as thin branch-following lines. The immediate PR repair was deterministic per-edge capsule painting (`853d7f5` -> `62434d2`), which created many tiny pellets and weak rims; area-only regression and output-derived mask did not enforce the visual spec. An unspecified earlier chat-generated image/prompt was not recoverable and is not attributed to an unverified cause.
+
+PR candidate now uses twelve supported asymmetric outlined caps, accepted Haimatsu snow color planes, unchanged leafless master and a predeclared unapproved `v2-review` mask contract. No ImageGen call or native game test was performed. Core protected RGBA gate = 0 differences; PNG CRC/decode, exact overlay/composite, mass/outline/support checks and rejection fixtures pass. Accepted base masters, leafy snow and other species snow are byte-identical. State ledger has one pending snow row; strict completion still fails intentionally. No source approval, merge, release or installed-game change is claimed.
+
+Durable spec/audit/regression changes are on draft PR #5, pushed head `4a1122c27bec8fb768a163c34c41f3950c63def9`; repair commit `b075162` and merge of the concurrent work-push/PR CI distinction are retained. See PR `Docs/PlantSnowOverlayPlan.md`, current-main-aligned `RetextureGeneration.md`, `ArtDirection.md` rejection supersession, and `Docs/ValidationEvidence/BeechLeaflessSnowRepairAudit.md`.
+
+**Next action:** author review of the revision, then native snow review of these exact bytes at fixed local noon/Clear/paused. Keep `production_status=review` and leafless snow pending until explicit acceptance. Steam publication remains the author's manual step.
