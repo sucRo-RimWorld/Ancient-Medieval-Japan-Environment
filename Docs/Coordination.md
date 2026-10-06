@@ -34,6 +34,26 @@ Primary design source:
 
 ## Current coordination items
 
+### ENV-ART-RULES-011 — shared AMJ art-rule consolidation
+
+**Requested by:** author (2026-10-06 JST; AMJ-wide rule cleanup)  
+**Owner:** Environment art / documentation  
+**Status:** DONE
+
+Environment art documentation now inherits the Core `Docs/ArtStyle.md` project-wide invariants instead of carrying a second full shared prompt/rule set.
+
+- `AGENTS.md` is a routing layer only for art work.
+- `Docs/ArtDirection.md` owns Environment-specific vegetation/terrain/world rules and accepted species baselines. Its restrained soft-gradient allowance is explicitly recorded as a tree/plant class difference from the flatter Core crop/item budget.
+- `Docs/GoldenPaths/RetextureGeneration.md` owns preflight/reference loading only; the duplicated frozen generation prompt was removed.
+- `Docs/GoldenPaths/TextureAssetPipeline.md` owns installation/runtime validation and only points to the shared fixed-template policy when actually needed.
+
+Source-of-truth commits:
+- AGENTS routing: `82497e955bf5aeaa26d6c656724e912ec4045242`;
+- generation entry cleanup: `d9450de315c66ac5ace71b032bf5106d82bee08f`;
+- ArtDirection inheritance/exception clarification: `c8ef22a14769b3e8f708ae0da908d39040fca469`;
+- texture pipeline deduplication: `69d8833629c88d79a91e41e517d7e04c94e31969`.
+
+
 ### ENV-001 — Initial Japan-style world generation
 
 **Requested by:** Environment/design  
