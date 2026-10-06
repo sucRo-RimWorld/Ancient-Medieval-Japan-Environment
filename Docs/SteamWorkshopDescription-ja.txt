@@ -20,6 +20,43 @@ Ancient & Medieval Japan Coreは不要です。[b]中世日本風の自然環境
 
 世界やマップを無理に別システムへ置き換えるのではなく、RimWorld 1.6の既存WorldGen・River / Coast mutator・天候・積雪・落葉システムをできるだけ活かす設計です。
 
+[h2]なぜこの4つの環境帯なのか[/h2]
+
+AMJEのBiomeは、現代の県境や地方区分をそのまま再現するものではありません。環境省の日本植生区分を参考に、[b]気温と標高に沿って変化する日本の大きな植生帯[/b]をRimWorld向けに4段階へ整理しています。
+
+[list]
+[*][b]暖温帯林[/b]：常緑広葉樹の照葉樹林
+[*][b]冷温帯林[/b]：ブナなどの落葉広葉樹林
+[*][b]亜高山帯林[/b]：シラビソなどの常緑針葉樹林
+[*][b]高山帯[/b]：森林限界より上のハイマツ林・高山植生
+[/list]
+
+これは日本の植生を4種類だけに置き換える仕組みではなく、[b]日本風の自然環境を構成する基準帯[/b]です。湿地や、Medieval OverhaulのDark Forestのような特殊Biomeは、条件が合えば共存します。
+
+また、弥生時代以降から中世にかけて人の活動によってマツ林・草地・二次林も広がったことを踏まえ、各Biomeを一種類だけの原生林にはしていません。Vanillaの樹木や下草も副次的な植生として残しています。
+
+[h2]各環境帯の代表植物[/h2]
+
+各環境帯には、その帯の景観を一目で読み分けられる[b]代表的な構造植物を1種ずつ[/b]追加しています。選定基準は「中世に有名だった樹木」ではなく、[b]日本の自然植生を代表し、古代・中世にもつながる植生景観を表現できること[/b]です。
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Shii/Shii_A.png[/img]
+[b]暖温帯林 — スダジイ[/b]
+本州南部から四国・九州の照葉樹林を代表する常緑高木。シイ類は古くから西南日本の森林を構成し、種子は食料、材は建築・器具、樹皮は染料などに利用されてきました。
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Beech/Beech_A.png[/img]
+[b]冷温帯林 — ブナ[/b]
+日本の冷温帯を代表する大型の落葉高木。平安後期から中世の木製品では、ブナ属材が漆器などの挽物に選択的に使われた例も確認されています。
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png[/img]
+[b]亜高山帯林 — シラビソ[/b]
+本州の亜高山帯を代表する常緑針葉高木。木曽御嶽のような山岳ではシラビソ類の森林が広がり、中世後期には修験・信仰登山の舞台となる山地景観の一部でもありました。
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png[/img]
+[b]高山帯 — ハイマツ[/b]
+森林限界より上を代表する低木性のマツ。地面を這うように群落をつくり、日本の高山らしい景観を形づくります。高山帯では通常の高木を増やさず、森林限界の違いが見た目と資源量の両方に表れるようにしています。
+
+ゲーム内の各植物説明では、漢字・別名、分布、古代～中世日本との関係などをさらに詳しく確認できます。
+
 [h2]CCTOとの組み合わせ[/h2]
 
 [b]Crop Cold Tolerance Overhaul（CCTO）は任意です。[/b]
