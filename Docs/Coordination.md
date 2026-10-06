@@ -27,7 +27,7 @@ Primary design source:
 ## Release priority handoff
 
 - **Current priority:** publish the first public AMJ Environment Alpha before starting Vanilla/MO tree retextures.
-- **Art boundary for first publication:** complete the already-integrated AMJE-owned structural vegetation review (including the pending Haimatsu Alpine appearance check) and Workshop presentation assets; Vanilla/MO tree retextures remain Environment-owned work but are post-publication follow-up.
+- **Art boundary for first publication:** complete the already-integrated AMJE-owned structural vegetation review, including the pending Haimatsu Alpine appearance check. Workshop cover/preview artwork has already been completed in a separate workstream, but is not yet stored in this repository.
 - **Public-copy state:** repository-side README / Japanese Workshop / English Workshop / About.xml sources are already prepared under DOC-001; the Steam Workshop page itself is not yet published.
 - **Do not start:** `Plant_TreeOak` or any later Vanilla/MO retexture until the first public release is complete, unless the author explicitly changes priority again.
 
