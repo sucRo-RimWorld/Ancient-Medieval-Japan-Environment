@@ -16,6 +16,10 @@ Source files:
 - Japanese: `Docs/SteamWorkshopDescription-ja.txt`
 - English: `Docs/SteamWorkshopDescription.txt`
 
+## Publication responsibility
+
+Repository work ends with preparing and synchronizing the README, Japanese/English Workshop BBCode, and referenced Mod graphics. **The author performs the actual Steam Workshop publication/update manually**, including pasting the description, setting images, and confirming the live page. Do not treat a GitHub description update as a Steam-side update until the author confirms publication.
+
 ## Title
 
 - English: `Ancient & Medieval Japan: Environment`
