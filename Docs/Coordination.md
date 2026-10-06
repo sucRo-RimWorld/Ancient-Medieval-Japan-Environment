@@ -47,11 +47,11 @@ Primary design source:
 
 **Requested by:** author (2026-10-06 JST)  
 **Owner:** Documentation/release  
-**Status:** IN PROGRESS — Japanese Workshop section drafted; English translation intentionally deferred pending Japanese approval
+**Status:** IN PROGRESS — README detailed source updated; Japanese Workshop summary drafted; English translation intentionally deferred pending Japanese approval
 
-The Japanese Workshop source now explains why AMJE uses four broad vegetation/climate bands and why each band receives one AMJE-owned structural representative: Warm-temperate / Sudajii, Cool-temperate / Japanese beech, Subalpine / Shirabiso, Alpine / Haimatsu. The rationale is ecological/landscape representation of Japan across temperature/elevation bands, not "a famous medieval tree for each biome." Haimatsu is intentionally a low alpine shrub rather than a timber tree.
+README now contains the detailed public explanation of why AMJE uses four broad vegetation/climate bands and why each band receives one AMJE-owned structural representative: Warm-temperate / Sudajii, Cool-temperate / Japanese beech, Subalpine / Shirabiso, Alpine / Haimatsu. It also includes the four production plant images and longer ecological/historical summaries.
 
-The Workshop section also embeds the four current production PNGs via raw GitHub URLs and gives shortened educational summaries. Full historical descriptions remain in-game. The Japanese Workshop source remains below the shared 8,000-byte limit.
+The Japanese Workshop source is the concise summary of that README content. It explains the same biome/plant rationale, embeds the four production PNGs via raw GitHub URLs, and keeps the plant notes shorter than README/in-game descriptions. Workshop must not become the only location for substantive public information.
 
 Do not translate the new Workshop section into English until the author approves the Japanese wording, per the project-wide Japanese-first publication rule.
 
