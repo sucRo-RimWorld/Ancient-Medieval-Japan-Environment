@@ -449,6 +449,22 @@ Useful reference patterns:
 
 Do not copy ReGrowth source code, textures, sounds or other restricted assets. Implement AMJ behavior independently and use compatibility patches only when needed.
 
+### 9.4 Tall Grass: Hidden Danger reference policy
+
+Tall Grass: Hidden Danger is a **prior-art/reference candidate** for dynamic vegetation and ground-use feedback. It is not a dependency and should not be copied wholesale.
+
+Reference-worthy patterns:
+- vegetation state changing in response to repeated pawn traffic;
+- trampled vegetation and emergent footpath-like ground traces;
+- recovery/regrowth after traffic pressure is removed;
+- using local vegetation change to make settlement surroundings reflect actual human activity.
+
+Scope limits for AMJ Environment:
+- prioritize ecological/visual feedback around settlements and traveled ground;
+- do **not** treat Tall Grass's combat concealment model, including very high/100% cover-style behavior, as an AMJ target;
+- any future implementation must be independently designed and should remain lightweight enough for large colonies and long-running saves;
+- avoid duplicating another mod's full terrain or plant system when a small AMJ-owned mechanic or compatibility layer would achieve the intended environmental effect.
+
 ### 9.4 Validation before BiomeDef implementation
 
 Before creating the four AMJ BiomeDefs, log the distribution of the proposed climate bands over generated land:
