@@ -23,6 +23,20 @@ DriverTick stalls work in 1.6: the native work toil uses DriverTickInterval.
 Tick both paths; preserve this regression lesson. Hash the staged payload before
 and after execution, retaining PayloadManifest.json beside the reports.
 
+Normalize every isolated active PackageId to lowercase. ModsConfig.IsActive
+lowercases the lookup but a hand-written mixed-case active list can load an
+assembly while its ModMetaData.Active is false. This caused MO's settings
+constructor/Utility initialization to fail. The shared profile preparer now
+writes lowercase IDs. Do not patch MO to hide this harness error.
+
+The harvest runner adds an independent Unity Error/Exception/Assert observer
+alongside RimLogging (required by Quickstarts). Require its CAPTURE_READY marker,
+zero captured errors and zero structured errors in the main runtime log;
+these gates cannot be waived by a 9/9 report.
+Disable resetModsConfigOnCrash only in the isolated Prefs to keep failures from
+silently switching to Core-only. Normal prefs are unchanged. Use -Mode MO or
+-Mode Vanilla for focused diagnosis; the default Both verifies both profiles.
+
 This verifies the cutting-job output path, not autonomous work selection,
 hauling, distant pathfinding or village survival. Those remain separate tests.
 

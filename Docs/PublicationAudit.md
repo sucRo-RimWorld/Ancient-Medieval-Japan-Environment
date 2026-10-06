@@ -24,11 +24,10 @@ no remaining issue. That condition is not yet met. No publication was performed.
 2. Beta positioning is prepared consistently in README, About and both Workshop
    texts. Validate-Environment.ps1 currently requires exact Alpha markers;
    that gate is updated on the temporary PR branch; syntax CI must pass again.
-3. ENV-010 Japanese-first plant-description/historical audit remains IN PROGRESS
-   in Coordination. Current four descriptions are short ecological descriptions;
-   no retained author approval for completion of the broader audit was found.
-   Japanese proposals and evidence are in PlantDescriptionReview-ja.md; obtain
-   approval before translating any changed wording.
+3. The four owned plant descriptions were approved by the author on 2026-10-06
+   and integrated in Japanese and English. Sources/approval are retained in
+   PlantDescriptionReview-ja.md. This closes that four-species slice, not the
+   broader inherited Vanilla/MO plant/animal description audit.
 4. About currently has only About.xml: no Workshop Preview.png is present.
    Finish publication presentation and verify actual upload method/destination.
 
@@ -37,3 +36,9 @@ retextures are deferred to post-release updates. The combined AMJ basic-loop
 gate is a stable-release condition, not a newly invented Beta blocker.
 Existing exact-package 297 checks remain valid within their original scope;
 they are not the final integrated source branch's runtime result.
+
+Additional current-source harvest evidence: standalone and actual MO 9/9 each,
+zero global/independent/owned errors; four native cutting outputs verified.
+See Docs/ValidationEvidence/HarvestOutput.json. The shared test-profile writer
+was corrected to lowercase PackageIds; mixed-case IDs previously made MO's
+active metadata lookup fail. No MO or normal-user settings were modified.

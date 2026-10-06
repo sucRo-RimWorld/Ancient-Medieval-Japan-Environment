@@ -6,6 +6,14 @@ with Core + Environment + real MO, recurring food production, a seasonal cycle
 and save/reload continuity remain OPEN. The results below do not satisfy that
 gate. Beta feedback is useful but its absence is not evidence of success.
 
+The subsequent four-species cutting-resource gate passed in standalone and
+actual MO profiles: 9/9 each, all runtime ERROR gates clean, exact outputs
+42/40/30/8 of WoodLog or DankPyon_RawWood respectively at yield factor1.
+Evidence: Docs/ValidationEvidence/HarvestOutput.json and native log excerpts.
+The staged payload hashes were unchanged after execution; fixtures were retired.
+This covers native cutting jobs and output, not autonomous work selection or
+the combined AMJ survival loop. The original ZIP below predates these changes.
+
 All four current AMJE plants have accepted normal/growth, UI and snow appearances.
 Beech leafless/autumn approvals are retained; its automatic seasonal transition is
 verified by bounded native calendar sampling, separately from human acceptance.
