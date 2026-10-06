@@ -4,9 +4,9 @@
 
 A standalone environment overhaul that reshapes RimWorld toward a **pre-Edo Japan-like climate and landscape**, with Japan-oriented world generation, biomes, vegetation, weather, seasonal scenery, rivers, coastlines, and natural soil distribution.
 
-AMJ Environment is designed to work on its own for players who mainly want a medieval-Japan-like natural setting. **Ancient & Medieval Japan Core is not required.**
+AMJ Environment is designed to work on its own for players who mainly want a medieval-Japan-like natural setting. **[Ancient & Medieval Japan Core](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core) is not required.**
 
-For a stricter realism-focused plant climate model, it can optionally be combined with **Crop Cold Tolerance Overhaul (CCTO)**. AMJ Environment remains fully functional without CCTO.
+For a stricter realism-focused plant climate model, it can optionally be combined with **[Crop Cold Tolerance Overhaul (CCTO)](https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548)**. AMJ Environment remains fully functional without CCTO.
 
 ## Design goal
 
@@ -177,7 +177,7 @@ In practical terms:
 - **AMJE alone** = complete medieval-Japan-like environment experience;
 - **AMJE + CCTO** = the same environment with a stricter, more realism-focused plant cold-response model.
 
-## Medieval Overhaul compatibility
+## [Medieval Overhaul](https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067) compatibility
 
 Medieval Overhaul is **not required**, but normal AMJ play is expected to coexist with it.
 
@@ -192,7 +192,7 @@ Compatibility is therefore treated as a first-class target:
 
 Required:
 
-- **Harmony**
+- **[Harmony](https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077)**
 
 Not required:
 
@@ -224,7 +224,17 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-The four AMJE structural plants and their required visual states are implemented, including snow overlays and beech leafless/autumn states. Broader Vanilla / Medieval Overhaul tree retextures are planned after the initial public Beta, and real-play balance/compatibility feedback may still refine the current baselines.
+The four AMJE structural plants and their required visual states are implemented, including snow overlays and beech leafless/autumn states. Real-play balance/compatibility feedback may still refine the current baselines.
+
+## Planned follow-up
+
+After the initial public Beta, the visual follow-up is staged retexturing of existing trees that appear inside AMJE environments:
+
+- Vanilla trees used as secondary vegetation in AMJE biomes;
+- Medieval Overhaul trees that coexist with AMJE biomes;
+- the complete loaded visible state family for each target, including base, leafless, immature, polluted, and snow states where that tree actually uses them.
+
+These retextures are visual-only by default. Existing gameplay behavior and rendering metadata are preserved unless a documented technical correction is required, and AMJE-owned texture paths/patches are preferred to avoid unnecessary compatibility conflicts.
 
 ## Research and detailed design
 
