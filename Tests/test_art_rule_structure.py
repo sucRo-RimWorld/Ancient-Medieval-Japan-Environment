@@ -2,6 +2,7 @@
 """Regression checks for AMJE art-rule inheritance and routing."""
 from __future__ import annotations
 
+import hashlib
 import unittest
 from pathlib import Path
 
@@ -29,6 +30,19 @@ class EnvironmentArtRuleStructureTest(unittest.TestCase):
             "near-black outer outline",
         ):
             self.assertNotIn(forbidden, text)
+
+    def test_accepted_reference_table_matches_current_blobs(self):
+        text = read("Docs/GoldenPaths/RetextureGeneration.md")
+        paths = (
+            "Textures/Things/Plant/AMJ/Shii/Shii_A.png",
+            "Textures/Things/Plant/AMJ/Beech/Beech_A.png",
+            "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png",
+        )
+        for relative in paths:
+            data = (ROOT / relative).read_bytes()
+            header = f"blob {len(data)}\0".encode("ascii")
+            blob_sha = hashlib.sha1(header + data).hexdigest()
+            self.assertIn(f"`{relative}` | `{blob_sha}`", text)
 
     def test_retexture_generation_assembles_current_rules(self):
         text = read("Docs/GoldenPaths/RetextureGeneration.md")
