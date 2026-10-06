@@ -4,7 +4,7 @@
 
 古代～中世日本をイメージした、湿潤な気候、山がちな地形、短く多い河川、複雑な海岸線、温度帯ごとの森林、高山帯などをゲーム内に作ります。
 
-Ancient & Medieval Japan Coreは不要です。[b]中世日本風の自然環境だけ欲しい場合は、このMod単体で遊べます。[/b]
+[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core]Ancient & Medieval Japan Core[/url]は不要です。[b]中世日本風の自然環境だけ欲しい場合は、このMod単体で遊べます。[/b]
 
 [h2]主な特徴[/h2]
 [list]
@@ -31,7 +31,7 @@ AMJEのBiomeは、現代の県境や地方区分をそのまま再現するも�
 [*][b]高山帯[/b]：森林限界より上のハイマツ林・高山植生
 [/list]
 
-これは日本の植生を4種類だけに置き換える仕組みではなく、[b]日本風の自然環境を構成する基準帯[/b]です。湿地や、Medieval OverhaulのDark Forestのような特殊Biomeは、条件が合えば共存します。
+これは日本の植生を4種類だけに置き換える仕組みではなく、[b]日本風の自然環境を構成する基準帯[/b]です。湿地や、[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]のDark Forestのような特殊Biomeは、条件が合えば共存します。
 
 また、弥生時代以降から中世にかけて人の活動によってマツ林・草地・二次林も広がったことを踏まえ、各Biomeを一種類だけの原生林にはしていません。Vanillaの樹木や下草も副次的な植生として残しています。
 
@@ -59,7 +59,7 @@ AMJEのBiomeは、現代の県境や地方区分をそのまま再現するも�
 
 [h2]CCTOとの組み合わせ[/h2]
 
-[b]Crop Cold Tolerance Overhaul（CCTO）は任意です。[/b]
+[b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul（CCTO）[/url]は任意です。[/b]
 
 AMJE単体では、Vanillaに近い植物の温度挙動を維持します。
 
@@ -81,11 +81,11 @@ MO固有の自然Biomeや地形を一律に置き換えず、Dark Forestなど�
 
 [h2]依存関係[/h2]
 
-[b]必須:[/b] Harmony
+[b]必須:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]
 
-[b]任意:[/b] Crop Cold Tolerance Overhaul / Medieval Overhaul
+[b]任意:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul[/url] / [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
 
-Ancient & Medieval Japan Coreは不要です。
+[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core]Ancient & Medieval Japan Core[/url]は不要です。
 
 [h2]セーブ互換性[/h2]
 
@@ -95,7 +95,7 @@ Ancient & Medieval Japan Coreは不要です。
 
 AMJE独自のBiome・地形・植物を使用しているセーブからの[b]途中削除は推奨しません。[/b]
 
-[h2]開発状況[/h2]
+[h2]開発状況・今後の予定[/h2]
 
 現在はβ版です。
 
