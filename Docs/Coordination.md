@@ -47,15 +47,15 @@ Primary design source:
 
 **Requested by:** author (2026-10-06 JST)  
 **Owner:** Environment localization  
-**Status:** IN PROGRESS — Japanese draft requires content expansion before approval; English intentionally deferred
+**Status:** IN PROGRESS — expanded Japanese draft prepared; author approval pending; English intentionally deferred
 
-Current Japanese DefInjected descriptions already apply the shared AMJ opening-name rule. The structural-plant draft records recognized forms such as スダジイ aliases イタジイ / ナガジイ, 山毛欅（ブナ）with aliases シロブナ / ホンブナ and alternate writings 橅 / 椈, 白檜曽（シラビソ）with alias シラベ, and 這松（ハイマツ）.
+The four structural-plant Japanese descriptions have now been expanded using the AMJ educational structure: name/aliases → Japanese distribution/ecological context → supported ancient/medieval role or landscape context → modern difference/use where supportable. Durable research/source rationale is recorded in `Docs/ArtDirection.md`.
 
-The author has now fixed the AMJ-wide educational description structure: name/aliases → Japanese distribution/ecological context → supported ancient/medieval Japanese role/use → clear modern difference when supportable. The current four plant descriptions are too short to satisfy that intent and must be expanded before Japanese approval.
+The draft deliberately distinguishes direct evidence from landscape context. Sudajii uses Early-Jomon Castanopsis fruit-use evidence; Japanese beech uses Jomon vegetation evidence plus late-Heian/medieval Fagus-genus turned-wood evidence; Shirabiso and Haimatsu do not fabricate specific medieval resource uses, and instead connect their verified Mt. Ontake vegetation roles with independently attested later-medieval mountain worship.
 
-The English Def descriptions remain deliberately unsynchronized until the expanded Japanese wording is approved. Do not translate an intermediate Japanese draft.
+The English Def descriptions remain deliberately unsynchronized until the author approves these expanded Japanese descriptions. Do not translate an intermediate Japanese draft.
 
-Shared durable policy: Core `Docs/HistoricalDescriptionGuidelines.md` commit `9859b6d4a9d6a5a7f4829ae067c5c79318ab57ee`. Environment naming/source rationale remains in `Docs/ArtDirection.md`.
+Shared durable policy: Core `Docs/HistoricalDescriptionGuidelines.md` commit `9859b6d4a9d6a5a7f4829ae067c5c79318ab57ee`.
 
 ### ENV-ART-RULES-011 — shared AMJ art-rule consolidation
 
