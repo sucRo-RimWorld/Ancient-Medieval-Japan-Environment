@@ -1,6 +1,6 @@
 # Ancient & Medieval Japan: Environment
 
-**RimWorld 1.6 — Alpha**
+**RimWorld 1.6 — Beta**
 
 A standalone environment overhaul that reshapes RimWorld toward a **pre-Edo Japan-like climate and landscape**, with Japan-oriented world generation, biomes, vegetation, weather, seasonal scenery, rivers, coastlines, and natural soil distribution.
 
@@ -75,7 +75,7 @@ A deliberately small set of Japan-specific structural plants is included:
 
 Generic grasses, mosses, shrubs, secondary trees, and other filler vegetation continue to reuse Vanilla PlantDefs. The goal is to make the vegetation bands structurally legible without turning Environment into a large plant-content mod.
 
-The current plant graphics are still placeholders using Vanilla assets. Final plant artwork is deferred to the final visual pass.
+Sudajii, Japanese beech, Shirabiso, and Haimatsu now use AMJE-authored custom graphics. Broader Vanilla / Medieval Overhaul tree retextures remain planned follow-up work after the initial public Beta.
 
 ### Natural soil fertility
 
@@ -188,11 +188,11 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 ## Current status
 
-**Alpha**
+**Beta**
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-Final custom visual assets are still pending, and broader real-play balance/compatibility feedback may change Alpha values.
+The four AMJE structural plants have custom graphics. Broader Vanilla / Medieval Overhaul tree retextures are planned after the initial public Beta, and real-play balance/compatibility feedback may still refine the current baselines.
 
 ## Research and detailed design
 
