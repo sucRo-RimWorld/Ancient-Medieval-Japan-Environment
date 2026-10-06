@@ -26,13 +26,9 @@ unclear, resolve the class before generating.
 4. Fetch and actually view the accepted reference PNGs below. Do not merely read
    filenames, rely on an old conversation image, or claim to have inspected
    pixels that were not opened.
-5. Reuse the existing approved category/style. Present a concise target-specific
-   composition/design proposal **before generation**, then obtain author approval
-   for that proposal. If the same proposal already has explicit approval in the
-   current handoff, retain it and proceed without asking for approval again.
+5. Reuse the existing approved category/style and any already-approved target design. If no target-specific proposal is already approved, derive the narrowest reasonable composition from the current request and the owning style rules; do not add a mandatory extra approval round unless the user explicitly asks for proposal/review-first work.
 6. Build the generation request from the current Core `ArtStyle.md` invariants plus the applicable Environment/category/species rules in `ArtDirection.md`. Attach the actual viewed reference images. Do not maintain a second frozen style prompt in this procedure.
-7. State the target and inherited baseline briefly to the author, then generate.
-   Do not restart the style design or produce unrequested alternatives.
+7. Generate one candidate for the requested target. Do not restart the style design or produce unrequested alternatives.
 
 When fetching/viewing a required reference is blocked, report that limitation
 and resolve the missing reference before generation. Do not silently substitute
