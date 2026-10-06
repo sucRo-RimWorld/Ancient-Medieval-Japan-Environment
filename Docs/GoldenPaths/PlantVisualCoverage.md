@@ -22,10 +22,10 @@ verify snow on foliage/branches; resolve the actual snow graphic path first.
 Absence of a required overlay is an implementation gap, not a passed review.
 
 Accepted rows require an explicit author statement, date, evidence location and
-the reviewed production fingerprint. Fingerprints retain image hashes and the owning plant definition including size,
-but exclude UI-only fields outside icon review and snow paths outside snow review.
-Changes invalidate only affected states; unrelated UI/snow additions do not require
-repeating accepted normal/growth reviews. Other definition and image changes remain conservative.
+the reviewed production fingerprint. Fingerprints retain image hashes and the owning visual/gameplay definition including size,
+but exclude player-facing label/description text, UI-only fields outside icon review, and snow paths outside snow review.
+Localization or historical-description edits therefore do not force a repeated visual review. Changes to visual state, size,
+owned graphics, or other guarded definition fields still invalidate only the affected states.
 The validator rejects missing plants/states, unsupported N/A, missing evidence,
 stale fingerprints and complete claims with pending rows. A successful ledger
 validation means the records are consistent; it does not mean pending reviews
