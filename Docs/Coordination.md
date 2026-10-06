@@ -24,6 +24,15 @@ Primary design source:
 - **DONE** — completed and reflected in the proper source of truth
 - **ARCHIVED** — retained for history only
 
+## Release handoff — first public Beta
+
+- **Current priority:** publish the first public AMJ Environment **Beta** before starting Vanilla / Medieval Overhaul tree retextures.
+- **Runtime gate:** Environment runtime testing has already been completed; do not treat the older pending-rerun notes below as a release blocker unless a later code/config change invalidates that result.
+- **Workshop presentation:** cover / preview artwork is already complete in a separate workstream but is not stored in this repository yet.
+- **Public copy:** README, About.xml, and Japanese/English Workshop source now use Beta release wording. The internal Design document's "Alpha" baselines remain historical/design-stage terminology and are not public release-stage labels.
+- **Local publication staging:** the current publication workstream uses `D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\_AMJ_PublishStaging`; local staging state may be newer than GitHub main and must not be reconstructed from GitHub alone.
+- **Post-publication:** resume Environment-owned Vanilla / MO tree retextures only after the first public Beta is published.
+
 ## Active tree-art handoff
 
 - **Current stage:** Haimatsu source approved and installed; Alpine in-game review pending.
@@ -926,7 +935,7 @@ Durable design source: `Docs/Design.md §11.5 AMJ共通リテクスチャ方針 
 
 **Requested by:** author (2026-10-05 JST)  
 **Owner:** Environment runtime integration / Core agriculture contract  
-**Status:** IN PROGRESS — harness implemented; local RimWorld runtime PASS pending
+**Status:** DONE — runtime/integration gate completed; no release rerun required unless later changes invalidate it
 
 Core + Environmentの独自ゲームプレイ差を、固定バイオームQuickstart上で機械評価する統合ゲートを追加した。
 
@@ -947,7 +956,7 @@ PowerShell syntax workflowは関連スクリプト変更までGreen。Quicktest 
 
 Durable design source: `Docs/Design.md §8.3 Core + Environment gameplay-contract runtime gate`, commits `14b09c8c05e4ee060446f4ab7d42db9ba94fca2f`, `6a3420b71b6a7fc60b16cbdd4bed73f759a33d2e`.
 
-**Next action:** ローカルで `run-runtime-tests.bat` を実行し、Core profileの4 Quickstartが全件PASSかつowned ERRORゼロになることを確認する。失敗時は数値を緩める前に、実ゲームAPI・土壌セル集計・気候ログのどこが契約と不一致かを特定する。
+**Result:** author confirmed the Environment runtime/integration test work is complete. Preserve the existing automated gate for future regressions; do not rerun it solely because publication work resumed.
 
 ### TEST-POLICY-003 — Non-interactive runtime tests
 
