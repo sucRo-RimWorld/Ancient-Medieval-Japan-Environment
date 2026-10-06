@@ -43,6 +43,18 @@ Primary design source:
 
 ## Current coordination items
 
+### LOC-ENV-001 — Kanji / alias opening pass for current AMJE descriptions
+
+**Requested by:** author (2026-10-06 JST)  
+**Owner:** Environment localization  
+**Status:** IN PROGRESS — Japanese draft updated; author approval pending; English intentionally deferred
+
+Current Japanese DefInjected descriptions were revised to apply the shared AMJ opening-name rule. The structural-plant draft now records recognized forms such as スダジイ aliases イタジイ / ナガジイ, 山毛欅（ブナ）with aliases シロブナ / ホンブナ and alternate writings 橅 / 椈, 白檜曽（シラビソ）with alias シラベ, and 這松（ハイマツ）.
+
+The English Def descriptions were deliberately restored to their previous state after detecting an approval-order violation. Do not translate these new Japanese openings until the author approves the Japanese wording.
+
+Durable naming/source rationale is recorded in `Docs/ArtDirection.md`.
+
 ### ENV-ART-RULES-011 — shared AMJ art-rule consolidation
 
 **Requested by:** author (2026-10-06 JST; AMJ-wide rule cleanup)  
