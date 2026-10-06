@@ -90,7 +90,13 @@ for name,field in [('Beech','snowOverlayGraphicPath'),('Beech_Leafless','leafles
         ledger=json.loads((root/'Docs/PlantVisualCoverage.json').read_text(encoding='utf-8'))
         state=ledger['plants']['AMJ_Tree_Beech']['states']['snow']
         if state['status']=='pending':
-            assert spec['production_status']=='review' and 'filled_exemplar' not in spec
+            assert spec['production_status'] in ('review','source_approved') and 'filled_exemplar' not in spec
+            if spec['production_status']=='source_approved':
+                approved=spec['approved_source']
+                assert approved['sha256']==hashlib.sha256((template.parent/approved['path']).read_bytes()).hexdigest()
+                assert approved['author_statement'] and approved['date']
+                assert state['source_art_status']=='accepted'
+                print('[OK] Approved source frozen; native appearance still pending')
             assert state['leafy_variant_status']=='accepted'
-            print('[OK] Leafless candidate unapproved; leafy approval retained')
+            print('[OK] Leafless native review pending; leafy approval retained')
     print('[OK]',name,'exact installed overlay; protected RGBA=0; 12px shifted overlay rejected')

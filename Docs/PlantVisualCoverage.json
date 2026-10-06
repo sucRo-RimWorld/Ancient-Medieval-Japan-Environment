@@ -185,8 +185,13 @@
           "date": "2026-10-06",
           "pending_variant": "leafless",
           "leafy_variant_status": "accepted",
-          "review_reason": "Author requested broader whole-tree snow; revision 5 adds seven branch ledges while retaining foreground occlusion and remains unapproved.",
-          "evidence": "Docs/ValidationEvidence/BeechSnowReview-Snow.log"
+          "review_reason": "Revision 5 source composite accepted as a compromise; native appearance of these exact bytes remains unreviewed.",
+          "evidence": "Docs/ValidationEvidence/BeechSnowReview-Snow.log",
+          "source_art_status": "accepted",
+          "source_author_statement": "これで妥協する",
+          "source_approval_date": "2026-10-06",
+          "source_approval_evidence": "Docs/ValidationEvidence/BeechLeaflessSnowSourceAcceptance.md",
+          "source_composite_sha256": "24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126"
         },
         "transition": {
           "status": "verified",

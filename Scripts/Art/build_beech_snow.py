@@ -120,8 +120,8 @@ def build(leafless):
     out = ROOT / f'Art/Templates/{name}-Snow-v1'
     out.mkdir(parents=True, exist_ok=True)
     registry = out / 'template.json'
-    accepted = json.loads(registry.read_text()) if registry.exists() else None
-    if accepted and accepted.get('production_status') == 'active':
+    accepted = json.loads(registry.read_text(encoding='utf-8')) if registry.exists() else None
+    if accepted and accepted.get('production_status') in ('active', 'source_approved'):
         assert accepted['master']['sha256'] == hashlib.sha256(source.read_bytes()).hexdigest()
         assert Image.open(out / 'editable-mask.png').tobytes() == mask.tobytes(), 'Accepted mask changed'
         assert Image.open(out / 'snow-overlay.png').convert('RGBA').tobytes() == layer.tobytes(), 'Accepted snow changed'

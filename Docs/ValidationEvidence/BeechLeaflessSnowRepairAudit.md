@@ -62,3 +62,7 @@ Solid snow coverage increases from 2108 to 3628 pixels (about 1.72x), distribute
 - Revision 5 editable-mask.png: `4c64dfa7eadfc7ff905a9889b44d55c16e436630b6ee6f5cb713e0132cc54b46`
 - Revision 5 snow-overlay.png: `3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b`
 - Revision 5 exact-composite.png: `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`
+
+### Revision 5 source accepted as compromise (2026-10-06 JST)
+
+Author: `これで妥協する`, referring to the presented revision-5 source composite. Record source-art acceptance as a compromise, not a newly completed native-game review. Freeze current image bytes, master/mask and source composition. Template is `v5` / `source_approved`; approved source hash and statement are registered. Keep production activation/native snow coverage distinct; leafless snow ledger remains pending for the native appearance of these exact bytes. No further art adjustment is authorized by this acceptance. See `ValidationEvidence/BeechLeaflessSnowSourceAcceptance.md`.
