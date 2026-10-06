@@ -56,6 +56,10 @@ For the representative-plant section, keep the Workshop summaries shorter than t
 
 The four current Workshop images reference the repository's production PNGs directly through `raw.githubusercontent.com`. If a production path changes, update the Workshop image URL at the same time.
 
+When the Workshop body names another mod, provide a direct link at least at its first or dependency-list mention. Prefer its Steam Workshop page when published; use the owning GitHub repository for an AMJ mod that has no public Workshop item yet. Keep the description below Steam's 8,000-byte limit rather than repeating the same long URL on every occurrence.
+
+The development-status section must also summarize planned post-Beta visual follow-up: staged Vanilla / Medieval Overhaul tree retextures covering the visible state family used by each target. README remains the detailed source for the scope and technical compatibility policy.
+
 Keep detailed world-generation numbers, full test results, exact plant cold-tolerance values, implementation details, and research rationale in README / Design rather than the Workshop body.
 
 Do not add manually maintained build-version numbers or test-count summaries to the Workshop description.
