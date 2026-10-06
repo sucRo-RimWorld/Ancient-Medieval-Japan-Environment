@@ -1,6 +1,6 @@
 # Leafless beech snow repair audit — 2026-10-06 JST
 
-Status: **UNAPPROVED / REVIEW**. Author rejection supersedes the earlier paired snow approval for the leafless variant. Draft PR #5 only; no merge, release, installed-game update or current runtime/visual acceptance.
+Status: **ACCEPTED**. Earlier rejected revisions remain historical evidence; revision 5 is the final adopted leafless-snow source and its native appearance was accepted by the author before PR #5 merge.
 
 ## Evidence and cause
 
@@ -66,3 +66,7 @@ Solid snow coverage increases from 2108 to 3628 pixels (about 1.72x), distribute
 ### Revision 5 source accepted as compromise (2026-10-06 JST)
 
 Author: `これで妥協する`, referring to the presented revision-5 source composite. Record source-art acceptance as a compromise, not a newly completed native-game review. Freeze current image bytes, master/mask and source composition. Template is `v5` / `source_approved`; approved source hash and statement are registered. Keep production activation/native snow coverage distinct; leafless snow ledger remains pending for the native appearance of these exact bytes. No further art adjustment is authorized by this acceptance. See `ValidationEvidence/BeechLeaflessSnowSourceAcceptance.md`.
+
+### Final native acceptance (2026-10-06 JST)
+
+Author: `ブナOKなのでPRマージして`. The statement closes the native-appearance review for the exact revision-5 bytes already frozen above and explicitly authorizes merging PR #5. Final exact composite SHA-256: `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`; installed overlay SHA-256: `3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b`. Template status is ACTIVE and the plant visual coverage ledger has no remaining pending row for Beech snow. No new runtime result is inferred from this human visual acceptance.
