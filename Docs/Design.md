@@ -911,7 +911,18 @@ Vanilla湿地Biomeも同じ残存ゲートの対象とする。AMJEの4植生帯
 - Vanilla Cypressは湿地性のVanilla樹木であり、日本のヒノキを表す代理としては扱わない。
 - `Plant_HealrootWild` はこの湿地監査では一時的に維持し、後続のHealroot→Yomogi置換時に湿地からも除外する。ヨモギは湿地Biomeの既定構成には追加しない。
 
-`Plant_HealrootWild` はRimWorld固有の架空植物であり、AMJEの最終的な自然植生には残さない。ただし野生薬草採集ループを消さないため、単独削除せずAMJE所有のヨモギ（`AMJ_Plant_Yomogi`）へ置換する。主分布は暖温帯・冷温帯とし、亜高山帯・高山帯には原則配置しない。収穫物はゲームプレイ上の抽象化として少量の `MedicineHerbal` を維持し、ヨモギ単独が万能薬であるという史実主張にはしない。Def・画像・分布・自然生成・収穫検証が揃った変更でHealrootWildを同時除外する。
+`Plant_HealrootWild` はRimWorld固有の架空植物であり、AMJEの最終的な自然植生には残さない。ただし、野生薬草採集ループを途中で失わせないため、AMJE側の日本向け薬草植生が十分に実装・検証されるまで暫定維持する。ヨモギ（`AMJ_Plant_Yomogi`）は不足植生追加段階で先に導入してよく、その追加とHealroot削除を同一変更へ固定しない。ヨモギの主分布は暖温帯・冷温帯とし、亜高山帯・高山帯・Vanilla湿地Biomeには原則配置しない。収穫物はゲームプレイ上の抽象化として少量の `MedicineHerbal` を候補とするが、ヨモギ単独が万能薬であるという史実主張にはしない。
+
+### 11.5.7 植生整備ロードマップ
+
+Environmentの植生整備は、以下の順序を正本とする。
+
+1. **不要なVanilla樹木・植生を削除する。** 古代～中世日本の植生として残す根拠が弱いものを除外し、必要に応じて木本・総植生commonalityを妥当な日本側植物へ再配分する。この第一段階の主要監査は2026-10-08時点で完了している。
+2. **残すVanilla樹木・植物の説明文を先に監査・承認し、その後にリテクスチャする。** 日本語説明をHistorical Description GuidelinesとAMJE形式へ直し、名称・分布・生態・古代～中世日本での利用／景観文脈が妥当であることを確認してから、AMJE/MO系の画風へ揃える。説明未監査の対象を先に描き直さない。Medieval Overhaul由来の採用植生も同じ `retention → description → retexture` 原則に従う。
+3. **不足している古代～中世日本の自然植生を追加する。** 既存Vanilla/MO代理では表現しにくく、Environmentの自然景観として意味がある樹木・草地・湿地植物・伝統薬草等を対象とする。ヨモギ等の薬草はこの段階で追加・検証する。主目的が果実・木の実・加工・採集ゲームプレイになる植物は、Environmentへ抱え込まずHunting & Gathering / Preservation等の自然な所有先と分担する。
+4. **Wild Healrootを最終段階で削除する。** Step 3の薬草植生と供給量・分布・収穫挙動が成立したことを確認した後、`Plant_HealrootWild` をAMJE対象Biomeと共存Vanilla湿地から除外し、必要なら植生commonalityを再調整する。栽培用 `Plant_Healroot` はこの自然植生ロードマップの対象外とする。
+
+この順序は、植生の正当性を決める前にアートへ投資したり、代替薬草が整う前にHealrootを消したりすることを避けるためのものである。
 
 
 ## 12. Seasonal scenery baseline
