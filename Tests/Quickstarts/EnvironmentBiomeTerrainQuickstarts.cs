@@ -426,6 +426,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
             get { return new string[0]; }
         }
 
+        protected virtual bool ValidateAmjBiomeContracts
+        {
+            get { return true; }
+        }
+
         protected virtual float MaxLimitedTimberCellFraction
         {
             get { return 1f; }
@@ -548,15 +553,19 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     return PawnRenderBadMaterialDiagnostics.BadMaterialUseCount == 0;
                 });
 
-            AddWeatherAssertions(verification, map == null ? null : map.Biome);
+            if (ValidateAmjBiomeContracts)
+            {
+                AddWeatherAssertions(verification, map == null ? null : map.Biome);
+                AddWildlifeAssertions(verification, map == null ? null : map.Biome);
+                AddTreeSowingAssertions(verification, map);
+            }
+
             AddSeasonalSceneryAssertions(verification);
-            AddWildlifeAssertions(verification, map == null ? null : map.Biome);
-            AddTreeSowingAssertions(verification, map);
             AddLivePlantTextureAssertions(verification, map);
             AddLiveThingTextureAssertions(verification, map);
             AddTerrainScatterTextureAssertions(verification, map);
 
-            if (CoreIsActive())
+            if (ValidateAmjBiomeContracts && CoreIsActive())
             {
                 AddCoreAgricultureIntegrationAssertions(verification, map);
             }
@@ -626,13 +635,16 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     return limitedTimberFraction <= MaxLimitedTimberCellFraction;
                 });
 
-            if (CctoIsActive())
+            if (ValidateAmjBiomeContracts)
             {
-                AddCctoCompatibilityAssertions(verification);
-            }
-            else
-            {
-                AddStandaloneTemperatureAssertions(verification);
+                if (CctoIsActive())
+                {
+                    AddCctoCompatibilityAssertions(verification);
+                }
+                else
+                {
+                    AddStandaloneTemperatureAssertions(verification);
+                }
             }
 
             Log.Message(
@@ -2876,6 +2888,94 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     "Plant_TreeOak"
                 };
             }
+        }
+    }
+
+    public sealed class AMJTemperateSwampVegetationQuickstart : BiomeTerrainQuickstartBase
+    {
+        protected override string TargetBiomeDefName
+        {
+            get { return "TemperateSwamp"; }
+        }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "Plant_TallGrass"; }
+        }
+
+        protected override string[] SecondaryPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreeWillow",
+                    "Plant_TreeMaple",
+                    "Plant_Brambles"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_Chokevine",
+                    "Plant_TreeCypress"
+                };
+            }
+        }
+
+        protected override bool ValidateAmjBiomeContracts
+        {
+            get { return false; }
+        }
+    }
+
+    public sealed class AMJColdBogVegetationQuickstart : BiomeTerrainQuickstartBase
+    {
+        protected override string TargetBiomeDefName
+        {
+            get { return "ColdBog"; }
+        }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "Plant_TallGrass"; }
+        }
+
+        protected override string[] SecondaryPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_Moss",
+                    "Plant_TreeWillow",
+                    "Plant_TreeBirch",
+                    "Plant_TreeMaple"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_Chokevine",
+                    "Plant_TreeCypress",
+                    "Plant_Astragalus"
+                };
+            }
+        }
+
+        protected override bool ValidateAmjBiomeContracts
+        {
+            get { return false; }
         }
     }
 
