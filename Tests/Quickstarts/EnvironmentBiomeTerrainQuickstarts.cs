@@ -2740,7 +2740,6 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreeOak",
                     "Plant_TreeMaple",
                     "Plant_TreeBamboo"
                 };
@@ -2753,7 +2752,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreePoplar"
+                    "Plant_TreePoplar",
+                    "Plant_TreeOak"
                 };
             }
         }
@@ -3128,8 +3128,18 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreePine",
                     "Plant_TreeBirch"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreePine"
                 };
             }
         }
@@ -3181,38 +3191,23 @@ namespace AncientMedievalJapan.Environment.Quicktests
             get { return "AMJ_Shrub_Haimatsu"; }
         }
 
-        protected override string[] SecondaryPlantDefNames
-        {
-            get
-            {
-                return new string[]
-                {
-                    "Plant_TreePine",
-                    "Plant_TreeBirch"
-                };
-            }
-        }
-
         protected override float MaxTargetCellFraction
         {
             get { return 0.05f; }
         }
 
-        protected override string[] LimitedTimberPlantDefNames
+        protected override string[] ExcludedPlantDefNames
         {
             get
             {
                 return new string[]
                 {
+                    "Plant_Dandelion",
+                    "Plant_Astragalus",
                     "Plant_TreePine",
                     "Plant_TreeBirch"
                 };
             }
-        }
-
-        protected override float MaxLimitedTimberCellFraction
-        {
-            get { return 0.01f; }
         }
     }
 

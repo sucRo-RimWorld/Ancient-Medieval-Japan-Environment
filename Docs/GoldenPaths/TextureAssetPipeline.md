@@ -191,7 +191,7 @@ For AMJE production art, completion requires:
 
 ## Fixed reused components
 
-If a texture intentionally reuses a visible component pixel-exactly, follow Core `Docs/GoldenPaths/FixedImageTemplates.md`. Do not duplicate that policy here.
+If a texture intentionally reuses a visible component pixel-exactly, follow Ancient-Medieval-Japan-Grains `Docs/GoldenPaths/FixedImageTemplates.md`. Do not duplicate that policy here.
 
 ## Focused Haimatsu location aid
 

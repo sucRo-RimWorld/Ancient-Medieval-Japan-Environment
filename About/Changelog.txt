@@ -4,4 +4,7 @@
 0.1.0 - Workshop change-note tracking started
 - Began the active audit of inherited Vanilla vegetation for ancient-to-medieval Japanese fit.
 - Removed Vanilla Poplar from the warm-temperate forest.
+- Removed warm-temperate Vanilla Oak and transferred its share to Sudajii so tree density is not reduced.
+- Removed generic Pine from the subalpine forest and transferred its share to Shirabiso.
+- Removed generic Pine, Birch, Dandelion, and Astragalus from the alpine zone while preserving total vegetation and woody commonality through Haimatsu, grass, and moss.
 - Synchronized README, Workshop, 2game, and About wording with the current vegetation-audit status.
