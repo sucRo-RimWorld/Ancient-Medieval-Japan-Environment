@@ -1382,7 +1382,7 @@ Validation: bilingual semantic review, LF/CRLF UTF-8 byte limits, BBCode balance
 
 **Requested by:** author  
 **Owner:** Environment / vegetation  
-**Status:** IN PROGRESS — Phase 1 DONE; broader audit continues
+**Status:** IN PROGRESS — Vanilla retention pass DONE except Healroot→Yomogi replacement
 
 Author corrected the previous assumption that existing Vanilla vegetation should
 remain by default. AMJE now requires a positive ancient/medieval-Japan reason
@@ -1400,6 +1400,15 @@ units so history remains easy to inspect and revert.
 - adds a Quickstart regression assertion that Poplar does not naturally
   generate in the target AMJE biome;
 - records the decision in `Docs/VanillaPlantRetentionAudit-ja.md`.
+
+**Phases 2–4 DONE:** PR #11 / squash merge `9f80a117ef21b04762b92a77997c7ea0ebd329b9`
+- warm-temperate Vanilla Oak removed; Sudajii commonality 2.00→2.55, restoring pre-Poplar woody commonality 3.30 and total wild-plant commonality 13.42;
+- subalpine generic Pine removed; Shirabiso 2.60→3.50, preserving woody commonality 4.00 and total 16.14;
+- alpine generic Pine/Birch/Dandelion/Astragalus removed; Haimatsu/Grass/Moss rebalanced so total commonality remains 7.31 and woody commonality 1.34 while ordinary tall trees become zero above treeline;
+- retained Vanilla vegetation is now explicitly classified in `Docs/VanillaPlantRetentionAudit-ja.md`: generic groundcover/Berry, Maple/Bamboo, cool-temperate Oak/Pine/Birch, and subalpine Birch remain with defined proxy roles;
+- Quickstarts now guard every completed exclusion.
+
+PR #11 regression gates passed after synchronizing the art-rule test with the already-completed Core→Grains repository rename. GitHub preflight/error-hygiene rules are now recorded in `AGENTS.md`: do deterministic validation before remote writes and use Actions as regression gates rather than exploratory debugging.
 
 Existing PR CI passed before merge: Workshop payload filtering and Plant visual coverage ledger. The new warm-temperate runtime Quickstart exclusion assertion is committed for the next runtime matrix, but no fresh RimWorld runtime execution is claimed for this one-line distribution removal.
 
