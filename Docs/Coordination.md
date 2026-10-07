@@ -1413,7 +1413,7 @@ Validation: bilingual semantic review, LF/CRLF UTF-8 byte limits, BBCode balance
 
 **Requested by:** author  
 **Owner:** Environment / vegetation  
-**Status:** IN PROGRESS — Vanilla retention pass DONE except Healroot→Yomogi replacement
+**Status:** IN PROGRESS — Vanilla forest/wetland retention pass DONE except Healroot→Yomogi replacement
 
 Author corrected the previous assumption that existing Vanilla vegetation should
 remain by default. AMJE now requires a positive ancient/medieval-Japan reason
@@ -1473,3 +1473,14 @@ remaining Vanilla-vegetation replacement. Workshop preflight passed before PR:
 JA 7,759 bytes LF / 7,870 CRLF; EN 7,670 LF / 7,781 CRLF; BBCode balanced.
 Actual Steam / 2game publication is still author-manual and is not claimed here.
 
+
+
+**Phase 5 DONE:** PR #15 / squash merge `489fb9d6e933e07d4fd2108bad0564879409f757`
+- audited retained Vanilla `TemperateSwamp` / `ColdBog` vegetation, which remained reachable because AMJE intentionally leaves swampy tiles outside its four baseline bands;
+- TemperateSwamp removes Chokevine/Cypress, redistributing to Brambles/Willow while preserving total commonality 7.30 and woody commonality 3.00;
+- ColdBog removes Chokevine/Cypress/Astragalus, redistributing to TallGrass/Moss/Birch while preserving total commonality 8.22 and woody commonality 1.80;
+- runtime Quickstarts and exact loaded-commonality assertions were added for both wetlands; the normal vegetation runner now includes them;
+- GitHub static gates all passed: PowerShell syntax, Workshop payload, plant visual coverage and regional tree-sowing contract.
+- A fresh RimWorld runtime execution of the two new wetland Quickstarts has not been run from this chat/tool environment and is not claimed.
+
+The only remaining known Vanilla natural-vegetation replacement before the planned Workshop upload is `Plant_HealrootWild` → AMJE-owned yomogi. The replacement must also remove Wild Healroot from TemperateSwamp/ColdBog without adding yomogi to their default pools.
