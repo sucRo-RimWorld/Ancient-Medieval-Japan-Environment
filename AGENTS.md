@@ -217,3 +217,15 @@ For Environment art, use:
 Environment-specific rules may define controlled class differences, such as restrained internal gradient variation for tree sprites, but they must remain compatible with the shared AMJ invariants unless the owning style specification explicitly records an exception.
 
 For Vanilla/MO retexture ownership and texPath behavior, continue to follow the shared Ancient-Medieval-Japan-Grains `Docs/RetextureImplementationGuidelines.md`.
+
+## World Tech Level recommendation (AMJ common)
+
+**Confirmed:** 2026-10-08 JST.
+
+> AMJとして古代～中世に限定した世界を構成する場合は World Tech Level の Medieval 設定を推奨。
+
+This is a conditional recommendation for assembling an era-limited AMJ world, not a mandatory dependency or a prerequisite for using this individual Mod. Distinguish it from feature-specific compatibility/recommendations when preparing public descriptions. Do not claim that Medieval tech filtering guarantees Japanese historical/cultural suitability or removes every inappropriate event.
+
+Canonical policy: [Project architecture — era-limited world recommendation](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Architecture.md#era-limited-world-recommendation).
+
+The proposed **Ancient & Medieval Japan - World Rules** remains an uncommitted idea in Project `Docs/Ideas.md`; its ownership, filter scope and relationship/dependency to World Tech Level must be decided separately. Do not add global Incident/Quest/Trader/MapGen filtering to this Mod merely because the recommendation exists.
