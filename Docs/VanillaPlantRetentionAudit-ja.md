@@ -20,11 +20,32 @@ AMJEのVanilla植物は、「Vanillaに存在するから残す」のではな�
 - 暖温帯Quickstartで自然生成数0を回帰条件にする。
 - 他のVanilla植物はこのPhaseでは変更しない。
 
+## Phase 2 — 暖温帯林のOakと樹木量補正
+
+対象: `Plant_TreeOak`
+
+判定: **暖温帯林から削除**
+
+理由:
+- 日本の暖温帯自然林には常緑カシ類も含まれるが、Vanillaの `Plant_TreeOak` は温帯林用の汎用落葉広葉樹として扱われており、AMJE暖温帯林の照葉樹構造を表す役としては不適切。
+- 暖温帯林の主構造はAMJE所有のスダジイへ寄せ、カシ類を将来明示する必要が生じた場合は日本向けの種・表示として別途設計する。
+- Oak削除だけで樹木候補比率を落とさない。先に削除済みのPoplar 0.15と今回のOak 0.40を合計した0.55をスダジイへ戻し、スダジイ commonality を2.00→2.55とする。
+
+樹木 commonality:
+- Poplar削除前: 3.30
+- Phase 1後: 3.15
+- Phase 2後: **3.30**
+- 総wildPlants commonalityもPoplar削除前の13.42へ戻るため、Vanilla樹木整理だけを理由に暖温帯林の樹木量を減らさない。
+
+実装:
+- `AMJ_WarmTemperateForest/wildPlants` から `Plant_TreeOak` を除外。
+- `AMJ_Tree_Shii` を2.55へ増加。
+- 暖温帯QuickstartでOak / Poplarの自然生成数0を回帰条件にする。
+
 ## 未処理候補
 
 以下は後続監査候補。複数種をまとめて監査・実装してよいが、削除・置換のコミットは履歴を追いやすい論理単位に分ける。ここに列挙されているだけでは削除決定ではない。
 
-- 暖温帯の `Plant_TreeOak`
 - 亜高山帯の `Plant_TreePine`
 - 高山帯の `Plant_Dandelion`
 - 高山帯の `Plant_Astragalus`
