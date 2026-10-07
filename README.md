@@ -66,7 +66,7 @@ These bands are not prefectural or regional borders. They are a gameplay simplif
 
 The temperature thresholds are therefore approximations for RimWorld rather than literal botanical boundaries. AMJE uses these four BiomeDefs as **baseline vegetation bands**, not as an exclusive replacement for every other biome. Wetlands and stronger specialized biome workers from compatible mods such as Medieval Overhaul can still coexist where their own conditions fit.
 
-The design also avoids presenting every map as untouched climax forest. Human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions, but that does **not** justify retaining arbitrary Vanilla vegetation. The current Beta still reuses some Vanilla plants provisionally. Each retained tree and ground plant will be re-audited for Japanese distribution, period fit, ecological role, and presentation; plants without a clear AMJE reason to remain will be removed, replaced, or excluded from the biome pools.
+The design also avoids presenting every map as untouched climax forest. Human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions, but that does **not** justify retaining arbitrary Vanilla vegetation. AMJE is now actively re-auditing the Vanilla plants still used by its biomes. Plants without a clear reason to exist in an ancient-to-medieval Japanese vegetation band are removed or replaced as their review is completed; the first completed removal is Vanilla Poplar from the warm-temperate forest. Plants that remain must continue to justify their Japanese distribution, period fit, ecological role, and presentation.
 
 ### Structural Japanese vegetation
 
@@ -103,7 +103,7 @@ Shirabiso is a major evergreen conifer of Honshu's subalpine forests. On mountai
 
 Haimatsu is a creeping evergreen dwarf pine of alpine areas from Hokkaido to the high mountains of central and northern Honshu. It forms dense scrub above the treeline and is one of the clearest visual markers of Japanese alpine vegetation. Its distribution also reflects the history of northern cold-climate flora persisting at high elevation after postglacial warming.
 
-Generic grasses, mosses, shrubs, secondary trees, and other filler vegetation continue to reuse Vanilla PlantDefs. The goal is to make the vegetation bands structurally legible without turning Environment into a large plant-content mod or implying that each biome is a monoculture.
+Some generic grasses, mosses, shrubs, secondary trees, and other filler vegetation still reuse Vanilla PlantDefs where the current audit has not rejected them. This reuse is not a permanent retention promise: unsuitable plants are removed or replaced as they are confirmed. The goal is to keep the vegetation bands structurally legible without turning Environment into a large plant-content mod or implying that each biome is a monoculture.
 
 Detailed research rationale and sources for the representative plants are retained in [Docs/Design.md](Docs/Design.md) and [Docs/ArtDirection.md](Docs/ArtDirection.md).
 
@@ -222,18 +222,19 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-The four AMJE representative plants are implemented. Real-play balance/compatibility feedback may still refine the current baselines.
+The four AMJE representative plants are implemented. The Vanilla-vegetation retention audit is also underway; unsuitable inherited plants are being removed in separate, reviewable changes while retained plants continue to be checked for Japanese fit. Real-play balance/compatibility feedback may still refine the current baselines.
 
 ## Planned follow-up
 
-After the initial public Beta, existing Vanilla / Medieval Overhaul vegetation is audited **before** any broad retexture pass:
+The existing Vanilla / Medieval Overhaul vegetation audit is already in progress **before** any broad retexture pass:
 
 - decide whether each existing tree or ground plant actually belongs in AMJE's pre-Edo Japanese environment;
 - remove, replace, or stop using targets without a sufficient botanical, historical, or landscape reason to remain;
+- keep removals in reviewable commits without requiring the audit itself to proceed one species at a time;
 - rewrite retained plant descriptions into the AMJE historical-description format;
 - retexture only the retained targets, including every loaded visible state actually used by that plant.
 
-Retexturing is therefore not a commitment to preserve the current Vanilla/MO vegetation mix. Retention is decided first; art follows only for plants that remain justified AMJE components.
+Vanilla Poplar has already been removed from the warm-temperate forest as the first completed case. Retexturing is not a commitment to preserve the remaining Vanilla/MO vegetation mix. Retention is decided first; art follows only for plants that remain justified AMJE components.
 
 ## Research and detailed design
 
