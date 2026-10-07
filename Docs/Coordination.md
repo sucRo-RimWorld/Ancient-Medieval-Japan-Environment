@@ -99,13 +99,13 @@ that Steam was updated.
 
 **Requested by:** author (2026-10-08 JST)  
 **Owner:** Environment vegetation / localization / art  
-**Status:** OPEN — post-Beta work
+**Status:** IN PROGRESS — retention decision complete; description audit is the next step before any retexture
 
 Before any broad Vanilla / Medieval Overhaul tree retexture pass, re-audit the trees and ground vegetation AMJE currently leaves in place. The previous rationale that human-created pine woodland / grassland / secondary forest justifies retaining Vanilla vegetation is rejected: those historical vegetation forms must themselves be represented by species and vegetation appropriate to ancient/medieval Japan. Do not assume an existing PlantDef should remain merely because it is already present. For each candidate, decide whether it belongs in AMJE's target region, pre-Edo scope, vegetation bands and landscape role; remove/replace/non-adopt targets that are unnecessary or inappropriate.
 
 Only trees retained after that audit proceed to the later art pass. Their inherited Vanilla/MO descriptions must also be rewritten into the established AMJE plant-description format, Japanese-first, under the shared historical-description rules before English synchronization. The audit explicitly includes correcting culturally or historically mismatched inherited wording; the Vanilla bamboo wording that describes bamboo as not beautiful is a named review target.
 
-Durable policy is recorded in `Docs/Design.md` section **11.5.5**. This item changes the post-Beta order to **retention audit -> distribution/ownership decision -> description rewrite -> retexture**.
+Durable policy is recorded in `Docs/Design.md` sections **11.5.5–11.5.7**. The required order is **retention audit -> distribution/ownership decision -> Japanese description audit/rewrite -> author/content approval -> retexture**. Do not begin the retained-Vanilla art pass before description review. After the retained Vanilla set is complete, the roadmap proceeds to missing Japanese vegetation/medicinal plants and only then to final Wild Healroot removal.
 
 ### DOC-PUBLICCOPY-005 — public description wording alignment
 
@@ -1413,7 +1413,7 @@ Validation: bilingual semantic review, LF/CRLF UTF-8 byte limits, BBCode balance
 
 **Requested by:** author  
 **Owner:** Environment / vegetation  
-**Status:** IN PROGRESS — Vanilla forest/wetland retention pass DONE except Healroot→Yomogi replacement
+**Status:** DONE — Vanilla forest/wetland retention/removal pass complete; later vegetation stages handed off
 
 Author corrected the previous assumption that existing Vanilla vegetation should
 remain by default. AMJE now requires a positive ancient/medieval-Japan reason
@@ -1446,14 +1446,20 @@ Existing PR CI passed before merge: Workshop payload filtering and Plant visual 
 Later candidates may be audited and prepared together. Do not artificially
 serialize the work by species. Keep each removal or tightly coupled replacement
 in a separate reviewable commit where practical; a PR may contain multiple such
-commits. Healroot remains a special replacement case rather than a deletion-only
-commit.
+commits.
 
-`Plant_HealrootWild` is a RimWorld-fictional plant and is not a final AMJE
-retention target, but it must not be deleted alone. Replace it atomically with
-AMJE-owned yomogi (`AMJ_Plant_Yomogi`) after the Def, art, distribution,
-static validation and runtime natural-generation/harvest checks are ready.
-Cultivated `Plant_Healroot` remains outside this wild-vegetation audit.
+The author later fixed the broader vegetation roadmap in PR #16 / squash merge
+`b7006ad91f49c1a0d2dca2aaea658f384922f4f0`:
+1) remove unsuitable inherited vegetation;
+2) audit/rewrite retained Vanilla descriptions first, then retexture;
+3) add missing ancient-to-medieval Japanese vegetation, including traditional
+medicinal plants such as yomogi;
+4) remove `Plant_HealrootWild` only at the final cleanup stage after the
+replacement vegetation and gathering balance are established.
+
+Yomogi addition and Healroot removal are no longer required to be atomic in one
+change. Cultivated `Plant_Healroot` remains outside this natural-vegetation
+roadmap.
 
 Public description sync is complete in squash merge
 `75b74a6d3624701df2e427549bd6e7f7b0c1432d`: README, Japanese/English
@@ -1483,4 +1489,4 @@ Actual Steam / 2game publication is still author-manual and is not claimed here.
 - GitHub static gates all passed: PowerShell syntax, Workshop payload, plant visual coverage and regional tree-sowing contract.
 - A fresh RimWorld runtime execution of the two new wetland Quickstarts has not been run from this chat/tool environment and is not claimed.
 
-The only remaining known Vanilla natural-vegetation replacement before the planned Workshop upload is `Plant_HealrootWild` → AMJE-owned yomogi. The replacement must also remove Wild Healroot from TemperateSwamp/ColdBog without adding yomogi to their default pools.
+The retention/removal pass is complete enough for the planned Workshop update. Wild Healroot remains intentionally temporary and is not a pre-upload blocker under the author-approved roadmap. Its eventual removal must also cover TemperateSwamp/ColdBog; yomogi itself remains excluded from those default wetland pools.
