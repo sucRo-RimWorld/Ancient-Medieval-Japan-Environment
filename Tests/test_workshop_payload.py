@@ -12,7 +12,9 @@ spec.loader.exec_module(payload)
 
 
 def fixture():
-    return {'About/About.xml': b'<ModMetaData><name>AMJ - Environment</name><packageId>sucro.ancientmedievaljapan.environment</packageId></ModMetaData>',
+    return {'About/About.xml': b'<ModMetaData><name>AMJ - Environment</name><packageId>sucro.ancientmedievaljapan.environment</packageId><modVersion>0.1.0</modVersion></ModMetaData>',
+            'About/Manifest.xml': b'<Manifest><identifier>AncientMedievalJapanEnvironment</identifier><version>0.1.0</version></Manifest>',
+            'About/Changelog.txt': b'# fixture\n0.1.0 - fixture changenote\n',
             'About/PublishedFileId.txt': b'3814638060', 'loadFolders.xml': payload.LOAD,
             'Assemblies/AncientMedievalJapanEnvironment.dll': b'MZfixture',
             'Defs/ThingDefs_Plants/AMJ_WildPlants.xml': b'<Defs><ThingDef ParentName="BushBase"><defName>AMJ_Shrub_Haimatsu</defName><plant><harvestedThingDef>WoodLog</harvestedThingDef><harvestYield>8</harvestYield><harvestTag>Wood</harvestTag></plant></ThingDef></Defs>'}
@@ -33,6 +35,20 @@ class GateTests(unittest.TestCase):
             data = fixture(); data[key] = value
             with self.assertRaises(ValueError):
                 payload.validate(data)
+
+    def test_changenote_metadata_contract(self):
+        data = fixture()
+        payload.validate(data)
+
+        mismatch = fixture()
+        mismatch['About/Manifest.xml'] = b'<Manifest><version>0.1.1</version></Manifest>'
+        with self.assertRaisesRegex(ValueError, 'modVersion'):
+            payload.validate(mismatch)
+
+        missing_entry = fixture()
+        missing_entry['About/Changelog.txt'] = b'0.0.9 - old\n'
+        with self.assertRaisesRegex(ValueError, 'Changelog'):
+            payload.validate(missing_entry)
 
     def test_missing_extra_and_mutated_files(self):
         with tempfile.TemporaryDirectory() as temp:

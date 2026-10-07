@@ -63,7 +63,8 @@ def self_test():
                 "Docs/description.txt", "Tests/Fixture/About/About.xml", "Source/code.cs",
                 "DevQuickstarts/Assemblies/Quick.dll", "build.bat", "Assemblies/mod.pdb",
                 "Patches/_LocalTest.xml", "Assemblies/Mod.Tests.dll"]
-    runtime = ["About/About.xml", "About/Preview.png", "About/PublishedFileId.txt",
+    runtime = ["About/About.xml", "About/Manifest.xml", "About/Changelog.txt",
+               "About/Preview.png", "About/PublishedFileId.txt",
                "Defs/Plants.xml", "Languages/Japanese/Keyed/Mod.xml", "Textures/Plant.png",
                "Assemblies/Mod.dll", "Patches/Compatibility/Mod.xml", "loadFolders.xml", "LICENSE"]
     kept, leaks, lost = audit(unwanted + runtime, rules)
@@ -91,8 +92,9 @@ def main():
         paths = [p.relative_to(args.payload).as_posix() for p in args.payload.rglob("*") if p.is_file()]
         kept, leaks, lost = audit(paths, [])
         leaks += [p for p in paths if ignored(p, rules)]
-        if "About/About.xml" not in paths:
-            leaks.append("MISSING About/About.xml")
+        for required in ("About/About.xml", "About/Manifest.xml", "About/Changelog.txt"):
+            if required not in paths:
+                leaks.append("MISSING " + required)
         if "LICENSE" not in paths:
             leaks.append("MISSING LICENSE")
         if args.expected_assembly and "Assemblies/" + args.expected_assembly not in paths:
@@ -103,6 +105,9 @@ def main():
         paths = json.loads(args.inventory.read_text()) if args.inventory else subprocess.check_output(
             ["git", "ls-files", "-z"], cwd=ROOT).decode("utf-8").rstrip("\0").split("\0")
         kept, leaks, lost = audit(paths, rules)
+        for required in ("About/About.xml", "About/Manifest.xml", "About/Changelog.txt"):
+            if required not in kept:
+                leaks.append("MISSING " + required)
     if not args.payload:
         # Current Core archive/publisher adapters must match the same authority.
         legacy = ROOT / ".workshopignore"

@@ -61,13 +61,44 @@ Reproduce the same-path and actual local YADA-rule comparison with
 --development DEVELOPMENT_ROOT --output FRESH_EVIDENCE_JSON`.
 Original runtime evidence remains in the location listed by WorkshopRuntimeTests.
 
+## Steam Change Notes via Add Changenote
+
+AMJE keeps Steam Workshop change-note text in Git rather than composing it
+manually in Steam.
+
+- `About/Manifest.xml` is the publication-version source used by Add Changenote.
+- `About/About.xml` `<modVersion>` must match the Manifest version.
+- `About/Changelog.txt` contains versioned Workshop change-note blocks. The
+  current block must begin with exactly the current Manifest version.
+- `About/Manifest.xml` and `About/Changelog.txt` are intentional subscriber
+  files. Do not add either basename to `.rimignore`; YADA's temporary upload
+  copy must retain both so Add Changenote can read them.
+- During the author's manual RimWorld Workshop upload, both **YADA** and
+  **Add Changenote** must be enabled. YADA remains responsible for the filtered
+  upload root; Add Changenote intercepts RimWorld's auto-generated change note
+  and replaces it with the current changelog block.
+- Before opening the upload confirmation, update the version and changelog in
+  Git, build from the pinned clean commit, and require the payload validators to
+  pass. If either publisher helper is disabled, or if the matching changelog
+  block is missing, do not claim that the intended Steam Change Note was
+  published.
+- After Steam installs the new manifest, confirm the Workshop Change Notes page
+  shows the intended current-version block as part of the normal post-upload
+  verification. Repository preparation alone is not Steam publication proof.
+
+The first tracked AMJE publication version is `0.1.0`. Earlier Workshop
+uploads were not assigned retroactive versions.
+
 ## Reusable sequence
 
 1. Read main AGENTS/Coordination and WorkshopRuntimeTests/PlantHarvestTests.
    Start from a fresh main clone outside immediate Mod enumeration. Never reset
    a dirty author checkout, copy its whole directory, or upload a nested worktree.
-2. Pin the full expected main SHA. Run build/static/art validators as required.
-   Run `python Tests/test_workshop_payload.py` (negative publication fixtures).
+2. Pin the full expected main SHA. Confirm `About/About.xml` modVersion,
+   `About/Manifest.xml` version and the leading version in the current
+   `About/Changelog.txt` block all match. Run build/static/art validators as
+   required. Run `python Tests/test_workshop_payload.py` (negative publication
+   fixtures).
 3. Run `python Scripts/Build-WorkshopPayload.py build --expected-commit FULL_SHA
    --output FRESH_EXTERNAL_RESULT_DIRECTORY --preview APPROVED_EXISTING_PNG`.
    The preview's SHA256 is recorded as a separate author-approved input because
@@ -83,7 +114,8 @@ Original runtime evidence remains in the location listed by WorkshopRuntimeTests
    for all four profiles, complete logs, zero errors and unchanged source payload.
    Candidate tests use a unique fixture ID in About only; all production runtime
    files remain exact. This harness identity difference must be reported.
-5. Immediately before the author's manual upload, verify the exact selected root:
+5. Immediately before the author's manual upload, enable YADA and Add Changenote,
+   then verify the exact selected root:
    `python Scripts/Build-WorkshopPayload.py verify SELECTED_ROOT Manifest.json`.
    Keep manifest outside the upload root. Use the extracted runtime root, with
    original packageId/PublishedFileId, as the author's selected upload source.
