@@ -124,6 +124,8 @@ Willowは湿地・河畔のヤナギ類代理として成立する。Vanilla Cyp
 
 Wild Healrootは薬草採集ループを途中で切らないためこのPhaseでは残す。Yomogi実装時に両湿地からも除外し、ヨモギ自体は湿地の既定植生には追加しない。
 
+**Phase 5は植物poolだけの監査であり、Vanilla湿地Biome全体を最終採用したという意味ではない。** 2026-10-08の後続監査で、`TemperateSwamp` / `ColdBog` はgenericな湿地類型・Worker・地形生成としては残存理由がある一方、wildAnimals / diseases / weather / descriptionにはAMJE方針との明確な不整合が残ることを確認した。詳細は `Docs/VanillaWetlandBiomeAudit-ja.md` を正本とし、これらを補正してStep 1完了テストを通すまで植生ロードマップStep 1は完全完了扱いにしない。
+
 ## 現時点の残存判定
 
 ### Generic林床・低木
