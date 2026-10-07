@@ -902,6 +902,15 @@ GenericなGrass / Moss / Bush / Brambles等は、特定の外来種を主張し�
 - 高山帯: 通常高木Pine / Birchと汎用Dandelion / Astragalusを除外し、Haimatsu・Grass・Mossへ再配分する。
 - Berryは特定種を断定しない採集用低木、Grass / TallGrass / Brambles / Moss / Bushはgenericな林床・草地要素として当面残す。
 
+Vanilla湿地Biomeも同じ残存ゲートの対象とする。AMJEの4植生帯は `swampiness < 0.5` の陸地を基準にし、湿潤地では `TemperateSwamp` / `ColdBog` が共存できるため、そこに残る `wildPlants` を監査しないとVanilla植生が湿地経由で再流入する。
+
+2026-10-08湿地監査:
+- `TemperateSwamp`: Chokevine 0.80をBrambles 0.80へ、Cypress 1.00を削除してWillow 1.00→2.00へ移す。総commonality **7.30**、木本commonality **3.00**を維持する。
+- `ColdBog`: Chokevine 3.00をTallGrass +1.00 / Moss +2.00へ、Astragalus 0.10をMossへ、Cypress 0.60をBirch 0.60へ置換する。総commonality **8.22**、木本commonality **1.80**を維持する。
+- Willowは日本の湿地・河畔に対応可能な汎用ヤナギ類代理、Mapleは在来カエデ類代理として残す。ColdBogのBirchは冷温帯～亜高山帯で既に採用しているカバノキ類代理を流用する。
+- Vanilla Cypressは湿地性のVanilla樹木であり、日本のヒノキを表す代理としては扱わない。
+- `Plant_HealrootWild` はこの湿地監査では一時的に維持し、後続のHealroot→Yomogi置換時に湿地からも除外する。ヨモギは湿地Biomeの既定構成には追加しない。
+
 `Plant_HealrootWild` はRimWorld固有の架空植物であり、AMJEの最終的な自然植生には残さない。ただし野生薬草採集ループを消さないため、単独削除せずAMJE所有のヨモギ（`AMJ_Plant_Yomogi`）へ置換する。主分布は暖温帯・冷温帯とし、亜高山帯・高山帯には原則配置しない。収穫物はゲームプレイ上の抽象化として少量の `MedicineHerbal` を維持し、ヨモギ単独が万能薬であるという史実主張にはしない。Def・画像・分布・自然生成・収穫検証が揃った変更でHealrootWildを同時除外する。
 
 
