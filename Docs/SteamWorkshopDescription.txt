@@ -99,7 +99,7 @@ Adding AMJE to an existing save has not been verified and does not regenerate an
 
 Currently Beta.
 
-The first broad Vanilla-vegetation audit is largely complete. The main remaining replacement is fictional Wild Healroot with an AMJE-owned Japanese medicinal plant; only retained plants then proceed to description rewrites and retexturing.
+The first broad Vanilla-vegetation audit is largely complete. Next, retained plants receive Japan-focused description review and rewriting before any retexture work. Missing Japanese vegetation and traditional medicinal plants follow after that; fictional Wild Healroot is removed only at the final cleanup stage.
 
 See [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README / Design[/url] for values, rationale, and CCTO data.
 
