@@ -1432,3 +1432,13 @@ removed/replaced, and warm-temperate Vanilla Poplar is the first completed
 removal. Workshop BBCode is balanced and remains under the 8,000-byte limit in
 both LF and CRLF forms. Actual Steam / 2game site publication is not claimed.
 
+
+
+Public descriptions were synchronized again after Phases 2–4 in squash merge
+`734db85070c55d5e88f04a4346648549138ef247`. README, Workshop JA/EN,
+2game and About now record the broader removals, the commonality redistribution
+that prevents unintended forest thinning, and Wild Healroot→yomogi as the main
+remaining Vanilla-vegetation replacement. Workshop preflight passed before PR:
+JA 7,759 bytes LF / 7,870 CRLF; EN 7,670 LF / 7,781 CRLF; BBCode balanced.
+Actual Steam / 2game publication is still author-manual and is not claimed here.
+
