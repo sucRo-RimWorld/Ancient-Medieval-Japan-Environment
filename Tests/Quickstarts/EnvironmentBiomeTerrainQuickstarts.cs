@@ -420,6 +420,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
             get { return new string[0]; }
         }
 
+        protected virtual string[] ExcludedPlantDefNames
+        {
+            get { return new string[0]; }
+        }
+
         protected virtual float MaxLimitedTimberCellFraction
         {
             get { return 1f; }
@@ -557,6 +562,15 @@ namespace AncientMedievalJapan.Environment.Quicktests
             if (TargetBiomeDefName == "AMJ_WarmTemperateForest")
             {
                 AddTreeTextureAuditAssertions(verification);
+            }
+
+            string[] excludedPlants = ExcludedPlantDefNames;
+            for (int i = 0; i < excludedPlants.Length; i++)
+            {
+                string excludedDefName = excludedPlants[i];
+                verification.Assert(
+                    excludedDefName + " is absent from " + TargetBiomeDefName,
+                    delegate { return CountThings(map, excludedDefName) == 0; });
             }
 
             int targetCount = CountThings(map, TargetPlantDefName);
@@ -2726,10 +2740,20 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreeOak",
-                    "Plant_TreePoplar",
                     "Plant_TreeMaple",
                     "Plant_TreeBamboo"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreeOak",
+                    "Plant_TreePoplar"
                 };
             }
         }
@@ -3104,8 +3128,18 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreePine",
                     "Plant_TreeBirch"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreePine"
                 };
             }
         }
@@ -3159,10 +3193,17 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
         protected override string[] SecondaryPlantDefNames
         {
+            get { return new string[0]; }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
             get
             {
                 return new string[]
                 {
+                    "Plant_Dandelion",
+                    "Plant_Astragalus",
                     "Plant_TreePine",
                     "Plant_TreeBirch"
                 };
@@ -3176,14 +3217,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
         protected override string[] LimitedTimberPlantDefNames
         {
-            get
-            {
-                return new string[]
-                {
-                    "Plant_TreePine",
-                    "Plant_TreeBirch"
-                };
-            }
+            get { return new string[0]; }
         }
 
         protected override float MaxLimitedTimberCellFraction
