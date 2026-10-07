@@ -72,6 +72,16 @@ When a design or implementation policy changes, check the existing design, imple
 
 Prefer RimWorld Def/XML/Patch operations when they are sufficient. Add C# only for world-generation or runtime behavior that cannot be expressed cleanly and compatibly through Defs/XML.
 
+## Public description writing rule
+
+Public-facing copy follows the AMJ common guide in `sucRo-RimWorld/Ancient-Medieval-Japan-Grains:Docs/ModDescriptionGuidelines.md`, plus this repository's `Docs/WorkshopDescription.md` and `Docs/2GamePresentation.md`.
+
+- In Japanese public copy, use established Japanese terms for general concepts; keep English primarily for official Mod names, proper names, identifiers, and necessary technical names.
+- Prioritize player-visible environment changes and installation/compatibility information. Do not treat implementation provenance, custom/AI artwork, or internal code technique as a feature by itself.
+- Avoid internal engine terms such as `WorldGen`, `TileMutatorDef`, and `River / Coast mutator` in Workshop, 2game, or About copy unless technically necessary.
+- Distinguish added AMJE content from reused Vanilla systems and distribution changes.
+- When wording changes, audit README, Workshop Japanese/English, 2game Japanese, and About.xml together.
+
 ## Reporting GitHub changes
 
 Only report that a GitHub file was updated when the change was actually committed to GitHub. When reporting repository changes, include the actual commit SHA.
