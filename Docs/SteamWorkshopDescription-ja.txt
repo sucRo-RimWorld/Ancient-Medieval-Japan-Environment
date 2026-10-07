@@ -107,5 +107,5 @@ AMJE独自のバイオーム・地形・植物を使用しているセーブか�
 
 MIT License.
 
-[h2]Support[/h2]
+[h2]支援[/h2]
 [url=https://ko-fi.com/sucro0629][img]https://img.shields.io/badge/Ko--fi-Support%20me-ff5e5b?logo=ko-fi&logoColor=white[/img][/url]
