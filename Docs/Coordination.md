@@ -1361,32 +1361,30 @@ Validation: bilingual semantic review, LF/CRLF UTF-8 byte limits, BBCode balance
 
 **Requested by:** author  
 **Owner:** Environment / vegetation  
-**Status:** IN PROGRESS — audit branch; no main biome change yet
+**Status:** IN PROGRESS — staged removal; Phase 1 PR #8
 
 Author corrected the previous assumption that existing Vanilla vegetation should
-remain by default. AMJE now applies an explicit retention gate: a Vanilla plant
-must have a positive ancient/medieval-Japan reason, fit the target vegetation
-band, and remain visually/semantically defensible. Existing presence is not a
-reason to keep it.
+remain by default. AMJE now requires a positive ancient/medieval-Japan reason
+for each reused Vanilla plant. Existing presence is not a retention reason.
 
-Work branch: `audit/vanilla-plant-retention-20261008`.
+The earlier broad draft PR #7 was closed without merge. The author requested
+incremental deletion from the least controversial targets rather than removing
+the whole candidate set at once.
 
-Initial removals staged there:
-- warm-temperate: `Plant_TreeOak`, `Plant_TreePoplar`;
-- subalpine: generic `Plant_TreePine`;
-- alpine: `Plant_Dandelion`, `Plant_Astragalus`, generic
-  `Plant_TreePine` and `Plant_TreeBirch`.
+**Phase 1:** PR #8 / branch `audit/remove-warm-poplar-20261008`
+- removes only `Plant_TreePoplar` from `AMJ_WarmTemperateForest`;
+- leaves every other candidate unchanged;
+- adds a Quickstart regression assertion that Poplar does not naturally
+  generate in the target AMJE biome;
+- records the decision in `Docs/VanillaPlantRetentionAudit-ja.md`.
 
-`Plant_HealrootWild` is confirmed as a RimWorld-fictional plant and is not a
-final AMJE retention target. Do not delete it alone: replace it atomically with
-AMJE-owned yomogi (`AMJ_Plant_Yomogi`) so wild herbal-medicine gathering is
-not silently removed. Yomogi is intended primarily for warm/cool temperate
-bands, with no alpine distribution. The replacement requires Def, AMJE art,
-distribution, static validation, and runtime natural-generation/harvest checks
-before the Healroot exclusion is merged.
+Later candidates must be handled as separate phases after Phase 1 is closed.
+Do not bundle warm-temperate Oak, subalpine Pine, alpine plants or Healroot into
+the same deletion.
 
-Durable design is in `Docs/Design.md`; the item-by-item audit record is
-`Docs/VanillaPlantRetentionAudit-ja.md` on the work branch. Tests on that
-branch also guard the already-staged exclusions. Cultivated
-`Plant_Healroot` is outside this wild-vegetation audit and must not be changed
-incidentally.
+`Plant_HealrootWild` is a RimWorld-fictional plant and is not a final AMJE
+retention target, but it must not be deleted alone. Replace it atomically with
+AMJE-owned yomogi (`AMJ_Plant_Yomogi`) after the Def, art, distribution,
+static validation and runtime natural-generation/harvest checks are ready.
+Cultivated `Plant_Healroot` remains outside this wild-vegetation audit.
+
