@@ -98,7 +98,7 @@ AMJおよび関連Modでは、RimTest Redux・Pickleを積極的に用いた自�
 
 ## 非対話ランタイムテスト方針（AMJ共通）
 
-人間の目視判断を必要としない自動テストでは、RimWorldの可視ウィンドウをユーザーのデスクトップへ出さないことを標準とする。詳細な共通正本は Ancient-Medieval-Japan-Core `Docs/DevelopmentGoldenPathGuidelines.md` の **Non-interactive runtime-test rule**。
+人間の目視判断を必要としない自動テストでは、RimWorldの可視ウィンドウをユーザーのデスクトップへ出さないことを標準とする。詳細な共通正本は Ancient-Medieval-Japan-Grains `Docs/DevelopmentGoldenPathGuidelines.md` の **Non-interactive runtime-test rule**。
 
 - Pickle / RimTest Redux / Quickstarts / 統合回帰 / runtime ERROR gate / map・気候・土壌サンプリング等は、原則として非対話・非表示で実行する。
 - 描画・Texture Atlas・`Graphic.Draw`・BadTex等を検証する場合は、描画そのものを無効化しない。仮想／オフスクリーン／非表示の表示先など、プラットフォームに適した隔離実行で実描画経路を維持する。
@@ -117,23 +117,23 @@ Any new RimWorld runtime-test harness added to this repository must include this
 
 ## Historical description audit (AMJ common)
 
-Follow the shared policy in Ancient-Medieval-Japan-Core `Docs/HistoricalDescriptionGuidelines.md` whenever AMJE uses, retextures, selects, patches, or localizes Vanilla / Medieval Overhaul items, plants, animals, or comparable content.
+Follow the shared policy in Ancient-Medieval-Japan-Grains `Docs/HistoricalDescriptionGuidelines.md` whenever AMJE uses, retextures, selects, patches, or localizes Vanilla / Medieval Overhaul items, plants, animals, or comparable content.
 
 Inherited Vanilla/MO descriptions must be audited from the perspective of ancient/medieval Japan and rewritten when they are anachronistic, culturally mismatched, misleading, overly modern, or otherwise unsuitable. AMJE-authored descriptions should include supported historical facts and, where supportable, a meaningful difference from modern Japan, modern use, or modern distribution.
 
-Historical description text is Japanese-first: draft and review Japanese first, obtain author approval, then translate only the approved Japanese text into English. Apply the shared Core name-form rule: begin Japanese descriptions with an established kanji form when one exists, and include recognized aliases / alternate names or common alternate written forms at the opening; do not invent kanji or weakly sourced names. Preserve research/source rationale in durable documentation.
+Historical description text is Japanese-first: draft and review Japanese first, obtain author approval, then translate only the approved Japanese text into English. Apply the shared AMJ name-form rule: begin Japanese descriptions with an established kanji form when one exists, and include recognized aliases / alternate names or common alternate written forms at the opening; do not invent kanji or weakly sourced names. Preserve research/source rationale in durable documentation.
 
 ## Mod naming rule (AMJ common)
 
-AMJ Core, Environment, CCTO and future related Mods must not use ASCII `:` or full-width `：` in Mod names. Use ` - ` when a separator is needed. Apply this to `About/About.xml` `<name>` and the corresponding Workshop title / formal README name; check it when creating, renaming or preparing a Mod for publication. YADA uses the display name for an upload staging directory, and an ASCII colon causes that step to fail on Windows. Display-name corrections must preserve `packageId` and existing Workshop IDs.
+AMJ Grains, Environment, CCTO and future related Mods must not use ASCII `:` or full-width `：` in Mod names. Use ` - ` when a separator is needed. Apply this to `About/About.xml` `<name>` and the corresponding Workshop title / formal README name; check it when creating, renaming or preparing a Mod for publication. YADA uses the display name for an upload staging directory, and an ASCII colon causes that step to fail on Windows. Display-name corrections must preserve `packageId` and existing Workshop IDs.
 
-The shared source of truth is [Mod description guidelines — Mod名のコロン禁止](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md). Colons in description prose, URLs and code syntax are outside this naming rule.
+The shared source of truth is [Mod description guidelines — Mod名のコロン禁止](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Grains/blob/main/Docs/ModDescriptionGuidelines.md). Colons in description prose, URLs and code syntax are outside this naming rule.
 
 ## Public mod descriptions
 
 Public-description preparation and updates must also include the Japanese 2game summary in `Docs/2GameDescription-ja.txt` and its presentation policy in `Docs/2GamePresentation.md`. Follow the shared guideline's **2game向け説明（AMJ共通）** section and CCTO's six-section, plain-style template. Check README, Workshop English/Japanese, 2game Japanese and About.xml together; link named related mods and this mod's own GitHub repository. Record repository preparation separately from live-site publication.
 
-Use the CCTO-based shared [mod description guidelines](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/ModDescriptionGuidelines.md) when writing or updating public descriptions. Include save compatibility in every mod description, stating addition/removal conditions accurately for the mod's implementation. Keep README, Workshop English/Japanese BBCode, and About.xml consistent; refine the shared baseline as presentation improves.
+Use the CCTO-based shared [mod description guidelines](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Grains/blob/main/Docs/ModDescriptionGuidelines.md) when writing or updating public descriptions. Include save compatibility in every mod description, stating addition/removal conditions accurately for the mod's implementation. Keep README, Workshop English/Japanese BBCode, and About.xml consistent; refine the shared baseline as presentation improves.
 
 ## PowerShell change safety
 
@@ -161,14 +161,14 @@ AMJE's repository index is `Docs/GoldenPaths/README.md`. Production texture work
 
 ## Golden Path closeout rule
 
-Follow the AMJ shared Golden Path policy in Ancient-Medieval-Japan-Core `Docs/DevelopmentGoldenPathGuidelines.md`.
+Follow the AMJ shared Golden Path policy in Ancient-Medieval-Japan-Grains `Docs/DevelopmentGoldenPathGuidelines.md`.
 
 After a non-trivial task succeeds, especially after debugging or failed attempts, do not move on with only the working implementation. Record the successful reusable procedure in the owning repository, automate deterministic/repetitive steps, and add regression guards for failure modes discovered during the work. For recurring work, completion includes the reusable documented/automated path, not only the one successful result.
 
 `Docs/Coordination.md` remains status/handoff only; the procedure itself must live in durable repository documentation/scripts.
 ## Retexture technical implementation rule
 
-For Vanilla / Medieval Overhaul / other prerequisite-asset retextures, also follow the shared Core source of truth `Docs/RetextureImplementationGuidelines.md`.
+For Vanilla / Medieval Overhaul / other prerequisite-asset retextures, also follow the shared AMJ source of truth in Ancient-Medieval-Japan-Grains `Docs/RetextureImplementationGuidelines.md`.
 
 - Use AMJE-owned unique texPaths with explicit XML/Patch ownership by default; do not rely only on same-name texture shadowing.
 - Treat each plant/tree target as the complete loaded graphic-state family. Audit mature/base, leafless, immature, polluted and snow-overlay states that actually exist.
@@ -183,25 +183,25 @@ external manifest. Never upload a dirty development root or infer its bytes
 from Git main. Only the actual downloaded source/DLL and four-profile cutting
 gate clear distributed-release HOLD; Steam publication stays author-manual.
 
-AMJ Core, Environment, CCTO and future related Mods must exclude **all files unnecessary for a Workshop subscriber** through the repository-root `.rimignore`. This includes Art masters/templates, design and development documentation (including README), source, tests/fixtures/reports, scripts/build tools, VCS/editor metadata, local overrides and debug/backup/archive files. Preserve runtime assets, About metadata, loadFolders.xml where used, and legally required licenses/attribution.
+AMJ Grains, Environment, CCTO and future related Mods must exclude **all files unnecessary for a Workshop subscriber** through the repository-root `.rimignore`. This includes Art masters/templates, design and development documentation (including README), source, tests/fixtures/reports, scripts/build tools, VCS/editor metadata, local overrides and debug/backup/archive files. Preserve runtime assets, About metadata, loadFolders.xml where used, and legally required licenses/attribution.
 
 - `.rimignore` is the authoritative exclusion list. YADA uses inherited basename/wildcard rules, not Git-ignore path or negation syntax; exclude `_LocalTest.xml`, not `Patches/_LocalTest.xml`.
 - Adding a file/folder includes deciding whether subscribers need it and updating exclusions when they do not. Preserve development/source material in Git; exclusion is not deletion.
 - Every alternative publisher/archive/staging builder must produce the same subscriber-only payload. Keep adapters synchronized with `.rimignore`; do not maintain independent policy exceptions.
 - Run `python Tests/validate_workshop_payload.py` before publication. Validate the final staging/installed package too; runtime-required DLLs and assets must actually be present. Repository filtering PASS alone is not build/runtime/Steam publication PASS.
-- Shared procedure and payload contract: [Core Docs/WorkshopPackaging.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/WorkshopPackaging.md).
+- Shared procedure and payload contract: [Grains Docs/WorkshopPackaging.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Grains/blob/main/Docs/WorkshopPackaging.md).
 
 ## Art / retexture routing
 
 Do not duplicate detailed art rules in AGENTS.
 
 For Environment art, use:
-1. Core `Docs/ArtStyle.md` — AMJ-wide visual invariants;
+1. Ancient-Medieval-Japan-Grains `Docs/ArtStyle.md` — AMJ-wide visual invariants and the Medieval Overhaul-oriented in-game art baseline;
 2. `Docs/ArtDirection.md` — Environment-specific tree/plant/terrain/world style and accepted species baselines;
 3. `Docs/GoldenPaths/RetextureGeneration.md` — generation entry/preflight only;
 4. `Docs/GoldenPaths/TextureAssetPipeline.md` — installation/export/validation;
-5. Core `Docs/GoldenPaths/FixedImageTemplates.md` only when a visible component is intentionally reused pixel-exactly.
+5. Ancient-Medieval-Japan-Grains `Docs/GoldenPaths/FixedImageTemplates.md` only when a visible component is intentionally reused pixel-exactly.
 
 Environment-specific rules may define controlled class differences, such as restrained internal gradient variation for tree sprites, but they must remain compatible with the shared AMJ invariants unless the owning style specification explicitly records an exception.
 
-For Vanilla/MO retexture ownership and texPath behavior, continue to follow the shared Core `Docs/RetextureImplementationGuidelines.md`.
+For Vanilla/MO retexture ownership and texPath behavior, continue to follow the shared Ancient-Medieval-Japan-Grains `Docs/RetextureImplementationGuidelines.md`.
