@@ -406,6 +406,8 @@ Fixes:
 **Result:** ENV-003 is complete for the Alpha structural vegetation stage. The composition/commonality values remain accepted without retuning. Final art remains deferred to the visual-art pass.
 
 
+**Public wildlife-description sync (2026-10-08):** PR #17 / squash merge `88f87fd8997f8cd2476be49db5cdd8171c57e17b` synchronized README, Workshop JA/EN, 2game, About and changelog so the player-facing scope now explicitly includes Japan-oriented wildlife distribution. Wording clarifies that AMJE curates Vanilla animal pools as functional gameplay proxies rather than claiming literal Japan-specific species additions. No wildlife balance/implementation values changed in this PR.
+
 ### ENV-005 — Optional CCTO integration for AMJE plants
 
 **Requested by:** Environment/design  
