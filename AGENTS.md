@@ -11,6 +11,10 @@ Before starting work in this repository:
 5. Before resuming plant art, selecting a next target, handing off or claiming completion, read `Docs/GoldenPaths/PlantVisualCoverage.md` and run `Tests/validate_plant_visual_coverage.py`. Resolve/report its pending states first. A whole-plant/all-state completion claim requires `--require-complete` to pass; normal appearance approval alone is never full completion. Existing-tree retextures are deferred by the author; finish pending current-plant states before proposing unrelated art.
 6. Color/palette comparisons must use fixed local time 12:00, Clear weather and a paused map, with the same zoom and season/shader intensity for before/after comparisons. Verify and record actual conditions; requested settings alone are insufficient. Do not judge source colors from uncontrolled dawn/dusk, night or weather screenshots. Follow the color-review controls in `Docs/GoldenPaths/PlantVisualCoverage.md`.
 
+## Unowned idea staging
+
+When a new AMJ idea may become a separate Mod but does not yet have an owning repository, **record its durable concept, research and roadmap state in `sucRo-RimWorld/Ancient-Medieval-Japan-Project`**. Do not let this runtime repository become the evolving design home merely because the idea was discovered here. Keep only a concise compatibility or ownership-boundary pointer when relevant. Once a dedicated owner repository exists, migrate confirmed design there.
+
 ## Context reconstruction / source hierarchy
 
 For every new chat or agent session working on AMJ or a related mod, rebuild context from repository sources instead of treating accumulated chat history as the primary source of truth:
