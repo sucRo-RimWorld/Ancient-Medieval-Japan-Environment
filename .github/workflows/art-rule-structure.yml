@@ -2,25 +2,29 @@ name: Art rule structure
 
 on:
   push:
+    branches: [ main ]
     paths:
       - "AGENTS.md"
       - "Docs/ArtDirection.md"
-      - "Docs/Coordination.md"
       - "Docs/GoldenPaths/README.md"
       - "Docs/GoldenPaths/RetextureGeneration.md"
       - "Docs/GoldenPaths/TextureAssetPipeline.md"
       - "Tests/test_art_rule_structure.py"
       - ".github/workflows/art-rule-structure.yml"
   pull_request:
+    branches: [ main ]
     paths:
       - "AGENTS.md"
       - "Docs/ArtDirection.md"
-      - "Docs/Coordination.md"
       - "Docs/GoldenPaths/README.md"
       - "Docs/GoldenPaths/RetextureGeneration.md"
       - "Docs/GoldenPaths/TextureAssetPipeline.md"
       - "Tests/test_art_rule_structure.py"
       - ".github/workflows/art-rule-structure.yml"
+
+concurrency:
+  group: art-rule-structure-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
