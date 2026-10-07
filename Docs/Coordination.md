@@ -43,6 +43,19 @@ Primary design source:
 
 ## Current coordination items
 
+### DOC-PUBLICCOPY-005 — public description wording alignment
+
+**Requested by:** author (2026-10-07 JST)  
+**Owner:** Documentation/release  
+**Status:** DONE — repository-side public descriptions and wording rules aligned; Steam/2game publication remains manual
+
+README, Japanese/English Workshop sources, 2game Japanese source, and About.xml were aligned around the current AMJE feature set. Public copy now explicitly identifies **Thin Soil / 痩せた土壌 (50% fertility)** as an added terrain while separately describing the higher-elevation poor/stony soil distribution. Japanese public copy uses Japanese general terminology instead of mixed `Vanilla / Biome / WorldGen / runtime / mutator` wording, while official Mod names and useful proper names remain unchanged.
+
+Implementation/art provenance is no longer presented as a feature: the previous “custom/AMJE-authored graphics” promotional wording was removed. Public river/coast wording now describes compatibility/reuse of RimWorld's existing systems instead of exposing the internal River / Coast mutator terminology.
+
+Durable wording rules are recorded in AMJE `AGENTS.md`, `Docs/WorkshopDescription.md`, and `Docs/2GamePresentation.md`, with the AMJ-common source updated in Grains `Docs/ModDescriptionGuidelines.md`. Japanese Workshop BBCode remained balanced and below the 8,000-byte limit under CRLF accounting. Actual Steam Workshop and 2game page updates are not claimed.
+
+
 ### DOC-WORKSHOP-004 — AMJE GitHub repository link
 
 **Requested by:** author (2026-10-06 JST)
