@@ -3191,38 +3191,23 @@ namespace AncientMedievalJapan.Environment.Quicktests
             get { return "AMJ_Shrub_Haimatsu"; }
         }
 
-        protected override string[] SecondaryPlantDefNames
-        {
-            get
-            {
-                return new string[]
-                {
-                    "Plant_TreePine",
-                    "Plant_TreeBirch"
-                };
-            }
-        }
-
         protected override float MaxTargetCellFraction
         {
             get { return 0.05f; }
         }
 
-        protected override string[] LimitedTimberPlantDefNames
+        protected override string[] ExcludedPlantDefNames
         {
             get
             {
                 return new string[]
                 {
+                    "Plant_Dandelion",
+                    "Plant_Astragalus",
                     "Plant_TreePine",
                     "Plant_TreeBirch"
                 };
             }
-        }
-
-        protected override float MaxLimitedTimberCellFraction
-        {
-            get { return 0.01f; }
         }
     }
 
