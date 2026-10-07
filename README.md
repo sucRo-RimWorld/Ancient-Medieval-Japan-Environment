@@ -21,7 +21,8 @@ The goal is a gameplay-oriented environmental profile inspired by the Japanese a
 - long, irregular coastlines with more bays, peninsulas, and islands;
 - vegetation belts that shift from warm-temperate evergreen forest through cool-temperate deciduous forest and subalpine conifers to alpine scrub;
 - natural soil quality that becomes poorer and stonier in colder/high-elevation zones;
-- weather and seasonal scenery that emerge primarily from RimWorld's existing temperature, snow, and plant systems.
+- weather and seasonal scenery that emerge primarily from RimWorld's existing temperature, snow, and plant systems;
+- biome wildlife pools adjusted toward a Japan-like ecological composition using curated Vanilla animals as functional gameplay proxies.
 
 Historical and ecological research is used as a reference, but gameplay clarity takes priority over literal simulation.
 
@@ -143,7 +144,7 @@ No custom seasonal controller is added in Beta.
 
 ### Functional wildlife proxies
 
-AMJ Environment does not add Japan-specific animal Defs.
+AMJ Environment adjusts wildlife distribution by biome toward a Japan-like ecological composition but does not add Japan-specific animal Defs.
 
 The custom biomes use a curated set of Vanilla animals as functional gameplay proxies. Clearly unsuitable placeholders such as Raccoon, Elk, Ibex, Arctic Fox, and Lynx were removed from the AMJ biome pools.
 

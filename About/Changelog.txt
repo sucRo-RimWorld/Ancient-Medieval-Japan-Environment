@@ -8,4 +8,5 @@
 - Removed generic Pine from the subalpine forest and transferred its share to Shirabiso.
 - Removed generic Pine, Birch, Dandelion, and Astragalus from the alpine zone while preserving total vegetation and woody commonality through Haimatsu, grass, and moss.
 - Japanized inherited TemperateSwamp and ColdBog vegetation while preserving each biome's total vegetation and woody commonality.
+- Documented the existing Japan-oriented wildlife distribution: curated Vanilla animals are used as functional proxies and unsuitable placeholders are excluded.
 - Synchronized README, Workshop, 2game, and About wording with the current vegetation-audit status.
