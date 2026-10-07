@@ -86,16 +86,17 @@ Public-facing copy follows the AMJ common guide in `sucRo-RimWorld/Ancient-Medie
 
 Only report that a GitHub file was updated when the change was actually committed to GitHub. When reporting repository changes, include the actual commit SHA.
 
-## GitHub preflight / error hygiene
+## GitHub preflight / CI error hygiene (AMJ common)
 
-Do not use GitHub Actions, GitHub API writes, or repeated remote commits as an exploratory debugger.
+Follow the project-wide canonical rule in `sucRo-RimWorld/Ancient-Medieval-Japan-Project/AGENTS.md`.
 
-- Before a write, confirm the target branch/file exists and re-read the exact current content/SHA.
-- Prepare focused edits against exact anchors and validate deterministic syntax/structure locally or in-memory before pushing.
-- For XML, scripts, payload policy, and other machine-checkable changes, run the relevant parser/validator before opening a PR whenever the current environment can do so.
-- Group related verified edits before PR creation instead of publishing obviously broken intermediate states only to learn from CI.
-- Treat GitHub Actions as a regression gate, not the first parser/debug pass. If a remote operation or CI check fails, inspect the concrete cause before retrying rather than trying variants blindly.
-- Intentional red/expected-failure commits require an explicit test-first reason; routine AMJ work should keep avoidable failed workflows out of repository history.
+- Before a remote write that can trigger GitHub Actions, inspect the relevant workflow triggers, path filters, required checks, and repository-specific validation path.
+- Run deterministic syntax/structure/XML/packaging/script checks before pushing whenever the current environment can do so. Treat GitHub Actions as a regression gate, not the first parser/debug pass.
+- Do not use repeated commits, PR pushes, API writes, or Actions runs as an exploratory debugger, and do not publish obviously broken intermediate states merely to learn from CI.
+- If CI fails, stop stacking further remote changes on that workstream. Inspect the failing workflow/job/log, identify the concrete cause, validate the correction, then submit one focused fix instead of speculative variants.
+- Where appropriate, use narrow branch/path triggers and `concurrency` / `cancel-in-progress` to avoid duplicate or superseded runs. Do not disable meaningful checks merely to suppress notifications.
+- Documentation-only or coordination-only changes should not trigger heavy runtime/build workflows unless those files are part of the validated contract.
+- Before weakening or excluding a workflow trigger, verify that release, runtime, packaging, and regression coverage remain protected.
 
 ## 自動テスト優先方針（AMJ共通）
 
