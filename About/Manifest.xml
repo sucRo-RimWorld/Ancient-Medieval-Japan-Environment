@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Manifest>
+  <identifier>AncientMedievalJapanEnvironment</identifier>
+  <version>0.1.0</version>
+  <dependencies />
+  <incompatibleWith />
+  <loadBefore />
+  <loadAfter />
+  <manifestUri>https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/About/Manifest.xml</manifestUri>
+  <downloadUri>https://steamcommunity.com/sharedfiles/filedetails/?id=3814638060</downloadUri>
+</Manifest>
