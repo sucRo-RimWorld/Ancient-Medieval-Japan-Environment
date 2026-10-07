@@ -13,12 +13,13 @@ It creates an ancient-to-medieval-Japan-inspired environment with a humid climat
 [*]More frequent small-to-medium rivers instead of continental-scale rivers
 [*]More complex coastlines with additional bays, peninsulas, and islands
 [*]Four environment bands: warm-temperate forest / cool-temperate forest / subalpine forest / alpine zone
-[*]Sudajii, Japanese beech, Shirabiso, and Haimatsu as structural representative plants
+[*]Sudajii, Japanese beech, Shirabiso, and Haimatsu as representative plants
+[*]Adds a new natural terrain, Thin Soil (50% fertility)
 [*]Natural soil balance with progressively poorer/stony ground at higher elevations
 [*]Uses Vanilla systems for rain, fog, snow, fall color, and leafless winter states wherever possible
 [/list]
 
-After existing WorldGen, AMJE reconfigures terrain, climate, and biome placement. Local rivers/coasts use existing River / Coast mutators; weather, snow, and leafless behavior also reuse Vanilla systems.
+AMJE reconfigures terrain, climate, and biome placement while retaining RimWorld's existing world-generation pipeline. River and coastal map generation remains compatible with Vanilla systems, and weather, snow, and leafless behavior reuse existing systems wherever possible.
 
 [h2]Why These Four Environment Bands?[/h2]
 
@@ -98,7 +99,7 @@ Adding AMJE to an existing save has not been verified and does not regenerate an
 
 Currently Beta.
 
-The main environment systems are implemented, and [b]Sudajii, Japanese beech, Shirabiso, and Haimatsu now use AMJE-authored custom graphics[/b], including snow overlays and beech leafless/autumn states. Additional Vanilla / Medieval Overhaul tree retextures are planned as follow-up work after the initial public Beta.
+The main environment systems are implemented. Additional Vanilla / Medieval Overhaul tree retextures are planned as follow-up work after the initial public Beta.
 
 See [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README / Design[/url] for values, rationale, and CCTO data.
 
