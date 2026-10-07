@@ -2932,6 +2932,35 @@ namespace AncientMedievalJapan.Environment.Quicktests
         {
             get { return false; }
         }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            BiomeDef biome = Find.CurrentMap == null ? null : Find.CurrentMap.Biome;
+            string[] names =
+            {
+                "Plant_TallGrass",
+                "Plant_Brambles",
+                "Plant_Bush",
+                "Plant_TreeWillow",
+                "Plant_TreeMaple",
+                "Plant_Berry",
+                "Plant_HealrootWild"
+            };
+            float[] expected = { 3.2f, 0.8f, 0.2f, 2.0f, 1.0f, 0.05f, 0.05f };
+            for (int i = 0; i < names.Length; i++)
+            {
+                string name = names[i];
+                float value = expected[i];
+                result.Assert("TemperateSwamp " + name + " commonality=" + value, delegate
+                {
+                    ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                    return biome != null && def != null &&
+                        System.Math.Abs(biome.CommonalityOfPlant(def) - value) < 0.001f;
+                });
+            }
+            return result;
+        }
     }
 
     public sealed class AMJColdBogVegetationQuickstart : BiomeTerrainQuickstartBase
@@ -2976,6 +3005,36 @@ namespace AncientMedievalJapan.Environment.Quicktests
         protected override bool ValidateAmjBiomeContracts
         {
             get { return false; }
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            BiomeDef biome = Find.CurrentMap == null ? null : Find.CurrentMap.Biome;
+            string[] names =
+            {
+                "Plant_TallGrass",
+                "Plant_Moss",
+                "Plant_Bush",
+                "Plant_TreeWillow",
+                "Plant_TreeBirch",
+                "Plant_TreeMaple",
+                "Plant_Berry",
+                "Plant_HealrootWild"
+            };
+            float[] expected = { 3.4f, 2.6f, 0.3f, 0.6f, 0.6f, 0.6f, 0.07f, 0.05f };
+            for (int i = 0; i < names.Length; i++)
+            {
+                string name = names[i];
+                float value = expected[i];
+                result.Assert("ColdBog " + name + " commonality=" + value, delegate
+                {
+                    ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                    return biome != null && def != null &&
+                        System.Math.Abs(biome.CommonalityOfPlant(def) - value) < 0.001f;
+                });
+            }
+            return result;
         }
     }
 
