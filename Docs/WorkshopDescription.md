@@ -51,7 +51,7 @@ A standalone environment overhaul that replaces and reconfigures Vanilla terrain
 
 ## Replacement-scope review
 
-For public-copy updates, verify `Docs/Design.md` against `EnvironmentTerrainProcessor.Apply`, `JapanBiomeScoring`, biome plant/terrain Defs and the River / Coast handoff before synchronizing README -> Japanese Workshop -> English Workshop -> About / 2game. Replacement means the generated terrain and baseline biome/vegetation composition are reconfigured; it does not mean deleting all Vanilla Defs, replacing every specialized biome, or adding a separate local river/coast generator. Preserve secondary Vanilla plants, wetlands/MO coexistence, representative plants, optional integrations and save limitations. Check both BBCode bodies for balanced tags and UTF-8 size below 8,000 bytes with LF and CRLF.
+For public-copy updates, verify `Docs/Design.md` against `EnvironmentTerrainProcessor.Apply`, `JapanBiomeScoring`, biome plant/terrain Defs and the River / Coast handoff before synchronizing README -> Japanese Workshop -> English Workshop -> About / 2game. Replacement means the generated terrain and baseline biome/vegetation composition are reconfigured; it does not mean deleting all Vanilla Defs, replacing every specialized biome, or adding a separate local river/coast generator. Do not imply that secondary Vanilla plants are preserved by default: retained plants are provisional until their AMJE fit is confirmed, and unsuitable plants are removed or replaced as the audit proceeds. Preserve wetlands/MO coexistence, representative plants, optional integrations and save limitations. Check both BBCode bodies for balanced tags and UTF-8 size below 8,000 bytes with LF and CRLF.
 
 ## Workshop content policy
 
@@ -65,7 +65,7 @@ Emphasize:
 - optional CCTO realism layer;
 - Medieval Overhaul coexistence;
 - save-compatibility limitations;
-- Beta status and the post-publication plan for staged Vanilla / Medieval Overhaul tree retextures.
+- Beta status, the active Vanilla / Medieval Overhaul vegetation-retention audit, and the rule that only retained plants proceed to staged retexturing.
 
 For the representative-plant section, keep the Workshop summaries shorter than the in-game historical descriptions. The Workshop should explain the vegetation-band design and provide a short educational note for each plant; the in-game descriptions retain the fuller kanji/alias/historical detail.
 
@@ -73,7 +73,7 @@ The four current Workshop images reference the repository's production PNGs dire
 
 When the Workshop body names another mod, provide a direct link at least at its first or dependency-list mention. Prefer its Steam Workshop page when published; use the owning GitHub repository for an AMJ mod that has no public Workshop item yet. Keep the description below Steam's 8,000-byte limit rather than repeating the same long URL on every occurrence.
 
-The development-status section must also summarize planned post-Beta visual follow-up: staged Vanilla / Medieval Overhaul tree retextures covering the visible state family used by each target. README remains the detailed source for the scope and technical compatibility policy.
+The development-status section must state that Vanilla / Medieval Overhaul vegetation is already being audited for retention, with unsuitable plants removed or replaced before visual work. It should then summarize staged retexturing for the retained targets, covering the visible state family used by each plant. README remains the detailed source for the scope and technical compatibility policy.
 
 Keep detailed world-generation numbers, full test results, exact plant cold-tolerance values, implementation details, and research rationale in README / Design rather than the Workshop body.
 
