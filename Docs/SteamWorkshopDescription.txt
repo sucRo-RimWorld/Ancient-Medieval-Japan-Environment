@@ -34,7 +34,7 @@ AMJE's biomes are not intended to reproduce modern prefectural or regional borde
 
 These four added biomes take precedence over broad Vanilla biomes on eligible land as [b]Japan-oriented baseline vegetation bands[/b]. Wetlands and specialized biomes such as [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]'s Dark Forest can still coexist when their conditions are met.
 
-The biome mixes also avoid presenting every area as untouched climax forest. Human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary forest in many settled regions, but that does **not** justify retaining arbitrary Vanilla vegetation. The current Beta provisionally reuses some existing plants; each tree and ground plant will be re-audited for Japanese distribution, period fit, ecological role, and landscape value. Plants without a clear AMJE reason to remain will be removed, replaced, or excluded.
+The biome mixes also avoid presenting every area as untouched climax forest. Human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary forest in many settled regions, but that does **not** justify retaining arbitrary Vanilla vegetation. AMJE is now actively re-auditing the existing plants still used by its biomes and removing or replacing those without a clear ancient-to-medieval Japanese reason to remain. As the first completed case, Vanilla Poplar has already been removed from the warm-temperate forest. Plants that remain are still reviewed for Japanese distribution, period fit, ecological role, and landscape value.
 
 [h2]Representative Plant for Each Environment Band[/h2]
 
@@ -99,7 +99,7 @@ Adding AMJE to an existing save has not been verified and does not regenerate an
 
 Currently Beta.
 
-The main environment systems are implemented. Additional Vanilla / Medieval Overhaul tree retextures are planned as follow-up work after the initial public Beta.
+The main environment systems are implemented. Vanilla / Medieval Overhaul vegetation is now being re-audited for retention first; unsuitable plants are removed or replaced, and only retained plants proceed to AMJE description rewrites and staged retexturing.
 
 See [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README / Design[/url] for values, rationale, and CCTO data.
 
