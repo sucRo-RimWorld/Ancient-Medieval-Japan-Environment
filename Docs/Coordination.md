@@ -43,6 +43,27 @@ Primary design source:
 
 ## Current coordination items
 
+### ENV-WORKSHOP-CHANGELOG-001 — Git-managed Steam Change Notes
+
+**Requested by:** author (2026-10-08 JST)  
+**Owner:** Environment release/publication  
+**Status:** DONE — repository workflow ready; next Steam publication remains author-manual
+
+AMJE now tracks Workshop change-note text in Git. Merge
+`312b20ce39b3e0c3bfb2f8d1b510eb70feb1c560` added
+`About/Manifest.xml`, `About/Changelog.txt`, matching
+`About.xml <modVersion>`, payload regression checks and the publication Golden
+Path. The first tracked publication version is `0.1.0`; earlier Workshop
+uploads are not retroactively versioned.
+
+For the author's manual RimWorld upload, enable both YADA and Add Changenote.
+The selected pinned payload must retain Manifest/Changelog and pass the Workshop
+payload validators. Add Changenote then replaces RimWorld's auto-generated
+change note with the current version block. Post-upload verification must still
+confirm the actual Steam Change Notes page; repository preparation is not proof
+that Steam was updated.
+
+
 ### ENV-RETEX-012 — existing-tree retention audit and AMJE description rewrite
 
 **Requested by:** author (2026-10-08 JST)  
