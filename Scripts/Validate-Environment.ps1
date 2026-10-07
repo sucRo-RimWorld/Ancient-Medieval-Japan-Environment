@@ -297,6 +297,33 @@ foreach ($defName in $expectedBiomeDefs) {
     }
 }
 
+$excludedVanillaPlants = @{
+    "AMJ_WarmTemperateForest" = @(
+        "Plant_TreeOak",
+        "Plant_TreePoplar"
+    )
+    "AMJ_CoolTemperateForest" = @()
+    "AMJ_SubalpineForest" = @(
+        "Plant_TreePine"
+    )
+    "AMJ_AlpineZone" = @(
+        "Plant_Dandelion",
+        "Plant_Astragalus",
+        "Plant_TreePine",
+        "Plant_TreeBirch"
+    )
+}
+
+foreach ($defName in $excludedVanillaPlants.Keys) {
+    $biome = $biomeDefs.Defs.BiomeDef | Where-Object { $_.defName -eq $defName }
+    foreach ($plantDefName in $excludedVanillaPlants[$defName]) {
+        if ($null -ne $biome.wildPlants.SelectSingleNode($plantDefName)) {
+            Fail "$defName still contains excluded Vanilla plant: $plantDefName"
+        }
+    }
+}
+Pass "AMJ biome plant-retention exclusions are enforced"
+
 $expectedWeather = @{
     "AMJ_WarmTemperateForest" = @{
         "Clear" = 16.0
