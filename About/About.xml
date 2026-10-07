@@ -23,7 +23,7 @@
 
   <description>Beta.
 
-A standalone environment overhaul that replaces and reconfigures Vanilla terrain, vegetation, and biome composition for a Japanese-archipelago-inspired landscape. It reconfigures world climate, terrain, rivers, coastlines, natural soils, and biome placement, and adds Thin Soil as a new natural terrain. RimWorld's existing world-generation, river, and coastal systems are retained while the generated environment is reshaped for pre-Edo Japan. Some Vanilla secondary vegetation remains where it still fits the AMJE biome, while unsuitable plants are being removed or replaced through the current retention audit. Compatible specialized biomes can coexist.
+A standalone environment overhaul that replaces and reconfigures Vanilla terrain, vegetation, and biome composition for a Japanese-archipelago-inspired landscape. It reconfigures world climate, terrain, rivers, coastlines, natural soils, and biome placement, and adds Thin Soil as a new natural terrain. RimWorld's existing world-generation, river, and coastal systems are retained while the generated environment is reshaped for pre-Edo Japan. The first broad Vanilla-vegetation retention pass has removed the clearest mismatches while preserving intended forest/woody density through rebalancing. The main remaining vegetation replacement is fictional Wild Healroot with an AMJE-owned Japanese medicinal plant. Compatible specialized biomes can coexist.
 
 Ancient &amp; Medieval Japan Core is not required. Crop Cold Tolerance Overhaul (CCTO) is optional; when present, AMJE applies a stricter realism-focused cold-response model to its own structural plants. Medieval Overhaul is also optional and treated as a first-class coexistence target.
 
