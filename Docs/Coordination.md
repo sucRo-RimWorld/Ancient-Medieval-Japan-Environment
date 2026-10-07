@@ -31,17 +31,29 @@ Primary design source:
 - **Workshop presentation:** cover / preview artwork is already complete in a separate workstream but is not stored in this repository yet. Repository-side README / BBCode / localization can be prepared by agents, but the actual Steam Workshop publication/update is performed manually by the author. Do not mark Steam as updated without author confirmation.
 - **Public copy:** README, About.xml, and Japanese/English Workshop source now use Beta release wording. The internal Design document's "Alpha" baselines remain historical/design-stage terminology and are not public release-stage labels.
 - **Local publication staging:** the current publication workstream uses `D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\_AMJ_PublishStaging`; local staging state may be newer than GitHub main and must not be reconstructed from GitHub alone.
-- **Post-publication:** resume Environment-owned Vanilla / MO tree retextures only after the first public Beta is published.
+- **Post-publication:** before resuming Environment-owned Vanilla / MO tree retextures, re-audit whether each currently retained existing tree belongs in AMJE at all. Only retained targets proceed to AMJE-format description rewrite and retexture.
 
 ## Active tree-art handoff
 
 - **Current stage:** PR #5 merged after final native leafless-beech snow approval. All current AMJE structural-plant visual states are accepted/complete.
-- **Next target:** first public Beta publication by the author. Existing Vanilla/MO tree retextures remain post-release work.
+- **Next target:** first public Beta publication by the author. Post-release existing-tree work starts with a retention/vegetation audit, not automatic retexture; only trees still justified in AMJE proceed to description rewrite and retexture.
 - **Approval state:** leafless snow revision 5 source accepted with `これで妥協する`, then native appearance accepted with `ブナOKなのでPRマージして`; template v5 is ACTIVE and the plant visual coverage ledger has no pending AMJE plant state.
 - **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 - **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
 
 ## Current coordination items
+
+### ENV-RETEX-012 — existing-tree retention audit and AMJE description rewrite
+
+**Requested by:** author (2026-10-08 JST)  
+**Owner:** Environment vegetation / localization / art  
+**Status:** OPEN — post-Beta work
+
+Before any broad Vanilla / Medieval Overhaul tree retexture pass, re-audit the trees AMJE currently leaves in place. Do not assume an existing tree should remain merely because it is already present. For each candidate, decide whether it belongs in AMJE's target region, pre-Edo scope, vegetation bands and landscape role; remove/replace/non-adopt targets that are unnecessary or inappropriate.
+
+Only trees retained after that audit proceed to the later art pass. Their inherited Vanilla/MO descriptions must also be rewritten into the established AMJE plant-description format, Japanese-first, under the shared historical-description rules before English synchronization. The audit explicitly includes correcting culturally or historically mismatched inherited wording; the Vanilla bamboo wording that describes bamboo as not beautiful is a named review target.
+
+Durable policy is recorded in `Docs/Design.md` section **11.5.5**. This item changes the post-Beta order to **retention audit -> distribution/ownership decision -> description rewrite -> retexture**.
 
 ### DOC-PUBLICCOPY-005 — public description wording alignment
 
