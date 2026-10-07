@@ -57,17 +57,17 @@ Primary design source:
 
 ## Release handoff — first public Beta
 
-- **Current priority:** publish the first public AMJ Environment **Beta** before starting Vanilla / Medieval Overhaul tree retextures.
-- **Runtime gate:** Environment runtime testing has already been completed; do not treat the older pending-rerun notes below as a release blocker unless a later code/config change invalidates that result.
+- **Current priority:** close the current vegetation/runtime work before the next author-manual Workshop update. `ENV-PLANT-AUDIT-001` supersedes the older Beta-publication-before-vegetation-audit sequence: the forest/wetland retention/removal pass is already complete; Wild Healroot remains intentionally temporary and is not a pre-upload blocker.
+- **Runtime gate:** historical runtime results remain historical evidence. The later distribution/wetland assertions and `ENV-TREE-SOWING-001` require the fresh non-visible Vanilla/MO/CCTO/MO+CCTO vegetation matrix with complete capture and pre-launch/runtime ERROR gates; older PASS counts do not close this new gate.
 - **Workshop presentation:** cover / preview artwork is already complete in a separate workstream but is not stored in this repository yet. Repository-side README / BBCode / localization can be prepared by agents, but the actual Steam Workshop publication/update is performed manually by the author. Do not mark Steam as updated without author confirmation.
 - **Public copy:** README, About.xml, and Japanese/English Workshop source now use Beta release wording. The internal Design document's "Alpha" baselines remain historical/design-stage terminology and are not public release-stage labels.
 - **Local publication staging:** the current publication workstream uses `D:\\SteamLibrary\\steamapps\\common\\RimWorld\\Mods\\_AMJ_PublishStaging`; local staging state may be newer than GitHub main and must not be reconstructed from GitHub alone.
-- **Post-publication:** before resuming Environment-owned Vanilla / MO tree retextures, re-audit whether each currently retained existing tree belongs in AMJE at all. Only retained targets proceed to AMJE-format description rewrite and retexture.
+- **Vegetation follow-up:** follow the latest `ENV-PLANT-AUDIT-001` roadmap: completed unsuitable-vegetation removal → retained-description audit/rewrite before retexture → missing historical vegetation additions → final Wild Healroot cleanup after replacements and gathering balance. Re-audit retention when new evidence warrants it; do not restart the completed pass merely because an older handoff called it post-publication work.
 
 ## Active tree-art handoff
 
 - **Current stage:** PR #5 merged after final native leafless-beech snow approval. All current AMJE structural-plant visual states are accepted/complete.
-- **Next target:** first public Beta publication by the author. Post-release existing-tree work starts with a retention/vegetation audit, not automatic retexture; only trees still justified in AMJE proceed to description rewrite and retexture.
+- **Next target:** current vegetation/runtime closeout under `ENV-PLANT-AUDIT-001` and `ENV-TREE-SOWING-001`; retained Vanilla descriptions precede later retexture. The older Beta-first/retention-audit-later handoff is superseded. Accepted current AMJE art remains complete; this does not claim completion of future vegetation stages or new runtime checks.
 - **Approval state:** leafless snow revision 5 source accepted with `これで妥協する`, then native appearance accepted with `ブナOKなのでPRマージして`; template v5 is ACTIVE and the plant visual coverage ledger has no pending AMJE plant state.
 - **Mandatory restart entry:** `Docs/GoldenPaths/RetextureGeneration.md`; canonical visual rules in `Docs/ArtDirection.md`; production handling in `Docs/GoldenPaths/TextureAssetPipeline.md`.
 - **Reference state:** accepted Sudajii / leafy beech / leafless beech remain unchanged. Shirabiso production path: `Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png`.
@@ -1490,3 +1490,13 @@ Actual Steam / 2game publication is still author-manual and is not claimed here.
 - A fresh RimWorld runtime execution of the two new wetland Quickstarts has not been run from this chat/tool environment and is not claimed.
 
 The retention/removal pass is complete enough for the planned Workshop update. Wild Healroot remains intentionally temporary and is not a pre-upload blocker under the author-approved roadmap. Its eventual removal must also cover TemperateSwamp/ColdBog; yomogi itself remains excluded from those default wetland pools.
+
+### COORD-PRIORITY-001 — Supersede stale Beta-first vegetation handoff (2026-10-08 JST)
+
+**Requested by:** author
+**Owner:** Environment coordination
+**Status:** DONE — summary aligned with latest owner audit and runtime handoff
+
+The release/tree-art summaries now use `ENV-PLANT-AUDIT-001` and `ENV-TREE-SOWING-001` rather than the older Beta-publication-before-audit sequence. Retention/removal is complete; fresh distribution/wetland/tree-sowing runtime evidence remains pending. Wild Healroot is intentionally temporary, not a pre-upload blocker. Earlier entries are retained as history.
+
+Project `Docs/ImplementationPriorities.md` assigns Environment Reconstruction P0 and recommends current vegetation/runtime closeout first, before Living Norms v0.1 and Grains closeouts. No production change, new runtime PASS or live Workshop publication is claimed. Golden Path N/A for this status-only reconciliation; existing vegetation testing and design sources remain authoritative.
