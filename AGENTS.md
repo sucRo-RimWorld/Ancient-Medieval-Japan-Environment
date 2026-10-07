@@ -86,6 +86,17 @@ Public-facing copy follows the AMJ common guide in `sucRo-RimWorld/Ancient-Medie
 
 Only report that a GitHub file was updated when the change was actually committed to GitHub. When reporting repository changes, include the actual commit SHA.
 
+## GitHub preflight / error hygiene
+
+Do not use GitHub Actions, GitHub API writes, or repeated remote commits as an exploratory debugger.
+
+- Before a write, confirm the target branch/file exists and re-read the exact current content/SHA.
+- Prepare focused edits against exact anchors and validate deterministic syntax/structure locally or in-memory before pushing.
+- For XML, scripts, payload policy, and other machine-checkable changes, run the relevant parser/validator before opening a PR whenever the current environment can do so.
+- Group related verified edits before PR creation instead of publishing obviously broken intermediate states only to learn from CI.
+- Treat GitHub Actions as a regression gate, not the first parser/debug pass. If a remote operation or CI check fails, inspect the concrete cause before retrying rather than trying variants blindly.
+- Intentional red/expected-failure commits require an explicit test-first reason; routine AMJ work should keep avoidable failed workflows out of repository history.
+
 ## 自動テスト優先方針（AMJ共通）
 
 AMJおよび関連Modでは、RimTest Redux・Pickleを積極的に用いた自動テストを優先し、人間による手動テストを最小限にする。
