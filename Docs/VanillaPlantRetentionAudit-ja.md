@@ -91,6 +91,39 @@ commonality再配分:
 - `AMJ_Shrub_Haimatsu` を1.34、Grassを2.20、Mossを3.20へ補正。
 - 高山帯Quickstartで4 Defの自然生成数0を回帰条件にする。
 
+## Phase 5 — Vanilla湿地Biomeの植生流入監査
+
+AMJEの4植生帯は通常陸地を置き換える一方、`swampiness >= 0.5` の湿地ではVanilla `TemperateSwamp` / `ColdBog` が残る。したがってAMJE独自Biomeだけを整理しても、湿地経由で不適切なVanilla植物が再流入する。
+
+### TemperateSwamp
+
+**除外:** `Plant_Chokevine`, `Plant_TreeCypress`
+
+**残す:** TallGrass / Bush / Willow / Maple / Berry / 一時的なWild Healroot
+
+再配分:
+- Chokevine 0.80 → Brambles 0.80
+- Cypress 1.00 → Willowへ移し1.00→2.00
+- 総commonality: **7.30 → 7.30**
+- 木本commonality: **3.00 → 3.00**
+
+Willowは湿地・河畔のヤナギ類代理として成立する。Vanilla Cypressは湿地性の樹木で、日本のヒノキ代理として扱わない。
+
+### ColdBog
+
+**除外:** `Plant_Chokevine`, `Plant_TreeCypress`, `Plant_Astragalus`
+
+**残す:** TallGrass / Moss / Bush / Willow / Maple / Berry / 一時的なWild Healroot。Cypress分はBirchへ置換する。
+
+再配分:
+- Chokevine 3.00 → TallGrass +1.00 / Moss +2.00
+- Astragalus 0.10 → Moss +0.10
+- Cypress 0.60 → Birch 0.60
+- 総commonality: **8.22 → 8.22**
+- 木本commonality: **1.80 → 1.80**
+
+Wild Healrootは薬草採集ループを途中で切らないためこのPhaseでは残す。Yomogi実装時に両湿地からも除外し、ヨモギ自体は湿地の既定植生には追加しない。
+
 ## 現時点の残存判定
 
 ### Generic林床・低木
