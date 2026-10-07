@@ -135,6 +135,10 @@ commonality再配分:
 
 アカマツ系の二次林・貧栄養立地の針葉樹を表す汎用代理として冷温帯で残す。亜高山帯ではShirabisoと役割が競合し、高山帯では通常高木が不適切なため除外済み。
 
+## 通常植林候補との一体監査
+
+通常樹木の地域分布と植林候補は一体で監査する。残存／除外判定は自然生成だけでなく、そのAMJE Biomeの樹木栽培研究後の候補にも適用する。正本の候補表は `Docs/Design.md` の Regional tree sowing contract、静的・ロード後回帰手順は `Docs/GoldenPaths/PlantSowingTests.md` を参照。ハイマツは植林候補に含めない。
+
 ## 未完了 — Healroot置換
 
 `Plant_HealrootWild` はRimWorld固有の架空植物なので最終残存させない。ただし削除だけで野生薬草採集を失わせず、AMJE所有のヨモギ（`AMJ_Plant_Yomogi`）へ同時置換する。

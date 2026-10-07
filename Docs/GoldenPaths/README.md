@@ -28,6 +28,8 @@ A one-off trivial text edit with no reusable procedure can be marked N/A. A work
 
 - [Plant Harvest Resource Tests](PlantHarvestTests.md) — native cutting outputs in Vanilla and actual MO.
 
+- [Regional Tree Sowing Tests](PlantSowingTests.md) — static tree-pool contract and native growing-zone eligibility before/after research; fresh runtime matrix pending.
+
 - [Rendered Runtime Tests](RenderedRuntimeTests.md) — rendering enabled on an independent non-visible Windows desktop.
 
 - [Plant Visual Coverage Gate](PlantVisualCoverage.md) — per-state approval/evidence and scoped invalidation.
