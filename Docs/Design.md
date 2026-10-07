@@ -917,12 +917,31 @@ Vanilla湿地Biomeも同じ残存ゲートの対象とする。AMJEの4植生帯
 
 Environmentの植生整備は、以下の順序を正本とする。
 
-1. **不要なVanilla樹木・植生を削除する。** 古代～中世日本の植生として残す根拠が弱いものを除外し、必要に応じて木本・総植生commonalityを妥当な日本側植物へ再配分する。この第一段階の主要監査は2026-10-08時点で完了している。
+1. **不要なVanilla樹木・植生と、そこから再流入する不適切なBiome bundleを整理する。** 古代～中世日本の植生として残す根拠が弱いものを除外し、必要に応じて木本・総植生commonalityを妥当な日本側植物へ再配分する。AMJE-owned 4植生帯の主要植物監査は2026-10-08時点で完了したが、`TemperateSwamp` / `ColdBog` は植物だけでなく野生動物・病気・天候・説明を含むBiome全体の採用監査を完了してからStep 1を閉じる。
 2. **残すVanilla樹木・植物の説明文を先に監査・承認し、その後にリテクスチャする。** 日本語説明をHistorical Description GuidelinesとAMJE形式へ直し、名称・分布・生態・古代～中世日本での利用／景観文脈が妥当であることを確認してから、AMJE/MO系の画風へ揃える。説明未監査の対象を先に描き直さない。Medieval Overhaul由来の採用植生も同じ `retention → description → retexture` 原則に従う。
 3. **不足している古代～中世日本の自然植生を追加する。** 既存Vanilla/MO代理では表現しにくく、Environmentの自然景観として意味がある樹木・草地・湿地植物・伝統薬草等を対象とする。ヨモギ等の薬草はこの段階で追加・検証する。主目的が果実・木の実・加工・採集ゲームプレイになる植物は、Environmentへ抱え込まずHunting & Gathering / Preservation等の自然な所有先と分担する。
 4. **Wild Healrootを最終段階で削除する。** Step 3の薬草植生と供給量・分布・収穫挙動が成立したことを確認した後、`Plant_HealrootWild` をAMJE対象Biomeと共存Vanilla湿地から除外し、必要なら植生commonalityを再調整する。栽培用 `Plant_Healroot` はこの自然植生ロードマップの対象外とする。
 
 この順序は、植生の正当性を決める前にアートへ投資したり、代替薬草が整う前にHealrootを消したりすることを避けるためのものである。
+
+### 11.5.8 Vanilla湿地Biomeの採用監査
+
+2026-10-08の再監査では、`TemperateSwamp` / `ColdBog` について「湿地だから残す」だけでは不十分と判定した。
+
+**結論:** 湿地環境自体は日本列島の自然環境として必要であり、両Vanilla BiomeDefの名称・基本Worker・mud / marsh / shallow water等の地形生成はgenericな湿地基盤として再利用してよい。互換性上の利点も大きいため、現段階では新しいAMJE湿地BiomeDefへ分離しない。
+
+ただし、AMJEが両Biomeを採用する以上、`wildPlants` だけをPatchした状態を最終形とはしない。以下はEnvironmentの監査対象とする。
+
+- **野生動物:** Vanilla湿地にはRaccoon / Ibex / Muffalo / Alpaca / Megasloth / Rhinoceros / Arctic Fox / Polar Bear / Lynx等、AMJEのJapan-oriented wildlife proxy policyと矛盾する候補が多数残る。湿地でも4基準Biomeと同じproxy原則へ揃える。
+- **病気:** VanillaのFlu / Plague / Malaria / parasites / Mechanites等のbundleを、そのまま日本の湿地性疾患として採用しない。AMJの時代・Incident方針と整合させて再監査する。
+- **天候:** Vanilla湿地のDryThunderstorm 1および暖冷湿地共通のSnow 4/4は、AMJEの湿潤気候・温度帯別weather baselineと不整合なので補正対象とする。
+- **説明:** 「diseaseにchoked」「trees and vines」といったVanilla汎用過酷Biome説明を残さず、日本の湿原・沼沢地の生態と景観へ書き換える。
+- **植生:** Phase 5のChokevine / Cypress / Astragalus除外とcommonality再配分は維持する。不足するヨシ・スゲ・ハンノキ・ミズゴケ等はStep 3で追加候補とする。
+- **地形:** MarshyTerrain / Mud / WaterShallow / MossyTerrain / Marsh等による湿地構造は再利用候補として維持し、Step 1では新規地形追加を要求しない。
+
+日本の湿地は低地のヨシ・スゲ湿原、ハンノキ林、ミズゴケ高層湿原等を含み、温暖側から冷涼側まで広く存在するため、TemperateSwamp / ColdBogというgenericな二類型自体には残存理由がある。正本の詳細監査は `Docs/VanillaWetlandBiomeAudit-ja.md` とする。
+
+**Step 1の完了条件:** 両湿地のwildAnimals / diseases / weather / descriptionをAMJE方針へ揃え、loaded Defテストで不適切な植物・動物の再流入がないこと、湿地地形生成が維持されること、world上の湿地比率が不意に消失・急増していないことを確認する。これが通るまでStep 2の既存植物説明監査へ移行しない。
 
 
 ## 12. Seasonal scenery baseline
