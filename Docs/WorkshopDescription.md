@@ -29,6 +29,16 @@ Repository work ends with preparing and synchronizing the README, Japanese/Engli
 
 RimWorld 1.6 — Beta
 
+## Public wording rules
+
+- Japanese Workshop copy uses established Japanese terms for general concepts. Prefer `バニラ`, `バイオーム`, `世界生成`, and `実行時` instead of mixing `Vanilla`, `Biome`, `WorldGen`, or `runtime` into Japanese prose.
+- Keep English in Japanese copy primarily for official Mod names, proper names, abbreviations, identifiers, and useful official-name parentheticals such as `痩せた土壌（Thin Soil）`.
+- Describe player-visible changes and information needed to decide whether to install the Mod. Do not promote image provenance, custom/AI artwork, or internal implementation technique as a feature.
+- Representative-plant images may illustrate what the Mod adds, but wording such as “custom graphics” or “AMJE-authored artwork” is not a selling point.
+- Avoid engine/internal terms such as `WorldGen`, `TileMutatorDef`, and `River / Coast mutator` in public copy unless a technical compatibility explanation truly needs them. Prefer user-facing wording such as “既存の世界生成を活用” and “バニラの河川・海岸生成と互換”.
+- Clearly distinguish added content from reused or redistributed content: AMJE adds four biomes, four representative plants, and Thin Soil; river/coast/weather systems are reused or reconfigured rather than presented as newly added systems.
+- Keep the hierarchy README (detailed) → Workshop (installation-focused summary) → 2game (shorter summary) → About.xml (brief overview). Do not add substantive claims only in a shorter surface.
+
 ## Short description
 
 **Japanese source**
@@ -47,15 +57,15 @@ For public-copy updates, verify `Docs/Design.md` against `EnvironmentTerrainProc
 
 Emphasize:
 - replacement/reconfiguration of Vanilla terrain, vegetation and biome composition for Japan, stated in the opening;
-- distinguish the changed generated environment from reuse of WorldGen and River / Coast mutators;
+- distinguish the changed generated environment from reuse of RimWorld's existing world-generation and river/coast systems;
 - why the four AMJ biomes are simplified vegetation/climate bands rather than prefectural or exclusive biome replacements;
 - one representative structural plant for each band: Sudajii / Japanese beech / Shirabiso / Haimatsu, with the selection rationale;
-- current production images for those four plants in the Workshop body;
+- images for the four representative plants may be shown to identify the added plants;
 - standalone use without AMJ Core;
 - optional CCTO realism layer;
 - Medieval Overhaul coexistence;
 - save-compatibility limitations;
-- Beta status and the completed AMJE structural-plant artwork/state variants, including snow overlays and beech leafless/autumn states; broader Vanilla / Medieval Overhaul tree retextures are post-publication follow-up.
+- Beta status and the post-publication plan for staged Vanilla / Medieval Overhaul tree retextures.
 
 For the representative-plant section, keep the Workshop summaries shorter than the in-game historical descriptions. The Workshop should explain the vegetation-band design and provide a short educational note for each plant; the in-game descriptions retain the fuller kanji/alias/historical detail.
 
