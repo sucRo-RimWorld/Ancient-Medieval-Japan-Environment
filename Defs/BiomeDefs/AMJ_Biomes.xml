@@ -267,14 +267,10 @@
       <SnowHard>12</SnowHard>
     </baseWeatherCommonalities>
     <wildPlants>
-      <Plant_Grass>2</Plant_Grass>
-      <Plant_Moss>3</Plant_Moss>
+      <Plant_Grass>2.2</Plant_Grass>
+      <Plant_Moss>3.2</Plant_Moss>
       <Plant_Bush>0.5</Plant_Bush>
-      <Plant_Dandelion>0.2</Plant_Dandelion>
-      <Plant_Astragalus>0.2</Plant_Astragalus>
-      <AMJ_Shrub_Haimatsu>1.3</AMJ_Shrub_Haimatsu>
-      <Plant_TreePine>0.02</Plant_TreePine>
-      <Plant_TreeBirch>0.02</Plant_TreeBirch>
+      <AMJ_Shrub_Haimatsu>1.34</AMJ_Shrub_Haimatsu>
       <Plant_Berry>0.04</Plant_Berry>
       <Plant_HealrootWild>0.03</Plant_HealrootWild>
     </wildPlants>
