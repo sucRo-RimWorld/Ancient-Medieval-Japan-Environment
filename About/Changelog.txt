@@ -1,0 +1,7 @@
+# Changelog for Ancient & Medieval Japan - Environment
+# The current version block is used by Add Changenote when publishing to Steam Workshop.
+
+0.1.0 - Workshop change-note tracking started
+- Began the active audit of inherited Vanilla vegetation for ancient-to-medieval Japanese fit.
+- Removed Vanilla Poplar from the warm-temperate forest.
+- Synchronized README, Workshop, 2game, and About wording with the current vegetation-audit status.
