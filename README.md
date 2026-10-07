@@ -29,7 +29,7 @@ Historical and ecological research is used as a reference, but gameplay clarity 
 
 ### Japan-oriented world generation
 
-AMJ Environment transforms the root-surface world after Vanilla terrain generation: it recalculates elevation, hilliness, temperature, rainfall, and biome placement. The resulting environment replaces the broad Vanilla baseline with a Japan-oriented configuration while retaining the existing world-generation pipeline. Local river and coastal maps still use the standard River / Coast tile mutators; reusing these systems does not mean keeping Vanilla world terrain and biome distribution unchanged.
+AMJ Environment recalculates elevation, hilliness, temperature, rainfall, and biome placement while retaining RimWorld's existing world-generation pipeline. The resulting environment replaces the broad Vanilla baseline with a Japan-oriented configuration. Local river and coastal map generation remains compatible with RimWorld's standard systems.
 
 Current Beta targets include:
 
@@ -51,7 +51,7 @@ Natural world rivers favor smaller channels:
 - River: lower spawn threshold, width 6;
 - Large River / Huge River: retained for compatibility but disabled from normal natural spawning.
 
-AMJ Environment changes the world-level river distribution only. Local river maps continue to use RimWorld's standard River tile mutator and moving-water terrain system.
+AMJ Environment changes the world-level river distribution only. Local river maps continue to use RimWorld's standard river and moving-water terrain systems.
 
 ### Four Japan-oriented biome bands
 
@@ -105,9 +105,7 @@ Haimatsu is a creeping evergreen dwarf pine of alpine areas from Hokkaido to the
 
 Generic grasses, mosses, shrubs, secondary trees, and other filler vegetation continue to reuse Vanilla PlantDefs. The goal is to make the vegetation bands structurally legible without turning Environment into a large plant-content mod or implying that each biome is a monoculture.
 
-Sudajii, Japanese beech, Shirabiso, and Haimatsu now use AMJE-authored custom graphics. Broader Vanilla / Medieval Overhaul tree retextures remain planned follow-up work after the initial public Beta.
-
-Sudajii, Japanese beech, Shirabiso, and Haimatsu use AMJE-authored custom artwork, including snow overlays and beech leafless/autumn states. Their production appearance and UI states have been reviewed.\n\nDetailed research rationale and sources are retained in [Docs/Design.md](Docs/Design.md) and [Docs/ArtDirection.md](Docs/ArtDirection.md).
+Detailed research rationale and sources for the representative plants are retained in [Docs/Design.md](Docs/Design.md) and [Docs/ArtDirection.md](Docs/ArtDirection.md).
 
 ### Natural soil fertility
 
@@ -224,7 +222,7 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-The four AMJE structural plants and their required visual states are implemented, including snow overlays and beech leafless/autumn states. Real-play balance/compatibility feedback may still refine the current baselines.
+The four AMJE representative plants are implemented. Real-play balance/compatibility feedback may still refine the current baselines.
 
 ## Planned follow-up
 
