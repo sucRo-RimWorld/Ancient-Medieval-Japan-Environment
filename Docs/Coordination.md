@@ -95,17 +95,40 @@ confirm the actual Steam Change Notes page; repository preparation is not proof
 that Steam was updated.
 
 
+### ENV-WETLAND-BIOME-001 — retained Vanilla wetland whole-Biome audit and correction
+
+**Requested by:** author (2026-10-08 JST)  
+**Owner:** Environment / biome / vegetation / wildlife  
+**Status:** OPEN — audit DONE; implementation + Step 1 completion gate required
+
+Whole-Biome audit completed in PR #18 / squash merge `34fce92e5b6bf6da24e38355e475623ada664d66`.
+
+Decision:
+- retain `TemperateSwamp` / `ColdBog` as generic compatible wetland DefNames rather than creating AMJE-only replacements;
+- retain their basic wetland Worker/terrain-generation role unless implementation testing finds a concrete problem;
+- current Phase 5 plant-pool cleanup remains valid but is not sufficient to close roadmap Step 1;
+- patch wetland `wildAnimals` to the AMJE Japan-oriented proxy policy so excluded animals cannot re-enter through Vanilla wetlands;
+- audit/patch wetland diseases, weather, and descriptions instead of inheriting the Vanilla bundle unchanged;
+- missing Japanese wetland plants (reed/sedge/alder/sphagnum candidates) remain Step 3, not a prerequisite for this correction;
+- after implementation, require loaded-Def/runtime coverage for excluded plants/animals, retained wetland terrain generation, and world wetland-share sanity before unblocking ENV-RETEX-012.
+
+Durable sources: `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` section 11.5.8.
+
+**Next smallest unit:** implement the wetland wildlife/disease/weather/description corrections, then run the Step 1 completion gate.
+
 ### ENV-RETEX-012 — existing-tree retention audit and AMJE description rewrite
 
 **Requested by:** author (2026-10-08 JST)  
 **Owner:** Environment vegetation / localization / art  
-**Status:** IN PROGRESS — retention decision complete; description audit is the next step before any retexture
+**Status:** BLOCKED — wait for wetland Biome bundle correction + Step 1 completion test
 
 Before any broad Vanilla / Medieval Overhaul tree retexture pass, re-audit the trees and ground vegetation AMJE currently leaves in place. The previous rationale that human-created pine woodland / grassland / secondary forest justifies retaining Vanilla vegetation is rejected: those historical vegetation forms must themselves be represented by species and vegetation appropriate to ancient/medieval Japan. Do not assume an existing PlantDef should remain merely because it is already present. For each candidate, decide whether it belongs in AMJE's target region, pre-Edo scope, vegetation bands and landscape role; remove/replace/non-adopt targets that are unnecessary or inappropriate.
 
 Only trees retained after that audit proceed to the later art pass. Their inherited Vanilla/MO descriptions must also be rewritten into the established AMJE plant-description format, Japanese-first, under the shared historical-description rules before English synchronization. The audit explicitly includes correcting culturally or historically mismatched inherited wording; the Vanilla bamboo wording that describes bamboo as not beautiful is a named review target.
 
-Durable policy is recorded in `Docs/Design.md` sections **11.5.5–11.5.7**. The required order is **retention audit -> distribution/ownership decision -> Japanese description audit/rewrite -> author/content approval -> retexture**. Do not begin the retained-Vanilla art pass before description review. After the retained Vanilla set is complete, the roadmap proceeds to missing Japanese vegetation/medicinal plants and only then to final Wild Healroot removal.
+Durable policy is recorded in `Docs/Design.md` sections **11.5.5–11.5.8**. The required order is **retention audit -> distribution/ownership decision -> Japanese description audit/rewrite -> author/content approval -> retexture**. Do not begin the retained-Vanilla art pass before description review. After the retained Vanilla set is complete, the roadmap proceeds to missing Japanese vegetation/medicinal plants and only then to final Wild Healroot removal.
+
+The 2026-10-08 wetland whole-Biome audit blocks this item temporarily. Do not start retained-Vanilla description review until `TemperateSwamp` / `ColdBog` wildlife, disease, weather and description bundles are corrected and the Step 1 completion test passes.
 
 ### DOC-PUBLICCOPY-005 — public description wording alignment
 
@@ -1491,7 +1514,7 @@ Actual Steam / 2game publication is still author-manual and is not claimed here.
 - GitHub static gates all passed: PowerShell syntax, Workshop payload, plant visual coverage and regional tree-sowing contract.
 - A fresh RimWorld runtime execution of the two new wetland Quickstarts has not been run from this chat/tool environment and is not claimed.
 
-The retention/removal pass is complete enough for the planned Workshop update. Wild Healroot remains intentionally temporary and is not a pre-upload blocker under the author-approved roadmap. Its eventual removal must also cover TemperateSwamp/ColdBog; yomogi itself remains excluded from those default wetland pools.
+The plant-pool retention/removal pass is complete, but the broader vegetation-roadmap Step 1 is **not closed yet**. Whole-Biome audit PR #18 / squash merge `34fce92e5b6bf6da24e38355e475623ada664d66` found that retained Vanilla `TemperateSwamp` / `ColdBog` still reintroduce non-Japan wildlife and carry unreviewed Vanilla disease/weather/description bundles. Wild Healroot remains intentionally temporary. Step 1 completion now requires the wetland bundle corrections and their runtime/static gate before description/retexture work begins.
 
 ### COORD-PRIORITY-001 — Supersede stale Beta-first vegetation handoff (2026-10-08 JST)
 
