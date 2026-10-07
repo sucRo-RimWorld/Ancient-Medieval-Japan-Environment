@@ -1361,15 +1361,17 @@ Validation: bilingual semantic review, LF/CRLF UTF-8 byte limits, BBCode balance
 
 **Requested by:** author  
 **Owner:** Environment / vegetation  
-**Status:** IN PROGRESS — Phase 1 DONE; next candidate pending
+**Status:** IN PROGRESS — Phase 1 DONE; broader audit continues
 
 Author corrected the previous assumption that existing Vanilla vegetation should
 remain by default. AMJE now requires a positive ancient/medieval-Japan reason
 for each reused Vanilla plant. Existing presence is not a retention reason.
 
-The earlier broad draft PR #7 was closed without merge. The author requested
-incremental deletion from the least controversial targets rather than removing
-the whole candidate set at once.
+The earlier broad draft PR #7 was closed without merge. The author clarified
+that the audit/removal work itself does not need to proceed one species at a
+time. Multiple clearly justified removals may be researched and implemented in
+the same workstream; keep removal commits separated into reviewable logical
+units so history remains easy to inspect and revert.
 
 **Phase 1 DONE:** PR #8 / squash merge `565d71f16ce194af0398e1f431246cbe58a04b22`
 - removes only `Plant_TreePoplar` from `AMJ_WarmTemperateForest`;
@@ -1380,9 +1382,11 @@ the whole candidate set at once.
 
 Existing PR CI passed before merge: Workshop payload filtering and Plant visual coverage ledger. The new warm-temperate runtime Quickstart exclusion assertion is committed for the next runtime matrix, but no fresh RimWorld runtime execution is claimed for this one-line distribution removal.
 
-Later candidates must be handled as separate phases after Phase 1 is closed.
-Do not bundle warm-temperate Oak, subalpine Pine, alpine plants or Healroot into
-the same deletion.
+Later candidates may be audited and prepared together. Do not artificially
+serialize the work by species. Keep each removal or tightly coupled replacement
+in a separate reviewable commit where practical; a PR may contain multiple such
+commits. Healroot remains a special replacement case rather than a deletion-only
+commit.
 
 `Plant_HealrootWild` is a RimWorld-fictional plant and is not a final AMJE
 retention target, but it must not be deleted alone. Replace it atomically with
