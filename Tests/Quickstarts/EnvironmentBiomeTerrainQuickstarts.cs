@@ -3128,8 +3128,18 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreePine",
                     "Plant_TreeBirch"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreePine"
                 };
             }
         }
