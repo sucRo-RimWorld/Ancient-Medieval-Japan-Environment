@@ -420,6 +420,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
             get { return new string[0]; }
         }
 
+        protected virtual string[] ExcludedPlantDefNames
+        {
+            get { return new string[0]; }
+        }
+
         protected virtual float MaxLimitedTimberCellFraction
         {
             get { return 1f; }
@@ -557,6 +562,15 @@ namespace AncientMedievalJapan.Environment.Quicktests
             if (TargetBiomeDefName == "AMJ_WarmTemperateForest")
             {
                 AddTreeTextureAuditAssertions(verification);
+            }
+
+            string[] excludedPlants = ExcludedPlantDefNames;
+            for (int i = 0; i < excludedPlants.Length; i++)
+            {
+                string excludedDefName = excludedPlants[i];
+                verification.Assert(
+                    excludedDefName + " excluded plant is absent from target biome",
+                    delegate { return CountThings(map, excludedDefName) == 0; });
             }
 
             int targetCount = CountThings(map, TargetPlantDefName);
@@ -2727,9 +2741,19 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 return new string[]
                 {
                     "Plant_TreeOak",
-                    "Plant_TreePoplar",
                     "Plant_TreeMaple",
                     "Plant_TreeBamboo"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreePoplar"
                 };
             }
         }
