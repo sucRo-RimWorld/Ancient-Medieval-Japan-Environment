@@ -1361,7 +1361,7 @@ Validation: bilingual semantic review, LF/CRLF UTF-8 byte limits, BBCode balance
 
 **Requested by:** author  
 **Owner:** Environment / vegetation  
-**Status:** IN PROGRESS — staged removal; Phase 1 PR #8
+**Status:** IN PROGRESS — Phase 1 DONE; next candidate pending
 
 Author corrected the previous assumption that existing Vanilla vegetation should
 remain by default. AMJE now requires a positive ancient/medieval-Japan reason
@@ -1371,12 +1371,14 @@ The earlier broad draft PR #7 was closed without merge. The author requested
 incremental deletion from the least controversial targets rather than removing
 the whole candidate set at once.
 
-**Phase 1:** PR #8 / branch `audit/remove-warm-poplar-20261008`
+**Phase 1 DONE:** PR #8 / squash merge `565d71f16ce194af0398e1f431246cbe58a04b22`
 - removes only `Plant_TreePoplar` from `AMJ_WarmTemperateForest`;
 - leaves every other candidate unchanged;
 - adds a Quickstart regression assertion that Poplar does not naturally
   generate in the target AMJE biome;
 - records the decision in `Docs/VanillaPlantRetentionAudit-ja.md`.
+
+Existing PR CI passed before merge: Workshop payload filtering and Plant visual coverage ledger. The new warm-temperate runtime Quickstart exclusion assertion is committed for the next runtime matrix, but no fresh RimWorld runtime execution is claimed for this one-line distribution removal.
 
 Later candidates must be handled as separate phases after Phase 1 is closed.
 Do not bundle warm-temperate Oak, subalpine Pine, alpine plants or Healroot into
