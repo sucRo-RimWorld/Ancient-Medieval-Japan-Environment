@@ -1,6 +1,7 @@
 # AMJ Workshop distribution exclusions (YADA basename rules, inherited recursively).
 # Keep only runtime assets, Mod metadata, and required license/attribution notices.
 # Shared policy: Core Docs/WorkshopPackaging.md
+# About/Manifest.xml and About/Changelog.txt are intentional publisher/runtime metadata; keep both.
 
 # Version control, editor and publisher metadata
 .git
