@@ -66,7 +66,7 @@ These bands are not prefectural or regional borders. They are a gameplay simplif
 
 The temperature thresholds are therefore approximations for RimWorld rather than literal botanical boundaries. AMJE uses these four BiomeDefs as **baseline vegetation bands**, not as an exclusive replacement for every other biome. Wetlands and stronger specialized biome workers from compatible mods such as Medieval Overhaul can still coexist where their own conditions fit.
 
-The design also avoids presenting every map as untouched climax forest. Human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions, but that does **not** justify retaining arbitrary Vanilla vegetation. AMJE is now actively re-auditing the Vanilla plants still used by its biomes. Plants without a clear reason to exist in an ancient-to-medieval Japanese vegetation band are removed or replaced as their review is completed; the first completed removal is Vanilla Poplar from the warm-temperate forest. Plants that remain must continue to justify their Japanese distribution, period fit, ecological role, and presentation.
+The design also avoids presenting every map as untouched climax forest. Human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions, but that does **not** justify retaining arbitrary Vanilla vegetation. The first broad retention pass is now largely complete: Vanilla Poplar and Oak were removed from the warm-temperate forest, generic Pine from the subalpine forest, and generic Pine, Birch, Dandelion, and Astragalus from the alpine zone. Their removed woody share was reassigned to Sudajii, Shirabiso, and Haimatsu so the cleanup does not accidentally thin the intended forest structure. The main remaining replacement is RimWorld's fictional Wild Healroot, which will be replaced rather than simply deleted.
 
 ### Structural Japanese vegetation
 
@@ -222,19 +222,18 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-The four AMJE representative plants are implemented. The Vanilla-vegetation retention audit is also underway; unsuitable inherited plants are being removed in separate, reviewable changes while retained plants continue to be checked for Japanese fit. Real-play balance/compatibility feedback may still refine the current baselines.
+The four AMJE representative plants are implemented. The first broad Vanilla-vegetation retention pass is largely complete, with unsuitable inherited plants removed while intended woody density is preserved through rebalancing. The main remaining vegetation replacement is Wild Healroot → yomogi. Real-play balance/compatibility feedback may still refine the current baselines.
 
 ## Planned follow-up
 
-The existing Vanilla / Medieval Overhaul vegetation audit is already in progress **before** any broad retexture pass:
+The first broad Vanilla-vegetation retention pass has classified the plants currently reused by AMJE and removed the clearest mismatches. Remaining follow-up is:
 
-- decide whether each existing tree or ground plant actually belongs in AMJE's pre-Edo Japanese environment;
-- remove, replace, or stop using targets without a sufficient botanical, historical, or landscape reason to remain;
-- keep removals in reviewable commits without requiring the audit itself to proceed one species at a time;
-- rewrite retained plant descriptions into the AMJE historical-description format;
-- retexture only the retained targets, including every loaded visible state actually used by that plant.
+- replace fictional Wild Healroot with AMJE-owned yomogi while preserving the wild herbal-medicine gathering loop;
+- rewrite retained adopted Vanilla plant descriptions into the AMJE historical-description format;
+- retexture only retained targets, including every loaded visible state actually used by that plant;
+- apply the same retention-first review to Medieval Overhaul vegetation before adopting or retexturing it.
 
-Vanilla Poplar has already been removed from the warm-temperate forest as the first completed case. Retexturing is not a commitment to preserve the remaining Vanilla/MO vegetation mix. Retention is decided first; art follows only for plants that remain justified AMJE components.
+Retexturing is not a commitment to preserve inherited Vanilla/MO content. Retention is decided first; art follows only for plants that remain justified AMJE components.
 
 ## Research and detailed design
 
