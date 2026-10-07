@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using HarmonyLib;
 using RimWorks.Quickstarts;
 using RimWorks.Quickstarts.Verification;
@@ -550,6 +551,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             AddWeatherAssertions(verification, map == null ? null : map.Biome);
             AddSeasonalSceneryAssertions(verification);
             AddWildlifeAssertions(verification, map == null ? null : map.Biome);
+            AddTreeSowingAssertions(verification, map);
             AddLivePlantTextureAssertions(verification, map);
             AddLiveThingTextureAssertions(verification, map);
             AddTerrainScatterTextureAssertions(verification, map);
@@ -645,6 +647,124 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " cctoActive=" + CctoIsActive());
 
             return verification;
+        }
+
+        private static string[] ExpectedSowableTrees(string biome)
+        {
+            switch (biome)
+            {
+                case "AMJ_WarmTemperateForest":
+                    return new[] { "AMJ_Tree_Shii", "Plant_TreeMaple", "Plant_TreeBamboo" };
+                case "AMJ_CoolTemperateForest":
+                    return new[] { "AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch", "Plant_TreePine" };
+                case "AMJ_SubalpineForest":
+                    return new[] { "AMJ_Tree_Shirabiso", "Plant_TreeBirch" };
+                case "AMJ_AlpineZone":
+                    return new string[0];
+                default:
+                    throw new InvalidOperationException("No tree-sowing contract for " + biome);
+            }
+        }
+
+        private static HashSet<string> AvailableGrowingZoneTrees(Zone_Growing zone, Map map)
+        {
+            HashSet<string> result = new HashSet<string>();
+            // Use both native stages of Command_SetPlantToGrow.ProcessInput.
+            foreach (ThingDef plant in PlantUtility.ValidPlantTypesForGrowers(
+                new List<IPlantToGrowSettable> { zone }))
+            {
+                if (plant.plant.IsTree && Command_SetPlantToGrow.IsPlantAvailable(plant, map))
+                {
+                    result.Add(plant.defName);
+                }
+            }
+            return result;
+        }
+
+        private static void AddTreeSowingAssertions(QuickstartVerification verification, Map map)
+        {
+            verification.Assert("tree-sowing regression setup and cleanup succeed", delegate
+            {
+                if (map == null || map.Biome == null)
+                    throw new InvalidOperationException("Tree sowing requires a live map.");
+                ResearchProjectDef research = DefDatabase<ResearchProjectDef>.GetNamed("TreeSowing");
+                if (research.Cost <= 0f)
+                    throw new InvalidOperationException("TreeSowing must have a positive cost.");
+                Dictionary<ResearchProjectDef, float> progress =
+                    (Dictionary<ResearchProjectDef, float>)AccessTools.Field(
+                        typeof(ResearchManager), "progress").GetValue(Find.ResearchManager);
+                Dictionary<ResearchProjectDef, float> saved =
+                    new Dictionary<ResearchProjectDef, float>(progress);
+                try
+                {
+                    // Unregistered test zone: no zone-grid, home-area or selection changes.
+                    Zone_Growing zone = new Zone_Growing();
+                    zone.zoneManager = map.zoneManager;
+                    foreach (IntVec3 cell in map.AllCells)
+                    {
+                        if (!cell.IsPolluted(map))
+                        {
+                            zone.cells.Add(cell);
+                            break;
+                        }
+                    }
+                    if (zone.cells.Count == 0)
+                        throw new InvalidOperationException("No unpolluted test cell.");
+
+                    string[] ordinaryTrees = { "AMJ_Tree_Shii", "AMJ_Tree_Beech",
+                        "AMJ_Tree_Shirabiso", "Plant_TreeOak", "Plant_TreeMaple",
+                        "Plant_TreeBirch", "Plant_TreePine", "Plant_TreeBamboo", "Plant_TreePoplar" };
+                    foreach (string name in ordinaryTrees)
+                    {
+                        ThingDef tree = DefDatabase<ThingDef>.GetNamed(name);
+                        verification.Assert(name + " keeps regional Ground/TreeSowing contract", delegate
+                        {
+                            return tree.plant != null && tree.plant.IsTree &&
+                                tree.plant.sowTags.Contains("Ground") && tree.plant.mustBeWildToSow &&
+                                tree.plant.sowResearchPrerequisites != null &&
+                                tree.plant.sowResearchPrerequisites.Contains(research);
+                        });
+                    }
+
+                    HashSet<string> expected = new HashSet<string>(ExpectedSowableTrees(map.Biome.defName));
+                    HashSet<string> regionalWildTrees = new HashSet<string>();
+                    foreach (ThingDef plant in map.wildPlantSpawner.AllWildPlants)
+                        if (plant.plant != null && plant.plant.IsTree)
+                            regionalWildTrees.Add(plant.defName);
+                    verification.Assert("regional wild tree set equals approved sowing set",
+                        delegate { return regionalWildTrees.SetEquals(expected); });
+
+                    progress[research] = 0f;
+                    verification.Assert("TreeSowing is unfinished in locked-state test",
+                        delegate { return !research.IsFinished; });
+                    HashSet<string> locked = AvailableGrowingZoneTrees(zone, map);
+                    verification.Assert("no ordinary tree selectable before TreeSowing",
+                        delegate { return locked.Count == 0; });
+
+                    progress[research] = research.Cost;
+                    verification.Assert("TreeSowing is finished in unlocked-state test",
+                        delegate { return research.IsFinished; });
+                    HashSet<string> available = AvailableGrowingZoneTrees(zone, map);
+                    verification.Assert("growing-zone tree options equal approved regional set",
+                        delegate { return available.SetEquals(expected); });
+                    ThingDef haimatsu = DefDatabase<ThingDef>.GetNamed("AMJ_Shrub_Haimatsu");
+                    verification.Assert("Haimatsu remains outside growing-zone sowing options", delegate
+                    {
+                        return !PlantUtility.CanSowOnGrower(haimatsu, zone);
+                    });
+                    Log.Message("[AMJ Environment TreeSowing] biome=" + map.Biome.defName +
+                        " expected={" + string.Join(",", expected) + "}" +
+                        " available={" + string.Join(",", available) + "}");
+                }
+                finally
+                {
+                    // IsFinished can insert missing progress entries; restore the whole dictionary.
+                    progress.Clear();
+                    foreach (KeyValuePair<ResearchProjectDef, float> item in saved)
+                        progress.Add(item.Key, item.Value);
+                }
+                return true;
+            });
         }
 
         private static void AddHarvestOutputAssertions(QuickstartVerification verification, Map map, string expected)

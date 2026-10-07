@@ -1,5 +1,36 @@
 # AMJ Environment Coordination
 
+### ENV-TREE-SOWING-001 — Regional growing-zone tree regression (2026-10-08 JST)
+
+**Requested by:** author
+**Owner:** Environment / vegetation testing
+**Status:** IMPLEMENTATION / STATIC DONE; FRESH RUNTIME MATRIX PENDING
+
+Extends ENV-PLANT-AUDIT-001 to natural distribution and ordinary tree-sowing
+options together. `Docs/Design.md` owns the responsibility boundary and exact
+four-biome sets; `Docs/VanillaPlantRetentionAudit-ja.md` links the joint audit.
+Warm Shii/Maple/Bamboo, Cool Beech/Oak/Maple/Birch/Pine, Subalpine
+Shirabiso/Birch, Alpine no ordinary trees. Haimatsu stays unsowable.
+
+Existing fixed-biome Quickstarts now verify loaded Ground/TreeSowing/regional
+conditions, exact wild-tree sets, research-locked empty tree options and
+research-unlocked exact regional options using both native growing-zone menu
+filters. The unregistered clean-cell probe preserves zones; research progress
+is restored in `finally`. No production Def/C#/art change was needed.
+
+Local preflight PASS: six static contract/mutation tests, full C# syntax parsing,
+workflow YAML, existing art routing, strict plant visual coverage/texture/snow,
+Workshop payload tests and publication-tool compilation. The scoped new CI
+runs the fast contract gate; existing runtime runner automatically includes the
+new assertions. No installed game/reference assemblies are available in this
+editing environment, so no fresh game build/runtime PASS is claimed.
+
+Testing handoff: run the normal non-visible four-profile vegetation matrix
+(Vanilla/MO/CCTO/MO+CCTO), not harvest-only or one-biome focused runs. Require
+complete capture and existing pre-launch/runtime ERROR gates. Record results
+under this item and `Docs/GoldenPaths/PlantSowingTests.md`. Existing historical
+map/cutting PASS counts do not satisfy this new gate. No user relay required.
+
 This file is the authoritative coordination surface for **Ancient & Medieval Japan: Environment**.
 
 ## Working rule

@@ -1,0 +1,29 @@
+name: Regional tree sowing contract
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Defs/BiomeDefs/**'
+      - 'Defs/ThingDefs_Plants/**'
+      - 'Patches/**'
+      - 'Tests/Quickstarts/**'
+      - 'Tests/test_tree_sowing_contract.py'
+      - '.github/workflows/tree-sowing-contract.yml'
+  pull_request:
+    paths:
+      - 'Defs/BiomeDefs/**'
+      - 'Defs/ThingDefs_Plants/**'
+      - 'Patches/**'
+      - 'Tests/Quickstarts/**'
+      - 'Tests/test_tree_sowing_contract.py'
+      - '.github/workflows/tree-sowing-contract.yml'
+concurrency:
+  group: tree-sowing-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  static-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Validate regional tree sets and runtime regression wiring
+        run: python Tests/test_tree_sowing_contract.py

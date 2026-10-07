@@ -16,6 +16,7 @@ Environment owns:
 - world rivers and their size/frequency;
 - biome definitions and placement;
 - wild vegetation composition;
+- regional tree distribution and the ordinary growing-zone tree species available through that distribution;
 - weather/environmental regional differences;
 - seasonal scenery where it affects the environment.
 
@@ -27,6 +28,23 @@ Environment does not own:
 - cooking;
 - animals merely for regional flavor;
 - unrelated farming automation.
+
+### Regional tree sowing contract
+
+樹木の地域分布と、それに連動する通常の植林可能樹種はEnvironmentの責務とする。作物栽培の所有とは分け、AMJE樹木もVanillaの樹木栽培研究後に、その樹種が自然分布する地域で植林できるものとする。
+
+`TreeBase` / `DeciduousTreeBase` 由来の `sowTags=Ground`、`sowResearchPrerequisites=TreeSowing`、`mustBeWildToSow=true` を保持する。AMJE管理Biomeでは、自然植生から除外した通常樹木を植林候補にも残さない。Vanilla Def自体の削除や、他Mod所有Biomeでの植林制限は行わない。
+
+| AMJE Biome | 樹木栽培研究後の通常植林候補 |
+|---|---|
+| `AMJ_WarmTemperateForest` | `AMJ_Tree_Shii`, `Plant_TreeMaple`, `Plant_TreeBamboo` |
+| `AMJ_CoolTemperateForest` | `AMJ_Tree_Beech`, `Plant_TreeOak`, `Plant_TreeMaple`, `Plant_TreeBirch`, `Plant_TreePine` |
+| `AMJ_SubalpineForest` | `AMJ_Tree_Shirabiso`, `Plant_TreeBirch` |
+| `AMJ_AlpineZone` | 通常樹木なし |
+
+`AMJ_Shrub_Haimatsu` は自然低木・伐採資源として残し、植林候補には含めない。樹木の残存監査では自然生成と植林候補を一体で判定する。候補変更時はBiome、上表、静的契約テスト、ロード後のQuickstarts期待値を同じ変更で同期する。
+
+回帰手順と静的／実行時検証の区別は [PlantSowingTests](GoldenPaths/PlantSowingTests.md) を参照。実際のメニュー判定はGround適合だけでなく `PlantUtility.ValidPlantTypesForGrowers` と `Command_SetPlantToGrow.IsPlantAvailable` の両段階を使い、ロード後の継承・研究・野生分布条件を検証する。
 
 AMJ Core remains responsible for the minimum Terrain/Defs required for its agriculture to function. Environment may alter the *distribution/context* of land, but does not become a prerequisite for Core agriculture.
 
