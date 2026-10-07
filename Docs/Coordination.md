@@ -1355,3 +1355,38 @@ Only a real Steam download and four-profile/cutting rerun clear release HOLD.
 Audited main AGENTS/Coordination, Design, terrain processor, biome scoring and River / Coast handoff. README, Japanese-first Workshop and English translation now lead with replacement/reconfiguration of Vanilla terrain, vegetation and biome composition for Japan. Existing WorldGen/mutator reuse, four baseline biomes, representative plants, Vanilla secondary vegetation, wetlands/MO coexistence and save limitations remain consistent. About and 2game summaries/policies are synchronized; formal public titles match the existing colon-free About name. Durable scope is in Design; repeatable review checks are in WorkshopDescription.md.
 
 Validation: bilingual semantic review, LF/CRLF UTF-8 byte limits, BBCode balance/link/image preservation, About XML/identity and diff whitespace. No production C#/Defs/art changes or new runtime result. Author-manual Steam description update uses the two committed BBCode sources; no live-site publication is claimed.
+
+
+### ENV-PLANT-AUDIT-001 — Vanilla自然植物の残存監査（2026-10-08 JST）
+
+**Requested by:** author  
+**Owner:** Environment / vegetation  
+**Status:** IN PROGRESS — audit branch; no main biome change yet
+
+Author corrected the previous assumption that existing Vanilla vegetation should
+remain by default. AMJE now applies an explicit retention gate: a Vanilla plant
+must have a positive ancient/medieval-Japan reason, fit the target vegetation
+band, and remain visually/semantically defensible. Existing presence is not a
+reason to keep it.
+
+Work branch: `audit/vanilla-plant-retention-20261008`.
+
+Initial removals staged there:
+- warm-temperate: `Plant_TreeOak`, `Plant_TreePoplar`;
+- subalpine: generic `Plant_TreePine`;
+- alpine: `Plant_Dandelion`, `Plant_Astragalus`, generic
+  `Plant_TreePine` and `Plant_TreeBirch`.
+
+`Plant_HealrootWild` is confirmed as a RimWorld-fictional plant and is not a
+final AMJE retention target. Do not delete it alone: replace it atomically with
+AMJE-owned yomogi (`AMJ_Plant_Yomogi`) so wild herbal-medicine gathering is
+not silently removed. Yomogi is intended primarily for warm/cool temperate
+bands, with no alpine distribution. The replacement requires Def, AMJE art,
+distribution, static validation, and runtime natural-generation/harvest checks
+before the Healroot exclusion is merged.
+
+Durable design is in `Docs/Design.md`; the item-by-item audit record is
+`Docs/VanillaPlantRetentionAudit-ja.md` on the work branch. Tests on that
+branch also guard the already-staged exclusions. Cultivated
+`Plant_Healroot` is outside this wild-vegetation audit and must not be changed
+incidentally.
