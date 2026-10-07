@@ -64,13 +64,36 @@ AMJEのVanilla植物は、「Vanillaに存在するから残す」のではな�
 - `Plant_TreeBirch` はダケカンバ相当の副次高木として暫定残存。
 - 亜高山帯QuickstartでPine自然生成数0を回帰条件にする。
 
+## Phase 4 — 高山帯の汎用高木・花の除外
+
+対象:
+- `Plant_TreePine`
+- `Plant_TreeBirch`
+- `Plant_Dandelion`
+- `Plant_Astragalus`
+
+判定: **高山帯から削除**
+
+理由:
+- `AMJ_AlpineZone` は森林限界より上を表すため、通常の高木Pine/Birchを低率でも常設する必要はない。高山帯の木本構造はハイマツが担う。
+- Vanilla Dandelionは種を特定しない汎用タンポポで、現代日本で広く見られるセイヨウタンポポは20世紀初頭の移入記録がある。AMJEの高山植生をこのDefで代表させる積極的理由はない。
+- Vanilla Astragalusも「alpine climates」の汎用属表現に留まり、日本の対象時代・対象高山植生をこのDefで代表させる根拠が弱い。必要なら日本固有・在来の高山草本を別途追加する。
+- 高山帯では普通の高木を補充しないこと自体が設計目的。ただし植生候補総量と木本候補比率が削除だけで落ちないよう再配分する。
+
+commonality再配分:
+- Pine 0.02 + Birch 0.02 → Haimatsuへ移し1.30→**1.34**。
+- Dandelion 0.20 + Astragalus 0.20 → Grass +0.20 / Moss +0.20。
+- 総wildPlants commonalityは**7.31のまま不変**。
+- 木本 commonalityもHaimatsu込みで**1.34のまま不変**。ただし通常高木は0となり、森林限界を明確化する。
+
+実装:
+- 上記4 Vanilla Defを `AMJ_AlpineZone/wildPlants` から除外。
+- `AMJ_Shrub_Haimatsu` を1.34、Grassを2.20、Mossを3.20へ補正。
+- 高山帯Quickstartで4 Defの自然生成数0を回帰条件にする。
+
 ## 未処理候補
 
 以下は後続監査候補。複数種をまとめて監査・実装してよいが、削除・置換のコミットは履歴を追いやすい論理単位に分ける。ここに列挙されているだけでは削除決定ではない。
 
-- 高山帯の `Plant_Dandelion`
-- 高山帯の `Plant_Astragalus`
-- 高山帯の `Plant_TreePine`
-- 高山帯の `Plant_TreeBirch`
 - `Plant_HealrootWild` — 削除単独ではなく、日本の野生薬草への置換と同時に扱う
 
