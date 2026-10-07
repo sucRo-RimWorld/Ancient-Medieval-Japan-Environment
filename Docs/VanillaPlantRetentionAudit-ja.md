@@ -32,7 +32,7 @@ AMJEは「Vanillaの植生へ日本要素を追加するMod」ではなく、古
 | `Plant_TreeBirch` | 冷温帯・亜高山・高山 | 一部残す | **冷温帯・亜高山のみ** | ダケカンバ等、日本在来Betulaは冷温帯〜亜高山で妥当。AMJ_AlpineZoneは森林限界より上を表すため、通常高木のVanilla birchは除外する。 |
 | `Plant_Dandelion` | 高山 | 外す | **AMJE全帯から除外** | 日本在来タンポポ類は存在するが、Vanilla Defは種を区別しない。セイヨウタンポポは日本への最初の記録が1904年で対象時代外。高山帯の代表草本としてVanillaの曖昧なDefを残す必要はなく、必要なら日本在来種を専用Defで追加する。 |
 | `Plant_Astragalus` | 高山 | 外す | **AMJE全帯から除外** | Vanillaは「alpine climatesの多年草」という汎用設定で、日本の高山植生として特定の根拠がない。日本で広く知られるレンゲ（Astragalus sinicus）は外来で、記録も近世以降。必要なら日本在来の高山草本を専用Defとして設計する。 |
-| `Plant_HealrootWild` | 全帯 | 外す | **AMJE全帯から除外** | RimWorld固有の架空薬用植物であり、古代〜中世日本の自然植生を再構成するAMJEのwild plantとして残す理由がない。薬草ゲームプレイが必要なら日本の薬用植物を別途設計する。 |
+| `Plant_HealrootWild` | 全帯 | 置換 | **ヨモギ実装まで暫定維持。置換と同時に除外** | RimWorld固有の架空薬用植物であり最終残存対象ではない。ただし先に削除して野生薬草採集ループを失わせない。`AMJ_Plant_Yomogi` のDef・画像・分布・収穫テストを揃え、同一変更で置換する。 |
 
 ## 植生帯ごとの現在のVanilla残存植物
 
@@ -46,7 +46,7 @@ AMJEは「Vanillaの植生へ日本要素を追加するMod」ではなく、古
 - Plant_TreeBamboo
 - Plant_Berry
 
-構造植物の中心はAMJ_Tree_Shii。
+構造植物の中心はAMJ_Tree_Shii。`Plant_HealrootWild` はヨモギ実装までの一時的な互換枠であり、最終残存リストには含めない。
 
 ### 冷温帯林
 
@@ -61,7 +61,7 @@ AMJEは「Vanillaの植生へ日本要素を追加するMod」ではなく、古
 - Plant_TreePine
 - Plant_Berry
 
-構造植物の中心はAMJ_Tree_Beech。
+構造植物の中心はAMJ_Tree_Beech。`Plant_HealrootWild` はヨモギ実装までの一時的な互換枠であり、最終残存リストには含めない。
 
 ### 亜高山帯林
 
@@ -72,7 +72,7 @@ AMJEは「Vanillaの植生へ日本要素を追加するMod」ではなく、古
 - Plant_TreeBirch
 - Plant_Berry
 
-構造植物の中心はAMJ_Tree_Shirabiso。
+構造植物の中心はAMJ_Tree_Shirabiso。`Plant_HealrootWild` はヨモギ実装までの一時的な互換枠であり、最終残存リストには含めない。
 
 ### 高山帯
 
@@ -81,7 +81,7 @@ AMJEは「Vanillaの植生へ日本要素を追加するMod」ではなく、古
 - Plant_Bush
 - Plant_Berry
 
-構造植物の中心はAMJ_Shrub_Haimatsu。通常高木は置かない。
+構造植物の中心はAMJ_Shrub_Haimatsu。通常高木は置かない。高山帯ではヨモギも原則配置せず、`Plant_HealrootWild` の暫定配置は置換時に廃止する。
 
 ## 後続監査
 
@@ -106,4 +106,24 @@ AMJEは「Vanillaの植生へ日本要素を追加するMod」ではなく、古
 - J-STAGE, Japanese native Taraxacum taxonomy review: https://www.jstage.jst.go.jp/article/cytologia/86/2/86_D-21-00023/_html/-char/ja
 - 国立環境研究所 侵入生物DB, Taraxacum officinale: https://www.nies.go.jp/biodiversity/invasive/DB/detail/80640e.html
 - 国立環境研究所 侵入生物DB, Astragalus sinicus: https://www.nies.go.jp/biodiversity/invasive/DB/detail/80930e.html
+
+
+
+## 野生薬草の置換仕様
+
+`Plant_HealrootWild` は削除だけを先行させない。AMJEで野生薬草採集を維持するため、以下を一単位で実装する。
+
+- 新規Def: `AMJ_Plant_Yomogi`（ヨモギ／蓬）
+- 役割: 日本の野生薬草・灸用植物を代表する低草本
+- 主分布: 暖温帯林・冷温帯林
+- 亜高山帯: 常設しない。必要性が生じた場合のみ実分布根拠を追加して再検討
+- 高山帯: 配置しない
+- 収穫物: `MedicineHerbal` を少量。これはRimWorldの薬草資源を日本の薬用植物で表現するゲーム上の抽象化であり、ヨモギ単体を万能薬とみなす史実主張ではない
+- 置換条件: Def、AMJE画風の画像、Biome分布、静的検証、実行時の自然生成・収穫テストが揃った変更で `Plant_HealrootWild` をAMJE各Biomeから除外する
+- 栽培可能なVanilla `Plant_Healroot` 自体の扱いは自然植生とは別責務として扱い、今回のBiome監査に便乗して削除・変更しない
+
+根拠:
+- Kew Plants of the World Online は `Artemisia princeps` を日本在来・温帯性多年草として扱う。
+- 熊本大学薬学部薬用植物園はヨモギを本州〜九州・小笠原の山野に普通に見られる薬用植物とし、葉・枝先／全草を薬用部位としている。
+- 東郷俊宏「お灸の歴史」は、灸が古代〜中世日本の医療で重要な治療法であり、10世紀末の『医心方』や中世の日記史料にも灸治が確認できることを整理している。
 
