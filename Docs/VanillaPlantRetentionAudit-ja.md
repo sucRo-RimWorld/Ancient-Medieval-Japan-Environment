@@ -42,11 +42,32 @@ AMJEのVanilla植物は、「Vanillaに存在するから残す」のではな�
 - `AMJ_Tree_Shii` を2.55へ増加。
 - 暖温帯QuickstartでOak / Poplarの自然生成数0を回帰条件にする。
 
+## Phase 3 — 亜高山帯の汎用Pineとシラビソ密度補正
+
+対象: `Plant_TreePine`
+
+判定: **亜高山帯から削除**
+
+理由:
+- 本州の亜高山帯自然林はシラビソ・オオシラビソ・コメツガ等の常緑針葉樹が主要構造で、AMJEではその代表を `AMJ_Tree_Shirabiso` が所有する。
+- Vanillaの汎用Pineはアカマツ系の二次林表現として冷温帯では残存余地があるが、亜高山帯の主要高木として重ねる必要はない。
+- Pine 0.90を削るだけでは樹木比率が落ちるため、その0.90をシラビソへ移し2.60→3.50とする。
+
+樹木 commonality:
+- 変更前: 4.00（Shirabiso 2.60 + Pine 0.90 + Birch 0.50）
+- 変更後: **4.00**（Shirabiso 3.50 + Birch 0.50）
+- 総wildPlants commonality 16.14も不変。
+
+実装:
+- `AMJ_SubalpineForest/wildPlants` から `Plant_TreePine` を除外。
+- `AMJ_Tree_Shirabiso` を3.50へ増加。
+- `Plant_TreeBirch` はダケカンバ相当の副次高木として暫定残存。
+- 亜高山帯QuickstartでPine自然生成数0を回帰条件にする。
+
 ## 未処理候補
 
 以下は後続監査候補。複数種をまとめて監査・実装してよいが、削除・置換のコミットは履歴を追いやすい論理単位に分ける。ここに列挙されているだけでは削除決定ではない。
 
-- 亜高山帯の `Plant_TreePine`
 - 高山帯の `Plant_Dandelion`
 - 高山帯の `Plant_Astragalus`
 - 高山帯の `Plant_TreePine`
