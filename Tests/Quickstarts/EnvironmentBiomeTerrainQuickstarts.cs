@@ -2740,7 +2740,6 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreeOak",
                     "Plant_TreeMaple",
                     "Plant_TreeBamboo"
                 };
@@ -2753,7 +2752,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreePoplar"
+                    "Plant_TreePoplar",
+                    "Plant_TreeOak"
                 };
             }
         }
