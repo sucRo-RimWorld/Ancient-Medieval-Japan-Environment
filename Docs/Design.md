@@ -863,6 +863,20 @@ AMJE植物説明フォーマットは、現行の独自4植物と同様に、原
 したがってポストBetaの既存樹木作業は、**retention audit（残すか） → distribution/ownership decision → description rewrite → retexture** の順を基本とし、「既存樹木をすべて残してから描き直す」ことは前提にしない。
 
 
+### 11.5.6 Vanilla自然植物の残存ゲートと野生薬草
+
+AMJEのBiomeにVanilla植物を残すこと自体には既得権を認めない。対象地域・対象時代・植生帯・景観上の役割・見た目／説明の同一性を個別に監査し、積極的な残存理由を示せない植物は分布から外す。詳細な初回判定表は `Docs/VanillaPlantRetentionAudit-ja.md` を監査記録とする。
+
+特に野生薬草については、RimWorld固有の架空植物 `Plant_HealrootWild` をAMJEの最終自然植生として残さない。ただし削除だけを先行させて薬草採集ループを失わせず、日本在来で古代〜中世日本の医療文化と接続できるヨモギ（蓬）を `AMJ_Plant_Yomogi` として追加し、置換を同一変更で行う。
+
+Alpha/Betaの置換仕様:
+- 主分布は暖温帯林・冷温帯林。
+- 高山帯には配置しない。亜高山帯も既定では配置しない。
+- 収穫は `MedicineHerbal` の少量取得としてRimWorldの既存薬草ループを維持する。これはゲーム上の資源抽象化であり、ヨモギ単体を万能薬とする歴史記述ではない。
+- AMJE画風の専用画像、Def、Biome分布、静的検証、実行時の自然生成・収穫テストが揃うまで、既存Healrootを先行削除しない。
+- 栽培用 `Plant_Healroot` はEnvironmentのwild vegetation責務とは別であり、この自然植生監査では変更しない。
+
+
 ## 12. Seasonal scenery baseline
 
 ### 12.1 Alpha principle
