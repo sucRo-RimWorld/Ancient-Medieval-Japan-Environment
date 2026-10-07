@@ -1320,3 +1320,13 @@ and Docs/ValidationEvidence/Workshop*.json.
 root after selected-root manifest verification. Do not upload the dirty root or
 historical28-file package. Actual distribution is NOT fixed/approved yet.
 Only a real Steam download and four-profile/cutting rerun clear release HOLD.
+
+
+### DOC-ENV-REPLACEMENT-001 — Vanilla replacement scope in public copy (2026-10-07 JST)
+
+**Owner:** Documentation / release
+**Status:** DONE — repository description sources; live Steam / 2game publication remains separate
+
+Audited main AGENTS/Coordination, Design, terrain processor, biome scoring and River / Coast handoff. README, Japanese-first Workshop and English translation now lead with replacement/reconfiguration of Vanilla terrain, vegetation and biome composition for Japan. Existing WorldGen/mutator reuse, four baseline biomes, representative plants, Vanilla secondary vegetation, wetlands/MO coexistence and save limitations remain consistent. About and 2game summaries/policies are synchronized; formal public titles match the existing colon-free About name. Durable scope is in Design; repeatable review checks are in WorkshopDescription.md.
+
+Validation: bilingual semantic review, LF/CRLF UTF-8 byte limits, BBCode balance/link/image preservation, About XML/identity and diff whitespace. No production C#/Defs/art changes or new runtime result. Author-manual Steam description update uses the two committed BBCode sources; no live-site publication is claimed.

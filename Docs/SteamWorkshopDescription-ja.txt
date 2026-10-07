@@ -1,6 +1,6 @@
-[h1]Ancient & Medieval Japan: Environment[/h1]
+[h1]Ancient & Medieval Japan - Environment[/h1]
 
-[b]日本列島のような気候・地形・植生を、RimWorldの世界生成そのものから再現する環境オーバーホールModです。[/b]
+[b]バニラの地形・植生・バイオーム構成を日本列島向けに置き換え・再構成する環境オーバーホールModです。[/b]
 
 古代～中世日本をイメージした、湿潤な気候、山がちな地形、短く多い河川、複雑な海岸線、温度帯ごとの森林、高山帯などをゲーム内に作ります。
 
@@ -18,7 +18,7 @@
 [*]雨・霧・雪・紅葉・落葉などは可能な限りVanillaの仕組みを活用
 [/list]
 
-世界やマップを無理に別システムへ置き換えるのではなく、RimWorld 1.6の既存の世界生成・河川／海岸の地形生成処理・天候・積雪・落葉システムをできるだけ活かす設計です。
+既存WorldGenの生成後に地形・気候・Biome配置を組み直します。河川／海岸のマップ生成には既存のRiver / Coast mutatorを使い、天候・積雪・落葉の仕組みも活用します。
 
 [h2]なぜこの4つの環境帯なのか[/h2]
 
@@ -31,7 +31,7 @@ AMJEのBiomeは、現代の県境や地方区分をそのまま再現するも�
 [*][b]高山帯[/b]：森林限界より上のハイマツ林・高山植生
 [/list]
 
-これは日本の植生を4種類だけに置き換える仕組みではなく、[b]日本風の自然環境を構成する基準帯[/b]です。湿地や、[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]のDark Forestのような特殊Biomeは、条件が合えば共存します。
+この4つの追加Biomeを、条件に合う陸地でバニラの一般的なBiomeに優先する[b]日本向けの基準植生帯[/b]として配置します。湿地や、[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]のDark Forestのような特殊Biomeは、条件が合えば共存します。
 
 また、弥生時代以降から中世にかけて人の活動によってマツ林・草地・二次林も広がったことを踏まえ、各Biomeを一種類だけの原生林にはしていません。Vanillaの樹木や下草も副次的な植生として残しています。
 

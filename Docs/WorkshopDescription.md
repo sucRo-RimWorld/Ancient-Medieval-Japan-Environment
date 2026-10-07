@@ -1,4 +1,4 @@
-# Steam Workshop Presentation — Ancient & Medieval Japan: Environment
+# Steam Workshop Presentation — Ancient & Medieval Japan - Environment
 
 `README.md` is the detailed public-content source of truth. The Workshop description is a concise summary of that README: it should select and compress the information players need to understand, evaluate, and install the mod, but it must not introduce substantive features, design rationale, or compatibility claims that are absent from the README.
 
@@ -22,8 +22,8 @@ Repository work ends with preparing and synchronizing the README, Japanese/Engli
 
 ## Title
 
-- English: `Ancient & Medieval Japan: Environment`
-- Japanese working title: `古代・中世日本：環境`
+- English: `Ancient & Medieval Japan - Environment`
+- Japanese working title: `古代・中世日本 - 環境`
 
 ## Release stage
 
@@ -33,16 +33,21 @@ RimWorld 1.6 — Beta
 
 **Japanese source**
 
-日本列島を意識した気候・山地・河川・海岸・植生・天候をRimWorldの世界生成から作る環境Mod。単体で中世日本風の自然環境を楽しめ、CCTO併用時は植物の寒冷耐性までよりリアリティ重視になる。
+バニラの地形・植生・バイオーム構成を日本列島向けに置き換え・再構成する環境Mod。単体で中世日本風の自然環境を楽しめ、CCTO併用時は植物の寒冷耐性までよりリアリティ重視になる。
 
 **English translation**
 
-A Japan-oriented environment overhaul for RimWorld world generation, climate, mountains, rivers, coastlines, vegetation, and weather. Works standalone, with optional CCTO integration for a stricter realism-focused plant cold model.
+A standalone environment overhaul that replaces and reconfigures Vanilla terrain, vegetation, and biome composition for a Japanese-archipelago-inspired landscape. Works standalone, with optional CCTO integration for a stricter realism-focused plant cold model.
+
+## Replacement-scope review
+
+For public-copy updates, verify `Docs/Design.md` against `EnvironmentTerrainProcessor.Apply`, `JapanBiomeScoring`, biome plant/terrain Defs and the River / Coast handoff before synchronizing README -> Japanese Workshop -> English Workshop -> About / 2game. Replacement means the generated terrain and baseline biome/vegetation composition are reconfigured; it does not mean deleting all Vanilla Defs, replacing every specialized biome, or adding a separate local river/coast generator. Preserve secondary Vanilla plants, wetlands/MO coexistence, representative plants, optional integrations and save limitations. Check both BBCode bodies for balanced tags and UTF-8 size below 8,000 bytes with LF and CRLF.
 
 ## Workshop content policy
 
 Emphasize:
-- Japan-oriented environment/world generation;
+- replacement/reconfiguration of Vanilla terrain, vegetation and biome composition for Japan, stated in the opening;
+- distinguish the changed generated environment from reuse of WorldGen and River / Coast mutators;
 - why the four AMJ biomes are simplified vegetation/climate bands rather than prefectural or exclusive biome replacements;
 - one representative structural plant for each band: Sudajii / Japanese beech / Shirabiso / Haimatsu, with the selection rationale;
 - current production images for those four plants in the Workshop body;

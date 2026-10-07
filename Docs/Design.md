@@ -1,4 +1,4 @@
-# Ancient & Medieval Japan: Environment — Design
+# Ancient & Medieval Japan - Environment — Design
 
 **Target:** RimWorld 1.6  
 **Repository:** `sucRo-RimWorld/Ancient-Medieval-Japan-Environment`  
@@ -35,6 +35,10 @@ Environment remains technically standalone: AMJ Core, CCTO and Medieval Overhaul
 However, the **normal AMJ play configuration is expected to coexist with Medieval Overhaul (MO)**. MO compatibility is therefore a first-class design requirement rather than an incidental third-party compatibility case. Environment must not unnecessarily suppress, replace or invalidate MO-owned biomes, plants, terrain or other environmental content when both mods are active.
 
 **Harmony is the sole current technical dependency.** It is used for the post-Vanilla terrain transformation and for temperature-runtime hooks that RimWorld 1.6 does not expose cleanly through Def/XML.
+
+### Public replacement scope
+
+AMJE replaces and reconfigures the generated Vanilla terrain, vegetation, and baseline biome composition for a Japanese-archipelago-inspired environment. This describes the generated result, not wholesale deletion of Vanilla Defs or replacement of the engine pipeline. `EnvironmentTerrainProcessor.Apply` transforms root-surface elevation/coastlines, hilliness, climate and biome selection after Vanilla terrain generation. The four AMJE biome workers take precedence over broad Vanilla workers on eligible land, while wetlands and stronger compatible specialized workers can remain. Biome mixes retain Vanilla secondary vegetation and use AMJE representative plants; natural soil distribution is rebalanced without replacing every TerrainDef. Local River / Coast mutators and Vanilla weather/snow/deciduous systems remain the implementation foundation. Public summaries must state both the changed environment and these reuse/coexistence boundaries.
 
 ## 2. Design goal
 

@@ -1,8 +1,8 @@
-# Ancient & Medieval Japan: Environment
+# Ancient & Medieval Japan - Environment
 
 **RimWorld 1.6 — Beta**
 
-A standalone environment overhaul that reshapes RimWorld toward a **pre-Edo Japan-like climate and landscape**, with Japan-oriented world generation, biomes, vegetation, weather, seasonal scenery, rivers, coastlines, and natural soil distribution.
+A standalone environment overhaul that replaces and reconfigures Vanilla terrain, vegetation, and biome composition for a Japanese-archipelago-inspired landscape. It changes world climate, mountains, rivers, coastlines, natural soil distribution, and the placement and vegetation of biomes to create a **pre-Edo Japan-like natural environment**.
 
 AMJ Environment is designed to work on its own for players who mainly want a medieval-Japan-like natural setting. **[Ancient & Medieval Japan Core](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core) is not required.**
 
@@ -29,7 +29,7 @@ Historical and ecological research is used as a reference, but gameplay clarity 
 
 ### Japan-oriented world generation
 
-AMJ Environment modifies the root-surface world after Vanilla terrain generation, preserving compatibility with later world-generation systems.
+AMJ Environment transforms the root-surface world after Vanilla terrain generation: it recalculates elevation, hilliness, temperature, rainfall, and biome placement. The resulting environment replaces the broad Vanilla baseline with a Japan-oriented configuration while retaining the existing world-generation pipeline. Local river and coastal maps still use the standard River / Coast tile mutators; reusing these systems does not mean keeping Vanilla world terrain and biome distribution unchanged.
 
 Current Beta targets include:
 
@@ -55,7 +55,7 @@ AMJ Environment changes the world-level river distribution only. Local river map
 
 ### Four Japan-oriented biome bands
 
-AMJ Environment adds four natural biome bands:
+AMJ Environment adds four natural biome bands that take precedence over broad Vanilla biomes on eligible land:
 
 - **Warm-temperate forest** — evergreen broadleaf forest;
 - **Cool-temperate forest** — deciduous broadleaf forest;
