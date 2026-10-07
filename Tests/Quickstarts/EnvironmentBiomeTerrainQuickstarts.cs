@@ -426,6 +426,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
             get { return new string[0]; }
         }
 
+        protected virtual bool ValidateAmjBiomeContracts
+        {
+            get { return true; }
+        }
+
         protected virtual float MaxLimitedTimberCellFraction
         {
             get { return 1f; }
@@ -548,15 +553,19 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     return PawnRenderBadMaterialDiagnostics.BadMaterialUseCount == 0;
                 });
 
-            AddWeatherAssertions(verification, map == null ? null : map.Biome);
+            if (ValidateAmjBiomeContracts)
+            {
+                AddWeatherAssertions(verification, map == null ? null : map.Biome);
+                AddWildlifeAssertions(verification, map == null ? null : map.Biome);
+                AddTreeSowingAssertions(verification, map);
+            }
+
             AddSeasonalSceneryAssertions(verification);
-            AddWildlifeAssertions(verification, map == null ? null : map.Biome);
-            AddTreeSowingAssertions(verification, map);
             AddLivePlantTextureAssertions(verification, map);
             AddLiveThingTextureAssertions(verification, map);
             AddTerrainScatterTextureAssertions(verification, map);
 
-            if (CoreIsActive())
+            if (ValidateAmjBiomeContracts && CoreIsActive())
             {
                 AddCoreAgricultureIntegrationAssertions(verification, map);
             }
@@ -626,13 +635,16 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     return limitedTimberFraction <= MaxLimitedTimberCellFraction;
                 });
 
-            if (CctoIsActive())
+            if (ValidateAmjBiomeContracts)
             {
-                AddCctoCompatibilityAssertions(verification);
-            }
-            else
-            {
-                AddStandaloneTemperatureAssertions(verification);
+                if (CctoIsActive())
+                {
+                    AddCctoCompatibilityAssertions(verification);
+                }
+                else
+                {
+                    AddStandaloneTemperatureAssertions(verification);
+                }
             }
 
             Log.Message(
@@ -2876,6 +2888,153 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     "Plant_TreeOak"
                 };
             }
+        }
+    }
+
+    public sealed class AMJTemperateSwampVegetationQuickstart : BiomeTerrainQuickstartBase
+    {
+        protected override string TargetBiomeDefName
+        {
+            get { return "TemperateSwamp"; }
+        }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "Plant_TallGrass"; }
+        }
+
+        protected override string[] SecondaryPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreeWillow",
+                    "Plant_TreeMaple",
+                    "Plant_Brambles"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_Chokevine",
+                    "Plant_TreeCypress"
+                };
+            }
+        }
+
+        protected override bool ValidateAmjBiomeContracts
+        {
+            get { return false; }
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            BiomeDef biome = Find.CurrentMap == null ? null : Find.CurrentMap.Biome;
+            string[] names =
+            {
+                "Plant_TallGrass",
+                "Plant_Brambles",
+                "Plant_Bush",
+                "Plant_TreeWillow",
+                "Plant_TreeMaple",
+                "Plant_Berry",
+                "Plant_HealrootWild"
+            };
+            float[] expected = { 3.2f, 0.8f, 0.2f, 2.0f, 1.0f, 0.05f, 0.05f };
+            for (int i = 0; i < names.Length; i++)
+            {
+                string name = names[i];
+                float value = expected[i];
+                result.Assert("TemperateSwamp " + name + " commonality=" + value, delegate
+                {
+                    ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                    return biome != null && def != null &&
+                        System.Math.Abs(biome.CommonalityOfPlant(def) - value) < 0.001f;
+                });
+            }
+            return result;
+        }
+    }
+
+    public sealed class AMJColdBogVegetationQuickstart : BiomeTerrainQuickstartBase
+    {
+        protected override string TargetBiomeDefName
+        {
+            get { return "ColdBog"; }
+        }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "Plant_TallGrass"; }
+        }
+
+        protected override string[] SecondaryPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_Moss",
+                    "Plant_TreeWillow",
+                    "Plant_TreeBirch",
+                    "Plant_TreeMaple"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_Chokevine",
+                    "Plant_TreeCypress",
+                    "Plant_Astragalus"
+                };
+            }
+        }
+
+        protected override bool ValidateAmjBiomeContracts
+        {
+            get { return false; }
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            BiomeDef biome = Find.CurrentMap == null ? null : Find.CurrentMap.Biome;
+            string[] names =
+            {
+                "Plant_TallGrass",
+                "Plant_Moss",
+                "Plant_Bush",
+                "Plant_TreeWillow",
+                "Plant_TreeBirch",
+                "Plant_TreeMaple",
+                "Plant_Berry",
+                "Plant_HealrootWild"
+            };
+            float[] expected = { 3.4f, 2.6f, 0.3f, 0.6f, 0.6f, 0.6f, 0.07f, 0.05f };
+            for (int i = 0; i < names.Length; i++)
+            {
+                string name = names[i];
+                float value = expected[i];
+                result.Assert("ColdBog " + name + " commonality=" + value, delegate
+                {
+                    ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                    return biome != null && def != null &&
+                        System.Math.Abs(biome.CommonalityOfPlant(def) - value) < 0.001f;
+                });
+            }
+            return result;
         }
     }
 
