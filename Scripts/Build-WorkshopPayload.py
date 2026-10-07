@@ -34,6 +34,16 @@ def inventory(root):
 
 def validate(data):
     about = ET.fromstring(data['About/About.xml'])
+    manifest = ET.fromstring(data['About/Manifest.xml'])
+    changelog = data['About/Changelog.txt'].decode('utf-8-sig')
+    version = (manifest.findtext('version') or '').strip()
+    if not version:
+        raise ValueError('Workshop manifest version missing')
+    if (about.findtext('modVersion') or '').strip() != version:
+        raise ValueError('About modVersion does not match Workshop manifest version')
+    if not any(line.startswith(version) for line in changelog.splitlines()
+               if line and not line.startswith('#')):
+        raise ValueError('Changelog has no entry for Workshop manifest version')
     if about.findtext('packageId') != PACKAGE or data['About/PublishedFileId.txt'].decode().strip() != WORKSHOP:
         raise ValueError('Wrong publication identity')
     if any(c in about.findtext('name', '') for c in ':：'):
