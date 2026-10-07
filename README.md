@@ -66,7 +66,7 @@ These bands are not prefectural or regional borders. They are a gameplay simplif
 
 The temperature thresholds are therefore approximations for RimWorld rather than literal botanical boundaries. AMJE uses these four BiomeDefs as **baseline vegetation bands**, not as an exclusive replacement for every other biome. Wetlands and stronger specialized biome workers from compatible mods such as Medieval Overhaul can still coexist where their own conditions fit.
 
-The design also avoids presenting every map as untouched single-species climax forest. Historical vegetation research shows that human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions. Vanilla secondary trees, shrubs, grasses, and other filler vegetation therefore remain part of the biome mixes.
+The design also avoids presenting every map as untouched climax forest. Human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions, but that does **not** justify retaining arbitrary Vanilla vegetation. The current Beta still reuses some Vanilla plants provisionally. Each retained tree and ground plant will be re-audited for Japanese distribution, period fit, ecological role, and presentation; plants without a clear AMJE reason to remain will be removed, replaced, or excluded from the biome pools.
 
 ### Structural Japanese vegetation
 
@@ -226,13 +226,14 @@ The four AMJE representative plants are implemented. Real-play balance/compatibi
 
 ## Planned follow-up
 
-After the initial public Beta, the visual follow-up is staged retexturing of existing trees that appear inside AMJE environments:
+After the initial public Beta, existing Vanilla / Medieval Overhaul vegetation is audited **before** any broad retexture pass:
 
-- Vanilla trees used as secondary vegetation in AMJE biomes;
-- Medieval Overhaul trees that coexist with AMJE biomes;
-- the complete loaded visible state family for each target, including base, leafless, immature, polluted, and snow states where that tree actually uses them.
+- decide whether each existing tree or ground plant actually belongs in AMJE's pre-Edo Japanese environment;
+- remove, replace, or stop using targets without a sufficient botanical, historical, or landscape reason to remain;
+- rewrite retained plant descriptions into the AMJE historical-description format;
+- retexture only the retained targets, including every loaded visible state actually used by that plant.
 
-These retextures are visual-only by default. Existing gameplay behavior and rendering metadata are preserved unless a documented technical correction is required, and AMJE-owned texture paths/patches are preferred to avoid unnecessary compatibility conflicts.
+Retexturing is therefore not a commitment to preserve the current Vanilla/MO vegetation mix. Retention is decided first; art follows only for plants that remain justified AMJE components.
 
 ## Research and detailed design
 
