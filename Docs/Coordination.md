@@ -1394,3 +1394,11 @@ AMJE-owned yomogi (`AMJ_Plant_Yomogi`) after the Def, art, distribution,
 static validation and runtime natural-generation/harvest checks are ready.
 Cultivated `Plant_Healroot` remains outside this wild-vegetation audit.
 
+Public description sync is complete in squash merge
+`75b74a6d3624701df2e427549bd6e7f7b0c1432d`: README, Japanese/English
+Workshop copy, 2game copy, About.xml and their presentation policies now state
+that the Vanilla-vegetation audit is already active, unsuitable plants are
+removed/replaced, and warm-temperate Vanilla Poplar is the first completed
+removal. Workshop BBCode is balanced and remains under the 8,000-byte limit in
+both LF and CRLF forms. Actual Steam / 2game site publication is not claimed.
+
