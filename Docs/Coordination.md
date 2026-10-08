@@ -1,5 +1,13 @@
 # AMJ Environment Coordination
 
+### ENV-COMMONER-HERB-AUDIT-20261008 — ordinary people's use
+
+**Owner:** Environment / herb selection research  
+**Status:** AUTHOR POLICY RECORDED; candidate-specific medieval commoner prevalence NOT ESTABLISHED
+
+Formal selection audit and sources: `Docs/NativeVegetationStep3Design-ja.md` section 10. Favor herbs used by ordinary people; distinguish medical-book recognition, elite use, local commoner use and broad prevalence. Prioritize researching Senburi's medieval stomach-medicine role and Kihada's medicinal/dye uses, without approving new species. Retain assigned Yomogi/Kuzu and accepted descriptions. Anthelmintic ingredients remain unconfirmed for widespread medieval-Japanese commoner use; Makuri's verified Japanese history here is Edo-era. No runtime/recipe/art change or new-species adoption claimed.
+
+
 ### ENV-HERB-JAPANESE-APPROVED-20261008 — Yomogi / Kuzu description approval
 
 **Owner:** Environment / traditional herb localization  
