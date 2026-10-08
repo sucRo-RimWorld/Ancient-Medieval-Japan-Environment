@@ -44,8 +44,6 @@ Author's `test-run.bat` blocked on the actual installed Steam Workshop `38146380
 
 **Framework source audit performed:** `RimWorks/Rimworld-Pickle` official `Docs/getting-started.md`, `Docs/authoring.md`, `Docs/autorun.md`, `Docs/running.md`, `Docs/reports.md`, `RimWorks/pickle-template/README.md`, and `ilyvion/rimtest-redux/README.md` were read. Pickle's Gherkin, isolated test Steps in `Pickle/Assemblies`, `-pickle-run`, independent report/exit-code and per-mod-set conventions match the present workflow at a design level. RimTest Redux is a unit-test framework requiring test-only assemblies; it is not a substitute for Steam artifact provenance or Pickle's live loading. **Real Windows Pickle C# compilation/runtime is not yet validated.** Avoid further speculative harness rewrites until the release-source blocker is resolved. The official RimWorld `loadFolders.xml` semantics document confirms `IfModActive` loads an additional path when the target Mod is active.
 
-
-
 ### ENV-STEAM-2-METADATA-VARIANCES-20261008 — author test-run.bat preflight diagnosis
 
 **Owner:** Environment Workshop distribution / Pickle E2E
@@ -57,7 +55,6 @@ PR #39 merged as `c6f674a2237dcc739299d59408f4a9c16271a6d8` (CI `Workshop payloa
 
 Next human action: synchronize local Environment checkout and run **only `test-run.bat`** with RimWorld normally closed. If semantic gate rejects either metadata file, its automatic diagnostic is the next evidence; do not weaken the acceptance gate or ask the author for manual file-by-file comparisons. If Pickle runs and passes, record its 20 loaded-Def checks separately; 9-map/native-cutting actual Steam runtime and exact provenance remain outstanding. No new Steam upload authorized by this record.
 
-
 ### ENV-WORKSHOP-BATCH-ENTRY-20261008 — author-facing test-run.bat
 
 **Owner:** Environment testing / publication
@@ -66,8 +63,6 @@ Next human action: synchronize local Environment checkout and run **only `test-r
 Author explicitly requested the same batch-first test practice as other AMJ workstreams: `test-run.bat` must be the user-facing entry instead of assembling `py`, timestamps, Manifest or report paths. PR #38 squash-merged as `62ac577f7ce030b2dafc8ec59db8ed1e4bf417e4`. The root-level `test-run.bat` internally launches `Scripts/Run-WorkshopPickle.py`, which finds Workshop3814638060, chooses only an **exact byte-matching** `%TEMP%/AMJE-Final-*/Manifest.json`, makes a fresh timestamped output, executes real RimWorks Pickle for the four loaded-Def smoke profiles and automatically prints failures and available report/log excerpts. Missing or mismatching Steam manifest and an already-running RimWorld are blockers, not runtime PASS. The existing `run-tests.bat` remains the development static/rendered test entry; `test-run.bat` covers subscribed Workshop Pickle verification.
 
 Regression tests cover the batch's zero-flag interface, fail-closed manifest selection and absent-result diagnostics; GitHub `Workshop payload filtering` and `Plant visual coverage ledger` passed on PR head. No game code/assets/published Workshop bytes or local config were altered by this change. This is **test infrastructure only**: Windows C# compilation and 20 Pickle runtime scenarios have not yet been author-executed, and Pickle alone does not validate actual native CutPlant jobs, nine rendered maps or complete Steam publication. Preserve earlier valid 32-file candidate evidence; Steam runtime release HOLD remains.
-
-
 
 ### ENV-WORKSHOP-PICKLE-E2E-20261008 — downloaded source and loaded-Def audit
 
@@ -98,8 +93,6 @@ runtime gate with five loaded-Def Pickle checks. Author's previously
 verified **32-file candidate** and the 40-report saved-log audit stay
 valid; actual subscribed-root runtime evidence is still required.
 
-
-
 ### ENV-STEAM-CHANGE-NOTES-20261008 — author confirmation
 
 **Owner:** Environment release/publication
@@ -108,7 +101,6 @@ valid; actual subscribed-root runtime evidence is still required.
 The author confirmed on 2026-10-08 JST that the prepared update history appeared in Steam Workshop Change Notes for the current Environment update. This provides **author-reported live Steam UI evidence** that the Add Changenote publication pathway produced the intended type of update entry on this occasion; unlike earlier publication history, it was not only auto-generated boilerplate. The text was prepared in `About/Changelog.txt` using matching `0.1.0` About/Manifest/version metadata. Exact Steam entry wording and the Steam log were not independently supplied here. Steam-side description and gallery were not separately confirmed.
 
 Do not conflate successful Change Notes display with exact uploaded game files: the current 32-file candidate from `1d46727102f53243099927b59881091d448dba61` and archive `a6df959f18a1a72153ba5dfbc196806b646194e452fec2e8f8c71d312635b0f6` passed four-profile prepublication tests and a 40-report saved-log audit, but a **fresh actual Steam download inventory, candidate-manifest comparison, source/DLL proof and downloaded-root four-profile gate** have not yet been provided. Distributed release HOLD remains for these checks. No further upload or gameplay edits are authorized by this note.
-
 
 ### ENV-WORKSHOP-CANDIDATE-FOUR-PROFILE-PASS-20261008 — current 32-file candidate
 
@@ -121,7 +113,6 @@ Author's preserved runtime evidence is at `C:/Users/sucRo/AppData/Local/Temp/AMJ
 
 **Steam remains author-manual.** Enable YADA and Add Changenote and select the validated 32-file candidate, never the dirty developer tree. A real downloaded Workshop3814638060 manifest/hash/source/DLL and four-profile runtime check are still required before claiming distributed-release PASS. Stable combined-loop/save-season criteria remain OPEN. Historical 26/28-file candidate records below are not an authorization to upload those obsolete candidates.
 
-
 ### ENV-WORKSHOP-BILINGUAL-CLOSEOUT-20261008 — single-field English/Japanese Workshop copy
 
 **Owner:** Environment public copy and release  
@@ -129,57 +120,11 @@ Author's preserved runtime evidence is at `C:/Users/sucRo/AppData/Local/Temp/AMJ
 
 The owner source `Docs/SteamWorkshopDescription.txt` now contains one complete English-then-Japanese description followed by one common plant-image gallery with four distinct images and EN/JA captions; `Docs/SteamWorkshopDescription-ja.txt` is its maintained Japanese draft, not a second Steam field. The full combined body fits the 8,000-byte budget and omits license/AI/donation statements. `Docs/WorkshopDescription.md` defines the paste workflow. `Tests/validate_workshop_description.py` is integrated into the Workshop payload CI to prevent regressions. About title, packageId, gameplay code/defs, image assets and Steam live posting are unchanged by this description correction. Confirm CI separately; final Steam posting remains author-managed.
 
-
 ### MEDICINE-SPLIT-20261008 — latest author decision supersedes herb workstream
 
 **Status:** DONE — ownership/design records; medicine implementation not started.
 
 Environment retains wild/cultivated Healroot and existing MedicineHerbal supply. No medicinal-plant replacement or final Healroot removal is planned. Yomogi/Kuzu plants, Kuzu-root harvest, raw drugs and remedies belong to the future standalone medicine Mod; Fiber keeps stem processing. Research and approved text moved to [Project medicine record](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/MedicinalPlantsAndRemedies.md). Design, retention audit and Step 3 updated. All older herb-owner/Healroot-removal entries below are historical and superseded. Public-copy reconciliation of old future-roadmap promises remains OPEN for the ongoing public-description workstream; no runtime/art/Steam change or new runtime PASS claimed. Golden Path N/A.
-
-
-### ENV-STOMACH-ANTHELMINTIC-EXCEPTION-20261008
-
-**Owner:** Environment / historical herb research  
-**Status:** SINGLE-USE CANDIDATES ALLOWED; historical transcription leads identified; adoption OPEN
-
-Author allows stomach-medicine and anthelmintic candidates even without other uses. Formal selection exception is section 8.2 and research detail 10.4 in `Docs/NativeVegetationStep3Design-ja.md`. Ishimpo volume 7 online transcription identifies Kaya-seed, Ai, Ren-root and Yoku-i-root leads; original scans/critical editions, species identity and medieval Japanese commoner use remain unverified. Do not add indications to approved Yomogi text or claim new medicine/plant runtime implementation. Senburi remains the focused medieval stomach-medicine research candidate.
-
-
-### ENV-COMMONER-HERB-AUDIT-20261008 — ordinary people's use
-
-**Owner:** Environment / herb selection research  
-**Status:** AUTHOR POLICY RECORDED; candidate-specific medieval commoner prevalence NOT ESTABLISHED
-
-Formal selection audit and sources: `Docs/NativeVegetationStep3Design-ja.md` section 10. Favor herbs used by ordinary people; distinguish medical-book recognition, elite use, local commoner use and broad prevalence. Prioritize researching Senburi's medieval stomach-medicine role and Kihada's medicinal/dye uses, without approving new species. Retain assigned Yomogi/Kuzu and accepted descriptions. Anthelmintic ingredients remain unconfirmed for widespread medieval-Japanese commoner use; Makuri's verified Japanese history here is Edo-era. No runtime/recipe/art change or new-species adoption claimed.
-
-
-### ENV-HERB-JAPANESE-APPROVED-20261008 — Yomogi / Kuzu description approval
-
-**Owner:** Environment / traditional herb localization  
-**Status:** JAPANESE APPROVED; English paired in formal design; PlantDefs/art/runtime OPEN
-
-Author replied `よい` to the two Japanese description drafts on 2026-10-08 JST. Preserve exact accepted Japanese in `Docs/NativeVegetationStep3Design-ja.md` 9.3 and use the paired English in 9.4. The section 4 Yomogi draft is now historical, not the implementation source. Wetland descriptions remain unapproved. This approval covers text only; do not infer harvest-mechanic, number, image or runtime approval. No live localization/PlantDef has been added, because the approved asset and implementation gates remain open.
-
-
-### ENV-HERB-MECHANICS-DRAFT-20261008 — medical harvest and Japanese review
-
-**Owner:** Environment / traditional herbs  
-**Status:** SOURCE AUDIT DONE; mechanics and Japanese drafts UNAPPROVED; no runtime implementation
-
-Formal research and proposed minimal harvest route are in `Docs/NativeVegetationStep3Design-ja.md` section 9. A scholarly article citing the 1016 Shoyuki entry supports Heian medicinal Kuzu-root use; general medieval Yomogi food use remains unverified. Drafts separate current food use from period-specific medicine history. Recommend existing MedicineHerbal as first route, but retain the decision whether a distinct Kakkon raw material is needed. Author approval of Japanese text/mechanics and approved art remain required before live Defs.
-
-MO audit correction: `DankPyon_Fleawort` is itself MedicineBase with MedicalPotency 0.60 / MedicalQualityMax 0.70, as well as an extract ingredient. Preserve both roles; do not classify it as extraction-only. Loaded inheritance/treatment tests remain pending. No new medicine item, recipe, PlantDef, asset, runtime PASS or release claimed.
-
-
-### ENV-HERB-SELECTION-20261008 — selective herbs / MO plantain reuse
-
-**Owner:** Environment / traditional herbs  
-**Status:** SELECTION POLICY CONFIRMED; runtime implementation OPEN
-
-Author allows multiple herbs but requires a selective shortlist based on medieval-Japan importance and uses beyond medicine. Formal contract: `Docs/NativeVegetationStep3Design-ja.md` 3.2 and 8.2–8.4. Prioritize assigned Yomogi/Kuzu; audit MO's existing cultivated/wild Fleawort (Japanese オオバコ) and `DankPyon_Fleawort` harvest instead of adding a duplicate. Other listed herbs remain research-only, not approved additions. Vanilla-only plantain addition is undecided.
-
-Existing Healroot -> `MedicineHerbal` supply is the baseline; prefer connecting new herbs to existing medicine before adding separate medicine items. MO Fleawort is an extract ingredient, not the same Def as `MedicineHerbal`. Root/stem ownership remains unchanged. No new Def/art/recipe, historical description approval, migration E2E or runtime PASS is claimed.
-
 
 ### PRIORITY-FOREST-FOODS-20261008 — native fruit/forest-food feature queue
 
@@ -203,7 +148,6 @@ processing where appropriate. Establish actual consumer ownership and run an
 old-AMJE-save to new-AMJE-build natural-spawn/real-harvest/sow/save-load E2E
 before declaring midway-save compatibility. Do not represent this handoff as
 a completed fruit feature or runtime PASS.
-
 
 ### ENV-SAVE-FRIENDLY-VEGETATION-20261008 — staged additions / existing-save gate
 
@@ -249,34 +193,6 @@ Fiber has no repo yet; Project keeps its formal stem/fiber record and handoff. A
 **Immediate implementation route:** Start with one Japanese reed (`AMJ_Plant_Yoshi`) on a separate PR only after approved Japanese description and approved source PNG exist; then handle other wetland species and Yomogi as independently auditable slices. The original candidates, commonality transfers, Japanese draft text and harvest mechanics are NOT yet author-approved or implemented. ENV-KUZU-MEDICINAL-OWNER-20261008 confirms author-assigned Kuzu-root ownership and scope, not detailed mechanics or assets. Do not translate unapproved drafts or create live Def references to missing textures. Existing four AMJE plant visual coverage rows remain complete; legacy-tree retextures are still deferred and new plant visual reviews are separate.
 
 **Critical safeguard:** Wild `Plant_HealrootWild` remains in all six currently covered Biomes until separate Step 4 full harvest/supply verification. Yomogi proposed only for warm/cool temperate and cannot itself replace medicine collection in subalpine, alpine or wetlands. One successful standard `run-tests.bat` for Step 2 does not prove Step 3's new Defs or the separate Vanilla/MO/CCTO/MO+CCTO four-profile matrix. No Steam publication is claimed.
-
-
-### ENV-STEP2-SIX-TREES-20261008 — six retained Vanilla descriptions and format audit
-
-**Owner:** Environment / vegetation localization
-**Status:** DONE — PR #30 production/description/test merge `bfb27420428dc75a060a317b3c22bdd4c5856fa8`; PR #31 formal source/Golden Path closeout `9579cb0d3cf3460bc5a4fe189979dd87cda6dea3`; updated runtime author-reported PASS
-
-On 2026-10-08 the author approved Maple, Oak, Birch, Pine and Willow's original Japanese drafts ("説明OK") and requested checking their format against Shii/Beech/Shirabiso/Haimatsu and previously accepted Bamboo. The approved Japanese is unchanged. Four AMJE structural tree descriptions have 3 paragraphs, while six retained Vanilla tree descriptions have 2; both comply with shared name/aliases, Japan ecology, supported ancient/medieval use or landscape, and modern comparison only if supported. Birch/Willow do not invent unsubstantiated medieval material use.
-
-[PR #30](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/30) was merged as `bfb27420428dc75a060a317b3c22bdd4c5856fa8` after three static GitHub Actions workflows all SUCCESS: tree-sowing contract including exact six-tree bilingual text, plant visual coverage, and subscriber Workshop payload. It implements the five additional bilingual English description-only XML patches, Japanese ThingDef DefInjected, six-tree approved text/paragraph contract and new loaded-Def assertions in the warm Quickstart. No Vanilla ThingDef mechanics, labels, Biome/wildPlants/commonality, tree sowing, images or retextures changed.
-
-**2026-10-08 latest acceptance:** author replied `通過` to the requested post-PR#30 Windows `run-tests.bat` gate. Treat this as **author-reported current-source runtime PASS**, not independent inspection of the per-scenario logs, JSON, exact assertion counts, source hashes or owned ERROR-zero capture; none was attached with the reply. Older Bamboo runtime PASS remains historical, not the source for the latest acceptance. The separate four-profile Vanilla/MO/CCTO/MO+CCTO release matrix and real distributed Workshop verification remain open. Do not infer a Steam update.
-
-[PR #31](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/31) merged as `9579cb0d3cf3460bc5a4fe189979dd87cda6dea3`, aligning the formal sources `Docs/VanillaPlantStep2DescriptionReview-ja.md`, `Docs/Design.md`, `Docs/VanillaPlantRetentionAudit-ja.md`, and reusable runtime Golden Path `Docs/GoldenPaths/RenderedRuntimeTests.md` to the actual acceptance boundary. PR #31 checks (regional tree-sowing and Workshop payload) both SUCCESS. Coordination remains main-only and contains status/handoff rather than being the sole source of confirmed text.
-
-**Next vegetation owner:** Step 2 existing-tree bilingual descriptions are complete; existing-tree retexture remains deferred by the author. Continue later missing Japanese vegetation / medicine plant additions under the existing roadmap, with separate detailed runtime/four-profile and Workshop publication gates as needed. Do not reopen completed plant-retention audits solely due to historic older handoffs.
-
-
-### ENV-WETLAND-DESCRIPTIONS-20261008 — approved bilingual description implementation
-
-**Owner:** Environment / retained Vanilla wetland localization  
-**Status:** DONE — [PR #28](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/28) merged as `84d077d08e353972e6b7eaedd9139e2e47e6065d`; updated loaded-description runtime test author-reported PASS
-
-- On 2026-10-08 the author approved the two Japanese texts presented in the chat for `TemperateSwamp` and `ColdBog`; preserve those exact approved sentences. The source-of-truth is now `Docs/VanillaWetlandBiomeAudit-ja.md` in PR #28.
-- PR #28 commit `7bdc8f1a65659d918285c072bbfc458f2b38aca9` implements English description-only `PatchOperationReplace` operations and Japanese `BiomeDef` DefInjected, with exact bilingual static contract and loaded-BiomeDef EN/JA assertions added to the existing wetland Quickstarts.
-- This is not a new BiomeDef, plant, weather, biome label, or gameplay change. Keep EN/JA semantic parity and the approved Japanese unchanged.
-- **2026-10-08 acceptance:** after PR #28's new description assertions were added, the author separately reported the updated test PASS. PR #28 branch and post-merge static CI all passed. This is **author-reported runtime PASS**; exact assertion counts, `.json`/`.log` completeness and owned ERROR-zero status were not independently reviewed because no new report was attached. The earlier PR #27 PASS remains separate. The four-profile matrix is still open.
-- Step 1's baseline wetland biome bundle now has patches, English/Japanese descriptions, static/loaded-Def assertions, terrain and natural-world gates, with all runtime results author-reported PASS. This meets the **author-confirmed baseline Step 1 gate** for starting remaining-plant retention/description review; retain separate detailed-log audit, ecological frequency calibration and four-profile integration gates. Existing-tree retexturing itself remains deferred by the author and by plant-art Golden Path coverage rules. No user-mediated handoff.
 
 ### ENV-WETLAND-NATURAL-DISTRIBUTION-002 — independent natural-world wetland gate (2026-10-08 JST)
 
@@ -330,7 +246,6 @@ Durable evidence context and remaining gates: `Docs/GoldenPaths/RenderedRuntimeT
 
 
 **2026-10-08 author correction — post-fix test PASS:** The author explicitly clarified that `パス` means **the rerun PASSED**, not that the run should be skipped. Treat the Highland diagnostic correction's **Grains/Core + MO + AMJE integration retest as author-reported PASS**. The previous statement that this retest was skipped is incorrect and superseded. The new post-fix full runner log/JSON was **not attached in this message**, so the evidence remains **author-confirmed, not independently log-audited**; do not fabricate assertion counts, capture completeness or per-scenario details. The earlier `EnvironmentIsolatedRuntime(2).log` independently confirms base 8/8 and CCTO PASS, and its historical pre-fix Highland failure remains a separate earlier result. World-level wetland distribution and wetland descriptions are still open, as is the distinct four-profile release matrix unless independently executed.
-
 
 ### ENV-TREE-SOWING-001 — Regional growing-zone tree regression (2026-10-08 JST)
 
@@ -426,7 +341,6 @@ change note with the current version block. Post-upload verification must still
 confirm the actual Steam Change Notes page; repository preparation is not proof
 that Steam was updated.
 
-
 ### ENV-WETLAND-BIOME-001 — retained Vanilla wetland whole-Biome audit and correction
 
 **Requested by:** author (2026-10-08 JST)  
@@ -459,7 +373,6 @@ Durable sources: `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` section
 
 
 **2026-10-08 ecology implementation:** PR #24 / squash merge `3e946ad24f4e5d93ced19478219b73f865befa54` adds `Patches/VanillaWetlandEcology.xml` for both retained Vanilla wetlands: Japan-oriented wildlife proxies, adjusted humid weather/snow bands, historical-world-facing gameplay disease mixes (excluding mechanites), separate disease MTB values, and removal of inherited foreign wild pack animals. Original wetland workers, terrain patch makers and Phase 5 wild plants remain unchanged. The `Tests/Quickstarts/EnvironmentBiomeTerrainQuickstarts.cs` wetland scenarios now require loaded Def/terrain assertions; `Tests/test_wetland_ecology_contract.py` statically guards all ten replaced fields. The full numeric provisional balance and **unapproved Japanese-first description drafts** are recorded in `Docs/VanillaWetlandBiomeAudit-ja.md` and `Docs/Design.md`. PR CI passed Regional tree sowing contract (including the ecology regression), Workshop payload, and Plant visual coverage. **OPEN:** new English/Japanese runtime descriptions require approval of the Japanese drafts before translation; installed RimWorld runtime and world wetland-share sanity remain unverified. Do not mark vegetation roadmap Step 1 DONE or unblock ENV-RETEX-012 on CI results alone.
-
 
 ### ENV-STEP2-PLANT-DESCRIPTION-20261008 — retained Vanilla plant descriptions (2026-10-08)
 
@@ -515,436 +428,6 @@ Durable wording rules are recorded in AMJE `AGENTS.md`, `Docs/WorkshopDescriptio
 Linked the existing README / Design reference in both Japanese and English Workshop sources to AMJE's own GitHub repository, once per language. README's research/design section now identifies the same repository explicitly. The Workshop-as-README-summary and named-mod-link policies remain unchanged; existing related-mod links and substantive claims are preserved.
 
 Validation: UTF-8 description sizes remain below 8,000 bytes even with Windows CRLF line endings; one AMJE repository BBCode link per language, balanced URL tags, unchanged existing link targets, and clean diff whitespace. Golden Path N/A: trivial documentation-link edit with no new reusable procedure. No runtime or Steam-side update is claimed.
-
-### DOC-WORKSHOP-003 — linked named mods and post-Beta retexture roadmap
-
-**Requested by:** author (2026-10-06 JST)  
-**Owner:** Documentation/release  
-**Status:** DONE
-
-README remains the detailed public source and now has direct links for Ancient & Medieval Japan Core, CCTO, Medieval Overhaul, and Harmony plus an explicit Planned follow-up section for staged Vanilla / Medieval Overhaul tree retextures.
-
-Japanese Workshop copy was updated first, then English synchronized. Named external/related mods now receive direct links without repeating long URLs on every occurrence: published mods use Steam Workshop links; AMJ Core currently links to its GitHub repository because no public Workshop item is recorded. The development-status heading now explicitly includes future plans, with the existing post-Beta Vanilla / Medieval Overhaul tree-retexture plan retained as the summary.
-
-Current maintained description sizes remain below Steam's 8,000-byte limit: Japanese 7,715 bytes; English 7,838 bytes.
-
-Steam publication itself remains author-manual and is not claimed by these repository changes.
-
-
-### DOC-WORKSHOP-002 — Biome rationale and representative-tree section
-
-**Requested by:** author (2026-10-06 JST)  
-**Owner:** Documentation/release  
-**Status:** DONE — Japanese Workshop summary approved and English synchronized
-
-README contains the detailed public explanation of why AMJE uses four broad vegetation/climate bands and why each band receives one AMJE-owned structural representative: Warm-temperate / Sudajii, Cool-temperate / Japanese beech, Subalpine / Shirabiso, Alpine / Haimatsu. It also includes the four AMJE in-game plant graphics and longer ecological/historical summaries.
-
-The approved Japanese Workshop source is the concise summary of that README content. Japanese and English Workshop sources now explain the same biome/plant rationale, embed the four AMJE in-game production PNGs via raw GitHub URLs, and keep the plant notes shorter than README/in-game descriptions. These images are the actual Mod graphics, not real-world tree photographs.
-
-
-### LOC-ENV-001 — Kanji / alias opening pass for current AMJE descriptions
-
-**Requested by:** author (2026-10-06 JST)  
-**Owner:** Environment localization  
-**Status:** DONE — expanded Japanese descriptions approved and English synchronized
-
-The four structural-plant descriptions now use the AMJ educational structure: name/aliases → Japanese distribution/ecological context → supported ancient/medieval role or landscape context → modern difference/use where supportable. Japanese text uses literal `\n\n` paragraph breaks between logical sections for RimWorld readability, and the English Def defaults now translate that approved Japanese content with aligned paragraph structure.
-
-The descriptions deliberately distinguish direct evidence from landscape context. Sudajii uses Early-Jomon Castanopsis fruit-use evidence; Japanese beech uses Jomon vegetation evidence plus late-Heian/medieval Fagus-genus turned-wood evidence; Shirabiso and Haimatsu do not fabricate specific medieval resource uses, and instead connect their verified Mt. Ontake vegetation roles with independently attested later-medieval mountain worship.
-
-Shared durable policy: Core `Docs/HistoricalDescriptionGuidelines.md` commit `9859b6d4a9d6a5a7f4829ae067c5c79318ab57ee`.
-
-### ENV-ART-RULES-011 — shared AMJ art-rule consolidation
-
-**Requested by:** author (2026-10-06 JST; AMJ-wide rule cleanup)  
-**Owner:** Environment art / documentation  
-**Status:** DONE — follow-up audit and art-rule CI green
-
-Environment art documentation now inherits the Core `Docs/ArtStyle.md` project-wide invariants instead of carrying a second full shared prompt/rule set.
-
-- `AGENTS.md` is a routing layer only for art work.
-- `Docs/ArtDirection.md` owns Environment-specific vegetation/terrain/world rules and accepted species baselines. Its restrained soft-gradient allowance is explicitly recorded as a tree/plant class difference from the flatter Core crop/item budget.
-- `Docs/GoldenPaths/RetextureGeneration.md` owns preflight/reference loading only; the duplicated frozen generation prompt was removed.
-- `Docs/GoldenPaths/TextureAssetPipeline.md` owns installation/runtime validation and only points to the shared fixed-template policy when actually needed.
-
-Source-of-truth commits:
-- AGENTS routing: `82497e955bf5aeaa26d6c656724e912ec4045242`;
-- generation entry cleanup: `d9450de315c66ac5ace71b032bf5106d82bee08f`;
-- ArtDirection inheritance/exception clarification: `c8ef22a14769b3e8f708ae0da908d39040fca469`;
-- texture pipeline deduplication: `69d8833629c88d79a91e41e517d7e04c94e31969`.
-
-**Follow-up audit (2026-10-06 JST):** Retexture generation now assembles the current Core+Environment rules instead of using a frozen prompt, does not insert a mandatory pre-generation approval loop, and reviews candidates against the current request plus any already-approved target design. The Golden Path index was synchronized, accepted Sudajii/beech reference blobs are regression-locked, and stale completed visual-review statuses were reconciled. `.github/workflows/art-rule-structure.yml` runs the dedicated documentation/routing guard; run `37442081809` passed.
-
-
-### ENV-001 — Initial Japan-style world generation
-
-**Requested by:** Environment/design  
-**Owner:** Environment/worldgen  
-**Status:** DONE
-
-Establish the first playable world-generation baseline for a Japan-like environment:
-- bounded Japan-oriented temperature range;
-- Japan-like elevation and hilliness distribution;
-- increased small/medium river frequency;
-- no naturally generated Large/Huge rivers;
-- more coastline through more indented coasts, bays, peninsulas and islands rather than simply reducing land area.
-
-The authoritative Alpha targets are in `Docs/Design.md`.
-
-River XML and the first C# world-generation prototype are now implemented in source:
-- Creek 30,000 / 0.70 and River 75,000 / 0.80;
-- Large/Huge natural spawning disabled while their Defs remain available;
-- Vanilla Terrain generation is now Harmony-postfixed: Vanilla runs normally first, then Environment applies Japan-oriented elevation/coastline, hilliness, annual-temperature and rainfall transforms and reselects the biome;
-- seasonal amplitude uses the Environment 8–16 C curve on the root surface;
-- separate daily random variation is reduced to 3/7 of Vanilla on the root surface after CCTO climate calibration;
-- Alpha diagnostics automatically log terrain/coast/hilliness and river statistics;
-- Harmony is the sole technical dependency;
-- `run-tests.bat` builds the DLL and validates the installed RimWorld 1.6 source-Def assumptions.
-
-**Local build finding:** first build attempt failed at `WorldGenStep_AMJEnvironmentTerrain.cs` because `PlanetLayer.GetTileCenter()` exposes RimWorld 1.6 API metadata using `Unity.Mathematics.float3/int3`, while the legacy build script referenced only Assembly-CSharp / UnityEngine.CoreModule / netstandard / Harmony. This is a build-reference issue, not a worldgen logic failure. `build.bat` and the SDK project now reference both `Unity.Mathematics.dll` and `Unity.Collections.dll` from RimWorld's Managed directory. Fix commits: `c122e9c065c1dce49d7c2bc8413eecbea805c5d8`, `3646a352a9b6a78802db4bad61cd2c7f627df73b`.
-
-**Runtime smoke finding:** the first game launch failed while loading the patched `WorldGenerator.xml`: RimWorld could not resolve `AncientMedievalJapan.Environment.WorldGenStep_AMJEnvironmentTerrain` from the XML `Class` attribute. The custom-worker XML replacement has therefore been removed. Terrain processing now uses a Harmony postfix on Vanilla `WorldGenStep_Terrain.GenerateFresh`, preserving the same required ordering (Vanilla terrain first, Environment transform second, later world-gen steps afterward) without custom Def-time type resolution. Fix commits: `41aa8a30e0b2565e169c82383f755e1005b5b16c`, `68653067cae51bc0fb71cd75b7e73bb8b2339dd6`. Design/validator updates: `23088d177cd8d6b0787edbac799b5a4a62c4ea03`, `2df3ca4a99200520dd58354d95ee8bb78b898303`.
-
-The previous build/static PASS predates this integration change and is no longer the current gate result.
-
-**Next action:** pull the latest main and rerun `run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"`. If it passes, relaunch RimWorld with Harmony + Environment, enable Dev Mode, and generate the first test world. Use the `[AMJ Environment] Terrain summary` and `[AMJ Environment] River summary` log lines to compare the generated result against the Alpha targets. Climate validation must then use actual temperature samples against the CCTO/AMJ 10/8/5/0 C growth thresholds and -1/-4/-8 C cold-death reference thresholds, not annual mean alone.
-
-**First successful world-generation smoke:** PASS for runtime execution, but balance requires another iteration.
-
-Observed summary:
-- tiles: 119,904;
-- land: 54,546;
-- coastal land: 4,167 / **7.6%**;
-- annual-mean range: **4.0..20.0 C**;
-- transformed elevation range: **-300..2034 m**;
-- Hilliness: Flat **27.1%**, Small **36.9%**, Large **22.0%**, Mountainous **10.2%**, Impassable **3.7%**;
-- river tiles: 5,181 / **4.3%** of all tiles;
-- river edges: 5,000;
-- Creek: 2,582; River: 2,418;
-- **no LargeRiver/HugeRiver generated**, matching the intended river-size rule.
-
-Interpretation:
-- river size filtering is working and the 4.3% river-tile share is suitable for continued testing;
-- Small Hills are substantially over target while Mountainous terrain is substantially under target;
-- maximum elevation 2034 m is too low to exercise the intended rare >3000 m highlands;
-- because elevation is too low, the generated annual-mean minimum only reached 4 C and did not exercise the intended cold/highland range;
-- coastline cannot yet be judged against the 1.5x target because the Vanilla same-seed baseline was not logged.
-
-Second-pass implementation:
-- Hilliness now uses a spatial ruggedness ranking aimed at the 25/20/25/25/5 Alpha distribution instead of incremental Vanilla-category promotion;
-- Large/Mountainous/Impassable tiles receive progressively stronger elevation uplift, with rare high peaks capped at 3800 m;
-- diagnostics now log the Vanilla same-seed coastal baseline before Environment modification and report land-only temperature/elevation plus >=1500/2500/3000 m shares.
-Implementation commits: `c87fe52cc5451ae8ca3059fc90a4f0b971ec486a`, `a2256bd84cc4dd55a5ceb8944c7d09978f5f575f`.
-
-**Next action:** pull/rebuild, generate another Dev Mode world, and capture all three AMJ Environment diagnostic lines. Compare coastline against the same-seed Vanilla baseline and verify the revised Hilliness/highland/temperature distribution before changing river values.
-
-**Smoke-test environment note:** a later Player.log showed only the legacy two-line diagnostic format (`Terrain summary` + `River summary`) with no startup marker and no `Vanilla terrain baseline`. The observed values were land 63,643, coastal share 5.9%, annual mean -6.3..20.0 C, elevation -300..2875 m, Hilliness 21.5/31.9/29.5/13.0/4.1, and river share 4.6%. Because the log format itself predates the second-pass diagnostics, this run used an older built DLL and must not be used to evaluate the current second-pass terrain balance.
-
-Alpha diagnostics were therefore made independent of Dev Mode and an assembly/Harmony startup marker was added. Commits: `a82f55cb78db53f3ea66acd34ff2e7dd8b529047`, `78ab298a8088f3623db3b333b2f3f5b53a093d3f`.
-
-**Current local verification gate:** pull latest `main`, rebuild with `run-tests.bat`, fully restart RimWorld, then confirm `[AMJ Environment] Assembly loaded; Harmony patches applied.` plus the three current world-generation diagnostic lines before evaluating balance.
-
-**Current second-pass smoke:** runtime and balance targets are aligned on the first valid current-DLL seed.
-
-Observed:
-- Vanilla: land 61,209; coastal land 3,084; coastal share **5.0%**;
-- Environment: land 61,674; coastal land 4,655; coastal share **7.5%**;
-- same-seed coastline multiplier: **1.50x**;
-- land count delta: **+0.76%**, indicating the coastline target was achieved primarily by increased coastal complexity rather than by flooding land;
-- land annual mean: **-8.0..20.0 C**, avg **11.8 C**;
-- land elevation: **0..3366 m**;
-- highlands: >=1500 m **7.0%**, >=2500 m **0.4%**, >=3000 m present but rounded to 0.0% in the old diagnostic precision;
-- Hilliness: **25.0 / 20.0 / 25.0 / 25.0 / 5.0%**, exactly matching the current Alpha distribution target;
-- river tiles: 6,511 / 119,904 = **5.4% of all tiles**; Creek 3,387, River 2,895; no Large/Huge.
-
-Interpretation:
-- coastline, Hilliness, annual-mean range, and rare highland generation all meet the current single-seed Alpha intent;
-- river size filtering remains correct;
-- this is not yet a final lock because the design requires several seeds and the previous river percentage used all world tiles rather than land tiles.
-
-Diagnostics were expanded before multi-seed validation:
-- same-seed coast multiplier and land-count delta are now printed directly;
-- >=2500 m and >=3000 m highlands include counts and finer percentages;
-- land rainfall and biome distribution are logged;
-- river diagnostics now include river-bearing **land-tile share** in addition to all-tile share.
-Commit: `81c7729be58ed1b8b2af5cd69a3eb598c74b2cdc`.
-
-**Next action:** rebuild, then generate at least two additional seeds at the same planet coverage and compare the expanded Environment diagnostics. If the terrain/coast/climate distributions remain stable, lock the Alpha world-generation baseline and move to CCTO hourly/daily climate sampling.
-
-**Multi-seed gate result:** PASS. Two additional current-DLL seeds produced coastline multipliers **1.43x** and **1.50x**, land annual means **-7.9..20.0 C** and **-8.0..20.0 C**, exact 25/20/25/25/5 Hilliness, maximum elevations **3800 m** and **3141 m**, rainfall **832..2750** / **832..2917**, and river-bearing land shares **8.8%** / **7.9%**. Across the three current seeds the coastline multiplier averages approximately **1.48x** and land annual-mean averages remain tightly grouped at **11.5–12.0 C**. No Large/Huge rivers were produced.
-
-Exact biome percentages are not locked because the validation mod list includes non-Vanilla biome Defs (for example `DankPyon_DarkForest`), making the histogram mod-list dependent. The terrain/climate envelope itself is accepted.
-
-The current terrain/coast/elevation/rainfall/river Alpha baseline is now locked in `Docs/Design.md`. Further tuning requires a gameplay or compatibility finding rather than single-seed numerical preference.
-
-**Result / references:** initial design `9f5fd58c77b8e9ae5bad00851189d0127a122925`; CCTO calibration `e93da687fcd543f6d3ec94d5398fc604c0559749`; river patch `40d2b6b5615ea26ac6d91ee10f2433e3bd474829` + compatibility hardening `8aee69c23726a08f72b101ccd22a1e2065846364`; terrain prototype `8080b41f144fbacbf31411e11b7853860cd5703b`; climate hooks `16d870ee74a8e259de8233bfc84148ae48cfcf4d` / `b8b84723adf254b3f1bbed7a75cce5223a16222e`; build/static gate `aa87755d6099e89fda36de40acf358fd9bfebb68`, `a1da1cf981d22239f1833765835106804636814c`, `3d5fb2e52058f7d518b56e98620de3ee2af92fc4`; diagnostics `3403742e6c57d89c611cb94f338fff2ff15ef647`.
-
-
-### ENV-002 — CCTO runtime climate calibration
-
-**Requested by:** Environment/design  
-**Owner:** Environment/climate  
-**Status:** DONE
-
-Validate the locked world-generation baseline against actual RimWorld 1.6 outdoor temperatures used by CCTO rather than annual mean alone.
-
-Use representative southern warm lowland, central temperate lowland, northern cool lowland, and highland tiles. Sample one in-game year through the public `TileTemperaturesComp.OutdoorTemperatureAt(PlanetTile, absTick)` API so the measurement includes the Environment seasonal-amplitude hook, scaled daily random variation, and Vanilla sun-cycle component.
-
-Collect time below growth thresholds **10 / 8 / 5 / 0 C** and cold-death thresholds **-1 / -4 / -8 C**, plus min/max actual temperature and isolated lethal-cold events.
-
-Automatic climate-calibration diagnostics are implemented in `ClimateCalibrationDiagnostics.cs`. Fresh world finalization selects warm/temperate/cool lowland plus highland representatives and samples `TileTemperaturesComp.OutdoorTemperatureAt` hourly for one 60-day year, including threshold-hours and lethal-event duration statistics. Implementation commit: `9d2e70dde20dfa709fb7bfe5d6ff992bc24df884`.
-
-**First CCTO hourly calibration:** the warm, cool-lowland and highland signals matched intent, but the representative 14 C temperate lowland reached **-8.4 C** and spent **2 h below Barley's -8 C death threshold**. CCTO's cold-death path runs from the plant long-tick check and kills immediately on actual ambient temperature strictly below the threshold, so the brief event is gameplay-significant rather than ignorable. The representative also spent 136 h below -1 C and 70 h below -4 C, which correctly preserves Rice and millet winter risk. Warm lowland had no time below -1 C; cool lowland and highland had 195 h / 338 h below -8 C respectively.
-
-**Calibration change:** keep the seasonal-amplitude curve and Vanilla ±7 C sun-cycle unchanged, but reduce the separate daily random variation from ~±4 C to **~±3 C (3/7 Vanilla)**. This targets the isolated central-lowland Barley failure without weakening northern/highland winter lethality. Implementation commit: `2df9de31cabc3cae5aab52b66f4ae7624bba6529`; validator lock: `2187c482e5d4df676f19ff19a2e2fde4ecb29765`.
-
-**Build/static gate:** PASS after the climate-calibration diagnostics were added. The earlier CS0016 failure was a local DLL file lock from RimWorld still having `AncientMedievalJapanEnvironment.dll` mapped; closing RimWorld and rerunning the gate succeeded. This was not a code compilation failure.
-
-**Final ~±3 C re-run:** PASS. Warm lowland stayed above -1 C; temperate lowland stayed above -8 C while still spending substantial winter time below -1 C and -4 C; cool lowland and highland remained well below -8 C for long periods. The intended Rice/Awa/Hie/Barley regional separation is therefore preserved.
-
-**Result:** ENV-002 complete. Further climate tuning is deferred unless gameplay testing finds a concrete mismatch.
-
-
-### ENV-003 — Japan vegetation bands and biome structure
-
-**Requested by:** Environment/design  
-**Owner:** Environment/biomes  
-**Status:** DONE
-
-Move from the accepted climate/worldgen baseline into Japan-oriented biome and wild-vegetation structure.
-
-Decision:
-- use four coarse natural vegetation bands: WarmTemperate >=15 C, CoolTemperate 8..15 C, Subalpine 0..8 C, Alpine <0 C;
-- treat swampiness >=0.5 as a wetland candidate overlay;
-- do not repurpose Vanilla TropicalRainforest/TemperateForest/BorealForest/Tundra Defs because their animals, diseases, weather and compatibility semantics would become misleading;
-- create AMJ-owned BiomeDefs after validating band shares;
-- ReGrowth 2 is reference only; do not copy restricted code/assets.
-
-A preview diagnostic is implemented as `[AMJ Environment] Japan vegetation-band preview`. Commit: `4a2bf50600fbaec0a7cb5fafec02119e594c7fef`.
-
-**Vegetation-band preview:** PASS. First representative world: WarmTemperate **27.5%**, CoolTemperate **51.4%**, Subalpine **19.5%**, Alpine **1.7%**, swampiness>=0.5 **0.7%**. This matches the intended shape; the locked worldgen climate does not need retuning.
-
-**Implemented Alpha biome pass:**
-- custom workers for the four accepted climate bands, excluding swampiness>=0.5;
-- AMJ-owned BiomeDefs `AMJ_WarmTemperateForest`, `AMJ_CoolTemperateForest`, `AMJ_SubalpineForest`, `AMJ_AlpineZone`;
-- temporary Vanilla world textures, existing Vanilla wild plants, and minimal Vanilla wildlife placeholders only;
-- no final art yet.
-Implementation commits: `c84eaf9549c21c644b3da21eed4d5558c7f8ce4c`, `3e973f5f5b5c4a984e35d1b44fd08de158fbfa5e`. Static validation commit: `14fa045d6d3e8aa794673a92389bde2469cc76ae`.
-
-**Runtime biome distribution:** PASS for coexistence. With Medieval Overhaul active, the first measured world produced AMJ WarmTemperate **27.0%**, CoolTemperate **43.7%**, Subalpine **7.2%**, Alpine **0.3%**, MO Dark Forest **16.3%**, Temperate Swamp **2.0%**, plus small residual Vanilla shares. The lower AMJ Subalpine/Alpine shares are partly explained by specialized MO biome competition rather than a climate-band generation failure.
-
-**Compatibility decision:** the four AMJ biomes are baseline vegetation bands, not exclusive replacements. **MO is a standard AMJ coexistence target**, not merely another optional biome mod: Environment stays technically loadable without MO, but normal AMJ play is expected to include MO. MO-owned specialized natural biomes such as Dark Forest should therefore remain available through normal BiomeWorker competition where their climate rules fit. A brief attempted score increase that would have forced AMJ ownership over MO Dark Forest was reverted. Coexistence implementation commit: `3e5dedf94743baaea7248f0073882cde0a7ddf9f`; validator restore: `7ff5ad1d637f8e5b9e4f6af790466359b1331065`.
-
-**Natural-soil prerequisite:** complete. ENV-004 is locked for Alpha, so ENV-003 has moved into Japan-specific wild vegetation.
-
-**Japan-specific structural vegetation implementation:** added a deliberately small four-PlantDef set using temporary Vanilla graphics:
-- `AMJ_Tree_Shii` — warm-temperate evergreen broadleaf dominant;
-- `AMJ_Tree_Beech` — cool-temperate deciduous broadleaf dominant;
-- `AMJ_Tree_Shirabiso` — subalpine evergreen conifer dominant;
-- `AMJ_Shrub_Haimatsu` — alpine dwarf-pine scrub dominant.
-
-Existing Vanilla oak/maple/birch/pine/bamboo remain at lower commonality as secondary/placeholder components rather than being removed. No new food/medicine/fiber item types were added; the trees yield ordinary wood, while haimatsu is non-timber low scrub. Final graphics remain deferred.
-
-Implementation commits:
-- PlantDefs: `00619f365ffbd4e14d88f3956a5af19cbe1ed60f`;
-- Japanese localization: `f71899c7afdf3bd89456f175f0a1e5f651076652`;
-- biome commonality: `858009e67afd6607652559cdf698d72bf1875fc3`;
-- static validator: `582478b9a6f13ab4fc71e546cdaf600bad6c997c`;
-- design source of truth: `258fd93af61570d9ae0082ef494993969deabf3d`.
-
-**Local static-gate finding:** the first vegetation validation run failed before XML semantics because Windows PowerShell 5.1 decoded the BOM-less Japanese localization file with the local ANSI code page. The repository file itself is valid UTF-8, but the validator's plain `Get-Content` produced mojibake and consumed bytes around closing tags, making the decoded text appear malformed. The validator now reads the Japanese localization explicitly with `-Encoding UTF8`. Fix commit: `f400a230f366f96d46387630aa844d4d9ae9e090`.
-
-**Local build/static rerun:** PASS after the UTF-8 validator fix. The Japan-specific vegetation PlantDefs, biome wiring, Japanese localization, normal Environment DLL, developer Quicktest DLL, and static validation gate all completed successfully.
-
-**Runtime validation automation:** the four manual vegetation Quicktests have been replaced by a one-command isolated runtime gate. Each fixed-biome Quickstart now implements `Verify()` assertions for biome identity, target structural-plant generation, target dominance over secondary trees, and Alpine safety limits (Haimatsu <=5% of cells; full-size Pine+Birch <=1%). The suite prepares an isolated Core+Harmony+RimLogging+Quickstarts+Environment profile, launches the four biomes sequentially, writes JSON/log output, exits automatically, and fails on Environment-origin ERROR entries.
-
-Implementation:
-- Quickstart vegetation assertions: `afd57825808691b48b6ea5d1ac0247954103573d`;
-- isolated runtime profile: `65ac0924de6f2edb664b9fc129adffe587a2fa35`;
-- mod-origin runtime ERROR gate: `7c251c6301d9373cffb989d2e12abf74e4a3113e`;
-- four-run PowerShell runner: `9b59e34892919edfa8711fcddac9e64c21c1a197`;
-- one-command batch entry point: `8621ca8e5bf0bc4d828aa98b50409b019fdb07e2`.
-
-**First automated runtime run:** FAIL, and the gate correctly exposed two independent issues before vegetation assertions could run.
-
-1. With the isolated profile intentionally excluding Medieval Overhaul, `Patches/Compatibility/MedievalOverhaul.xml` still attempted its Dark Forest `PatchOperationReplace`. The top-level operation-level `MayRequire` did not skip the patch in this structure. The compatibility patch is now wrapped in `PatchOperationSequence` with `MayRequire="DankPyon.Medieval.Overhaul"` on the child replace operation, so Environment can load cleanly without MO. Fix: `67ae970dd8bb2dc2dd9466594816470d8ed59ad5`.
-
-2. The fixed 5% world had no usable WarmTemperate tile and no worker-positive proxy, so the test stopped with `No usable world tile found for biome test AMJ_WarmTemperateForest`. Fixed-biome developer tests now have a final generic synthetic-climate fallback: select the nearest unoccupied land tile, set only that test tile to the target band's representative annual temperature (17.5 / 11.5 / 4 / -4 C), ensure rainfall >=800 and swampiness <0.5, then assign the requested biome. This is test-only and does not alter normal world generation. Fix: `195cc8dd5ba12ad6f42e468dfd43c8923400cb19`.
-
-Static validator synchronized with both fixes.
-
-**Runtime report audit correction:** the later exported Quickstarts reports showed that the nominal four-biome PASS was a false positive at the harness level. Every standalone report had `passed=true`, `failed=0`, and all vegetation assertions passed, but also `preLaunchErrors=2`. The corresponding startup log errors were AMJE-owned XML inheritance failures:
-
-- Shirabiso: inherited `visualSizeRange` text `1.5~2.0` was merged with child `<min>1.25</min><max>2.7</max>`;
-- Haimatsu: inherited `visualSizeRange` text `0.7~1.1` was merged with child `<min>0.45</min><max>0.75</max>`.
-
-The structural distribution measurements themselves were otherwise healthy: Warm Shii 3.21%, Cool Beech 3.21%, Subalpine Shirabiso 1.29%, Alpine Haimatsu 0.69%, with Alpine full-size Pine+Birch only 0.02%. These values do not indicate balance retuning.
-
-Fixes:
-- both custom FloatRange overrides now use `Inherit="False"`: `fe6f641d671af41979b36dfc8649d17fb37f4b5e`;
-- the runner now fails when `preLaunchErrors > 0`: `aa6b7098d825f0e7de67803d1f4053ad909d7cbe`;
-- static regression checks cover both fixes: `5a8d195529318b7802c95a02423246c40cb06c57`.
-
-**Final clean rerun:** PASS. All four standalone reports returned `passed=true`, `failed=0`, `preLaunchErrors=0`, `captureLive=true`, and `logTruncated=false`; no report log contained a structured `Level: ERROR` entry. Current target shares were Shii **3.14%**, Beech **3.22%**, Shirabiso **1.29%**, and Haimatsu **0.68%**. Alpine full-size Pine+Birch was **0.03%**, well below the 1% safety limit.
-
-**Result:** ENV-003 is complete for the Alpha structural vegetation stage. The composition/commonality values remain accepted without retuning. Final art remains deferred to the visual-art pass.
-
-
-**Public wildlife-description sync (2026-10-08):** PR #17 / squash merge `88f87fd8997f8cd2476be49db5cdd8171c57e17b` synchronized README, Workshop JA/EN, 2game, About and changelog so the player-facing scope now explicitly includes Japan-oriented wildlife distribution. Wording clarifies that AMJE curates Vanilla animal pools as functional gameplay proxies rather than claiming literal Japan-specific species additions. No wildlife balance/implementation values changed in this PR.
-
-### ENV-005 — Optional CCTO integration for AMJE plants
-
-**Requested by:** Environment/design  
-**Owner:** Environment/compatibility  
-**Status:** DONE
-
-Ownership decision:
-- AMJE standalone is intentionally a complete "medieval Japan-like environment" experience without CCTO;
-- CCTO is an optional realism layer: combining it with AMJE adds stricter species-specific cold-growth/death/dormancy behavior rather than unlocking basic Environment functionality;
-- AMJE owns cold-tolerance compatibility for AMJE-owned plants;
-- CCTO remains unaware of AMJE and receives no AMJE-specific balance/code;
-- AMJE remains fully usable without CCTO;
-- AMJE conditionally uses CCTO's public XML-facing `ColdToleranceExtension` only when CCTO is active.
-
-Two-layer temperature model:
-- standalone AMJE explicitly keeps the Vanilla-style `minGrowthTemperature=0 C` baseline on Sudajii, Beech, Shirabiso, and Haimatsu;
-- with CCTO active, AMJE's own optional compatibility patch changes the four targets to:
-  - Sudajii: min growth 8 C, fixed death -8 C;
-  - Beech: min growth 5 C, cold dormancy;
-  - Shirabiso: min growth 0 C, fixed death -35 C;
-  - Haimatsu: min growth 0 C, fixed death -35 C.
-
-Implementation:
-- explicit standalone baseline: `89cf48d65786547b6a7f3fb8dd2027313ef07adf`;
-- AMJE-owned optional CCTO patch: `ac99339fc70f290b39ca06b6702a0b4a2e9d1faf`;
-- optional load order, not dependency: `f1967a832005bef342aa87999b35bf3fe9dbddbd`;
-- runtime loaded-Def assertions: `13772aec27dbccef01889ae59dfa6a66a8b462b1`;
-- isolated optional-CCTO profile support: `d69428bb7bfe2ae9952d9b4920fb265abdb030e4`;
-- focused compatibility runtime mode: `a7bbae4f6c3bad52fa6c1e63b9ff0ff6b540bed6`;
-- one-command optional CCTO sub-gate: `81ba86a3cf7917fb663084ae2f151eae60d7a61e`;
-- standalone loaded-Def isolation assertions: `574077b196d26c50922ae9fc56cac641e2400eb8`;
-- optional-sub-gate exit-code handling: `43ecf5f52666bb3641fc1ddc581b50450199742e`;
-- static validator: `719a91373d4b38a105c3ec7582ca588301b92ccd`;
-- design source of truth: `cbf246511026b45ee687c402b8a7d75510623522`;
-- product/balance positioning (AMJE standalone complete, CCTO optional realism layer): `5a104a8f09ac084fbd61aebedbfe82b02a5ba57e`;
-- development tooling docs: `8ea3386080de63218e23021d2fa4f20cbc65dda3`.
-
-**Verification status:** exported standalone and AMJE+CCTO reports confirm that all loaded-Def CCTO assertions themselves passed, including the 0/5/8 C growth values, dormancy/death behavior, and exactly one CCTO extension per AMJE target. However, the same two AMJE `visualSizeRange` startup XML errors appeared in the CCTO report as `preLaunchErrors=2`. Therefore ENV-005 is **not** accepted yet; the compatibility assertions are good, but the corrected package must rerun with `preLaunchErrors=0`.
-
-The report-audit fixes are shared with ENV-003: `fe6f641d671af41979b36dfc8649d17fb37f4b5e`, `aa6b7098d825f0e7de67803d1f4053ad909d7cbe`, `5a8d195529318b7802c95a02423246c40cb06c57`.
-
-**First post-change local build finding:** the normal Environment DLL built, but the developer Quicktest DLL failed because RimWorld 1.6 exposes `GetActiveModWithIdentifier` on `Verse.ModLister`, not `Verse.LoadedModManager`. The CCTO-active probe now uses `ModLister.GetActiveModWithIdentifier(..., true)`. Fix: `6e2ad338228fc380342e444e81a79eb45bd385a6`; validator lock: `57233f5ef00aef3af82f00503a39c36ba30ae170`.
-
-**Final clean AMJE+CCTO rerun:** PASS. The focused compatibility report returned **29/29 assertions passed**, `preLaunchErrors=0`, complete live log capture, and no structured `Level: ERROR` entry. Loaded Def checks confirmed the intended two-layer values for all four AMJE plants and exactly one CCTO extension per target.
-
-**Result:** ENV-005 is complete. AMJE remains fully functional standalone with its Vanilla-style temperature baseline, while CCTO remains an optional higher-realism layer owned through AMJE's conditional compatibility patch.
-
-
-### ENV-006 — Regional weather baseline
-
-**Requested by:** Environment/design  
-**Owner:** Environment/weather  
-**Status:** DONE
-
-Alpha policy:
-- reuse the eight Vanilla WeatherDefs rather than introducing AMJ-specific weather types;
-- let Vanilla rainfall-factor curves and temperature ranges provide the first layer of regional/seasonal differentiation;
-- keep Warm/Cool liquid precipitation and fog stronger than Subalpine/Alpine;
-- progressively increase snow commonality toward Subalpine/Alpine;
-- make dry thunderstorms rare in the humid-Japan baseline while retaining rainy thunderstorms as the more common severe-storm proxy;
-- do not add calendar-specific Baiu/Akisame/typhoon weighting yet;
-- do not fake Sea-of-Japan-side vs Pacific-side winter exposure from vegetation-band names alone.
-
-Implementation:
-- dry-thunderstorm commonality reduced to 0.1 in Warm/Cool/Subalpine and 0.05 in Alpine: `d695f3cc74ec50effd75c65ae8955c3d6976a603`;
-- fixed-biome Quickstarts now assert all eight loaded weather commonalities and rainy > dry thunderstorm: `098e9b55f968b0eb17f4bb98a9cf17d153ec5895`;
-- static validator locks the accepted table: `dbf80ab37c56da734646aba770e9d43e48096dca`;
-- design source of truth and JMA research basis: `4561fdb8cee7ead6c9cf042adea78bd4f26244fa`.
-
-**Final automated runtime result:** PASS. WarmTemperate, CoolTemperate, Subalpine, and Alpine all returned `passed=true`, `failed=0`, `preLaunchErrors=0`, and `logErrors=0`. Every loaded weather commonality matched the accepted Alpha table and rainy thunderstorms remained more common than dry thunderstorms. The optional AMJE+CCTO run also passed **39/39** assertions with `preLaunchErrors=0` and `logErrors=0`, confirming that the optional realism layer does not alter Environment weather.
-
-The remaining startup WARN messages are generic RimWorld metadata warnings about dependencies lacking `downloadUrl` / `steamWorkshopUrl`; they are not Environment runtime errors and are outside this weather gate.
-
-**Result:** ENV-006 complete. Calendar-specific Baiu/Akisame/typhoon weighting and Sea-of-Japan/Pacific-side winter exposure remain deferred unless a later gameplay finding justifies the added system complexity.
-
-
-### ENV-007 — Seasonal scenery baseline
-
-**Requested by:** Environment/design  
-**Owner:** Environment/seasonal scenery  
-**Status:** DONE
-
-Alpha decision:
-- do not add a custom seasonal-scene controller;
-- reuse Vanilla snow accumulation/rendering from SnowGentle/SnowHard;
-- use Japanese beech as the deciduous structural representative through `DeciduousTreeBase`, inherited fall shader behavior, and its leafless graphic;
-- keep Sudajii, Shirabiso and Haimatsu evergreen;
-- defer final AMJE-specific plant/environment artwork until the final-art pass.
-
-Implementation/test coverage:
-- loaded seasonal-scene runtime assertions: `fcca9ce0c3b33fa61ab2b89dce4d9ece685fc784`;
-- static validation of deciduous/evergreen profile and test markers: `213aa5a9404e4bb327a4493ed8f8bfc9ddfac525`;
-- design source of truth: `b3aa742f9b8c4a4c7479546def9fbc5db81b26d1`.
-
-**Final automated runtime result:** PASS. WarmTemperate and CoolTemperate passed **31/31** assertions, Subalpine and Alpine passed **29/29**, and the focused AMJE+CCTO run passed **43/43**. Every report returned `preLaunchErrors=0`, `logErrors=0`, `captureLive=true`, and `logTruncated=false`. The new seasonal checks confirmed the loaded beech leafless graphic, inherited Vanilla fall-shader behavior, evergreen status of Sudajii/Shirabiso/Haimatsu, and positive SnowGentle/SnowHard snow rates.
-
-One existing Environment warning may appear in the small fixed-world Quickstarts when climate calibration cannot find a Highland representative tile. It is a non-fatal diagnostic from the calibration sampler, not a seasonal-scene failure and not an ERROR-level event.
-
-**Result:** ENV-007 complete. No custom seasonal controller is needed for Alpha. Final texture/visual quality remains deferred to the final-art pass.
-
-
-### ENV-008 — River/coast world-to-map handoff
-
-**Requested by:** Environment/design  
-**Owner:** Environment/world-to-map integration  
-**Status:** DONE
-
-Decision:
-- AMJE continues to own river/coast distribution at world level only;
-- do not add a custom local-map river/coast generator;
-- rely on RimWorld 1.6 `WorldGenStep_Mutators` and Vanilla `River` / `Coast` tile mutators;
-- validate that Environment-generated river/coastal world tiles still produce actual local River/Ocean terrain;
-- keep waterfalls deferred.
-
-Implementation/test coverage:
-- dedicated River and Coast handoff Quickstarts: `b6189c8c5b0e172020dd8cdc225e6415d755f180`;
-- standalone runtime runner now includes both handoff tests: `71fd964f8b194ce3ee3feee94fdc1311998f7636`;
-- static validator covers both tests/runner entries: `6680f276ab1cf5dd16026a4e775fde0ad3278d32`;
-- design source of truth: `2816449f2c90d27b8f117d47e2e991b1d13ba232`.
-
-**Final local runtime result:** PASS, reported by the author after running the combined Environment runtime gate with the new River and Coast handoff Quickstarts enabled. The run therefore satisfies the current gate as implemented, including the River/Ocean terrain assertions and the existing pre-launch/runtime ERROR checks. Detailed assertion counts and water-cell counts were not supplied for this run and are not recorded as fixed evidence.
-
-**Result:** ENV-008 complete. AMJE retains world-level ownership only; Vanilla River/Coast mutators remain the accepted local-map generation path. Waterfalls remain deferred.
-
-
-### ENV-009 — Functional Vanilla wildlife proxy baseline
-
-**Requested by:** Environment/design audit  
-**Owner:** Environment/biomes  
-**Status:** DONE
-
-Responsibility:
-- Environment does not add Japan-specific animal Defs merely for regional flavor;
-- AMJ-owned BiomeDefs still require functional wildlife pools, so Alpha uses curated Vanilla PawnKindDefs as gameplay proxies;
-- proxy names are not literal historical-species claims.
-
-Implemented cleanup:
-- removed Raccoon, Elk, Ibex, Fox_Arctic and Lynx from AMJ biome pools;
-- replaced the Alpine Elk/Ibex/ArcticFox/Lynx placeholder mix with Deer/Fox_Red while retaining existing generic hare/wolf proxies;
-- runtime assertions verify retired placeholders have zero commonality and accepted proxies remain positive through the public `BiomeDef.CommonalityOfAnimal` API.
-
-Implementation/test history:
-- wildlife pool cleanup: `bc949740fad30df8d7cf68169c3c87318de09139`;
-- original runtime proxy assertions: `9cccbc3a80eee3e3ebc7a9550fde01d3093ee11a`;
-- public-API runtime fix: `9d8d4c5ce95753e0e4d0c145dffb9d374aab30c6`;
-- original static/localization coverage: `1d5ad32d47c8da48af9e8ecae8a9c3a37b9c85aa`;
-- static validation now locks the full accepted positive proxy sets as well as the retired list: `bef56f78096fff07eb8c6a80bf53feba48e480b4`;
-- design source of truth and research/proxy interpretation: `6a12906195ba153efc98c67c17f7ddd5fa125894`.
-
-**Runtime status:** PASS by inheritance from the combined Environment runtime gate reported by the author during ENV-008 verification. The wildlife assertions were already present in the Quicktest source before the River/Coast handoff tests were added, so that successful combined run exercised them. No separate manual wildlife smoke is required.
-
-**Result:** the Alpha wildlife layer is a functional Vanilla proxy baseline only. Future Japan-specific animals, textures or animal-resource loops require a separate owning feature/mod and should not silently expand Environment's scope.
-
 
 ### ENV-010 — Final Environment art pass
 
@@ -1093,84 +576,6 @@ Fix and regression coverage:
 
 **Next action:** pull/build and rerun `run-texture-debug.bat`. Confirm that Sudajii now renders normally both on the map and in its inspect/UI icon. Once confirmed, run the normal runtime gate once as the regression check, then continue ENV-010 with the remaining planned tree retextures and Japanese-first description review.
 
-
-### ENV-004 — Low-fertility natural terrain
-
-**Requested by:** Environment/design  
-**Owner:** Environment/terrain  
-**Status:** DONE
-
-Add meaningful naturally poor growable ground after the initial biome structure, without duplicating Vanilla Gravel or MO agricultural improvements.
-
-Implemented Alpha pass:
-- one new `AMJ_ThinSoil` TerrainDef at fertility **0.50**;
-- reuse Vanilla `Gravel` at **0.70**, `Soil` at **1.00**, and `SoilRich` at **1.40** rather than adding a redundant second poor-soil tier;
-- biome-specific `terrainsByFertility` thresholds make poor/stony ground progressively more common from warm/cool forest toward subalpine/alpine;
-- targeted MO Dark Forest compatibility preserves the MO biome while applying the same natural-soil ladder;
-- player-created MO `DankPyon_PlowedSoil` remains untouched;
-- fresh-map diagnostics report terrain shares automatically.
-
-Implementation: `8f0324b1476ce9f7ffd082f74114d8bd6bda19ee` (TerrainDef), `dc9dec1e5c5936261fc825b0dba05a818d1c878b` (AMJ biome distribution), `0869bd7d9c4f3fdabef3b811050ccf9be1a9ee07` (MO compatibility), `0e88f29467b3237bc160733eb799b164c710e654` (map diagnostics).
-
-**Build finding:** the first ENV-004 local build failed because the legacy .NET Framework compiler used by `build.bat` does not support the C# `nameof` expression in `MapTerrainDiagnostics.cs`. This is a compiler-syntax compatibility issue, not a map-terrain logic failure. The Harmony attribute now uses the equivalent string literal `"GenerateMap"`, and the static validator was updated to match. Fix commits: `81852f75fc9b98c8215843a8760bc4eaa3fdbb68`, `6ef7af956751965479497b1a32c4e8d007b40ad5`.
-
-**Fixed-biome test tooling:** the previous random QuickTest is unsuitable for cross-biome terrain comparison because its landing biome is random. Environment now ships five developer-only RimWorks Quickstarts (WarmTemperate, CoolTemperate, Subalpine, Alpine, MO Dark Forest) behind `IfModActive="rimworks.quickstarts"`. They share a fixed world seed, generate 250x250 maps, and prefer Flat settlement tiles before hillier fallbacks so terrain-threshold comparisons are less noisy. Source: `498cfced568ea9b55947baa273029339dab92b05`; conditional load folder: `4c58adcda39fa76ca4cad8c414b9961bf76127a5`; conditional build support: `f7aeff8d72282edf38bd5f4c2ba4fc850da1fc44`; optional load order: `3f5da75fdf2f97935d4248a3a3dff04f96ae6950`; validator: `a65965ee9ff2d9bdc68535695fae3f8764140aa0`.
-
-**Load-diagnosis note:** the developer Quicktest DLL can build successfully yet still fail to appear in the Quickstarts picker if RimWorld never loads the conditional `DevQuickstarts` folder. The Quicktest assembly now emits `[AMJ Environment Quicktest] Developer quicktest assembly loaded.` from a static constructor so runtime loading can be verified directly. Diagnostic commit: `7316c9a7e8ee3b4a3c209e5da8ce8e467763dbb8`.
-
-**Runtime diagnosis after missing Quicktest load marker:** the conditional XML syntax matches RimWorld 1.6 source, so do not change it blindly. First runtime result was `quickstartsActive=False` and Environment loaded only its root folder, even though the user is using Workshop item 3793646067. This points to either a package-id mismatch between the installed Workshop build and the expected `rimworks.quickstarts`, or the Workshop item not being present in RimWorld's active-mod list. The startup diagnostic now also enumerates any active mod whose display name or package ID contains `Quickstart`, with its player-facing package ID. Implementation: `c40d9c72f93a41b67efde0b25904ca412afe294e`.
-
-**Quickstarts diagnosis resolved:** Workshop item 3793646067 had not actually been enabled; the visible button was RimWorld's Vanilla Dev QuickTest button. Once Quickstarts is active, the fixed-biome test assembly can be used as designed.
-
-**Runtime terrain samples:** WarmTemperate reported Thin/Gravel/Soil/Rich/Other = 11.3/35.5/27.4/3.2/22.5%. CoolTemperate reported 16.3/37.8/29.8/4.1/12.0%. Subalpine reported 16.9/16.5/4.8/0.8/61.0%. Among only the four fertility-ladder terrains, Subalpine is approximately 43.3% Thin, 42.3% Gravel, 12.4% Soil, 2.0% Rich, so the intended strong fertility degradation is present; the high Other share still needs interpretation before threshold tuning.
-
-**Def error found during fixed-biome runs:** `AMJ_ThinSoil makes terrain filth and also accepts it.` Cause: AMJ_ThinSoil declared `generatedFilth=Filth_Dirt` without inheriting Vanilla `NaturalTerrainBase`, leaving `filthAcceptanceMask` at TerrainDef's default `Any`. Fix: inherit `NaturalTerrainBase` and align with Vanilla soil semantics using `categoryType=Soil` and the `Soil` tag. Implementation: `7646617cec9272d1589c308fdd65abda4c3e7c07`; validator: `f626fbc21dee496be824a36bf3005a0a438307bc`.
-
-**Fixed-biome runtime follow-up:** Dark Forest reported Thin/Gravel/Soil/Rich/Other = 8.9/14.0/6.4/18.1/52.6%. Its high Rich and Other shares differ sharply from the AMJ forest biomes and should be interpreted with MO's own terrain patch makers before changing Environment thresholds.
-
-The first Alpine Quicktest attempt exposed two developer-tooling errors rather than terrain-balance failures:
-- climate calibration still ran from `World.FinalizeInit`, where RimWorks Quickstarts has generated the world but `gameStartAbsTick` is not yet initialized; `TileTemperaturesComp` therefore logged the TicksAbs error;
-- the Alpine selector required a normally valid settlement tile, but the generated rare Alpine band had none.
-
-Fixes:
-- climate calibration now runs from `Game.InitNewGame` after the absolute start tick exists: `535338a7186c937d0c465f8b40b1719af9c2e827`;
-- fixed-biome Quicktests retain normal settlement preference but may use an unoccupied non-settleable target-biome tile, including Impassable only as the final developer-only fallback: `09eb629ab0bdd84bb72856dcf6d7c17e00223f83`;
-- map terrain diagnostics now log the five largest Defs making up `Other`: `d14bfb197bad14a8ae4350a58b02e16521e9fa0f`.
-
-**Second Alpine retry finding:** the fixed 5% seed contained **zero natural `AMJ_AlpineZone` tiles**, so even the non-settlement fallback could not select one. This is compatible with normal biome competition: a target worker can be eligible while another biome (notably MO Dark Forest in overlapping cold/wet climates) wins the final `PrimaryBiome`.
-
-The fixed-biome Quicktest now distinguishes natural-world placement from terrain-threshold testing. It first prefers an exact normal settlement tile, then any exact unoccupied target-biome tile. If the target biome is absent, it selects a tile on which the target biome worker scores positively and temporarily changes only that tile's `PrimaryBiome` for the developer test. Alpine additionally falls back to the coldest suitable land tile if the 5% world has no worker-positive Alpine proxy. The selected tile logs `forcedBiome`, `originalBiome`, and `targetBiomeScore`. This does not modify normal worldgen or settlement behavior. Implementation commits: `819445d5fb2e26e52f932017ec4153bf30c47a7e`, syntax follow-up `0d4e6e4b9f591d2338ace576d3376ae8442fcdd2`.
-
-The separate startup error `No textures found at path Things/Item/Resource/PlantFoodRaw/RawLentils` is not emitted by Environment and is independent of the Alpine selector failure; do not treat it as an Environment terrain-balance result.
-
-**Local build finding after synthetic-biome fallback:** the normal Environment DLL built, but the developer Quicktest DLL failed with CS0266 because `Find.WorldGrid[PlanetTile]` exposes the base `Tile` type while the fallback assigned it directly to `SurfaceTile`. All Quicktest world-grid reads that require `SurfaceTile` now use an explicit `as SurfaceTile` cast with null handling. Fix commit: `4dda399fa08ee5ceb28d826bc048f16bebd018dd`.
-
-**Local build/static rerun:** PASS after `4dda399fa08ee5ceb28d826bc048f16bebd018dd`; both the normal Environment DLL and the developer fixed-biome Quicktest DLL compiled, and the static validation gate completed successfully.
-
-**Alpine fixed-biome terrain result:** map generation succeeded. Terrain share was ThinSoil **61.6%**, Gravel **24.4%**, Soil **2.6%**, RichSoil **0.0%**, Other **11.4%**. Within only the four fertility-ladder terrains, this is approximately Thin **69.6%**, Gravel **27.5%**, Soil **3.0%**, Rich **0%**, so the Alpine threshold design is producing the intended severe fertility degradation. `OtherTop` was dominated by rough rock/natural wall terrain: `DankPyon_NaturalWall_Clay_Rough` 8.5% of all cells and `Slate_Rough` 2.0%; together they account for about 92% of Alpine's Other category. The remaining listed Other entries were individually <=0.2%. No fertility-threshold change is indicated by this Alpine sample.
-
-**Dark Forest expanded terrain result:** ThinSoil **8.9%**, Gravel **14.0%**, Soil **6.4%**, RichSoil **18.1%**, Other **52.6%**. `OtherTop` is `MossyTerrain` **23.5%**, `Marble_Rough` **19.8%**, `Sandstone_Rough` **6.8%**, `Mud` **1.2%**, and `WaterShallow` **0.8%**. The supplied MO 1.6 Dark Forest Def confirms that MO itself has a terrain patch maker with MossyTerrain at 0.00-0.32, SoilRich at 0.32-0.80, Mud at 0.80-0.93, shallow water at 0.93-1.06, and deep water above that. Environment's compatibility patch replaces only `terrainsByFertility` and intentionally leaves this MO patch maker untouched. Therefore the large RichSoil/MossyTerrain shares are expected MO biome identity, not a failure of Environment's soil thresholds. No Dark Forest threshold change is indicated by this result.
-
-**Final Subalpine expanded result:** ThinSoil **16.9%**, Gravel **16.5%**, Soil **4.8%**, RichSoil **0.8%**, Other **61.0%**. `OtherTop` is `Limestone_Rough` **34.2%**, `Slate_Rough` **26.1%**, `PackedDirt` **0.4%**, `DankPyon_Floor_Versailles_Sandstone` **0.2%**, and `AncientTile` **0.1%**. Limestone + Slate alone account for **60.3% of all cells** and about **98.9% of the Other category**, so the large Other share is overwhelmingly natural rough rock rather than a failure of the fertility ladder.
-
-**Result:** ENV-004 accepted and locked for Alpha with no threshold retuning. Warm/Cool retain substantial ordinary soil; Subalpine shifts strongly toward Thin+Gravel among growable fertility terrains; Alpine is overwhelmingly poor/stony; and MO Dark Forest retains its own special terrain-patch identity. The accepted values and runtime evidence are now recorded in `Docs/Design.md`. Future changes require a concrete gameplay or compatibility finding.
-
-
-**Core integration audit (2026-10-04):** AMJ Core has reconciled its older duplicate terrain/Hilliness ownership text with Environment. Core now treats fertility **0.50** as the shared low-fertility integration point: Soba/Kibi/Awa/Hie/Barley remain sowable, MO Wheat at fertilityMin 0.70 does not, and the intended growth-factor order is Soba > Kibi > Awa > Hie > Barley. Core does **not** request a 0.40 Environment terrain; Soba's 0.40 fertilityMin remains a crop property/compatibility floor. No Environment implementation change is requested. Core design reconciliation: `c841b66547f51af79743a72d3db20d38b7345816`; Core regression coverage: `201bbe90aa92a0d2d55ac9d1d16c92bdf6f28c11`.
-
-### TEST-001 — AMJ-wide runtime ERROR gate policy
-
-**Requested by:** project-wide automated-test policy  
-**Owner:** testing/tooling  
-**Status:** DONE
-
-AMJ automated tests that launch RimWorld must capture an isolated runtime log and fail on ERROR-level entries attributed to the repository-owned mod, even when scenario counts otherwise pass.
-
-Environment's `run-tests.bat` remains a build + static-validation gate only. A separate `run-runtime-tests.bat` now launches four fixed-biome vegetation Quickstarts against an isolated test profile, writes separate runtime logs/reports, and fails on Environment-origin ERROR entries in addition to Quickstart assertion failures. The user's normal mod list and preferences are not modified.
-
-Policy commits: `2a86387ebf1bfe5d3de3fbf09de93800cace0e74`, `7148ff5df9cdc2078e55c4233bf4b60e1e112c70`.
-
-
 ### DOC-001 — Shared public-description format and save compatibility
 
 **Requested by:** author / public-description policy (2026-10-04 JST)  
@@ -1192,21 +597,6 @@ Public source preparation is now complete:
 Japanese Workshop source is **3692 UTF-8 bytes** and English is **3616 bytes**, both below the 8,000-byte policy limit.
 
 **Result:** repository-side public copy is prepared. This does **not** claim that the Steam Workshop page itself has been created or updated. Final screenshots/art should be completed before public release presentation is treated as finished.
-
-
-### TEST-POLICY-002 — RimTest Redux / Pickle automation-first policy
-
-**Requested by:** author (2026-10-04 JST)  
-**Owner:** Testing/tooling  
-**Status:** DONE (policy documentation)
-
-The shared project policy now prioritizes RimTest Redux / Pickle automated testing and minimizes human manual tests. Durable instructions are in `AGENTS.md` and `Docs/DevelopmentTools.md`. Reproducible logic, loaded Defs, runtime behavior and release regressions should be automated; manual testing is reserved for appearance, readability and play/interaction feel. Build/static checks remain complementary, and runtime suites retain the mandatory mod-origin ERROR gate.
-
-This documentation update does not claim new runtime coverage or a new test PASS. Existing implementation/test history remains unchanged. Environment's runtime harness is still absent; runtime/numeric checks listed in DevelopmentTools are explicitly identified as automation targets.
-
-**Next action:** apply this policy to subsequent feature, fix and release work; record unautomated coverage explicitly and move reproducible checks into the automated gate.
-
-**Result / references:** AGENTS policy commit `32d067ab2057ba032ccb21bdc371f3b2a6770d74`; development workflow commit `8a6106bc4aab214d3da77f75207c76d6e5bdb816`.
 
 ### ENV-010 text/localization rule — retextured plants
 
@@ -1232,190 +622,6 @@ Descriptions should contain supported historical facts and meaningful modern dif
 
 **Result / references:** shared policy in Core `Docs/HistoricalDescriptionGuidelines.md` commit `ca17b37eb3cca5266d1f62a2d73f527a503d76e5`; AMJE AGENTS `0e1b74173eca79dde09dffa2287fc5f72a583c27`; ArtDirection alignment `3b8b7c753b79951b315c2ffe31822416a31595c8`.
 
-### ENV-010 Sudajii final visual direction
-
-**Requested by:** author (2026-10-04 JST)  
-**Owner:** art/localization  
-**Status:** DONE — accepted production appearance recorded in ArtDirection
-
-The Sudajii in-game comparison was reviewed against actual AMJE terrain and the current AMJ crop-art baseline. The author selected the strongest simplified/deformed **C-direction** and then approved a lower-saturation refinement for production.
-
-Locked production direction:
-- remove the baked green ground/grass ring entirely;
-- use a thicker near-black outer outline;
-- simplify foliage into larger/chunkier masses with fewer internal color clusters;
-- keep the approved hue relationships but reduce foliage saturation, especially the brightest yellow-green highlights;
-- reduce trunk orange saturation while preserving value contrast;
-- keep transparent background and no decorative ground base;
-- target the same simplified visual weight as the current AMJ crop sprites rather than the earlier more detailed Sudajii pass.
-
-Canonical art-direction update: `0815e0257deaa4b39fd41fe5231426a5215f5306`.
-
-The standalone Sudajii sprite was then generated in the locked C-direction and approved by the author. The first GitHub binary write for that final sprite was malformed and was correctly rejected by the new static PNG-structure gate with `Final Sudajii PNG is structurally invalid`; that failed write must not be treated as a valid production asset.
-
-The exact validated 256x256 source PNG was then transferred without manual base64 transcription and now replaces `Textures/Things/Plant/AMJ/Shii/Shii_A.png`. GitHub blob SHA is `62d795d9717a3ad4d61827bfb470cd7b3cfc7000`; corrective commit: `81a2c60af98553610c87d6606b0eba71d05b2a6a`. This file is the approved C-direction asset: transparent background, no ground/grass ring, muted olive/forest foliage, restrained trunk saturation, and the accepted simplified silhouette.
-
-The author completed the focused WarmTemperate visual check and accepted the final Sudajii sprite in game. The rendered tree now sits naturally against the terrain, the green ground ring is gone, and the muted C-style silhouette/outline treatment is approved. Canonical art-direction acceptance: `ee61dba6614e1344a96284b669f8983cee16af99`.
-
-The author confirmed the normal Environment runtime gate passes with the accepted Sudajii asset in place. Sudajii is therefore complete for ENV-010 visual implementation and regression coverage.
-
-The author approved the revised Japanese beech pair after rejecting the first pass as too similar to Sudajii. The accepted pair has a visibly open, horizontally spreading crown, exposed branch structure, pale grey-beige bark, lower-saturation lighter foliage, and a matching broad leafless branching silhouette.
-
-Implementation:
-- leafy sprite: `Textures/Things/Plant/AMJ/Beech/Beech_A.png`;
-- leafless sprite: `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png`;
-- `AMJ_Tree_Beech` now points to those AMJE-owned paths instead of Vanilla `TreeMaple` placeholders;
-- integration commit: `8d0eeabf808ec4cbe37a78745675e9aa39561466`;
-- static validation now locks both files, both AMJE paths, PNG structure, and absence of the former TreeMaple placeholders: `af0fb7608c3fa1d0f3f3ec29877b9ba3637a66bd`;
-- canonical art-direction record: `b21471b8e1bb7de1d328c9fb5055c12993463863`.
-
-The first binary transfer of the approved beech sprites was malformed and was correctly rejected by the AMJE PNG-structure gate (`Beech_A.png`). The Def/path integration itself was correct; only the PNG payloads needed replacement.
-
-Corrective binary transfer:
-- leafy source was re-read directly from the validated 256x256 PNG and committed without manual reconstruction; current Git blob SHA `f6866dc5faa5ad4293f8bd1e72cc43b6668265f9`;
-- leafless source was transferred the same way; current Git blob SHA `c9fdc9b87e6b559ab2a2ff9788b6d015593b8406`;
-- corrective commit: `b7027fc930d77a9b079ace5b5f9d663ade2f236c`.
-
-The author reran `run-tests.bat` after the corrected binary transfer and confirmed it passes. Static PNG structure, Def path, and placeholder-regression validation are therefore clean for both Japanese beech states.
-
-The focused check exposed two separate issues:
-
-1. The debug runner was still opening WarmTemperate, where Japanese beech does not naturally populate. The author had to spawn a beech manually. The focused runner now targets `AMJCoolTemperateTerrainQuickstart`, where `AMJ_Tree_Beech` is the intended natural structural tree: `da47b7b9e911bb2f38136b7ba884c99d54997be9`.
-2. The manually spawned leafy beech rendered as the red question mark. Binary inspection showed that the PNG's chunk boundaries were valid, so the old static structure gate passed, but the `IDAT` CRC was wrong. The leafless PNG CRCs were already valid. The leafy PNG was repaired in place by recalculating only the stored IDAT CRC; current leafy blob SHA `c0928ef133866cefb006dade3240238412190d39`, corrective commit `1900bf107143aa025ed9713c408b8847425f8712`.
-
-The static PNG validator now checks CRCs for every PNG chunk in addition to signature/chunk boundaries, preventing this class of false PASS: `25ccb50389f3b4dd6497cd78ad84849bfe0388cd`.
-
-A follow-up static-validation failure exposed another recurring maintenance class: the validator still hardcoded the old WarmTemperate focused-debug target even though the runner had correctly moved to CoolTemperate. This was a stale self-test, not a new texture or Quickstart defect.
-
-The focused-debug validator has now been made target-agnostic. Instead of requiring WarmTemperate and forbidding every other biome, it now:
-- accepts any of the four known AMJE terrain Quickstarts;
-- requires exactly one `RIMWORLD_QUICKSTART` assignment and exactly one `-quickstart=` invocation;
-- requires those two targets to match;
-- continues to forbid report/verify flags so the focused window remains open for manual inspection.
-
-This removes the need to rewrite the static validator every time the focused texture-debug biome changes. Commit: `a7f7cbb7db10170cd9cdd5803abdc0b64ee60362`.
-
-A parser failure then exposed that commit `a7f7cbb7db10170cd9cdd5803abdc0b64ee60362` had accidentally truncated the replacement block inside `Validate-Environment.ps1`: the regex string for `RIMWORLD_QUICKSTART` was left unterminated and the remainder of the intended validation block was missing. The many later errors involving method calls and ampersands were cascading parser errors from that single unterminated string.
-
-The complete target-agnostic texture-debug validation block has now been restored: `9d80bfdbf0c7fe68ec32c50b90473f40663fc8b5`.
-
-Because this class of error has recurred during PowerShell edits, repository-level prevention was added as well: `.github/workflows/powershell-syntax.yml` parses every `.ps1` with PowerShell's own AST parser on pushes and pull requests that touch PowerShell files. This is intended to catch malformed scripts on GitHub before the author discovers them during a local run. CI commit: `e3cf52307b9933dad57aab1640923c927de8dc23`.
-
-A second parser failure (`UnexpectedToken ')'` near line 1163) showed that `Validate-Environment.ps1` still contained a duplicated trailing validator block after its intended `exit 0`. The extra tail began with a stray `)` and repeated earlier texture-debug/runtime validation content. This was the remaining source of the parser failure.
-
-The validator has now been structurally repaired so it has a single terminal `exit 0` and no duplicated tail. Prevention was strengthened at two levels:
-- local: new `Scripts/Validate-PowerShellSyntax.ps1` parses every repository `.ps1` via PowerShell AST, and `run-tests.bat` executes this preflight before build/static validation;
-- repository process: `AGENTS.md` now requires any future `.ps1` edit to be staged on a temporary branch and merged only after the PowerShell syntax PR check passes. Large direct string-replacement edits to `Validate-Environment.ps1` are explicitly discouraged, with edited-range/end-of-file re-read required before merge.
-
-This repair was deliberately staged on PR #1 rather than written directly to main. The `PowerShell syntax validation` workflow completed successfully on the PR head, and the PR was then squash-merged to main. Merge commit: `5d0a6a3167275d7323da76b1d4b45c692f168d66`.
-
-The first local run of the new syntax preflight exposed a Windows command-line quoting defect rather than a parser defect: `run-tests.bat` passed `%~dp0` as `-RepoRoot "%~dp0"`; because `%~dp0` ends with a backslash, PowerShell received a path with a stray trailing quote and `Get-ChildItem` failed with `Path contains invalid characters`.
-
-The prevention design has been simplified so this argument cannot fail:
-- `Scripts/Validate-PowerShellSyntax.ps1` no longer accepts `RepoRoot`; it derives the repository root only from its own `$PSScriptRoot`;
-- `run-tests.bat` invokes the preflight with no path argument;
-- the GitHub workflow now executes that exact repository preflight script instead of maintaining a second inline parser implementation.
-
-This was staged through PR #2. The actual repository preflight completed successfully in GitHub Actions before merge. Squash merge commit: `4bc33424ed008706aea6c616b7b7956e781004a7`.
-
-The author reran `run-tests.bat` after the self-rooting preflight fix and confirmed it passes. The PowerShell syntax guard, build, AMJE static validation, and MO static tree-texture audit are therefore clean in the current main state.
-
-**Next action:** resume the focused Japanese beech visual check with `run-texture-debug.bat`. The runner currently targets CoolTemperate so `AMJ_Tree_Beech` should appear naturally. Inspect the leafy sprite first; if accepted, check the leafless seasonal state next.
-
-### ENV-010 Golden Path — production texture pipeline
-
-**Requested by:** author / Environment art  
-**Owner:** Environment/art + tooling  
-**Status:** DONE
-
-The successful Sudajii/Japanese-beech lessons are now captured as a reusable production-texture Golden Path. The Environment repository already contains the concrete implementation in `Docs/GoldenPaths/TextureAssetPipeline.md` and `Scripts/Install-TextureAsset.ps1`, with exact-byte SHA-256 copy verification, PNG signature/chunk/CRC/dimension/transparency validation, Def-switch ordering, repository static gates, and correct-biome focused runtime review. `run-texture-debug.bat` now accepts a biome selector instead of requiring a code edit for each target. The implementation and CI smoke coverage were merged in `8a2307e45bf669a154a1236297695be3f2a03cc2`; the corresponding GitHub PowerShell/Golden-Path workflow run completed successfully.
-
-The AMJ-wide Golden Path closeout rule is additionally referenced from Environment `AGENTS.md` in `6c6d6a2aae3a80c3650f30049982fe8a36f01ea7`, pointing to Core `Docs/DevelopmentGoldenPathGuidelines.md`.
-
-**Next action:** resume Japanese beech visual validation using the repository Golden Path rather than ad-hoc binary transfer/debug-runner edits.
-### ENV-010 visual-style baseline — retexture rules
-
-**Requested by:** author / Environment art  
-**Owner:** Environment/art  
-**Status:** DONE
-
-The shared visual language for AMJE tree/plant retextures is now canonical in `Docs/ArtDirection.md` under **Retexture visual-style rules**. The rule set locks strong simplification/deformation, thick dark outlines, restrained low-to-medium saturation, limited color steps, transparent/no-ground-base sprites, structural rather than recolor-only species differentiation, deciduous leafy/leafless continuity, and normal-game-zoom readability.
-
-Category baselines are also fixed for evergreen broadleaf, deciduous broadleaf, tall conifer, and low/dwarf conifer work. Accepted Sudajii and Japanese beech art are the current reference baselines for evergreen-broadleaf and deciduous-broadleaf retextures. Future species should declare their category and structural differences from those baselines before source-art generation.
-
-Canonical art-direction commit: `447b55e082b5e08e0c083e37f5f81dc92e458651`. Agent enforcement/reference commit: `a970a4bb12df937a7f08a9240e00b30248e63c2d`.
-
-Production binary transfer/integration remains governed separately by `Docs/GoldenPaths/TextureAssetPipeline.md`.
-
-**Next action:** continue Japanese beech visual validation, then apply the fixed visual rules + existing texture Golden Path to Shirabiso, Haimatsu, and subsequent Vanilla/MO tree retextures.
-
-
-### ENV-010 leafy-beech payload recovery and decoded-PNG regression gate (2026-10-05 JST)
-
-**Requested by:** continuation of Environment texture work  
-**Owner:** Environment/art + tooling  
-**Status:** DONE — binary recovery and focused appearance review completed; later acceptance entry is authoritative
-
-The focused preflight found that the current leafy `Beech_A.png` blob `c0928ef133866cefb006dade3240238412190d39` passed chunk CRC validation but failed zlib decompression and normal Pillow image decoding. The earlier CRC-only correction therefore did not resolve the image payload corruption; prior static PASS must not be treated as proof that this image was decodable.
-
-Recovery used the pre-CRC-rewrite payload's original stored IDAT CRC and its zlib Adler-32 as independent checks. Exactly one two-byte correction satisfied both checks and restored the expected 65,792 decoded scanline bytes for a 256x256, 8-bit indexed PNG. Offsets relative to the original file: 11783 (26 -> 30) and 12611 (188 -> 124). The recovered image also passed all PNG chunk CRCs, legal scanline filters, Pillow loading, and visual comparison with the accepted leafy source. The approved original pair was resolved from `libfile_d663b627e21c81919d33a20cc804444f`; no art was regenerated.
-
-Current leafy production blob: `7face00d1128333b5fa6e1ab419d3424bc21b6dd`. SHA-256: `88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072`. Sudajii and leafless beech also passed independent chunk/decoded-image checks; they were not changed.
-
-Reusable prevention is implemented in `Scripts/PngImageData.ps1`, called by both the exact-copy installer and the static PNG gate. It validates zlib/DEFLATE, Adler-32, decoded scanline sizes/filters, and Adam7 pass sizes without a Python dependency. `Tests/Test-PngImageData.ps1` validates every production PNG and rejects a CRC-valid / zlib-corrupt fixture. The workflow now runs explicit Ubuntu PowerShell 7 and Windows PowerShell 5.1 jobs and triggers for production PNG changes. The transient `matrix.shell` workflow mistake (run 37218721890) was fixed on the PR before merging; PR run 37218817889 passed both jobs, including syntax, production PNG decoding, the corruption regression and exact-copy smoke.
-
-**Result / references:** PR #4 squash-merged after the successful checks; implementation/PNG/Golden Path commit `1a24e11755c24c2109b7ceebd9628601c62f1f12`. Durable procedure is in `Docs/GoldenPaths/TextureAssetPipeline.md`.
-
-**Next action:** pull main and run `run-texture-debug.bat "D:\\SteamLibrary\\steamapps\\common\\RimWorld" CoolTemperate` for leafy/leafless beech appearance and seasonal continuity. This environment did not contain RimWorld, so no new runtime/build or in-game visual PASS is claimed. After author acceptance, lock the ArtDirection visual result and continue to Shirabiso, then Haimatsu using the existing Golden Path.
-
-
-### ENV-010 Japanese beech focused appearance accepted (2026-10-05 JST)
-
-**Requested by:** author confirmation after focused texture debug  
-**Owner:** Environment/art  
-**Status:** DONE (reported focused appearance review)
-
-After the repaired leafy-beech PNG and decoded-image regression gate were merged in `1a24e11755c24c2109b7ceebd9628601c62f1f12`, the author replied `問題なし` to the CoolTemperate focused-debug check. Record this as acceptance of the current in-game beech appearance. Canonical acceptance is reflected in `Docs/ArtDirection.md`.
-
-This confirmation does not supply a new automated runtime report or separately describe forced leafless/seasonal-switch coverage. Preserve that distinction; do not fabricate a runtime suite PASS from the visual confirmation. The accepted assets and existing exact-byte/decoded-image regression guards remain unchanged.
-
-**Next action:** prepare the Shirabiso source-art proposal using the tall-conifer category and accepted Sudajii/beech style baselines. Proposed structure: a compact upright conifer with broad, irregular layered needle masses, limited muted grey/blue-green color steps, subtle gradients, a visible short grey-brown trunk, thick dark outline, transparent background and no ground base/snow. Present the proposal before generation; this is not yet an author-approved new asset or a Def-path change. Haimatsu follows Shirabiso.
-
-
-### ENV-010 new-chat generation continuity (2026-10-05 JST)
-
-**Requested by:** author, before Shirabiso generation  
-**Owner:** Environment/art + documentation  
-**Status:** DONE (repository instructions / reusable generation entry)
-
-The generation entry is now `Docs/GoldenPaths/RetextureGeneration.md`, required from AGENTS and linked from ArtDirection, the Golden Path index and TextureAssetPipeline. It carries current-source reading, actual reference viewing/attachment, precise work-stage recovery, current Core+Environment style-rule assembly, and candidate review into every new/resumed tree-art task. Visual specifications remain owned by ArtDirection; current progress remains only on main Coordination.
-
-No image was generated and no production asset or Def was changed for this request. Shirabiso's previously presented design remains awaiting author approval. The top Active tree-art handoff is the current restart position. Existing beech/Sudajii visual results and PNG regression gates are preserved.
-
-### ART-TEMPLATE-001 — AMJ shared pixel-exact components
-
-**Status:** DONE (policy binding); family registration required before derivatives
-
-Core policy/tooling is published in commit `7ce9af2ce4b3cf3bce1efda89ca1b199ab4efc36`: `Docs/GoldenPaths/FixedImageTemplates.md` and `Scripts/Art/fixed_template.py`. These Environment instructions bind to that shared policy. Reused visible components require hashed masters/masks and zero protected RGBA pixel differences. Distinct species keep species-specific structure. No asset/Def was changed; no generation or runtime test was performed. Shirabiso approval remains pending. Register a template before making a derivative that declares shared fixed parts.
-
-### ENV-010 Shirabiso source approval and integration (2026-10-05 JST)
-
-**Status:** DONE — source/integration and later focused appearance acceptance completed
-
-The author approved the standalone generated Shirabiso. The approved source was resized once to 256x256 RGBA using Lanczos; the resulting PNG passed chunk CRC, zlib decompression, decoded byte count, Pillow loading, dimension/alpha and exact-copy checks before the Def path was changed. Production SHA-256: `aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d`. Existing Sudajii/beech files are unchanged. The source/design acceptance is canonical in ArtDirection.
-
-This environment lacks PowerShell and RimWorld: no local PowerShell installer, build, full repository static suite or runtime PASS is claimed. GitHub CI runs the existing PowerShell PNG/payload gates and texture installer smoke. A dedicated Python regression locks the Shirabiso Def/path, production hash, dimensions and transparency. Existing Japanese/English descriptions were reviewed; no text change is introduced in this art-only integration, and the broader historical-description audit remains open.
-
-**Next action:** pull main, run `run-tests.bat`, then `run-texture-debug.bat "D:\SteamLibrary\steamapps\common\RimWorld" Subalpine`. Review natural Shirabiso at normal zoom; record appearance acceptance separately from source approval. Then prepare Haimatsu proposal.
-
-### ENV-010 Shirabiso focused appearance accepted (2026-10-05 JST)
-
-**Status:** DONE (reported visual review)
-
-After integration `e4ca2108f22aaacbead783240c59aab5759f8290` and the Subalpine focused-check instruction, the author replied `OK`. Record reported focused appearance acceptance in ArtDirection. No new runtime report or explicit full automated-suite PASS was supplied.
-
-**Next proposal (not approved):** Haimatsu as a low, wind-shaped creeping pine shrub, clearly wider than tall, several asymmetric spreading needle masses, muted grey/blue-green palette, short partly hidden grey-brown woody branches, thick dark outlines, transparent/no ground/snow. Preserve accepted shared style; no upright miniature-tree silhouette. Present this before generation and await approval.
-
 ### ENV-010 Haimatsu source approval and integration (2026-10-05 JST)
 
 **Status:** IN PROGRESS (source approved / installed; runtime appearance pending)
@@ -1425,51 +631,6 @@ The approved generated source was resized once with Lanczos to 256x256 RGBA. Chu
 Execution is in a cloud Linux workspace despite the author using the desktop app. PowerShell and RimWorld are unavailable here; no local build/runtime/visual PASS is claimed.
 
 **Next action:** verify CI, then run `run-tests.bat` and `run-texture-debug.bat "D:\SteamLibrary\steamapps\common\RimWorld" Alpine` in a Windows local execution task. Author review at normal zoom is still required.
-
-### POLICY-001 — AMJ各Modのリテクスチャ所有方針
-
-**Requested by:** author (2026-10-05 JST)  
-**Owner:** Environment art / cross-mod ownership  
-**Status:** DONE — durable design updated
-
-AMJ共通方針に合わせ、Environmentは自分の景観責務に属するVanilla / MO等の前提資産まで画風統一を所有することを正式化した。
-
-- ENV-010のVanilla/MO樹木リテクスチャはEnvironment本体の正式責務であり、別Retexture Modへ移管しない。
-- 同一前提資産を他AMJ Modと競合上書きしない。1資産1所有Modを原則とする。
-- Alpha中のplaceholder / final-art deferは作業順の都合であり、所有責務の移管を意味しない。
-- Japan OnlyはEnvironmentのリテクスチャを担当しない。
-- 横断資産で自然なownerを決められない場合だけ、将来の共通Retexture Modを再検討する。
-
-Durable design source: `Docs/Design.md §11.5 AMJ共通リテクスチャ方針 — Environment所有範囲`, commit `5c836d3907577197396a465dbd88a982f601890b`.
-
-**Next action:** ENV-010は既存Golden Path / ArtDirectionをそのまま使い、Environment-owned Vanilla/MO tree retexturesを継続する。
-
-### TEST-002 — Core + Environment gameplay-contract automation
-
-**Requested by:** author (2026-10-05 JST)  
-**Owner:** Environment runtime integration / Core agriculture contract  
-**Status:** DONE — runtime/integration gate completed; no release rerun required unless later changes invalidate it
-
-Core + Environmentの独自ゲームプレイ差を、固定バイオームQuickstart上で機械評価する統合ゲートを追加した。
-
-自動評価:
-- 4バイオーム実マップのThin Soil / Gravel / Soil / Rich Soilセル数;
-- Core Stage A作物のロード確認;
-- Soba / BarleyがThin Soilを利用でき、Wheatは利用できないこと;
-- 実マップ土壌分布でSoba/Kibi/Awa/Hie/Barleyの平均肥沃度成長倍率が分化すること;
-- Coreの成長最低温度差が維持されること;
-- Environment年間気候診断の <8C / <0C 時間がWarmLowland→Temperate→Cool→Highlandで寒冷化すること;
-- Environment / Core由来のruntime ERRORゼロ。
-
-`run-runtime-tests.bat` はローカルCoreを検出した場合、MO依存を含む隔離Core+Environmentプロファイルを自動生成し4固定バイオームを追加実行する。
-
-PowerShell syntax workflowは関連スクリプト変更までGreen。Quicktest C#コンパイルと実RimWorld統合実行はこのクラウド環境では未実行。
-
-設計精査中、Environmentの旧気候表に残っていたAwa -4C / Hie -4Cを、Core正本のAwa -3C / Hie -2Cへ同期した。
-
-Durable design source: `Docs/Design.md §8.3 Core + Environment gameplay-contract runtime gate`, commits `14b09c8c05e4ee060446f4ab7d42db9ba94fca2f`, `6a3420b71b6a7fc60b16cbdd4bed73f759a33d2e`.
-
-**Result:** author confirmed the Environment runtime/integration test work is complete. Preserve the existing automated gate for future regressions; do not rerun it solely because publication work resumed.
 
 ### TEST-POLICY-003 — Non-interactive runtime tests
 
@@ -1510,128 +671,6 @@ repositories to exercise the newer suites; human visual acceptance stays separat
 
 **Procedure:** Core Docs/IntegratedRuntimeTesting.md and
 Scripts/IntegratedRuntimeDesktop/Run-AMJ-IsolatedDesktop.ps1.
-
-### WORK-001 — Retexture implementation precedent audit
-
-**Requested by:** author (2026-10-05 JST)  
-**Owner:** ENV-010 art compatibility / implementation  
-**Status:** DONE — audit reflected in Environment design and Golden Path
-
-The earlier handoff bundled runtime testing that the author has confirmed is already finished. No runtime rerun belongs to this item.
-
-The cross-project prior-art audit covered VTE / VTE Variations, ReGrowth 2, current MO 1.6.2.2, Clean Textures, Van's retextures, Misc. Training Medieval Retexture, Primitive/Adaptive Primitive Storage, Better Looking Plants, and another current 1.6 plant/mushroom replacement pack.
-
-Environment decision:
-- Vanilla/MO tree retextures point to AMJE-owned unique texPaths through explicit patches;
-- optional MO path replacements remain guarded compatibility work;
-- a tree Def is complete only after all loaded visible graphic states are audited, not merely its mature/leafless baseline;
-- same-path broad packs normally cease to conflict once AMJE points the Def to a unique path;
-- ReGrowth/VTE-style explicit-path competitors require final-loaded-path ownership checks where they touch the same state;
-- no C# or variation framework for ordinary static tree retextures.
-
-Durable sources:
-- shared Core `Docs/RetextureImplementationGuidelines.md` — `e61a6379886d0f8a5ada8edb75a94943572f23ea`;
-- Environment `Docs/Design.md` — `132544092a7552d86f85547c627c757e0412249e`;
-- Environment `Docs/ArtDirection.md` — `b42781ffbab01a70cce52349d858647c3aa18fd7`;
-- Environment texture Golden Path — `1656615b6cb47176d8a0cf3dd4fb07e54739e845`.
-
-**Next action:** continue ENV-010 art in its existing priority order. Before integrating each first Vanilla/MO target, enumerate the target's current loaded graphic states and create the matching AMJE target/state regression entries.
-
-### DEV-TOOLS-001 — DevKit / Rim Control を開発専用補助ツールとして採用
-
-**Requested by:** author (2026-10-06 JST)  
-**Owner:** Testing/tooling  
-**Status:** DONE (policy documentation)
-
-AMJ共通の対話型開発補助ツールとして、DevKit — Better Dev Mode Menu (Workshop `3814373104`) と Rim Control (Workshop `3774299554`) を採用した。
-
-DevKitはDef検索・スポーン・Debug Action等を用いた目視確認の準備短縮、Rim Controlはゲーム中の数値・visual・placement等の一時変更によるプロトタイピングに使用する。どちらも自動テストの代替や出荷依存にはしない。
-
-Rim Controlで得た採用値はXML / C# / Def / 正式設計書へ正本化し、上書きを無効にしてから静的検証・RimTest Redux・Pickle・runtime gateで再検証する。正式テスト、自動テスト、リリースゲート、通常プロファイルの正式確認では両ツールを無効化する。
-
-**Result / references:** durable rule in `Docs/DevelopmentTools.md`. Documentation-only change; no new runtime PASS is claimed.
-
-
-### ENV-010 — Leafless beech snow rejection audit and repair (2026-10-06 JST)
-
-**Owner:** Environment/art
-**Status:** DONE — revision 5 accepted in native appearance and PR #5 merged
-
-Author rejected `Art/Templates/Beech_Leafless-Snow-v1/exact-composite.png` because snow read as thin branch-following lines. The immediate PR repair was deterministic per-edge capsule painting (`853d7f5` -> `62434d2`), which created many tiny pellets and weak rims; area-only regression and output-derived mask did not enforce the visual spec. An unspecified earlier chat-generated image/prompt was not recoverable and is not attributed to an unverified cause.
-
-PR candidate now uses twelve supported asymmetric outlined caps, accepted Haimatsu snow color planes, unchanged leafless master and a predeclared unapproved `v2-review` mask contract. No ImageGen call or native game test was performed. Core protected RGBA gate = 0 differences; PNG CRC/decode, exact overlay/composite, mass/outline/support checks and rejection fixtures pass. Accepted base masters, leafy snow and other species snow are byte-identical. State ledger has one pending snow row; strict completion still fails intentionally. No source approval, merge, release or installed-game change is claimed.
-
-Durable spec/audit/regression changes are on draft PR #5, pushed head `4a1122c27bec8fb768a163c34c41f3950c63def9`; repair commit `b075162` and merge of the concurrent work-push/PR CI distinction are retained. See PR `Docs/PlantSnowOverlayPlan.md`, current-main-aligned `RetextureGeneration.md`, `ArtDirection.md` rejection supersession, and `Docs/ValidationEvidence/BeechLeaflessSnowRepairAudit.md`.
-
-**Closeout:** superseded by the later revision-5 source/native acceptance below. No further current-plant snow review remains before Beta publication. Steam publication remains the author's manual step.
-
-### ENV-010 — Revision 2 rejected; branch-contact revision 3 pending
-
-Author feedback: `あまりに厳しい生成結果 / 枝が考慮されてない`. Revision 2 is rejected and must not serve as a style/production reference. Its independent horizontal caps and interior wood-proximity test did not establish actual branch contact.
-
-PR #5 now contains `c119755c51eb5d73c1ae8ea9822eb22d6477012a`: eight snow masses whose bottom boundary traces actual upper branch pixels inside narrow declared corridors. Trunk/branch master is unchanged; snow thickness tapers along each branch. All eight bottom boundaries have full contact at zero/one-pixel AA distance; a partial-support regression now fails. Core protected RGBA difference=0; PNG and ledger checks pass. This is geometric/static evidence only. Template is `v3-review`, no filled exemplar; leafless snow remains pending and no game/native visual acceptance is claimed. Durable correction is in PR snow plan, ArtDirection and repair audit.
-
-### ENV-010 — Snow looked behind branches; foreground revision 4 pending
-
-Author: `雪が下のレイヤになってるように見える`. Actual composite order was master -> snow, but revision 3 stopped the cap at the branch silhouette, leaving original wood contour/face visually in front. PR #5 now has `501fc89d06aea530f7bf426802ce9cdd6b5eeaa3`: the same eight corridors and same mask/master with an opaque snow lip covering the original upper wood face, plus blue-grey front thickness. Upper branch outline/adjacent face occlusion, exact composition, reversed-order negative fixture, support/massing, PNG and ledger checks pass. No visual acceptance or game/native test is claimed; template `v4-review` and leafless snow remain REVIEW/pending. Earlier revision-3 acceptance-like geometry statements do not approve this image.
-
-### ENV-010 — More whole-tree snow requested; revision 5 pending
-
-Author requested `枝だから雪がつもりにくいのはそうだが、もうすこし全体的に積もらせたい`. PR #5 head `e37b4121c2511a4532ac356ccb3611b6ae3f27b9` adds seven upper/outer/lower ledges to the existing eight: fifteen supporting corridors / fourteen connected masses, solid snow 2108 -> 3628 pixels (~1.72x). Foreground occlusion, tapered branch-aligned thickness and exposed trunk/twig structure are retained. New allowed corridors are declared before painting under unapproved `v5-review`; accepted masters and other variants are unchanged. Core protected RGBA=0, support/occlusion/mass/layer-order, PNG and state ledger gates pass. No ImageGen, native/game test or visual acceptance is claimed. Leafless snow remains REVIEW/pending and PR remains draft.
-
-### ENV-010 — Revision 5 adopted as compromise; source frozen
-
-Author: `これで妥協する` (2026-10-06 JST), referring to the presented revision-5 PNG. Record source-art acceptance as compromise. PR #5 commit `9a7af9295724012292d542ef892392f7e2535d0e` records the statement/date/source hash, `v5` / `source_approved`, and prevents the builder from changing accepted source bytes. Images, master and mask remain identical to the adopted revision. Source SHA-256: `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`.
-
-Native game appearance of these exact bytes was not shown in this chat, so it remains separately pending in the coverage ledger. Do not treat this as a new runtime PASS or merge/release authorization. Durable evidence is PR `Docs/ValidationEvidence/BeechLeaflessSnowSourceAcceptance.md` and ArtDirection. Remaining action is native appearance review when continuing release validation; do not regenerate this source or ask again to approve the same presented image.
-
-### ENV-010 — Leafless beech snow final acceptance and PR #5 merge
-
-**Requested by:** author (2026-10-06 JST)  
-**Owner:** Environment/art + release  
-**Status:** DONE
-
-After source compromise acceptance (`これで妥協する`), the author completed the separate native appearance review with `ブナOKなのでPRマージして` and explicitly authorized merge. Revision 5 remains frozen: exact composite SHA-256 `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`; installed leafless-snow overlay SHA-256 `3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b`; accepted leafless master SHA-256 `24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112`.
-
-PR #5 was synchronized with current main without reverting the newer README / Workshop / historical-description work. Before merge, the PR checks were all green: Plant visual coverage ledger, Art rule structure, and PowerShell syntax validation. The visual fingerprint gate was also corrected so label/description-only changes do not invalidate prior visual approvals; visual Def fields, state paths, size, and owned PNG hashes remain guarded.
-
-PR #5 was squash-merged to main as `d38e28544693f8ac2d095143b64a37de68ab887a`. This completes current AMJE structural-plant art for the first public Beta. Existing Vanilla / Medieval Overhaul tree retextures remain explicitly post-publication work.
-
-
-### CI-NOTIFICATION-001 — Repeated plant-coverage failure notifications
-
-**Requested by:** author (2026-10-06 JST)
-**Owner:** CI/tooling
-**Status:** DONE
-
-The earlier label/description fingerprint defect is fixed in merged PR #5.
-Repeated notifications were amplified by feature-branch push + PR duplicate
-execution, broad Docs triggers and expected incomplete draft-review failures.
-Commit f4c86f890161296b36896349593b3ceeb150dc71 restricts pushes to main, scopes
-inputs to actual ledger/art/evidence/Def/test dependencies, cancels superseded
-runs per PR/ref and uses consistency mode on draft PRs. Ready PRs retain the
-strict completion gate, including an explicit ready_for_review event. Existing
-production texture/snow/error guards are unchanged. No account-level email
-notification setting was changed; real validation failures still fail CI.
-
-YAML/routing assertions passed locally. The actual main workflow run
-https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/actions/runs/37469313074
-passed inventory/selftests and all production texture/snow validators.
-Reusable routing and troubleshooting procedure is in
-Docs/GoldenPaths/PlantVisualCoverage.md. Coordination-only updates are excluded
-from this workflow's triggers.
-
-### POLICY-MOD-NAME-001 — Mod名のコロン禁止（2026-10-06 JST）
-
-**Requested by:** author  
-**Owner:** AMJ shared release / documentation  
-**Status:** DONE
-
-AMJ Core・Environment・CCTOおよび今後の関連Modの名称では、半角 `:`・全角 `：` を禁止し、必要な区切りには ` - ` を使用する。About.xmlのname、Workshopタイトル、README等の正式名称に適用する。表示名の修正ではpackageId・既存Workshop IDを維持する。
-
-YADAがMod表示名を一時ディレクトリ名に使用し、Windowsで半角コロンによりアップロード前処理が停止した件の再発防止。共通正本はCore `Docs/ModDescriptionGuidelines.md`（commit `695bff2a32a57cdf817b13b255587e749399b417`）。このリポジトリのAGENTSにも規則を反映済み（commit `fb40c1695203650851911fdd0169b6a3d43f9f05`）。
-
-確認時点でCore・Environment・CCTOのAbout.xmlのnameはいずれもコロンなし。今回の変更は文書・運用規則のみで、ゲーム実行時テストやSteam公開の成功を示すものではない。
 
 ### DOC-2GAME-001 — Japanese 2game summary and shared formatting
 
@@ -1689,7 +728,6 @@ Durable evidence/procedure: Docs/GoldenPaths/WorkshopRuntimeTests.md;
 test-only source/Def observer and deterministic current-regression staging
 helper are retained in Tests/Release and Scripts. Local full logs/manifests
 are linked in that document. Production art/Defs/order/saves are preserved.
-
 
 ### PUB-WORKSHOP-002 — Upload-root provenance and release gate repair (2026-10-07 JST)
 
@@ -1784,7 +822,6 @@ root after selected-root manifest verification. Do not upload the dirty root or
 historical28-file package. Actual distribution is NOT fixed/approved yet.
 Only a real Steam download and four-profile/cutting rerun clear release HOLD.
 
-
 ### DOC-ENV-REPLACEMENT-001 — Vanilla replacement scope in public copy (2026-10-07 JST)
 
 **Owner:** Documentation / release
@@ -1793,102 +830,6 @@ Only a real Steam download and four-profile/cutting rerun clear release HOLD.
 Audited main AGENTS/Coordination, Design, terrain processor, biome scoring and River / Coast handoff. README, Japanese-first Workshop and English translation now lead with replacement/reconfiguration of Vanilla terrain, vegetation and biome composition for Japan. Existing WorldGen/mutator reuse, four baseline biomes, representative plants, Vanilla secondary vegetation, wetlands/MO coexistence and save limitations remain consistent. About and 2game summaries/policies are synchronized; formal public titles match the existing colon-free About name. Durable scope is in Design; repeatable review checks are in WorkshopDescription.md.
 
 Validation: bilingual semantic review, LF/CRLF UTF-8 byte limits, BBCode balance/link/image preservation, About XML/identity and diff whitespace. No production C#/Defs/art changes or new runtime result. Author-manual Steam description update uses the two committed BBCode sources; no live-site publication is claimed.
-
-
-### ENV-PLANT-AUDIT-001 — Vanilla自然植物の残存監査（2026-10-08 JST）
-
-**Requested by:** author  
-**Owner:** Environment / vegetation  
-**Status:** DONE — Vanilla forest/wetland retention/removal pass complete; later vegetation stages handed off
-
-Author corrected the previous assumption that existing Vanilla vegetation should
-remain by default. AMJE now requires a positive ancient/medieval-Japan reason
-for each reused Vanilla plant. Existing presence is not a retention reason.
-
-The earlier broad draft PR #7 was closed without merge. The author clarified
-that the audit/removal work itself does not need to proceed one species at a
-time. Multiple clearly justified removals may be researched and implemented in
-the same workstream; keep removal commits separated into reviewable logical
-units so history remains easy to inspect and revert.
-
-**Phase 1 DONE:** PR #8 / squash merge `565d71f16ce194af0398e1f431246cbe58a04b22`
-- removes only `Plant_TreePoplar` from `AMJ_WarmTemperateForest`;
-- leaves every other candidate unchanged;
-- adds a Quickstart regression assertion that Poplar does not naturally
-  generate in the target AMJE biome;
-- records the decision in `Docs/VanillaPlantRetentionAudit-ja.md`.
-
-**Phases 2–4 DONE:** PR #11 / squash merge `9f80a117ef21b04762b92a77997c7ea0ebd329b9`
-- warm-temperate Vanilla Oak removed; Sudajii commonality 2.00→2.55, restoring pre-Poplar woody commonality 3.30 and total wild-plant commonality 13.42;
-- subalpine generic Pine removed; Shirabiso 2.60→3.50, preserving woody commonality 4.00 and total 16.14;
-- alpine generic Pine/Birch/Dandelion/Astragalus removed; Haimatsu/Grass/Moss rebalanced so total commonality remains 7.31 and woody commonality 1.34 while ordinary tall trees become zero above treeline;
-- retained Vanilla vegetation is now explicitly classified in `Docs/VanillaPlantRetentionAudit-ja.md`: generic groundcover/Berry, Maple/Bamboo, cool-temperate Oak/Pine/Birch, and subalpine Birch remain with defined proxy roles;
-- Quickstarts now guard every completed exclusion.
-
-PR #11 regression gates passed after synchronizing the art-rule test with the already-completed Core→Grains repository rename. GitHub preflight/error-hygiene rules are now recorded in `AGENTS.md`: do deterministic validation before remote writes and use Actions as regression gates rather than exploratory debugging.
-
-Existing PR CI passed before merge: Workshop payload filtering and Plant visual coverage ledger. The new warm-temperate runtime Quickstart exclusion assertion is committed for the next runtime matrix, but no fresh RimWorld runtime execution is claimed for this one-line distribution removal.
-
-Later candidates may be audited and prepared together. Do not artificially
-serialize the work by species. Keep each removal or tightly coupled replacement
-in a separate reviewable commit where practical; a PR may contain multiple such
-commits.
-
-The author later fixed the broader vegetation roadmap in PR #16 / squash merge
-`b7006ad91f49c1a0d2dca2aaea658f384922f4f0`:
-1) remove unsuitable inherited vegetation;
-2) audit/rewrite retained Vanilla descriptions first, then retexture;
-3) add missing ancient-to-medieval Japanese vegetation, including traditional
-medicinal plants such as yomogi;
-4) remove `Plant_HealrootWild` only at the final cleanup stage after the
-replacement vegetation and gathering balance are established.
-
-Yomogi addition and Healroot removal are no longer required to be atomic in one
-change. Cultivated `Plant_Healroot` remains outside this natural-vegetation
-roadmap.
-
-Public description sync is complete in squash merge
-`75b74a6d3624701df2e427549bd6e7f7b0c1432d`: README, Japanese/English
-Workshop copy, 2game copy, About.xml and their presentation policies now state
-that the Vanilla-vegetation audit is already active, unsuitable plants are
-removed/replaced, and warm-temperate Vanilla Poplar is the first completed
-removal. Workshop BBCode is balanced and remains under the 8,000-byte limit in
-both LF and CRLF forms. Actual Steam / 2game site publication is not claimed.
-
-
-
-Public descriptions were synchronized again after Phases 2–4 in squash merge
-`734db85070c55d5e88f04a4346648549138ef247`. README, Workshop JA/EN,
-2game and About now record the broader removals, the commonality redistribution
-that prevents unintended forest thinning, and Wild Healroot→yomogi as the main
-remaining Vanilla-vegetation replacement. Workshop preflight passed before PR:
-JA 7,759 bytes LF / 7,870 CRLF; EN 7,670 LF / 7,781 CRLF; BBCode balanced.
-Actual Steam / 2game publication is still author-manual and is not claimed here.
-
-
-
-**Phase 5 DONE:** PR #15 / squash merge `489fb9d6e933e07d4fd2108bad0564879409f757`
-- audited retained Vanilla `TemperateSwamp` / `ColdBog` vegetation, which remained reachable because AMJE intentionally leaves swampy tiles outside its four baseline bands;
-- TemperateSwamp removes Chokevine/Cypress, redistributing to Brambles/Willow while preserving total commonality 7.30 and woody commonality 3.00;
-- ColdBog removes Chokevine/Cypress/Astragalus, redistributing to TallGrass/Moss/Birch while preserving total commonality 8.22 and woody commonality 1.80;
-- runtime Quickstarts and exact loaded-commonality assertions were added for both wetlands; the normal vegetation runner now includes them;
-- GitHub static gates all passed: PowerShell syntax, Workshop payload, plant visual coverage and regional tree-sowing contract.
-- A fresh RimWorld runtime execution of the two new wetland Quickstarts has not been run from this chat/tool environment and is not claimed.
-
-The plant-pool retention/removal pass is complete, but the broader vegetation-roadmap Step 1 is **not closed yet**. Whole-Biome audit PR #18 / squash merge `34fce92e5b6bf6da24e38355e475623ada664d66` found that retained Vanilla `TemperateSwamp` / `ColdBog` still reintroduce non-Japan wildlife and carry unreviewed Vanilla disease/weather/description bundles. Wild Healroot remains intentionally temporary. Step 1 completion now requires the wetland bundle corrections and their runtime/static gate before description/retexture work begins.
-
-**2026-10-08 structural-plant static-gate repair:** PR #20 / squash merge `1cc69585dd08cff71786548848c753a7ca01c99a` corrected `Scripts/Validate-Environment.ps1` after the accepted Phase 2–4 rebalances. The old Shii 2.0 / Shirabiso 2.6 / Haimatsu 1.3 raw markers incorrectly rejected current XML values 2.55 / 3.5 / 1.34. The validator now checks all four structural plants in their own BiomeDefs with approved commonalities, and CI runs `Tests/test_structural_plant_commonality.py` to catch future drift. PR checks passed (PowerShell syntax, Workshop payload, Plant visual coverage). No production Def/XML balance or new RimWorld runtime test result changed; wetland Step 1 completion remains pending.
-
-### COORD-PRIORITY-001 — Supersede stale Beta-first vegetation handoff (2026-10-08 JST)
-
-**Requested by:** author
-**Owner:** Environment coordination
-**Status:** DONE — summary aligned with latest owner audit and runtime handoff
-
-The release/tree-art summaries now use `ENV-PLANT-AUDIT-001` and `ENV-TREE-SOWING-001` rather than the older Beta-publication-before-audit sequence. Retention/removal is complete; fresh distribution/wetland/tree-sowing runtime evidence remains pending. Wild Healroot is intentionally temporary, not a pre-upload blocker. Earlier entries are retained as history.
-
-Project `Docs/ImplementationPriorities.md` assigns Environment Reconstruction P0 and recommends current vegetation/runtime closeout first, before Living Norms v0.1 and Grains closeouts. No production change, new runtime PASS or live Workshop publication is claimed. Golden Path N/A for this status-only reconciliation; existing vegetation testing and design sources remain authoritative.
-
 
 ### TEST-WORKSHOP-003 — Newly downloaded actual payload (2026-10-07 JST)
 
@@ -1907,26 +848,6 @@ DevQuickstarts loader remains. Runtime success does not prove exact candidate
 publication or clear packaging/provenance HOLD. No production/Workshop edits or
 upload performed; evidence/documentation local only.
 
-### MERGE-LATEST-20261008 — preserve latest wetland policy
-
-**Requested by:** author (2026-10-08 JST)
-**Status:** DONE — merge resolution follows latest main
-
-Author selected the latest GitHub policy over the older local all-land replacement.
-Production generation, biome textures, public descriptions and regression tests
-match d2b4d261c16481c748544661499b287b039a50d3. The earlier local terrestrial
-replacement/Alpine-cap changes are superseded, not current runtime evidence.
-Historical downloaded-Workshop validation remains recorded separately; it does
-not validate this latest development tree or close its pending wetland gate.
-
-Merge validation: build and Quickstarts compile PASS; PowerShell syntax, payload
-filter/regressions, tree-sowing contract, unified entrypoint, art routing and
-visual ledger checks PASS (Python UTF-8 mode on Windows). The latest main static
-suite still stops at its stale <AMJ_Tree_Shii>2.0</AMJ_Tree_Shii> marker while the
-current audited Def uses 2.55. Validator and Def are unchanged from the selected
-main; full static/runtime PASS is not claimed by this merge.
-
-
 ### ENV-TREE-SOWING-RUNTIME-002 — Alpine natural woody versus sowable set (2026-10-08 JST)
 
 **Owner:** Environment / regional tree-sowing verification  
@@ -1935,14 +856,6 @@ main; full static/runtime PASS is not claimed by this merge.
 The author's isolated vegetation runtime report passed warm/cool/subalpine and failed Alpine 1/70 assertions. It compared the Alpine `map.Biome.wildPlants` tree-like set (including `AMJ_Shrub_Haimatsu`, since RimWorld 1.6 reports `plant.IsTree`) against the approved empty growing-zone sowing set. Native sowing menu and Haimatsu-non-sowable assertions passed, with zero captured runtime ERROR. Vegetation XML and production gameplay are unchanged.
 
 Correction: the runtime/static tests separately expect Alpine natural woody `{AMJ_Shrub_Haimatsu}` and sowable trees `{}`; other three bands continue to use equal sets. Canonical rule and procedure: `Docs/Design.md` and `Docs/GoldenPaths/PlantSowingTests.md`. Rerun the full isolated vegetation matrix for wetland/river/coast coverage; no new full-runtime PASS or publication claimed.
-
-### DOC-SHARED-RULES-OWNER-001 — Shared rule migration to Project (2026-10-08 JST)
-
-**Owner:** Project common rules / repository routing
-**Status:** DONE — current AGENTS and shared-rule references route to Project
-
-Canonical shared rules and Workshop template/tooling now live in Project `Docs/SharedRules.md` and its linked sources. Grains old Markdown paths are migration pointers only. Existing historical coordination entries retain their original commit/path provenance; resolve future work through the new Project index. Mod-specific implementation, tests and accepted content art remain with this repository. No runtime behavior, new preview generation or Steam publication is part of this migration.
-
 
 ### RULE-AUDIT-20261008 — operating-rule consolidation
 
