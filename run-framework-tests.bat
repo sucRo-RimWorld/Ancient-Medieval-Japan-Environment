@@ -26,6 +26,13 @@ if not exist "%RIMWORLD_DIR%\RimWorldWin64.exe" (
 )
 
 echo.
+echo Checking framework-test Python syntax and wiring...
+py -3 -m py_compile "%ROOT%Scripts\EnvironmentFrameworkTestCommon.py" "%ROOT%Scripts\Run-EnvironmentRimTest.py" "%ROOT%Scripts\Run-DevelopmentPickle.py"
+if errorlevel 1 exit /b 1
+py -3 "%ROOT%Tests\test_framework_automation.py"
+if errorlevel 1 exit /b 1
+
+echo.
 echo Running Environment logic/calculation tests through RimTest Redux...
 py -3 "%ROOT%Scripts\Run-EnvironmentRimTest.py" --game "%RIMWORLD_DIR%" --root "%ROOT%"
 if errorlevel 1 exit /b 1
