@@ -5,8 +5,8 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 
-JA_STANDALONE = "AMJEは単体で完結します。"
-EN_STANDALONE = "AMJE remains complete as a standalone environment mod."
+JA_STANDALONE = "他のAMJ Modは必須ではありません。"
+EN_STANDALONE = "No other AMJ Mod is required."
 JA_CORE_OLD = "Ancient & Medieval Japan Coreは不要です。"
 EN_CORE_OLD = "Ancient & Medieval Japan Core is not required."
 
@@ -29,14 +29,14 @@ class WorkshopStandaloneContractTests(unittest.TestCase):
     def test_current_standalone_copy_and_optional_dependencies(self):
         for name, content, required in (
             ("Japanese", self.ja, (
-                "現在はβ版です。",
+                "現在β版です。",
                 JA_STANDALONE,
-                "Crop Cold Tolerance Overhaul（CCTO）は任意です。",
+                "任意Mod: Crop Cold Tolerance Overhaul（CCTO）",
             )),
             ("English", self.en, (
-                "Currently Beta.",
+                "Beta.",
                 EN_STANDALONE,
-                "Crop Cold Tolerance Overhaul (CCTO) is optional.",
+                "Optional: Crop Cold Tolerance Overhaul (CCTO)",
             )),
         ):
             with self.subTest(language=name):

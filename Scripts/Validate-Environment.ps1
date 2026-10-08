@@ -128,7 +128,7 @@ if (-not (Test-Path $OutputDll)) {
     Fail "Built DLL was not found: $OutputDll"
 }
 
-[xml]$riverDefs = Get-Content -LiteralPath $RiverDefsPath
+[xml]$riverDefs = Get-Content -LiteralPath $RiverDefsPath -Raw -Encoding UTF8
 foreach ($defName in @("Creek", "River", "LargeRiver", "HugeRiver")) {
     $node = $riverDefs.SelectSingleNode("/Defs/RiverDef[defName='$defName']")
     if ($null -eq $node) {
@@ -149,7 +149,7 @@ if ($null -eq $large.spawnFlowThreshold -or $null -eq $huge.spawnFlowThreshold) 
 }
 Pass "Vanilla river source structure matches Environment patch assumptions"
 
-[xml]$worldGenerator = Get-Content -LiteralPath $WorldGeneratorPath
+[xml]$worldGenerator = Get-Content -LiteralPath $WorldGeneratorPath -Raw -Encoding UTF8
 $terrainWorker = $worldGenerator.SelectSingleNode("/Defs/WorldGenStepDef[defName='Terrain']/worldGenStep")
 if ($null -eq $terrainWorker) {
     Fail "Vanilla Terrain WorldGenStep was not found."
@@ -169,7 +169,7 @@ foreach ($relative in @(
     }
 
     try {
-        [xml](Get-Content -LiteralPath $path) | Out-Null
+        [xml](Get-Content -LiteralPath $path -Raw -Encoding UTF8) | Out-Null
     }
     catch {
         Fail "Invalid XML in $relative : $($_.Exception.Message)"
@@ -177,7 +177,7 @@ foreach ($relative in @(
 }
 Pass "Environment XML files are well formed"
 
-[xml]$about = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml")
+[xml]$about = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml") -Raw -Encoding UTF8
 if ($about.ModMetaData.packageId -ne "sucro.ancientmedievaljapan.environment") {
     Fail "Unexpected packageId in About.xml."
 }
@@ -1141,12 +1141,12 @@ if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
 }
 
 foreach ($pair in @(
-    @($workshopJaText, '現在はβ版です。', 'Japanese Workshop Beta stage'),
-    @($workshopJaText, 'AMJEは単体で完結します。', 'Japanese Workshop standalone support'),
-    @($workshopJaText, 'Crop Cold Tolerance Overhaul（CCTO）は任意です。', 'Japanese Workshop CCTO optionality'),
-    @($workshopEnText, 'Currently Beta.', 'English Workshop Beta stage'),
-    @($workshopEnText, 'AMJE remains complete as a standalone environment mod.', 'English Workshop standalone support'),
-    @($workshopEnText, 'Crop Cold Tolerance Overhaul (CCTO) is optional.', 'English Workshop CCTO optionality')
+    @($workshopJaText, '現在β版です。', 'Japanese Workshop Beta stage'),
+    @($workshopJaText, '他のAMJ Modは必須ではありません。', 'Japanese Workshop standalone support'),
+    @($workshopJaText, '任意Mod: Crop Cold Tolerance Overhaul（CCTO）', 'Japanese Workshop CCTO optionality'),
+    @($workshopEnText, 'Beta.', 'English Workshop Beta stage'),
+    @($workshopEnText, 'No other AMJ Mod is required.', 'English Workshop standalone support'),
+    @($workshopEnText, 'Optional: Crop Cold Tolerance Overhaul (CCTO)', 'English Workshop CCTO optionality')
 )) {
     if (-not $pair[0].Contains($pair[1])) {
         Fail "$($pair[2]) marker is missing."
