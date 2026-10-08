@@ -119,6 +119,9 @@ Durable sources: `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` section
 **Test entrypoint infrastructure (2026-10-08):** PR #19 / squash merge `d2b4d261c16481c748544661499b287b039a50d3` makes `run-tests.bat` the canonical AMJE automated gate. It now runs the static/build/source validation first, then launches the normal runtime Quickstart matrix on a rendering-enabled non-visible Windows desktop. The default runtime matrix already includes `AMJTemperateSwampVegetationQuickstart` and `AMJColdBogVegetationQuickstart`, so the forthcoming Step 1 wetland assertions belong in those scenarios and will be exercised automatically by `run-tests.bat`. This tooling merge does **not** claim the new wetland wildlife/disease/weather/terrain completion assertions are implemented or passing yet.
 
 
+**Static runner handoff regression fixed (2026-10-08):** PR #21 / squash merge `2926162147b83d3574ee849777b1349df77c849a` resolved the stale `Validate-Environment.ps1` requirement that MO texture audit commands appear directly inside `run-tests.bat`. The validator now verifies that `run-tests.bat` delegates to `run-static-tests.bat`, where the MO audit actually runs, and checks that `run-runtime-tests.bat` uses `--skip-static` without recursion. `Tests/test_run_tests_entrypoint.py` covers the regression. The post-failure marker groups were also reviewed against current source. PR CI passed PowerShell syntax, Workshop payload, and plant visual coverage checks. This is a static harness correction only; no fresh Windows RimWorld runtime PASS or wetland Step 1 completion is claimed.
+
+
 ### ENV-RETEX-012 — existing-tree retention audit and AMJE description rewrite
 
 **Requested by:** author (2026-10-08 JST)  
