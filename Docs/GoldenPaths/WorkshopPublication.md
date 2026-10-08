@@ -73,12 +73,15 @@ The **actual** downloaded `loadFolders.xml` has an extra RimWorld 1.6 path:
 <li IfModActive="rimworks.quickstarts">DevQuickstarts</li>
 ```
 
-This is identical in meaning to a conditional entry in the tracked developer
-`main:loadFolders.xml`, but is **not** in the approved release candidate.
-The pinned builder's constant `LOAD` deliberately produces only the root
-(`<li>/</li>`). YADA's basename scanner can exclude `DevQuickstarts` itself,
-but **cannot rewrite the nonexcluded loadFolders.xml**, so filtering a developer
-tree is not equivalent to publishing the approved candidate.
+At the time of that download this was identical in meaning to the tracked
+developer `loadFolders.xml`, but was **not** in the approved release candidate.
+The source repair makes tracked `loadFolders.xml` byte-identical to the
+root-only `LOAD` contract (`<li>/</li>`) and the pinned builder now fails if
+tracked loader bytes drift instead of silently replacing them during staging.
+Developer Quicktests are loaded only through a standalone temporary test Mod.
+YADA's basename scanner still cannot rewrite retained XML, so filtering a
+developer tree is **not** equivalent to publishing the approved candidate and
+the verified extracted root remains the only authorized upload source.
 
 Treat this as a **real installed-source discrepancy**. The most likely origin
 is the developer Mod root being selected as upload source instead of the
