@@ -16,6 +16,9 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         cls.quickstarts = (
             ROOT / "Scripts" / "Run-EnvironmentVegetationQuickstarts.ps1"
         ).read_text(encoding="utf-8")
+        cls.validator = (
+            ROOT / "Scripts" / "Validate-Environment.ps1"
+        ).read_text(encoding="utf-8")
 
     def test_run_tests_is_the_full_standard_entrypoint(self):
         self.assertIn('run-static-tests.bat', self.run_tests)
@@ -27,6 +30,16 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertIn('run-static-tests.bat', self.run_runtime)
         self.assertIn('--skip-static', self.run_runtime)
         self.assertIn('Ancient-Medieval-Japan-Grains', self.run_runtime)
+
+    def test_validator_checks_actual_static_gate_ownership(self):
+        self.assertIn('$runStaticTestsSource', self.validator)
+        self.assertIn('run-static-tests.bat is missing expected static-audit marker', self.validator)
+        self.assertIn('Validate-MedievalOverhaulTreeTextures.ps1', self.run_static)
+        self.assertIn('run-static-tests.bat', self.run_tests)
+        self.assertIn('Run-EnvironmentIsolatedDesktop.ps1', self.run_tests)
+        self.assertIn('run-static-tests.bat', self.validator)
+        self.assertNotIn('run-tests.bat is missing expected MO static-audit marker', self.validator)
+        self.assertIn("if ($runtimeBatch.Contains('call \"%ROOT%run-tests.bat\"'))", self.validator)
 
     def test_isolated_launcher_keeps_rendering_on_private_desktop(self):
         self.assertIn('CreateDesktop', self.isolated)

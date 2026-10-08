@@ -924,7 +924,8 @@ foreach ($relative in @(
 
 $runtimeBatch = Get-Content -LiteralPath (Join-Path $RepoRoot "run-runtime-tests.bat") -Raw
 foreach ($expected in @(
-    'run-tests.bat',
+    'run-static-tests.bat',
+    '--skip-static',
     'Run-EnvironmentVegetationQuickstarts.ps1',
     'TestResults\VegetationRuntime',
     'CCTO_INSTALLED',
@@ -969,14 +970,33 @@ foreach ($forbidden in @(
 
 Pass "Focused texture-debug runner supports all four AMJE Golden Path biome targets"
 
+# The public entry point delegates to run-static-tests.bat; the MO audit
+# must be present in that static gate, not in the parent entry point.
 $runTestsSource = Get-Content -LiteralPath (Join-Path $RepoRoot "run-tests.bat") -Raw
 foreach ($expected in @(
+    'run-static-tests.bat',
+    'Run-EnvironmentIsolatedDesktop.ps1'
+)) {
+    if (-not $runTestsSource.Contains($expected)) {
+        Fail "run-tests.bat is missing expected test-entrypoint marker: $expected"
+    }
+}
+
+$runStaticTestsSource = Get-Content -LiteralPath (Join-Path $RepoRoot "run-static-tests.bat") -Raw
+foreach ($expected in @(
+    'Validate-PowerShellSyntax.ps1',
+    'build.bat',
+    'Validate-Environment.ps1',
     'Validate-MedievalOverhaulTreeTextures.ps1',
     'Auditing installed Medieval Overhaul tree texture references'
 )) {
-    if (-not $runTestsSource.Contains($expected)) {
-        Fail "run-tests.bat is missing expected MO static-audit marker: $expected"
+    if (-not $runStaticTestsSource.Contains($expected)) {
+        Fail "run-static-tests.bat is missing expected static-audit marker: $expected"
     }
+}
+
+if ($runtimeBatch.Contains('call "%ROOT%run-tests.bat"')) {
+    Fail "run-runtime-tests.bat must not call run-tests.bat recursively."
 }
 
 $moTreeAudit = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Validate-MedievalOverhaulTreeTextures.ps1") -Raw
