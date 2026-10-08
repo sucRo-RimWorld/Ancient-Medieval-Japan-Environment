@@ -103,6 +103,11 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             "selectedNaturalWetland",
         ):
             self.assertIn(requirement, body)
+        self.assertIn("preferredWetland.Valid || (!wetland && fallback.Valid)", body)
+        self.assertIn("candidateShare=", body)
+        self.assertIn("wetlandOfCandidates=", body)
+        self.assertIn('$scenarioTimeout = [Math]::Max($TimeoutSeconds, 420)', self.quickstarts)
+        self.assertIn('while ($elapsedSeconds -lt $scenarioTimeout)', self.quickstarts)
         self.assertNotIn("tile.PrimaryBiome = ", body)
         self.assertNotIn("tile.swampiness = ", body)
 

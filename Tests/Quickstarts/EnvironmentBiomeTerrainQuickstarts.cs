@@ -3036,6 +3036,11 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     wetlandOutsideCandidateTiles++;
                 }
 
+                // Count every tile, but skip redundant settlement queries.
+                if (preferredWetland.Valid || (!wetland && fallback.Valid))
+                {
+                    continue;
+                }
                 if (!TileFinder.IsValidTileForNewSettlement(tile.tile))
                 {
                     continue;
@@ -3070,10 +3075,16 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " planetCoverage=" + planetCoverage.ToString("F2") +
                 " land=" + landTiles +
                 " wetlandCandidates=" + wetlandCandidates +
+                " candidateShare=" + (landTiles > 0
+                    ? ((float)wetlandCandidates / landTiles).ToString("P2")
+                    : "N/A") +
                 " TemperateSwamp=" + temperateSwampTiles +
                 " ColdBog=" + coldBogTiles +
                 " wetlandShare=" + (landTiles > 0
                     ? ((float)wetlands / landTiles).ToString("P2")
+                    : "N/A") +
+                " wetlandOfCandidates=" + (wetlandCandidates > 0
+                    ? ((float)wetlands / wetlandCandidates).ToString("P2")
                     : "N/A") +
                 " unassigned=" + unassignedLandTiles +
                 " outsideCandidates=" + wetlandOutsideCandidateTiles +

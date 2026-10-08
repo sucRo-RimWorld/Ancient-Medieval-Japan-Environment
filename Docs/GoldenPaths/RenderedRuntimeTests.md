@@ -95,6 +95,14 @@ land share. The ceiling is a regression alarm, not a historical target. The
 new ninth test is **not yet runtime-verified**; a nine-scenario PASS will
 still not establish the final ecological target or approve descriptions.
 
+The natural-world scenario additionally logs candidate share and the
+fraction of wetland candidates actually assigned a retained wetland. The
+complete land scan skips redundant settlement-suitability checks once
+starting-tile choices are resolved. Only this 30%-coverage scenario receives
+a 420-second timeout; the earlier eight retain their existing timeouts. The
+outer isolated-desktop limit remains 1800 seconds. These are safeguards,
+not measured runtime outcomes.
+
 ### Acceptance and follow-up
 
 - Obtain one complete latest-main `run-tests.bat` result with all nine base
