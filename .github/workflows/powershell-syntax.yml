@@ -2,6 +2,7 @@ name: PowerShell syntax validation
 
 on:
   push:
+    branches: [main]
     paths:
       - '**/*.ps1'
       - 'run-tests.bat'
