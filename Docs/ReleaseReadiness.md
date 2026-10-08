@@ -1,5 +1,18 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+## Current candidate status (2026-10-08 JST)
+
+A 32-file pinned candidate from `1d46727102f53243099927b59881091d448dba61`
+passed the author's corrected full nine-map/one-cutting four-profile runtime
+suite (Vanilla/MO 409+15, CCTO/MO+CCTO 457+15, zero runtime ERROR,
+ten reports per profile, unchanged payload and normal config).
+Test-only harness revision `f39914d5bbd02edb90f7c91fe5faaf6e645d86fd`
+did not rebuild candidate bytes. This is **candidate runtime PASS** only.
+Actual author Steam upload, downloaded payload provenance and corresponding
+runtime checks remain unverified, as do the Stable combined-loop/season/save
+criteria. Older evidence below is retained historically.
+
+
 Stable release additionally requires the AMJ combined basic-loop gate defined in
 Core `Docs/ReleaseCriteria.md` (author decision, 2026-10-06 JST). Actual pawn work
 with Core + Environment + real MO, recurring food production, a seasonal cycle

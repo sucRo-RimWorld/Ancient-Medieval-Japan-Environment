@@ -116,8 +116,10 @@ uploads were not assigned retroactive versions.
 4. Run `python Scripts/Run-WorkshopPayloadTests.py --payload EXTRACTED_ROOT
    --manifest Manifest.json --output FRESH_RESULT_DIRECTORY` as the normal user
    in Steam's session. It uses the existing hidden rendered desktop and current
-   independent regression observers. Require six map checks plus native cutting
-   for all four profiles, complete logs, zero errors and unchanged source payload.
+   independent regression observers. Require nine map Quickstarts (including TemperateSwamp, ColdBog and
+   WorldWetlandDistribution) and the 15-assertion native-cutting Quickstart
+   in each of the four profiles: ten complete reports/ten independent Unity
+   error captures per profile, exact counts, zero errors and unchanged payload.
    Candidate tests use a unique fixture ID in About only; all production runtime
    files remain exact. This harness identity difference must be reported.
 5. Immediately before the author's manual upload, enable YADA and Add Changenote,
@@ -166,6 +168,29 @@ reports/full logs, exact retired runtime bytes, real Workshop dependency roots,
 Direct3D and independent error captures before accepting the four-profile union.
 Use `--steam` only with the actual installed Workshop root. Candidate union
 success explicitly does not clear the distributed-release HOLD.
+
+## 2026-10-08 validated current 32-file candidate
+
+The later 32-file candidate from `1d46727102f53243099927b59881091d448dba61`
+has archive SHA256 `a6df959f18a1a72153ba5dfbc196806b646194e452fec2e8f8c71d312635b0f6`.
+The author's final `Summary.json` with harness code through
+`f39914d5bbd02edb90f7c91fe5faaf6e645d86fd` reports full four-profile
+candidate runtime PASS: Vanilla/MO 409 map assertions +15 cutting each,
+CCTO/MO+CCTO 457 map +15 cutting each, ten reports and zero runtime
+errors per profile. `Preservation.json` confirms the original candidate
+and normal game config were unchanged. The author did not provide full
+scenario/Unity logs here for an independent second audit.
+
+Do not rebuild the tested candidate from the later harness commit:
+that would change the production DLL and invalidate same-byte evidence.
+Reuse its extracted root plus external Manifest.json. Before manual upload,
+run `Scripts/Build-WorkshopPayload.py verify`, the subscriber filter
+check and the optional saved-report combiner for independent full-log,
+real dependency-root and source/assembly validation. Select this exact
+root, never the dirty installed development directory. Steam upload
+remains author-manual with YADA and Add Changenote, followed by actual
+downloaded Workshop source/manifest/hash and four-profile verification.
+The 26/28-file candidate records below are historical.
 
 ## Historical 28-file candidate (superseded by subscriber-only policy)
 

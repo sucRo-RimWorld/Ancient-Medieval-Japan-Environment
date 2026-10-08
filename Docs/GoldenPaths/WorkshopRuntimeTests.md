@@ -3,6 +3,40 @@
 Publication provenance and candidate preparation: [WorkshopPublication.md](WorkshopPublication.md).
 The map-only PASS does not clear the current native-cutting release contract.
 
+## 2026-10-08 candidate 32-file full four-profile runtime PASS (author evidence)
+
+The author ran the corrected full nine-map/one-cutting gate against the
+same 32-file candidate from source commit
+`1d46727102f53243099927b59881091d448dba61`,
+archive SHA256 `a6df959f18a1a72153ba5dfbc196806b646194e452fec2e8f8c71d312635b0f6`.
+Only the **test harness** changed through
+`f39914d5bbd02edb90f7c91fe5faaf6e645d86fd`.
+The user supplied the following `Summary.json` values:
+
+| Profile | Map assertions | Native cutting | Runtime ERROR | Reports |
+| --- | ---: | ---: | ---: | ---: |
+| Vanilla | 409/409 | 15/15 | 0 | 10 |
+| MO | 409/409 | 15/15 | 0 | 10 |
+| CCTO | 457/457 | 15/15 | 0 | 10 |
+| MO+CCTO | 457/457 | 15/15 | 0 | 10 |
+
+It also reports `passed=true`, `full_four_profile_gate=true`.
+The supplied `Preservation.json` reports
+`payload_unchanged=true`, `normal_config_unchanged=true`.
+The run's strict origin/profile/Direct3D/log/Unity ERROR/native-output
+validation completed without raising an error. This is **author-provided
+structured evidence**; individual reports and independent Unity capture
+logs were not supplied for a second audit. Saved result location on
+the author's PC is under `%TEMP%/AMJE-Final-20261008-214525`, in
+the new `Runtime-Final-...` directory.
+
+**Result:** candidate runtime gate PASS, Steam publication and actual
+downloaded-distribution proof remain HOLD. For additional independent
+release preflight, use `Combine-WorkshopPayloadResults.py` on the
+finished result directory and verify the actual selected upload root
+against its external manifest. Do not infer stable long-play/save
+coverage or a Steam update.
+
 ## 2026-10-08 release candidate: corrected full-suite report contract
 
 The author built an exact 32-file candidate from

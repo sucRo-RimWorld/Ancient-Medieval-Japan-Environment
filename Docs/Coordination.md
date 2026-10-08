@@ -1,5 +1,17 @@
 # AMJ Environment Coordination
 
+### ENV-WORKSHOP-CANDIDATE-FOUR-PROFILE-PASS-20261008 — current 32-file candidate
+
+**Owner:** Environment Workshop release  
+**Status:** CANDIDATE RUNTIME PASS (author-supplied structured summary); STEAM PUBLICATION/DOWNLOAD NOT VERIFIED; RELEASE HOLD
+
+The author ran the corrected 9-map + 1-cutting release suite in all four profiles against the **same 32-file candidate** built from source commit `1d46727102f53243099927b59881091d448dba61`; its archive SHA256 is `a6df959f18a1a72153ba5dfbc196806b646194e452fec2e8f8c71d312635b0f6`. The test-only harness was corrected through merge `f39914d5bbd02edb90f7c91fe5faaf6e645d86fd`. Author-supplied `Summary.json`: `passed=true`, `full_four_profile_gate=true`; Vanilla409 map/15 cutting, MO409/15, CCTO457/15, MO+CCTO457/15; ten reports and zero runtime errors per profile. Author-supplied `Preservation.json`: `payload_unchanged=true`, `normal_config_unchanged=true`. The old expected-count and omitted-wetland/Unity-report-count failures were in the test harness; the production payload was **not rebuilt**.
+
+Evidence retained on the author's PC in a fresh `%TEMP%/AMJE-Final-20261008-214525/Runtime-Final-...` result directory; full path/individual logs were not provided for independent inspection. The runner's own source/assembly, active-profile, Direct3D, Unity ERROR, cutting, complete-report and immutability gates finished successfully. Re-audit saved logs using `Combine-WorkshopPayloadResults.py`, and verify the exact pinned selected upload root with `Build-WorkshopPayload.py verify` and the subscriber validator before upload. Candidate fixture About name/packageId differed only for testing; the original candidate identity is preserved.
+
+**Steam remains author-manual.** Enable YADA and Add Changenote and select the validated 32-file candidate, never the dirty developer tree. A real downloaded Workshop3814638060 manifest/hash/source/DLL and four-profile runtime check are still required before claiming distributed-release PASS. Stable combined-loop/save-season criteria remain OPEN. Historical 26/28-file candidate records below are not an authorization to upload those obsolete candidates.
+
+
 ### ENV-WORKSHOP-BILINGUAL-CLOSEOUT-20261008 — single-field English/Japanese Workshop copy
 
 **Owner:** Environment public copy and release  
