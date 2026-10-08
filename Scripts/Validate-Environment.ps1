@@ -622,18 +622,29 @@ foreach ($expected in @(
 Pass "AMJE owns a conditional CCTO compatibility layer for its four wild plants"
 
 
-$biomeDefsRawForPlants = Get-Content -LiteralPath $biomeDefsPath -Raw
-foreach ($expected in @(
-    '<AMJ_Tree_Shii>2.0</AMJ_Tree_Shii>',
-    '<AMJ_Tree_Beech>1.8</AMJ_Tree_Beech>',
-    '<AMJ_Tree_Shirabiso>2.6</AMJ_Tree_Shirabiso>',
-    '<AMJ_Shrub_Haimatsu>1.3</AMJ_Shrub_Haimatsu>'
-)) {
-    if (-not $biomeDefsRawForPlants.Contains($expected)) {
-        Fail "AMJ biome wild-plant composition is missing expected marker: $expected"
+# Pin accepted post-retention-audit commonalities to their owning biomes,
+# rather than searching for old literal XML fragments anywhere in the file.
+$structuralPlantCommonality = @(
+    @{ Biome = 'AMJ_WarmTemperateForest'; Plant = 'AMJ_Tree_Shii'; Commonality = 2.55 },
+    @{ Biome = 'AMJ_CoolTemperateForest'; Plant = 'AMJ_Tree_Beech'; Commonality = 1.8 },
+    @{ Biome = 'AMJ_SubalpineForest'; Plant = 'AMJ_Tree_Shirabiso'; Commonality = 3.5 },
+    @{ Biome = 'AMJ_AlpineZone'; Plant = 'AMJ_Shrub_Haimatsu'; Commonality = 1.34 }
+)
+foreach ($entry in $structuralPlantCommonality) {
+    $xpath = "/Defs/BiomeDef[defName='$($entry.Biome)']/wildPlants/$($entry.Plant)"
+    $nodes = @($biomeDefs.SelectNodes($xpath))
+    if ($nodes.Count -ne 1) {
+        Fail "AMJ biome $($entry.Biome) must contain exactly one $($entry.Plant) wild-plant entry (found $($nodes.Count))."
+    }
+    $actual = [double]::Parse(
+        $nodes[0].InnerText,
+        [System.Globalization.CultureInfo]::InvariantCulture
+    )
+    if ([Math]::Abs($actual - [double]$entry.Commonality) -gt 0.000001) {
+        Fail "AMJ biome $($entry.Biome) plant $($entry.Plant) commonality mismatch: expected $($entry.Commonality), actual $actual."
     }
 }
-Pass "Japan-specific structural plants are wired into their target biomes"
+Pass "Japan-specific structural plants match the approved biome-specific commonalities"
 
 $wildPlantJaPath = Join-Path $RepoRoot "Languages\Japanese\DefInjected\ThingDef\AMJ_WildPlants.xml"
 if (-not (Test-Path $wildPlantJaPath)) {
