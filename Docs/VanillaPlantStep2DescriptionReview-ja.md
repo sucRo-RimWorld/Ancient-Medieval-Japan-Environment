@@ -91,6 +91,24 @@
 
 **留保：** 現代の河川改修後の分布を古代・中世の植生と直接同一視しない。
 
+## 湿地に残る樹木の追加照合（2026-10-08、分布変更は未決定）
+
+**監査対象:** `TemperateSwamp` の Willow 2.00 / Maple 1.00、および `ColdBog` の Willow / Birch / Maple 各 0.60。これは現在の `Patches/VanillaWetlandVegetation.xml` の数値であり、湿原中心部に各樹木が均一に生育するという史実上の主張ではない。Biome 全体の `wildPlants` は、河岸・微高地・林縁などの立地差を種別に指定する表ではない。
+
+- **Willow:** 日本の河川沿いで冠水しやすい岸辺や湿った河岸にヤナギ類の林が成立する。湿地・河畔を表すVanilla代理として残す積極的根拠がある。ただし高層湿原中心部の代表樹種にはしない。
+- **Maple:** 日本の北方河川にはエゾイタヤ等を含む河畔の広葉樹林があり、湿地に隣接する沢沿い・比較的乾いた場所の代理としては扱える。ただし `ColdBog` の高層湿原や泥炭地全面をカエデ林と見なす根拠はない。採用量と出現位置の妥当性は実機地形サンプルとStep 3植生追加時に再評価する。
+- **Birch:** シラカバ・ダケカンバ等は冷涼な湿原に隣接する林や孤立林の代理にはなるが、日本の低層湿原で重要な**ハンノキ（Alnus）**そのものではない。Vanilla Birchをハンノキの同種代理として説明したり、樹木commonality保全だけで湿地植生の完成と見なしたりしない。
+- **不足種:** 低層湿原ではヨシ・スゲ・ハンノキ、高層湿原ではミズゴケ等が重要。これらは既定のStep 3追加候補であり、既存Vanilla樹木による完全な再現を主張しない。河岸、湿原縁辺、湿原中心部の差は後続の植生設計で扱う。
+
+**暫定判断:** 上記は既存の「残す理由」の範囲・限界を明確化する調査記録であり、今の段階で植物の除外・commonality再配分・植林候補変更・説明文承認・リテクスチャ着手を決めるものではない。特に現行Wetlandの木本commonality保全（TemperateSwamp 3.00 / ColdBog 1.80）と、追加候補のAlnus等との両立を、将来の変更時に同時検討する。
+
+追加参照（現在の植生から過去の全時期への直接外挿はしない）:
+- 環境省・釧路湿原自然再生「湿原と植生概要」 https://kushirodata-center.env.go.jp/wetland/wetland_article2_9.html
+- 環境省「赤名湿原」（ハンノキ・スゲ） https://www.env.go.jp/nature/important_wetland/wetland/w376.html
+- 環境省・サロベツ周辺の林縁と湿原環境 https://hokkaido.env.go.jp/blog/rishiri/a-wakkanai/index_15.html
+- 国土交通省・荒川のヤナギ林 https://www.ktr.mlit.go.jp/arajo/arajo00046.html
+- 国土交通省・渚滑川の河畔林 https://www.mlit.go.jp/river/toukei_chousa/kasen/jiten/nihon_kawa/0101_shokotsu/0101_shokotsu_04.html
+
 ## 原典・参照資料
 
 - 農林水産省：竹の種類と由来 https://www.maff.go.jp/j/pr/aff/2103/spe1_01.html
