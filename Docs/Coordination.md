@@ -1,5 +1,16 @@
 # AMJ Environment Coordination
 
+### ENV-WETLAND-NATURAL-DISTRIBUTION-002 — independent natural-world wetland gate (2026-10-08 JST)
+
+**Owner:** Environment / world distribution test  
+**Status:** IN PROGRESS — [draft PR #27](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/27) static checks PASS; installed-RimWorld 9-scenario run PENDING
+
+- Draft PR #27, commit `ae2611ba2296fbbe38aa754351d9e4d86c6ccb57`, adds `AMJWorldWetlandDistributionQuickstart` to the standalone standard suite, increasing base coverage from eight to nine scenarios. The existing eight remain unchanged.
+- The test generates a 30%-coverage world with deterministic seed, **never forces a biome**, counts actual `TemperateSwamp` / `ColdBog` against `swampiness>=0.5` candidates, and verifies at least one naturally selected wetland settlement tile. A 20% land-share ceiling is a deliberately broad regression alarm, **not** an approved historical ecological target.
+- All five PR checks (two PowerShell, tree-sowing contract, plant visual coverage, Workshop payload) returned **SUCCESS**. These are static/infrastructure results, not installed RimWorld runtime evidence.
+- **Do not merge solely on static CI.** The first fresh `run-tests.bat` on the candidate branch must record 9/9 standalone scenarios, complete untruncated per-scenario reports and zero pre-launch/runtime owned ERROR. If the new world has no swampiness candidates or no natural wetlands, investigate the actual world-generation/swampiness handling before proposing fixes or weakening the assertion. Distinct four-profile matrix remains open.
+- Confirmed design/test intent belongs to `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` and `Docs/GoldenPaths/RenderedRuntimeTests.md` in that PR. `ENV-WETLAND-BIOME-001` remains OPEN; Japanese-first wetland descriptions still await approval.
+
 ### TEST-ENV-UNIFIED-20261008 — unify parallel AMJE test and wetland development tracks
 
 **Requested by:** author (2026-10-08 JST)  
