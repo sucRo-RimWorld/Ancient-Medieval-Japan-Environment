@@ -37,13 +37,12 @@ def combine(payload, manifest_path, results, output, game, steam):
             expected_ids = set(required) | {'ludeon.rimworld', 'sucro.amje.payloadgateerrors', 'sucro.amje.payloadgateobserver',
                                          'sucro.ancientmedievaljapan.environment' if steam else 'sucro.ancientmedievaljapan.environment.releasevalidation'}
             evidence = []
-            for folder, scenarios, totals in [('Reports-' + mode, gate.SCENARIOS, counts), ('Harvest-' + mode, gate.SCENARIOS[:1], [9])]:
+            for folder, scenarios, totals in [('Reports-' + mode, gate.SCENARIOS, counts), ('Harvest-' + mode, gate.SCENARIOS[:1], [gate.CUTTING_ASSERTIONS])]:
                 for scenario, total in zip(scenarios, totals):
                     name = 'Workshop_AMJ' + scenario + 'Quickstart'
                     path = result / folder / (name + '.json')
                     data = json.loads(path.read_text(encoding='utf-8-sig'))
-                    if not data['passed'] or data['total'] != total or data['failed'] or data['preLaunchErrors'] or data.get('logErrors', 0) or not data['captureLive'] or data['logTruncated']:
-                        raise ValueError('Incomplete report: ' + str(path))
+                    gate.validate_report(data, total, name)
                     log = path.with_suffix('.log').read_text(encoding='utf-8-sig')
                     if '[AMJE WorkshopSourceAudit] PASS sourceRoot=' + str(selected) not in log or 'Version:  Direct3D 11.0' not in log or '-nographics' in log or re.search(r'\[ERROR\]|Level:\s*ERROR', log):
                         raise ValueError('Source/render/error failure: ' + str(path))
@@ -59,9 +58,9 @@ def combine(payload, manifest_path, results, output, game, steam):
                         raise ValueError('Native output evidence missing')
                     evidence.append(str(path))
             errors = list((result / ('Errors-' + mode)).glob('Unity-*.log'))
-            if len(errors) != 7 or any('[CAPTURE_READY]' not in p.read_text() or '[ERROR]' in p.read_text() for p in errors):
+            if len(errors) != gate.REPORTS_PER_PROFILE or any('[CAPTURE_READY]' not in p.read_text() or '[ERROR]' in p.read_text() for p in errors):
                 raise ValueError('Independent error evidence incomplete')
-            profiles[mode] = {'map_assertions': sum(counts), 'native_cutting_assertions': 9, 'runtime_errors': 0, 'reports': evidence}
+            profiles[mode] = {'map_assertions': sum(counts), 'native_cutting_assertions': gate.CUTTING_ASSERTIONS, 'runtime_errors': 0, 'reports': evidence}
     if set(profiles) != set(gate.PROFILES):
         raise ValueError('Four fully completed profiles required')
     report = {'passed': True, 'source': 'actual downloaded Workshop' if steam else 'candidate with About-only fixture identity',

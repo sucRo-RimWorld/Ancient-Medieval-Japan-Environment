@@ -3,37 +3,48 @@
 Publication provenance and candidate preparation: [WorkshopPublication.md](WorkshopPublication.md).
 The map-only PASS does not clear the current native-cutting release contract.
 
-## 2026-10-08 candidate: updated strict Quickstart assertion counts
+## 2026-10-08 release candidate: corrected full-suite report contract
 
-The author built a 32-file candidate from
-`1d46727102f53243099927b59881091d448dba61`. The first Vanilla
-WarmTemperate JSON reports 80/80 PASS, zero failures/pre-launch/log errors,
-complete capture, no truncation; its hidden desktop runner exited zero. The
-outer gate rejected this passing report because it expected the historical
-58 assertions, not the current source's 80. This is a test harness
-count mismatch; it is **not** a four-profile PASS.
+The author built an exact 32-file candidate from
+`1d46727102f53243099927b59881091d448dba61`.
+Its first Vanilla WarmTemperate report was 80/80 PASS, not the obsolete
+58-case contract. The rerun produced a fully passing Alpine 70/70 report,
+not the obsolete 68-case contract. The author supplied a summary of all
+**nine** Vanilla map reports plus a single cutting report, all `passed=true`,
+zero failed/pre-launch/log errors and complete untruncated capture.
+The six-map publication validator omitted three wetland/world scenarios
+which its unfocused PowerShell suite actually ran. It also expected
+seven independent Unity error logs though ten scenarios were executed.
 
-Strict current-source expected map assertion counts:
+Revised, strict current-source requirements:
 
-| Mode | Warm | Cool | Subalpine | Alpine | River | Coast | Map total | Native cutting |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Vanilla / MO | 80 | 73 | 70 | 68 | 3 | 3 | 297 | 9 |
-| CCTO / MO+CCTO | 92 | 85 | 82 | 80 | 3 | 3 | 345 | 9 |
+| Profile | Warm | Cool | Subalpine | Alpine | Swamp | Bog | World wetlands | River | Coast | Map total | Cutting | Reports |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Vanilla / MO | 80 | 73 | 70 | 70 | 50 | 53 | 7 | 3 | 3 | 409 | 15 | 10 |
+| CCTO / MO+CCTO | 92 | 85 | 82 | 82 | 50 | 53 | 7 | 3 | 3 | 457 | 15 | 10 |
 
-Compared with the historical 58/57/54/52 baseline, the current source
-runs 16 new tree-sowing checks in each forest biome and six additional
-approved EN/JA descriptions in WarmTemperate. CCTO adds 12 temperature
-checks in each forest biome. Both the runtime gate and the saved-log
-combination gate enforce the same **exact counts**, alongside the original
-source/provenance, Direct3D, required mod membership, independent Unity
-ERROR, full-log and four-native-cutting gates. The current test suite
-locks these values to the corresponding Quickstart assertions.
+Alpine gains two new excluded-plant checks compared with the older
+contract. The warm subclass Verify() appends six approved EN/JA tree-description
+assertions even to its cutting-only result (9+6=15). The two Vanilla wetland
+Quickstarts disable the AMJ-specific CCTO assertion branch; CCTO adds 12
+assertions to each AMJ forest biome.
 
-Only WarmTemperate Vanilla 80/80 has new user-provided runtime evidence;
-the other expected totals are statically derived and **await the new
-runtime matrix**. Preserve earlier reports and candidate bytes, and use
-a fresh result directory for a rerun after the test-only source repair.
-No actual Steam Workshop update/download is claimed.
+Both release runner and offline combination gate now validate all ten
+reports with **exact** assertions, correct scenario identity, each passing
+assertion, complete live capture and zero reported errors/timeouts. Existing
+game/DLL/Def origin and active-Mod checks, Direct3D, four native cutting
+output rows, full structured and independent Unity ERROR checks,
+and source/config immutability remain required. The test contract is
+regressed against current C# sowing/description/Alpine exclusion source
+and all nine names from the PowerShell default runner, plus negative
+missing/error/truncated/incorrect-count fixtures.
+
+**Evidence limit:** current Vanilla reports are user-reported; full runtime
+logs and independent captured Unity files were not independently inspected,
+and MO/CCTO/MO+CCTO have not passed a refreshed full suite. The unchanged
+candidate can be reused with newly corrected test tools. Publication gate
+is HOLD until complete runtime validation. Actual Steam update/download
+validation is a separate gate and is not claimed.
 
 ## 2026-10-06/07 JST result
 
