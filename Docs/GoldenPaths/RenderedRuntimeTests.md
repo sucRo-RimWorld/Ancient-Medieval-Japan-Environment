@@ -72,7 +72,7 @@ growing-zone sowing options. That assertion is now corrected in main.
 Neither historical failure is evidence that the latest main still fails;
 neither can be turned into a PASS without rerunning it.
 
-### Wetland descriptions — Japanese approved, new test pending (2026-10-08)
+### Wetland descriptions — Japanese approved, author-reported runtime PASS (2026-10-08)
 
 The author approved the revised Japanese `TemperateSwamp` and `ColdBog`
 descriptions. The approved text is in `Docs/VanillaWetlandBiomeAudit-ja.md`,
@@ -84,10 +84,13 @@ unchanged. `Tests/test_wetland_ecology_contract.py` checks both languages and
 the exact patch scope, while each wetland Quickstart now validates the loaded
 description in English or Japanese.
 
-The previously author-reported nine-scenario PASS **predates these new
-description assertions**. It cannot be used as the runtime PASS for the new
-description gate. A fresh installed-game `run-tests.bat` run is still needed;
-the separate four-profile MO/CCTO matrix also remains open.
+The author separately reported that the newly updated runtime test PASSED
+on 2026-10-08, after the description assertions were added to PR #28. This is
+**author-reported PASS**, distinct from the older PR #27 nine-scenario result.
+No new `.json` or `.log` files were attached: individual assertion counts,
+complete capture and zero-owned-ERROR status have not been independently
+inspected. The four-profile Vanilla/MO/CCTO/MO+CCTO release matrix is still
+open and must not be inferred from the author's report.
 
 ### What the standard runner currently proves
 
@@ -134,8 +137,10 @@ not measured runtime outcomes.
 - Validate world-level wetland frequency after the ecology/vegetation
   changes; the original Vanilla wetland Worker and terrain generation
   continue to be reused.
-- Keep `ENV-WETLAND-BIOME-001` and the vegetation Step 1 closeout open until
-  runtime/world-share gates and approved bilingual descriptions are complete.
+- The new wetland descriptions have author approval and a reported runtime
+  PASS. Reconcile the remaining vegetation Step 1 closure requirements,
+  distinguishing this test acceptance from unaudited wetland share values and
+  the separate four-profile release matrix.
 
 The detailed regional sowing assertions and their safe research/zone probe
 are documented in [PlantSowingTests.md](PlantSowingTests.md). Wetland

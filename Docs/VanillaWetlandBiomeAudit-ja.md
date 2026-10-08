@@ -249,15 +249,15 @@ English:
 
 > A wetland found across cooler regions. Grasses and mosses grow alongside scattered stands of willow and birch trees. The waterlogged ground readily turns muddy, making travel and construction difficult.
 
-**実装と検証:** 両英文の `/Defs/BiomeDef[defName="..."]/description` のみをPatchOperationReplaceし、日本語は同一DefNameの `.description` DefInjectedで置換する。BiomeのWorker、名称、湿地地形・動植物・天候・病気には影響させない。`Tests/test_wetland_ecology_contract.py` でXML/日英本文/変更対象を固定し、両湿地Quickstartのロード済み `BiomeDef.description` が日本語または英語の承認本文と一致することを回帰確認する。**実装変更後の実機テストは未実施**。先行する9シナリオPASS報告は旧説明構成の結果であり、この追加アサーションのPASSとは扱わない。
+**実装と検証:** 両英文の `/Defs/BiomeDef[defName="..."]/description` のみをPatchOperationReplaceし、日本語は同一DefNameの `.description` DefInjectedで置換する。BiomeのWorker、名称、湿地地形・動植物・天候・病気には影響させない。`Tests/test_wetland_ecology_contract.py` でXML/日英本文/変更対象を固定し、両湿地Quickstartのロード済み `BiomeDef.description` が日本語または英語の承認本文と一致することを回帰確認する。**実装変更後の実機テストは2026-10-08に作者報告PASS**。先行するPR #27の9シナリオPASSとは独立の報告として記録する。対応するログ・JSONは未添付のため、個別アサーション数・ログ完全性・起動前/実行時ERRORゼロを独立監査したものとは扱わない。
 
 ### 残る完了判定
 
 - `Tests/test_wetland_ecology_contract.py` が静的Patch構造・内容を確認する。
 - 両湿地Quickstartは、ロード済みwildAnimals/diseases/weather、pack animal、疾病MTB、Vanilla湿地地形生成を検証する。
 - 非表示の実描画テストは `run-tests.bat` が標準入口。
-- 従前の自然分布テストは作者報告PASS（詳細ログ未受領）。今回追加した説明文のロード済み検証は、実機再実行までPENDING。
-- 日本語本文承認・日英XML同期は実装対象として確定した。変更後の説明文Quickstart PASSと残るStep 1全体の整合監査を確認するまでStep 1を完全完了扱いにしない。
+- 従前の自然分布テスト（PR #27）と、今回追加したロード済み説明文の実機テスト（PR #28）はいずれも作者報告PASS。両方とも詳細ログ・JSONは未受領のため、実測値・ERROR検証結果の独立監査は未完了。
+- 日本語本文承認・日英XML同期・ロード済み説明文Quickstartの作者報告PASSは揃った。Step 1の残存項目を既存の実装・自然分布・動植物・地形テストと照合し、独立監査が必要な範囲を明示して閉鎖判定する。4構成のMO/CCTO統合試験は別のリリースゲート。
 
 
 ## 自然生成世界の湿地分布ゲート（2026-10-08、作者による実機PASS報告あり）
