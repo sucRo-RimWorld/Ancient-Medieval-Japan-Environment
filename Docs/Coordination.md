@@ -1519,6 +1519,8 @@ Actual Steam / 2game publication is still author-manual and is not claimed here.
 
 The plant-pool retention/removal pass is complete, but the broader vegetation-roadmap Step 1 is **not closed yet**. Whole-Biome audit PR #18 / squash merge `34fce92e5b6bf6da24e38355e475623ada664d66` found that retained Vanilla `TemperateSwamp` / `ColdBog` still reintroduce non-Japan wildlife and carry unreviewed Vanilla disease/weather/description bundles. Wild Healroot remains intentionally temporary. Step 1 completion now requires the wetland bundle corrections and their runtime/static gate before description/retexture work begins.
 
+**2026-10-08 structural-plant static-gate repair:** PR #20 / squash merge `1cc69585dd08cff71786548848c753a7ca01c99a` corrected `Scripts/Validate-Environment.ps1` after the accepted Phase 2–4 rebalances. The old Shii 2.0 / Shirabiso 2.6 / Haimatsu 1.3 raw markers incorrectly rejected current XML values 2.55 / 3.5 / 1.34. The validator now checks all four structural plants in their own BiomeDefs with approved commonalities, and CI runs `Tests/test_structural_plant_commonality.py` to catch future drift. PR checks passed (PowerShell syntax, Workshop payload, Plant visual coverage). No production Def/XML balance or new RimWorld runtime test result changed; wetland Step 1 completion remains pending.
+
 ### COORD-PRIORITY-001 — Supersede stale Beta-first vegetation handoff (2026-10-08 JST)
 
 **Requested by:** author
