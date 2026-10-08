@@ -949,7 +949,9 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 ### 11.5.9 Vanilla残存植物 Step 2監査
 
-現行の6Biomeに含まれるVanilla樹木6種とgeneric植物7種の採用状態を再点検し、日本語説明の未承認草案と歴史資料を`Docs/VanillaPlantStep2DescriptionReview-ja.md` に記録した。竹は江戸期のモウソウチクへ一律に同定しない。マツ二次林の歴史的な存在を全自然林への分布根拠にしない。**竹の日本語説明のみ作者承認済み**（2026-10-08）。承認本文に対応する英語の `ThingDef.description` Patch・日本語DefInjected・ロード済み説明文検証を追加した。残る5樹木は未承認であり、英訳・ゲーム内説明は変更しない。Biome・植林・ゲームプレイ・画像は変更しない。竹の説明文検証を追加した版について、2026-10-08に作者が提供した隔離実行ログ末尾に`[OK] Environment runtime gate passed.`、`[OK] AMJ Core + Environment gameplay-contract Quickstarts passed.`、AMJ由来ERRORなしが記録されている。これを**ランタイムゲート作者提供ログPASS**とするが、暖温帯の個別JSON・完全ログは未取得であり、個別アサーション数・正確な実行ソースSHAは独立監査済みとは扱わない。既存樹木のリテクスチャは引き続き保留する。
+現行の6Biomeに含まれるVanilla樹木6種とgeneric植物7種の採用状態を再点検し、日本語説明と歴史資料を`Docs/VanillaPlantStep2DescriptionReview-ja.md` に記録した。竹は江戸期のモウソウチクへ一律に同定しない。マツ二次林の歴史的な存在を全自然林への分布根拠にしない。**6樹木すべての日本語本文を2026-10-08に作者承認済み**。既存のAMJE代表樹木4種は3段落構成、今回のVanilla樹木6種は2段落構成だが、いずれも名前・分布・歴史的な利用または景観・現代との差異（裏付け可能な場合）の共通順序を保持する。Birch/Willowは裏付けのない中世利用を加えず景観文脈に留める。改行はXMLリテラル `\\n\\n` に統一する。
+
+竹の英語 `ThingDef.description` Patch・日本語DefInjected・ロード済み検証に加え、楓・楢・樺・松・柳の英訳／同じ説明限定Patch／日本語DefInjected／Quickstartロード後アサーションを追加する。Vanillaのラベル、Biome・自然分布、植林、ゲームプレイ、画像は変更しない。竹を追加した版については作者提供の隔離実行ログに `[OK] Environment runtime gate passed.` とAMJ由来ERRORなしが確認されているが、**今回の追加5樹木の実機ロード後PASSを意味しない**。新しい `run-tests.bat` のランタイムゲートと独立した4構成統合試験は未完了であり、既存樹木のリテクスチャは引き続き保留する。
 
 ## 12. Seasonal scenery baseline
 
