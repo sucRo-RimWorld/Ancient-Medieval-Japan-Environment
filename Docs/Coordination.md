@@ -1,5 +1,13 @@
 # AMJ Environment Coordination
 
+### ENV-STOMACH-ANTHELMINTIC-EXCEPTION-20261008
+
+**Owner:** Environment / historical herb research  
+**Status:** SINGLE-USE CANDIDATES ALLOWED; historical transcription leads identified; adoption OPEN
+
+Author allows stomach-medicine and anthelmintic candidates even without other uses. Formal selection exception is section 8.2 and research detail 10.4 in `Docs/NativeVegetationStep3Design-ja.md`. Ishimpo volume 7 online transcription identifies Kaya-seed, Ai, Ren-root and Yoku-i-root leads; original scans/critical editions, species identity and medieval Japanese commoner use remain unverified. Do not add indications to approved Yomogi text or claim new medicine/plant runtime implementation. Senburi remains the focused medieval stomach-medicine research candidate.
+
+
 ### ENV-COMMONER-HERB-AUDIT-20261008 — ordinary people's use
 
 **Owner:** Environment / herb selection research  
