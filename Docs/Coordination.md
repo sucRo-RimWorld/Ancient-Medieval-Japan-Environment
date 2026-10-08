@@ -1,5 +1,15 @@
 # AMJ Environment Coordination
 
+### ENV-STEAM-CHANGE-NOTES-20261008 — author confirmation
+
+**Owner:** Environment release/publication
+**Status:** STEAM CHANGE NOTES VISIBLE (author-confirmed); SUBSCRIBER PAYLOAD IDENTITY/RUNTIME STILL HOLD
+
+The author confirmed on 2026-10-08 JST that the prepared update history appeared in Steam Workshop Change Notes for the current Environment update. This provides **author-reported live Steam UI evidence** that the Add Changenote publication pathway produced the intended type of update entry on this occasion; unlike earlier publication history, it was not only auto-generated boilerplate. The text was prepared in `About/Changelog.txt` using matching `0.1.0` About/Manifest/version metadata. Exact Steam entry wording and the Steam log were not independently supplied here. Steam-side description and gallery were not separately confirmed.
+
+Do not conflate successful Change Notes display with exact uploaded game files: the current 32-file candidate from `1d46727102f53243099927b59881091d448dba61` and archive `a6df959f18a1a72153ba5dfbc196806b646194e452fec2e8f8c71d312635b0f6` passed four-profile prepublication tests and a 40-report saved-log audit, but a **fresh actual Steam download inventory, candidate-manifest comparison, source/DLL proof and downloaded-root four-profile gate** have not yet been provided. Distributed release HOLD remains for these checks. No further upload or gameplay edits are authorized by this note.
+
+
 ### ENV-WORKSHOP-CANDIDATE-FOUR-PROFILE-PASS-20261008 — current 32-file candidate
 
 **Owner:** Environment Workshop release  
