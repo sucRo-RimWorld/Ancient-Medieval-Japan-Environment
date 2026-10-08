@@ -29,7 +29,7 @@ def combine(payload, manifest_path, results, output, game, steam):
                 raise ValueError('Retired fixture runtime bytes differ from publication payload')
         for mode in summary['profiles']:
             if mode not in gate.PROFILES: raise ValueError('Unknown profile')
-            counts = [70, 69, 66, 64, 3, 3] if 'CCTO' in mode else [58, 57, 54, 52, 3, 3]
+            counts = gate.expected_map_assertions(mode)
             required = dict(dependencies)
             if mode.startswith('MO'):
                 required.update({'dankpyon.medieval.overhaul': '3219596926', 'oskarpotocki.vanillafactionsexpanded.core': '2023507013', 'syrchalis.processor.framework': '3210544395'})

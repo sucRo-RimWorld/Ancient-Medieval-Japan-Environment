@@ -1,5 +1,6 @@
 """Reject the observed wrong-root/exclusion/mutation publication failures."""
 import importlib.util
+import re
 import json
 from pathlib import Path
 import tempfile
@@ -21,6 +22,58 @@ def fixture():
 
 
 class GateTests(unittest.TestCase):
+    def test_four_profile_assertion_counts_track_current_quickstarts(self):
+        # The author's October 8 Vanilla WarmTemperate runtime report is 80/80.
+        # Keep exact expected totals rather than blindly accepting extra cases.
+        spec = importlib.util.spec_from_file_location(
+            'gate', payload.ROOT / 'Scripts/Run-WorkshopPayloadTests.py')
+        gate = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(gate)
+        quickstarts = (payload.ROOT / 'Tests/Quickstarts/'
+                       'EnvironmentBiomeTerrainQuickstarts.cs').read_text(
+                           encoding='utf-8-sig')
+
+        sowing = quickstarts.split(
+            'private static void AddTreeSowingAssertions(', 1)[1].split(
+            'private static void AddHarvestOutputAssertions(', 1)[0]
+        ordinary = sowing.split('string[] ordinaryTrees = {', 1)[1].split(
+            '};', 1)[0]
+        ordinary_count = len(re.findall(r'"[^"]+"', ordinary))
+        sowing_assertions = sowing.count('verification.Assert(') - 1 + ordinary_count
+        self.assertEqual(ordinary_count, 9)
+        self.assertEqual(sowing_assertions, 16)
+
+        warm = quickstarts.split(
+            'public sealed class AMJWarmTemperateTerrainQuickstart :', 1)[1].split(
+            'public sealed class AMJCoolTemperateTerrainQuickstart :', 1)[0]
+        warm_descriptions = (
+            warm.count('AssertApprovedVanillaTreeDescription(result,') +
+            warm.count('result.Assert("Plant_TreeBamboo has approved EN/JA description"'))
+        self.assertEqual(warm_descriptions, 6)
+
+        base_previous = (58, 57, 54, 52, 3, 3)
+        ccto_previous = (70, 69, 66, 64, 3, 3)
+        increments = (sowing_assertions + warm_descriptions,
+                      sowing_assertions, sowing_assertions, sowing_assertions, 0, 0)
+        expected_base = tuple(a + b for a, b in zip(base_previous, increments))
+        expected_ccto = tuple(a + b for a, b in zip(ccto_previous, increments))
+        self.assertEqual(expected_base, (80, 73, 70, 68, 3, 3))
+        self.assertEqual(expected_ccto, (92, 85, 82, 80, 3, 3))
+        self.assertEqual(gate.MAP_ASSERTIONS_BASE, expected_base)
+        self.assertEqual(gate.MAP_ASSERTIONS_CCTO, expected_ccto)
+        for profile in gate.PROFILES:
+            expected = expected_ccto if 'CCTO' in profile else expected_base
+            self.assertEqual(gate.expected_map_assertions(profile), expected)
+        with self.assertRaisesRegex(ValueError, 'Unknown release profile'):
+            gate.expected_map_assertions('unknown')
+
+        combiner = (payload.ROOT / 'Scripts/Combine-WorkshopPayloadResults.py').read_text(
+            encoding='utf-8')
+        self.assertIn('counts = gate.expected_map_assertions(mode)', combiner)
+        self.assertIn('counts = expected_map_assertions(mode)',
+                      (payload.ROOT / 'Scripts/Run-WorkshopPayloadTests.py').read_text(
+                          encoding='utf-8'))
+
     def test_old_root_with_fixed_nested_copy_is_rejected(self):
         data = fixture()
         data['Defs/ThingDefs_Plants/AMJ_WildPlants.xml'] = data['Defs/ThingDefs_Plants/AMJ_WildPlants.xml'].replace(b'<harvestYield>8</harvestYield>', b'')
