@@ -76,6 +76,8 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertIn('--skip-static', self.isolated)
         self.assertNotIn('-nographics', self.isolated)
         self.assertNotIn('SwitchDesktop', self.isolated)
+        self.assertIn('Manage-EnvironmentQuicktestFixture.py', self.isolated)
+        self.assertIn('cleanup --game $RimWorldRoot', self.isolated)
 
     def test_highland_climate_sampling_keeps_full_gradient_gate(self):
         climate = self.climate_diagnostics
