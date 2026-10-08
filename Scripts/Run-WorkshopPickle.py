@@ -164,6 +164,7 @@ def run(payload, manifest, output, game):
                              encoding="ascii")
             env = os.environ.copy()
             env["AMJE_EXPECTED_PAYLOAD_ROOT"] = str(payload)
+            env["AMJE_EXPECTED_PROFILE"] = profile
             env["RIMWORLD_AMJE_ERROR_DIRECTORY"] = str(errors)
             with runner_log.open("w", encoding="utf-8") as log:
                 invoke([desktop, batch, ROOT], env=env, stdout=log,

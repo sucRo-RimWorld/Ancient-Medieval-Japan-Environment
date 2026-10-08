@@ -14,17 +14,17 @@ Manifest.json. Close the ordinary game normally before automated runs.
 Run from the Environment repository on Windows, with Steam, Pickle,
 RimLogging, Harmony, and optional installed MO/CCTO dependencies:
 
-\`\`\`powershell
+```powershell
 $release = "C:\Users\sucRo\AppData\Local\Temp\AMJE-Final-20261008-214525"
 $steam = "D:\SteamLibrary\steamapps\workshop\content\294100\3814638060"
 $pickleRun = Join-Path $release ("Steam-Pickle-" + (Get-Date -Format "yyyyMMdd-HHmmss"))
 py .\Scripts\Run-WorkshopPickle.py --payload $steam --manifest "$release\Manifest.json" --output $pickleRun
 if ($LASTEXITCODE -ne 0) { throw "Pickle test failed or was blocked" }
 Get-Content "$pickleRun\SteamPickleSummary.json" -Raw -Encoding UTF8
-\`\`\`
+```
 
 The test runner stages a temporary test-only Mod under
-\`RimWorld/Mods/AMJE.WorkshopPickleAudit\` and a separate early Unity
+`RimWorld/Mods/AMJE.WorkshopPickleAudit` and a separate early Unity
 error-capture observer, compiles Pickle Steps from source, and uses the
 existing isolated desktop launcher. It does not write to the Steam
 Workshop installation or the normal ModsConfig/Prefs. Fixtures are
@@ -41,7 +41,7 @@ not new world-generation, tree growth, graphics or actual native cutting
 jobs.
 
 Pickle does not replace the existing full 40-report Quickstarts rendered
-world/river/coast/native-cutting gate. \`steam_release_cleared=false\` in
+world/river/coast/native-cutting gate. `steam_release_cleared=false` in
 the Pickle summary is deliberate until all owner publication gates
 have passed. An already running game is a preflight blocker, not a
 mod/gameplay failure; do not inspect nonexistent report folders.

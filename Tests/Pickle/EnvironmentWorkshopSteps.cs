@@ -57,6 +57,20 @@ namespace AMJE.WorkshopPickle
         {
             string expected = Environment.GetEnvironmentVariable("AMJE_EXPECTED_PAYLOAD_ROOT");
             ctx.Assert(!String.IsNullOrEmpty(expected), "Missing pinned Steam root environment variable");
+            string profile = Environment.GetEnvironmentVariable("AMJE_EXPECTED_PROFILE");
+            bool requiresMO = profile == "MO" || profile == "MO-CCTO";
+            bool requiresCCTO = profile == "CCTO" || profile == "MO-CCTO";
+            bool loadedMO = LoadedModManager.RunningModsListForReading.Any(m =>
+                m.PackageIdPlayerFacing.StartsWith("dankpyon.medieval.overhaul",
+                    StringComparison.OrdinalIgnoreCase));
+            bool loadedCCTO = LoadedModManager.RunningModsListForReading.Any(m =>
+                m.PackageIdPlayerFacing.StartsWith("sucro.cropcoldtoleranceoverhaul",
+                    StringComparison.OrdinalIgnoreCase));
+            ctx.Assert(profile == "Vanilla" || profile == "MO" ||
+                       profile == "CCTO" || profile == "MO-CCTO",
+                       "Unknown expected Pickle profile");
+            ctx.Assert(loadedMO == requiresMO, "Incorrect MO active state in " + profile);
+            ctx.Assert(loadedCCTO == requiresCCTO, "Incorrect CCTO active state in " + profile);
             ModContentPack mod = FindSteamMod();
             ctx.Assert(SameRoot(mod.RootDir, expected), "Loaded Environment root is not the downloaded Workshop root");
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies()

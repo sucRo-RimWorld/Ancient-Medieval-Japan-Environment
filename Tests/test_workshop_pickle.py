@@ -24,6 +24,8 @@ class WorkshopPickleTests(unittest.TestCase):
             self.assertIn('[Then("' + sentence + '")]', steps)
         self.assertEqual(features.count("  Scenario:"), 5)
         self.assertIn("AMJE_EXPECTED_PAYLOAD_ROOT", steps)
+        self.assertIn("AMJE_EXPECTED_PROFILE", steps)
+        self.assertIn("AMJE_EXPECTED_PROFILE", (ROOT / "Scripts/Run-WorkshopPickle.py").read_text())
         self.assertIn("DankPyon_RawWood", steps)
         self.assertIn("WoodLog", steps)
         self.assertIn('Plant_TreePoplar', steps)
@@ -52,10 +54,7 @@ class WorkshopPickleTests(unittest.TestCase):
             "-pickle-mode=fast",
             "-pickle-no-browser",
             "summary.json",
-            "report[",
         ):
-            if required == "report[":
-                continue
             self.assertIn(required, text)
         self.assertIn('"steam_release_cleared"] = False', text)
         self.assertNotIn("shutil.copytree(payload", text)
