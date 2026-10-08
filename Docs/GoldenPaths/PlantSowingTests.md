@@ -25,7 +25,7 @@ coverage, not a substitute for XML inheritance/patch resolution in the game.
    supported profiles: Vanilla+AMJE, MO+AMJE, CCTO+AMJE, MO+CCTO+AMJE.
 3. All four fixed-biome scenarios call `AddTreeSowingAssertions` automatically.
    It checks loaded ordinary-tree Ground/TreeSowing/regional contracts, the
-   exact regional wild-tree set, no ordinary-tree menu options before research,
+   exact base-Biome wild-tree set, no ordinary-tree menu options before research,
    the exact approved menu set after research, and Haimatsu exclusion. It uses
    the two native menu filters on an unregistered, unpolluted growing-zone
    probe. No planted pawn job or completed tree growth is claimed by this test.
@@ -41,8 +41,7 @@ The special harvest-only early return intentionally continues to run just the
 native cutting contract; use the normal vegetation matrix for sowing coverage.
 Profiles with unrelated third-party tree/distribution changes require a
 deliberately reviewed compatibility contract instead of silently widening the
-approved sets. Map mutators that add ordinary trees are likewise visible as
-unexpected options and must be reviewed.
+approved sets. The base-Biome tree check uses `map.Biome.wildPlants` rather than map-wide `WildPlantSpawner.AllWildPlants`, which may include tile-mutator or supplemental-biome plants. The exact native growing-zone menu check still rejects unexpected sowable trees.
 
 ## Evidence boundary
 

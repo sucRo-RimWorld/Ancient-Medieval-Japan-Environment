@@ -71,6 +71,33 @@ class TreeSowingContractTests(unittest.TestCase):
         self.plants.findall("ThingDef")[-1].set("ParentName", "TreeBase")
         self.assertTrue(validate(self.biomes, self.plants))
 
+    def test_approved_wetland_pools_are_atomic_and_balanced(self):
+        wetland = ET.parse(ROOT / "Patches/VanillaWetlandVegetation.xml").getroot()
+        ops = wetland.findall("./Operation/operations/li")
+        self.assertEqual(2, len(ops))
+        expected = {
+            "TemperateSwamp": (7.30, 3.00, {"Plant_TreeWillow", "Plant_TreeMaple"}),
+            "ColdBog": (8.22, 1.80, {"Plant_TreeWillow", "Plant_TreeMaple", "Plant_TreeBirch"}),
+        }
+        for op, (biome, (total, woody, trees)) in zip(ops, expected.items()):
+            self.assertEqual("PatchOperationReplace", op.get("Class"))
+            self.assertEqual(
+                f'/Defs/BiomeDef[defName="{biome}"]/wildPlants',
+                op.findtext("xpath"),
+            )
+            plants = op.findall("value/wildPlants/*")
+            self.assertTrue(plants)
+            self.assertEqual(len(plants), len({p.tag for p in plants}))
+            weights = {p.tag: float(p.text) for p in plants}
+            self.assertFalse(
+                {"Plant_Chokevine", "Plant_TreeCypress", "Plant_Astragalus"} & weights.keys()
+            )
+            self.assertAlmostEqual(total, sum(weights.values()))
+            self.assertAlmostEqual(
+                woody, sum(w for name, w in weights.items() if name.startswith("Plant_Tree"))
+            )
+            self.assertEqual(trees, {n for n in weights if n.startswith("Plant_Tree")})
+
     def test_runtime_expectations_and_native_menu_gate_are_wired(self):
         source = (ROOT / "Tests/Quickstarts/EnvironmentBiomeTerrainQuickstarts.cs").read_text()
         method = source.split("private static string[] ExpectedSowableTrees", 1)[1].split(
@@ -78,6 +105,7 @@ class TreeSowingContractTests(unittest.TestCase):
         for name, expected in EXPECTED.items():
             case = method.split(f'case "{name}":', 1)[1].split("case ", 1)[0].split("default:", 1)[0]
             self.assertEqual(expected, set(re.findall(r'"((?:AMJ|Plant)_\w+)"', case)))
+        self.assertIn("foreach (BiomePlantRecord record in map.Biome.wildPlants)", source)
         for required in ("AddTreeSowingAssertions(verification, map);",
                          "PlantUtility.ValidPlantTypesForGrowers(",
                          "Command_SetPlantToGrow.IsPlantAvailable(plant, map)",

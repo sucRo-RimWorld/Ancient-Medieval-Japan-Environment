@@ -740,11 +740,18 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
                     HashSet<string> expected = new HashSet<string>(ExpectedSowableTrees(map.Biome.defName));
                     HashSet<string> regionalWildTrees = new HashSet<string>();
-                    foreach (ThingDef plant in map.wildPlantSpawner.AllWildPlants)
-                        if (plant.plant != null && plant.plant.IsTree)
-                            regionalWildTrees.Add(plant.defName);
-                    verification.Assert("regional wild tree set equals approved sowing set",
+                    // AllWildPlants is map-wide in RimWorld 1.6. It can include
+                    // plants from additional map biomes / tile mutators (coast,
+                    // river, etc.), so it is not the base biome's distribution.
+                    foreach (BiomePlantRecord record in map.Biome.wildPlants)
+                        if (record.plant != null && record.plant.plant != null &&
+                            record.plant.plant.IsTree && record.commonality > 0f)
+                            regionalWildTrees.Add(record.plant.defName);
+                    verification.Assert("base biome wild tree set equals approved sowing set",
                         delegate { return regionalWildTrees.SetEquals(expected); });
+                    Log.Message("[AMJ Environment TreeSowing] biome=" + map.Biome.defName +
+                        " baseBiomeTrees={" + string.Join(",", regionalWildTrees) + "}" +
+                        " expected={" + string.Join(",", expected) + "}");
 
                     progress[research] = 0f;
                     verification.Assert("TreeSowing is unfinished in locked-state test",
