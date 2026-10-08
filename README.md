@@ -1,4 +1,4 @@
-# Ancient & Medieval Japan - Environment
+# Ancient & Medieval Japan - Environment（中世日本 - 環境）
 
 **RimWorld 1.6 — Beta**
 

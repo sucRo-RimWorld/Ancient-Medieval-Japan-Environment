@@ -1,4 +1,4 @@
-[h1]Ancient & Medieval Japan - Environment[/h1]
+[h1]Ancient & Medieval Japan - Environment（中世日本 - 環境）[/h1]
 
 [b]A standalone environment overhaul that replaces and reconfigures Vanilla terrain, vegetation, and biome composition for a Japanese-archipelago-inspired landscape.[/b]
 
