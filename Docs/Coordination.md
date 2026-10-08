@@ -3,22 +3,22 @@
 ### ENV-WETLAND-NATURAL-DISTRIBUTION-002 — independent natural-world wetland gate (2026-10-08 JST)
 
 **Owner:** Environment / world distribution test  
-**Status:** IN PROGRESS — [draft PR #27](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/27) static checks PASS; installed-RimWorld 9-scenario run PENDING
+**Status:** DONE — [PR #27](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/27) merged (`7264c5e101302a5a5d12d479af08c8666603a4a6`); new runtime gate author-reported PASS, detailed reports not attached
 
-- Draft PR #27, commit `ae2611ba2296fbbe38aa754351d9e4d86c6ccb57`, adds `AMJWorldWetlandDistributionQuickstart` to the standalone standard suite, increasing base coverage from eight to nine scenarios. The existing eight remain unchanged.
+- PR #27 (original commit `ae2611ba2296fbbe38aa754351d9e4d86c6ccb57`, merged into main as `7264c5e101302a5a5d12d479af08c8666603a4a6`) adds `AMJWorldWetlandDistributionQuickstart` to the standalone standard suite, increasing base coverage from eight to nine scenarios. The existing eight remain unchanged.
 - The test generates a 30%-coverage world with deterministic seed, **never forces a biome**, counts actual `TemperateSwamp` / `ColdBog` against `swampiness>=0.5` candidates, and verifies at least one naturally selected wetland settlement tile. A 20% land-share ceiling is a deliberately broad regression alarm, **not** an approved historical ecological target.
 - All five PR checks (two PowerShell, tree-sowing contract, plant visual coverage, Workshop payload) returned **SUCCESS**. These are static/infrastructure results, not installed RimWorld runtime evidence.
-- Follow-up PR #27 commit `76fa4435045414426f492dd47d7cfd9e6ceb3a0e` optimizes settlement-suitability probing across the 30%-coverage world, adds `candidateShare` and `wetlandOfCandidates` diagnostic fields, and gives only the ninth scenario a 420-second timeout. The original eight retain their default timeout. Updated branch CI is **5/5 PASS**; RimWorld runtime 9/9 remains PENDING.
-- **Do not merge solely on static CI.** The first fresh `run-tests.bat` on the candidate branch must record 9/9 standalone scenarios, complete untruncated per-scenario reports and zero pre-launch/runtime owned ERROR. If the new world has no swampiness candidates or no natural wetlands, investigate the actual world-generation/swampiness handling before proposing fixes or weakening the assertion. Distinct four-profile matrix remains open.
+- Follow-up PR #27 commit `76fa4435045414426f492dd47d7cfd9e6ceb3a0e` optimizes settlement-suitability probing across the 30%-coverage world, adds `candidateShare` and `wetlandOfCandidates` diagnostic fields, and gives only the ninth scenario a 420-second timeout. The original eight retain their default timeout. Updated branch CI and post-merge CI are **5/5 PASS**. The author reported the new test passed; its detailed runtime results were not attached.
+- **Acceptance on 2026-10-08:** author explicitly reported that the new test passed; the PR was merged only after this report and successful static CI. This is **author-reported runtime PASS**, not independent validation of the nine `.json`/`.log` reports. Exact assertion counts, world wetland candidate/selected shares, live-capture completeness and the owned ERROR gate are not independently audited without those artifacts. Never infer a numerical wetland share or a calibrated historical frequency from the report. The distinct four-profile matrix remains open.
 - Confirmed design/test intent belongs to `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` and `Docs/GoldenPaths/RenderedRuntimeTests.md` in that PR. `ENV-WETLAND-BIOME-001` remains OPEN; Japanese-first wetland descriptions still await approval.
 
 ### TEST-ENV-UNIFIED-20261008 — unify parallel AMJE test and wetland development tracks
 
 **Requested by:** author (2026-10-08 JST)  
 **Owner:** Environment / runtime testing and wetland development — one shared handoff  
-**Status:** IN PROGRESS — baseline 8/8 and CCTO runner PASS; Highland-fix Grains/Core integration PASS reported by author; world wetland share / descriptions pending
+**Status:** IN PROGRESS — prior base 8/8 and CCTO runner PASS evidenced; newer 9-scenario run and Highland-fix Grains/Core integration author-reported PASS; detailed world-share numbers, descriptions, four-profile matrix pending
 
-The author requested integration of the separate test chat with the current wetland/vegetation development chat. These now use the **same authoritative main** and `run-tests.bat` as the standard local automated entry; no duplicate branch, competing test scope, or user-mediated relay is required.
+The author requested integration of the separate test chat with the current wetland/vegetation development chat. These now use the **same authoritative main** and `run-tests.bat` as the standard local automated entry; no duplicate branch, competing test scope, or user-mediated relay is required. PR #27 added the ninth natural-world wetland distribution scenario; the author reports that test PASSED. Earlier eight-scenario counts below remain historical evidence, not fresh logs for this ninth scenario.
 
 **Merged documentation source:** PR #25 / squash merge `0af0590957d0416b77c285e3548c40dacaedab47` consolidates the regional sowing/alpine regression, wetland Phase 5 patch and ecology gates in `Docs/GoldenPaths/RenderedRuntimeTests.md` and updates `Docs/GoldenPaths/PlantSowingTests.md`. This change is documentation-only; Workshop payload CI passed and no new RimWorld runtime result was produced.
 

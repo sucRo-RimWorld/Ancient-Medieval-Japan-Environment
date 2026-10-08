@@ -57,12 +57,12 @@ reinterpreting a historical PASS as a current-main PASS.
 
 | Workstream | Current source/check | Latest evidence |
 |---|---|---|
-| Forest retention and regional sowing | `Tests/test_tree_sowing_contract.py` and the four forest Quickstarts | Static CI passed; latest complete runtime matrix still pending |
-| Alpine natural woody vs sowable trees | `ExpectedWildTreeLikePlants` versus `ExpectedSowableTrees` | Earlier Alpine 69/70: old assertion failed; correction present in main; no rerun PASS yet |
-| Wetland Phase 5 plants | `Patches/VanillaWetlandVegetation.xml` and two wetland Quickstarts | ColdBog Cypress XPath failure fixed by PR #23; current-main runtime rerun pending |
-| Wetland wildlife, diseases, weather, pack animals and terrain | `Patches/VanillaWetlandEcology.xml`, `Tests/test_wetland_ecology_contract.py` and two wetland Quickstarts | PR #24 static CI passed; loaded-Def/terrain runtime PASS pending |
-| River/coast handoff | `AMJRiverMapHandoffQuickstart` / `AMJCoastMapHandoffQuickstart` | Historical PASS exists; latest-main runtime rerun pending |
-| World wetland distribution sanity | `AMJWorldWetlandDistributionQuickstart` (30% natural-world sample; no forced biome) | Author-reported installed-game PASS (2026-10-08); structured logs and exact counts not attached |
+| Forest retention and regional sowing | `Tests/test_tree_sowing_contract.py` and the four forest Quickstarts | New nine-scenario run author-reported PASS; individual log evidence not attached |
+| Alpine natural woody vs sowable trees | `ExpectedWildTreeLikePlants` versus `ExpectedSowableTrees` | Earlier 69/70 was a superseded historical failure; new nine-scenario run author-reported PASS, no individual log |
+| Wetland Phase 5 plants | `Patches/VanillaWetlandVegetation.xml` and two wetland Quickstarts | PR #23 correction included; new nine-scenario run author-reported PASS, no individual log |
+| Wetland wildlife, diseases, weather, pack animals and terrain | `Patches/VanillaWetlandEcology.xml`, `Tests/test_wetland_ecology_contract.py` and two wetland Quickstarts | New nine-scenario run author-reported PASS, no individual log; historical PR #24 static CI PASS |
+| River/coast handoff | `AMJRiverMapHandoffQuickstart` / `AMJCoastMapHandoffQuickstart` | Historical PASS exists; new nine-scenario run author-reported PASS, no individual log |
+| World wetland distribution sanity | `AMJWorldWetlandDistributionQuickstart` (30% natural-world sample; no forced biome) | PR #27 merged as `7264c5e`; author-reported installed-game PASS (2026-10-08), detailed logs/counts not attached |
 
 The earlier warm-forest run returned 73/74 assertions and one pre-launch
 PatchOperation ERROR, before the PR #23 corrections. A later Alpine run
