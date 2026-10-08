@@ -26,6 +26,7 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertNotIn('call "%ROOT%run-tests.bat"', self.run_runtime)
         self.assertIn('run-static-tests.bat', self.run_runtime)
         self.assertIn('--skip-static', self.run_runtime)
+        self.assertIn('Ancient-Medieval-Japan-Grains', self.run_runtime)
 
     def test_isolated_launcher_keeps_rendering_on_private_desktop(self):
         self.assertIn('CreateDesktop', self.isolated)
