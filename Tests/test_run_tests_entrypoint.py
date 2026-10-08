@@ -13,6 +13,7 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         cls.run_tests = (ROOT / "run-tests.bat").read_text(encoding="utf-8")
         cls.run_static = (ROOT / "run-static-tests.bat").read_text(encoding="utf-8")
         cls.run_runtime = (ROOT / "run-runtime-tests.bat").read_text(encoding="utf-8")
+        cls.run_framework = (ROOT / "run-framework-tests.bat").read_text(encoding="utf-8")
         cls.isolated = (
             ROOT / "Scripts" / "Run-EnvironmentIsolatedDesktop.ps1"
         ).read_text(encoding="utf-8")
@@ -39,8 +40,12 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
 
     def test_run_tests_is_the_full_standard_entrypoint(self):
         self.assertIn('run-static-tests.bat', self.run_tests)
+        self.assertIn('run-framework-tests.bat', self.run_tests)
         self.assertIn('Run-EnvironmentIsolatedDesktop.ps1', self.run_tests)
         self.assertNotIn('run-runtime-tests.bat', self.run_tests)
+        self.assertIn('Run-EnvironmentRimTest.py', self.run_framework)
+        self.assertIn('Run-DevelopmentPickle.py', self.run_framework)
+        self.assertIn('--skip-static', self.run_framework)
 
     def test_runtime_runner_does_not_recurse_into_run_tests(self):
         self.assertNotIn('call "%ROOT%run-tests.bat"', self.run_runtime)
