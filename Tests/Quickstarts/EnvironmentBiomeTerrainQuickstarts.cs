@@ -3201,6 +3201,23 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 };
             }
         }
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            result.Assert("Plant_TreeBamboo has approved EN/JA description", delegate
+            {
+                ThingDef bamboo = DefDatabase<ThingDef>.GetNamedSilentFail("Plant_TreeBamboo");
+                if (bamboo == null || string.IsNullOrEmpty(bamboo.description))
+                    return false;
+                string actual = bamboo.description.Replace("\\n", "\n")
+                    .Replace("\r\n", "\n").Trim();
+                string approvedEnglish = "Bamboo (take) is a member of the grass family that grows in stands in Japan's warm, humid regions, despite its tree-like appearance. Here it represents bamboo types such as madake and hachiku that existed in ancient and medieval Japan." + "\n\n" + "Lightweight and flexible, bamboo has long been used for baskets, everyday objects, and materials for building, farming, and fishing. Moso bamboo, common in Japan today, is recorded as having arrived during the Edo period and is distinguished here from these earlier bamboo types.";
+                string approvedJapanese = "竹（タケ）は、日本の温暖で湿潤な土地に群生する、木のような姿のイネ科植物。古代・中世に存在したマダケやハチクなどの竹類を、ここではまとめて表す。" + "\n\n" + "竹は軽くしなやかで、古くからかご・日用品や建築・農漁業の資材に使われてきた。現在広く見られるモウソウチクは江戸時代の渡来とする記録があり、ここで想定する竹類とは区別する。";
+                return string.Equals(actual, approvedEnglish, StringComparison.Ordinal) ||
+                    string.Equals(actual, approvedJapanese, StringComparison.Ordinal);
+            });
+            return result;
+        }
     }
 
     public sealed class AMJTemperateSwampVegetationQuickstart : BiomeTerrainQuickstartBase

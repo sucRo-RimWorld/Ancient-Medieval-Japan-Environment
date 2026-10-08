@@ -7,6 +7,9 @@ on:
       - 'Defs/ThingDefs_Plants/**'
       - 'Patches/**'
       - 'Languages/Japanese/DefInjected/BiomeDef/**'
+      - 'Languages/Japanese/DefInjected/ThingDef/**'
+      - 'Tests/test_vanilla_bamboo_description.py'
+      - 'Docs/VanillaPlantStep2DescriptionReview-ja.md'
       - 'Tests/Quickstarts/**'
       - 'Tests/test_tree_sowing_contract.py'
       - 'Tests/test_wetland_ecology_contract.py'
@@ -17,6 +20,9 @@ on:
       - 'Defs/ThingDefs_Plants/**'
       - 'Patches/**'
       - 'Languages/Japanese/DefInjected/BiomeDef/**'
+      - 'Languages/Japanese/DefInjected/ThingDef/**'
+      - 'Tests/test_vanilla_bamboo_description.py'
+      - 'Docs/VanillaPlantStep2DescriptionReview-ja.md'
       - 'Tests/Quickstarts/**'
       - 'Tests/test_tree_sowing_contract.py'
       - 'Tests/test_wetland_ecology_contract.py'
@@ -33,3 +39,5 @@ jobs:
         run: python Tests/test_tree_sowing_contract.py
       - name: Validate retained Vanilla wetland ecology bundle
         run: python Tests/test_wetland_ecology_contract.py
+      - name: Validate approved Bamboo text and unchanged Vanilla planting
+        run: python Tests/test_vanilla_bamboo_description.py
