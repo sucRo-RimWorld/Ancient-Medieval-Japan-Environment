@@ -19,6 +19,8 @@ set "MO_REPORT_DIR=%RESULT_ROOT%\Reports-MO"
 set "CORE_SAVEDATA=%RESULT_ROOT%\SaveData-Core"
 set "CORE_REPORT_DIR=%RESULT_ROOT%\Reports-Core"
 set "QUICKTEST_DLL=%ROOT%DevQuickstarts\Assemblies\AncientMedievalJapanEnvironment.Quicktests.dll"
+set "QUICKTEST_MANAGER=%ROOT%Scripts\Manage-EnvironmentQuicktestFixture.py"
+set "QUICKTEST_STAGED="
 
 if not defined SKIP_STATIC (
     call "%ROOT%run-static-tests.bat" "%RIMWORLD_DIR%"
@@ -39,6 +41,18 @@ if not exist "%QUICKTEST_DLL%" (
     exit /b 2
 )
 
+if not exist "%QUICKTEST_MANAGER%" (
+    echo [ERROR] Quicktests fixture manager was not found:
+    echo         %QUICKTEST_MANAGER%
+    exit /b 2
+)
+
+where py >nul 2>&1
+if errorlevel 1 (
+    echo [ERROR] Python launcher py.exe was not found.
+    exit /b 2
+)
+
 echo.
 echo Resetting isolated vegetation runtime-test output...
 if exist "%RESULT_ROOT%" rmdir /S /Q "%RESULT_ROOT%"
@@ -49,10 +63,25 @@ if errorlevel 1 (
 )
 
 echo.
+echo Staging standalone Environment Quicktests test Mod...
+py -3 "%QUICKTEST_MANAGER%" stage --game "%RIMWORLD_DIR%" --dll "%QUICKTEST_DLL%"
+if errorlevel 1 exit /b 2
+set "QUICKTEST_STAGED=1"
+set "RESULT=0"
+
+echo.
 echo Preparing isolated RimWorld runtime-test profile...
 powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1" ^
     -OutputRoot "%TEST_SAVEDATA%"
-if errorlevel 1 exit /b 2
+if errorlevel 1 (
+    set "RESULT=2"
+    goto :report
+)
+py -3 "%QUICKTEST_MANAGER%" activate --game "%RIMWORLD_DIR%" --config "%TEST_SAVEDATA%\Config\ModsConfig.xml"
+if errorlevel 1 (
+    set "RESULT=2"
+    goto :report
+)
 
 echo.
 echo Running Environment vegetation, wetland, and river/coast Quickstarts automatically...
@@ -88,6 +117,11 @@ if defined CCTO_INSTALLED (
         set "RESULT=2"
         goto :report
     )
+    py -3 "%QUICKTEST_MANAGER%" activate --game "%RIMWORLD_DIR%" --config "%CCTO_SAVEDATA%\Config\ModsConfig.xml"
+    if errorlevel 1 (
+        set "RESULT=2"
+        goto :report
+    )
 
     echo.
     echo Running focused AMJE + CCTO loaded-Def compatibility check...
@@ -117,6 +151,11 @@ if defined CORE_INSTALLED (
     powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1" ^
         -OutputRoot "%CORE_SAVEDATA%" ^
         -IncludeCore
+    if errorlevel 1 (
+        set "RESULT=2"
+        goto :report
+    )
+    py -3 "%QUICKTEST_MANAGER%" activate --game "%RIMWORLD_DIR%" --config "%CORE_SAVEDATA%\Config\ModsConfig.xml"
     if errorlevel 1 (
         set "RESULT=2"
         goto :report
@@ -162,5 +201,15 @@ if defined CCTO_INSTALLED (
 if defined CORE_INSTALLED (
     echo Grains/Core + Environment gameplay reports:
     echo   %CORE_REPORT_DIR%
+)
+
+if defined QUICKTEST_STAGED (
+    echo.
+    echo Removing standalone Environment Quicktests test Mod...
+    py -3 "%QUICKTEST_MANAGER%" cleanup --game "%RIMWORLD_DIR%"
+    if errorlevel 1 (
+        echo [ERROR] Quicktests fixture cleanup failed; inspect the owned fixture before retrying.
+        if "%RESULT%"=="0" set "RESULT=2"
+    )
 )
 exit /b %RESULT%

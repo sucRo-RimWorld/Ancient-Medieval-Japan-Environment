@@ -124,14 +124,18 @@ def build(output, expected_commit, game, preview):
     subprocess.run(['cmd.exe', '/d', '/c', str(ROOT / 'build.bat'), str(game)], cwd=ROOT, check=True)
     if git('rev-parse', 'HEAD') != head or git('diff', 'HEAD', '--name-only'):
         raise ValueError('Build modified tracked inputs')
-    data = {k: (ROOT / k).read_bytes() for k in kept if not k.startswith('Assemblies/') and k != 'loadFolders.xml'}
+    if 'loadFolders.xml' not in kept:
+        raise ValueError('Tracked loadFolders.xml is missing from subscriber inputs')
+    source_load = (ROOT / 'loadFolders.xml').read_bytes()
+    if source_load != LOAD:
+        raise ValueError('Tracked loadFolders.xml must match the root-only distribution contract')
+    data = {k: (ROOT / k).read_bytes() for k in kept if not k.startswith('Assemblies/')}
     data['Assemblies/AncientMedievalJapanEnvironment.dll'] = (ROOT / 'Assemblies/AncientMedievalJapanEnvironment.dll').read_bytes()
     data['About/PublishedFileId.txt'] = (WORKSHOP + '\n').encode()
     preview_bytes = preview.read_bytes()
     if not preview_bytes.startswith(b'\x89PNG\r\n\x1a\n'):
         raise ValueError('Approved preview must be PNG')
     data['About/Preview.png'] = preview_bytes
-    data['loadFolders.xml'] = LOAD
     # Root .rimignore is policy/provenance input, never a subscriber file.
     validate(data)
     output.mkdir(parents=True)

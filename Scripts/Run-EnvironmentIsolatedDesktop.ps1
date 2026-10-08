@@ -19,6 +19,10 @@ $runner = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\run-runtime-tests.
 if (-not (Test-Path -LiteralPath $runner)) {
     throw "Environment runtime runner was not found: $runner"
 }
+$quicktestManager = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot 'Manage-EnvironmentQuicktestFixture.py'))
+if (-not (Test-Path -LiteralPath $quicktestManager)) {
+    throw "Environment Quicktests fixture manager was not found: $quicktestManager"
+}
 
 $testResults = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\TestResults'))
 New-Item -ItemType Directory -Force -Path $testResults | Out-Null
@@ -228,6 +232,17 @@ finally {
     if ($started -and -not $finished) {
         & taskkill /PID $info.pid /T /F | Out-Null
     }
+
+    try {
+        & py -3 $quicktestManager cleanup --game $RimWorldRoot
+        if ($LASTEXITCODE -ne 0) {
+            Write-Warning "Environment Quicktests fixture cleanup returned exit code $LASTEXITCODE."
+        }
+    }
+    catch {
+        Write-Warning "Environment Quicktests fixture cleanup could not run: $($_.Exception.Message)"
+    }
+
     if ($info.thread -ne [IntPtr]::Zero) {
         [void][AmjeDesktop]::CloseHandle($info.thread)
     }

@@ -1,5 +1,8 @@
 from pathlib import Path
+import importlib.util
+import tempfile
 import unittest
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -28,6 +31,10 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         cls.runtime_log_validator = (
             ROOT / "Scripts" / "Validate-EnvironmentRuntimeLog.ps1"
+        ).read_text(encoding="utf-8")
+        cls.load_folders = (ROOT / "loadFolders.xml").read_text(encoding="utf-8")
+        cls.quicktest_manager = (
+            ROOT / "Scripts" / "Manage-EnvironmentQuicktestFixture.py"
         ).read_text(encoding="utf-8")
 
     def test_run_tests_is_the_full_standard_entrypoint(self):
@@ -69,6 +76,8 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertIn('--skip-static', self.isolated)
         self.assertNotIn('-nographics', self.isolated)
         self.assertNotIn('SwitchDesktop', self.isolated)
+        self.assertIn('Manage-EnvironmentQuicktestFixture.py', self.isolated)
+        self.assertIn('cleanup --game $RimWorldRoot', self.isolated)
 
     def test_highland_climate_sampling_keeps_full_gradient_gate(self):
         climate = self.climate_diagnostics
@@ -130,6 +139,79 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             'Validate-MedievalOverhaulTreeTextures.ps1',
         ):
             self.assertIn(required, self.run_static)
+
+
+    def test_production_loadfolders_are_root_only(self):
+        self.assertEqual(
+            self.load_folders,
+            '<?xml version="1.0" encoding="utf-8"?>\n'
+            '<loadFolders><v1.6><li>/</li></v1.6></loadFolders>\n',
+        )
+        self.assertNotIn("DevQuickstarts", self.load_folders)
+        self.assertNotIn("IfModActive", self.load_folders)
+
+    def test_runtime_quicktests_are_staged_outside_production_load_path(self):
+        for marker in (
+            "Manage-EnvironmentQuicktestFixture.py",
+            'stage --game "%RIMWORLD_DIR%" --dll "%QUICKTEST_DLL%"',
+            'activate --game "%RIMWORLD_DIR%"',
+            'cleanup --game "%RIMWORLD_DIR%"',
+        ):
+            self.assertIn(marker, self.run_runtime)
+        self.assertEqual(self.run_runtime.count('activate --game "%RIMWORLD_DIR%"'), 3)
+        self.assertIn("sucro.ancientmedievaljapan.environment.quicktests", self.quicktest_manager)
+        self.assertIn("Quicktests fixture path already exists; refusing to overwrite", self.quicktest_manager)
+        self.assertIn("Refusing to manage unowned Quicktests fixture", self.quicktest_manager)
+
+    def test_quicktest_fixture_manager_stage_activate_cleanup(self):
+        spec = importlib.util.spec_from_file_location(
+            "quicktest_fixture",
+            ROOT / "Scripts" / "Manage-EnvironmentQuicktestFixture.py",
+        )
+        manager = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(manager)
+
+        with tempfile.TemporaryDirectory() as temp:
+            temp = Path(temp)
+            game = temp / "RimWorld"
+            (game / "Mods").mkdir(parents=True)
+            dll = temp / manager.DLL_NAME
+            dll.write_bytes(b"MZfixture")
+            manager.stage(game, dll)
+
+            with self.assertRaisesRegex(ValueError, "refusing to overwrite"):
+                manager.stage(game, dll)
+
+            config = temp / "ModsConfig.xml"
+            config.write_text(
+                '<?xml version="1.0" encoding="utf-8"?>'
+                '<ModsConfigData><activeMods>'
+                '<li>brrainz.harmony</li><li>ludeon.rimworld</li>'
+                '<li>rimworks.quickstarts</li>'
+                '<li>sucro.ancientmedievaljapan.environment</li>'
+                '</activeMods></ModsConfigData>',
+                encoding="utf-8",
+            )
+            manager.activate(game, config)
+            active = ET.parse(config).getroot().find("activeMods")
+            ids = [(node.text or "").strip().lower() for node in active]
+            self.assertEqual(
+                ids[-2:],
+                [
+                    manager.ENVIRONMENT_PACKAGE,
+                    manager.PACKAGE,
+                ],
+            )
+            self.assertEqual(ids.count(manager.PACKAGE), 1)
+
+            manager.activate(game, config)
+            active = ET.parse(config).getroot().find("activeMods")
+            ids = [(node.text or "").strip().lower() for node in active]
+            self.assertEqual(ids.count(manager.PACKAGE), 1)
+
+            manager.cleanup(game)
+            self.assertFalse(manager.fixture_root(game).exists())
+
 
 
 if __name__ == "__main__":

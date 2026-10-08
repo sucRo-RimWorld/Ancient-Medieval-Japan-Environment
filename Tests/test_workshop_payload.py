@@ -113,6 +113,12 @@ class GateTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Development content'):
             payload.validate(data)
 
+    def test_tracked_loadfolders_matches_distribution_contract(self):
+        self.assertEqual((payload.ROOT / 'loadFolders.xml').read_bytes(), payload.LOAD)
+        builder = (payload.ROOT / 'Scripts/Build-WorkshopPayload.py').read_text(encoding='utf-8')
+        self.assertIn('Tracked loadFolders.xml must match the root-only distribution contract', builder)
+        self.assertNotIn("data['loadFolders.xml'] = LOAD", builder)
+
     def test_root_only_and_identity(self):
         for key, value in [('loadFolders.xml', b'<loadFolders/>'), ('About/PublishedFileId.txt', b'999')]:
             data = fixture(); data[key] = value
