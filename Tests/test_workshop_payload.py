@@ -69,6 +69,34 @@ class GateTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'missing='):
                 payload.verify(root, manifest)
 
+    def test_local_workshop_id_is_safe_but_other_untracked_runtime_content_is_not(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            about = root / 'About'
+            about.mkdir()
+            published = about / 'PublishedFileId.txt'
+            published.write_text(payload.WORKSHOP + '\n', encoding='utf-8')
+            payload.audit_untracked_runtime_sources(root, set())
+
+            published.write_text('999\n', encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'Wrong local Workshop ID'):
+                payload.audit_untracked_runtime_sources(root, set())
+
+            published.write_text(payload.WORKSHOP + '\n', encoding='utf-8')
+            unexpected = about / 'unexpected.xml'
+            unexpected.write_text('<ModMetaData/>', encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'Untracked runtime content'):
+                payload.audit_untracked_runtime_sources(root, set())
+            unexpected.unlink()
+
+            defs = root / 'Defs'
+            defs.mkdir()
+            stale = defs / 'UntrackedPlant.xml'
+            stale.write_text('<Defs/>', encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'Untracked runtime content'):
+                payload.audit_untracked_runtime_sources(root, set())
+            payload.audit_untracked_runtime_sources(root, {'Defs/UntrackedPlant.xml'})
+
     def test_yada_defensive_exclusions(self):
         rules = set((payload.ROOT / '.rimignore').read_text().splitlines())
         self.assertTrue(set(payload.EXCLUDED) <= rules)

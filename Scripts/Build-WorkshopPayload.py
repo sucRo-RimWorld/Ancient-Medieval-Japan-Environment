@@ -81,6 +81,29 @@ def verify(root, manifest_path):
     return manifest
 
 
+def audit_untracked_runtime_sources(root, tracked):
+    """Accept only the expected local Steam publisher ID as an untracked runtime file.
+
+    The subscriber payload always receives the pinned WORKSHOP ID from build(),
+    never arbitrary local metadata. Other untracked runtime inputs stay blocked.
+    """
+    unexpected = []
+    for folder in FOLDERS:
+        for path in (root / folder).rglob('*'):
+            if not path.is_file():
+                continue
+            relative = path.relative_to(root).as_posix()
+            if relative in tracked:
+                continue
+            if relative == 'About/PublishedFileId.txt':
+                if path.read_text(encoding='utf-8-sig').strip() != WORKSHOP:
+                    raise ValueError('Wrong local Workshop ID in About/PublishedFileId.txt')
+                continue
+            unexpected.append(relative)
+    if unexpected:
+        raise ValueError('Untracked runtime content: ' + str(sorted(unexpected)))
+
+
 def build(output, expected_commit, game, preview):
     head = git('rev-parse', 'HEAD')
     if head != expected_commit or git('diff', 'HEAD', '--name-only'):
@@ -95,11 +118,8 @@ def build(output, expected_commit, game, preview):
     kept, leaks, lost = subscriber.audit(tracked, rules)
     if leaks or lost:
         raise ValueError('Shared subscriber policy failure: ' + str((leaks, lost)))
-    # Runtime files must be tracked; stale untracked PNG/XML cannot enter a release.
-    for folder in FOLDERS:
-        disk = {p.relative_to(ROOT).as_posix() for p in (ROOT / folder).rglob('*') if p.is_file()}
-        if disk - set(tracked):
-            raise ValueError('Untracked runtime content: ' + str(sorted(disk - set(tracked))))
+    # The correct local Workshop ID is metadata, not an unreviewed runtime asset.
+    audit_untracked_runtime_sources(ROOT, set(tracked))
     # Build here, never accept an existing developer DLL as provenance.
     subprocess.run(['cmd.exe', '/d', '/c', str(ROOT / 'build.bat'), str(game)], cwd=ROOT, check=True)
     if git('rev-parse', 'HEAD') != head or git('diff', 'HEAD', '--name-only'):
