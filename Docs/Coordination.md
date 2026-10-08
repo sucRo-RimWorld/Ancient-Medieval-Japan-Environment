@@ -1,5 +1,17 @@
 # AMJ Environment Coordination
 
+### ENV-STEP2-SIX-TREES-20261008 — six retained Vanilla descriptions and format audit
+
+**Owner:** Environment / vegetation localization
+**Status:** JAPANESE APPROVED, DRAFT PR #30 STATIC CI PASS; NEW RUNTIME GATE PENDING
+
+On 2026-10-08 the author approved the existing Japanese drafts for Maple, Oak, Birch, Pine and Willow ("説明OK") and explicitly requested checking their format against existing tree descriptions. Main's Bamboo description was previously approved and runtime-author-PASS. Comparing with existing AMJE Shii/Beech/Shirabiso/Haimatsu confirms name/aliases, Japanese distribution/ecology, historical usage *or landscape context* and supported modern comparison follow the shared guidance. Four AMJE structural texts use three paragraphs while six Vanilla texts use two; both are valid. Birch/Willow do not invent unsupported medieval resource use. Approved Japanese text is kept unchanged.
+
+[Draft PR #30](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/30), head `0858bdb2611db45b54606668428c38aeed724ed8`, contains Japanese-approved texts and English translations for five additional trees, description-only English XML operations, Japanese ThingDef DefInjected, six-tree static text/format regression coverage and five new loaded-Def assertions (warm-temperate Quickstart checks all loaded tree Defs). Durable spec: `Docs/VanillaPlantStep2DescriptionReview-ja.md`, `Docs/Design.md`; runtime Golden Path: `Docs/GoldenPaths/RenderedRuntimeTests.md`. Plant Defs, labels, wildPlant commonality, sowing rules, graphics and retextures are untouched.
+
+PR #30 triggered three CI jobs and all are **SUCCESS**: Regional tree sowing contract (including approved-text static test), Plant visual coverage ledger, Workshop payload filtering. These are static checks, not installed RimWorld runtime. Keep PR draft until current-source `run-tests.bat` confirms the new five loaded-description assertions and owned ERROR=0; prior Bamboo PASS does not cover them. Independent Vanilla/MO/CCTO/MO+CCTO four-profile release matrix remains OPEN. Do not use the author as inter-chat messenger or mirror this Coordination file to a work branch.
+
+
 ### ENV-WETLAND-DESCRIPTIONS-20261008 — approved bilingual description implementation
 
 **Owner:** Environment / retained Vanilla wetland localization  
