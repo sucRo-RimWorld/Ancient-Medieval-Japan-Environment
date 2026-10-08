@@ -1141,12 +1141,12 @@ if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
 }
 
 foreach ($pair in @(
-    @($workshopJaText, '現在はβ版です。', 'Japanese Workshop Beta stage'),
-    @($workshopJaText, 'AMJEは単体で完結します。', 'Japanese Workshop standalone support'),
-    @($workshopJaText, 'Crop Cold Tolerance Overhaul（CCTO）は任意です。', 'Japanese Workshop CCTO optionality'),
-    @($workshopEnText, 'Currently Beta.', 'English Workshop Beta stage'),
-    @($workshopEnText, 'AMJE remains complete as a standalone environment mod.', 'English Workshop standalone support'),
-    @($workshopEnText, 'Crop Cold Tolerance Overhaul (CCTO) is optional.', 'English Workshop CCTO optionality')
+    @($workshopJaText, '現在β版です。', 'Japanese Workshop Beta stage'),
+    @($workshopJaText, '他のAMJ Modは必須ではありません。', 'Japanese Workshop standalone support'),
+    @($workshopJaText, '任意Mod: Crop Cold Tolerance Overhaul（CCTO）', 'Japanese Workshop CCTO optionality'),
+    @($workshopEnText, 'Beta.', 'English Workshop Beta stage'),
+    @($workshopEnText, 'No other AMJ Mod is required.', 'English Workshop standalone support'),
+    @($workshopEnText, 'Optional: Crop Cold Tolerance Overhaul (CCTO)', 'English Workshop CCTO optionality')
 )) {
     if (-not $pair[0].Contains($pair[1])) {
         Fail "$($pair[2]) marker is missing."
