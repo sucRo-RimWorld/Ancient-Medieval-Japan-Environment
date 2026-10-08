@@ -1,53 +1,49 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
   <!--
-    AMJE leaves Vanilla wetland BiomeDefs available for swampy tiles, but their
-    inherited plant pools still need the same Japan-oriented retention audit as
-    AMJE-owned climate bands. Preserve total vegetation and woody commonality
-    while removing plants that do not have a defensible AMJE role.
+    AMJE retains the compatible Vanilla TemperateSwamp / ColdBog BiomeDefs.
+    Replace only their natural vegetation pools with the approved Japan-oriented
+    Phase 5 compositions, preserving the Vanilla wetland worker, terrains, etc.
+
+    Replacing the complete wildPlants node is intentional. The former sequence
+    performed individual Chokevine/Cypress removals/replacements and failed at
+    ColdBog/Cypress on the user's installed RimWorld 1.6 build. This ownership
+    boundary prevents missing/reordered Vanilla plant entries from leaving the
+    entire biome vegetation patch in a partially applied state.
+    Wild Healroot is retained only until the final vegetation cleanup.
   -->
   <Operation Class="PatchOperationSequence">
     <operations>
-      <!-- TemperateSwamp: 7.30 total / 3.00 woody commonality stay unchanged. -->
+      <!-- TemperateSwamp: total commonality=7.30, woody=3.00. -->
       <li Class="PatchOperationReplace">
-        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants/Plant_Chokevine</xpath>
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants</xpath>
         <value>
-          <Plant_Brambles>0.8</Plant_Brambles>
+          <wildPlants>
+            <Plant_TallGrass>3.2</Plant_TallGrass>
+            <Plant_Brambles>0.8</Plant_Brambles>
+            <Plant_Bush>0.2</Plant_Bush>
+            <Plant_TreeWillow>2.0</Plant_TreeWillow>
+            <Plant_TreeMaple>1.0</Plant_TreeMaple>
+            <Plant_Berry>0.05</Plant_Berry>
+            <Plant_HealrootWild>0.05</Plant_HealrootWild>
+          </wildPlants>
         </value>
-      </li>
-      <li Class="PatchOperationReplace">
-        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants/Plant_TreeWillow</xpath>
-        <value>
-          <Plant_TreeWillow>2.0</Plant_TreeWillow>
-        </value>
-      </li>
-      <li Class="PatchOperationRemove">
-        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants/Plant_TreeCypress</xpath>
       </li>
 
-      <!-- ColdBog: 8.22 total / 1.80 woody commonality stay unchanged. -->
-      <li Class="PatchOperationRemove">
-        <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants/Plant_Chokevine</xpath>
-      </li>
+      <!-- ColdBog: total commonality=8.22, woody=1.80. -->
       <li Class="PatchOperationReplace">
-        <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants/Plant_TallGrass</xpath>
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants</xpath>
         <value>
-          <Plant_TallGrass>3.4</Plant_TallGrass>
-        </value>
-      </li>
-      <li Class="PatchOperationReplace">
-        <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants/Plant_Moss</xpath>
-        <value>
-          <Plant_Moss>2.6</Plant_Moss>
-        </value>
-      </li>
-      <li Class="PatchOperationRemove">
-        <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants/Plant_Astragalus</xpath>
-      </li>
-      <li Class="PatchOperationReplace">
-        <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants/Plant_TreeCypress</xpath>
-        <value>
-          <Plant_TreeBirch>0.6</Plant_TreeBirch>
+          <wildPlants>
+            <Plant_TallGrass>3.4</Plant_TallGrass>
+            <Plant_Moss>2.6</Plant_Moss>
+            <Plant_Bush>0.3</Plant_Bush>
+            <Plant_TreeWillow>0.6</Plant_TreeWillow>
+            <Plant_TreeBirch>0.6</Plant_TreeBirch>
+            <Plant_TreeMaple>0.6</Plant_TreeMaple>
+            <Plant_Berry>0.07</Plant_Berry>
+            <Plant_HealrootWild>0.05</Plant_HealrootWild>
+          </wildPlants>
         </value>
       </li>
     </operations>
