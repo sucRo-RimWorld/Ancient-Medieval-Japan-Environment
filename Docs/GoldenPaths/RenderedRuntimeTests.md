@@ -17,17 +17,18 @@ run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"
 `run-tests.bat` is the canonical AMJE automated gate. It runs:
 
 1. `run-static-tests.bat` for PowerShell syntax, build, installed-source Def validation, texture-copy smoke, and the installed Medieval Overhaul tree-reference audit;
-2. `Scripts/Run-EnvironmentIsolatedDesktop.ps1`;
-3. the runtime suite on a newly created, non-visible Windows desktop with normal Direct3D rendering;
-4. the default Environment Quickstart matrix, including four AMJE climate biomes, two Vanilla wetlands, a natural-world wetland distribution scenario, and River/Coast handoff;
-5. optional installed CCTO and Core/Grains integration profiles already owned by `run-runtime-tests.bat`.
+2. `run-framework-tests.bat --skip-static`, which runs the separate RimTest Redux logic/calculation suite and the four-profile development Pickle loaded-Def matrix on non-visible isolated desktops;
+3. `Scripts/Run-EnvironmentIsolatedDesktop.ps1`;
+4. the rendered runtime suite on a newly created, non-visible Windows desktop with normal Direct3D rendering;
+5. the default Environment Quickstart matrix, including four AMJE climate biomes, two Vanilla wetlands, a natural-world wetland distribution scenario, and River/Coast handoff;
+6. optional installed CCTO and Core/Grains integration profiles already owned by `run-runtime-tests.bat`.
 
 The isolated launcher does not switch the active desktop and does not use
 `-nographics`. Rendering therefore remains active while automated RimWorld
 windows stay off the user's visible desktop. Runtime reports retain the existing
 pre-launch/runtime ERROR gate, live-log capture and truncation checks.
 
-`run-static-tests.bat` is the lower-level static-only entry point.
+`run-static-tests.bat` is the lower-level static-only entry point. `run-framework-tests.bat` is the lower-level RimTest + Pickle development-integration entry point.
 `run-runtime-tests.bat` remains a lower-level runtime/debug entry point; when
 run directly it may display RimWorld windows. The standard `run-tests.bat`
 path invokes it with `--skip-static` from the isolated desktop after the static
