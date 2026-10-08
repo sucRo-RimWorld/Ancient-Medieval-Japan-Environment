@@ -1,5 +1,16 @@
 # AMJ Environment Coordination
 
+### ENV-WORKSHOP-BATCH-ENTRY-20261008 — author-facing test-run.bat
+
+**Owner:** Environment testing / publication
+**Status:** ONE-COMMAND BATCH ENTRY MERGED; STATIC CI TWO PASS; WINDOWS PICKLE E2E STILL UNVERIFIED; DISTRIBUTED RELEASE HOLD
+
+Author explicitly requested the same batch-first test practice as other AMJ workstreams: `test-run.bat` must be the user-facing entry instead of assembling `py`, timestamps, Manifest or report paths. PR #38 squash-merged as `62ac577f7ce030b2dafc8ec59db8ed1e4bf417e4`. The root-level `test-run.bat` internally launches `Scripts/Run-WorkshopPickle.py`, which finds Workshop3814638060, chooses only an **exact byte-matching** `%TEMP%/AMJE-Final-*/Manifest.json`, makes a fresh timestamped output, executes real RimWorks Pickle for the four loaded-Def smoke profiles and automatically prints failures and available report/log excerpts. Missing or mismatching Steam manifest and an already-running RimWorld are blockers, not runtime PASS. The existing `run-tests.bat` remains the development static/rendered test entry; `test-run.bat` covers subscribed Workshop Pickle verification.
+
+Regression tests cover the batch's zero-flag interface, fail-closed manifest selection and absent-result diagnostics; GitHub `Workshop payload filtering` and `Plant visual coverage ledger` passed on PR head. No game code/assets/published Workshop bytes or local config were altered by this change. This is **test infrastructure only**: Windows C# compilation and 20 Pickle runtime scenarios have not yet been author-executed, and Pickle alone does not validate actual native CutPlant jobs, nine rendered maps or complete Steam publication. Preserve earlier valid 32-file candidate evidence; Steam runtime release HOLD remains.
+
+
+
 ### ENV-WORKSHOP-PICKLE-E2E-20261008 — downloaded source and loaded-Def audit
 
 **Owner:** Environment runtime testing / publication  
