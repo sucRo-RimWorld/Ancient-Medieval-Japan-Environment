@@ -128,7 +128,7 @@ if (-not (Test-Path $OutputDll)) {
     Fail "Built DLL was not found: $OutputDll"
 }
 
-[xml]$riverDefs = Get-Content -LiteralPath $RiverDefsPath
+[xml]$riverDefs = Get-Content -LiteralPath $RiverDefsPath -Raw -Encoding UTF8
 foreach ($defName in @("Creek", "River", "LargeRiver", "HugeRiver")) {
     $node = $riverDefs.SelectSingleNode("/Defs/RiverDef[defName='$defName']")
     if ($null -eq $node) {
@@ -149,7 +149,7 @@ if ($null -eq $large.spawnFlowThreshold -or $null -eq $huge.spawnFlowThreshold) 
 }
 Pass "Vanilla river source structure matches Environment patch assumptions"
 
-[xml]$worldGenerator = Get-Content -LiteralPath $WorldGeneratorPath
+[xml]$worldGenerator = Get-Content -LiteralPath $WorldGeneratorPath -Raw -Encoding UTF8
 $terrainWorker = $worldGenerator.SelectSingleNode("/Defs/WorldGenStepDef[defName='Terrain']/worldGenStep")
 if ($null -eq $terrainWorker) {
     Fail "Vanilla Terrain WorldGenStep was not found."
@@ -169,7 +169,7 @@ foreach ($relative in @(
     }
 
     try {
-        [xml](Get-Content -LiteralPath $path) | Out-Null
+        [xml](Get-Content -LiteralPath $path -Raw -Encoding UTF8) | Out-Null
     }
     catch {
         Fail "Invalid XML in $relative : $($_.Exception.Message)"
@@ -177,7 +177,7 @@ foreach ($relative in @(
 }
 Pass "Environment XML files are well formed"
 
-[xml]$about = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml")
+[xml]$about = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml") -Raw -Encoding UTF8
 if ($about.ModMetaData.packageId -ne "sucro.ancientmedievaljapan.environment") {
     Fail "Unexpected packageId in About.xml."
 }
