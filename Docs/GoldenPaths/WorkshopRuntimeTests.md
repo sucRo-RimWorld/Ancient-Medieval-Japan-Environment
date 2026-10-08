@@ -137,3 +137,32 @@ These reports are local runtime evidence, not a cloud CI game execution.
 
 Long-running colony play, autonomous cutting/hauling and full-year highland
 balance are not claimed by this short map/native-job gate.
+
+
+## 2026-10-07 JST downloaded manifest 7945743700437607405
+
+Actual installed Workshop root, 26 files, tested without rebuilding or editing
+production bytes. Hidden Direct3D four-profile runtime PASS: Vanilla and MO
+227/227 map assertions each, CCTO and MO+CCTO 275/275 each; native cutting 9/9
+in every profile, including Haimatsu. All 28 completed reports have zero ERROR,
+complete live capture and real Workshop source/DLL markers; seven independent
+Unity captures per profile also pass. Payload and normal ModsConfig/Prefs hashes
+were preserved, and temporary observers were retired.
+
+Evidence: TestResults/WorkshopDownloaded-20261007-Run1 and Run2;
+Run2/VerifiedSummary.json combines the completed profiles. Run1 CCTO failed
+before world generation with Quickstarts LogCapture.CountErrors collection
+modification exception. Its failed log is retained; a fresh CCTO rerun passed.
+This is a test-harness failure, not evidence of an AMJE compatibility defect.
+
+The downloaded payload is NOT the exact approved candidate manifest: production
+DLL, loadFolders.xml and PublishedFileId.txt bytes differ; preview filename case
+also differs. Runtime XML/textures match the candidate. loadFolders retains a
+conditional DevQuickstarts entry despite that folder being absent. Runtime PASS
+therefore does not clear exact-candidate provenance/packaging approval. No Steam
+upload, production repair, long-term play or full-year climate coverage claimed.
+
+Repeat the existing Run-WorkshopPayloadTests.py --steam workflow; use --profiles
+for a fresh focused retry and recheck all completed profile logs, independent
+captures and Before/Preservation manifests. Do not discard failed-attempt logs
+or substitute candidate execution for downloaded-payload runtime evidence.
