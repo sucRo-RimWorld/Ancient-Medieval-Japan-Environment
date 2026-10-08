@@ -949,7 +949,7 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 ### 11.5.9 Vanilla残存植物 Step 2監査
 
-現行の6Biomeに含まれるVanilla樹木6種とgeneric植物7種の採用状態を再点検し、日本語説明の未承認草案と歴史資料を`Docs/VanillaPlantStep2DescriptionReview-ja.md` に記録した。竹は江戸期のモウソウチクへ一律に同定しない。マツ二次林の歴史的な存在を全自然林への分布根拠にしない。**竹の日本語説明のみ作者承認済み**（2026-10-08）。承認本文に対応する英語の `ThingDef.description` Patch・日本語DefInjected・ロード済み説明文検証を追加した。残る5樹木は未承認であり、英訳・ゲーム内説明は変更しない。Biome・植林・ゲームプレイ・画像は変更しない。竹の変更後の実機テストは未実施で、既存樹木のリテクスチャは引き続き保留する。
+現行の6Biomeに含まれるVanilla樹木6種とgeneric植物7種の採用状態を再点検し、日本語説明の未承認草案と歴史資料を`Docs/VanillaPlantStep2DescriptionReview-ja.md` に記録した。竹は江戸期のモウソウチクへ一律に同定しない。マツ二次林の歴史的な存在を全自然林への分布根拠にしない。**竹の日本語説明のみ作者承認済み**（2026-10-08）。承認本文に対応する英語の `ThingDef.description` Patch・日本語DefInjected・ロード済み説明文検証を追加した。残る5樹木は未承認であり、英訳・ゲーム内説明は変更しない。Biome・植林・ゲームプレイ・画像は変更しない。竹の説明文検証を追加した版について、2026-10-08に作者が提供した隔離実行ログ末尾に`[OK] Environment runtime gate passed.`、`[OK] AMJ Core + Environment gameplay-contract Quickstarts passed.`、AMJ由来ERRORなしが記録されている。これを**ランタイムゲート作者提供ログPASS**とするが、暖温帯の個別JSON・完全ログは未取得であり、個別アサーション数・正確な実行ソースSHAは独立監査済みとは扱わない。既存樹木のリテクスチャは引き続き保留する。
 
 ## 12. Seasonal scenery baseline
 

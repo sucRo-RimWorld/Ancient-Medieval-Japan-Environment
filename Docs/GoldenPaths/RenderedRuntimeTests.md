@@ -92,7 +92,7 @@ complete capture and zero-owned-ERROR status have not been independently
 inspected. The four-profile Vanilla/MO/CCTO/MO+CCTO release matrix is still
 open and must not be inferred from the author's report.
 
-### Approved Bamboo description — fresh loaded-text test pending (2026-10-08)
+### Approved Bamboo description — author-provided runtime-gate PASS (2026-10-08)
 
 The Japanese description for Vanilla `Plant_TreeBamboo` is approved and
 maintained verbatim in `Docs/VanillaPlantStep2DescriptionReview-ja.md`.
@@ -105,11 +105,32 @@ approved EN/JA text after normalizing literal and actual newlines.
 `Tests/test_vanilla_bamboo_description.py` guards the source text, patch
 scope and test wiring.
 
-The previous author-reported nine-scenario runtime PASS predates this bamboo
-assertion. No updated game-runtime PASS should be claimed until the new
-version's standard `run-tests.bat` is executed and confirmed. Five other
-Vanilla tree descriptions remain unapproved and untranslated; the independent
-four-profile matrix remains open.
+The author supplied the tail of `TestResults/EnvironmentIsolatedRuntime.log`
+after running the updated test path. The excerpt confirms:
+- `[OK] AMJCoastMapHandoffQuickstart passed.`
+- `[OK] No owned AMJ runtime ERROR entries were found.`
+- `[OK] AMJ Core + Environment gameplay-contract Quickstarts passed.`
+- `[OK] Environment runtime gate passed.`
+- The run emitted separate base, CCTO, and Grains/Core report paths.
+
+**Evidence boundary:** this is the *provided tail*, not the complete
+nine-scenario JSON/log set or a separately captured executable revision.
+The overall runtime-gate PASS is accepted as author-supplied evidence for this
+post-Bamboo test run; per-assertion Bamboo details and the exact source SHA
+are not independently audited. The previous PR #27/#28 PASS remains distinct.
+Medieval Overhaul isolated runtime stays disabled by the standard harness;
+the full four-profile release matrix is still OPEN. Five other Vanilla tree
+descriptions remain unapproved, untranslated and unpatched.
+
+**Progress-visibility limitation:** `Run-EnvironmentIsolatedDesktop.ps1`
+redirects the inner `run-runtime-tests.bat` output to
+`TestResults/EnvironmentIsolatedRuntime.log`. Its console only prints
+`[WINDOWS]` when a new desktop-window process list is seen, not once per
+scenario. A stationary `[WINDOWS]` line is therefore not evidence of a hang.
+Use `Get-Content .\\TestResults\\EnvironmentIsolatedRuntime.log -Tail 30 -Wait`
+to follow the existing redirected progress. Adding safe real-time progress
+mirroring without duplicate or destructive logging is a separate harness
+improvement, not part of the Bamboo description implementation.
 
 ### What the standard runner currently proves
 
