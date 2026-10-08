@@ -137,10 +137,12 @@ not measured runtime outcomes.
 - Validate world-level wetland frequency after the ecology/vegetation
   changes; the original Vanilla wetland Worker and terrain generation
   continue to be reused.
-- The new wetland descriptions have author approval and a reported runtime
-  PASS. Reconcile the remaining vegetation Step 1 closure requirements,
-  distinguishing this test acceptance from unaudited wetland share values and
-  the separate four-profile release matrix.
+- The wetland Step 1 baseline (wildlife, diseases, weather, vegetation,
+  terrain, natural distribution and approved bilingual descriptions) is
+  accepted **on author-reported runtime PASS**, not independently audited logs.
+  Retained-plant selection and Japanese description review can proceed;
+  existing-tree retexture remains deferred. Actual wetland share calibration
+  and the separate four-profile release matrix remain open.
 
 The detailed regional sowing assertions and their safe research/zone probe
 are documented in [PlantSowingTests.md](PlantSowingTests.md). Wetland

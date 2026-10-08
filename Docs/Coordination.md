@@ -3,13 +3,13 @@
 ### ENV-WETLAND-DESCRIPTIONS-20261008 — approved bilingual description implementation
 
 **Owner:** Environment / retained Vanilla wetland localization  
-**Status:** IN PROGRESS — author-approved Japanese source; [draft PR #28](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/28) pending new loaded-description runtime PASS
+**Status:** DONE — [PR #28](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/28) merged as `84d077d08e353972e6b7eaedd9139e2e47e6065d`; updated loaded-description runtime test author-reported PASS
 
 - On 2026-10-08 the author approved the two Japanese texts presented in the chat for `TemperateSwamp` and `ColdBog`; preserve those exact approved sentences. The source-of-truth is now `Docs/VanillaWetlandBiomeAudit-ja.md` in PR #28.
 - PR #28 commit `7bdc8f1a65659d918285c072bbfc458f2b38aca9` implements English description-only `PatchOperationReplace` operations and Japanese `BiomeDef` DefInjected, with exact bilingual static contract and loaded-BiomeDef EN/JA assertions added to the existing wetland Quickstarts.
 - This is not a new BiomeDef, plant, weather, biome label, or gameplay change. Keep EN/JA semantic parity and the approved Japanese unchanged.
-- **Evidence boundary:** the author-reported PR #27 nine-scenario PASS predates these added assertions, so it does not prove the new description tests. Static CI and a fresh installed-game `run-tests.bat` still need reconciliation before marking the description step runtime-verified. The four-profile matrix remains separate.
-- After the runtime gate, assess the remaining Step 1 requirements and unblock `ENV-RETEX-012` only if its documented dependencies are satisfied. No request for the user to relay to a different workstream.
+- **2026-10-08 acceptance:** after PR #28's new description assertions were added, the author separately reported the updated test PASS. PR #28 branch and post-merge static CI all passed. This is **author-reported runtime PASS**; exact assertion counts, `.json`/`.log` completeness and owned ERROR-zero status were not independently reviewed because no new report was attached. The earlier PR #27 PASS remains separate. The four-profile matrix is still open.
+- Step 1's baseline wetland biome bundle now has patches, English/Japanese descriptions, static/loaded-Def assertions, terrain and natural-world gates, with all runtime results author-reported PASS. This meets the **author-confirmed baseline Step 1 gate** for starting remaining-plant retention/description review; retain separate detailed-log audit, ecological frequency calibration and four-profile integration gates. Existing-tree retexturing itself remains deferred by the author and by plant-art Golden Path coverage rules. No user-mediated handoff.
 
 ### ENV-WETLAND-NATURAL-DISTRIBUTION-002 — independent natural-world wetland gate (2026-10-08 JST)
 
@@ -21,13 +21,13 @@
 - All five PR checks (two PowerShell, tree-sowing contract, plant visual coverage, Workshop payload) returned **SUCCESS**. These are static/infrastructure results, not installed RimWorld runtime evidence.
 - Follow-up PR #27 commit `76fa4435045414426f492dd47d7cfd9e6ceb3a0e` optimizes settlement-suitability probing across the 30%-coverage world, adds `candidateShare` and `wetlandOfCandidates` diagnostic fields, and gives only the ninth scenario a 420-second timeout. The original eight retain their default timeout. Updated branch CI and post-merge CI are **5/5 PASS**. The author reported the new test passed; its detailed runtime results were not attached.
 - **Acceptance on 2026-10-08:** author explicitly reported that the new test passed; the PR was merged only after this report and successful static CI. This is **author-reported runtime PASS**, not independent validation of the nine `.json`/`.log` reports. Exact assertion counts, world wetland candidate/selected shares, live-capture completeness and the owned ERROR gate are not independently audited without those artifacts. Never infer a numerical wetland share or a calibrated historical frequency from the report. The distinct four-profile matrix remains open.
-- Confirmed design/test intent belongs to `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` and `Docs/GoldenPaths/RenderedRuntimeTests.md` in that PR. `ENV-WETLAND-BIOME-001` remains OPEN; the wetland descriptions are now author-approved and implemented in PR #28, with post-change loaded-description runtime verification pending.
+- Confirmed design/test intent belongs to `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` and `Docs/GoldenPaths/RenderedRuntimeTests.md` in that PR. `ENV-WETLAND-BIOME-001` baseline Step 1 is accepted on author-reported runtime PASS after PR #28; independently inspected runtime logs, precise wetland-share calibration and the four-profile matrix remain separate.
 
 ### TEST-ENV-UNIFIED-20261008 — unify parallel AMJE test and wetland development tracks
 
 **Requested by:** author (2026-10-08 JST)  
 **Owner:** Environment / runtime testing and wetland development — one shared handoff  
-**Status:** IN PROGRESS — prior base 8/8 and CCTO runner PASS evidenced; newer 9-scenario run and Highland-fix Grains/Core integration author-reported PASS; detailed world-share numbers, new description test runtime PASS, four-profile matrix pending
+**Status:** IN PROGRESS — prior base 8/8 and CCTO runner PASS evidenced; newer 9-scenario, updated wetland-description test and Highland-fix Grains/Core integration author-reported PASS; detailed world-share numbers, independent updated runtime logs and four-profile matrix pending
 
 The author requested integration of the separate test chat with the current wetland/vegetation development chat. These now use the **same authoritative main** and `run-tests.bat` as the standard local automated entry; no duplicate branch, competing test scope, or user-mediated relay is required. PR #27 added the ninth natural-world wetland distribution scenario; the author reports that test PASSED. Earlier eight-scenario counts below remain historical evidence, not fresh logs for this ninth scenario.
 
@@ -164,7 +164,7 @@ that Steam was updated.
 
 **Requested by:** author (2026-10-08 JST)  
 **Owner:** Environment / biome / vegetation / wildlife  
-**Status:** OPEN — audit DONE; implementation + Step 1 completion gate required
+**Status:** BASELINE DONE (author-confirmed) — biome corrections, bilingual descriptions and Step 1 regression gates implemented; updated runtime PASS reported, independent log audit and four-profile release matrix separate
 
 Whole-Biome audit completed in PR #18 / squash merge `34fce92e5b6bf6da24e38355e475623ada664d66`.
 
@@ -179,7 +179,7 @@ Decision:
 
 Durable sources: `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` section 11.5.8.
 
-**Next smallest unit:** implement the wetland wildlife/disease/weather/description corrections, then run the Step 1 completion gate.
+**2026-10-08 closeout:** wildlife/disease/weather correction merged in PR #24, natural-world test in PR #27 (`7264c5e101302a5a5d12d479af08c8666603a4a6`), bilingual descriptions and loaded-text tests in PR #28 (`84d077d08e353972e6b7eaedd9139e2e47e6065d`). The author reported both successive runtime gates PASS. This accepts the **initial wetland Step 1 gate** as author-confirmed, not independently log-audited; ecological share percentages were not supplied. Do not conflate with the separate four-profile release matrix. Remaining plant-retention / Japanese-description audit can proceed, while existing-tree retexture is still deferred.
 
 **Test entrypoint infrastructure (2026-10-08):** PR #19 / squash merge `d2b4d261c16481c748544661499b287b039a50d3` makes `run-tests.bat` the canonical AMJE automated gate. It now runs the static/build/source validation first, then launches the normal runtime Quickstart matrix on a rendering-enabled non-visible Windows desktop. The default runtime matrix already includes `AMJTemperateSwampVegetationQuickstart` and `AMJColdBogVegetationQuickstart`, so the forthcoming Step 1 wetland assertions belong in those scenarios and will be exercised automatically by `run-tests.bat`. This tooling merge does **not** claim the new wetland wildlife/disease/weather/terrain completion assertions are implemented or passing yet.
 
@@ -198,7 +198,7 @@ Durable sources: `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` section
 
 **Requested by:** author (2026-10-08 JST)  
 **Owner:** Environment vegetation / localization / art  
-**Status:** BLOCKED — wait for wetland Biome bundle correction + Step 1 completion test
+**Status:** DESCRIPTION/RETENTION AUDIT UNBLOCKED — wetland Step 1 author-confirmed PASS; actual retained-tree retexture remains deferred
 
 Before any broad Vanilla / Medieval Overhaul tree retexture pass, re-audit the trees and ground vegetation AMJE currently leaves in place. The previous rationale that human-created pine woodland / grassland / secondary forest justifies retaining Vanilla vegetation is rejected: those historical vegetation forms must themselves be represented by species and vegetation appropriate to ancient/medieval Japan. Do not assume an existing PlantDef should remain merely because it is already present. For each candidate, decide whether it belongs in AMJE's target region, pre-Edo scope, vegetation bands and landscape role; remove/replace/non-adopt targets that are unnecessary or inappropriate.
 
@@ -206,7 +206,7 @@ Only trees retained after that audit proceed to the later art pass. Their inheri
 
 Durable policy is recorded in `Docs/Design.md` sections **11.5.5–11.5.8**. The required order is **retention audit -> distribution/ownership decision -> Japanese description audit/rewrite -> author/content approval -> retexture**. Do not begin the retained-Vanilla art pass before description review. After the retained Vanilla set is complete, the roadmap proceeds to missing Japanese vegetation/medicinal plants and only then to final Wild Healroot removal.
 
-The 2026-10-08 wetland whole-Biome audit blocks this item temporarily. Do not start retained-Vanilla description review until `TemperateSwamp` / `ColdBog` wildlife, disease, weather and description bundles are corrected and the Step 1 completion test passes.
+The retained wetland wildlife, disease, weather and description bundles are now implemented; updated Step 1 runtime tests were reported PASS by the author on 2026-10-08. The **retention and Japanese-first description review may now start**, with individual descriptions still subject to author approval. Do not initiate existing-tree retexture: it remains separately deferred under `AGENTS.md` and pending current-plant visual Golden Path tasks. The four-profile matrix and detailed runtime log audit are separate unresolved checks.
 
 ### DOC-PUBLICCOPY-005 — public description wording alignment
 

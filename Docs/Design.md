@@ -941,7 +941,7 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 日本の湿地は低地のヨシ・スゲ湿原、ハンノキ林、ミズゴケ高層湿原等を含み、温暖側から冷涼側まで広く存在するため、TemperateSwamp / ColdBogというgenericな二類型自体には残存理由がある。正本の詳細監査は `Docs/VanillaWetlandBiomeAudit-ja.md` とする。
 
-**Step 1の完了条件:** 両湿地のwildAnimals / diseases / weather / descriptionをAMJE方針へ揃え、loaded Defテストで不適切な植物・動物の再流入がないこと、湿地地形生成が維持されること、world上の湿地比率が不意に消失・急増していないことを確認する。これが通るまでStep 2の既存植物説明監査へ移行しない。
+**Step 1の完了条件:** 両湿地のwildAnimals / diseases / weather / descriptionをAMJE方針へ揃え、loaded Defテストで不適切な植物・動物の再流入がないこと、湿地地形生成が維持されること、world上の湿地比率が不意に消失・急増していないことを確認する。これらの回帰ゲートについて2026-10-08に作者からPASS報告を受領したため、**基本Step 1を作者報告ベースで完了**とし、既存植物の残存判定・日本語説明監査へ進める。ただし実機ログによる独立監査や実際の湿地比率の較正、別構成のMO/CCTO統合検証は未完了と区別する。画像リテクスチャの保留は解除しない。
 
 **2026-10-08暫定実装:** `Patches/VanillaWetlandEcology.xml` が両Vanilla湿地の `wildAnimals` / `baseWeatherCommonalities` / `diseaseMtbDays` / `diseases` / `allowedPackAnimals` をAMJE方針に沿って補正する。具体的な全Def・relative commonalityは `Docs/VanillaWetlandBiomeAudit-ja.md` の「湿地生態bundle実装」を正本とする。Vanillaの湿地地形とBiomeWorker、Phase 5植物構成はそのまま保持する。数値は史実の再現値ではなく実機確認待ちのゲームバランス案。説明文の日本語本文は2026-10-08に作者承認済み。英語版と日本語DefInjectedの置換を実装し、旧VanillaラベルとBiomeWorkerは維持する。ロード済み説明文の新たな回帰アサーションについて、2026-10-08に作者から実機テストPASSの報告を受領した。実機ログ・JSONは未添付のため、個別アサーション数、完全キャプチャ、起動前・実行時ERRORゼロを独立再監査したとまでは扱わない。これのみで全構成の統合試験完了や詳細な湿地出現率の確定を宣言しない。確定本文と英訳は `Docs/VanillaWetlandBiomeAudit-ja.md` を正本とする。
 
