@@ -1,5 +1,12 @@
 # AMJ Environment Coordination
 
+### MEDICINE-SPLIT-20261008 — latest author decision supersedes herb workstream
+
+**Status:** DONE — ownership/design records; medicine implementation not started.
+
+Environment retains wild/cultivated Healroot and existing MedicineHerbal supply. No medicinal-plant replacement or final Healroot removal is planned. Yomogi/Kuzu plants, Kuzu-root harvest, raw drugs and remedies belong to the future standalone medicine Mod; Fiber keeps stem processing. Research and approved text moved to [Project medicine record](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/MedicinalPlantsAndRemedies.md). Design, retention audit and Step 3 updated. All older herb-owner/Healroot-removal entries below are historical and superseded. Public-copy reconciliation of old future-roadmap promises remains OPEN for the ongoing public-description workstream; no runtime/art/Steam change or new runtime PASS claimed. Golden Path N/A.
+
+
 ### ENV-STOMACH-ANTHELMINTIC-EXCEPTION-20261008
 
 **Owner:** Environment / historical herb research  

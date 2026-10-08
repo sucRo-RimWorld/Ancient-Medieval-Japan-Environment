@@ -923,9 +923,9 @@ Vanilla湿地Biomeも同じ残存ゲートの対象とする。AMJEの4植生帯
 - `ColdBog`: Chokevine 3.00をTallGrass +1.00 / Moss +2.00へ、Astragalus 0.10をMossへ、Cypress 0.60をBirch 0.60へ置換する。総commonality **8.22**、木本commonality **1.80**を維持する。
 - Willowは日本の湿地・河畔に対応可能な汎用ヤナギ類代理、Mapleは在来カエデ類代理として残す。ColdBogのBirchは冷温帯～亜高山帯で既に採用しているカバノキ類代理を流用する。
 - Vanilla Cypressは湿地性のVanilla樹木であり、日本のヒノキを表す代理としては扱わない。
-- `Plant_HealrootWild` はこの湿地監査では一時的に維持し、後続のHealroot→Yomogi置換時に湿地からも除外する。ヨモギは湿地Biomeの既定構成には追加しない。
+- `Plant_HealrootWild` は湿地を含む既存供給を維持する。薬系分離により撤去予定はない。
 
-`Plant_HealrootWild` はRimWorld固有の架空植物であり、AMJEの最終的な自然植生には残さない。ただし、野生薬草採集ループを途中で失わせないため、AMJE側の日本向け薬草植生が十分に実装・検証されるまで暫定維持する。ヨモギ（`AMJ_Plant_Yomogi`）は不足植生追加段階で先に導入してよく、その追加とHealroot削除を同一変更へ固定しない。ヨモギの主分布は暖温帯・冷温帯とし、亜高山帯・高山帯・Vanilla湿地Biomeには原則配置しない。収穫物はゲームプレイ上の抽象化として少量の `MedicineHerbal` を候補とするが、ヨモギ単独が万能薬であるという史実主張にはしない。
+**2026-10-08作者確定：** Environmentでは野生・栽培ヒールルートと既存薬草供給を維持する。日本向け薬用植物と葛根採取・生薬・加工薬は独立薬系Modへ移管し、EnvironmentでのHealroot置換・最終撤去計画は撤回する。正本：[Project薬系企画](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/MedicinalPlantsAndRemedies.md)。
 
 ### 11.5.7 植生整備ロードマップ
 
@@ -933,10 +933,10 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 1. **不要なVanilla樹木・植生と、そこから再流入する不適切なBiome bundleを整理する。** 古代～中世日本の植生として残す根拠が弱いものを除外し、必要に応じて木本・総植生commonalityを妥当な日本側植物へ再配分する。AMJE-owned 4植生帯の主要植物監査は2026-10-08時点で完了したが、`TemperateSwamp` / `ColdBog` は植物だけでなく野生動物・病気・天候・説明を含むBiome全体の採用監査を完了してからStep 1を閉じる。
 2. **残すVanilla樹木・植物の説明文を先に監査・承認し、その後にリテクスチャする。** 日本語説明をHistorical Description GuidelinesとAMJE形式へ直し、名称・分布・生態・古代～中世日本での利用／景観文脈が妥当であることを確認してから、AMJE/MO系の画風へ揃える。説明未監査の対象を先に描き直さない。Medieval Overhaul由来の採用植生も同じ `retention → description → retexture` 原則に従う。
-3. **不足している古代～中世日本の自然植生を追加する。** 既存Vanilla/MO代理では表現しにくく、Environmentの自然景観として意味がある樹木・草地・湿地植物・伝統薬草等を対象とする。ヨモギ等の薬草はこの段階で追加・検証する。主目的が果実・木の実・加工・採集ゲームプレイになる植物は、Environmentへ抱え込まずHunting & Gathering / Preservation等の自然な所有先と分担する。
-4. **Wild Healrootを最終段階で削除する。** Step 3の薬草植生と供給量・分布・収穫挙動が成立したことを確認した後、`Plant_HealrootWild` をAMJE対象Biomeと共存Vanilla湿地から除外し、必要なら植生commonalityを再調整する。栽培用 `Plant_Healroot` はこの自然植生ロードマップの対象外とする。
+3. **不足している日本の自然植生を追加する。** 湿地・森林・草地の自然景観を対象とし、薬用植物・薬材・加工薬は薬系Mod、果実・木の実の採集ゲームプレイは山野採集側と分担する。
+4. **既存の医療供給を維持する。** Wild Healrootの最終撤去工程は撤回。薬系Modの導入をEnvironmentの成立条件にしない。
 
-この順序は、植生の正当性を決める前にアートへ投資したり、代替薬草が整う前にHealrootを消したりすることを避けるためのものである。
+植生・アート整備は既存医療供給を維持したまま進める。
 
 ### 11.5.8 Vanilla湿地Biomeの採用監査
 
@@ -967,9 +967,9 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 竹の英語 `ThingDef.description` Patch・日本語DefInjected・ロード済み検証に加え、楓・楢・樺・松・柳の英訳／説明限定Patch／日本語DefInjected／Quickstartロード後アサーションをPR #30で実装・マージ済み（`bfb27420428dc75a060a317b3c22bdd4c5856fa8`）。Vanillaのラベル、Biome・自然分布、植林、ゲームプレイ、画像は変更しない。**追加5樹木を含む最新版 `run-tests.bat` は2026-10-08に作者から通過報告あり**。これは作者報告ランタイムPASSであり、最新実行の個別JSON・完全ログ・所有ERRORゼロの独立監査はまだ行っていない。過去の竹テストPASSはそれ自体の旧版証拠として保持する。独立したVanilla/MO/CCTO/MO+CCTOの4構成統合試験は未完了であり、既存樹木のリテクスチャは引き続き保留する。
 
-### 11.5.10 Step 3 不足する日本の自然植生・薬草（2026-10-08準備監査）
+### 11.5.10 Step 3 不足する日本の自然植生
 
-正式な種候補、既存Vanillaとの役割重複、実装順、湿地・医療の供給境界、日本語説明草案、画像・自動テストの入口は `Docs/NativeVegetationStep3Design-ja.md` を正本とする。対象候補は低層湿原のヨシ・スゲ・ハンノキ、冷涼な高層湿原のミズゴケ、暖・冷温帯の草地・人里周辺のヨモギ。 **作者指定（2026-10-08）により、未割当だった葛の自然植生・葛根採取・薬材利用もEnvironmentがヨモギと同じ薬草工程で担当する。葛の茎からの繊維化は将来の繊維Mod所有とし、Projectが専用repo設立まで企画を保持する。詳細は同正本第8節。****現段階では設計候補であり日本語本文、分布数値、採集・薬草機能、PlantDef／Textureを実装・承認した意味ではない。** Step 2の既存樹木説明とStep 1湿地生態を保持し、Wild Healrootの全6Biomeからの撤去は後続独立工程とする。とくに暖・冷温帯に限るヨモギだけで、亜高山・高山・湿地の既存薬草を代替したとは見なさない。画像完成前に新Defの参照パスを有効化しない。参考としてVanilla Plants Expandedの果樹・農業機能を監査し、Environmentの日本の湿原植生や伝統薬草の代替前提にはしない。
+湿地候補・説明草案・承認ゲートは `Docs/NativeVegetationStep3Design-ja.md` を正本とする。2026-10-08最新作者指示で薬系を分離したため、ヨモギ・葛の追加／葛根採取はEnvironment対象外。研究と承認済み説明は[Project薬系企画](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/MedicinalPlantsAndRemedies.md)へ移管した。Environmentは既存Healrootを維持し、旧Step 4撤去計画を実行しない。新PlantDef・画像参照は承認ゲートを通す。
 
 ## 12. Seasonal scenery baseline
 

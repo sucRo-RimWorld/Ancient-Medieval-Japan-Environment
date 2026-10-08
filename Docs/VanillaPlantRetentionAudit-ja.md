@@ -122,9 +122,7 @@ Willowは湿地・河畔のヤナギ類代理として成立する。Vanilla Cyp
 - 総commonality: **8.22 → 8.22**
 - 木本commonality: **1.80 → 1.80**
 
-Wild Healrootは薬草採集ループを途中で切らないためこのPhaseでは残す。Yomogi実装時に両湿地からも除外し、ヨモギ自体は湿地の既定植生には追加しない。
-
-**Phase 5は植物poolだけの監査であり、Vanilla湿地Biome全体を最終採用したという意味ではない。** 2026-10-08の後続監査で、`TemperateSwamp` / `ColdBog` はgenericな湿地類型・Worker・地形生成としては残存理由がある一方、wildAnimals / diseases / weather / descriptionにはAMJE方針との明確な不整合が残ることを確認した。詳細は `Docs/VanillaWetlandBiomeAudit-ja.md` を正本とし、これらを補正してStep 1完了テストを通すまで植生ロードマップStep 1は完全完了扱いにしない。
+Wild Healrootと既存薬草供給は維持する。2026-10-08薬系分離により、Yomogiへの置換・撤去計画は撤回。
 
 ## 現時点の残存判定
 
@@ -182,25 +180,10 @@ Wild Healrootは薬草採集ループを途中で切らないためこのPhase�
 
 残存判定が済んだVanilla樹木・植物は、**まず日本語説明文をAMJE形式へ監査・修正し、内容承認後にリテクスチャする。** 特にBambooの文化的に不適切なVanilla説明はこの工程で修正する。説明文監査を飛ばして先にアートだけ差し替えない。
 
-## 後続工程 — 不足植生・伝統薬草の追加
+## 後続工程 — 不足する自然植生
 
-既存代理では不足する古代～中世日本の自然植生を追加する。ヨモギ（`AMJ_Plant_Yomogi`）等の伝統薬草もこの段階で実装・検証する。
+Environmentは自然景観の不足植生を担当する。薬用植物・薬材・薬は独立薬系Modへ分離し、研究・承認文は[Project薬系企画](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/MedicinalPlantsAndRemedies.md)へ移管。
 
-- ヨモギは暖温帯・冷温帯を主分布候補とする。
-- 亜高山帯・高山帯・Vanilla湿地Biomeには原則配置しない。
-- 少量の `MedicineHerbal` 採集はゲームプレイ上の抽象化として候補とする。
-- 果実・木の実・加工・採集そのものが主役になる植物はEnvironmentの責務を越えるため、別の自然な所有Modと分担する。
+## Wild Healroot維持（2026-10-08最新作者決定）
 
-## 最終段階 — Wild Healroot削除
-
-`Plant_HealrootWild` はRimWorld固有の架空植物なので最終残存させない。ただし、代替薬草植生が十分に実装・検証されるまでは暫定維持する。
-
-削除条件:
-- 不足植生・薬草追加工程が完了している。
-- 自然生成・収穫・供給量がゲーム上成立している。
-- 暖温帯・冷温帯だけでなく、現在Wild Healrootが残る亜高山帯・高山帯・TemperateSwamp・ColdBogからの除外も同時に監査する。
-- 削除後に植生commonalityが意図せず落ちる場合は再配分する。
-
-ヨモギ追加とHealroot削除は同一コミット／同一PRへ固定しない。Healroot削除を植生整備の最終工程とする。
-
-
+野生・栽培Healrootおよび既存MedicineHerbal供給を維持する。旧最終撤去工程と代替薬草の供給ゲートは撤回。薬系Modを入れなくてもEnvironmentの医療供給を成立させる。
