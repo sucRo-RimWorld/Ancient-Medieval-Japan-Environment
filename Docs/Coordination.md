@@ -1,5 +1,36 @@
 # AMJ Environment Coordination
 
+### ENV-WORKSHOP-PICKLE-E2E-20261008 — downloaded source and loaded-Def audit
+
+**Owner:** Environment runtime testing / publication  
+**Status:** PICKLE HARNESS MERGED; STATIC CI PASS; WINDOWS RUNTIME NOT YET EXECUTED; DISTRIBUTION HOLD
+
+PR #37 was squash-merged as `1967bd4626f3169f3d0f13c2eb09789033dcbd1d`. This adds
+`Scripts/Run-WorkshopPickle.py`, test-only
+`Tests/Pickle/EnvironmentWorkshopSteps.cs`, Gherkin feature file and the
+`Docs/GoldenPaths/WorkshopPickleTests.md` runnable procedure. It uses
+**RimWorks Pickle** for five downloaded-Workshop loaded-source/plant Def/
+biome-exclusion/representative-commonality/Vanilla+MO harvest-*Def*
+scenarios across four isolated profiles. Active MO/CCTO membership, real
+Steam root/assembly, Unity ERROR observer, exact external manifest,
+untouched original Workshop bytes and normal RimWorld config are guards.
+GitHub `Workshop payload filtering` and `Plant visual coverage ledger`
+CI both passed on the PR head before merge. No production runtime code,
+XML, images, Workshop upload or candidate bytes were changed.
+
+**Limit:** Pickle test assemblies have not yet been compiled in the author's
+Windows RimWorld environment and the new Pickle E2E scenarios have not yet
+run there. The prior `Steam-Runtime-20261008-233148` missing result directory
+does not establish a gameplay failure; the older Quickstarts runner can
+fail its preflight before creating that directory (e.g. if RimWorld is
+still open), but its exact cause was not captured. Do not falsely claim
+success or silently replace the existing 9-map+native-cutting rendered
+runtime gate with five loaded-Def Pickle checks. Author's previously
+verified **32-file candidate** and the 40-report saved-log audit stay
+valid; actual subscribed-root runtime evidence is still required.
+
+
+
 ### ENV-STEAM-CHANGE-NOTES-20261008 — author confirmation
 
 **Owner:** Environment release/publication
