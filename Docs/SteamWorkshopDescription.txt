@@ -64,6 +64,8 @@ Details: [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environme
 
 詳細：[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README[/url]
 
+[hr][/hr]
+
 [h2]Representative Plants / 各環境帯の代表植物[/h2]
 
 [img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Shii/Shii_A.png[/img]
