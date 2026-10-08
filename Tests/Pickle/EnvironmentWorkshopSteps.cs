@@ -82,6 +82,12 @@ namespace AMJE.WorkshopPickle
                     StringComparison.OrdinalIgnoreCase), "Production DLL is not loaded from subscribed Steam root");
         }
 
+        [Then("the development Environment Mod and assembly come from the expected source folder")]
+        public void VerifyDevelopmentOrigin(PickleContext ctx)
+        {
+            VerifyOrigin(ctx);
+        }
+
         [Then("all four Environment plants are uniquely owned by the downloaded Mod")]
         public void VerifyPlantOwnership(PickleContext ctx)
         {
@@ -89,6 +95,12 @@ namespace AMJE.WorkshopPickle
             foreach (string name in new[] { "AMJ_Tree_Shii", "AMJ_Tree_Beech",
                                             "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu" })
                 ctx.Assert(LoadedPlantOwnedBySteam(name, root), name + " is absent, duplicated or has wrong Mod owner");
+        }
+
+        [Then("all four Environment plants are uniquely owned by the expected source Mod")]
+        public void VerifyDevelopmentPlantOwnership(PickleContext ctx)
+        {
+            VerifyPlantOwnership(ctx);
         }
 
         [Then("rejected Vanilla vegetation is absent from the selected Japanese biomes")]
