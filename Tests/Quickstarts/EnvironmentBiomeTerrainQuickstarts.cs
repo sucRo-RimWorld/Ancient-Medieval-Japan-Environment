@@ -889,6 +889,23 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     "Disease_GutWorms", "Disease_MuscleParasites",
                     "Disease_AnimalFlu", "Disease_AnimalPlague" };
 
+            string approvedEnglishDescription = cold
+                ? "A wetland found across cooler regions. Grasses and mosses grow alongside scattered stands of willow and birch trees. The waterlogged ground readily turns muddy, making travel and construction difficult."
+                : "A wetland found in the warm, rainy lowlands and along rivers of the Japanese archipelago. Tall grasses and stands of willow trees intermingle among muddy ground and shallow water. The damp ground restricts travel and construction.";
+            string approvedJapaneseDescription = cold
+                ? "冷涼な地域に広がる湿原。草本やコケ類に加え、ヤナギやカバノキ類の木立が点在する。水を多く含む地盤はぬかるみやすく、移動や建築が難しい。"
+                : "日本列島の温暖で雨の多い低地や河川沿いに広がる湿地。背の高い草やヤナギ類の木立が入り混じり、泥土と浅い水面が広がる。湿った地盤は通行や建築に制約を与える。";
+
+            verification.Assert(id + " has an approved EN/JA wetland description",
+                delegate
+                {
+                    return biome != null && biome.description != null &&
+                        (string.Equals(biome.description.Trim(),
+                            approvedEnglishDescription, StringComparison.Ordinal) ||
+                         string.Equals(biome.description.Trim(),
+                            approvedJapaneseDescription, StringComparison.Ordinal));
+                });
+
             var animalField = AccessTools.Field(typeof(BiomeDef), "wildAnimals");
             var diseaseField = AccessTools.Field(typeof(BiomeDef), "diseases");
             var packField = AccessTools.Field(typeof(BiomeDef), "allowedPackAnimals");
