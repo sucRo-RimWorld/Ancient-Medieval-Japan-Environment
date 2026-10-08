@@ -63,6 +63,7 @@ else {
         "AMJAlpineTerrainQuickstart",
         "AMJTemperateSwampVegetationQuickstart",
         "AMJColdBogVegetationQuickstart",
+        "AMJWorldWetlandDistributionQuickstart",
         "AMJRiverMapHandoffQuickstart",
         "AMJCoastMapHandoffQuickstart"
     )
@@ -74,6 +75,12 @@ if (-not (Test-Path -LiteralPath $validator)) {
 }
 
 foreach ($name in $scenarios) {
+    # Larger natural worlds need a separate timeout from fixed-biome runs.
+    $scenarioTimeout = $TimeoutSeconds
+    if ($name -eq "AMJWorldWetlandDistributionQuickstart") {
+        $scenarioTimeout = [Math]::Max($TimeoutSeconds, 420)
+    }
+
     $report = Join-Path $ResultDir ($name + ".json")
     $log = Join-Path $ResultDir ($name + ".log")
 
@@ -90,7 +97,7 @@ foreach ($name in $scenarios) {
         '-logFile "' + $log + '"',
         '-quickstart="' + $name + '"',
         '-quickstartreport="' + $report + '"',
-        '-quickstarttimeout=' + [Math]::Max(30, $TimeoutSeconds - 30)
+        '-quickstarttimeout=' + [Math]::Max(30, $scenarioTimeout - 30)
     ) -join ' '
 
     $psi = New-Object System.Diagnostics.ProcessStartInfo
@@ -112,8 +119,8 @@ foreach ($name in $scenarios) {
         $pollSeconds = 15
         $finished = $false
 
-        while ($elapsedSeconds -lt $TimeoutSeconds) {
-            $remaining = $TimeoutSeconds - $elapsedSeconds
+        while ($elapsedSeconds -lt $scenarioTimeout) {
+            $remaining = $scenarioTimeout - $elapsedSeconds
             $waitSeconds = [Math]::Min($pollSeconds, $remaining)
 
             if ($process.WaitForExit($waitSeconds * 1000)) {
@@ -125,7 +132,7 @@ foreach ($name in $scenarios) {
             Write-Host (
                 "[WAIT] " + $name +
                 " is still running (" + $elapsedSeconds +
-                "s / " + $TimeoutSeconds + "s)."
+                "s / " + $scenarioTimeout + "s)."
             )
         }
 
@@ -199,6 +206,6 @@ elseif ($CoreIntegrationOnly) {
     Write-Host "[OK] AMJ Core + Environment gameplay-contract Quickstarts passed." -ForegroundColor Green
 }
 else {
-    Write-Host "[OK] Environment vegetation + river/coast runtime Quickstarts passed." -ForegroundColor Green
+    Write-Host "[OK] Environment vegetation, natural-world wetlands, and river/coast Quickstarts passed." -ForegroundColor Green
 }
 exit 0

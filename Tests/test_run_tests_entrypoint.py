@@ -23,6 +23,9 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             ROOT / "Source" / "AncientMedievalJapanEnvironment"
             / "ClimateCalibrationDiagnostics.cs"
         ).read_text(encoding="utf-8")
+        cls.world_quickstarts = (
+            ROOT / "Tests" / "Quickstarts" / "EnvironmentBiomeTerrainQuickstarts.cs"
+        ).read_text(encoding="utf-8")
         cls.runtime_log_validator = (
             ROOT / "Scripts" / "Validate-EnvironmentRuntimeLog.ps1"
         ).read_text(encoding="utf-8")
@@ -82,6 +85,31 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertIn('"AMJColdBogVegetationQuickstart"', self.quickstarts)
         self.assertIn('"AMJRiverMapHandoffQuickstart"', self.quickstarts)
         self.assertIn('"AMJCoastMapHandoffQuickstart"', self.quickstarts)
+
+    def test_unforced_natural_world_wetlands_gate(self):
+        scenario = "AMJWorldWetlandDistributionQuickstart"
+        self.assertIn(f'"{scenario}"', self.quickstarts)
+        marker = f"class {scenario} : AbstractQuickstart"
+        self.assertIn(marker, self.world_quickstarts)
+        body = self.world_quickstarts.split(marker, 1)[1].split(
+            "public sealed class AMJRiverMapHandoffQuickstart", 1
+        )[0]
+        for requirement in (
+            "get { return 0.30f; }",
+            "wetlandCandidates > 0",
+            "wetlands > 0",
+            "wetlandOutsideCandidateTiles == 0",
+            "wetlands <= landTiles * 0.20f",
+            "selectedNaturalWetland",
+        ):
+            self.assertIn(requirement, body)
+        self.assertIn("preferredWetland.Valid || (!wetland && fallback.Valid)", body)
+        self.assertIn("candidateShare=", body)
+        self.assertIn("wetlandOfCandidates=", body)
+        self.assertIn('$scenarioTimeout = [Math]::Max($TimeoutSeconds, 420)', self.quickstarts)
+        self.assertIn('while ($elapsedSeconds -lt $scenarioTimeout)', self.quickstarts)
+        self.assertNotIn("tile.PrimaryBiome = ", body)
+        self.assertNotIn("tile.swampiness = ", body)
 
     def test_static_gate_still_contains_build_and_source_validation(self):
         for required in (

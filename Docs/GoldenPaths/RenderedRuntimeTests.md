@@ -19,7 +19,7 @@ run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"
 1. `run-static-tests.bat` for PowerShell syntax, build, installed-source Def validation, texture-copy smoke, and the installed Medieval Overhaul tree-reference audit;
 2. `Scripts/Run-EnvironmentIsolatedDesktop.ps1`;
 3. the runtime suite on a newly created, non-visible Windows desktop with normal Direct3D rendering;
-4. the default Environment Quickstart matrix, including the four AMJE climate biomes, `TemperateSwamp`, `ColdBog`, and River/Coast handoff;
+4. the default Environment Quickstart matrix, including four AMJE climate biomes, two Vanilla wetlands, a natural-world wetland distribution scenario, and River/Coast handoff;
 5. optional installed CCTO and Core/Grains integration profiles already owned by `run-runtime-tests.bat`.
 
 The isolated launcher does not switch the active desktop and does not use
@@ -62,7 +62,7 @@ reinterpreting a historical PASS as a current-main PASS.
 | Wetland Phase 5 plants | `Patches/VanillaWetlandVegetation.xml` and two wetland Quickstarts | ColdBog Cypress XPath failure fixed by PR #23; current-main runtime rerun pending |
 | Wetland wildlife, diseases, weather, pack animals and terrain | `Patches/VanillaWetlandEcology.xml`, `Tests/test_wetland_ecology_contract.py` and two wetland Quickstarts | PR #24 static CI passed; loaded-Def/terrain runtime PASS pending |
 | River/coast handoff | `AMJRiverMapHandoffQuickstart` / `AMJCoastMapHandoffQuickstart` | Historical PASS exists; latest-main runtime rerun pending |
-| World wetland distribution sanity | World generation distribution output and `Docs/VanillaWetlandBiomeAudit-ja.md` acceptance gate | Not yet established for PR #24 |
+| World wetland distribution sanity | `AMJWorldWetlandDistributionQuickstart` (30% natural-world sample; no forced biome) | Author-reported installed-game PASS (2026-10-08); structured logs and exact counts not attached |
 
 The earlier warm-forest run returned 73/74 assertions and one pre-launch
 PatchOperation ERROR, before the PR #23 corrections. A later Alpine run
@@ -76,8 +76,8 @@ neither can be turned into a PASS without rerunning it.
 
 `run-tests.bat` runs static/build checks followed by the non-visible,
 rendering-enabled runtime suite. The default runtime profile includes
-**eight** Quickstarts, in order: WarmTemperate, CoolTemperate, Subalpine,
-Alpine, TemperateSwamp, ColdBog, River and Coast. It then runs a focused
+**nine** Quickstarts, in order: WarmTemperate, CoolTemperate, Subalpine,
+Alpine, TemperateSwamp, ColdBog, WorldWetlandDistribution, River and Coast. It then runs a focused
 CCTO profile when installed and a Grains/Core integration profile when
 detected. Each executed scenario requires a successful Quickstart report,
 zero captured pre-launch/runtime ERROR, and complete non-truncated logs.
@@ -87,15 +87,31 @@ Vanilla/MO/CCTO/MO+CCTO combinations.** Its `run-runtime-tests.bat`
 explicitly disables the isolated MO runtime profile because MO startup has
 not reliably reached Quickstarts in the minimal isolated profile. The
 four-profile matrix remains a distinct release/integration acceptance gate.
-Likewise, an eight-scenario PASS alone does not verify world-level wetland
-share, future Japanese/English wetland descriptions, or the exact downloaded
-Workshop subscriber payload.
+The ninth scenario uses 30% planet coverage and does not force a biome. It
+requires natural wetland candidates and biomes, no out-of-candidate wetland
+placement or missing land biome, at least 2,000 land tiles, a naturally selected
+wetland settlement map, and a provisional gross upper ceiling of 20% wetland
+land share. The ceiling is a regression alarm, not a historical target. The
+new ninth test was reported **PASS** by the author on 2026-10-08. The actual
+per-scenario `.json`/`.log` was not attached, so counts, precise wetland shares,
+complete capture, and zero-owned-ERROR evidence have not been independently
+inspected. Even a complete PASS would not establish a final ecological target
+or approve bilingual wetland descriptions.
+
+The natural-world scenario additionally logs candidate share and the
+fraction of wetland candidates actually assigned a retained wetland. The
+complete land scan skips redundant settlement-suitability checks once
+starting-tile choices are resolved. Only this 30%-coverage scenario receives
+a 420-second timeout; the earlier eight retain their existing timeouts. The
+outer isolated-desktop limit remains 1800 seconds. These are safeguards,
+not measured runtime outcomes.
 
 ### Acceptance and follow-up
 
-- Obtain one complete latest-main `run-tests.bat` result with all eight base
-  Quickstarts and whichever optional profiles actually execute. Record the
-  exact source commit, profile and loaded Def/runtime/error results.
+- Preserve the author's reported PASS for the new nine-scenario test. Do not
+  infer exact counts or independent log certification; if structured logs are
+  provided later, record the actual source revision, optional profiles,
+  capture integrity, owned ERROR status, and wetland shares.
 - Run the release four-profile matrix separately when its isolated MO path is
   functioning, without claiming a skip is a PASS.
 - Validate world-level wetland frequency after the ecology/vegetation
