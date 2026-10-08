@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <!-- English description only; keep Vanilla Bamboo label, plant mechanics,
+       graphic paths, wild/commonality and all sowing behavior unchanged.
+       Approved Japanese source: Docs/VanillaPlantStep2DescriptionReview-ja.md. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]/description</xpath>
+    <value>
+      <description>Bamboo (take) is a member of the grass family that grows in stands in Japan's warm, humid regions, despite its tree-like appearance. Here it represents bamboo types such as madake and hachiku that existed in ancient and medieval Japan.\n\nLightweight and flexible, bamboo has long been used for baskets, everyday objects, and materials for building, farming, and fishing. Moso bamboo, common in Japan today, is recorded as having arrived during the Edo period and is distinguished here from these earlier bamboo types.</description>
+    </value>
+  </Operation>
+</Patch>

@@ -176,7 +176,7 @@ Wild Healrootは薬草採集ループを途中で切らないためこのPhase�
 
 ## Step 2 既存Vanilla植物監査（2026-10-08）
 
-現行6Biomeから樹木6種・汎用7種を確認し、`Docs/VanillaPlantStep2DescriptionReview-ja.md` に配置と未承認日本語説明文の草案を整理した。湿地Step 1の作者報告PASSはStep 2着手の根拠であり、4構成の統合テストや実機ログ独立監査の完了を意味しない。日本語本文承認前の英訳・DefInjected・ゲーム中説明変更・画像制作を行わない。
+現行6Biomeから樹木6種・汎用7種を確認し、`Docs/VanillaPlantStep2DescriptionReview-ja.md` に配置と日本語説明文を整理した。**竹の日本語説明は2026-10-08に作者承認済み**であり、英語Patch・日本語DefInjected・ロード済みQuickstartを竹に限り実装した。残り5樹木は日本語未承認で翻訳・実装対象外。湿地Step 1の作者報告PASSはStep 2着手の根拠であり、4構成の統合テストや実機ログ独立監査の完了を意味しない。画像制作は引き続き保留する。
 
 ## 次工程 — 説明文監査 → リテクスチャ
 

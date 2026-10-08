@@ -1,6 +1,6 @@
 # Vanilla植物 Step 2：残存・日本語説明の再監査
 
-**2026-10-08 — 日本語草案・作者未承認。ゲーム内説明やゲームプレイには未反映。**
+**2026-10-08 — 竹の日本語説明のみ作者承認済み（英訳・実装候補）。ほか5樹木は日本語草案・未承認。植生分布・画像・ゲームプレイは未変更。**
 
 対象はAMJEが現在採用するVanilla植物であり、Vanilla植物全体を日本向けと見なすものではない。自然生成は`Defs/BiomeDefs/AMJ_Biomes.xml`および`Patches/VanillaWetlandVegetation.xml`を正本とする。下記数値は`wildPlants`のcommonalityで、史実の構成比や植林の可否を示さない。
 
@@ -29,15 +29,25 @@
 
 汎用植物は現段階で新しい日本種へ無条件に読み替えない。日本固有の湿地植物・薬草追加はロードマップStep 3以降で検討する。
 
-## 日本語説明草案（6件とも未承認）
+## 日本語説明（竹のみ承認済み／他5件は未承認草案）
 
-既存ラベルは変更しない。名前の表記は説明文冒頭の日本向け表現案であり、採否・種の特定や歴史的利用をまだ最終確定したものではない。利用事例を記した場合も、AMJEがその生産レシピを実装したことは意味しない。
+既存ラベルは変更しない。竹は作者が2026-10-08に下記2段落を承認済み。ほか5樹木の日本語草案は引き続き承認待ちであり英訳・ゲーム内説明は変更しない。歴史的な利用を記した場合も、新しい生産レシピの実装を意味しない。
 
 ### Plant_TreeBamboo — 竹（タケ）
 
+**日本語：作者承認済み（2026-10-08）、以下の2段落を固定。**
+
 > 竹（タケ）は、日本の温暖で湿潤な土地に群生する、木のような姿のイネ科植物。古代・中世に存在したマダケやハチクなどの竹類を、ここではまとめて表す。
 >
-> > 竹は軽くしなやかで、古くからかご・日用品や建築・農漁業の資材に使われてきた。現在広く見られるモウソウチクは江戸時代の渡来とする記録があり、ここで想定する竹類とは区別する。
+> 竹は軽くしなやかで、古くからかご・日用品や建築・農漁業の資材に使われてきた。現在広く見られるモウソウチクは江戸時代の渡来とする記録があり、ここで想定する竹類とは区別する。
+
+**English（日本語確定後の対応翻訳）**
+
+> Bamboo (take) is a member of the grass family that grows in stands in Japan's warm, humid regions, despite its tree-like appearance. Here it represents bamboo types such as madake and hachiku that existed in ancient and medieval Japan.
+>
+> Lightweight and flexible, bamboo has long been used for baskets, everyday objects, and materials for building, farming, and fishing. Moso bamboo, common in Japan today, is recorded as having arrived during the Edo period and is distinguished here from these earlier bamboo types.
+
+**実装:** `Patches/VanillaTreeDescriptions.xml` で `Plant_TreeBamboo.description` の英語だけを置換し、`Languages/Japanese/DefInjected/ThingDef/AMJ_WildPlants.xml` の `Plant_TreeBamboo.description` に承認済み日本語を同期する。原文と英訳の段落境界はXMLのリテラル `\\n\\n` で保持する。Vanillaラベル・伐採資源・分布・植林・PlantDef・画像は変更しない。暖温帯のQuickstartにロード済み日英本文の一致検証を追加し、**実機PASSはまだない**。
 
 **留保：** 種同定・現行画像は要確認。Vanillaの「not beautiful」という主観的評価は不採用。新たな竹加工レシピは未実装。
 
@@ -93,7 +103,7 @@
 
 ## 次の工程
 
-1. まず竹の説明文を作者が確認・承認する。モウソウチクを古代・中世の代表へ混同しないこと、Vanillaの美醜評価を除くことを重視する。
+1. **竹の日本語本文は承認済み。** 英語Patch・日本語DefInjected・静的テストと暖温帯Quickstart検証を追加した。実機テストは新しい版で再度確認する。
 2. 残る5樹木の種代理と湿地配置について検討し、必要なら植生配分・植林設定を連動して再設計する。
-3. **日本語承認後だけ**英訳・Vanilla `ThingDef.description` のXML Patch・日本語DefInjected・ロード後テストを実装する。
+3. **残り5樹木は日本語承認後だけ**英訳・Vanilla `ThingDef.description` のXML Patch・日本語DefInjected・ロード後テストを実装する。竹だけを先行実装する。
 4. 現在の既存樹木画像のリテクスチャ保留を維持する。

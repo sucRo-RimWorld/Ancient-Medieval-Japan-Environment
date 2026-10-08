@@ -92,6 +92,25 @@ complete capture and zero-owned-ERROR status have not been independently
 inspected. The four-profile Vanilla/MO/CCTO/MO+CCTO release matrix is still
 open and must not be inferred from the author's report.
 
+### Approved Bamboo description — fresh loaded-text test pending (2026-10-08)
+
+The Japanese description for Vanilla `Plant_TreeBamboo` is approved and
+maintained verbatim in `Docs/VanillaPlantStep2DescriptionReview-ja.md`.
+`Patches/VanillaTreeDescriptions.xml` replaces only that PlantDef's
+English description, and Japanese ThingDef DefInjected provides the approved
+Japanese prose. Both preserve the two-paragraph boundary (`\\n\\n`);
+the Vanilla label and all plant gameplay fields remain unchanged. The
+warm-temperate Quickstart checks the loaded description against the
+approved EN/JA text after normalizing literal and actual newlines.
+`Tests/test_vanilla_bamboo_description.py` guards the source text, patch
+scope and test wiring.
+
+The previous author-reported nine-scenario runtime PASS predates this bamboo
+assertion. No updated game-runtime PASS should be claimed until the new
+version's standard `run-tests.bat` is executed and confirmed. Five other
+Vanilla tree descriptions remain unapproved and untranslated; the independent
+four-profile matrix remains open.
+
 ### What the standard runner currently proves
 
 `run-tests.bat` runs static/build checks followed by the non-visible,
