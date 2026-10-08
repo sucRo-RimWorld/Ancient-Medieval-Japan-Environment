@@ -16,6 +16,7 @@ on:
       - 'Tests/*.ps1'
       - 'Tests/test_run_tests_entrypoint.py'
       - 'Tests/test_structural_plant_commonality.py'
+      - 'Tests/test_workshop_standalone_copy.py'
       - '.github/workflows/powershell-syntax.yml'
   pull_request:
     paths:
@@ -29,6 +30,7 @@ on:
       - 'run-runtime-tests.bat'
       - 'Tests/test_run_tests_entrypoint.py'
       - 'Tests/test_structural_plant_commonality.py'
+      - 'Tests/test_workshop_standalone_copy.py'
       - '.github/workflows/powershell-syntax.yml'
 
 concurrency:
@@ -54,6 +56,9 @@ jobs:
 
       - name: Validate approved biome structural-plant commonalities
         run: python Tests/test_structural_plant_commonality.py
+
+      - name: Validate Workshop standalone wording contract
+        run: python Tests/test_workshop_standalone_copy.py
 
       - name: Run repository PowerShell syntax preflight
         shell: pwsh

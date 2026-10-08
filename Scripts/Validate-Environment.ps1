@@ -1124,6 +1124,8 @@ foreach ($expected in @(
     }
 }
 
+# Workshop intentionally omits the redundant Core-not-required claim.
+# Its standalone capability remains an enforced public compatibility contract.
 $workshopJaPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription-ja.txt"
 $workshopEnPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription.txt"
 $workshopJaRaw = Get-Content -LiteralPath $workshopJaPath -Raw -Encoding UTF8
@@ -1140,10 +1142,10 @@ if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
 
 foreach ($pair in @(
     @($workshopJaText, '現在はβ版です。', 'Japanese Workshop Beta stage'),
-    @($workshopJaText, 'Ancient & Medieval Japan Coreは不要です。', 'Japanese Workshop Core independence'),
+    @($workshopJaText, 'AMJEは単体で完結します。', 'Japanese Workshop standalone support'),
     @($workshopJaText, 'Crop Cold Tolerance Overhaul（CCTO）は任意です。', 'Japanese Workshop CCTO optionality'),
     @($workshopEnText, 'Currently Beta.', 'English Workshop Beta stage'),
-    @($workshopEnText, 'Ancient & Medieval Japan Core is not required.', 'English Workshop Core independence'),
+    @($workshopEnText, 'AMJE remains complete as a standalone environment mod.', 'English Workshop standalone support'),
     @($workshopEnText, 'Crop Cold Tolerance Overhaul (CCTO) is optional.', 'English Workshop CCTO optionality')
 )) {
     if (-not $pair[0].Contains($pair[1])) {
