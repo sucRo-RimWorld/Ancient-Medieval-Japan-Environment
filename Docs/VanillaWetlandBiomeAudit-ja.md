@@ -170,3 +170,77 @@ Step 1では、現行generic植物を使った暫定構成でもよいが、Biom
 - world generationで湿地比率が不意に消滅・急増していないことを確認
 
 このゲートが通ってから、植生ロードマップStep 2「説明文監査 → リテクスチャ」へ進む。
+
+## 2026-10-08 湿地生態bundle実装（RimWorld 1.6・実機検証待ち）
+
+### 実装境界
+
+`Patches/VanillaWetlandEcology.xml` は、両Vanilla湿地の `wildAnimals`、`baseWeatherCommonalities`、`diseaseMtbDays`、`diseases`、`allowedPackAnimals` をfield単位で置換する。
+
+`Patches/VanillaWetlandVegetation.xml` に記録されたPhase 5植生、Vanilla BiomeWorker、湿地地形生成、animalDensity/plantDensity、forage、移動困難度、world textureは変更しない。病気の選定と重み付けは史実の有病率を主張するものではなく、古代～中世日本の環境表現を目的とした**暫定的なゲーム内バランス**である。
+
+### 野生動物（Vanilla PawnKind代理）
+
+| PawnKind | TemperateSwamp | ColdBog |
+|---|---:|---:|
+| Hare | 0.80 | 0.80 |
+| Snowhare | — | 0.50 |
+| Squirrel | 0.60 | 0.70 |
+| Rat | 1.00 | 1.00 |
+| Deer | 0.70 | 0.50 |
+| WildBoar | 0.80 | 0.50 |
+| Fox_Red | 0.06 | 0.05 |
+| Wolf_Timber | 0.03 | 0.05 |
+| Bear_Grizzly | 0.04 | 0.04 |
+
+海外固有のVanilla大型動物、Raccoon、Ibex、Lynx、Arctic Fox/Polar Bear、機械的/架空のBoom系やWargは採用しない。荷役動物リストは空にしてVanillaのMuffalo/Alpacaを野生の湿地動物として再流入させない。新しい湿地固有の水鳥等は引き続き将来の追加対象とする。
+
+### 天候
+
+| WeatherDef | TemperateSwamp | ColdBog |
+|---|---:|---:|
+| Clear | 16 | 16 |
+| Fog | 2 | 2 |
+| Rain | 3 | 3 |
+| DryThunderstorm | 0.10 | 0.05 |
+| RainyThunderstorm | 1.5 | 1 |
+| FoggyRain | 1.5 | 1.5 |
+| SnowGentle | 2 | 7 |
+| SnowHard | 1 | 7 |
+
+湿潤環境を表現するため乾いた雷雨の相対重みを小さくし、温暖な湿地と冷涼な湿地の降雪重みを分離する。これはWeatherDefの生成抽選用commonalityであり、実際の降水/積雪日数を意味しない。
+
+### 病気（ゲーム内incidentの抽象化）
+
+| diseaseInc | TemperateSwamp | ColdBog |
+|---|---:|---:|
+| Disease_Flu | 100 | 100 |
+| Disease_Plague | 45 | 35 |
+| Disease_Malaria | 35 | — |
+| Disease_GutWorms | 65 | 40 |
+| Disease_MuscleParasites | 40 | 30 |
+| Disease_AnimalFlu | 90 | 100 |
+| Disease_AnimalPlague | 40 | 35 |
+| diseaseMtbDays | **50日** | **60日** |
+
+`Disease_FibrousMechanites` と `Disease_SensoryMechanites` は採用しない。マラリアは暖湿地のみで重みを下げて維持し、冷涼湿地には置かない。病気ごとのcommonalityはincident候補内の相対重みであって、古代～中世日本の疫学的頻度ではない。将来World Rulesが担当する全球的な時代外Incident制御とは責務を分ける。
+
+### 説明文草案（日本語先行・**未承認**）
+
+**TemperateSwamp（温帯湿地）**
+
+> 温帯湿地は、日本列島の温暖で雨の多い低地や河川沿いに広がる湿地。草本が茂り、ヤナギなどの湿地林が混じる。泥土や浅い水面が多く、通行や建築の場所を選ぶ。
+
+**ColdBog（冷涼湿原）**
+
+> 冷涼湿原は、冷涼な地域に広がる湿った草地や沼沢地。草本やコケ類と、ヤナギやカバノキ類の湿地林が混在する。湿った地盤は移動や建設を難しくする。
+
+これらは現段階では設計上の草案であり、作者による日本語本文の承認後に、Def/Patchの英語説明文と日本語DefInjectedを同期する。**英語版の説明文を独断で確定しない。** 湿地だけに病気が多発するかのような断定的なVanilla表現は新しい本文に持ち込まない。
+
+### 残る完了判定
+
+- `Tests/test_wetland_ecology_contract.py` が静的Patch構造・内容を確認する。
+- 両湿地Quickstartは、ロード済みwildAnimals/diseases/weather、pack animal、疾病MTB、Vanilla湿地地形生成を検証する。
+- 非表示の実描画テストは `run-tests.bat` が標準入口。
+- 実機Quickstartとworld wetland shareが確認できるまで、この段階をruntime PASSとは扱わない。
+- 説明文の日本語承認・言語同期までは、ロードされるVanilla説明が残るためStep 1を完了扱いにしない。
