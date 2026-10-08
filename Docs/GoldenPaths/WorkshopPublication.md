@@ -89,6 +89,17 @@ manually in Steam.
 The first tracked AMJE publication version is `0.1.0`. Earlier Workshop
 uploads were not assigned retroactive versions.
 
+## Pickle E2E checks for actually subscribed content
+
+\`Docs/GoldenPaths/WorkshopPickleTests.md\` documents the
+RimWorks Pickle loaded-Def/source/wood smoke for the downloaded
+Workshop root, with four isolated profiles and automatic JSON reports.
+It is a **separate** audit, not a replacement for the complete rendered
+world/terrain/native cutting release matrix. Do not call its five
+Gherkin checks equivalent to nine biome maps and cutting jobs.
+RimTest Redux suits pure deterministic logic; Pickle is used here because
+the critical concern is the **actual loaded Workshop instance**.
+
 ## Reusable sequence
 
 1. Read main AGENTS/Coordination and WorkshopRuntimeTests/PlantHarvestTests.
