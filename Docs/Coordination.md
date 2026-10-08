@@ -1,5 +1,18 @@
 # AMJ Environment Coordination
 
+### ENV-STEAM-DEVQUICKSTARTS-LOADFOLDERS-20261009 — published root mismatch confirmed
+
+**Owner:** Environment Workshop publication and downloaded-Pickle runtime
+**Status:** STEAM DISTRIBUTION HOLD; WRONG DOWNLOADED loadFolders.xml; NO PICKLE GAME RUN YET
+
+Author's `test-run.bat` blocked on the actual installed Steam Workshop `3814638060` before launching RimWorld. The existing approved `AMJE-Final-20261008-214525/Manifest.json` has 32 files; installed Workshop has the same 32 paths, **30 SHA256-identical**, and two differing metadata files: `About/PublishedFileId.txt` and `loadFolders.xml`. The approved payload's canonical `loadFolders.xml` has only `<v1.6><li>/</li></v1.6>`. The downloaded payload's exact semantic XML (author test log) includes an **additional executable conditional entry** `<li IfModActive="rimworks.quickstarts">DevQuickstarts</li>`. The tracked **developer** root `main:loadFolders.xml` contains that same conditional entry; the source candidate builder `Scripts/Build-WorkshopPayload.py` explicitly replaces it with canonical root-only `LOAD`. This is a meaningful runtime path difference, NOT harmless formatting; the fail-closed Pickle preflight correctly rejected it. It is **consistent with publishing the developer Mod folder through YADA's filtering rather than selecting the validated extracted candidate** (YADA filters directories but does not edit retained XML contents), although the actual uploader selection path is not independently recorded, so do not call the selection proven.
+
+**Action and stop:** Stop rerunning Pickle/RimTest or weakening `loadFolders.xml` verification: no runtime suite can validate 32/32 candidate provenance while the downloaded copy differs. The author must next select the **verified extracted 32-file candidate**, not the developer checkout, as the source for a manual Workshop correction. The already approved 32-file candidate does not need gameplay rebuild; its prepublication four-profile Quickstarts and 40-report independent audit remain PASS. The author owns manual Steam/YADA publication; it has **not** been performed in this workstream. Afterwards require a **new actual Steam download**, byte/provenance comparison, then Pickle loaded-game tests and full downloaded-root map/native-cutting checks separately.
+
+**Framework source audit performed:** `RimWorks/Rimworld-Pickle` official `Docs/getting-started.md`, `Docs/authoring.md`, `Docs/autorun.md`, `Docs/running.md`, `Docs/reports.md`, `RimWorks/pickle-template/README.md`, and `ilyvion/rimtest-redux/README.md` were read. Pickle's Gherkin, isolated test Steps in `Pickle/Assemblies`, `-pickle-run`, independent report/exit-code and per-mod-set conventions match the present workflow at a design level. RimTest Redux is a unit-test framework requiring test-only assemblies; it is not a substitute for Steam artifact provenance or Pickle's live loading. **Real Windows Pickle C# compilation/runtime is not yet validated.** Avoid further speculative harness rewrites until the release-source blocker is resolved. The official RimWorld `loadFolders.xml` semantics document confirms `IfModActive` loads an additional path when the target Mod is active.
+
+
+
 ### ENV-STEAM-2-METADATA-VARIANCES-20261008 — author test-run.bat preflight diagnosis
 
 **Owner:** Environment Workshop distribution / Pickle E2E

@@ -58,6 +58,31 @@ the Pickle summary is deliberate until all owner publication gates
 have passed. An already running game is a preflight blocker, not a
 mod/gameplay failure; do not inspect nonexistent report folders.
 
+## Blocker found in actual subscribed Steam loadFolders.xml (2026-10-09)
+
+The current downloaded `3814638060/loadFolders.xml` includes
+`<li IfModActive="rimworks.quickstarts">DevQuickstarts</li>`;
+the approved 32-file candidate includes only the root `/` load folder.
+This is a **load behavior difference**, so `test-run.bat` must reject it
+before RimWorld starts. A metadata-format exception is not applicable.
+The development `loadFolders.xml` has this entry; the release builder
+intentionally replaces it. Selecting YADA-filtered development content
+does not remove the XML entry just because `DevQuickstarts` was filtered.
+The source of the actual upload is not independently proven. Do not
+run Pickle or RimTest again until the publication source is repaired
+and Steam delivers a new matching manifest.
+
+Official references reviewed for test implementation:
+[Pickle getting started](https://github.com/RimWorks/Rimworld-Pickle/blob/main/Docs/getting-started.md),
+[Pickle authoring](https://github.com/RimWorks/Rimworld-Pickle/blob/main/Docs/authoring.md),
+[Pickle autorun and CI](https://github.com/RimWorks/Rimworld-Pickle/blob/main/Docs/autorun.md),
+[Pickle reports](https://github.com/RimWorks/Rimworld-Pickle/blob/main/Docs/reports.md),
+[Pickle working template](https://github.com/RimWorks/pickle-template),
+and [RimTest Redux reference](https://github.com/ilyvion/rimtest-redux).
+These confirm that test-only assembly, Gherkin and unattended Pickle
+conventions are appropriate for a live loaded-game smoke; they do not
+replace upload-source provenance or actual native-cutting checks.
+
 ## Downloaded metadata serialization (2026-10-08)
 
 Steam's installed root may differ from the exact 32-file candidate in

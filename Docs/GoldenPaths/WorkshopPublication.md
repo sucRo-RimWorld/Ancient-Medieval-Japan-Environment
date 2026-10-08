@@ -61,6 +61,56 @@ Reproduce the same-path and actual local YADA-rule comparison with
 --development DEVELOPMENT_ROOT --output FRESH_EVIDENCE_JSON`.
 Original runtime evidence remains in the location listed by WorkshopRuntimeTests.
 
+## 2026-10-09 downloaded-root discrepancy: development loadFolders leaked
+
+The author's downloaded Workshop `3814638060` showed 32 installed files,
+30 SHA256-identical to the already validated 32-file candidate, and
+differences only in `About/PublishedFileId.txt` and `loadFolders.xml`.
+The content of `PublishedFileId.txt` is not yet independently confirmed.
+The **actual** downloaded `loadFolders.xml` has an extra RimWorld 1.6 path:
+
+```xml
+<li IfModActive="rimworks.quickstarts">DevQuickstarts</li>
+```
+
+This is identical in meaning to a conditional entry in the tracked developer
+`main:loadFolders.xml`, but is **not** in the approved release candidate.
+The pinned builder's constant `LOAD` deliberately produces only the root
+(`<li>/</li>`). YADA's basename scanner can exclude `DevQuickstarts` itself,
+but **cannot rewrite the nonexcluded loadFolders.xml**, so filtering a developer
+tree is not equivalent to publishing the approved candidate.
+
+Treat this as a **real installed-source discrepancy**. The most likely origin
+is the developer Mod root being selected as upload source instead of the
+extracted, pinned 32-file candidate. The actual Steam/YADA upload-source path
+was not recorded, so this is a hypothesis, not proven attribution. Keep
+`Build-WorkshopPayload.py verify` and the subscribed-root exact-manifest
+release gate unchanged. The Pickle smoke semantic verifier must reject this
+extra path and is not a permission to bypass release checks.
+
+To correct publication, the author must select the **previously verified
+extracted candidate root** as the Workshop upload source, not the development
+Mod and not a filtered copy of the development tree. Immediately before
+confirming upload, validate the actual selected source root against the
+external pinned manifest. Where duplicate local Mods with identical
+`packageId` exist, identify the concrete physical source root; do not assume
+the RimWorld UI selected the intended copy. No automated Steam publication,
+download or modification of the subscribed folder is authorized here.
+A fresh Steam download after correction and a new source/manifest and
+downloaded-runtime verification are still required.
+
+Framework documentation cross-check: Pickle's official
+[getting-started](https://github.com/RimWorks/Rimworld-Pickle/blob/main/Docs/getting-started.md),
+[authoring](https://github.com/RimWorks/Rimworld-Pickle/blob/main/Docs/authoring.md),
+[autorun/CI](https://github.com/RimWorks/Rimworld-Pickle/blob/main/Docs/autorun.md),
+[reports](https://github.com/RimWorks/Rimworld-Pickle/blob/main/Docs/reports.md)
+and [pickle-template](https://github.com/RimWorks/pickle-template),
+plus [RimTest Redux](https://github.com/ilyvion/rimtest-redux).
+Pickle tests loaded game state; RimTest Redux tests isolated C# logic.
+**Neither can make mismatched published source correct.** Keep runtime
+Pickle validation distinct from artifact validation and full native-job
+Quickstarts coverage.
+
 ## Steam Change Notes via Add Changenote
 
 AMJE keeps Steam Workshop change-note text in Git rather than composing it
