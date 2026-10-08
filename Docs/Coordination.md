@@ -149,6 +149,8 @@ Implementation/art provenance is no longer presented as a feature: the previous 
 Durable wording rules are recorded in AMJE `AGENTS.md`, `Docs/WorkshopDescription.md`, and `Docs/2GamePresentation.md`, with the AMJ-common source updated in Grains `Docs/ModDescriptionGuidelines.md`. Japanese Workshop BBCode remained balanced and below the 8,000-byte limit under CRLF accounting. Actual Steam Workshop and 2game page updates are not claimed.
 
 
+**2026-10-08 static-validator regression repair:** PR #22 / squash merge `5d48d6f82ab6520904bea754f63ab74196da1c51` removes stale mandatory Japanese/English Workshop wording `Ancient & Medieval Japan Core is not required` from `Scripts/Validate-Environment.ps1`. Workshop copy intentionally omits that redundant claim; the validator now checks its actual standalone wording, while preserving CCTO optionality and README/About compatibility assertions. `Tests/test_workshop_standalone_copy.py` prevents reintroducing the obsolete marker and checks CRLF-safe 8,000-byte Workshop sizes. PR CI: PowerShell syntax, Plant visual coverage and Workshop payload PASS. Public copy itself and production values were not changed. No Windows RimWorld runtime PASS claimed.
+
 ### DOC-WORKSHOP-004 — AMJE GitHub repository link
 
 **Requested by:** author (2026-10-06 JST)
