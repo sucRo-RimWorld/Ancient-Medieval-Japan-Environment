@@ -20,10 +20,13 @@ coverage, not a substitute for XML inheritance/patch resolution in the game.
 1. Use `build.bat` with installed RimWorld 1.6, Harmony and Quickstarts. Confirm
    `DevQuickstarts/Assemblies/AncientMedievalJapanEnvironment.Quicktests.dll`
    was built; a skipped Quickstarts build is not a successful runtime test.
-2. Prepare isolated configurations with the existing runtime preparation
-   scripts. Run the normal six-scenario vegetation runner through the existing
-   [non-visible rendered launcher](RenderedRuntimeTests.md). Use all four
-   supported profiles: Vanilla+AMJE, MO+AMJE, CCTO+AMJE, MO+CCTO+AMJE.
+2. Use the canonical `run-tests.bat` entry point documented in
+   [RenderedRuntimeTests.md](RenderedRuntimeTests.md). Its base isolated
+   rendered suite contains **eight** Quickstarts: four AMJE forests,
+   TemperateSwamp, ColdBog, River and Coast. Installed CCTO and Grains/Core
+   integrations are optional profiles. The separate four-profile
+   Vanilla/MO/CCTO/MO+CCTO release matrix is not currently automated
+   by this standard runner because the MO runtime profile is disabled.
 3. All four fixed-biome scenarios call `AddTreeSowingAssertions` automatically.
    It checks loaded ordinary-tree Ground/TreeSowing/regional contracts, the
    exact base-Biome natural woody set, no ordinary-tree menu options before research,
@@ -59,5 +62,9 @@ and do not prove this new contract passed.
 Latest author runtime evidence (2026-10-08 JST): warm/cool/subalpine passed;
 Alpine failed 1 of 70 assertions under the old conflated-set test; 69 passed,
 including Haimatsu generation and exclusion from sowing, with no captured runtime
-ERROR. The corrected test must be rerun with the full isolated vegetation matrix.
-No new full-matrix runtime PASS is claimed.
+ERROR. The corrected test must be rerun with the latest-main isolated
+eight-scenario vegetation matrix, including both Vanilla wetlands and
+River/Coast. The follow-on wetland ecology loaded-Def assertions added in
+PR #24 also need a fresh game run; the old Alpine result does not validate
+those new checks. A separate four-profile MO/CCTO release test is still
+pending. No new full-matrix runtime PASS is claimed.
