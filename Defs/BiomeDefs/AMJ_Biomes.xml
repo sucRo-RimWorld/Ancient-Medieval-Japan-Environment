@@ -2,10 +2,8 @@
 <Defs>
   <!--
     Alpha biome definitions.
-    Japan-specific structural plants are now AMJE-owned Defs, but their final
-    graphics remain deferred. World biome textures and wild-animal composition
-    still reuse Vanilla content unless a later pass gives a concrete reason to
-    replace them.
+    World textures reuse distinct Vanilla biome assets:
+    tropical rainforest / temperate forest / boreal forest / tundra.
   -->
 
   <BiomeDef>
@@ -17,7 +15,7 @@
     <plantDensity>0.72</plantDensity>
     <settlementSelectionWeight>1</settlementSelectionWeight>
     <movementDifficulty>1</movementDifficulty>
-    <texture>World/Biomes/TemperateForest</texture>
+    <texture>World/Biomes/TropicalRainforest</texture>
     <forageability>1</forageability>
     <foragedFood>RawBerries</foragedFood>
     <wildPlantRegrowDays>18</wildPlantRegrowDays>

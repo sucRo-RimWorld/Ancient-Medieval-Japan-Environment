@@ -145,6 +145,8 @@ The target should be evaluated statistically over multiple generated worlds rath
 
 Current Alpha implementation uses a spatial ruggedness score (terrain noise plus elevation influence), ranks generated land tiles by that score, and maps the resulting bands toward the 25/20/25/25/5 target. This replaces the first prototype's incremental promotion rules, which overproduced Small Hills and underproduced Mountainous terrain.
 
+2026-10-07 access revision: after climate and biome assignment, no more than 25% of AMJ Alpine tiles may remain Impassable. Excess Impassable Alpine tiles, starting at the lowest elevation, become Mountainous. Keep elevation and annual temperature unchanged; retain the highest impassable peaks. Other biomes are not changed by this correction. The table above is the pre-correction distribution; the final Mountainous share can increase and Impassable share can fall below 5%.
+
 ### 3.4 Rivers
 
 Japan-oriented river design:
@@ -418,7 +420,7 @@ For Alpha gameplay, use four coarse climate bands:
 
 These thresholds are gameplay approximations, not literal botanical boundaries. The existing Environment temperature/elevation model already makes the same sequence occur both northward and upward.
 
-Wetlands are treated as a moisture/topography overlay on those climate bands rather than as a separate latitude zone. Initial diagnostic candidate threshold: **swampiness >= 0.5**.
+Wetland degree remains terrain diagnostic data, with **swampiness >= 0.5** recorded as a wet candidate. It no longer selects a separate Vanilla wetland biome or excludes AMJ forest candidates. Such land resolves to an AMJ climate band or an eligible third-party biome. This does not remove local mud/shallow water, rivers, lakes or coastlines.
 
 ### 9.2 Biome Def strategy
 
@@ -435,7 +437,7 @@ Instead:
 - start each biome from the nearest Vanilla gameplay profile, then replace vegetation/weather/terrain details deliberately rather than by hidden inheritance;
 - keep exact animal additions outside Environment unless required for biome functionality;
 - allow third-party naturally generated biomes to remain compatible through normal worker scoring rather than globally suppressing all non-AMJ BiomeDefs;
-- treat the four AMJ biomes as **baseline vegetation bands**, not an exclusive world-biome replacement. Specialized biomes from Medieval Overhaul and other compatible mods should be able to replace part of a matching climate band when their own workers score higher.
+- replace all twelve Vanilla terrestrial biome candidates with the four AMJ climate bands during Environment's root-surface generation pass: TropicalRainforest, TemperateForest, BorealForest, Tundra, TropicalSwamp, TemperateSwamp, ColdBog, AridShrubland, Desert, ExtremeDesert, IceSheet and SeaIce. Keep their Defs intact; do not globally disable or rename them. Ocean/Lake and other layers remain intact. Third-party biome workers retain normal eligibility and may win a matching climate band through ordinary scoring.
 
 ### 9.3 ReGrowth 2 reference policy
 
@@ -503,19 +505,21 @@ The first AMJ-owned biome pass is implemented with four BiomeDefs:
 Biome workers:
 - use the accepted annual-mean temperature bands;
 - require rainfall >=800;
-- exclude swampiness >=0.5 so existing wetland biomes continue to handle the initial 0.7% wetland minority;
+- accept land irrespective of swampiness; Vanilla wetlands are no longer selection candidates;
 - return an ordinary score centered near 38, sufficient to establish the AMJ baseline over broad Vanilla workers while intentionally allowing stronger specialized workers from MO or other compatible mods to coexist.
 
 Alpha content policy:
-- world-map textures temporarily reuse nearest Vanilla biome textures;
+- world-map textures reuse distinct Vanilla assets: Warm-temperate = `World/Biomes/TropicalRainforest`, Cool-temperate = `World/Biomes/TemperateForest`, Subalpine = `World/Biomes/BorealForest`, Alpine = `World/Biomes/Tundra`. This changes only world display, not climate, biome scoring, vegetation or wildlife;
 - wild plants use existing Vanilla Defs only;
 - wildlife pools are temporary Vanilla-backed functional placeholders so generated maps are not empty, not a historical fauna specification;
 - no final textures, new plant graphics, regional weather effects, or Japan-specific wild-plant Defs are part of this pass;
 - all placeholder content must be revisited after runtime distribution/map-generation validation.
 
-The next validation gate is runtime, not further spreadsheet-style tuning: generate a world and verify that the four AMJ baseline biomes occupy substantial shares, swamp tiles still resolve to wetland/compatibility biomes, and specialized mod biomes can coexist without preventing the AMJ climate bands from appearing.
+The validation gate is runtime: generate a representative 30%-coverage world; require zero Vanilla terrestrial biome tiles, eligible AMJ forest candidates across all temperature boundaries even at swampiness=1, at most 25% impassable AMJ Alpine tiles, and continued generation of MO Dark Forest in the optional MO profile. Water and Vanilla biome Defs remain available. Existing worlds are not converted.
 
-First runtime distribution with Medieval Overhaul active:
+2026-10-07 local rendered validation passed: seven base/MO reports, 311 assertions, zero startup/runtime errors and complete live logs. The deterministic 30% world has 62,655 land tiles: base profile Warm/Cool/Subalpine/Alpine = 16,663/32,646/12,336/1,010, with zero Vanilla terrestrial residuals. Alpine Impassable fell from 871 to 252 (24.95%). MO Dark Forest remains at 6,996 tiles (11.2%); AMJ Alpine Impassable fell from 726/787 to 196/787 (24.90%). These are one-seed observations, not target biome shares. Reuse [BiomeReplacement.md](GoldenPaths/BiomeReplacement.md) for the gate.
+
+Historical runtime distribution with Medieval Overhaul active, before the 2026-10-07 terrestrial replacement:
 - AMJ WarmTemperate: **27.0%**;
 - AMJ CoolTemperate: **43.7%**;
 - AMJ Subalpine: **7.2%**;
@@ -524,7 +528,7 @@ First runtime distribution with Medieval Overhaul active:
 - Temperate Swamp: **2.0%**;
 - remaining Vanilla tropical/temperate biomes: small residual shares.
 
-This is accepted as a valid coexistence result rather than treated as an AMJ-band failure. MO Dark Forest is a specialized naturally generated biome with its own score rules and is allowed to replace part of the otherwise suitable AMJ cool/subalpine climate space. Exact AMJ biome percentages are therefore mod-list dependent and are not balance targets.
+This was accepted under the previous coexistence policy; Vanilla residuals and wetlands are no longer accepted after the 2026-10-07 revision. MO Dark Forest remains eligible through its own worker. Exact AMJ biome percentages are mod-list dependent, not balance targets.
 
 
 ### 9.6 Japan-specific structural wild vegetation

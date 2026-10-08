@@ -414,7 +414,7 @@ World textures should distinguish the four AMJ bands at globe zoom without becom
 ### Cool-temperate forest
 - medium natural green;
 - lighter/more neutral than Warm-temperate;
-- must be visibly distinguishable from Warm-temperate because both currently reuse Vanilla TemperateForest.
+- must be visibly distinguishable from Warm-temperate. The current implementation reuses Vanilla TropicalRainforest for Warm-temperate and TemperateForest for Cool-temperate.
 
 ### Subalpine forest
 - dark cool blue-green / conifer impression;

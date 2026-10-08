@@ -441,7 +441,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
         public override float planetCoverage
         {
-            get { return 0.05f; }
+            get { return System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_WORLD_BIOME_AUDIT") == "1" ? 0.30f : 0.05f; }
         }
 
         public override string seed
@@ -481,6 +481,84 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " targetBiomeScore=" + targetBiomeScore.ToString("F2") +
                 " rainfall=" + worldTile.rainfall.ToString("F0") +
                 " annualTemp=" + worldTile.temperature.ToString("F1"));
+        }
+
+        private static void AddWorldBiomeReplacementAssertions(QuickstartVerification verification)
+        {
+            verification.Assert("at least 75 percent of AMJ Alpine tiles are not impassable", delegate
+            {
+                int alpine = 0, impassable = 0;
+                for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+                {
+                    Tile tile = Find.WorldGrid[i];
+                    if (tile.PrimaryBiome == null || tile.PrimaryBiome.defName != "AMJ_AlpineZone") continue;
+                    alpine++;
+                    if (tile.hilliness == Hilliness.Impassable) impassable++;
+                }
+                if (alpine == 0) return System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_WORLD_BIOME_AUDIT") != "1";
+                return (float)impassable / alpine <= 0.25f;
+            });
+            verification.Assert("generated world contains no Vanilla terrestrial biomes", delegate
+            {
+                int land = 0;
+                for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+                {
+                    Tile tile = Find.WorldGrid[i];
+                    if (tile.WaterCovered) continue;
+                    land++;
+                    if (tile.PrimaryBiome == null ||
+                        !EnvironmentTerrainProcessor.IsBiomeCandidateAllowed(tile.PrimaryBiome.defName)) return false;
+                }
+                return land > 0;
+            });
+            verification.Assert("wetland candidates resolve to allowed land biomes", delegate
+            {
+                int wet = 0;
+                for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+                {
+                    Tile tile = Find.WorldGrid[i];
+                    if (tile.WaterCovered || tile.swampiness < 0.5f) continue;
+                    wet++;
+                    if (tile.PrimaryBiome == null ||
+                        !EnvironmentTerrainProcessor.IsBiomeCandidateAllowed(tile.PrimaryBiome.defName)) return false;
+                }
+                return wet > 0 || System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_WORLD_BIOME_AUDIT") != "1";
+            });
+            verification.Assert("all climate boundaries retain an AMJ candidate on saturated wetland", delegate
+            {
+                float[] temperatures = { -8f, -0.01f, 0f, 7.99f, 8f, 14.99f, 15f, 20f };
+                string[] biomes = { "AMJ_AlpineZone", "AMJ_AlpineZone", "AMJ_SubalpineForest",
+                    "AMJ_SubalpineForest", "AMJ_CoolTemperateForest", "AMJ_CoolTemperateForest",
+                    "AMJ_WarmTemperateForest", "AMJ_WarmTemperateForest" };
+                for (int i = 0; i < temperatures.Length; i++)
+                {
+                    SurfaceTile tile = new SurfaceTile();
+                    tile.elevation = 100f;
+                    tile.temperature = temperatures[i];
+                    tile.rainfall = 800f;
+                    tile.swampiness = 1f;
+                    BiomeDef biome = DefDatabase<BiomeDef>.GetNamedSilentFail(biomes[i]);
+                    if (biome == null || biome.Worker.GetScore(biome, tile, PlanetTile.Invalid) <= 0f) return false;
+                }
+                return true;
+            });
+            verification.Assert("Vanilla biome Defs remain loaded and water candidates remain allowed", delegate
+            {
+                return DefDatabase<BiomeDef>.GetNamedSilentFail("TropicalSwamp") != null &&
+                    DefDatabase<BiomeDef>.GetNamedSilentFail("TropicalRainforest") != null &&
+                    EnvironmentTerrainProcessor.IsBiomeCandidateAllowed("Ocean") &&
+                    EnvironmentTerrainProcessor.IsBiomeCandidateAllowed("Lake");
+            });
+            BiomeDef darkForest = DefDatabase<BiomeDef>.GetNamedSilentFail("DankPyon_DarkForest");
+            if (darkForest != null)
+            {
+                verification.Assert("MO Dark Forest still generates through its own worker", delegate
+                {
+                    for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+                        if (Find.WorldGrid[i].PrimaryBiome == darkForest) return true;
+                    return false;
+                });
+            }
         }
 
         public override QuickstartVerification Verify()
@@ -543,6 +621,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
 
             AddWeatherAssertions(verification, map == null ? null : map.Biome);
+            AddWorldBiomeReplacementAssertions(verification);
             AddSeasonalSceneryAssertions(verification);
             AddWildlifeAssertions(verification, map == null ? null : map.Biome);
             AddLivePlantTextureAssertions(verification, map);
