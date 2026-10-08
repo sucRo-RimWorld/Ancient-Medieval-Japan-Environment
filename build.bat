@@ -112,8 +112,9 @@ echo.
 echo [OK] Build succeeded:
 echo      %OUTPUT_DLL%
 
-rem Developer-only fixed-biome Quickstarts. This assembly is loaded only when
-rem rimworks.quickstarts is active through loadFolders.xml.
+rem Developer-only fixed-biome Quickstarts. The assembly stays outside the
+rem production load path and is staged as a temporary standalone test Mod by
+rem run-runtime-tests.bat.
 set "QUICKSTART_ROOT=%STEAMAPPS%\workshop\content\294100\3793646067"
 set "QUICKSTART_DLL="
 
