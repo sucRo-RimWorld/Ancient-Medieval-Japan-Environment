@@ -1,5 +1,38 @@
 # AMJ Environment Coordination
 
+### ENV-LOADFOLDERS-SOURCE-REPAIR-20261009 — root-only source contract and isolated Quicktests
+
+**Owner:** Environment publication provenance / developer runtime-test plumbing
+**Status:** SOURCE REPAIR IMPLEMENTED; STATIC/CI/RUNTIME EVIDENCE SEPARATE; STEAM DISTRIBUTION HOLD REMAINS
+
+The tracked production `loadFolders.xml` is now byte-identical to the approved
+root-only subscriber contract; the former executable
+`IfModActive="rimworks.quickstarts"` → `DevQuickstarts` entry is removed.
+`Scripts/Build-WorkshopPayload.py` now requires the tracked loader bytes to
+match its root-only `LOAD` contract and fails closed on drift instead of
+silently replacing a mismatching source loader during staging.
+
+Developer fixed-biome Quickstarts remain test-only. `build.bat` still compiles
+their DLL under excluded `DevQuickstarts`, while `run-runtime-tests.bat`
+stages that DLL as a standalone temporary Mod
+(`sucro.ancientmedievaljapan.environment.quicktests`), adds it only to each
+isolated test ModsConfig after the production Environment Mod, and removes the
+owned fixture on exit. The fixture manager refuses to overwrite a pre-existing
+same-named directory and refuses deletion unless its ownership marker,
+packageId and DLL are intact. The outer isolated-desktop launcher also attempts
+the same guarded cleanup after abnormal runner termination. Normal user
+ModsConfig/Prefs are not edited by this path.
+
+This repair changes publication/test plumbing, not Environment gameplay Defs,
+production C# behavior or art. The root-only loader bytes are the same bytes
+already present in the previously validated 32-file candidate. It reduces the
+specific risk that selecting the development root through YADA leaks
+`DevQuickstarts` load semantics, but **does not authorize the development root
+as an upload source** and does not replace the exact selected-root manifest
+gate. No new RimWorld runtime PASS or Steam upload/download is claimed here.
+Actual Workshop correction remains author-manual using the verified extracted
+candidate, followed by a fresh Steam download and distribution/runtime checks.
+
 ### ENV-STEAM-DEVQUICKSTARTS-LOADFOLDERS-20261009 — published root mismatch confirmed
 
 **Owner:** Environment Workshop publication and downloaded-Pickle runtime
