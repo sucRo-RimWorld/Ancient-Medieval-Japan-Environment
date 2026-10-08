@@ -1,5 +1,17 @@
 # AMJ Environment Coordination
 
+### ENV-STEP3-NATIVE-VEGETATION-20261008 — new native wetland plants and mugwort
+
+**Owner:** Environment / native vegetation and medicine-supply boundary
+**Status:** IN PROGRESS — design/prior-art groundwork merged, new species and art NOT IMPLEMENTED
+
+2026-10-08: Step 2 tree-description work was author-confirmed PASS and closed, so Step 3's missing Japan-appropriate wetland vegetation and traditional herbs is now the active scoped workstream. [PR #32](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/32) squash-merged as `def9a2d17d6b3030b52d675718fadda2dc6aacf3`, after successful Workshop-payload PR CI. Formal design source of truth: `Docs/NativeVegetationStep3Design-ja.md`, referenced by `Docs/Design.md` 11.5.10. It covers VE-first overlap, selected prospective reed/sedge/alder/sphagnum/mugwort owners, two wetland commonality totals 7.30/8.22 and woody totals 3.00/1.80, controlled redistribution of Vanilla proxies, per-biome habitat and tree-sowing checks, historical Japanese drafts, art asset gate, automated Quickstarts/error gate and no premature medicinal yield.
+
+**Immediate implementation route:** Start with one Japanese reed (`AMJ_Plant_Yoshi`) on a separate PR only after approved Japanese description and approved source PNG exist; then handle other wetland species and Yomogi as independently auditable slices. The named candidates, commonality transfers, Japanese draft text and harvest mechanics are NOT yet author-approved or implemented. Do not translate unapproved drafts or create live Def references to missing textures. Existing four AMJE plant visual coverage rows remain complete; legacy-tree retextures are still deferred and new plant visual reviews are separate.
+
+**Critical safeguard:** Wild `Plant_HealrootWild` remains in all six currently covered Biomes until separate Step 4 full harvest/supply verification. Yomogi proposed only for warm/cool temperate and cannot itself replace medicine collection in subalpine, alpine or wetlands. One successful standard `run-tests.bat` for Step 2 does not prove Step 3's new Defs or the separate Vanilla/MO/CCTO/MO+CCTO four-profile matrix. No Steam publication is claimed.
+
+
 ### ENV-STEP2-SIX-TREES-20261008 — six retained Vanilla descriptions and format audit
 
 **Owner:** Environment / vegetation localization
