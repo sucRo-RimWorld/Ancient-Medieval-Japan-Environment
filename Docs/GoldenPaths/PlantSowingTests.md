@@ -51,6 +51,43 @@ In RimWorld 1.6, `AMJ_Shrub_Haimatsu` appears in the Alpine base-Biome
 not sowable. Therefore Alpine expects wild woody `{AMJ_Shrub_Haimatsu}`
 but grow-zone sowable `{}`. Never compare those different sets directly.
 
+## Existing-save plant and fruit-tree update E2E (planned, not implemented)
+
+Decision source: `Docs/Design.md` — Save-compatible vegetation development order.
+This gate is for **updating an existing save with AMJE already installed**, not
+for installing AMJE for the first time, removing AMJE, or retroactively
+rebuilding the world map.
+
+When the first new wild/fruit tree or harvestable herb is implemented:
+
+1. Create a disposable old-version AMJE save with a generated and populated
+   colony map; retain immutable baseline save/artifacts for a before/after pair.
+2. Update to the new AMJE revision and load **that same save**. Assert normal
+   load and preserved map/placed plants; assert the added PlantDef, products and
+   applicable base-Biome `wildPlants` commonality are present in the loaded Defs.
+3. Use a repeatable time/weather/terrain/density setup to verify **new natural
+   growth on the existing map**, without confusing forced test spawning with
+   natural spawner eligibility. Report time and sampling limits; do not require
+   immediate retroactive repopulation of all existing forest cells.
+4. Verify age/maturity and the **actual harvest yield** of the added fruit/nut
+   or medicinal resource, including repeatable harvest rules if applicable.
+5. For a deliberately sowable tree, verify regional/TreeSowing research gates,
+   a real sowing Job on a valid growing-zone cell, subsequent growth, and
+   product harvesting. Preserve non-sowable species' exclusion.
+6. Save again, reload, check the added plants and products persist, and require
+   zero AMJE-owned pre-launch/runtime ERRORs with complete capture.
+7. Run separately where applicable for AMJE standalone, MO, CCTO and MO+CCTO;
+   record unavailable integration profiles explicitly rather than claiming
+   full matrix PASS.
+
+Use non-visible rendering-enabled Quickstarts/Pickle or RimTest Redux as
+appropriate, extending the existing `run-tests.bat` path and runtime ERROR
+gate. Current native growing-zone loaded-Def tests **do not** verify a planted
+pawn Job, real fruit harvest, save migration or plant natural spawning on an
+already generated map. None of the above E2E has been run or accepted yet.
+Until its results exist, mid-save updates are a design target, not a
+verified public compatibility promise.
+
 ## Evidence boundary
 
 2026-10-08 JST: native sowing regressions added; Python contract/mutation tests

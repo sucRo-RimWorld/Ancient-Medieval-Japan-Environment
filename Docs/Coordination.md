@@ -1,5 +1,30 @@
 # AMJ Environment Coordination
 
+### ENV-SAVE-FRIENDLY-VEGETATION-20261008 — staged additions / existing-save gate
+
+**Requested by:** author (2026-10-08 JST)  
+**Owner:** Environment / world generation, vegetation and runtime testing  
+**Status:** POLICY CONFIRMED; migration E2E NOT IMPLEMENTED / NOT RUN
+
+Author approved prioritizing changes that require new-game world/map
+generation first; postponing new fruit trees, harvestable woody plants,
+traditional herbs and purely visual retextures where possible. Subsequent
+plant additions should target existing saves **already using AMJE** without
+demanding a new game for each species. This is not a claim that installing
+AMJE into a save without AMJE, removing it, or regenerating existing biome
+world geography is safe.
+
+Formal contract now belongs to `Docs/Design.md` (Save-compatible vegetation
+development order); proposed reproducible validation belongs to
+`Docs/GoldenPaths/PlantSowingTests.md`. At the first new plant/fruit harvest
+implementation, add an old-version-save -> new-version-load -> existing-map
+natural spread -> real fruit/nut harvest -> research-gated real sow Job ->
+save/reload regression, with complete logs and owned ERROR gate, and separate
+standalone/MO/CCTO/MO+CCTO profiles. Avoid treating existing loaded-Def tree
+menu tests as proof of existing-save compatibility. Retextures remain deferred
+until the author reopens art work. This is design/handoff only; no gameplay
+implementation, installed-game test PASS or Workshop publication is claimed.
+
 ### ENV-KUZU-MEDICINAL-OWNER-20261008 — kudzu root / stem-fiber boundary
 
 **Owner:** Environment / Step 3 traditional herbs  
