@@ -116,6 +116,9 @@ Durable sources: `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` section
 
 **Next smallest unit:** implement the wetland wildlife/disease/weather/description corrections, then run the Step 1 completion gate.
 
+**Test entrypoint infrastructure (2026-10-08):** PR #19 / squash merge `d2b4d261c16481c748544661499b287b039a50d3` makes `run-tests.bat` the canonical AMJE automated gate. It now runs the static/build/source validation first, then launches the normal runtime Quickstart matrix on a rendering-enabled non-visible Windows desktop. The default runtime matrix already includes `AMJTemperateSwampVegetationQuickstart` and `AMJColdBogVegetationQuickstart`, so the forthcoming Step 1 wetland assertions belong in those scenarios and will be exercised automatically by `run-tests.bat`. This tooling merge does **not** claim the new wetland wildlife/disease/weather/terrain completion assertions are implemented or passing yet.
+
+
 ### ENV-RETEX-012 — existing-tree retention audit and AMJE description rewrite
 
 **Requested by:** author (2026-10-08 JST)  
