@@ -134,7 +134,7 @@ to follow the existing redirected progress. Adding safe real-time progress
 mirroring without duplicate or destructive logging is a separate harness
 improvement, not part of the Bamboo description implementation.
 
-### Approved retained Vanilla trees — newly added loaded-text gate pending (2026-10-08)
+### Approved retained Vanilla trees — latest gate author-reported PASS (2026-10-08)
 
 The author approved the original Japanese drafts for Maple/Oak/Birch/Pine/Willow
 after comparing their format with the four AMJE-owned structural plant descriptions
@@ -154,11 +154,15 @@ format and loaded-test wiring. The warm-temperate Quickstart checks the loaded
 English *or* Japanese text of each tree via the DefDatabase; no planting or
 world-generation behavior was changed.
 
-**Acceptance boundary:** static contract verification/PR CI is distinct from
-RimWorld 1.6 loaded-Def runtime. The new five-tree assertions have not yet
-passed an installed-game `run-tests.bat` gate in this workstream. The earlier
-Bamboo runtime-gate PASS remains valid for its earlier source only; the
-Vanilla/MO/CCTO/MO+CCTO release matrix also remains separate and OPEN.
+**Acceptance boundary:** PR #30 passed all three GitHub static jobs and was
+squash merged as `bfb27420428dc75a060a317b3c22bdd4c5856fa8`. On
+2026-10-08 the author reported that the updated installed-game `run-tests.bat`
+**passed** with the five new loaded-description assertions present. Record this
+as **author-reported latest runtime PASS**, not independently inspected output:
+no fresh per-scenario JSON/full runner log or owned ERROR-zero capture was
+attached. Do not infer precise assertion counts or independent error audit.
+The earlier Bamboo runtime-gate PASS remains distinct historical evidence.
+Vanilla/MO/CCTO/MO+CCTO four-profile release testing remains separate and OPEN.
 
 ### What the standard runner currently proves
 
