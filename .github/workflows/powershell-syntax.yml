@@ -2,15 +2,19 @@ name: PowerShell syntax validation
 
 on:
   push:
+    branches: [main]
     paths:
       - '**/*.ps1'
       - 'run-tests.bat'
+      - 'run-static-tests.bat'
+      - 'run-runtime-tests.bat'
       - 'run-texture-debug.bat'
       - 'Textures/**/*.png'
       - 'Defs/ThingDefs_Plants/AMJ_WildPlants.xml'
       - 'Tests/validate_shirabiso_texture.py'
       - 'Tests/validate_haimatsu_texture.py'
       - 'Tests/*.ps1'
+      - 'Tests/test_run_tests_entrypoint.py'
       - '.github/workflows/powershell-syntax.yml'
   pull_request:
     paths:
@@ -20,7 +24,14 @@ on:
       - 'Tests/validate_shirabiso_texture.py'
       - 'Tests/validate_haimatsu_texture.py'
       - 'run-tests.bat'
+      - 'run-static-tests.bat'
+      - 'run-runtime-tests.bat'
+      - 'Tests/test_run_tests_entrypoint.py'
       - '.github/workflows/powershell-syntax.yml'
+
+concurrency:
+  group: powershell-syntax-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   parse:
@@ -35,6 +46,9 @@ jobs:
 
       - name: Validate approved Haimatsu integration
         run: python Tests/validate_haimatsu_texture.py
+
+      - name: Validate unified test entrypoint wiring
+        run: python Tests/test_run_tests_entrypoint.py
 
       - name: Run repository PowerShell syntax preflight
         shell: pwsh

@@ -4,6 +4,9 @@ setlocal EnableExtensions EnableDelayedExpansion
 set "RIMWORLD_DIR=%~1"
 if not defined RIMWORLD_DIR set "RIMWORLD_DIR=D:\SteamLibrary\steamapps\common\RimWorld"
 
+set "SKIP_STATIC="
+if /I "%~2"=="--skip-static" set "SKIP_STATIC=1"
+
 set "ROOT=%~dp0"
 set "RIMWORLD_EXE=%RIMWORLD_DIR%\RimWorldWin64.exe"
 set "RESULT_ROOT=%ROOT%TestResults\VegetationRuntime"
@@ -17,8 +20,10 @@ set "CORE_SAVEDATA=%RESULT_ROOT%\SaveData-Core"
 set "CORE_REPORT_DIR=%RESULT_ROOT%\Reports-Core"
 set "QUICKTEST_DLL=%ROOT%DevQuickstarts\Assemblies\AncientMedievalJapanEnvironment.Quicktests.dll"
 
-call "%ROOT%run-tests.bat" "%RIMWORLD_DIR%"
-if errorlevel 1 exit /b 1
+if not defined SKIP_STATIC (
+    call "%ROOT%run-static-tests.bat" "%RIMWORLD_DIR%"
+    if errorlevel 1 exit /b 1
+)
 
 if not exist "%RIMWORLD_EXE%" (
     echo [ERROR] RimWorld executable was not found:
@@ -50,9 +55,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Prepare-Envir
 if errorlevel 1 exit /b 2
 
 echo.
-echo Running four fixed-biome vegetation Quickstarts automatically...
+echo Running Environment vegetation, wetland, and river/coast Quickstarts automatically...
 echo The normal RimWorld mod list and Prefs.xml are not modified.
-echo RimWorld will open and exit once per biome.
+if defined AMJE_ISOLATED_RUNTIME (
+    echo RimWorld renders on an isolated, non-visible Windows desktop.
+) else (
+    echo [INFO] Direct run-runtime-tests.bat execution may show RimWorld windows.
+    echo        Use run-tests.bat for the standard non-visible full gate.
+)
 echo.
 
 powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-EnvironmentVegetationQuickstarts.ps1" ^
@@ -98,10 +108,12 @@ if defined CCTO_INSTALLED (
 set "CORE_INSTALLED="
 if exist "%RIMWORLD_DIR%\Mods\AncientMedievalJapanCore\About\About.xml" set "CORE_INSTALLED=1"
 if exist "%RIMWORLD_DIR%\Mods\Ancient-Medieval-Japan-Core\About\About.xml" set "CORE_INSTALLED=1"
+if exist "%RIMWORLD_DIR%\Mods\AncientMedievalJapanGrains\About\About.xml" set "CORE_INSTALLED=1"
+if exist "%RIMWORLD_DIR%\Mods\Ancient-Medieval-Japan-Grains\About\About.xml" set "CORE_INSTALLED=1"
 
 if defined CORE_INSTALLED (
     echo.
-    echo Preparing isolated AMJ Core + Environment gameplay-integration profile...
+    echo Preparing isolated AMJ Grains/Core + Environment gameplay-integration profile...
     powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1" ^
         -OutputRoot "%CORE_SAVEDATA%" ^
         -IncludeCore
@@ -111,7 +123,7 @@ if defined CORE_INSTALLED (
     )
 
     echo.
-    echo Running four AMJ Core + Environment gameplay-contract Quickstarts...
+    echo Running AMJ Grains/Core + Environment gameplay-contract Quickstarts...
     powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-EnvironmentVegetationQuickstarts.ps1" ^
         -ExePath "%RIMWORLD_EXE%" ^
         -SaveDataFolder "%CORE_SAVEDATA%" ^
@@ -123,7 +135,7 @@ if defined CORE_INSTALLED (
     if not "!RESULT!"=="0" goto :report
 ) else (
     echo.
-    echo [INFO] AMJ Core is not installed in the local RimWorld Mods folder; skipping optional Core + Environment gameplay-integration runtime check.
+    echo [INFO] AMJ Grains/Core is not installed in the local RimWorld Mods folder; skipping optional integration runtime check.
 )
 
 echo.
@@ -148,7 +160,7 @@ if defined CCTO_INSTALLED (
     echo   %CCTO_REPORT_DIR%
 )
 if defined CORE_INSTALLED (
-    echo Core + Environment gameplay reports:
+    echo Grains/Core + Environment gameplay reports:
     echo   %CORE_REPORT_DIR%
 )
 exit /b %RESULT%

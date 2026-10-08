@@ -30,7 +30,7 @@ A one-off trivial text edit with no reusable procedure can be marked N/A. A work
 
 - [Regional Tree Sowing Tests](PlantSowingTests.md) — static tree-pool contract and native growing-zone eligibility before/after research; fresh runtime matrix pending.
 
-- [Rendered Runtime Tests](RenderedRuntimeTests.md) — rendering enabled on an independent non-visible Windows desktop.
+- [Rendered Runtime Tests](RenderedRuntimeTests.md) — `run-tests.bat` standard gate: static validation followed by rendering-enabled Quickstarts on an independent non-visible Windows desktop.
 
 - [Plant Visual Coverage Gate](PlantVisualCoverage.md) — per-state approval/evidence and scoped invalidation.
 
