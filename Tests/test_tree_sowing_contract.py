@@ -78,6 +78,7 @@ class TreeSowingContractTests(unittest.TestCase):
         for name, expected in EXPECTED.items():
             case = method.split(f'case "{name}":', 1)[1].split("case ", 1)[0].split("default:", 1)[0]
             self.assertEqual(expected, set(re.findall(r'"((?:AMJ|Plant)_\w+)"', case)))
+        self.assertIn("foreach (BiomePlantRecord record in map.Biome.wildPlants)", source)
         for required in ("AddTreeSowingAssertions(verification, map);",
                          "PlantUtility.ValidPlantTypesForGrowers(",
                          "Command_SetPlantToGrow.IsPlantAvailable(plant, map)",
