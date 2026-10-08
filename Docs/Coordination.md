@@ -1,5 +1,17 @@
 # AMJ Environment Coordination
 
+### ENV-STEAM-2-METADATA-VARIANCES-20261008 — author test-run.bat preflight diagnosis
+
+**Owner:** Environment Workshop distribution / Pickle E2E
+**Status:** STRICT 32/32 BYTE MANIFEST FAIL CONFIRMED; METADATA SEMANTIC AUDIT MERGED; STEAM PICKLE RUNTIME NOT YET PASSED; RELEASE HOLD
+
+Author ran `test-run.bat` against actual installed Workshop `3814638060`. The tool compared `%TEMP%/AMJE-Final-20261008-214525/Manifest.json` with the installed root and stopped **before game start**: `missing=[]`, `extra=[]`, `changed=['About/PublishedFileId.txt', 'loadFolders.xml']`. Therefore 30 of 32 files were SHA256-identical to the approved candidate. Exact 32/32-byte provenance is **not established**. The actual contents of the two differing files were not supplied; do not assert that their meaning is unchanged before running the semantic gate.
+
+PR #39 merged as `c6f674a2237dcc739299d59408f4a9c16271a6d8` (CI `Workshop payload filtering` and `Plant visual coverage ledger` both PASS on final PR head). Its `Scripts/Run-WorkshopPickle.py` now recognizes only two **explicit, narrowly scoped** metadata format deviations: `PublishedFileId.txt` must decode to exact numeric Workshop ID `3814638060`, and `loadFolders.xml` must parse into an identical root-only RimWorld 1.6 load-folder tree. Missing/extra files, any other SHA256 mismatch, noncanonical approved manifest ID/XML, changed XML structure/load paths, or wrong ID remain hard failures. On passing metadata semantics, the production subscriber validator runs on actual downloaded content with only equivalent metadata normalized **in memory**; the installed Mod, manifest and release candidate are never modified. Pickle report records `manifest_audit.byte_identical=false` and the differing files; it **does not clear** `steam_release_cleared=false`. The preexisting strict `Build-WorkshopPayload.py verify` and the full rendered/native cutting distribution release gate remain unchanged.
+
+Next human action: synchronize local Environment checkout and run **only `test-run.bat`** with RimWorld normally closed. If semantic gate rejects either metadata file, its automatic diagnostic is the next evidence; do not weaken the acceptance gate or ask the author for manual file-by-file comparisons. If Pickle runs and passes, record its 20 loaded-Def checks separately; 9-map/native-cutting actual Steam runtime and exact provenance remain outstanding. No new Steam upload authorized by this record.
+
+
 ### ENV-WORKSHOP-BATCH-ENTRY-20261008 — author-facing test-run.bat
 
 **Owner:** Environment testing / publication
