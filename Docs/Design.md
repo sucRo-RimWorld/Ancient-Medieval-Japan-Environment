@@ -953,6 +953,10 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 竹の英語 `ThingDef.description` Patch・日本語DefInjected・ロード済み検証に加え、楓・楢・樺・松・柳の英訳／説明限定Patch／日本語DefInjected／Quickstartロード後アサーションをPR #30で実装・マージ済み（`bfb27420428dc75a060a317b3c22bdd4c5856fa8`）。Vanillaのラベル、Biome・自然分布、植林、ゲームプレイ、画像は変更しない。**追加5樹木を含む最新版 `run-tests.bat` は2026-10-08に作者から通過報告あり**。これは作者報告ランタイムPASSであり、最新実行の個別JSON・完全ログ・所有ERRORゼロの独立監査はまだ行っていない。過去の竹テストPASSはそれ自体の旧版証拠として保持する。独立したVanilla/MO/CCTO/MO+CCTOの4構成統合試験は未完了であり、既存樹木のリテクスチャは引き続き保留する。
 
+### 11.5.10 Step 3 不足する日本の自然植生・薬草（2026-10-08準備監査）
+
+正式な種候補、既存Vanillaとの役割重複、実装順、湿地・医療の供給境界、日本語説明草案、画像・自動テストの入口は `Docs/NativeVegetationStep3Design-ja.md` を正本とする。対象候補は低層湿原のヨシ・スゲ・ハンノキ、冷涼な高層湿原のミズゴケ、暖・冷温帯の草地・人里周辺のヨモギ。**現段階では設計候補であり日本語本文、分布数値、採集・薬草機能、PlantDef／Textureを実装・承認した意味ではない。** Step 2の既存樹木説明とStep 1湿地生態を保持し、Wild Healrootの全6Biomeからの撤去は後続独立工程とする。とくに暖・冷温帯に限るヨモギだけで、亜高山・高山・湿地の既存薬草を代替したとは見なさない。画像完成前に新Defの参照パスを有効化しない。参考としてVanilla Plants Expandedの果樹・農業機能を監査し、Environmentの日本の湿原植生や伝統薬草の代替前提にはしない。
+
 ## 12. Seasonal scenery baseline
 
 ### 12.1 Alpha principle
