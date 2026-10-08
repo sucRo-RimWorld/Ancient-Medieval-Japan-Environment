@@ -142,6 +142,26 @@ in this evidence bundle. The full `run-tests.bat`/wetland Step 1 gate
 remains **PENDING**. An historical warm 73/74 failure is superseded for
 this individual warm scenario only; it does not establish full-matrix PASS.
 
+## 2026-10-08 post-Highland-fix author-confirmed integration result
+
+The author explicitly confirmed that the **post-fix rerun PASSED**; the
+Japanese word `パス` referred to a successful test result, not a request
+to skip running it. Accordingly, classify the Highland-corrected
+**Grains/Core + MO + AMJE integration as author-reported PASS**. The
+prior message describing the rerun as skipped was an interpretation error.
+
+**Evidence levels:** `EnvironmentIsolatedRuntime(2).log` independently
+records the earlier eight standalone AMJE Quickstarts (8/8 PASS) and the
+focused AMJE+CCTO compatibility scenario (PASS), but also includes the
+*pre-fix* Highland validation failure. A new *post-fix* log/JSON was not
+included with the author's PASS confirmation. Do not infer per-scenario
+counts, capture completeness, exact git revision, or absence of all
+pre-launch/runtime errors from the new message alone.
+
+The world wetland-share audit, author-approved wetland descriptions and
+separate four-profile release matrix remain outside this PASS assertion.
+Historical result narratives below preserve their original context.
+
 ## 2026-10-08 current isolated-matrix result (author log)
 
 Evidence: author-supplied `EnvironmentIsolatedRuntime(2).log` from the

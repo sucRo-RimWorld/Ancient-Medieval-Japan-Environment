@@ -4,7 +4,7 @@
 
 **Requested by:** author (2026-10-08 JST)  
 **Owner:** Environment / runtime testing and wetland development — one shared handoff  
-**Status:** IN PROGRESS — unified workflow and source of truth; latest-main runtime PASS pending
+**Status:** IN PROGRESS — baseline 8/8 and CCTO runner PASS; Highland-fix Grains/Core integration PASS reported by author; world wetland share / descriptions pending
 
 The author requested integration of the separate test chat with the current wetland/vegetation development chat. These now use the **same authoritative main** and `run-tests.bat` as the standard local automated entry; no duplicate branch, competing test scope, or user-mediated relay is required.
 
@@ -37,6 +37,9 @@ Durable evidence context and remaining gates: `Docs/GoldenPaths/RenderedRuntimeT
 
 
 **2026-10-08 complete outer-runner log and Highland diagnostic fix:** The author's `EnvironmentIsolatedRuntime(2).log` records the eight standalone AMJE Quickstarts **8/8 PASS** (four forest, TemperateSwamp, ColdBog, River, Coast), with the runner reporting zero owned ERROR for each. Focused AMJE+CCTO warm loaded-Def check also **PASS**. The optional Grains/Core+MO profile loaded the warm map but its `RequireClimateGradient` log gate stopped on `Climate calibration line was not found for Highland`; no full integration PASS was produced. Root cause: `ClimateCalibrationDiagnostics` excluded impassable tiles when searching for climate sample points, leaving none in tiny test worlds dominated by impassable highland. PR #26 / squash merge `ec6c2bbe9f4d6498e0f1abaf4f088b84fee5a91e` adds a diagnostic-only, Highland-only fallback to measure impassable mountain tiles after playable candidate search fails. Strict four-tier `<8C`/`<0C` gradient checks and owned runtime ERROR gates remain intact; no gameplay/world generation/Defs changed. Regression `Tests/test_run_tests_entrypoint.py` and workflow trigger updated; PR CI 3/3 PASS. **Post-fix installed-RimWorld rerun remains pending** for the Grains/MO profile and overall run. Also pending: independent world wetland-share sanity and author-approved bilingual wetland descriptions; wetland Step 1 and ENV-RETEX-012 remain OPEN/BLOCKED respectively. Detailed evidence: `Docs/GoldenPaths/RenderedRuntimeTests.md`.
+
+
+**2026-10-08 author correction — post-fix test PASS:** The author explicitly clarified that `パス` means **the rerun PASSED**, not that the run should be skipped. Treat the Highland diagnostic correction's **Grains/Core + MO + AMJE integration retest as author-reported PASS**. The previous statement that this retest was skipped is incorrect and superseded. The new post-fix full runner log/JSON was **not attached in this message**, so the evidence remains **author-confirmed, not independently log-audited**; do not fabricate assertion counts, capture completeness or per-scenario details. The earlier `EnvironmentIsolatedRuntime(2).log` independently confirms base 8/8 and CCTO PASS, and its historical pre-fix Highland failure remains a separate earlier result. World-level wetland distribution and wetland descriptions are still open, as is the distinct four-profile release matrix unless independently executed.
 
 
 ### ENV-TREE-SOWING-001 — Regional growing-zone tree regression (2026-10-08 JST)
