@@ -9,6 +9,7 @@ class FrameworkAutomationContractTests(unittest.TestCase):
     def setUpClass(cls):
         cls.entry = (ROOT / "run-framework-tests.bat").read_text(encoding="utf-8")
         cls.rimtest = (ROOT / "Scripts/Run-EnvironmentRimTest.py").read_text(encoding="utf-8")
+        cls.common = (ROOT / "Scripts/EnvironmentFrameworkTestCommon.py").read_text(encoding="utf-8")
         cls.pickle = (ROOT / "Scripts/Run-DevelopmentPickle.py").read_text(encoding="utf-8")
         cls.rimtest_source = (ROOT / "Tests/RimTest/EnvironmentRimTests.cs").read_text(encoding="utf-8")
         cls.feature = (ROOT / "Tests/Pickle/Features/amje-development.feature").read_text(encoding="utf-8")
@@ -25,7 +26,7 @@ class FrameworkAutomationContractTests(unittest.TestCase):
             "AMJE.EnvironmentRimTestAudit", "IsolatedDesktopRunner.exe",
             "RIMWORLD_AMJE_ERROR_DIRECTORY", "EXPECTED_TESTS = 10",
         ):
-            self.assertIn(marker, self.rimtest_source + self.rimtest)
+            self.assertIn(marker, self.rimtest_source + self.rimtest + self.common)
         self.assertIn("RimTestRedux.dll", self.rimtest)
         self.assertIn("AncientMedievalJapanEnvironment.dll", self.rimtest)
         self.assertNotIn(
