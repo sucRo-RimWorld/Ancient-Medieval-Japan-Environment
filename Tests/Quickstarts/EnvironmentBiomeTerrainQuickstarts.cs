@@ -871,6 +871,119 @@ namespace AncientMedievalJapan.Environment.Quicktests
             finally { Find.Storyteller.difficulty.cropYieldFactor = originalYieldFactor; }
         }
 
+        protected static void AddWetlandEcologyAssertions(
+            QuickstartVerification verification, Map map, bool cold)
+        {
+            BiomeDef biome = map == null ? null : map.Biome;
+            string id = cold ? "ColdBog" : "TemperateSwamp";
+            string[] animals = cold
+                ? new[] { "Hare", "Snowhare", "Squirrel", "Rat", "Deer",
+                    "WildBoar", "Fox_Red", "Wolf_Timber", "Bear_Grizzly" }
+                : new[] { "Hare", "Squirrel", "Rat", "Deer", "WildBoar",
+                    "Fox_Red", "Wolf_Timber", "Bear_Grizzly" };
+            string[] diseases = cold
+                ? new[] { "Disease_Flu", "Disease_Plague",
+                    "Disease_GutWorms", "Disease_MuscleParasites",
+                    "Disease_AnimalFlu", "Disease_AnimalPlague" }
+                : new[] { "Disease_Flu", "Disease_Plague", "Disease_Malaria",
+                    "Disease_GutWorms", "Disease_MuscleParasites",
+                    "Disease_AnimalFlu", "Disease_AnimalPlague" };
+
+            var animalField = AccessTools.Field(typeof(BiomeDef), "wildAnimals");
+            var diseaseField = AccessTools.Field(typeof(BiomeDef), "diseases");
+            var packField = AccessTools.Field(typeof(BiomeDef), "allowedPackAnimals");
+
+            var loadedAnimals = biome == null || animalField == null
+                ? null : animalField.GetValue(biome) as List<BiomeAnimalRecord>;
+            var loadedDiseases = biome == null || diseaseField == null
+                ? null : diseaseField.GetValue(biome) as List<BiomeDiseaseRecord>;
+            var loadedPack = biome == null || packField == null
+                ? null : packField.GetValue(biome) as List<ThingDef>;
+
+            verification.Assert(id + " has exactly the approved wildlife proxies", delegate
+            {
+                if (loadedAnimals == null || loadedAnimals.Count != animals.Length)
+                    return false;
+                HashSet<string> expected = new HashSet<string>(animals);
+                foreach (BiomeAnimalRecord record in loadedAnimals)
+                    if (record == null || record.animal == null ||
+                        record.commonality <= 0f ||
+                        !expected.Remove(record.animal.defName))
+                        return false;
+                return expected.Count == 0;
+            });
+
+            verification.Assert(id + " has no foreign wild pack animals", delegate
+            {
+                return loadedPack != null && loadedPack.Count == 0;
+            });
+
+            verification.Assert(id + " has exactly the approved disease group", delegate
+            {
+                if (loadedDiseases == null || loadedDiseases.Count != diseases.Length)
+                    return false;
+                HashSet<string> expected = new HashSet<string>(diseases);
+                foreach (BiomeDiseaseRecord record in loadedDiseases)
+                    if (record == null || record.diseaseInc == null ||
+                        record.commonality <= 0f ||
+                        !expected.Remove(record.diseaseInc.defName))
+                        return false;
+                return expected.Count == 0;
+            });
+
+            verification.Assert(id + " has regionally adjusted disease frequency",
+                delegate { return biome != null &&
+                    System.Math.Abs(biome.diseaseMtbDays - (cold ? 60f : 50f)) < 0.001f; });
+
+            string[] weatherNames = { "Clear", "Fog", "Rain", "DryThunderstorm",
+                "RainyThunderstorm", "FoggyRain", "SnowGentle", "SnowHard" };
+            float[] expectedWeather = cold
+                ? new[] { 16f, 2f, 3f, 0.05f, 1f, 1.5f, 7f, 7f }
+                : new[] { 16f, 2f, 3f, 0.1f, 1.5f, 1.5f, 2f, 1f };
+
+            verification.Assert(id + " has exactly eight climate weather entries",
+                delegate { return biome != null &&
+                    biome.baseWeatherCommonalities != null &&
+                    biome.baseWeatherCommonalities.Count == weatherNames.Length; });
+            for (int i = 0; i < weatherNames.Length; i++)
+            {
+                string name = weatherNames[i];
+                float expected = expectedWeather[i];
+                verification.Assert(id + " weather " + name + "=" + expected, delegate
+                {
+                    return System.Math.Abs(
+                        GetWeatherCommonality(biome, name) - expected) < 0.001f;
+                });
+            }
+
+            verification.Assert(id + " retains Vanilla wetland terrain patch makers",
+                delegate { return biome != null &&
+                    biome.terrainPatchMakers != null &&
+                    biome.terrainPatchMakers.Count >= (cold ? 3 : 2); });
+            verification.Assert(id + " generates wetland terrain on the map",
+                delegate
+                {
+                    if (map == null)
+                        return false;
+                    foreach (IntVec3 cell in map.AllCells)
+                    {
+                        TerrainDef t = map.terrainGrid.TerrainAt(cell);
+                        if (t != null && (t.defName == "Mud" ||
+                            t.defName == "MarshyTerrain" ||
+                            t.defName == "Marsh" ||
+                            t.defName == "WaterShallow"))
+                            return true;
+                    }
+                    return false;
+                });
+
+            Log.Message("[AMJ Environment Wetland] biome=" + id +
+                " wildlife=" + (loadedAnimals == null ? -1 : loadedAnimals.Count) +
+                " diseases=" + (loadedDiseases == null ? -1 : loadedDiseases.Count) +
+                " packAnimals=" + (loadedPack == null ? -1 : loadedPack.Count) +
+                " diseaseMtbDays=" + (biome == null ? -1f : biome.diseaseMtbDays));
+        }
+
         private static void AddWildlifeAssertions(
             QuickstartVerification verification,
             BiomeDef biome)
@@ -2979,6 +3092,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         System.Math.Abs(biome.CommonalityOfPlant(def) - value) < 0.001f;
                 });
             }
+            AddWetlandEcologyAssertions(result, Find.CurrentMap, false);
             return result;
         }
     }
@@ -3054,6 +3168,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         System.Math.Abs(biome.CommonalityOfPlant(def) - value) < 0.001f;
                 });
             }
+            AddWetlandEcologyAssertions(result, Find.CurrentMap, true);
             return result;
         }
     }
