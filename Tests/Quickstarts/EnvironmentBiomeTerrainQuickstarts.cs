@@ -3201,6 +3201,22 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 };
             }
         }
+        private static void AssertApprovedVanillaTreeDescription(
+            QuickstartVerification verification, string defName,
+            string approvedEnglish, string approvedJapanese)
+        {
+            verification.Assert(defName + " has approved EN/JA description", delegate
+            {
+                ThingDef tree = DefDatabase<ThingDef>.GetNamedSilentFail(defName);
+                if (tree == null || string.IsNullOrEmpty(tree.description))
+                    return false;
+                string actual = tree.description.Replace("\\n", "\n")
+                    .Replace("\r\n", "\n").Trim();
+                return string.Equals(actual, approvedEnglish, StringComparison.Ordinal) ||
+                    string.Equals(actual, approvedJapanese, StringComparison.Ordinal);
+            });
+        }
+
         public override QuickstartVerification Verify()
         {
             QuickstartVerification result = base.Verify();
@@ -3216,6 +3232,21 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 return string.Equals(actual, approvedEnglish, StringComparison.Ordinal) ||
                     string.Equals(actual, approvedJapanese, StringComparison.Ordinal);
             });
+            AssertApprovedVanillaTreeDescription(result, "Plant_TreeMaple",
+                "Maple (kaede) refers to trees of the maple genus found in Japan's deciduous broadleaf forests. Many change leaf color with the seasons." + "\n\n" + "Forests containing maples have been identified near Jomon-period archaeological sites, showing that these trees have long been part of the Japanese archipelago's forests. This plant does not represent any one maple species.",
+                "楓（カエデ）は、日本の落葉広葉樹林にも生育するカエデ属の樹木をまとめた呼び名。多くは季節によって葉の色を変える。" + "\n\n" + "縄文時代の遺跡周辺にもカエデ属を含む森林が確認されており、古くから日本列島の森林を構成していた。この植物は特定のカエデ一種を再現するものではない。");
+            AssertApprovedVanillaTreeDescription(result, "Plant_TreeOak",
+                "Oak (nara) represents deciduous Japanese oaks such as konara. These trees form part of deciduous broadleaf forests alongside Japanese beech and other species." + "\n\n" + "Forests containing oaks have existed across the Japanese archipelago since ancient times, and regional patterns of fire use and forest management have influenced them. Here this plant represents deciduous oaks, not evergreen kashi oaks.",
+                "楢（ナラ）は、コナラなど日本に分布する落葉性のナラ類を表す樹木。ブナなどとともに落葉広葉樹林の一部をなす。" + "\n\n" + "日本列島では古くからナラ類を含む森林が広がり、地域ごとに人の火の利用や森林利用の影響を受けてきた。ここでは落葉ナラ類の代理とし、常緑カシ類まで同一視するものではない。");
+            AssertApprovedVanillaTreeDescription(result, "Plant_TreeBirch",
+                "Birch (kaba, Japanese birches) refers to deciduous tall trees also found in cool mountain regions. In the subalpine zone, species such as dakekanba grow on slopes adjoining conifer forests." + "\n\n" + "This plant represents birches of cool-temperate forests as well as trees corresponding to dakekanba in the subalpine zone. The actual species vary by region and elevation.",
+                "樺（カバ。カバノキ類）は、冷涼な山地にも分布する落葉高木の仲間。亜高山帯にはダケカンバなどが、針葉樹林に接する斜面にも見られる。" + "\n\n" + "この植物は冷温帯のカバノキ類と、亜高山帯のダケカンバに相当する樹木をまとめて表す。実際の種類は地域や標高によって異なる。");
+            AssertApprovedVanillaTreeDescription(result, "Plant_TreePine",
+                "Pine (matsu) is a type of conifer that also grows in Japan's mountains and on nutrient-poor soils. Here it represents pines such as akamatsu (Japanese red pine)." + "\n\n" + "Pollen analysis suggests that, from ancient through medieval times, pines increased in some regions as trees were felled and wood was gathered for fuel. This does not mean that pine forests covered the Japanese archipelago uniformly.",
+                "松（マツ）は、日本の山地や痩せた土地にも育つ針葉樹の仲間。ここではアカマツなどのマツ類を代表する樹木として扱う。" + "\n\n" + "古代から中世にかけて、地域によっては伐採や燃料利用に伴ってマツ類が増加したことが花粉分析からうかがえる。全国の森林が一律にマツ林だったわけではない。");
+            AssertApprovedVanillaTreeDescription(result, "Plant_TreeWillow",
+                "Willow (yanagi) represents willows that grow along rivers and on wet ground. Along Japanese riverbanks, willow woodlands occur where flooding and running water shape the landscape." + "\n\n" + "Riverside wetland woodlands are also an important natural feature of the lowland landscapes adjoining settlements. This plant does not represent any single willow species.",
+                "柳（ヤナギ）は、川沿いや湿った地面に育つヤナギ類を表す樹木。日本各地の川原では、氾濫や流水の影響を受ける場所にヤナギ林が見られる。" + "\n\n" + "河川沿いの湿地林は、集落が接する低地景観を理解するうえでも重要な自然環境である。この植物は特定のヤナギ一種を表すものではない。");
             return result;
         }
     }
