@@ -33,9 +33,21 @@ run directly it may display RimWorld windows. The standard `run-tests.bat`
 path invokes it with `--skip-static` from the isolated desktop after the static
 gate has already passed, preventing recursion and duplicate static work.
 
+Developer Quickstarts are no longer loaded through the production Mod's
+`loadFolders.xml`. The tracked loader is byte-identical to the root-only
+subscriber contract. `build.bat` still compiles the developer Quicktests DLL
+under `DevQuickstarts`, but `run-runtime-tests.bat` stages that DLL as a
+standalone temporary Mod, adds only its packageId to each isolated test
+`ModsConfig.xml`, and removes the owned fixture on exit. The fixture manager
+refuses to overwrite or delete a same-named directory unless its ownership
+marker and packageId match. This keeps test assemblies out of normal AMJE load
+semantics and prevents YADA filtering from depending on an executable
+`IfModActive` loader entry.
+
 The wiring is regression-locked by
 `Tests/test_run_tests_entrypoint.py`. In particular, the test requires both
-wetland Quickstarts to remain part of the default runtime suite.
+wetland Quickstarts to remain part of the default runtime suite and protects
+the root-only production loader / standalone Quicktests split.
 
 ## Combined AMJ launcher
 
