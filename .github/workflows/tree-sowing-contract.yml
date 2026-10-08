@@ -39,5 +39,5 @@ jobs:
         run: python Tests/test_tree_sowing_contract.py
       - name: Validate retained Vanilla wetland ecology bundle
         run: python Tests/test_wetland_ecology_contract.py
-      - name: Validate approved Bamboo text and unchanged Vanilla planting
+      - name: Validate approved Vanilla tree descriptions without gameplay changes
         run: python Tests/test_vanilla_bamboo_description.py
