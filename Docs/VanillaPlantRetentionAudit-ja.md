@@ -174,6 +174,10 @@ Wild Healrootは薬草採集ループを途中で切らないためこのPhase�
 
 通常樹木の地域分布と植林候補は一体で監査する。残存／除外判定は自然生成だけでなく、そのAMJE Biomeの樹木栽培研究後の候補にも適用する。正本の候補表は `Docs/Design.md` の Regional tree sowing contract、静的・ロード後回帰手順は `Docs/GoldenPaths/PlantSowingTests.md` を参照。ハイマツは植林候補に含めない。
 
+## Step 2 既存Vanilla植物監査（2026-10-08）
+
+現行6Biomeから樹木6種・汎用7種を確認し、`Docs/VanillaPlantStep2DescriptionReview-ja.md` に配置と未承認日本語説明文の草案を整理した。湿地Step 1の作者報告PASSはStep 2着手の根拠であり、4構成の統合テストや実機ログ独立監査の完了を意味しない。日本語本文承認前の英訳・DefInjected・ゲーム中説明変更・画像制作を行わない。
+
 ## 次工程 — 説明文監査 → リテクスチャ
 
 残存判定が済んだVanilla樹木・植物は、**まず日本語説明文をAMJE形式へ監査・修正し、内容承認後にリテクスチャする。** 特にBambooの文化的に不適切なVanilla説明はこの工程で修正する。説明文監査を飛ばして先にアートだけ差し替えない。
