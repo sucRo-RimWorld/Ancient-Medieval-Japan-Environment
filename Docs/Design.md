@@ -311,6 +311,15 @@ Such a feature may combine map generation, rock walls, water terrain, visual eff
 
 World-generation changes are accepted based on generated-world sampling, not only XML/static checks.
 
+Automated validation is layered by responsibility:
+- static/XML/build checks remain the first gate;
+- RimTest Redux covers deterministic Environment logic/calculation boundaries in a separate test-only assembly;
+- RimWorks Pickle covers loaded-source and loaded-Def integration in Vanilla, MO, CCTO and MO+CCTO development profiles;
+- rendering-enabled Quickstarts remain authoritative for generated-world/map, terrain/rendering and native-job regressions;
+- the downloaded-Workshop Pickle gate remains separate because publication provenance cannot be established from the development root.
+
+The reusable development procedure is `Docs/GoldenPaths/FrameworkRuntimeTests.md`. Neither RimTest Redux nor Pickle is a production dependency of Environment.
+
 For several seeds at common planet coverage values, collect at minimum:
 - land annual mean temperature min/max and distribution;
 - elevation min/max and distribution;
