@@ -1,5 +1,13 @@
 # AMJ Environment Coordination
 
+### ENV-WORKSHOP-BILINGUAL-CLOSEOUT-20261008 — single-field English/Japanese Workshop copy
+
+**Owner:** Environment public copy and release  
+**Status:** GITHUB SOURCE PREPARED; STEAM POSTING NOT PERFORMED; AUTOMATED CI RESULT PENDING
+
+The owner source `Docs/SteamWorkshopDescription.txt` now contains one complete English-then-Japanese description followed by one common plant-image gallery with four distinct images and EN/JA captions; `Docs/SteamWorkshopDescription-ja.txt` is its maintained Japanese draft, not a second Steam field. The full combined body fits the 8,000-byte budget and omits license/AI/donation statements. `Docs/WorkshopDescription.md` defines the paste workflow. `Tests/validate_workshop_description.py` is integrated into the Workshop payload CI to prevent regressions. About title, packageId, gameplay code/defs, image assets and Steam live posting are unchanged by this description correction. Confirm CI separately; final Steam posting remains author-managed.
+
+
 ### MEDICINE-SPLIT-20261008 — latest author decision supersedes herb workstream
 
 **Status:** DONE — ownership/design records; medicine implementation not started.

@@ -1,112 +1,81 @@
 [h1]Ancient & Medieval Japan - Environment（中世日本 - 環境）[/h1]
 
-[b]A standalone environment overhaul that replaces and reconfigures Vanilla terrain, vegetation, and biome composition for a Japanese-archipelago-inspired landscape.[/b]
+[b]A standalone Mod that reshapes RimWorld's terrain, climate, vegetation and biome distribution into a landscape inspired by pre-Edo Japan.[/b] No other AMJ Mod is required.
 
-It creates an ancient-to-medieval-Japan-inspired environment with a humid climate, mountainous terrain, frequent short rivers, complex coastlines, temperature-based forest belts, and alpine zones.
-
-[b]If you only want a medieval-Japan-like natural environment, this mod can be used on its own.[/b]
-
-[h2]Main Features[/h2]
+[h2]Features[/h2]
 [list]
-[*]Japan-oriented world generation for temperature, elevation, hilliness, and rainfall
-[*]Less flat land and more hills/mountains
-[*]More frequent small-to-medium rivers instead of continental-scale rivers
-[*]More complex coastlines with additional bays, peninsulas, and islands
-[*]Four environment bands: warm-temperate forest / cool-temperate forest / subalpine forest / alpine zone
-[*]Sudajii, Japanese beech, Shirabiso, and Haimatsu as representative plants
-[*]Adds a new natural terrain, Thin Soil (50% fertility)
-[*]Natural soil balance with progressively poorer/stony ground at higher elevations
-[*]Biome wildlife pools adjusted toward Japan using curated Vanilla animals as gameplay proxies
-[*]Uses Vanilla systems for rain, fog, snow, fall color, and leafless winter states wherever possible
+[*]More hills and mountains, with fewer extensive flatlands
+[*]Frequent short and medium rivers; more varied bays, peninsulas and islands
+[*]Four Japan-oriented vegetation bands: warm-temperate, cool-temperate, subalpine and alpine
+[*]Four representative plants: Sudajii, Japanese beech, Shirabiso and Haimatsu
+[*]Thin Soil (50% fertility) and more stony, less fertile soil at higher elevations
+[*]Wildlife distributions adjusted using selected Vanilla animals as gameplay substitutes
 [/list]
 
-AMJE reconfigures terrain, climate, and biome placement while retaining RimWorld's existing world-generation pipeline. River and coastal map generation remains compatible with Vanilla systems, and weather, snow, and leafless behavior reuse existing systems wherever possible.
+AMJE reconfigures the existing world-generation system rather than adding a separate river or coast generator. It uses Vanilla weather, snowfall and seasonal plant behavior where appropriate.
 
-[h2]Why These Four Environment Bands?[/h2]
+Its four added biomes replace broad Vanilla biome choices on eligible land, not every specialized biome. Wetlands and compatible special biomes, such as Medieval Overhaul's Dark Forest, can coexist. Vegetation unsuitable for the intended Japanese landscape is removed or replaced: for example, Poplar/Oak in warm-temperate forest, generic Pine in subalpine forest and tall trees in alpine terrain. The woody share is redistributed to the representative plants.
 
-AMJE's biomes are not intended to reproduce modern prefectural or regional borders. Using Japan's vegetation classification as a reference, the mod simplifies the [b]major vegetation bands that change with temperature and elevation[/b] into four RimWorld-friendly stages.
+[h2]Compatibility[/h2]
+[b]Required:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url].
+[b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul (CCTO)[/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url].
 
+Without CCTO, AMJE plants retain temperature behavior close to Vanilla. With CCTO, AMJE plants use species-specific minimum growth temperatures and cold death or dormancy. Medieval Overhaul is supported as an optional coexistence target.
+
+[h2]Save compatibility[/h2]
+[b]Start a new game to experience the intended world, biome, river and terrain generation.[/b] Adding AMJE to an existing save has not been verified and will not regenerate an existing world; some runtime temperature effects may still apply. [b]Do not remove AMJE[/b] from a save using its biomes, terrain or plants.
+
+[h2]Status[/h2]
+Beta. Vanilla and Medieval Overhaul plant retention is being reviewed. Description review, retexturing of retained plants and missing native vegetation and medicinal plants are planned before the final Wild Healroot cleanup.
+
+Details: [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README[/url]
+
+[h2]日本語 / Japanese[/h2]
+
+[b]バニラの地形・気候・植生・バイオーム構成を組み直し、江戸以前の日本をイメージした自然環境を作る独立Modです。[/b] 他のAMJ Modは必須ではありません。
+
+[h2]主な特徴[/h2]
 [list]
-[*][b]Warm-temperate forest[/b]: evergreen broadleaf lucidophyll forest
-[*][b]Cool-temperate forest[/b]: deciduous broadleaf forest such as beech woodland
-[*][b]Subalpine forest[/b]: evergreen conifer forest such as Shirabiso woodland
-[*][b]Alpine zone[/b]: Haimatsu scrub and alpine vegetation above the treeline
+[*]広い平地を減らし、丘陵・山地を多くした地形
+[*]短い小～中規模河川を増やし、湾・半島・島のある海岸線を形成
+[*]暖温帯林・冷温帯林・亜高山帯林・高山帯の4つの植生帯
+[*]代表植物としてスダジイ・ブナ・シラビソ・ハイマツを追加
+[*]新しい「痩せた土壌」（肥沃度50%）と、高地ほど礫や痩せた土が増える自然土壌
+[*]バニラ動物を代替として用いた、日本向けの野生動物の出現構成
 [/list]
 
-These four added biomes take precedence over broad Vanilla biomes on eligible land as [b]Japan-oriented baseline vegetation bands[/b]. Wetlands and specialized biomes such as [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]'s Dark Forest can still coexist when their conditions are met.
+河川・海岸用の別システムを追加するのではなく、既存の世界生成を再構成します。天候・積雪・季節による植物の変化も、可能な限りバニラの仕組みを利用します。
 
-AMJE does not keep arbitrary Vanilla vegetation to represent secondary forest. Vanilla Poplar/Oak are removed from warm-temperate forest, generic Pine from subalpine forest, and generic tall trees/wildflowers from alpine. Removed woody share is reassigned to Sudajii, Shirabiso, and Haimatsu so forest structure is not thinned.
+4つの追加バイオームは条件に合う陸地の基準植生を置き換えますが、すべての特殊バイオームを消すものではありません。湿地やMedieval OverhaulのDark Forestなどは条件に応じて共存します。日本の植生に合わない暖温帯のポプラ・オーク、亜高山帯の汎用マツ、高山帯の高木などは除外・置換し、樹木の出現量は代表植物へ再配分しています。
 
-[h2]Representative Plant for Each Environment Band[/h2]
+[h2]対応・互換性[/h2]
+[b]必須Mod:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]。
+[b]任意Mod:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul（CCTO）[/url]、[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]。
 
-Each band adds [b]one representative structural plant[/b] so its landscape can be read at a glance. These were not chosen simply as "famous medieval trees." The criterion is whether the plant represents Japan's natural vegetation and can express a landscape connected to ancient and medieval Japan.
+単体では植物の温度挙動はバニラに近いままです。CCTO併用時は種類ごとの最低生育温度・低温枯死・休眠が適用されます。Medieval Overhaulとの併用も想定しています。
+
+[h2]セーブ互換性[/h2]
+[b]本来の世界・バイオーム・河川・地形を体験するには新規ゲームを推奨します。[/b] 既存セーブへの追加は未検証で、生成済みワールドは作り直されません。温度などの実行時処理は影響する可能性があります。独自のバイオーム・地形・植物を使用しているセーブからの[b]途中削除は推奨しません。[/b]
+
+[h2]開発状況[/h2]
+現在β版です。バニラ・Medieval Overhaulの植物の採用可否を監査中です。説明文の確認、残す植物のリテクスチャ、不足植生・伝統薬草の追加を経て、野生Healrootを最後に整理する予定です。
+
+詳細：[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README[/url]
+
+[h2]Representative Plants / 各環境帯の代表植物[/h2]
 
 [img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Shii/Shii_A.png[/img]
-[b]Warm-temperate forest — Sudajii[/b]
-A tall evergreen tree representative of the lucidophyll forests of southern Honshu, Shikoku, and Kyushu. Shii trees have long formed part of southwestern Japan's forests; their seeds were eaten, their wood used for buildings and implements, and bark tannin used for dyeing.
+[b]Warm-temperate — Sudajii / 暖温帯林 — スダジイ[/b]
+Evergreen broadleaf tree of southwestern Japan; its nuts and wood have long been used. / 西南日本の照葉樹林を代表する常緑高木。種子や木材は古くから利用されてきました。
 
 [img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Beech/Beech_A.png[/img]
-[b]Cool-temperate forest — Japanese beech[/b]
-A large deciduous tree representative of Japan's cool-temperate forests. Examples from the late Heian through medieval period show Fagus wood being selectively used for turned wooden objects such as lacquerware.
+[b]Cool-temperate — Japanese beech / 冷温帯林 — ブナ[/b]
+A deciduous tree typical of cool forests; its wood was used in turned objects. / 冷温帯を代表する落葉高木。木材は挽物などに利用されました。
 
 [img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png[/img]
-[b]Subalpine forest — Shirabiso[/b]
-A tall evergreen conifer representative of Honshu's subalpine zone. Mountains such as Mt. Ontake carry forests of Shirabiso and related conifers, forming part of the mountain landscape that became a setting for ascetic practice and religious ascent by the later medieval period.
+[b]Subalpine — Shirabiso / 亜高山帯林 — シラビソ[/b]
+An evergreen conifer of Honshu's high mountains. / 本州の高山域に見られる常緑針葉樹です。
 
 [img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png[/img]
-[b]Alpine zone — Haimatsu[/b]
-A dwarf pine representative of terrain above the treeline. It forms dense creeping scrub and helps create a distinctly Japanese alpine landscape. AMJE deliberately avoids filling the alpine band with ordinary tall trees, so the treeline difference is visible both in scenery and available timber.
-
-The in-game descriptions provide additional details on kanji names, aliases, distribution, and each plant's relationship to ancient and medieval Japan.
-
-[h2]Using CCTO[/h2]
-
-[b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul (CCTO)[/url] is optional.[/b]
-
-With AMJE alone, its plants keep temperature behavior closer to the Vanilla baseline.
-
-When CCTO is also active, AMJE's own plants receive species-specific minimum growth temperatures plus cold death or dormancy behavior, creating a [b]more realism-focused cold-climate model[/b].
-
-In short:
-[list]
-[*][b]AMJE alone[/b]: a medieval-Japan-like natural environment
-[*][b]AMJE + CCTO[/b]: the same environment with stricter plant cold tolerance
-[/list]
-
-CCTO is not required; AMJE remains complete as a standalone environment mod.
-
-[h2]Medieval Overhaul[/h2]
-
-Medieval Overhaul is also optional, but normal AMJ play is expected to use both.
-
-AMJE does not globally replace MO's natural biome/terrain identity. Specialized content such as Dark Forest is preserved where compatible.
-
-[h2]Dependencies[/h2]
-
-[b]Required:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]
-
-[b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul[/url] / [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
-
-
-[h2]Save Compatibility[/h2]
-
-[b]A new game is recommended to evaluate the intended world generation, biomes, rivers, coastlines, and terrain.[/b]
-
-Adding AMJE to an existing save has not been verified and does not regenerate an existing world. Some runtime systems, such as temperature behavior, may still be affected.
-
-[b]Removing AMJE from a save that uses its custom biomes, terrain, or plants is not recommended.[/b]
-
-[h2]Development Status / Planned Follow-up[/h2]
-
-Currently Beta.
-
-The first broad Vanilla-vegetation audit is largely complete. Next: retained-plant description review, retexturing, missing Japanese vegetation/medicinal plants, then final Wild Healroot removal.
-
-See [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README / Design[/url] for values, rationale, and CCTO data.
-
-AI assistance is used for code implementation, documentation, research, and test development. Design, balance decisions, and final testing/review are performed by the author.
-
-MIT License.
-
-[h2]Support[/h2]
-[url=https://ko-fi.com/sucro0629][img]https://img.shields.io/badge/Ko--fi-Support%20me-ff5e5b?logo=ko-fi&logoColor=white[/img][/url]
+[b]Alpine — Haimatsu / 高山帯 — ハイマツ[/b]
+Low creeping pine above the treeline. / 森林限界より高所で地面を這うように育つ低木性のマツです。

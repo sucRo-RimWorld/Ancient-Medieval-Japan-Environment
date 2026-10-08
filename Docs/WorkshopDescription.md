@@ -13,8 +13,8 @@ Workshop descriptions are written **Japanese first**.
 5. Keep both Workshop language versions synchronized with each other and substantively contained within README.
 
 Source files:
-- Japanese: `Docs/SteamWorkshopDescription-ja.txt`
-- Legacy English-only description: `Docs/SteamWorkshopDescription.txt` (the bilingual title is aligned; the single combined English-then-Japanese body is **not yet prepared**)
+- **Single paste-ready bilingual Workshop description:** `Docs/SteamWorkshopDescription.txt` (English body → Japanese body → shared gallery with bilingual captions). Paste this complete file **only in Steam's English description field**; do not duplicate it in the Japanese description field.
+- Japanese wording source: `Docs/SteamWorkshopDescription-ja.txt`. Its text must match the Japanese section in the combined file; it is not an additional Steam upload.
 
 ## Publication responsibility
 
@@ -50,7 +50,7 @@ A standalone environment overhaul that replaces and reconfigures Vanilla terrain
 
 ## Replacement-scope review
 
-For public-copy updates, verify `Docs/Design.md` against `EnvironmentTerrainProcessor.Apply`, `JapanBiomeScoring`, biome plant/terrain Defs and the River / Coast handoff before synchronizing README -> Japanese Workshop -> English Workshop -> About / 2game. Replacement means the generated terrain and baseline biome/vegetation composition are reconfigured; it does not mean deleting all Vanilla Defs, replacing every specialized biome, or adding a separate local river/coast generator. Do not imply that secondary Vanilla plants are preserved by default: retained plants are provisional until their AMJE fit is confirmed, and unsuitable plants are removed or replaced as the audit proceeds. Preserve wetlands/MO coexistence, representative plants, optional integrations and save limitations. Check both BBCode bodies for balanced tags and UTF-8 size below 8,000 bytes with LF and CRLF.
+For public-copy updates, verify `Docs/Design.md` against `EnvironmentTerrainProcessor.Apply`, `JapanBiomeScoring`, biome plant/terrain Defs and the River / Coast handoff before synchronizing README -> Japanese Workshop -> English Workshop -> About / 2game. Replacement means the generated terrain and baseline biome/vegetation composition are reconfigured; it does not mean deleting all Vanilla Defs, replacing every specialized biome, or adding a separate local river/coast generator. Do not imply that secondary Vanilla plants are preserved by default: retained plants are provisional until their AMJE fit is confirmed, and unsuitable plants are removed or replaced as the audit proceeds. Preserve wetlands/MO coexistence, representative plants, optional integrations and save limitations. Check the **entire combined BBCode body** for balanced tags, exact Japanese source inclusion, English-before-Japanese ordering, unique image URLs and a total UTF-8 size below 8,000 bytes with both LF and CRLF. The repository validation is `python Tests/validate_workshop_description.py`; the Workshop payload CI runs it.
 
 ## Workshop content policy
 
@@ -58,7 +58,7 @@ Emphasize:
 - replacement/reconfiguration of Vanilla terrain, vegetation and biome composition for Japan, stated in the opening;
 - distinguish the changed generated environment from reuse of RimWorld's existing world-generation and river/coast systems;
 - why the four AMJ biomes are simplified vegetation/climate bands rather than prefectural or exclusive biome replacements;
-- one representative structural plant for each band: Sudajii / Japanese beech / Shirabiso / Haimatsu, with the selection rationale;
+- one representative structural plant for each band: Sudajii / Japanese beech / Shirabiso / Haimatsu, with concise bilingual captions;
 - images for the four representative plants may be shown to identify the added plants;
 - standalone use without AMJ Core;
 - optional CCTO realism layer;
@@ -68,9 +68,9 @@ Emphasize:
 
 For the representative-plant section, keep the Workshop summaries shorter than the in-game historical descriptions. The Workshop should explain the vegetation-band design and provide a short educational note for each plant; the in-game descriptions retain the fuller kanji/alias/historical detail.
 
-The four current Workshop images reference the repository's production PNGs directly through `raw.githubusercontent.com`. If a production path changes, update the Workshop image URL at the same time.
+The four current Workshop images reference production PNGs directly through `raw.githubusercontent.com`. Include **each image exactly once** in the shared image gallery, not one copy per language. Place the English and Japanese labels and captions together for each image. If a production path changes, update the Workshop image URL at the same time.
 
-When the Workshop body names another mod, provide a direct link at least at its first or dependency-list mention. Prefer its Steam Workshop page when published; use the owning GitHub repository for an AMJ mod that has no public Workshop item yet. Keep the description below Steam's 8,000-byte limit rather than repeating the same long URL on every occurrence.
+When the Workshop body names another mod, provide a direct link at least at its first or dependency-list mention. Prefer its Steam Workshop page when published; use the owning GitHub repository for an AMJ mod that has no public Workshop item yet. Keep the **combined English + Japanese + image gallery** below Steam's 8,000-byte limit rather than repeating the same long URL on every occurrence. Omit license, AI-production descriptions and donation requests from the Steam copy; preserve legally required repository/distribution notices.
 
 The development-status section must state that Vanilla / Medieval Overhaul vegetation is already being audited for retention, with unsuitable plants removed or replaced before visual work. It should then summarize staged retexturing for the retained targets, covering the visible state family used by each plant. README remains the detailed source for the scope and technical compatibility policy.
 
