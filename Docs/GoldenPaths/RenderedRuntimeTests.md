@@ -72,6 +72,23 @@ growing-zone sowing options. That assertion is now corrected in main.
 Neither historical failure is evidence that the latest main still fails;
 neither can be turned into a PASS without rerunning it.
 
+### Wetland descriptions — Japanese approved, new test pending (2026-10-08)
+
+The author approved the revised Japanese `TemperateSwamp` and `ColdBog`
+descriptions. The approved text is in `Docs/VanillaWetlandBiomeAudit-ja.md`,
+with a corresponding English translation. The new
+`Patches/VanillaWetlandDescriptions.xml` replaces only the two English
+`BiomeDef.description` fields; the Japanese DefInjected entries replace only
+the corresponding Japanese descriptions. Biome names and gameplay fields are
+unchanged. `Tests/test_wetland_ecology_contract.py` checks both languages and
+the exact patch scope, while each wetland Quickstart now validates the loaded
+description in English or Japanese.
+
+The previously author-reported nine-scenario PASS **predates these new
+description assertions**. It cannot be used as the runtime PASS for the new
+description gate. A fresh installed-game `run-tests.bat` run is still needed;
+the separate four-profile MO/CCTO matrix also remains open.
+
 ### What the standard runner currently proves
 
 `run-tests.bat` runs static/build checks followed by the non-visible,

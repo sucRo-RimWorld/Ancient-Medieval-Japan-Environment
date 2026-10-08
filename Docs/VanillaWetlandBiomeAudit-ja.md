@@ -225,25 +225,39 @@ Step 1では、現行generic植物を使った暫定構成でもよいが、Biom
 
 `Disease_FibrousMechanites` と `Disease_SensoryMechanites` は採用しない。マラリアは暖湿地のみで重みを下げて維持し、冷涼湿地には置かない。病気ごとのcommonalityはincident候補内の相対重みであって、古代～中世日本の疫学的頻度ではない。将来World Rulesが担当する全球的な時代外Incident制御とは責務を分ける。
 
-### 説明文草案（日本語先行・**未承認**）
+### 確定説明文（日本語承認済み・2026-10-08）
+
+ユーザー承認の日本語を正本とし、文意と範囲を変えずに英語へ翻訳した。既存のVanilla `label` は変更しない。英語本文は `Patches/VanillaWetlandDescriptions.xml` で置換し、日本語本文は `Languages/Japanese/DefInjected/BiomeDef/AMJ_Biomes.xml` で上書きする。病気の過度な強調や未実装の植物・機能は追加しない。
 
 **TemperateSwamp（温帯湿地）**
 
-> 温帯湿地は、日本列島の温暖で雨の多い低地や河川沿いに広がる湿地。草本が茂り、ヤナギなどの湿地林が混じる。泥土や浅い水面が多く、通行や建築の場所を選ぶ。
+日本語（承認済み）:
+
+> 日本列島の温暖で雨の多い低地や河川沿いに広がる湿地。背の高い草やヤナギ類の木立が入り混じり、泥土と浅い水面が広がる。湿った地盤は通行や建築に制約を与える。
+
+English:
+
+> A wetland found in the warm, rainy lowlands and along rivers of the Japanese archipelago. Tall grasses and stands of willow trees intermingle among muddy ground and shallow water. The damp ground restricts travel and construction.
 
 **ColdBog（冷涼湿原）**
 
-> 冷涼湿原は、冷涼な地域に広がる湿った草地や沼沢地。草本やコケ類と、ヤナギやカバノキ類の湿地林が混在する。湿った地盤は移動や建設を難しくする。
+日本語（承認済み）:
 
-これらは現段階では設計上の草案であり、作者による日本語本文の承認後に、Def/Patchの英語説明文と日本語DefInjectedを同期する。**英語版の説明文を独断で確定しない。** 湿地だけに病気が多発するかのような断定的なVanilla表現は新しい本文に持ち込まない。
+> 冷涼な地域に広がる湿原。草本やコケ類に加え、ヤナギやカバノキ類の木立が点在する。水を多く含む地盤はぬかるみやすく、移動や建築が難しい。
+
+English:
+
+> A wetland found across cooler regions. Grasses and mosses grow alongside scattered stands of willow and birch trees. The waterlogged ground readily turns muddy, making travel and construction difficult.
+
+**実装と検証:** 両英文の `/Defs/BiomeDef[defName="..."]/description` のみをPatchOperationReplaceし、日本語は同一DefNameの `.description` DefInjectedで置換する。BiomeのWorker、名称、湿地地形・動植物・天候・病気には影響させない。`Tests/test_wetland_ecology_contract.py` でXML/日英本文/変更対象を固定し、両湿地Quickstartのロード済み `BiomeDef.description` が日本語または英語の承認本文と一致することを回帰確認する。**実装変更後の実機テストは未実施**。先行する9シナリオPASS報告は旧説明構成の結果であり、この追加アサーションのPASSとは扱わない。
 
 ### 残る完了判定
 
 - `Tests/test_wetland_ecology_contract.py` が静的Patch構造・内容を確認する。
 - 両湿地Quickstartは、ロード済みwildAnimals/diseases/weather、pack animal、疾病MTB、Vanilla湿地地形生成を検証する。
 - 非表示の実描画テストは `run-tests.bat` が標準入口。
-- 実機Quickstartとworld wetland shareが確認できるまで、この段階をruntime PASSとは扱わない。
-- 説明文の日本語承認・言語同期までは、ロードされるVanilla説明が残るためStep 1を完了扱いにしない。
+- 従前の自然分布テストは作者報告PASS（詳細ログ未受領）。今回追加した説明文のロード済み検証は、実機再実行までPENDING。
+- 日本語本文承認・日英XML同期は実装対象として確定した。変更後の説明文Quickstart PASSと残るStep 1全体の整合監査を確認するまでStep 1を完全完了扱いにしない。
 
 
 ## 自然生成世界の湿地分布ゲート（2026-10-08、作者による実機PASS報告あり）

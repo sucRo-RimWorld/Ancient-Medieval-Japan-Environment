@@ -10,6 +10,24 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 PATCH = ROOT / "Patches" / "VanillaWetlandEcology.xml"
 QUICKSTART = ROOT / "Tests" / "Quickstarts" / "EnvironmentBiomeTerrainQuickstarts.cs"
+DESCRIPTION_PATCH = ROOT / "Patches" / "VanillaWetlandDescriptions.xml"
+JAPANESE_DESCRIPTIONS = (
+    ROOT / "Languages" / "Japanese" / "DefInjected"
+    / "BiomeDef" / "AMJ_Biomes.xml"
+)
+
+# The Japanese strings were approved by the author on 2026-10-08.
+APPROVED_DESCRIPTIONS = {
+    "TemperateSwamp": {
+        "ja": "日本列島の温暖で雨の多い低地や河川沿いに広がる湿地。背の高い草やヤナギ類の木立が入り混じり、泥土と浅い水面が広がる。湿った地盤は通行や建築に制約を与える。",
+        "en": "A wetland found in the warm, rainy lowlands and along rivers of the Japanese archipelago. Tall grasses and stands of willow trees intermingle among muddy ground and shallow water. The damp ground restricts travel and construction.",
+    },
+    "ColdBog": {
+        "ja": "冷涼な地域に広がる湿原。草本やコケ類に加え、ヤナギやカバノキ類の木立が点在する。水を多く含む地盤はぬかるみやすく、移動や建築が難しい。",
+        "en": "A wetland found across cooler regions. Grasses and mosses grow alongside scattered stands of willow and birch trees. The waterlogged ground readily turns muddy, making travel and construction difficult.",
+    },
+}
+
 
 WILDLIFE = {
     "TemperateSwamp": {
@@ -117,6 +135,46 @@ class WetlandEcologyContractTests(unittest.TestCase):
                     float(self.replacement(biome, "diseaseMtbDays").text),
                     DISEASE_MTB[biome],
                 )
+
+    def test_only_approved_wetland_descriptions_are_replaced(self):
+        root = ET.parse(DESCRIPTION_PATCH).getroot()
+        self.assertEqual(root.tag, "Patch")
+        operations = root.findall("./Operation/operations/li")
+        self.assertEqual(len(operations), len(APPROVED_DESCRIPTIONS))
+        actual = {}
+        for op in operations:
+            self.assertEqual(op.get("Class"), "PatchOperationReplace")
+            xpath = op.findtext("xpath")
+            body = op.find("value")
+            self.assertIsNotNone(xpath)
+            self.assertIsNotNone(body)
+            self.assertEqual(len(body), 1)
+            self.assertEqual(body[0].tag, "description")
+            self.assertNotIn(xpath, actual)
+            actual[xpath] = body[0].text
+        self.assertEqual(actual, {
+            f'/Defs/BiomeDef[defName="{id}"]/description': parts["en"]
+            for id, parts in APPROVED_DESCRIPTIONS.items()
+        })
+
+    def test_japanese_definjected_contains_exact_approved_text(self):
+        root = ET.parse(JAPANESE_DESCRIPTIONS).getroot()
+        self.assertEqual(root.tag, "LanguageData")
+        for biome, text in APPROVED_DESCRIPTIONS.items():
+            with self.subTest(biome=biome):
+                key = biome + ".description"
+                nodes = root.findall(key)
+                self.assertEqual(len(nodes), 1)
+                self.assertEqual(nodes[0].text, text["ja"])
+                self.assertIsNone(root.find(biome + ".label"))
+
+    def test_loaded_wetland_quickstarts_validate_approved_description(self):
+        self.assertIn("has an approved EN/JA wetland description", self.quickstart)
+        for parts in APPROVED_DESCRIPTIONS.values():
+            self.assertIn(parts["ja"], self.quickstart)
+            self.assertIn(parts["en"], self.quickstart)
+        self.assertIn("approvedEnglishDescription", self.quickstart)
+        self.assertIn("approvedJapaneseDescription", self.quickstart)
 
     def test_quickstarts_check_loaded_ecology_and_wetland_terrain(self):
         source = self.quickstart

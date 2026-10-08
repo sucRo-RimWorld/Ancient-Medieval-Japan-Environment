@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <!-- Replace only the English descriptions of retained Vanilla wetlands.
+       Leave labels, workers, terrain, vegetation and other ecology intact.
+       Japanese localization is in Languages/Japanese/DefInjected/BiomeDef. -->
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/description</xpath>
+        <value>
+          <description>A wetland found in the warm, rainy lowlands and along rivers of the Japanese archipelago. Tall grasses and stands of willow trees intermingle among muddy ground and shallow water. The damp ground restricts travel and construction.</description>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/description</xpath>
+        <value>
+          <description>A wetland found across cooler regions. Grasses and mosses grow alongside scattered stands of willow and birch trees. The waterlogged ground readily turns muddy, making travel and construction difficult.</description>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+</Patch>
