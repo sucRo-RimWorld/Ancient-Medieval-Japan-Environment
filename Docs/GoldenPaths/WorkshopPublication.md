@@ -103,7 +103,13 @@ uploads were not assigned retroactive versions.
    --output FRESH_EXTERNAL_RESULT_DIRECTORY --preview APPROVED_EXISTING_PNG`.
    The preview's SHA256 is recorded as a separate author-approved input because
    the current main does not track it. The builder rejects tracked edits,
-   untracked runtime assets and wrong HEAD, builds the production DLL afresh,
+   arbitrary untracked runtime assets and wrong HEAD. The one permitted
+   untracked runtime file is local `About/PublishedFileId.txt` when its content
+   matches the fixed Workshop ID `3814638060`: Steam/RimWorld can create this
+   file in the author checkout, and the builder writes the same canonical ID
+   to the subscriber payload itself rather than copying its local bytes.
+   A different local ID or any other untracked runtime file is rejected.
+   The builder builds the production DLL afresh,
    uses only tracked runtime inputs, preserves Workshop/package identity,
    validates Haimatsu8/WoodLog/Wood and plant paths, and emits a root-only ZIP,
    extracted root and per-file Manifest.json. It does not publish.
