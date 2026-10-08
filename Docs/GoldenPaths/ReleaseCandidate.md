@@ -38,7 +38,7 @@ Reuse Scripts/Run-EnvironmentVegetationQuickstarts.ps1 with a new result root an
 
 ## Subscriber payload filtering
 
-Follow Core [Docs/WorkshopPackaging.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/WorkshopPackaging.md).
+Follow Project [Docs/WorkshopPackaging.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/WorkshopPackaging.md).
 Run `python Tests/validate_workshop_payload.py` before staging; the candidate builder
 also audits the actual extracted payload with the expected production DLL.
 README, Docs and provenance/test manifests must remain outside the runtime ZIP.

@@ -1,6 +1,6 @@
 # RimWorld Mod データベース（2game）掲載方針 — AMJE
 
-共通正本はGrainsの[ModDescriptionGuidelines.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Grains/blob/main/Docs/ModDescriptionGuidelines.md)。形式の基準はCCTOの[2GamePresentation.md](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/main/Docs/2GamePresentation.md)と[日本語説明](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/main/Docs/2GameDescription-ja.txt)。
+共通正本はProjectの[ModDescriptionGuidelines.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/ModDescriptionGuidelines.md)。形式の基準はCCTOの[2GamePresentation.md](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/main/Docs/2GamePresentation.md)と[日本語説明](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/main/Docs/2GameDescription-ja.txt)。
 
 貼り付け用の管理元は `Docs/2GameDescription-ja.txt`。READMEを詳細な公開内容の正本とし、Workshopよりさらに短く要約する。新しい機能・互換性の主張を追加しない。
 

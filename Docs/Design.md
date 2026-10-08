@@ -833,7 +833,7 @@ AMJでいう**リテクスチャ**は、Environment独自Defの画像制作だ�
 
 ### 11.5.2 実装方式と変更範囲
 
-技術実装・既存リテクスチャMod監査・競合規則は、Coreの共通正本 [`Docs/RetextureImplementationGuidelines.md`](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/RetextureImplementationGuidelines.md) に従う。
+技術実装・既存リテクスチャMod監査・競合規則は、Projectの共通正本 [`Docs/RetextureImplementationGuidelines.md`](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/RetextureImplementationGuidelines.md) に従う。
 
 Environmentでは特に以下を固定する。
 

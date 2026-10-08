@@ -1642,3 +1642,10 @@ main; full static/runtime PASS is not claimed by this merge.
 The author's isolated vegetation runtime report passed warm/cool/subalpine and failed Alpine 1/70 assertions. It compared the Alpine `map.Biome.wildPlants` tree-like set (including `AMJ_Shrub_Haimatsu`, since RimWorld 1.6 reports `plant.IsTree`) against the approved empty growing-zone sowing set. Native sowing menu and Haimatsu-non-sowable assertions passed, with zero captured runtime ERROR. Vegetation XML and production gameplay are unchanged.
 
 Correction: the runtime/static tests separately expect Alpine natural woody `{AMJ_Shrub_Haimatsu}` and sowable trees `{}`; other three bands continue to use equal sets. Canonical rule and procedure: `Docs/Design.md` and `Docs/GoldenPaths/PlantSowingTests.md`. Rerun the full isolated vegetation matrix for wetland/river/coast coverage; no new full-runtime PASS or publication claimed.
+
+### DOC-SHARED-RULES-OWNER-001 — Shared rule migration to Project (2026-10-08 JST)
+
+**Owner:** Project common rules / repository routing
+**Status:** DONE — current AGENTS and shared-rule references route to Project
+
+Canonical shared rules and Workshop template/tooling now live in Project `Docs/SharedRules.md` and its linked sources. Grains old Markdown paths are migration pointers only. Existing historical coordination entries retain their original commit/path provenance; resolve future work through the new Project index. Mod-specific implementation, tests and accepted content art remain with this repository. No runtime behavior, new preview generation or Steam publication is part of this migration.

@@ -27,7 +27,7 @@ with isolated snow shapes registered to the unchanged reference silhouette.
 
 ## Leafless beech repair and prevention (2026-10-06 JST)
 
-- Keep the accepted master PNG, canvas, trunk position, exposed branch pixels, perspective and scale exact. Read Core ArtStyle and Environment ArtDirection on current main; actually open Sudajii, leafy/leafless beech and the accepted Haimatsu snow composite.
+- Keep the accepted master PNG, canvas, trunk position, exposed branch pixels, perspective and scale exact. Read Project ArtStyle and Environment ArtDirection on current main; actually open Sudajii, leafy/leafless beech and the accepted Haimatsu snow composite.
 - Select a small number of physically supported upper branch ledges; vary width, thickness and left/right balance. Snow reads as broad irregular upper surfaces with thickness, not strokes along every twig, tiny pellets, detached flakes, or identical pill shapes. Use a strong dark outer edge, one off-white plane and one broad blue-grey underside; minimize internal outlines.
 - Define allowed review regions before painting. Never derive the editable mask from the output alpha or expand it just to pass a fixed-pixel gate. Changing an already approved mask requires a new review revision; never silently replace an active contract. The old automatic output-alpha mask and rejected derivative are not valid references for this repair.
 - The current `v2-review` contract declares twelve branch ledges in `Scripts/Art/build_beech_snow.py`. Its new mask is unapproved; existing v1 directory is retained for the user-specified PR review path. The master hash is unchanged. No filled exemplar or active status may be added before explicit author acceptance.
@@ -39,7 +39,7 @@ with isolated snow shapes registered to the unchanged reference silhouette.
 
 `853d7f5` introduced per-edge capsule synthesis; `62434d2` wrote its output. It used connected wood-edge fragments, generated many small shapes with nested light/shadow rims, and built the mask from the resulting alpha. The regression checked only eroded-area ratio: filled pellets pass that measure. Neither visual outline/mass audit nor approval was enforced by that numerical success. This establishes the cause for the actual PR candidate; an unspecified earlier chat-generated image without a retrievable artifact/prompt cannot be attributed to a model or reference error.
 
-Latest main had already removed the frozen shared prompt in favor of Core ArtStyle, while this PR retained the older generation entry and duplicated style wording. Use the current main entry plus owning style guides; do not restore the frozen prompt during future merges. An older ArtDirection claim that both snow variants were accepted is expressly superseded by the rejection section.
+Latest main had already removed the frozen shared prompt in favor of Project ArtStyle, while this PR retained the older generation entry and duplicated style wording. Use the current main entry plus owning style guides; do not restore the frozen prompt during future merges. An older ArtDirection claim that both snow variants were accepted is expressly superseded by the rejection section.
 
 ### Revision 2 rejected for branch mismatch — revision 3 pending
 

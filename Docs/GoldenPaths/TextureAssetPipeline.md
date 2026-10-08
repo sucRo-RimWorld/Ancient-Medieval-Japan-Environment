@@ -71,7 +71,7 @@ Use `-AllowOpaque` only for an asset type whose canonical art specification expl
 
 ### 3. Change the owning Def/path only after binary validation succeeds
 
-For prerequisite-asset retextures, first apply the shared technical rules in [AMJ Retexture Implementation Guidelines](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core/blob/main/Docs/RetextureImplementationGuidelines.md). In particular, use an AMJE-owned unique texPath and treat the target as a complete loaded graphic-state family rather than relying on same-name texture shadowing.
+For prerequisite-asset retextures, first apply the shared technical rules in [AMJ Retexture Implementation Guidelines](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/RetextureImplementationGuidelines.md). In particular, use an AMJE-owned unique texPath and treat the target as a complete loaded graphic-state family rather than relying on same-name texture shadowing.
 
 After the production PNG has passed the helper:
 
@@ -191,7 +191,7 @@ For AMJE production art, completion requires:
 
 ## Fixed reused components
 
-If a texture intentionally reuses a visible component pixel-exactly, follow Ancient-Medieval-Japan-Grains `Docs/GoldenPaths/FixedImageTemplates.md`. Do not duplicate that policy here.
+If a texture intentionally reuses a visible component pixel-exactly, follow Ancient-Medieval-Japan-Project `Docs/GoldenPaths/FixedImageTemplates.md`. Do not duplicate that policy here.
 
 ## Focused Haimatsu location aid
 

@@ -6,7 +6,7 @@ Use this procedure for AMJE plant/tree sprites, including AMJE-owned plants and
 Vanilla/MO tree retextures. It is the generation entry point, before
 [TextureAssetPipeline.md](TextureAssetPipeline.md).
 
-The shared visual source of truth is Ancient-Medieval-Japan-Grains `Docs/ArtStyle.md`; Environment-specific tree/plant rules and accepted species baselines are owned by [ArtDirection.md](../ArtDirection.md). This procedure owns only the generation preflight and handoff, not a second copy of either style guide.
+The shared visual source of truth is Ancient-Medieval-Japan-Project `Docs/ArtStyle.md`; Environment-specific tree/plant rules and accepted species baselines are owned by [ArtDirection.md](../ArtDirection.md). This procedure owns only the generation preflight and handoff, not a second copy of either style guide.
 
 Workshop covers, logos, terrain textures and world-biome images are different
 asset classes. Read their owning specifications; never substitute these tree
@@ -17,7 +17,7 @@ unclear, resolve the class before generating.
 
 1. Read repository `AGENTS.md` and authoritative `main:Docs/Coordination.md`
    first. Read the current main versions, not a remembered chat summary.
-2. Read Ancient-Medieval-Japan-Grains `Docs/ArtStyle.md`, this procedure, `Docs/ArtDirection.md` (Environment/category/species additions), and `Docs/GoldenPaths/TextureAssetPipeline.md`.
+2. Read Ancient-Medieval-Japan-Project `Docs/ArtStyle.md`, this procedure, `Docs/ArtDirection.md` (Environment/category/species additions), and `Docs/GoldenPaths/TextureAssetPipeline.md`.
 3. Resolve the latest OPEN/IN PROGRESS art handoff and distinguish:
    proposed design / author-approved design / generated candidate /
    approved source / installed asset / accepted in-game appearance.
@@ -27,7 +27,7 @@ unclear, resolve the class before generating.
    filenames, rely on an old conversation image, or claim to have inspected
    pixels that were not opened.
 5. Reuse the existing approved category/style and any already-approved target design. If no target-specific proposal is already approved, derive the narrowest reasonable composition from the current request and the owning style rules; do not add a mandatory extra approval round unless the user explicitly asks for proposal/review-first work.
-6. Build the generation request from the current Ancient-Medieval-Japan-Grains `Docs/ArtStyle.md` invariants plus the applicable Environment/category/species rules in `ArtDirection.md`. Attach the actual viewed reference images. Do not maintain a second frozen style prompt in this procedure.
+6. Build the generation request from the current Ancient-Medieval-Japan-Project `Docs/ArtStyle.md` invariants plus the applicable Environment/category/species rules in `ArtDirection.md`. Attach the actual viewed reference images. Do not maintain a second frozen style prompt in this procedure.
 7. Generate one candidate for the requested target. Do not restart the style design or produce unrequested alternatives.
 
 When fetching/viewing a required reference is blocked, report that limitation
@@ -60,13 +60,13 @@ claim that written paths alone attach pixels to a generator.
 ## Generation request assembly
 
 The generation request must carry the **current** applicable rules from:
-- Ancient-Medieval-Japan-Grains `Docs/ArtStyle.md` for AMJ-wide invariants;
+- Ancient-Medieval-Japan-Project `Docs/ArtStyle.md` for AMJ-wide invariants;
 - `Docs/ArtDirection.md` for Environment tree/plant class rules and the target species;
 - the actual accepted reference images opened during preflight.
 
 Do not copy a long frozen prompt into this file. That previously created a second style source that could drift from the project-wide rules. The request should contain only the shared invariants plus the approved target-specific silhouette/structure differences needed for the current asset.
 
-If the target-specific request would contradict Core ArtStyle or ArtDirection, stop and resolve the specification first instead of compensating with ad-hoc prompt text.
+If the target-specific request would contradict Project ArtStyle or ArtDirection, stop and resolve the specification first instead of compensating with ad-hoc prompt text.
 
 ## Candidate review and production handoff
 
@@ -105,7 +105,7 @@ A new chat can start with:
 Repository:
 `sucRo-RimWorld/Ancient-Medieval-Japan-Environment`.
 
-For any explicitly reused visible component, follow the Ancient-Medieval-Japan-Grains `Docs/GoldenPaths/FixedImageTemplates.md`; ordinary same-style tree sprites do not require fixed-pixel templates.
+For any explicitly reused visible component, follow the Ancient-Medieval-Japan-Project `Docs/GoldenPaths/FixedImageTemplates.md`; ordinary same-style tree sprites do not require fixed-pixel templates.
 
 ## Snow-only derivative routing
 
