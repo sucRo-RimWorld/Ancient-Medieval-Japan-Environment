@@ -36,6 +36,9 @@ normal world prevalence, so the world wetland-share gate remains OPEN.
 Durable evidence context and remaining gates: `Docs/GoldenPaths/RenderedRuntimeTests.md`.
 
 
+**2026-10-08 complete outer-runner log and Highland diagnostic fix:** The author's `EnvironmentIsolatedRuntime(2).log` records the eight standalone AMJE Quickstarts **8/8 PASS** (four forest, TemperateSwamp, ColdBog, River, Coast), with the runner reporting zero owned ERROR for each. Focused AMJE+CCTO warm loaded-Def check also **PASS**. The optional Grains/Core+MO profile loaded the warm map but its `RequireClimateGradient` log gate stopped on `Climate calibration line was not found for Highland`; no full integration PASS was produced. Root cause: `ClimateCalibrationDiagnostics` excluded impassable tiles when searching for climate sample points, leaving none in tiny test worlds dominated by impassable highland. PR #26 / squash merge `ec6c2bbe9f4d6498e0f1abaf4f088b84fee5a91e` adds a diagnostic-only, Highland-only fallback to measure impassable mountain tiles after playable candidate search fails. Strict four-tier `<8C`/`<0C` gradient checks and owned runtime ERROR gates remain intact; no gameplay/world generation/Defs changed. Regression `Tests/test_run_tests_entrypoint.py` and workflow trigger updated; PR CI 3/3 PASS. **Post-fix installed-RimWorld rerun remains pending** for the Grains/MO profile and overall run. Also pending: independent world wetland-share sanity and author-approved bilingual wetland descriptions; wetland Step 1 and ENV-RETEX-012 remain OPEN/BLOCKED respectively. Detailed evidence: `Docs/GoldenPaths/RenderedRuntimeTests.md`.
+
+
 ### ENV-TREE-SOWING-001 — Regional growing-zone tree regression (2026-10-08 JST)
 
 **Requested by:** author
