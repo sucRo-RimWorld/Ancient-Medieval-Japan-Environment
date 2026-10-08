@@ -13,4 +13,10 @@
   <AMJ_Shrub_Haimatsu.description>這松（ハイマツ）は、北海道から本州中部以北の高山帯に分布し、森林限界より上で地面を這うように密な群落をつくる常緑低木。\n\n氷期に南下した北方系植物が、温暖化後に高山へ取り残された遺存的な分布を示すと考えられている。\n\n木曽御嶽は中世後期から信仰登山の対象となり、現在その高山帯にはハイマツ林が広がっている。</AMJ_Shrub_Haimatsu.description>
   <!-- Approved Japanese Vanilla bamboo description (2026-10-08). Keep Vanilla label unchanged. -->
   <Plant_TreeBamboo.description>竹（タケ）は、日本の温暖で湿潤な土地に群生する、木のような姿のイネ科植物。古代・中世に存在したマダケやハチクなどの竹類を、ここではまとめて表す。\n\n竹は軽くしなやかで、古くからかご・日用品や建築・農漁業の資材に使われてきた。現在広く見られるモウソウチクは江戸時代の渡来とする記録があり、ここで想定する竹類とは区別する。</Plant_TreeBamboo.description>
+  <!-- Approved Japanese descriptions of the five retained Vanilla trees (2026-10-08). -->
+  <Plant_TreeMaple.description>楓（カエデ）は、日本の落葉広葉樹林にも生育するカエデ属の樹木をまとめた呼び名。多くは季節によって葉の色を変える。\n\n縄文時代の遺跡周辺にもカエデ属を含む森林が確認されており、古くから日本列島の森林を構成していた。この植物は特定のカエデ一種を再現するものではない。</Plant_TreeMaple.description>
+  <Plant_TreeOak.description>楢（ナラ）は、コナラなど日本に分布する落葉性のナラ類を表す樹木。ブナなどとともに落葉広葉樹林の一部をなす。\n\n日本列島では古くからナラ類を含む森林が広がり、地域ごとに人の火の利用や森林利用の影響を受けてきた。ここでは落葉ナラ類の代理とし、常緑カシ類まで同一視するものではない。</Plant_TreeOak.description>
+  <Plant_TreeBirch.description>樺（カバ。カバノキ類）は、冷涼な山地にも分布する落葉高木の仲間。亜高山帯にはダケカンバなどが、針葉樹林に接する斜面にも見られる。\n\nこの植物は冷温帯のカバノキ類と、亜高山帯のダケカンバに相当する樹木をまとめて表す。実際の種類は地域や標高によって異なる。</Plant_TreeBirch.description>
+  <Plant_TreePine.description>松（マツ）は、日本の山地や痩せた土地にも育つ針葉樹の仲間。ここではアカマツなどのマツ類を代表する樹木として扱う。\n\n古代から中世にかけて、地域によっては伐採や燃料利用に伴ってマツ類が増加したことが花粉分析からうかがえる。全国の森林が一律にマツ林だったわけではない。</Plant_TreePine.description>
+  <Plant_TreeWillow.description>柳（ヤナギ）は、川沿いや湿った地面に育つヤナギ類を表す樹木。日本各地の川原では、氾濫や流水の影響を受ける場所にヤナギ林が見られる。\n\n河川沿いの湿地林は、集落が接する低地景観を理解するうえでも重要な自然環境である。この植物は特定のヤナギ一種を表すものではない。</Plant_TreeWillow.description>
 </LanguageData>
