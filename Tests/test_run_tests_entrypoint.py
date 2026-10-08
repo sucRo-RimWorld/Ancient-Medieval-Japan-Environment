@@ -19,6 +19,13 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         cls.validator = (
             ROOT / "Scripts" / "Validate-Environment.ps1"
         ).read_text(encoding="utf-8")
+        cls.climate_diagnostics = (
+            ROOT / "Source" / "AncientMedievalJapanEnvironment"
+            / "ClimateCalibrationDiagnostics.cs"
+        ).read_text(encoding="utf-8")
+        cls.runtime_log_validator = (
+            ROOT / "Scripts" / "Validate-EnvironmentRuntimeLog.ps1"
+        ).read_text(encoding="utf-8")
 
     def test_run_tests_is_the_full_standard_entrypoint(self):
         self.assertIn('run-static-tests.bat', self.run_tests)
@@ -48,6 +55,27 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertIn('--skip-static', self.isolated)
         self.assertNotIn('-nographics', self.isolated)
         self.assertNotIn('SwitchDesktop', self.isolated)
+
+    def test_highland_climate_sampling_keeps_full_gradient_gate(self):
+        climate = self.climate_diagnostics
+        self.assertIn(
+            "FindRepresentative(layer, 2f, 1500f, 3200f, 1900f, true)",
+            climate,
+        )
+        self.assertEqual(
+            climate.count("allowImpassableFallback = false"), 1
+        )
+        self.assertIn("if (!result.Valid && allowImpassableFallback)", climate)
+        self.assertIn("!allowImpassable && tile.hilliness == Hilliness.Impassable", climate)
+        self.assertIn("targetElevation, true, false", climate)
+        self.assertIn("targetElevation, false, false", climate)
+        self.assertIn("targetElevation, true, true", climate)
+        self.assertIn("targetElevation, false, true", climate)
+        self.assertIn("if ($RequireClimateGradient)", self.runtime_log_validator)
+        self.assertIn(
+            '@("WarmLowland", "TemperateLowland", "CoolLowland", "Highland")',
+            self.runtime_log_validator,
+        )
 
     def test_standard_runtime_suite_includes_both_wetlands(self):
         self.assertIn('"AMJTemperateSwampVegetationQuickstart"', self.quickstarts)

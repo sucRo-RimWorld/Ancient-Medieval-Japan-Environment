@@ -41,7 +41,7 @@ namespace AncientMedievalJapan.Environment
             LogRepresentative(world, layer, "CoolLowland",
                 FindRepresentative(layer, 7f, 0f, 300f, 100f));
             LogRepresentative(world, layer, "Highland",
-                FindRepresentative(layer, 2f, 1500f, 3200f, 1900f));
+                FindRepresentative(layer, 2f, 1500f, 3200f, 1900f, true));
         }
 
         private static PlanetTile FindRepresentative(
@@ -49,25 +49,36 @@ namespace AncientMedievalJapan.Environment
             float targetAnnualTemperature,
             float minElevation,
             float maxElevation,
-            float targetElevation)
+            float targetElevation,
+            bool allowImpassableFallback = false)
         {
+            // Prefer playable representatives in the Northern Hemisphere,
+            // then search both hemispheres. For the Highland climate-only
+            // probe, fall back to impassable mountain tiles *only* when no
+            // playable highland tile exists in the generated small world.
             PlanetTile result = FindRepresentative(
-                layer,
-                targetAnnualTemperature,
-                minElevation,
-                maxElevation,
-                targetElevation,
-                true);
+                layer, targetAnnualTemperature, minElevation,
+                maxElevation, targetElevation, true, false);
 
             if (!result.Valid)
             {
                 result = FindRepresentative(
-                    layer,
-                    targetAnnualTemperature,
-                    minElevation,
-                    maxElevation,
-                    targetElevation,
-                    false);
+                    layer, targetAnnualTemperature, minElevation,
+                    maxElevation, targetElevation, false, false);
+            }
+
+            if (!result.Valid && allowImpassableFallback)
+            {
+                result = FindRepresentative(
+                    layer, targetAnnualTemperature, minElevation,
+                    maxElevation, targetElevation, true, true);
+
+                if (!result.Valid)
+                {
+                    result = FindRepresentative(
+                        layer, targetAnnualTemperature, minElevation,
+                        maxElevation, targetElevation, false, true);
+                }
             }
 
             return result;
@@ -79,7 +90,8 @@ namespace AncientMedievalJapan.Environment
             float minElevation,
             float maxElevation,
             float targetElevation,
-            bool northernHemisphereOnly)
+            bool northernHemisphereOnly,
+            bool allowImpassable)
         {
             PlanetTile best = PlanetTile.Invalid;
             float bestScore = float.MaxValue;
@@ -88,7 +100,7 @@ namespace AncientMedievalJapan.Environment
             {
                 SurfaceTile tile = layer.Tiles[i] as SurfaceTile;
                 if (tile == null || tile.WaterCovered ||
-                    tile.hilliness == Hilliness.Impassable)
+                    (!allowImpassable && tile.hilliness == Hilliness.Impassable))
                 {
                     continue;
                 }
