@@ -194,6 +194,17 @@ Durable sources: `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` section
 **2026-10-08 ecology implementation:** PR #24 / squash merge `3e946ad24f4e5d93ced19478219b73f865befa54` adds `Patches/VanillaWetlandEcology.xml` for both retained Vanilla wetlands: Japan-oriented wildlife proxies, adjusted humid weather/snow bands, historical-world-facing gameplay disease mixes (excluding mechanites), separate disease MTB values, and removal of inherited foreign wild pack animals. Original wetland workers, terrain patch makers and Phase 5 wild plants remain unchanged. The `Tests/Quickstarts/EnvironmentBiomeTerrainQuickstarts.cs` wetland scenarios now require loaded Def/terrain assertions; `Tests/test_wetland_ecology_contract.py` statically guards all ten replaced fields. The full numeric provisional balance and **unapproved Japanese-first description drafts** are recorded in `Docs/VanillaWetlandBiomeAudit-ja.md` and `Docs/Design.md`. PR CI passed Regional tree sowing contract (including the ecology regression), Workshop payload, and Plant visual coverage. **OPEN:** new English/Japanese runtime descriptions require approval of the Japanese drafts before translation; installed RimWorld runtime and world wetland-share sanity remain unverified. Do not mark vegetation roadmap Step 1 DONE or unblock ENV-RETEX-012 on CI results alone.
 
 
+### ENV-STEP2-PLANT-DESCRIPTION-20261008 — retained Vanilla plant descriptions (2026-10-08)
+
+**Owner:** Environment / plant retention, historical localization
+**Status:** IN PROGRESS — [draft PR #29](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/29), Japanese drafts unapproved; no gameplay/art/localization write
+
+- After the author-confirmed wetland Step 1, Step 2 audits the **current exact Vanilla wildPlant inventory** across AMJE's four biomes and two retained Vanilla wetlands: six tree Defs (Bamboo/Maple/Oak/Birch/Pine/Willow) and seven generic ground/forage Defs (Grass/TallGrass/Brambles/Bush/Moss/Berry/Wild Healroot). AMJE-owned four structural plants are separate.
+- Draft PR #29 commit `c3b94ec46e7bade291b1bc9da42bc893ae9a1306` adds `Docs/VanillaPlantStep2DescriptionReview-ja.md` with an XML-grounded distribution matrix, six **unapproved Japanese historical description drafts**, supporting citations and explicit proxy/region/era caveats. `Docs/Design.md` and `Docs/VanillaPlantRetentionAudit-ja.md` point to this as the formal text source. Do not merge descriptions into DefInjected or translate prior to author's Japanese approval.
+- Priority is Bamboo's misleading Vanilla aesthetic judgment and exclusion of post-Edo Moso bamboo assumptions. Pine secondary forest vs natural biome, and Willow/Maple/Birch in wetlands, require species/distribution caution. Preserve original Vanilla labels and gameplay until separately approved.
+- **No production XML, sowing rules, runtime assertions, graphics, or translations have been changed.** Existing Vanilla/MO tree retexture remains deferred; current plant visuals still have precedence under AGENTS/PlantVisualCoverage.
+- Runtime PASS from PRs #27/#28 is historical evidence, not a new Step 2 change validation. The separate four-profile matrix and exact wetland-share calibration remain open. Existing tree-sowing tests govern plantability; do not assert wetland sowability from wildPlants alone.
+
 ### ENV-RETEX-012 — existing-tree retention audit and AMJE description rewrite
 
 **Requested by:** author (2026-10-08 JST)  
