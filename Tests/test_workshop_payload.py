@@ -23,56 +23,86 @@ def fixture():
 
 class GateTests(unittest.TestCase):
     def test_four_profile_assertion_counts_track_current_quickstarts(self):
-        # The author's October 8 Vanilla WarmTemperate runtime report is 80/80.
-        # Keep exact expected totals rather than blindly accepting extra cases.
         spec = importlib.util.spec_from_file_location(
             'gate', payload.ROOT / 'Scripts/Run-WorkshopPayloadTests.py')
         gate = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(gate)
-        quickstarts = (payload.ROOT / 'Tests/Quickstarts/'
-                       'EnvironmentBiomeTerrainQuickstarts.cs').read_text(
-                           encoding='utf-8-sig')
-
-        sowing = quickstarts.split(
-            'private static void AddTreeSowingAssertions(', 1)[1].split(
+        source = (payload.ROOT / 'Tests/Quickstarts/'
+                  'EnvironmentBiomeTerrainQuickstarts.cs').read_text(
+                      encoding='utf-8-sig')
+        runner = (payload.ROOT / 'Scripts/'
+                  'Run-EnvironmentVegetationQuickstarts.ps1').read_text(encoding='utf-8-sig')
+        sowing = source.split('private static void AddTreeSowingAssertions(', 1)[1].split(
             'private static void AddHarvestOutputAssertions(', 1)[0]
-        ordinary = sowing.split('string[] ordinaryTrees = {', 1)[1].split(
-            '};', 1)[0]
-        ordinary_count = len(re.findall(r'"[^"]+"', ordinary))
-        sowing_assertions = sowing.count('verification.Assert(') - 1 + ordinary_count
-        self.assertEqual(ordinary_count, 9)
-        self.assertEqual(sowing_assertions, 16)
-
-        warm = quickstarts.split(
-            'public sealed class AMJWarmTemperateTerrainQuickstart :', 1)[1].split(
+        ordinary = sowing.split('string[] ordinaryTrees = {', 1)[1].split('};', 1)[0]
+        expanded = sowing.count('verification.Assert(') - 1 + len(re.findall(r'"[^"]+"', ordinary))
+        self.assertEqual(expanded, 16)
+        warm = source.split('public sealed class AMJWarmTemperateTerrainQuickstart :', 1)[1].split(
             'public sealed class AMJCoolTemperateTerrainQuickstart :', 1)[0]
-        warm_descriptions = (
-            warm.count('AssertApprovedVanillaTreeDescription(result,') +
-            warm.count('result.Assert("Plant_TreeBamboo has approved EN/JA description"'))
-        self.assertEqual(warm_descriptions, 6)
+        descriptions = (warm.count('AssertApprovedVanillaTreeDescription(result,') +
+                        warm.count('result.Assert("Plant_TreeBamboo has approved EN/JA description"'))
+        self.assertEqual(descriptions, 6)
+        alpine = source.split('public sealed class AMJAlpineTerrainQuickstart :', 1)[1].split(
+            'public sealed class AMJDarkForestTerrainQuickstart :', 1)[0]
+        self.assertEqual(len(re.findall(r'"Plant_[^"]+"', alpine)), 4)
 
-        base_previous = (58, 57, 54, 52, 3, 3)
-        ccto_previous = (70, 69, 66, 64, 3, 3)
-        increments = (sowing_assertions + warm_descriptions,
-                      sowing_assertions, sowing_assertions, sowing_assertions, 0, 0)
-        expected_base = tuple(a + b for a, b in zip(base_previous, increments))
-        expected_ccto = tuple(a + b for a, b in zip(ccto_previous, increments))
-        self.assertEqual(expected_base, (80, 73, 70, 68, 3, 3))
-        self.assertEqual(expected_ccto, (92, 85, 82, 80, 3, 3))
-        self.assertEqual(gate.MAP_ASSERTIONS_BASE, expected_base)
-        self.assertEqual(gate.MAP_ASSERTIONS_CCTO, expected_ccto)
+        base_forest = (58 + expanded + descriptions, 57 + expanded,
+                       54 + expanded, 52 + expanded + 2)
+        ccto_forest = tuple(n + 12 for n in base_forest)
+        wetlands_world_handoff = (50, 53, 7, 3, 3)
+        self.assertEqual(gate.MAP_ASSERTIONS_BASE, base_forest + wetlands_world_handoff)
+        self.assertEqual(gate.MAP_ASSERTIONS_CCTO, ccto_forest + wetlands_world_handoff)
+        self.assertEqual(gate.CUTTING_ASSERTIONS, 9 + descriptions)
+        self.assertEqual(gate.REPORTS_PER_PROFILE, 10)
+        self.assertEqual(len(gate.SCENARIOS), 9)
+        self.assertEqual(sum(gate.MAP_ASSERTIONS_BASE), 409)
+        self.assertEqual(sum(gate.MAP_ASSERTIONS_CCTO), 457)
+        for scenario in gate.SCENARIOS:
+            self.assertIn('"AMJ' + scenario + 'Quickstart"', runner)
         for profile in gate.PROFILES:
-            expected = expected_ccto if 'CCTO' in profile else expected_base
+            expected = gate.MAP_ASSERTIONS_CCTO if 'CCTO' in profile else gate.MAP_ASSERTIONS_BASE
             self.assertEqual(gate.expected_map_assertions(profile), expected)
         with self.assertRaisesRegex(ValueError, 'Unknown release profile'):
             gate.expected_map_assertions('unknown')
 
-        combiner = (payload.ROOT / 'Scripts/Combine-WorkshopPayloadResults.py').read_text(
+        runner_src = (payload.ROOT / 'Scripts/Run-WorkshopPayloadTests.py').read_text(
             encoding='utf-8')
-        self.assertIn('counts = gate.expected_map_assertions(mode)', combiner)
-        self.assertIn('counts = expected_map_assertions(mode)',
-                      (payload.ROOT / 'Scripts/Run-WorkshopPayloadTests.py').read_text(
-                          encoding='utf-8'))
+        combiner_src = (payload.ROOT / 'Scripts/Combine-WorkshopPayloadResults.py').read_text(
+            encoding='utf-8')
+        for value in ('expected_map_assertions(mode)', 'CUTTING_ASSERTIONS',
+                      'REPORTS_PER_PROFILE', 'validate_report(data, count, name)'):
+            self.assertIn(value, runner_src)
+        for value in ('gate.expected_map_assertions(mode)', 'gate.CUTTING_ASSERTIONS',
+                      'gate.REPORTS_PER_PROFILE', 'gate.validate_report(data, total, name)'):
+            self.assertIn(value, combiner_src)
+
+    def test_reject_incorrect_release_reports(self):
+        spec = importlib.util.spec_from_file_location(
+            'gate', payload.ROOT / 'Scripts/Run-WorkshopPayloadTests.py')
+        gate = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(gate)
+        name = 'Workshop_AMJAlpineTerrainQuickstart'
+        valid = {'quickstart': name, 'total': 70, 'passed': True, 'failed': 0,
+                 'timedOut': False, 'preLaunchErrors': 0, 'logErrors': 0,
+                 'logTruncated': False, 'captureLive': True, 'errors': [],
+                 'results': [{'passed': True} for _ in range(70)]}
+        gate.validate_report(valid, 70, name)
+        for key, value in (('quickstart', 'wrong'), ('total', 68),
+                           ('passed', False), ('failed', 1), ('timedOut', True),
+                           ('preLaunchErrors', 1), ('logErrors', 1),
+                           ('logTruncated', True), ('captureLive', False),
+                           ('errors', ['error'])):
+            changed = dict(valid)
+            changed[key] = value
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                gate.validate_report(changed, 70, name)
+        changed = dict(valid)
+        changed['results'] = valid['results'][:-1]
+        with self.assertRaises(ValueError):
+            gate.validate_report(changed, 70, name)
+        changed['results'] = valid['results'][:-1] + [{'passed': False}]
+        with self.assertRaises(ValueError):
+            gate.validate_report(changed, 70, name)
 
     def test_old_root_with_fixed_nested_copy_is_rejected(self):
         data = fixture()

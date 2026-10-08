@@ -14,13 +14,18 @@ spec = importlib.util.spec_from_file_location('payload', ROOT / 'Scripts/Build-W
 payload_tool = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(payload_tool)
 PROFILES = ('Vanilla', 'MO', 'CCTO', 'MO-CCTO')
-SCENARIOS = ('WarmTemperateTerrain', 'CoolTemperateTerrain', 'SubalpineTerrain', 'AlpineTerrain', 'RiverMapHandoff', 'CoastMapHandoff')
+SCENARIOS = (
+    'WarmTemperateTerrain', 'CoolTemperateTerrain', 'SubalpineTerrain',
+    'AlpineTerrain', 'TemperateSwampVegetation', 'ColdBogVegetation',
+    'WorldWetlandDistribution', 'RiverMapHandoff', 'CoastMapHandoff',
+)
 
-# Exact counts for current Quickstarts. Sixteen tree-sowing checks were
-# added in each forest biome; WarmTemperate has six extra tree descriptions.
-# CCTO contributes twelve additional assertions in each forest biome.
-MAP_ASSERTIONS_BASE = (80, 73, 70, 68, 3, 3)
-MAP_ASSERTIONS_CCTO = (92, 85, 82, 80, 3, 3)
+# Strictly verify all nine map scenarios and the warm native-cutting scenario.
+# Alpine adds two excluded-plant assertions; warm cutting has six descriptions.
+MAP_ASSERTIONS_BASE = (80, 73, 70, 70, 50, 53, 7, 3, 3)
+MAP_ASSERTIONS_CCTO = (92, 85, 82, 82, 50, 53, 7, 3, 3)
+CUTTING_ASSERTIONS = 15
+REPORTS_PER_PROFILE = len(SCENARIOS) + 1
 
 
 def expected_map_assertions(mode):
@@ -28,6 +33,22 @@ def expected_map_assertions(mode):
         raise ValueError('Unknown release profile: ' + str(mode))
     return MAP_ASSERTIONS_CCTO if 'CCTO' in mode else MAP_ASSERTIONS_BASE
 
+
+
+def validate_report(data, count, name):
+    """Reject mismatched identity/count, incomplete capture and failed assertions."""
+    if data.get('quickstart') != name:
+        raise ValueError('Report scenario mismatch: ' + name)
+    if data.get('total') != count:
+        raise ValueError('Invalid report: ' + name +
+                         ' expected=' + str(count) + ' actual=' + str(data.get('total')))
+    if (not data.get('passed') or data.get('failed') != 0 or
+            data.get('timedOut') or data.get('preLaunchErrors') != 0 or
+            data.get('logErrors') != 0 or not data.get('captureLive') or
+            data.get('logTruncated') or data.get('errors') or
+            len(data.get('results', [])) != count or
+            any(not result.get('passed') for result in data['results'])):
+        raise ValueError('Invalid report assertions or capture: ' + name)
 
 
 def call(args, **kwargs):
@@ -125,12 +146,11 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES):
                 call([desktop, batch, ROOT], env=env, stdout=log, stderr=subprocess.STDOUT)
             counts = expected_map_assertions(mode)
             totals = []
-            for directory, scenarios, expected in [(report_dir, SCENARIOS, counts), (harvest_dir, SCENARIOS[:1], [9])]:
+            for directory, scenarios, expected in [(report_dir, SCENARIOS, counts), (harvest_dir, SCENARIOS[:1], [CUTTING_ASSERTIONS])]:
                 for scenario, count in zip(scenarios, expected):
                     name = 'Workshop_AMJ' + scenario + 'Quickstart'
                     data = json.loads((directory / (name + '.json')).read_text(encoding='utf-8-sig'))
-                    if not data['passed'] or data['total'] != count or data['failed'] or data['preLaunchErrors'] or data.get('logErrors', 0) or not data['captureLive'] or data['logTruncated']:
-                        raise ValueError('Invalid report: ' + name)
+                    validate_report(data, count, name)
                     log = (directory / (name + '.log')).read_text(encoding='utf-8-sig')
                     if ('[AMJE WorkshopSourceAudit] PASS sourceRoot=' + str(selected) not in log
                             or 'Version:  Direct3D 11.0' not in log or '-nographics' in log
@@ -143,9 +163,9 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES):
                         raise ValueError('Four native cutting outputs missing')
                     totals.append(count)
             captures = list(errors.glob('Unity-*.log'))
-            if len(captures) != 7 or any('[CAPTURE_READY]' not in p.read_text(encoding='utf-8-sig') or '[ERROR]' in p.read_text(encoding='utf-8-sig') for p in captures):
+            if len(captures) != REPORTS_PER_PROFILE or any('[CAPTURE_READY]' not in p.read_text(encoding='utf-8-sig') or '[ERROR]' in p.read_text(encoding='utf-8-sig') for p in captures):
                 raise ValueError('Independent Unity ERROR capture incomplete')
-            summary['profiles'][mode] = {'map_assertions': sum(totals[:-1]), 'cutting_assertions': totals[-1], 'runtime_errors': 0, 'reports': 7}
+            summary['profiles'][mode] = {'map_assertions': sum(totals[:-1]), 'cutting_assertions': totals[-1], 'runtime_errors': 0, 'reports': REPORTS_PER_PROFILE}
             (output / 'Summary.json').write_text(json.dumps(summary, indent=2))
             print('PASS', mode, summary['profiles'][mode], flush=True)
         if payload_tool.inventory(selected) != selected_before:
