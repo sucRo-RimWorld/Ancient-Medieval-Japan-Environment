@@ -23,19 +23,26 @@ The user supplied the following `Summary.json` values:
 It also reports `passed=true`, `full_four_profile_gate=true`.
 The supplied `Preservation.json` reports
 `payload_unchanged=true`, `normal_config_unchanged=true`.
-The run's strict origin/profile/Direct3D/log/Unity ERROR/native-output
-validation completed without raising an error. This is **author-provided
-structured evidence**; individual reports and independent Unity capture
-logs were not supplied for a second audit. Saved result location on
-the author's PC is under `%TEMP%/AMJE-Final-20261008-214525`, in
-the new `Runtime-Final-...` directory.
+The runner's strict origin/profile/Direct3D/log/Unity ERROR/native-output
+validation finished without error. Saved detailed evidence is under
+`C:/Users/sucRo/AppData/Local/Temp/AMJE-Final-20261008-214525/Runtime-Final-20261008-224132`.
+The author subsequently verified the exact 32-file candidate using
+`Scripts/Build-WorkshopPayload.py verify` (PASS), then reran the
+independent saved-log checks via `Scripts/Combine-WorkshopPayloadResults.py`
+(PASS), producing `C:/Users/sucRo/AppData/Local/Temp/AMJE-Final-20261008-214525/FourProfileAudit.json`.
+The supplied audit report has `passed=true`, original source SHA/ZIP SHA,
+40 checked scenario report paths (ten per profile), zero runtime errors
+and `steam_release_cleared=false`. This independent **author-executed**
+log re-audit validates game/DLL/Def source, real MO/CCTO dependency roots,
+Direct3D, complete captures, independent Unity errors, native cutting
+outputs, original candidate equality and preserved normal configuration.
+Individual raw logs have not separately been uploaded for review here.
 
-**Result:** candidate runtime gate PASS, Steam publication and actual
-downloaded-distribution proof remain HOLD. For additional independent
-release preflight, use `Combine-WorkshopPayloadResults.py` on the
-finished result directory and verify the actual selected upload root
-against its external manifest. Do not infer stable long-play/save
-coverage or a Steam update.
+**Result:** candidate runtime gate and independent saved-log audit PASS.
+Before the author's manual upload, verify the **actual installed local
+Mod selected for upload** against the external manifest/subscriber gate.
+Steam publication and a real downloaded-distribution PASS remain HOLD.
+Do not infer stable long-play/save coverage or any Steam update.
 
 ## 2026-10-08 release candidate: corrected full-suite report contract
 

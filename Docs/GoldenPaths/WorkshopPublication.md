@@ -178,8 +178,14 @@ The author's final `Summary.json` with harness code through
 candidate runtime PASS: Vanilla/MO 409 map assertions +15 cutting each,
 CCTO/MO+CCTO 457 map +15 cutting each, ten reports and zero runtime
 errors per profile. `Preservation.json` confirms the original candidate
-and normal game config were unchanged. The author did not provide full
-scenario/Unity logs here for an independent second audit.
+and normal game config were unchanged. The author subsequently ran the
+exact-root `Build-WorkshopPayload.py verify` and the independent
+`Combine-WorkshopPayloadResults.py` over saved logs, both PASS.
+The supplied `FourProfileAudit.json` lists all 40 report files, verifies
+original SHA/ZIP identity and retains `steam_release_cleared=false`.
+The combiner independently checks full log/error captures and live
+source/real dependencies; raw log files were not uploaded into this chat.
+**No game rerun is needed to repeat this same completed candidate gate.**
 
 Do not rebuild the tested candidate from the later harness commit:
 that would change the production DLL and invalidate same-byte evidence.

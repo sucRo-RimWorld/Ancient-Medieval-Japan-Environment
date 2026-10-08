@@ -7,10 +7,13 @@ passed the author's corrected full nine-map/one-cutting four-profile runtime
 suite (Vanilla/MO 409+15, CCTO/MO+CCTO 457+15, zero runtime ERROR,
 ten reports per profile, unchanged payload and normal config).
 Test-only harness revision `f39914d5bbd02edb90f7c91fe5faaf6e645d86fd`
-did not rebuild candidate bytes. This is **candidate runtime PASS** only.
-Actual author Steam upload, downloaded payload provenance and corresponding
-runtime checks remain unverified, as do the Stable combined-loop/season/save
-criteria. Older evidence below is retained historically.
+did not rebuild candidate bytes. This is **candidate runtime PASS** only. The author subsequently passed
+exact 32-file `Build-WorkshopPayload.py verify` and the independent
+`Combine-WorkshopPayloadResults.py` saved-log audit (40 reports).
+The supplied `FourProfileAudit.json` has `passed=true` and
+`steam_release_cleared=false`. Actual Steam upload, downloaded-payload
+source provenance and runtime checks remain unverified, as do Stable
+combined-loop/season/save criteria. Older evidence is historical.
 
 
 Stable release additionally requires the AMJ combined basic-loop gate defined in
