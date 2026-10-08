@@ -108,10 +108,12 @@ if defined CCTO_INSTALLED (
 set "CORE_INSTALLED="
 if exist "%RIMWORLD_DIR%\Mods\AncientMedievalJapanCore\About\About.xml" set "CORE_INSTALLED=1"
 if exist "%RIMWORLD_DIR%\Mods\Ancient-Medieval-Japan-Core\About\About.xml" set "CORE_INSTALLED=1"
+if exist "%RIMWORLD_DIR%\Mods\AncientMedievalJapanGrains\About\About.xml" set "CORE_INSTALLED=1"
+if exist "%RIMWORLD_DIR%\Mods\Ancient-Medieval-Japan-Grains\About\About.xml" set "CORE_INSTALLED=1"
 
 if defined CORE_INSTALLED (
     echo.
-    echo Preparing isolated AMJ Core + Environment gameplay-integration profile...
+    echo Preparing isolated AMJ Grains/Core + Environment gameplay-integration profile...
     powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1" ^
         -OutputRoot "%CORE_SAVEDATA%" ^
         -IncludeCore
@@ -121,7 +123,7 @@ if defined CORE_INSTALLED (
     )
 
     echo.
-    echo Running four AMJ Core + Environment gameplay-contract Quickstarts...
+    echo Running AMJ Grains/Core + Environment gameplay-contract Quickstarts...
     powershell -NoProfile -ExecutionPolicy Bypass -File "%ROOT%Scripts\Run-EnvironmentVegetationQuickstarts.ps1" ^
         -ExePath "%RIMWORLD_EXE%" ^
         -SaveDataFolder "%CORE_SAVEDATA%" ^
@@ -133,7 +135,7 @@ if defined CORE_INSTALLED (
     if not "!RESULT!"=="0" goto :report
 ) else (
     echo.
-    echo [INFO] AMJ Core is not installed in the local RimWorld Mods folder; skipping optional Core + Environment gameplay-integration runtime check.
+    echo [INFO] AMJ Grains/Core is not installed in the local RimWorld Mods folder; skipping optional integration runtime check.
 )
 
 echo.
@@ -158,7 +160,7 @@ if defined CCTO_INSTALLED (
     echo   %CCTO_REPORT_DIR%
 )
 if defined CORE_INSTALLED (
-    echo Core + Environment gameplay reports:
+    echo Grains/Core + Environment gameplay reports:
     echo   %CORE_REPORT_DIR%
 )
 exit /b %RESULT%
