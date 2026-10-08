@@ -1,5 +1,15 @@
 # AMJ Environment Coordination
 
+### ENV-HERB-MECHANICS-DRAFT-20261008 — medical harvest and Japanese review
+
+**Owner:** Environment / traditional herbs  
+**Status:** SOURCE AUDIT DONE; mechanics and Japanese drafts UNAPPROVED; no runtime implementation
+
+Formal research and proposed minimal harvest route are in `Docs/NativeVegetationStep3Design-ja.md` section 9. A scholarly article citing the 1016 Shoyuki entry supports Heian medicinal Kuzu-root use; general medieval Yomogi food use remains unverified. Drafts separate current food use from period-specific medicine history. Recommend existing MedicineHerbal as first route, but retain the decision whether a distinct Kakkon raw material is needed. Author approval of Japanese text/mechanics and approved art remain required before live Defs.
+
+MO audit correction: `DankPyon_Fleawort` is itself MedicineBase with MedicalPotency 0.60 / MedicalQualityMax 0.70, as well as an extract ingredient. Preserve both roles; do not classify it as extraction-only. Loaded inheritance/treatment tests remain pending. No new medicine item, recipe, PlantDef, asset, runtime PASS or release claimed.
+
+
 ### ENV-HERB-SELECTION-20261008 — selective herbs / MO plantain reuse
 
 **Owner:** Environment / traditional herbs  
