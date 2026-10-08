@@ -142,6 +142,40 @@ in this evidence bundle. The full `run-tests.bat`/wetland Step 1 gate
 remains **PENDING**. An historical warm 73/74 failure is superseded for
 this individual warm scenario only; it does not establish full-matrix PASS.
 
+## 2026-10-08 current isolated-matrix result (author log)
+
+Evidence: author-supplied `EnvironmentIsolatedRuntime(2).log` from the
+rendering-enabled private Windows desktop. The runner verified **all eight
+standalone AMJE scenarios**: four forests including Alpine, both
+TemperateSwamp and ColdBog, River and Coast. Every scenario reports PASS
+and no repository-owned runtime ERROR. The focused **AMJE+CCTO** warm
+loaded-Def compatibility scenario also passed with no owned runtime ERROR.
+
+The optional **Grains/Core + MO + AMJE** integration profile initialized and
+ran its first warm forest Quickstart, but the **climate gradient log validator**
+failed on `Climate calibration line was not found for Highland`. Its
+other integration scenarios were not attempted, and the overall runner
+correctly returned FAIL. This is not an eight-scenario AMJE failure.
+
+Root cause: `ClimateCalibrationDiagnostics.FindRepresentative` had rejected
+every `Hilliness.Impassable` tile. In the tiny test world used by the
+Quickstart, the highland sample was not found even though terrain
+diagnostics showed 1,500m+ tiles. Climate-sampling diagnostics now prefer
+ordinary traversable highland and only fall back to impassable highland
+when none is available. **The Highland annual temperature is still measured
+via `OutdoorTemperatureAt`; all four gradient values and strict
+monotonicity remain mandatory.** The fallback is a *climate probe*, not
+evidence that an impassable tile is playable. No gameplay climate, biome
+generation or vegetation Def is changed by this correction.
+
+Evidence boundary: the outer log reports each Quickstart's result and
+owned-error check, but the individual structured reports/logs for the
+optional integration profile are not in this upload. The full eight
+standalone scenarios and focused CCTO probe can be recorded as
+**runner-confirmed PASS**; the overall suite, Highland gradient
+re-verification, Grains/MO integration and world-level wetland distribution
+remain **PENDING** after the diagnostic fix.
+
 ## Historical verified result
 
 2026-10-05 JST result: Environment build/static, PNG exact-copy, MO static
