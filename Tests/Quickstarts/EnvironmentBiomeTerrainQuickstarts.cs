@@ -2961,6 +2961,157 @@ namespace AncientMedievalJapan.Environment.Quicktests
         }
     }
 
+
+    // World distribution checks must never force a biome onto the sample tiles.
+    public sealed class AMJWorldWetlandDistributionQuickstart : AbstractQuickstart
+    {
+        private int landTiles;
+        private int unassignedLandTiles;
+        private int wetlandCandidates;
+        private int temperateSwampTiles;
+        private int coldBogTiles;
+        private int wetlandOutsideCandidateTiles;
+        private bool selectedNaturalWetland;
+
+        public override TaggedString description
+        {
+            get { return "Audits naturally selected wetland biomes on a larger AMJ world."; }
+        }
+
+        public override int mapSize
+        {
+            get { return 250; }
+        }
+
+        public override float planetCoverage
+        {
+            get { return 0.30f; }
+        }
+
+        public override string seed
+        {
+            get { return "AMJ-Environment-Terrain-Alpha"; }
+        }
+
+        public override void PostApplyConfiguration()
+        {
+            PlanetTile preferredWetland = PlanetTile.Invalid;
+            PlanetTile fallback = PlanetTile.Invalid;
+
+            for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+            {
+                SurfaceTile tile = Find.WorldGrid[i] as SurfaceTile;
+                if (tile == null || tile.WaterCovered)
+                {
+                    continue;
+                }
+
+                landTiles++;
+                bool candidate = tile.swampiness >= 0.5f;
+                if (candidate)
+                {
+                    wetlandCandidates++;
+                }
+
+                string biome = tile.PrimaryBiome == null
+                    ? null
+                    : tile.PrimaryBiome.defName;
+                if (biome == null)
+                {
+                    unassignedLandTiles++;
+                }
+
+                bool wetland = biome == "TemperateSwamp" || biome == "ColdBog";
+                if (biome == "TemperateSwamp")
+                {
+                    temperateSwampTiles++;
+                }
+                else if (biome == "ColdBog")
+                {
+                    coldBogTiles++;
+                }
+
+                if (wetland && !candidate)
+                {
+                    wetlandOutsideCandidateTiles++;
+                }
+
+                if (!TileFinder.IsValidTileForNewSettlement(tile.tile))
+                {
+                    continue;
+                }
+
+                if (!fallback.Valid)
+                {
+                    fallback = tile.tile;
+                }
+                if (wetland && !preferredWetland.Valid)
+                {
+                    preferredWetland = tile.tile;
+                }
+            }
+
+            PlanetTile selectedTile = preferredWetland.Valid
+                ? preferredWetland
+                : fallback;
+            if (!selectedTile.Valid)
+            {
+                throw new InvalidOperationException(
+                    "No natural settlement tile found for world wetland audit.");
+            }
+
+            selectedNaturalWetland = preferredWetland.Valid;
+            Find.GameInitData.startingTile = selectedTile;
+
+            int wetlands = temperateSwampTiles + coldBogTiles;
+            Log.Message(
+                "[AMJ Environment WorldWetlandDistribution]" +
+                " | seed=" + seed +
+                " planetCoverage=" + planetCoverage.ToString("F2") +
+                " land=" + landTiles +
+                " wetlandCandidates=" + wetlandCandidates +
+                " TemperateSwamp=" + temperateSwampTiles +
+                " ColdBog=" + coldBogTiles +
+                " wetlandShare=" + (landTiles > 0
+                    ? ((float)wetlands / landTiles).ToString("P2")
+                    : "N/A") +
+                " unassigned=" + unassignedLandTiles +
+                " outsideCandidates=" + wetlandOutsideCandidateTiles +
+                " selectedNaturalWetland=" + selectedNaturalWetland);
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = new QuickstartVerification();
+            int wetlands = temperateSwampTiles + coldBogTiles;
+            Map map = Find.CurrentMap;
+
+            result.Assert("large world has at least 2,000 land tiles",
+                delegate { return landTiles >= 2000; });
+            result.Assert("all natural land tiles have biomes",
+                delegate { return unassignedLandTiles == 0; });
+            result.Assert("natural world has wetland candidates",
+                delegate { return wetlandCandidates > 0; });
+            result.Assert("natural world has actual wetland biomes",
+                delegate { return wetlands > 0; });
+            result.Assert("natural wetland biomes stay inside candidate tiles",
+                delegate { return wetlandOutsideCandidateTiles == 0; });
+            result.Assert("wetland share below provisional 20 percent ceiling",
+                delegate { return landTiles > 0 && wetlands <= landTiles * 0.20f; });
+            result.Assert("local map uses an unforced natural wetland",
+                delegate
+                {
+                    return selectedNaturalWetland &&
+                        map != null &&
+                        map.Biome != null &&
+                        (map.Biome.defName == "TemperateSwamp" ||
+                         map.Biome.defName == "ColdBog");
+                });
+
+            return result;
+        }
+    }
+
     public sealed class AMJRiverMapHandoffQuickstart : WaterHandoffQuickstartBase
     {
         protected override TileMutatorDef TargetMutator

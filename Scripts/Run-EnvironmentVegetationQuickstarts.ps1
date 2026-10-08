@@ -63,6 +63,7 @@ else {
         "AMJAlpineTerrainQuickstart",
         "AMJTemperateSwampVegetationQuickstart",
         "AMJColdBogVegetationQuickstart",
+        "AMJWorldWetlandDistributionQuickstart",
         "AMJRiverMapHandoffQuickstart",
         "AMJCoastMapHandoffQuickstart"
     )
@@ -199,6 +200,6 @@ elseif ($CoreIntegrationOnly) {
     Write-Host "[OK] AMJ Core + Environment gameplay-contract Quickstarts passed." -ForegroundColor Green
 }
 else {
-    Write-Host "[OK] Environment vegetation + river/coast runtime Quickstarts passed." -ForegroundColor Green
+    Write-Host "[OK] Environment vegetation, natural-world wetlands, and river/coast Quickstarts passed." -ForegroundColor Green
 }
 exit 0
