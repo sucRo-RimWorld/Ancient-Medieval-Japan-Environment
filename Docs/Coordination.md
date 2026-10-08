@@ -1,5 +1,15 @@
 # AMJ Environment Coordination
 
+### ENV-HERB-SELECTION-20261008 — selective herbs / MO plantain reuse
+
+**Owner:** Environment / traditional herbs  
+**Status:** SELECTION POLICY CONFIRMED; runtime implementation OPEN
+
+Author allows multiple herbs but requires a selective shortlist based on medieval-Japan importance and uses beyond medicine. Formal contract: `Docs/NativeVegetationStep3Design-ja.md` 3.2 and 8.2–8.4. Prioritize assigned Yomogi/Kuzu; audit MO's existing cultivated/wild Fleawort (Japanese オオバコ) and `DankPyon_Fleawort` harvest instead of adding a duplicate. Other listed herbs remain research-only, not approved additions. Vanilla-only plantain addition is undecided.
+
+Existing Healroot -> `MedicineHerbal` supply is the baseline; prefer connecting new herbs to existing medicine before adding separate medicine items. MO Fleawort is an extract ingredient, not the same Def as `MedicineHerbal`. Root/stem ownership remains unchanged. No new Def/art/recipe, historical description approval, migration E2E or runtime PASS is claimed.
+
+
 ### PRIORITY-FOREST-FOODS-20261008 — native fruit/forest-food feature queue
 
 **Owner:** Environment native vegetation; Project owns future Gathering consumer  
