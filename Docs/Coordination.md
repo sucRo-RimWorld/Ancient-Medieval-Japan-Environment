@@ -1,5 +1,24 @@
 # AMJ Environment Coordination
 
+### TEST-ENV-UNIFIED-20261008 — unify parallel AMJE test and wetland development tracks
+
+**Requested by:** author (2026-10-08 JST)  
+**Owner:** Environment / runtime testing and wetland development — one shared handoff  
+**Status:** IN PROGRESS — unified workflow and source of truth; latest-main runtime PASS pending
+
+The author requested integration of the separate test chat with the current wetland/vegetation development chat. These now use the **same authoritative main** and `run-tests.bat` as the standard local automated entry; no duplicate branch, competing test scope, or user-mediated relay is required.
+
+**Merged documentation source:** PR #25 / squash merge `0af0590957d0416b77c285e3548c40dacaedab47` consolidates the regional sowing/alpine regression, wetland Phase 5 patch and ecology gates in `Docs/GoldenPaths/RenderedRuntimeTests.md` and updates `Docs/GoldenPaths/PlantSowingTests.md`. This change is documentation-only; Workshop payload CI passed and no new RimWorld runtime result was produced.
+
+**Reconciled latest state:**
+- Earlier warm-temperate isolated run failed 1/74 plus a ColdBog Cypress-related pre-launch PatchOperation ERROR. PR #23 (`a2ea49aecf69c8975ca26e4b84b755ba488005ca`) corrected whole-pool wetland patching and biome-local sowing comparison. No new runtime PASS claimed.
+- Parallel Alpine test chat subsequently recorded 69/70 PASS; the sole failed assertion conflated natural `AMJ_Shrub_Haimatsu` (`plant.IsTree`) with the empty Alpine grow-zone tree menu. Current main already separates `ExpectedWildTreeLikePlants` from `ExpectedSowableTrees`; the native menu/Haimatsu exclusion assertions had passed. Keep `ENV-TREE-SOWING-RUNTIME-002` OPEN for a fresh matrix.
+- PR #24 (`3e946ad24f4e5d93ced19478219b73f865befa54`) changed retained-wetland wildlife, diseases, climate weather and wild pack-animal pools, and added both loaded-Def wetland ecology/terrain Quickstart assertions. Static CI passed; full post-change game/runtime still pending.
+- Standard `run-tests.bat` covers static/build then the eight base Quickstarts (four AMJ biomes, two wetlands, River/Coast) on an isolated rendering-enabled Windows desktop; optional CCTO and Grains/Core profiles are installed-presence-dependent. **This runner does not currently exercise the full Vanilla/MO/CCTO/MO+CCTO four-profile matrix**, because isolated MO startup is disabled in `run-runtime-tests.bat`. The four-profile/release gate must not be marked PASS merely because the standard gate passes.
+- Future latest-main acceptance requires complete eight-scenario reports with zero pre-launch/runtime ERROR and non-truncated capture, optional profiles identified explicitly, world wetland-share sanity, and separate four-profile coverage when possible. Wetland descriptions remain unapproved Japanese-first drafts; bilingual content synchronization and Step 1 closure are still pending. `ENV-RETEX-012` stays BLOCKED.
+
+**Canonical ongoing test handoff:** `Docs/GoldenPaths/RenderedRuntimeTests.md` (unified matrix/status), `Docs/GoldenPaths/PlantSowingTests.md` (tree contract), `Docs/VanillaWetlandBiomeAudit-ja.md` (wetland ecology and approval conditions). Refer future test work to this item together with `ENV-TREE-SOWING-RUNTIME-002` and `ENV-WETLAND-BIOME-001`, rather than maintaining separate chat-specific statuses.
+
 ### ENV-TREE-SOWING-001 — Regional growing-zone tree regression (2026-10-08 JST)
 
 **Requested by:** author
