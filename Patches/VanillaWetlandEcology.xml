@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <!--
+    Adapt the retained Vanilla wetland BiomeDefs to AMJE's Japan-oriented
+    wildlife proxies and humid climate. Leave the Vanilla biome workers,
+    soil/water generation and approved Phase 5 wildPlants unchanged.
+    Disease weights are gameplay abstractions, not historical incidence data.
+  -->
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <!-- TemperateSwamp: wooded lowland marsh and floodplain wetland. -->
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/wildAnimals</xpath>
+        <value>
+          <wildAnimals>
+            <Hare>0.8</Hare>
+            <Squirrel>0.6</Squirrel>
+            <Rat>1</Rat>
+            <Deer>0.7</Deer>
+            <WildBoar>0.8</WildBoar>
+            <Fox_Red>0.06</Fox_Red>
+            <Wolf_Timber>0.03</Wolf_Timber>
+            <Bear_Grizzly>0.04</Bear_Grizzly>
+          </wildAnimals>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/baseWeatherCommonalities</xpath>
+        <value>
+          <baseWeatherCommonalities>
+            <Clear>16</Clear>
+            <Fog>2</Fog>
+            <Rain>3</Rain>
+            <DryThunderstorm>0.1</DryThunderstorm>
+            <RainyThunderstorm>1.5</RainyThunderstorm>
+            <FoggyRain>1.5</FoggyRain>
+            <SnowGentle>2</SnowGentle>
+            <SnowHard>1</SnowHard>
+          </baseWeatherCommonalities>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/diseaseMtbDays</xpath>
+        <value><diseaseMtbDays>50</diseaseMtbDays></value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/diseases</xpath>
+        <value>
+          <diseases>
+            <li><diseaseInc>Disease_Flu</diseaseInc><commonality>100</commonality></li>
+            <li><diseaseInc>Disease_Plague</diseaseInc><commonality>45</commonality></li>
+            <li><diseaseInc>Disease_Malaria</diseaseInc><commonality>35</commonality></li>
+            <li><diseaseInc>Disease_GutWorms</diseaseInc><commonality>65</commonality></li>
+            <li><diseaseInc>Disease_MuscleParasites</diseaseInc><commonality>40</commonality></li>
+            <li><diseaseInc>Disease_AnimalFlu</diseaseInc><commonality>90</commonality></li>
+            <li><diseaseInc>Disease_AnimalPlague</diseaseInc><commonality>40</commonality></li>
+          </diseases>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/allowedPackAnimals</xpath>
+        <value><allowedPackAnimals /></value>
+      </li>
+
+      <!-- ColdBog: cool wetland / raised-bog proxy, with snowy winters. -->
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildAnimals</xpath>
+        <value>
+          <wildAnimals>
+            <Hare>0.8</Hare>
+            <Snowhare>0.5</Snowhare>
+            <Squirrel>0.7</Squirrel>
+            <Rat>1</Rat>
+            <Deer>0.5</Deer>
+            <WildBoar>0.5</WildBoar>
+            <Fox_Red>0.05</Fox_Red>
+            <Wolf_Timber>0.05</Wolf_Timber>
+            <Bear_Grizzly>0.04</Bear_Grizzly>
+          </wildAnimals>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/baseWeatherCommonalities</xpath>
+        <value>
+          <baseWeatherCommonalities>
+            <Clear>16</Clear>
+            <Fog>2</Fog>
+            <Rain>3</Rain>
+            <DryThunderstorm>0.05</DryThunderstorm>
+            <RainyThunderstorm>1</RainyThunderstorm>
+            <FoggyRain>1.5</FoggyRain>
+            <SnowGentle>7</SnowGentle>
+            <SnowHard>7</SnowHard>
+          </baseWeatherCommonalities>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/diseaseMtbDays</xpath>
+        <value><diseaseMtbDays>60</diseaseMtbDays></value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/diseases</xpath>
+        <value>
+          <diseases>
+            <li><diseaseInc>Disease_Flu</diseaseInc><commonality>100</commonality></li>
+            <li><diseaseInc>Disease_Plague</diseaseInc><commonality>35</commonality></li>
+            <li><diseaseInc>Disease_GutWorms</diseaseInc><commonality>40</commonality></li>
+            <li><diseaseInc>Disease_MuscleParasites</diseaseInc><commonality>30</commonality></li>
+            <li><diseaseInc>Disease_AnimalFlu</diseaseInc><commonality>100</commonality></li>
+            <li><diseaseInc>Disease_AnimalPlague</diseaseInc><commonality>35</commonality></li>
+          </diseases>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/allowedPackAnimals</xpath>
+        <value><allowedPackAnimals /></value>
+      </li>
+    </operations>
+  </Operation>
+</Patch>

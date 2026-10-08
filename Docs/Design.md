@@ -943,6 +943,8 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 **Step 1の完了条件:** 両湿地のwildAnimals / diseases / weather / descriptionをAMJE方針へ揃え、loaded Defテストで不適切な植物・動物の再流入がないこと、湿地地形生成が維持されること、world上の湿地比率が不意に消失・急増していないことを確認する。これが通るまでStep 2の既存植物説明監査へ移行しない。
 
+**2026-10-08暫定実装:** `Patches/VanillaWetlandEcology.xml` が両Vanilla湿地の `wildAnimals` / `baseWeatherCommonalities` / `diseaseMtbDays` / `diseases` / `allowedPackAnimals` をAMJE方針に沿って補正する。具体的な全Def・relative commonalityは `Docs/VanillaWetlandBiomeAudit-ja.md` の「湿地生態bundle実装」を正本とする。Vanillaの湿地地形とBiomeWorker、Phase 5植物構成はそのまま保持する。数値は史実の再現値ではなく実機確認待ちのゲームバランス案。説明文は日本語先行草案を作成した段階で、作者承認・英語Def/日本語DefInjected同期までは未完了とし、Step 1完了を宣言しない。
+
 
 ## 12. Seasonal scenery baseline
 
