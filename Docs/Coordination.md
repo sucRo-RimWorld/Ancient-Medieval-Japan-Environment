@@ -1,5 +1,13 @@
 # AMJ Environment Coordination
 
+### ENV-HERB-JAPANESE-APPROVED-20261008 — Yomogi / Kuzu description approval
+
+**Owner:** Environment / traditional herb localization  
+**Status:** JAPANESE APPROVED; English paired in formal design; PlantDefs/art/runtime OPEN
+
+Author replied `よい` to the two Japanese description drafts on 2026-10-08 JST. Preserve exact accepted Japanese in `Docs/NativeVegetationStep3Design-ja.md` 9.3 and use the paired English in 9.4. The section 4 Yomogi draft is now historical, not the implementation source. Wetland descriptions remain unapproved. This approval covers text only; do not infer harvest-mechanic, number, image or runtime approval. No live localization/PlantDef has been added, because the approved asset and implementation gates remain open.
+
+
 ### ENV-HERB-MECHANICS-DRAFT-20261008 — medical harvest and Japanese review
 
 **Owner:** Environment / traditional herbs  

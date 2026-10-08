@@ -1,6 +1,6 @@
 # Step 3：日本の不足植生・伝統薬草（設計監査・実装準備）
 
-**開始：2026-10-08／状態：Step 3 設計・既存種との役割監査。新PlantDef・画像・Biomesの配分値・Harvest・翻訳は未実装。以下の新規説明文は作者未承認草案。**
+**開始：2026-10-08／状態：Step 3 設計・既存種との役割監査。新PlantDef・画像・Biomesの配分値・Harvest・翻訳は未実装。ヨモギ・葛の日本語説明は第9.3節で作者承認済み。その他の新規説明文は未承認草案。**
 
 ## 1. 所有範囲・先行工程
 
@@ -53,7 +53,7 @@
 - `Plant_HealrootWild` は全6Biomeで**そのまま維持**。特に亜高山・高山・TemperateSwamp・ColdBogの薬草供給を、暖・冷温帯向けヨモギ1種だけで置き換えたことにはしない。
 - 最終Healroot撤去は既存ロードマップStep 4の独立PRとし、**6Biome各々の野生入手量、収穫可能性、冬季供給、採集Job、交易・医療への影響**を先に自動試験する。代替が成立しないBiomeで一括除外しない。
 
-## 4. 日本語説明・レビュー用草案（すべて未承認／英訳禁止）
+## 4. 日本語説明・レビュー用草案（湿地4種は未承認／英訳禁止）
 
 名前・異名の読みや時代別の厳密な利用事例は、実装前に史資料と照合して作者承認を得る。以下の記述は**草案**であり、ゲーム内本文としては使用しない。
 
@@ -81,7 +81,9 @@
 >
 > 高層湿原は主として雨水によって潤され、河岸のヨシ・スゲ湿原やハンノキ林とは異なる景観をもつ。ここでは特定のミズゴケ一種を再現するものではない。
 
-### 蓬（ヨモギ、別名モチグサ）— `AMJ_Plant_Yomogi`
+### 蓬（ヨモギ、別名モチグサ）— `AMJ_Plant_Yomogi`（旧草案）
+
+以下は履歴のみ。採用本文は作者承認済みの第9.3節へ移行した。
 
 > 蓬（ヨモギ、別名モチグサ）は、道端や草地、田畑のあぜなど、日当たりのよい土地に生える多年草。地下茎を伸ばして群生し、人の生活圏に近い場所でも見られる。
 >
@@ -186,7 +188,9 @@
 - 奈良県薬剤師会「ゲンノショウコ02」 https://www.narayaku.or.jp/npa/plant/plant93.html
 
 
-## 9. 薬草採取の最小構成・説明案（2026-10-08、未承認）
+## 9. 薬草採取の最小構成・承認済み説明（2026-10-08）
+
+作者は2026-10-08 JSTに第9.3節のヨモギ・葛の日本語説明を「よい」と承認した。採取方式・数値・画像の承認は別であり、この返答から推定しない。
 
 ### 9.1 推奨する実装方式
 
@@ -212,9 +216,9 @@
 - ヨモギの現在の草餅・食用利用は確認できるが、草餅の古い記録だけから当時の材料をヨモギと断定しない。中世のヨモギ食利用の時代別裏付けは継続調査とし、現在の用途との区別を本文に残す。
 - 葛の茎の繊維用途は繊維Modへの作者指定済み境界。具体的な中世加工技術・工程の史料確認は繊維側の設計で行い、葛根の医学史資料だけから葛布工程を補わない。
 
-### 9.3 日本語説明・改訂草案（英訳・Def実装前に作者承認）
+### 9.3 日本語説明・作者承認済み（2026-10-08）
 
-第4節のヨモギ草案を置き換える提案。工程未実装のため、ゲーム内で収穫できるという機能文は、実装方式の承認とコード実装後に加える。
+第4節のヨモギ旧草案を置き換える採用本文。工程未実装のため、ゲーム内で収穫できるという機能文は、実装方式の承認とコード実装後に加える。
 
 **蓬（ヨモギ、別名モチグサ）**
 
@@ -228,4 +232,21 @@
 >
 > 根は葛根という薬材として用いられた。平安期には藤原道長が医師の勧めで葛根を服用した記録があり、同時代の記述では飢えをしのぐ食物とも捉えられていた。薬用の葛根と、根から取り出す澱粉である葛粉は区別される。
 
-薬用以外の利用を歴史紹介に含めることと、料理・繊維機能を実装済みとして説明することを分ける。現時点では2種とも未承認草案であり、第4節の原草案と併存するレビュー記録である。
+薬用以外の利用を歴史紹介に含めることと、料理・繊維機能を実装済みとして説明することを分ける。2種とも上記日本語は作者承認済み。第4節のヨモギ旧草案は履歴であり、実装時は本節を正本とする。
+
+
+### 9.4 承認済み日本語に対応する英訳
+
+植物Def・翻訳XMLは画像と実装方式の準備後に追加する。下記は翻訳正本であり、ゲーム内実装済みという意味ではない。実装時の段落区切りは日英ともリテラル `\n\n` を使う。
+
+**Yomogi (Japanese mugwort; also called mochigusa)**
+
+> Yomogi (Japanese mugwort, also called mochigusa) is a perennial that grows in clusters in sunny places such as roadsides, grasslands and the banks between fields. It spreads through underground rhizomes and is also found close to human settlements.
+>
+> Its leaves serve as medicinal material, and the hairs collected from dried leaves are used to make mogusa, or moxa, for moxibustion. Moxibustion appears in the diaries of Heian-period nobles and was one of the treatments practiced in medieval Japan. Today, yomogi is also a familiar ingredient in foods such as kusamochi, or mugwort rice cakes.
+
+**Kuzu (kudzu)**
+
+> Kuzu (kudzu) is a perennial climbing plant that grows in sunny grasslands and at woodland edges. It extends long vines and develops thick roots underground.
+>
+> Its roots were used as a medicinal material known as kakkon. Records from the Heian period describe Fujiwara no Michinaga taking kudzu root on a physician's advice, while a contemporary account also regarded it as food to stave off hunger. Medicinal kakkon is distinct from kuzuko, the starch extracted from the roots.
