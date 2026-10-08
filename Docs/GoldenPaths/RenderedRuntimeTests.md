@@ -48,6 +48,67 @@ Environment no longer depends on that repository merely to obtain a non-visible
 runtime path; its own standard `run-tests.bat` now provides the same isolation
 property for AMJE-only validation.
 
+## Unified current-development test status (2026-10-08)
+
+This page is the single runtime-testing handoff for Environment's vegetation,
+regional tree sowing, and retained-wetland ecology work. It consolidates the
+previously separate sowing-test and wetland-development tracks without
+reinterpreting a historical PASS as a current-main PASS.
+
+| Workstream | Current source/check | Latest evidence |
+|---|---|---|
+| Forest retention and regional sowing | `Tests/test_tree_sowing_contract.py` and the four forest Quickstarts | Static CI passed; latest complete runtime matrix still pending |
+| Alpine natural woody vs sowable trees | `ExpectedWildTreeLikePlants` versus `ExpectedSowableTrees` | Earlier Alpine 69/70: old assertion failed; correction present in main; no rerun PASS yet |
+| Wetland Phase 5 plants | `Patches/VanillaWetlandVegetation.xml` and two wetland Quickstarts | ColdBog Cypress XPath failure fixed by PR #23; current-main runtime rerun pending |
+| Wetland wildlife, diseases, weather, pack animals and terrain | `Patches/VanillaWetlandEcology.xml`, `Tests/test_wetland_ecology_contract.py` and two wetland Quickstarts | PR #24 static CI passed; loaded-Def/terrain runtime PASS pending |
+| River/coast handoff | `AMJRiverMapHandoffQuickstart` / `AMJCoastMapHandoffQuickstart` | Historical PASS exists; latest-main runtime rerun pending |
+| World wetland distribution sanity | World generation distribution output and `Docs/VanillaWetlandBiomeAudit-ja.md` acceptance gate | Not yet established for PR #24 |
+
+The earlier warm-forest run returned 73/74 assertions and one pre-launch
+PatchOperation ERROR, before the PR #23 corrections. A later Alpine run
+returned 69/70, with no captured runtime ERROR; the failed assertion
+conflated Haimatsu's naturally woody presence with zero normal
+growing-zone sowing options. That assertion is now corrected in main.
+Neither historical failure is evidence that the latest main still fails;
+neither can be turned into a PASS without rerunning it.
+
+### What the standard runner currently proves
+
+`run-tests.bat` runs static/build checks followed by the non-visible,
+rendering-enabled runtime suite. The default runtime profile includes
+**eight** Quickstarts, in order: WarmTemperate, CoolTemperate, Subalpine,
+Alpine, TemperateSwamp, ColdBog, River and Coast. It then runs a focused
+CCTO profile when installed and a Grains/Core integration profile when
+detected. Each executed scenario requires a successful Quickstart report,
+zero captured pre-launch/runtime ERROR, and complete non-truncated logs.
+
+**The current standard runner does not automatically run all four
+Vanilla/MO/CCTO/MO+CCTO combinations.** Its `run-runtime-tests.bat`
+explicitly disables the isolated MO runtime profile because MO startup has
+not reliably reached Quickstarts in the minimal isolated profile. The
+four-profile matrix remains a distinct release/integration acceptance gate.
+Likewise, an eight-scenario PASS alone does not verify world-level wetland
+share, future Japanese/English wetland descriptions, or the exact downloaded
+Workshop subscriber payload.
+
+### Acceptance and follow-up
+
+- Obtain one complete latest-main `run-tests.bat` result with all eight base
+  Quickstarts and whichever optional profiles actually execute. Record the
+  exact source commit, profile and loaded Def/runtime/error results.
+- Run the release four-profile matrix separately when its isolated MO path is
+  functioning, without claiming a skip is a PASS.
+- Validate world-level wetland frequency after the ecology/vegetation
+  changes; the original Vanilla wetland Worker and terrain generation
+  continue to be reused.
+- Keep `ENV-WETLAND-BIOME-001` and the vegetation Step 1 closeout open until
+  runtime/world-share gates and approved bilingual descriptions are complete.
+
+The detailed regional sowing assertions and their safe research/zone probe
+are documented in [PlantSowingTests.md](PlantSowingTests.md). Wetland
+composition and approval/description requirements are in
+`Docs/VanillaWetlandBiomeAudit-ja.md`.
+
 ## Historical verified result
 
 2026-10-05 JST result: Environment build/static, PNG exact-copy, MO static
