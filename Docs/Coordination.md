@@ -1,5 +1,14 @@
 # AMJ Environment Coordination
 
+### ENV-KUZU-MEDICINAL-OWNER-20261008 — kudzu root / stem-fiber boundary
+
+**Owner:** Environment / Step 3 traditional herbs  
+**Status:** OWNERSHIP DONE; IMPLEMENTATION OPEN — no new PlantDef, yield, art or runtime result
+
+Author assigned unowned kudzu → medicinal root to Environment with Yomogi, and stem → fiber to the future fiber Mod. Project's deferred-plant record had no root owner. Formal sources: `Docs/NativeVegetationStep3Design-ja.md` section 8 and `Docs/Design.md` 11.5.10. Root harvest and medicinal use are a required herbal slice; decorative-only addition is not completion. Other herbs remain candidates; Edo-centered Gen-no-shoko medicine history needs pre-Edo evidence before adoption. Existing Yoshi-first route, Japanese/art approval gates and Healroot supply safeguards remain.
+
+Fiber has no repo yet; Project keeps its formal stem/fiber record and handoff. Avoid duplicate plants and fiber output overriding root supply. Description, art, harvest mechanism, historical source audit and six-Biome medical supply verification remain pending. This documentation change is not Step 3 runtime PASS or publication.
+
 ### ENV-STEP3-NATIVE-VEGETATION-20261008 — new native wetland plants and mugwort
 
 **Owner:** Environment / native vegetation and medicine-supply boundary
@@ -7,7 +16,7 @@
 
 2026-10-08: Step 2 tree-description work was author-confirmed PASS and closed, so Step 3's missing Japan-appropriate wetland vegetation and traditional herbs is now the active scoped workstream. [PR #32](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/32) squash-merged as `def9a2d17d6b3030b52d675718fadda2dc6aacf3`, after successful Workshop-payload PR CI. Formal design source of truth: `Docs/NativeVegetationStep3Design-ja.md`, referenced by `Docs/Design.md` 11.5.10. It covers VE-first overlap, selected prospective reed/sedge/alder/sphagnum/mugwort owners, two wetland commonality totals 7.30/8.22 and woody totals 3.00/1.80, controlled redistribution of Vanilla proxies, per-biome habitat and tree-sowing checks, historical Japanese drafts, art asset gate, automated Quickstarts/error gate and no premature medicinal yield.
 
-**Immediate implementation route:** Start with one Japanese reed (`AMJ_Plant_Yoshi`) on a separate PR only after approved Japanese description and approved source PNG exist; then handle other wetland species and Yomogi as independently auditable slices. The named candidates, commonality transfers, Japanese draft text and harvest mechanics are NOT yet author-approved or implemented. Do not translate unapproved drafts or create live Def references to missing textures. Existing four AMJE plant visual coverage rows remain complete; legacy-tree retextures are still deferred and new plant visual reviews are separate.
+**Immediate implementation route:** Start with one Japanese reed (`AMJ_Plant_Yoshi`) on a separate PR only after approved Japanese description and approved source PNG exist; then handle other wetland species and Yomogi as independently auditable slices. The original candidates, commonality transfers, Japanese draft text and harvest mechanics are NOT yet author-approved or implemented. ENV-KUZU-MEDICINAL-OWNER-20261008 confirms author-assigned Kuzu-root ownership and scope, not detailed mechanics or assets. Do not translate unapproved drafts or create live Def references to missing textures. Existing four AMJE plant visual coverage rows remain complete; legacy-tree retextures are still deferred and new plant visual reviews are separate.
 
 **Critical safeguard:** Wild `Plant_HealrootWild` remains in all six currently covered Biomes until separate Step 4 full harvest/supply verification. Yomogi proposed only for warm/cool temperate and cannot itself replace medicine collection in subalpine, alpine or wetlands. One successful standard `run-tests.bat` for Step 2 does not prove Step 3's new Defs or the separate Vanilla/MO/CCTO/MO+CCTO four-profile matrix. No Steam publication is claimed.
 
