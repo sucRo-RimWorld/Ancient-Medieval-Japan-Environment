@@ -31,7 +31,7 @@ AMJEのBiomeは、現代の県境や地方区分をそのまま再現するも�
 [*][b]高山帯[/b]：森林限界より上のハイマツ林・高山植生
 [/list]
 
-これは日本の植生を4種類だけに置き換える仕組みではなく、[b]日本風の自然環境を構成する基準帯[/b]です。湿地や、[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]のDark Forestのような特殊Biomeは、条件が合えば共存します。
+森林・湿地・砂漠・氷床など、バニラの陸地バイオームをこの4つへ置き換えます。海・湖・河川・海岸は維持します。[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]のDark Forestなど、他Modのバイオームは通常の条件・スコアで共存できます。高山帯の侵入不可地形は最大25%に抑え、一部の高峰を残します。新規ワールドで反映され、生成済みワールドは変換しません。
 
 また、弥生時代以降から中世にかけて人の活動によってマツ林・草地・二次林も広がったことを踏まえ、各Biomeを一種類だけの原生林にはしていません。Vanillaの樹木や下草も副次的な植生として残しています。
 

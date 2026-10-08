@@ -31,7 +31,7 @@ AMJE's biomes are not intended to reproduce modern prefectural or regional borde
 [*][b]Alpine zone[/b]: Haimatsu scrub and alpine vegetation above the treeline
 [/list]
 
-These are not meant to replace all Japanese vegetation with only four biome types. They are [b]baseline bands for a Japan-like natural environment[/b]. Wetlands and specialized biomes such as [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]'s Dark Forest can still coexist when their conditions are met.
+These four bands replace Vanilla land biomes, including forests, wetlands, deserts and ice sheets. Ocean, lakes, rivers and coastlines remain. Other-mod biomes, such as [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]'s Dark Forest, retain normal conditions and scoring. Impassable terrain is capped at 25% of AMJE Alpine tiles, preserving some peaks. Changes apply to new worlds; existing worlds are not converted.
 
 The biome mixes also avoid presenting every area as untouched single-species climax forest. Historical vegetation research indicates that human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary forest in many settled regions, so Vanilla trees and ground vegetation remain as secondary components.
 

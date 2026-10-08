@@ -43,6 +43,72 @@ Primary design source:
 
 ## Current coordination items
 
+### DOC-BIOME-REPLACEMENT-001 — public replacement explanation and 2GAME summary
+
+**Requested by:** author (2026-10-07 JST)
+
+**Status:** DONE LOCALLY — live Workshop/2GAME and GitHub not updated
+
+README now enumerates all twelve replaced Vanilla terrestrial biomes. Workshop
+Japanese/English summarizes forest/wetland/desert/ice replacement, retained
+water, third-party worker coexistence, Alpine access and new-world-only changes.
+2GAME Japanese adds the same accepted behavior in its existing six-section plain
+style; About.xml is synchronized. Preserve related links and existing save
+addition/removal cautions. Author reported the preceding gameplay changes as
+問題なし; no new runtime change is introduced here.
+
+Validation: static public-description gate, 8,000-byte Workshop limits, six 2GAME
+headings and diff whitespace checked. This is repository text preparation, not
+a claim of live-site publication.
+
+### BIOME-REPLACEMENT-001 — Vanilla land replacement and Alpine settlement access
+
+**Requested by:** author (2026-10-07 JST)
+
+**Status:** DONE LOCALLY — Workshop/GitHub not updated
+
+All twelve Vanilla terrestrial candidates are excluded only in AMJE's
+root-surface generation selection. Wet land remains eligible for the four AMJ
+climate bands. Other mods keep their own workers and normal scoring; Ocean/Lake,
+Vanilla Def identities and existing saves remain intact. AMJ Alpine access now
+caps Impassable at 25%, downgrading excess lower peaks to Mountainous without
+altering height/climate. Other mod biomes are not subject to this access cap.
+Design/README/Workshop source copy and regression guards are synchronized.
+
+Validation: build/static suite PASS. Private-desktop rendered runtime gate PASS,
+seven reports / 311 assertions, zero failed, zero startup/runtime ERROR, live
+capture complete and untruncated. At 30% coverage, all 62,655 land tiles resolve
+to four AMJ biomes in the base profile. AMJ Alpine: 871/1,010 impassable before,
+252/1,010 after. MO profile retains 6,996 Dark Forest tiles (11.2%), with no Vanilla
+terrestrial residuals; AMJ Alpine 726/787 before, 196/787 after.
+Procedure: Docs/GoldenPaths/BiomeReplacement.md; output under
+TestResults/BiomeReplacement. The earlier 5% world lacked Alpine/wetland samples
+and was not accepted as coverage. The stale standalone-description static marker
+was aligned with the current approved Workshop wording; product text was not
+changed for that marker repair.
+
+Existing worlds are not converted. Other biome mods beyond MO are not runtime
+verified by this gate. The author's normal ModsConfig/Prefs/saves were not edited.
+
+### WORLD-TEXTURE-001 — distinguish warm/cool-temperate world display
+
+**Requested by:** author (2026-10-07 JST)
+
+**Status:** IMPLEMENTED LOCALLY — in-game visual review pending
+
+Reuse Vanilla TropicalRainforest for AMJ Warm-temperate and TemperateForest for
+AMJ Cool-temperate, as requested by the author. Generated custom world textures
+were withdrawn. Subalpine/BorealForest and Alpine/Tundra references are unchanged;
+climate, scoring, wetland eligibility, plants and animals are unchanged.
+Durable mappings are in Design.md and AMJ_Biomes.xml; Validate-Environment.ps1
+guards the two distinct paths. Reuse procedure: change only BiomeDef.texture to
+the selected Vanilla asset path; do not copy or recolor bundled assets.
+
+Validation: XML and new mapping gate pass; diff whitespace passes. Full static
+validation stops later at the unrelated existing Japanese Workshop Core
+independence marker check. No new runtime/world-map visual PASS or publication
+is claimed. Restart RimWorld to reload Defs and inspect both biomes at globe zoom.
+
 ### DOC-WORKSHOP-004 — AMJE GitHub repository link
 
 **Requested by:** author (2026-10-06 JST)
@@ -1320,3 +1386,21 @@ and Docs/ValidationEvidence/Workshop*.json.
 root after selected-root manifest verification. Do not upload the dirty root or
 historical28-file package. Actual distribution is NOT fixed/approved yet.
 Only a real Steam download and four-profile/cutting rerun clear release HOLD.
+
+
+### TEST-WORKSHOP-003 — Newly downloaded actual payload (2026-10-07 JST)
+
+**Status:** RUNTIME DONE; EXACT CANDIDATE/PACKAGING MISMATCH OPEN
+
+Manifest7945743700437607405 actual26-file Workshop root passed Vanilla/MO/CCTO/
+MO+CCTO maps227/227,227/227,275/275,275/275 and cutting9/9 each. Haimatsu now
+passes. Completed28 reports and independent Unity capture gates have zero ERROR;
+full payload/normal-config hashes preserved. Initial CCTO attempt hit Quickstarts
+LogCapture.CountErrors collection modification exception; fresh rerun passed.
+Retained evidence: TestResults/WorkshopDownloaded-20261007-Run1 and Run2;
+Run2/VerifiedSummary.json. Durable procedure/result: WorkshopRuntimeTests.md.
+Downloaded DLL/loadFolders/PublishedFileId bytes and preview filename case differ
+from approved candidate manifest. Runtime XML/textures match; conditional missing
+DevQuickstarts loader remains. Runtime success does not prove exact candidate
+publication or clear packaging/provenance HOLD. No production/Workshop edits or
+upload performed; evidence/documentation local only.

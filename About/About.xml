@@ -24,6 +24,8 @@
 
 A standalone environment overhaul that reshapes RimWorld toward a pre-Edo Japan-like climate and landscape, including world climate, terrain, rivers, coastlines, biomes, vegetation, weather, seasonal scenery, and natural soil distribution.
 
+Replaces Vanilla terrestrial biomes, including wetlands, with four Japan-oriented climate bands. Ocean and lakes remain, and biomes added by other mods retain their normal generation conditions and scoring. At least 75% of AMJE Alpine tiles remain non-Impassable. These generation changes apply to new worlds; existing worlds are not converted.
+
 Ancient &amp; Medieval Japan Core is not required. Crop Cold Tolerance Overhaul (CCTO) is optional; when present, AMJE applies a stricter realism-focused cold-response model to its own structural plants. Medieval Overhaul is also optional and treated as a first-class coexistence target.
 
 Save compatibility: A new game is recommended to evaluate the intended world/biome/terrain generation. Adding to existing saves has not been verified and does not regenerate the existing world. Removing this mod from saves that use its custom biomes, terrains, or plants is not recommended.</description>

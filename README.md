@@ -39,7 +39,7 @@ Current Beta targets include:
 - northern cool lowlands: roughly **5–9°C**;
 - elevation cooling: approximately **6.25°C per 1000 m**;
 - elevation up to roughly **3800 m**, with most land below 1500 m;
-- Hilliness distribution target: **25% Flat / 20% Small Hills / 25% Large Hills / 25% Mountainous / 5% Impassable**;
+- initial Hilliness distribution target: **25% Flat / 20% Small Hills / 25% Large Hills / 25% Mountainous / 5% Impassable**; an Alpine access correction then limits Impassable to at most 25% of AMJ Alpine tiles, turning excess tiles into Mountainous while preserving elevation and climate;
 - rainfall broadly around **800–3000**;
 - coastal land frequency around **1.5× the same-seed Vanilla baseline** through more complex coastlines rather than simply flooding land.
 
@@ -64,7 +64,9 @@ AMJ Environment adds four natural biome bands:
 
 These bands are not prefectural or regional borders. They are a gameplay simplification of the broad natural vegetation sequence seen across the Japanese archipelago: warm-temperate evergreen broadleaf forest gives way to cool-temperate deciduous broadleaf forest, then subalpine evergreen conifers, and finally alpine scrub above the treeline as climate becomes colder northward or with elevation.
 
-The temperature thresholds are therefore approximations for RimWorld rather than literal botanical boundaries. AMJE uses these four BiomeDefs as **baseline vegetation bands**, not as an exclusive replacement for every other biome. Wetlands and stronger specialized biome workers from compatible mods such as Medieval Overhaul can still coexist where their own conditions fit.
+The temperature thresholds are therefore approximations for RimWorld rather than literal botanical boundaries. AMJE replaces Vanilla terrestrial biomes, including wetlands, with these four climate bands. Ocean and lakes remain. Biomes from other mods, such as Medieval Overhaul, retain normal worker eligibility and can still coexist where their own conditions and scores fit. These changes apply to newly generated worlds; existing worlds are not converted.
+
+Replacement covers all twelve Vanilla terrestrial biomes: Tropical Rainforest, Temperate Forest, Boreal Forest, Tundra, Tropical Swamp, Temperate Swamp, Cold Bog, Arid Shrubland, Desert, Extreme Desert, Ice Sheet and Sea Ice. Wet land also receives an AMJ climate band. Biomes added by other mods continue to compete through their own generation conditions and scores. Rivers, coastlines and local mud/shallow-water terrain are preserved.
 
 The design also avoids presenting every map as untouched single-species climax forest. Historical vegetation research shows that human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions. Vanilla secondary trees, shrubs, grasses, and other filler vegetation therefore remain part of the biome mixes.
 
