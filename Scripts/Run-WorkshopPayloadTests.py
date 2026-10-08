@@ -16,6 +16,19 @@ spec.loader.exec_module(payload_tool)
 PROFILES = ('Vanilla', 'MO', 'CCTO', 'MO-CCTO')
 SCENARIOS = ('WarmTemperateTerrain', 'CoolTemperateTerrain', 'SubalpineTerrain', 'AlpineTerrain', 'RiverMapHandoff', 'CoastMapHandoff')
 
+# Exact counts for current Quickstarts. Sixteen tree-sowing checks were
+# added in each forest biome; WarmTemperate has six extra tree descriptions.
+# CCTO contributes twelve additional assertions in each forest biome.
+MAP_ASSERTIONS_BASE = (80, 73, 70, 68, 3, 3)
+MAP_ASSERTIONS_CCTO = (92, 85, 82, 80, 3, 3)
+
+
+def expected_map_assertions(mode):
+    if mode not in PROFILES:
+        raise ValueError('Unknown release profile: ' + str(mode))
+    return MAP_ASSERTIONS_CCTO if 'CCTO' in mode else MAP_ASSERTIONS_BASE
+
+
 
 def call(args, **kwargs):
     subprocess.run([str(a) for a in args], check=True, **kwargs)
@@ -110,7 +123,7 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES):
                              + command + f' -ResultDir "{harvest_dir}" -TreeTextureAuditOnly\nif errorlevel 1 exit /b 1\nexit /b 0\n', encoding='ascii')
             with (output / (mode + '-Runner.log')).open('w') as log:
                 call([desktop, batch, ROOT], env=env, stdout=log, stderr=subprocess.STDOUT)
-            counts = [70, 69, 66, 64, 3, 3] if 'CCTO' in mode else [58, 57, 54, 52, 3, 3]
+            counts = expected_map_assertions(mode)
             totals = []
             for directory, scenarios, expected in [(report_dir, SCENARIOS, counts), (harvest_dir, SCENARIOS[:1], [9])]:
                 for scenario, count in zip(scenarios, expected):
