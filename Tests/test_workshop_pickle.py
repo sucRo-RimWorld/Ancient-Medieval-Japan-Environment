@@ -3,6 +3,7 @@
 Real compilation/Unity execution occurs only on a Windows Steam session.
 """
 import importlib.util
+import json
 from pathlib import Path
 import unittest
 from unittest import mock
