@@ -5,6 +5,9 @@ Real compilation/Unity execution occurs only on a Windows Steam session.
 import importlib.util
 from pathlib import Path
 import unittest
+from unittest import mock
+import os
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -33,6 +36,57 @@ class WorkshopPickleTests(unittest.TestCase):
         self.assertIn('TemperateSwamp', steps)
         self.assertIn('ColdBog', steps)
 
+    def test_one_command_batch_entry(self):
+        launcher = ROOT / "test-run.bat"
+        contents = launcher.read_text(encoding="utf-8")
+        for expected in ("Scripts\\Run-WorkshopPickle.py", "where py",
+                         "--game", 'if not "%RESULT%"=="0"'):
+            self.assertIn(expected, contents)
+        for forbidden in ("--manifest", "--output", "rmdir /S", "taskkill"):
+            self.assertNotIn(forbidden, contents)
+
+    def test_manifest_discovery_fails_closed_and_selects_verified_bytes(self):
+        path = ROOT / "Scripts/Run-WorkshopPickle.py"
+        spec = importlib.util.spec_from_file_location("pickle_runner", path)
+        runner = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(runner)
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            earlier = root / "AMJE-Final-20261008-210000"
+            latest = root / "AMJE-Final-20261008-220000"
+            earlier.mkdir()
+            latest.mkdir()
+            for directory in (earlier, latest):
+                (directory / "Manifest.json").write_text("{}", encoding="utf-8")
+            old_manifest = earlier / "Manifest.json"
+            newest = latest / "Manifest.json"
+            os.utime(old_manifest, (1000000000, 1000000000))
+            os.utime(newest, (2000000000, 2000000000))
+            def verify(p, manifest):
+                if manifest != old_manifest:
+                    raise ValueError("Wrong candidate")
+                return {"files": {}}
+            with mock.patch.object(runner.payload_tool, "verify",
+                                   side_effect=verify) as checker:
+                result = runner.find_verified_manifest(root / "Downloaded", root)
+            self.assertEqual(result, old_manifest)
+            self.assertEqual(checker.call_count, 2)
+            with mock.patch.object(runner.payload_tool, "verify",
+                                   side_effect=ValueError("Wrong bytes")):
+                with self.assertRaisesRegex(ValueError, "No verified Manifest"):
+                    runner.find_verified_manifest(root / "Downloaded", root)
+
+    def test_preflight_failure_does_not_assume_result_folder(self):
+        spec = importlib.util.spec_from_file_location(
+            "pickle_runner", ROOT / "Scripts/Run-WorkshopPickle.py")
+        runner = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(runner)
+        with tempfile.TemporaryDirectory() as temp:
+            with mock.patch("sys.stderr") as stderr:
+                runner.show_failure(ValueError("RimWorld is open"),
+                                    Path(temp) / "missing")
+                self.assertTrue(stderr.write.called)
+
     def test_pickle_runner_preserves_download_and_release_gate(self):
         path = ROOT / "Scripts/Run-WorkshopPickle.py"
         spec = importlib.util.spec_from_file_location("pickle_runner", path)
@@ -57,6 +111,9 @@ class WorkshopPickleTests(unittest.TestCase):
         ):
             self.assertIn(required, text)
         self.assertIn('"steam_release_cleared"] = False', text)
+        self.assertIn("find_verified_manifest(payload)", text)
+        self.assertIn("next_result_directory()", text)
+        self.assertIn("show_failure(error, output)", text)
         self.assertNotIn("shutil.copytree(payload", text)
         self.assertNotIn("os.remove(payload", text)
 

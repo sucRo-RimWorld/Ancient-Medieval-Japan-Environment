@@ -8,6 +8,8 @@ import argparse
 import importlib.util
 import json
 import os
+from datetime import datetime
+import tempfile
 from pathlib import Path
 import shutil
 import subprocess
@@ -45,6 +47,61 @@ def find_dll(root, name):
 
 def invoke(args, **kwargs):
     subprocess.run([str(x) for x in args], check=True, **kwargs)
+
+
+def default_steam_root(game):
+    return (game.parents[1] / "workshop/content/294100/3814638060").resolve()
+
+
+def find_verified_manifest(payload, search_root=None):
+    """Select only a candidate manifest that verifies the real Steam bytes."""
+    parent = Path(search_root) if search_root is not None else Path(tempfile.gettempdir())
+    manifests = sorted(parent.glob("AMJE-Final-*/Manifest.json"),
+                       key=lambda p: (p.stat().st_mtime, str(p)), reverse=True)
+    rejected = []
+    for candidate in manifests:
+        try:
+            payload_tool.verify(payload, candidate)
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            rejected.append(candidate.parent.name + ": " + str(error))
+            continue
+        return candidate
+    if not manifests:
+        raise ValueError("No AMJE-Final-*/Manifest.json found under " + str(parent)
+                         + "; Steam files have not been modified.")
+    raise ValueError("No verified Manifest.json matches the downloaded Workshop bytes; "
+                     "Steam files have not been modified. Checked: " +
+                     "; ".join(rejected[:5]))
+
+
+def next_result_directory():
+    return (Path(tempfile.gettempdir()) /
+            ("AMJE-Steam-Pickle-" + datetime.now().strftime("%Y%m%d-%H%M%S-%f")))
+
+
+def show_failure(error, output):
+    print("[FAIL] " + type(error).__name__ + ": " + str(error), file=sys.stderr)
+    if output is None or not output.is_dir():
+        print("[AMJE] Preflight stopped before starting RimWorld; no runtime logs "
+              "exist for this attempt.", file=sys.stderr)
+        return
+    print("[AMJE] Partial automated test reports: " + str(output), file=sys.stderr)
+    runners = sorted(output.glob("*-Runner.log"),
+                     key=lambda item: item.stat().st_mtime, reverse=True)
+    if runners:
+        latest = runners[0]
+        print("[AMJE] Last runner " + latest.name + ":", file=sys.stderr)
+        for line in latest.read_text(encoding="utf-8-sig", errors="replace").splitlines()[-30:]:
+            print(line, file=sys.stderr)
+    for path in sorted(output.glob("Pickle-*/summary.json")):
+        try:
+            result = json.loads(path.read_text(encoding="utf-8-sig"))
+            print("[AMJE] " + path.parent.name + " total=" +
+                  str(result.get("total")) + " passed=" + str(result.get("passed")) +
+                  " failed=" + str(result.get("failed")) +
+                  " skipped=" + str(result.get("skipped")), file=sys.stderr)
+        except (OSError, ValueError):
+            print("[AMJE] Incomplete Pickle summary: " + str(path), file=sys.stderr)
 
 
 def run(payload, manifest, output, game):
@@ -220,15 +277,22 @@ def run(payload, manifest, output, game):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--payload", type=Path, required=True)
-    parser.add_argument("--manifest", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--payload", type=Path, help="Override detected Steam root")
+    parser.add_argument("--manifest", type=Path, help="Override matching Manifest.json")
+    parser.add_argument("--output", type=Path, help="Override automatic fresh result path")
     parser.add_argument("--game", type=Path, default=Path(
         "D:/SteamLibrary/steamapps/common/RimWorld"))
     args = parser.parse_args()
+    game = args.game.resolve()
+    payload = args.payload.resolve() if args.payload else default_steam_root(game)
+    output = args.output.resolve() if args.output else next_result_directory()
     try:
-        run(args.payload.resolve(), args.manifest.resolve(),
-            args.output.resolve(), args.game.resolve())
+        manifest = (args.manifest.resolve() if args.manifest
+                    else find_verified_manifest(payload))
+        print("[AMJE] Steam root: " + str(payload), flush=True)
+        print("[AMJE] Matched manifest: " + str(manifest), flush=True)
+        print("[AMJE] Automatic Pickle results: " + str(output), flush=True)
+        run(payload, manifest, output, game)
     except Exception as error:
-        print("PICKLE BLOCKED/FAIL: " + str(error), file=sys.stderr)
+        show_failure(error, output)
         sys.exit(1)

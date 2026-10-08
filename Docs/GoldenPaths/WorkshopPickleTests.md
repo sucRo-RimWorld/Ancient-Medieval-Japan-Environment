@@ -12,16 +12,28 @@ Do not rebuild or write into it. Preflight with the candidate's external
 Manifest.json. Close the ordinary game normally before automated runs.
 
 Run from the Environment repository on Windows, with Steam, Pickle,
-RimLogging, Harmony, and optional installed MO/CCTO dependencies:
+RimLogging, Harmony and installed MO/CCTO dependencies. Close RimWorld
+normally before the automated test. The standard author-facing entry
+point is **one command**:
 
-```powershell
-$release = "C:\Users\sucRo\AppData\Local\Temp\AMJE-Final-20261008-214525"
-$steam = "D:\SteamLibrary\steamapps\workshop\content\294100\3814638060"
-$pickleRun = Join-Path $release ("Steam-Pickle-" + (Get-Date -Format "yyyyMMdd-HHmmss"))
-py .\Scripts\Run-WorkshopPickle.py --payload $steam --manifest "$release\Manifest.json" --output $pickleRun
-if ($LASTEXITCODE -ne 0) { throw "Pickle test failed or was blocked" }
-Get-Content "$pickleRun\SteamPickleSummary.json" -Raw -Encoding UTF8
+```bat
+test-run.bat
 ```
+
+The batch automatically locates installed Workshop 3814638060 and
+searches `%TEMP%\AMJE-Final-*\Manifest.json` for an **exact byte-identical**
+matching candidate. It chooses a fresh
+`%TEMP%\AMJE-Steam-Pickle-...` output, runs four Pickle profiles and
+shows PASS/FAIL with the latest runner log and any scenario summary
+automatically if needed. Mismatching/no manifest blocks the run;
+neither Steam files nor normal RimWorld config are modified.
+The batch calls Python internally, but the author need only run
+`test-run.bat`, not assemble `py` arguments or find reports.
+
+The existing `run-tests.bat` remains the separate development
+static and rendered-runtime test entry. If RimWorld is installed in
+a non-default directory, pass that game directory as the single batch
+argument. Developer-only Python flags remain optional.
 
 The test runner stages a temporary test-only Mod under
 `RimWorld/Mods/AMJE.WorkshopPickleAudit` and a separate early Unity
