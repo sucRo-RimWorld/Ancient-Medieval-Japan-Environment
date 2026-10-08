@@ -51,6 +51,17 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertNotIn('run-tests.bat is missing expected MO static-audit marker', self.validator)
         self.assertIn("if ($runtimeBatch.Contains('call \"%ROOT%run-tests.bat\"'))", self.validator)
 
+    def test_xml_validation_loads_whole_utf8_documents(self):
+        # Without -Raw PowerShell may coerce Get-Content's line array into an
+        # invalid XmlDocument even when About.xml is well formed.
+        for statement in (
+            "[xml]$riverDefs = Get-Content -LiteralPath $RiverDefsPath -Raw -Encoding UTF8",
+            "[xml]$worldGenerator = Get-Content -LiteralPath $WorldGeneratorPath -Raw -Encoding UTF8",
+            "[xml](Get-Content -LiteralPath $path -Raw -Encoding UTF8) | Out-Null",
+            '[xml]$about = Get-Content -LiteralPath (Join-Path $RepoRoot "About\\About.xml") -Raw -Encoding UTF8',
+        ):
+            self.assertIn(statement, self.validator)
+
     def test_isolated_launcher_keeps_rendering_on_private_desktop(self):
         self.assertIn('CreateDesktop', self.isolated)
         self.assertIn("startup.desktop = 'WinSta0\\'", self.isolated)
