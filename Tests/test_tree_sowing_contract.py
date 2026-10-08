@@ -11,6 +11,9 @@ EXPECTED = {
     "AMJ_SubalpineForest": {"AMJ_Tree_Shirabiso", "Plant_TreeBirch"},
     "AMJ_AlpineZone": set(),
 }
+# Wild woody distribution and ordinary tree sowing are separate contracts.
+EXPECTED_WILD_WOODY = {name: set(trees) for name, trees in EXPECTED.items()}
+EXPECTED_WILD_WOODY["AMJ_AlpineZone"] = {"AMJ_Shrub_Haimatsu"}
 PARENTS = {"AMJ_Tree_Shii": "TreeBase", "AMJ_Tree_Beech": "DeciduousTreeBase",
            "AMJ_Tree_Shirabiso": "TreeBase", "AMJ_Shrub_Haimatsu": "BushBase"}
 
@@ -24,12 +27,13 @@ def validate(biomes, plants):
             continue
         seen.add(name)
         wild = biome.find("wildPlants")
-        trees = [p.tag for p in wild if p.tag.startswith(("Plant_Tree", "AMJ_Tree_"))]
-        if set(trees) != EXPECTED[name] or len(trees) != len(set(trees)):
-            errors.append(f"{name}: regional tree set differs from approved contract: {trees}")
+        woody = [p.tag for p in wild if p.tag.startswith(("Plant_Tree", "AMJ_Tree_"))
+                 or p.tag == "AMJ_Shrub_Haimatsu"]
+        if set(woody) != EXPECTED_WILD_WOODY[name] or len(woody) != len(set(woody)):
+            errors.append(f"{name}: natural woody plant set differs from approved contract: {woody}")
         for p in wild:
-            if p.tag in EXPECTED[name] and float(p.text) <= 0:
-                errors.append(f"{name}/{p.tag}: tree must have positive wild commonality")
+            if p.tag in EXPECTED_WILD_WOODY[name] and float(p.text) <= 0:
+                errors.append(f"{name}/{p.tag}: woody plant must have positive wild commonality")
     if seen != set(EXPECTED):
         errors.append("missing approved biome")
     owned = {p.findtext("defName"): p for p in plants.findall("ThingDef")}
@@ -71,6 +75,18 @@ class TreeSowingContractTests(unittest.TestCase):
         self.plants.findall("ThingDef")[-1].set("ParentName", "TreeBase")
         self.assertTrue(validate(self.biomes, self.plants))
 
+    def test_alpine_haimatsu_must_be_naturally_present(self):
+        alpine = next(b for b in self.biomes.findall("BiomeDef")
+                      if b.findtext("defName") == "AMJ_AlpineZone")
+        alpine.find("wildPlants").remove(alpine.find("wildPlants/AMJ_Shrub_Haimatsu"))
+        self.assertTrue(validate(self.biomes, self.plants))
+
+    def test_alpine_haimatsu_must_have_positive_commonality(self):
+        alpine = next(b for b in self.biomes.findall("BiomeDef")
+                      if b.findtext("defName") == "AMJ_AlpineZone")
+        alpine.find("wildPlants/AMJ_Shrub_Haimatsu").text = "0"
+        self.assertTrue(validate(self.biomes, self.plants))
+
     def test_approved_wetland_pools_are_atomic_and_balanced(self):
         wetland = ET.parse(ROOT / "Patches/VanillaWetlandVegetation.xml").getroot()
         ops = wetland.findall("./Operation/operations/li")
@@ -105,6 +121,15 @@ class TreeSowingContractTests(unittest.TestCase):
         for name, expected in EXPECTED.items():
             case = method.split(f'case "{name}":', 1)[1].split("case ", 1)[0].split("default:", 1)[0]
             self.assertEqual(expected, set(re.findall(r'"((?:AMJ|Plant)_\w+)"', case)))
+        wild_method = source.split("private static string[] ExpectedWildTreeLikePlants", 1)[1].split(
+            "private static string[] ExpectedSowableTrees", 1)[0]
+        self.assertIn('biome == "AMJ_AlpineZone"', wild_method)
+        self.assertIn('return new[] { "AMJ_Shrub_Haimatsu" };', wild_method)
+        self.assertIn("return ExpectedSowableTrees(biome);", wild_method)
+        self.assertEqual(set(), EXPECTED["AMJ_AlpineZone"])
+        self.assertEqual({"AMJ_Shrub_Haimatsu"}, EXPECTED_WILD_WOODY["AMJ_AlpineZone"])
+        self.assertIn("regionalWildTrees.SetEquals(expectedWild)", source)
+        self.assertIn("available.SetEquals(expectedSowable)", source)
         self.assertIn("foreach (BiomePlantRecord record in map.Biome.wildPlants)", source)
         for required in ("AddTreeSowingAssertions(verification, map);",
                          "PlantUtility.ValidPlantTypesForGrowers(",

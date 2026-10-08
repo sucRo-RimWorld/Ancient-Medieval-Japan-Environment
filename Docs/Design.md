@@ -42,7 +42,7 @@ Environment does not own:
 | `AMJ_SubalpineForest` | `AMJ_Tree_Shirabiso`, `Plant_TreeBirch` |
 | `AMJ_AlpineZone` | 通常樹木なし |
 
-`AMJ_Shrub_Haimatsu` は自然低木・伐採資源として残し、植林候補には含めない。樹木の残存監査では自然生成と植林候補を一体で判定する。候補変更時はBiome、上表、静的契約テスト、ロード後のQuickstarts期待値を同じ変更で同期する。
+`AMJ_Shrub_Haimatsu` は自然低木・伐採資源として残し、植林候補には含めない。自然生成される木本と農業ゾーンから植林可能な通常樹木は、関連するが**同一集合ではない**。RimWorld 1.6ではハイマツが `plant.IsTree` として数えられるため、高山帯の自然木本期待集合は `{AMJ_Shrub_Haimatsu}`、通常植林候補は空集合とする。実行時Quickstartsは両者を別々に検証し、研究のロック／解除とハイマツの植林不可も確認する。候補変更時はBiome、上表、静的契約テスト、ロード後の両期待値を同じ変更で同期する。
 
 回帰手順と静的／実行時検証の区別は [PlantSowingTests](GoldenPaths/PlantSowingTests.md) を参照。実際のメニュー判定はGround適合だけでなく `PlantUtility.ValidPlantTypesForGrowers` と `Command_SetPlantToGrow.IsPlantAvailable` の両段階を使い、ロード後の継承・研究・野生分布条件を検証する。
 

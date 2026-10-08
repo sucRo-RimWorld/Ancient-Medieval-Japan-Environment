@@ -1575,3 +1575,13 @@ visual ledger checks PASS (Python UTF-8 mode on Windows). The latest main static
 suite still stops at its stale <AMJ_Tree_Shii>2.0</AMJ_Tree_Shii> marker while the
 current audited Def uses 2.55. Validator and Def are unchanged from the selected
 main; full static/runtime PASS is not claimed by this merge.
+
+
+### ENV-TREE-SOWING-RUNTIME-002 — Alpine natural woody versus sowable set (2026-10-08 JST)
+
+**Owner:** Environment / regional tree-sowing verification  
+**Status:** IN PROGRESS — assertion corrected; full matrix rerun required
+
+The author's isolated vegetation runtime report passed warm/cool/subalpine and failed Alpine 1/70 assertions. It compared the Alpine `map.Biome.wildPlants` tree-like set (including `AMJ_Shrub_Haimatsu`, since RimWorld 1.6 reports `plant.IsTree`) against the approved empty growing-zone sowing set. Native sowing menu and Haimatsu-non-sowable assertions passed, with zero captured runtime ERROR. Vegetation XML and production gameplay are unchanged.
+
+Correction: the runtime/static tests separately expect Alpine natural woody `{AMJ_Shrub_Haimatsu}` and sowable trees `{}`; other three bands continue to use equal sets. Canonical rule and procedure: `Docs/Design.md` and `Docs/GoldenPaths/PlantSowingTests.md`. Rerun the full isolated vegetation matrix for wetland/river/coast coverage; no new full-runtime PASS or publication claimed.

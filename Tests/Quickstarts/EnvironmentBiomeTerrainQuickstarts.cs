@@ -661,6 +661,15 @@ namespace AncientMedievalJapan.Environment.Quicktests
             return verification;
         }
 
+        // Natural woody vegetation differs from grow-zone sowability for
+        // Alpine Haimatsu (plant.IsTree in RimWorld 1.6, but not sowable).
+        private static string[] ExpectedWildTreeLikePlants(string biome)
+        {
+            if (biome == "AMJ_AlpineZone")
+                return new[] { "AMJ_Shrub_Haimatsu" };
+            return ExpectedSowableTrees(biome);
+        }
+
         private static string[] ExpectedSowableTrees(string biome)
         {
             switch (biome)
@@ -738,7 +747,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         });
                     }
 
-                    HashSet<string> expected = new HashSet<string>(ExpectedSowableTrees(map.Biome.defName));
+                    HashSet<string> expectedWild = new HashSet<string>(
+                        ExpectedWildTreeLikePlants(map.Biome.defName));
+                    HashSet<string> expectedSowable = new HashSet<string>(
+                        ExpectedSowableTrees(map.Biome.defName));
                     HashSet<string> regionalWildTrees = new HashSet<string>();
                     // AllWildPlants is map-wide in RimWorld 1.6. It can include
                     // plants from additional map biomes / tile mutators (coast,
@@ -747,11 +759,12 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         if (record.plant != null && record.plant.plant != null &&
                             record.plant.plant.IsTree && record.commonality > 0f)
                             regionalWildTrees.Add(record.plant.defName);
-                    verification.Assert("base biome wild tree set equals approved sowing set",
-                        delegate { return regionalWildTrees.SetEquals(expected); });
+                    verification.Assert("base biome wild woody set equals approved natural vegetation set",
+                        delegate { return regionalWildTrees.SetEquals(expectedWild); });
                     Log.Message("[AMJ Environment TreeSowing] biome=" + map.Biome.defName +
-                        " baseBiomeTrees={" + string.Join(",", regionalWildTrees) + "}" +
-                        " expected={" + string.Join(",", expected) + "}");
+                        " baseBiomeWildWoody={" + string.Join(",", regionalWildTrees) + "}" +
+                        " expectedWild={" + string.Join(",", expectedWild) + "}" +
+                        " expectedSowable={" + string.Join(",", expectedSowable) + "}");
 
                     progress[research] = 0f;
                     verification.Assert("TreeSowing is unfinished in locked-state test",
@@ -765,14 +778,14 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         delegate { return research.IsFinished; });
                     HashSet<string> available = AvailableGrowingZoneTrees(zone, map);
                     verification.Assert("growing-zone tree options equal approved regional set",
-                        delegate { return available.SetEquals(expected); });
+                        delegate { return available.SetEquals(expectedSowable); });
                     ThingDef haimatsu = DefDatabase<ThingDef>.GetNamed("AMJ_Shrub_Haimatsu");
                     verification.Assert("Haimatsu remains outside growing-zone sowing options", delegate
                     {
                         return !PlantUtility.CanSowOnGrower(haimatsu, zone);
                     });
                     Log.Message("[AMJ Environment TreeSowing] biome=" + map.Biome.defName +
-                        " expected={" + string.Join(",", expected) + "}" +
+                        " expectedSowable={" + string.Join(",", expectedSowable) + "}" +
                         " available={" + string.Join(",", available) + "}");
                 }
                 finally
