@@ -119,8 +119,10 @@ The overall runtime-gate PASS is accepted as author-supplied evidence for this
 post-Bamboo test run; per-assertion Bamboo details and the exact source SHA
 are not independently audited. The previous PR #27/#28 PASS remains distinct.
 Medieval Overhaul isolated runtime stays disabled by the standard harness;
-the full four-profile release matrix is still OPEN. Five other Vanilla tree
-descriptions remain unapproved, untranslated and unpatched.
+the full four-profile release matrix is still OPEN. The five additional Vanilla
+texts were subsequently approved on 2026-10-08 and implemented with new
+loaded-text assertions, but this historical Bamboo runtime result does not
+cover those new assertions.
 
 **Progress-visibility limitation:** `Run-EnvironmentIsolatedDesktop.ps1`
 redirects the inner `run-runtime-tests.bat` output to
@@ -131,6 +133,32 @@ Use `Get-Content .\\TestResults\\EnvironmentIsolatedRuntime.log -Tail 30 -Wait`
 to follow the existing redirected progress. Adding safe real-time progress
 mirroring without duplicate or destructive logging is a separate harness
 improvement, not part of the Bamboo description implementation.
+
+### Approved retained Vanilla trees — newly added loaded-text gate pending (2026-10-08)
+
+The author approved the original Japanese drafts for Maple/Oak/Birch/Pine/Willow
+after comparing their format with the four AMJE-owned structural plant descriptions
+and the previously accepted Bamboo. All six Vanilla tree descriptions use two
+paragraphs; the existing AMJE structural trees use three. Both are permitted by
+the shared Historical Description Guidelines: name/aliases, Japan ecology and
+ancient/medieval role or landscape, and modern comparison only where justified.
+Birch/Willow do not invent otherwise unsupported medieval resource uses.
+
+`Docs/VanillaPlantStep2DescriptionReview-ja.md` preserves the approved Japanese
+paragraphs and their corresponding new English translations.
+`Patches/VanillaTreeDescriptions.xml` replaces only six English
+`ThingDef.description` fields; `AMJ_WildPlants.xml` DefInjected has all six
+approved Japanese descriptions. `Tests/test_vanilla_bamboo_description.py`
+now protects all six approved texts, description-only patch scope, paragraph
+format and loaded-test wiring. The warm-temperate Quickstart checks the loaded
+English *or* Japanese text of each tree via the DefDatabase; no planting or
+world-generation behavior was changed.
+
+**Acceptance boundary:** static contract verification/PR CI is distinct from
+RimWorld 1.6 loaded-Def runtime. The new five-tree assertions have not yet
+passed an installed-game `run-tests.bat` gate in this workstream. The earlier
+Bamboo runtime-gate PASS remains valid for its earlier source only; the
+Vanilla/MO/CCTO/MO+CCTO release matrix also remains separate and OPEN.
 
 ### What the standard runner currently proves
 
