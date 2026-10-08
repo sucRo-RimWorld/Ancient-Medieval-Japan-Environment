@@ -68,9 +68,9 @@
 >
 > 低層湿原ではヨシ原やハンノキの林と隣り合って分布することがある。ここでは特定のスゲ一種ではなく、湿った土地に広がる草本群落をまとめて表す。
 
-### ハンノキ — `AMJ_Tree_Hannoki`
+### 榛の木（ハンノキ）— `AMJ_Tree_Hannoki`
 
-> ハンノキは、河川沿いや地下水位の高い湿地に生える落葉高木。水を多く含む低層湿原では、ヨシやスゲの草地と並んで湿地林をつくる。
+> 榛の木（ハンノキ）は、河川沿いや地下水位の高い湿地に生える落葉高木。水を多く含む低層湿原では、ヨシやスゲの草地と並んで湿地林をつくる。
 >
 > 日本の湿地林は、周囲の川筋や土砂、水位などによって広がり方が変わる。ここでは低層湿原の木立を代表させ、高層湿原の全面に生える樹木としては扱わない。
 
@@ -103,6 +103,7 @@
 - 環境省「釧路湿原国立公園の特徴」 https://www.env.go.jp/nature/nationalparks/list/kushiro-shitsugen/feature/
 - 環境省「重要湿地・赤名湿原」 https://www.env.go.jp/nature/important_wetland/wetland/w376.html
 - 環境省「重要湿地・別寒辺牛湿原」 https://www.env.go.jp/nature/important_wetland/wetland/w033.html
+- 日本漢字能力検定協会・漢字ペディア「榛の木」 https://www.kanjipedia.jp/kotoba/0003658400
 - 文化庁「ふるさと文化財の森」 https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/94187001.html
 - 日本薬学会「ヨモギ」 https://www.pharm.or.jp/flowers/post_29.html
 - 東京大学大学院理学系研究科附属植物園・日光植物園「ヨモギ」 https://nikko-bg.jp/nikko-old/5_jokyo/species/Artemisia_indica.html
