@@ -16,6 +16,7 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 
+
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location("payload", ROOT / "Scripts/Build-WorkshopPayload.py")
 payload_tool = importlib.util.module_from_spec(spec)
@@ -53,6 +54,91 @@ def default_steam_root(game):
     return (game.parents[1] / "workshop/content/294100/3814638060").resolve()
 
 
+# Steam can serialize its own Workshop ID and load-folder XML differently.
+# Only these two formatting-only exceptions are allowed for Pickle diagnostics;
+# the original candidate SHA256 inventory remains unmodified and authoritative.
+METADATA_PATHS = frozenset(("About/PublishedFileId.txt", "loadFolders.xml"))
+
+
+def _xml_meaning(node):
+    """Compare exact effective XML elements, ignoring insignificant whitespace."""
+    return (node.tag, tuple(sorted(node.attrib.items())),
+            (node.text or "").strip(),
+            tuple(_xml_meaning(child) for child in node),
+            (node.tail or "").strip())
+
+
+def verify_downloaded_for_pickle(payload, manifest_path):
+    """Check all byte hashes; permit only proven semantic Steam metadata drift.
+
+    This is NOT an exact publication-manifest PASS when the two files differ.
+    Never use this exception in Build-WorkshopPayload.py.verify, Quickstarts'
+    full release gate, or the final Steam distribution provenance claim.
+    """
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    expected = manifest.get("files")
+    if (not isinstance(expected, dict) or
+            manifest.get("packageId") != payload_tool.PACKAGE or
+            manifest.get("workshopId") != payload_tool.WORKSHOP):
+        raise ValueError("Invalid publication Manifest identity or file table")
+    actual = payload_tool.inventory(payload)
+    missing = sorted(expected.keys() - actual.keys())
+    extra = sorted(actual.keys() - expected.keys())
+    changed = sorted(p for p in expected.keys() & actual.keys()
+                     if expected[p] != actual[p])
+    if missing or extra or set(changed) - METADATA_PATHS:
+        raise ValueError("Workshop content differs from approved candidate: "
+                         "missing=" + repr(missing) + ", extra=" + repr(extra) +
+                         ", changed=" + repr(changed) +
+                         ". Game/test did not start; Steam files untouched.")
+    if not changed:
+        payload_tool.verify(payload, manifest_path)
+        return {"byte_identical": True, "gameplay_files_byte_identical": True,
+                "metadata_format_variants": [], "source_commit": manifest["source_commit"]}
+
+    # Require the *candidate* itself to have the published, pinned canonical
+    # ID/XML; otherwise this diagnostic cannot authorize even a smoke run.
+    canonical_id = (payload_tool.WORKSHOP + "\n").encode("utf-8")
+    if (expected.get("About/PublishedFileId.txt") != payload_tool.digest(canonical_id)
+            or expected.get("loadFolders.xml") != payload_tool.digest(payload_tool.LOAD)):
+        raise ValueError("Candidate manifest metadata is not canonical; abort")
+
+    downloaded = {key: (payload / key).read_bytes() for key in actual}
+    try:
+        workshop_id = downloaded["About/PublishedFileId.txt"].decode("utf-8-sig").strip()
+    except UnicodeError as exc:
+        raise ValueError("Steam PublishedFileId encoding is not UTF-8") from exc
+    if workshop_id != payload_tool.WORKSHOP:
+        raise ValueError("Steam PublishedFileId is " + repr(workshop_id) +
+                         ", expected " + payload_tool.WORKSHOP)
+
+    try:
+        actual_load = ET.fromstring(downloaded["loadFolders.xml"])
+        canonical_load = ET.fromstring(payload_tool.LOAD)
+    except ET.ParseError as exc:
+        raise ValueError("Steam loadFolders.xml is invalid XML: " + str(exc)) from exc
+    if _xml_meaning(actual_load) != _xml_meaning(canonical_load):
+        raise ValueError("Steam loadFolders.xml changes active Mod load paths: " +
+                         repr(_xml_meaning(actual_load)) +
+                         "; expected " + repr(_xml_meaning(canonical_load)))
+
+    # Apply the unmodified production validator to the actual downloaded
+    # gameplay bytes, with just the two *verified-equivalent* metadata values
+    # normalized in memory; nothing on Steam or in the manifest is rewritten.
+    normalized = dict(downloaded)
+    normalized["About/PublishedFileId.txt"] = canonical_id
+    normalized["loadFolders.xml"] = payload_tool.LOAD
+    payload_tool.validate(normalized)
+    print("[AMJE] Steam payload: all other " + str(len(actual) - len(changed)) +
+          " files match manifest bytes; XML/load identity semantics checked.", flush=True)
+    print("[AMJE] Formatting-only metadata variance: " +
+          ", ".join(changed), flush=True)
+    print("[AMJE] NOT a 32/32 byte-identical distribution result. "
+          "Release provenance remains HOLD.", flush=True)
+    return {"byte_identical": False, "gameplay_files_byte_identical": True,
+            "metadata_format_variants": changed, "source_commit": manifest["source_commit"]}
+
+
 def find_verified_manifest(payload, search_root=None):
     """Select only a candidate manifest that verifies the real Steam bytes."""
     parent = Path(search_root) if search_root is not None else Path(tempfile.gettempdir())
@@ -61,7 +147,7 @@ def find_verified_manifest(payload, search_root=None):
     rejected = []
     for candidate in manifests:
         try:
-            payload_tool.verify(payload, candidate)
+            verify_downloaded_for_pickle(payload, candidate)
         except (OSError, ValueError, KeyError, TypeError) as error:
             rejected.append(candidate.parent.name + ": " + str(error))
             continue
@@ -113,7 +199,7 @@ def run(payload, manifest, output, game):
     if "RimWorldWin64.exe" in subprocess.check_output(
             ["tasklist", "/FI", "IMAGENAME eq RimWorldWin64.exe"], text=True):
         raise ValueError("Close RimWorld normally before Pickle automation")
-    payload_tool.verify(payload, manifest)
+    audit = verify_downloaded_for_pickle(payload, manifest)
     inventory = payload_tool.inventory(payload)
 
     mods_dir = game / "Mods"
@@ -176,7 +262,8 @@ def run(payload, manifest, output, game):
                 ROOT / "Tests/Release/IsolatedDesktopRunner.cs"])
 
         summary = {"passed": False, "source": "actual Steam installed root",
-                   "root": str(payload), "profiles": {}}
+                   "root": str(payload), "profiles": {},
+                   "manifest_audit": audit, "steam_release_cleared": False}
         for profile in PROFILES:
             config_dir = output / ("SaveData-" + profile) / "Config"
             config_dir.mkdir(parents=True)

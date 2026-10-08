@@ -57,3 +57,17 @@ world/river/coast/native-cutting gate. `steam_release_cleared=false` in
 the Pickle summary is deliberate until all owner publication gates
 have passed. An already running game is a preflight blocker, not a
 mod/gameplay failure; do not inspect nonexistent report folders.
+
+## Downloaded metadata serialization (2026-10-08)
+
+Steam's installed root may differ from the exact 32-file candidate in
+`About/PublishedFileId.txt` or `loadFolders.xml` only. The batch runs an
+automated **fail-closed semantic audit** before Pickle:
+
+- Files added, missing or changed outside these **two** metadata paths block all tests.
+- The installed Workshop ID must be exactly `3814638060` after UTF-8 BOM/whitespace handling.
+- The XML must parse and have the same exact effective `loadFolders/v1.6/li=/` tree, attributes and text as the candidate. Different load paths, versions or extra entries block tests.
+- The original manifest must retain the canonical SHA256 for both metadata files, and the full production validator is rerun against the downloaded gameplay bytes, with only the approved metadata values normalized **in memory**.
+- The source candidate `Build-WorkshopPayload.py verify` retains strict 32/32 byte equality. The Pickle report records `manifest_audit.byte_identical=false` and the named metadata differences when equivalent formatting is accepted. **This does not clear Steam release provenance.** The full rendered map and native-cutting gates remain separate.
+
+The normal user entry remains **`test-run.bat`**. It automatically prints the precise failed path or passes to Pickle; do not ask the author to run Python or compare XML manually.
