@@ -25,6 +25,8 @@ ja_marker = "[h2]日本語 / Japanese[/h2]"
 gallery_marker = "[h2]Representative Plants / 各環境帯の代表植物[/h2]"
 require(body.count(ja_marker) == 1 and body.count(gallery_marker) == 1,
         "missing or repeated language/gallery section")
+require(body.count("[hr][/hr]") == 1 and "\n\n[hr][/hr]\n\n" + ja_marker in body,
+        "English/Japanese boundary requires one Steam horizontal rule")
 ja_pos = body.index(ja_marker)
 gallery_pos = body.index(gallery_marker)
 require(ja_pos > 0 and gallery_pos > ja_pos, "expected English, Japanese, shared gallery order")

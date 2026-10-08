@@ -13,7 +13,7 @@ Workshop descriptions are written **Japanese first**.
 5. Keep both Workshop language versions synchronized with each other and substantively contained within README.
 
 Source files:
-- **Single paste-ready bilingual Workshop description:** `Docs/SteamWorkshopDescription.txt` (English body → Japanese body → shared gallery with bilingual captions). Paste this complete file **only in Steam's English description field**; do not duplicate it in the Japanese description field.
+- **Single paste-ready bilingual Workshop description:** `Docs/SteamWorkshopDescription.txt` (English body → one `[hr][/hr]` separator → Japanese body → shared gallery with bilingual captions). Paste this complete file **only in Steam's English description field**; do not duplicate it in the Japanese description field.
 - Japanese wording source: `Docs/SteamWorkshopDescription-ja.txt`. Its text must match the Japanese section in the combined file; it is not an additional Steam upload.
 
 ## Publication responsibility
@@ -50,7 +50,7 @@ A standalone environment overhaul that replaces and reconfigures Vanilla terrain
 
 ## Replacement-scope review
 
-For public-copy updates, verify `Docs/Design.md` against `EnvironmentTerrainProcessor.Apply`, `JapanBiomeScoring`, biome plant/terrain Defs and the River / Coast handoff before synchronizing README -> Japanese Workshop -> English Workshop -> About / 2game. Replacement means the generated terrain and baseline biome/vegetation composition are reconfigured; it does not mean deleting all Vanilla Defs, replacing every specialized biome, or adding a separate local river/coast generator. Do not imply that secondary Vanilla plants are preserved by default: retained plants are provisional until their AMJE fit is confirmed, and unsuitable plants are removed or replaced as the audit proceeds. Preserve wetlands/MO coexistence, representative plants, optional integrations and save limitations. Check the **entire combined BBCode body** for balanced tags, exact Japanese source inclusion, English-before-Japanese ordering, unique image URLs and a total UTF-8 size below 8,000 bytes with both LF and CRLF. The repository validation is `python Tests/validate_workshop_description.py`; the Workshop payload CI runs it.
+For public-copy updates, verify `Docs/Design.md` against `EnvironmentTerrainProcessor.Apply`, `JapanBiomeScoring`, biome plant/terrain Defs and the River / Coast handoff before synchronizing README -> Japanese Workshop -> English Workshop -> About / 2game. Replacement means the generated terrain and baseline biome/vegetation composition are reconfigured; it does not mean deleting all Vanilla Defs, replacing every specialized biome, or adding a separate local river/coast generator. Do not imply that secondary Vanilla plants are preserved by default: retained plants are provisional until their AMJE fit is confirmed, and unsuitable plants are removed or replaced as the audit proceeds. Preserve wetlands/MO coexistence, representative plants, optional integrations and save limitations. Check the **entire combined BBCode body** for balanced tags, exact Japanese source inclusion, English-before-Japanese ordering with one horizontal rule at the language boundary, unique image URLs and a total UTF-8 size below 8,000 bytes with both LF and CRLF. The repository validation is `python Tests/validate_workshop_description.py`; the Workshop payload CI runs it.
 
 ## Workshop content policy
 

@@ -30,6 +30,8 @@ Beta. Vanilla and Medieval Overhaul plant retention is being reviewed. Descripti
 
 Details: [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README[/url]
 
+[hr][/hr]
+
 [h2]日本語 / Japanese[/h2]
 
 [b]バニラの地形・気候・植生・バイオーム構成を組み直し、江戸以前の日本をイメージした自然環境を作る独立Modです。[/b] 他のAMJ Modは必須ではありません。
