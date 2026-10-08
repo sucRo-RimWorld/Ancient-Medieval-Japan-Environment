@@ -945,7 +945,7 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 **2026-10-08暫定実装:** `Patches/VanillaWetlandEcology.xml` が両Vanilla湿地の `wildAnimals` / `baseWeatherCommonalities` / `diseaseMtbDays` / `diseases` / `allowedPackAnimals` をAMJE方針に沿って補正する。具体的な全Def・relative commonalityは `Docs/VanillaWetlandBiomeAudit-ja.md` の「湿地生態bundle実装」を正本とする。Vanillaの湿地地形とBiomeWorker、Phase 5植物構成はそのまま保持する。数値は史実の再現値ではなく実機確認待ちのゲームバランス案。説明文は日本語先行草案を作成した段階で、作者承認・英語Def/日本語DefInjected同期までは未完了とし、Step 1完了を宣言しない。
 
-**自然分布回帰（2026-10-08）:** 湿地Biomeを強制できる既存Quickstartとは独立して、coverage 0.30の決定的seedの自然生成世界を読み取り専用で計数するテストを追加する。両湿地合算の存在、湿潤度0.5以上の候補の存在、候補外湿地・Biome未割当ゼロ、自然湿地マップへの入植、湿地の陸地比率20%以下を初期の粗い異常検出条件とする。20%は歴史的な適正比率ではなく、精密な目標比率は実測後に再評価する。実機は未検証で、既存8/8の合格を新しい9本目の合格として扱わない。詳細は `Docs/VanillaWetlandBiomeAudit-ja.md`。
+**自然分布回帰（2026-10-08）:** 湿地Biomeを強制できる既存Quickstartとは独立して、coverage 0.30の決定的seedの自然生成世界を読み取り専用で計数するテストを追加する。両湿地合算の存在、湿潤度0.5以上の候補の存在、候補外湿地・Biome未割当ゼロ、自然湿地マップへの入植、湿地の陸地比率20%以下を初期の粗い異常検出条件とする。20%は歴史的な適正比率ではなく、精密な目標比率は実測後に再評価する。作者から新しいテストのPASS報告を受けているが、実機ログ・JSONは未受領のため詳細なアサーション数、湿地比率、ERROR検証結果の独立監査は未完了。先行8/8の証拠とは区別する。詳細は `Docs/VanillaWetlandBiomeAudit-ja.md`。
 
 ## 12. Seasonal scenery baseline
 

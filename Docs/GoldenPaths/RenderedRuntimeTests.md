@@ -62,7 +62,7 @@ reinterpreting a historical PASS as a current-main PASS.
 | Wetland Phase 5 plants | `Patches/VanillaWetlandVegetation.xml` and two wetland Quickstarts | ColdBog Cypress XPath failure fixed by PR #23; current-main runtime rerun pending |
 | Wetland wildlife, diseases, weather, pack animals and terrain | `Patches/VanillaWetlandEcology.xml`, `Tests/test_wetland_ecology_contract.py` and two wetland Quickstarts | PR #24 static CI passed; loaded-Def/terrain runtime PASS pending |
 | River/coast handoff | `AMJRiverMapHandoffQuickstart` / `AMJCoastMapHandoffQuickstart` | Historical PASS exists; latest-main runtime rerun pending |
-| World wetland distribution sanity | `AMJWorldWetlandDistributionQuickstart` (30% natural-world sample; no forced biome) | Regression gate added; installed-game result pending |
+| World wetland distribution sanity | `AMJWorldWetlandDistributionQuickstart` (30% natural-world sample; no forced biome) | Author-reported installed-game PASS (2026-10-08); structured logs and exact counts not attached |
 
 The earlier warm-forest run returned 73/74 assertions and one pre-launch
 PatchOperation ERROR, before the PR #23 corrections. A later Alpine run
@@ -92,8 +92,11 @@ requires natural wetland candidates and biomes, no out-of-candidate wetland
 placement or missing land biome, at least 2,000 land tiles, a naturally selected
 wetland settlement map, and a provisional gross upper ceiling of 20% wetland
 land share. The ceiling is a regression alarm, not a historical target. The
-new ninth test is **not yet runtime-verified**; a nine-scenario PASS will
-still not establish the final ecological target or approve descriptions.
+new ninth test was reported **PASS** by the author on 2026-10-08. The actual
+per-scenario `.json`/`.log` was not attached, so counts, precise wetland shares,
+complete capture, and zero-owned-ERROR evidence have not been independently
+inspected. Even a complete PASS would not establish a final ecological target
+or approve bilingual wetland descriptions.
 
 The natural-world scenario additionally logs candidate share and the
 fraction of wetland candidates actually assigned a retained wetland. The
@@ -105,9 +108,10 @@ not measured runtime outcomes.
 
 ### Acceptance and follow-up
 
-- Obtain one complete latest-main `run-tests.bat` result with all nine base
-  Quickstarts and whichever optional profiles actually execute. Record the
-  exact source commit, profile and loaded Def/runtime/error results.
+- Preserve the author's reported PASS for the new nine-scenario test. Do not
+  infer exact counts or independent log certification; if structured logs are
+  provided later, record the actual source revision, optional profiles,
+  capture integrity, owned ERROR status, and wetland shares.
 - Run the release four-profile matrix separately when its isolated MO path is
   functioning, without claiming a skip is a PASS.
 - Validate world-level wetland frequency after the ecology/vegetation
