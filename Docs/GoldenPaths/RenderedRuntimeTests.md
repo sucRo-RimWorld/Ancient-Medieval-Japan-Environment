@@ -109,6 +109,39 @@ are documented in [PlantSowingTests.md](PlantSowingTests.md). Wetland
 composition and approval/description requirements are in
 `Docs/VanillaWetlandBiomeAudit-ja.md`.
 
+## 2026-10-08 warm-temperate runtime evidence — single scenario
+
+The author uploaded `AMJWarmTemperateTerrainQuickstart(4).log`, generated
+under isolated `TestResults/VegetationRuntime/SaveData` using RimWorld
+1.6.4871. The loaded mods in this scenario were Harmony, RimWorld, RimLogging,
+Quickstarts and AMJE (no CCTO/MO in the active test profile).
+
+- The Quickstarts log records **74 PASS / 0 FAIL**, `Verification PASSED`,
+  and `Exiting with code 0`. No `[ERROR]` log tag appears in this file.
+- The base-biome wild woody set is
+  `{AMJ_Tree_Shii, Plant_TreeMaple, Plant_TreeBamboo}`. The same three
+  trees appear in the unlocked growing-zone menu; the locked menu and
+  Haimatsu exclusion assertions also PASS.
+- Live plant textures: 18,759 scanned, 0 bad states; live non-plant Things:
+  7,840 scanned, 0 bad Things; tree texture states: 22 trees audited,
+  0 failed states.
+- The generated **small** test world logged 3,787 total tiles and 1,262
+  land tiles, all naturally mapped to CoolTemperate (994) or Subalpine
+  (268). Its `swampiness>=0.5` share was **0**; the Quickstart explicitly
+  used a *forced* WarmTemperate climate/biome proxy to test its map behavior.
+  This is **not** evidence of acceptable world biome/wetland distribution.
+  Audit wetland and warm-biome prevalence over representative worlds/seeds
+  before closing the world-share gate; do not infer a generation defect
+  from this one small, unsuitable sampling world alone.
+
+**Evidence limit:** Only the Unity/Quickstarts `.log` was supplied for
+this individual scenario. Its exit code and in-log PASS are confirmed, but
+the matching `.json` report, outer runner's complete-capture/truncation and
+pre-launch counts, and the other seven base scenarios were not provided
+in this evidence bundle. The full `run-tests.bat`/wetland Step 1 gate
+remains **PENDING**. An historical warm 73/74 failure is superseded for
+this individual warm scenario only; it does not establish full-matrix PASS.
+
 ## Historical verified result
 
 2026-10-05 JST result: Environment build/static, PNG exact-copy, MO static

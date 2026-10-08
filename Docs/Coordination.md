@@ -19,6 +19,23 @@ The author requested integration of the separate test chat with the current wetl
 
 **Canonical ongoing test handoff:** `Docs/GoldenPaths/RenderedRuntimeTests.md` (unified matrix/status), `Docs/GoldenPaths/PlantSowingTests.md` (tree contract), `Docs/VanillaWetlandBiomeAudit-ja.md` (wetland ecology and approval conditions). Refer future test work to this item together with `ENV-TREE-SOWING-RUNTIME-002` and `ENV-WETLAND-BIOME-001`, rather than maintaining separate chat-specific statuses.
 
+**2026-10-08 new warm-forest runtime log (single-scenario evidence):**
+Author-supplied `AMJWarmTemperateTerrainQuickstart(4).log` confirms
+`AMJWarmTemperateTerrainQuickstart` in the standalone AMJE profile:
+**74/74 in-log assertions PASS, 0 FAIL, exit code 0, no `[ERROR]` tag**.
+The three approved naturally woody trees match the unlocked native
+growing-zone choices; graphics audits show zero BadTex. This supersedes
+the earlier 73/74 failure *for the warm scenario*, not for the complete
+eight-scenario matrix. Only the `.log` was provided, not matching
+Quickstart `.json` or outer runner summary, so complete live-capture,
+truncation and pre-launch gates cannot be independently certified.
+The tiny generated world (3,787 total / 1,262 land tiles) had **zero**
+natural WarmTemperate tiles and `swampiness>=0.5=0`; warm map
+verification used a forced biome proxy. This does not prove or disprove
+normal world prevalence, so the world wetland-share gate remains OPEN.
+Durable evidence context and remaining gates: `Docs/GoldenPaths/RenderedRuntimeTests.md`.
+
+
 ### ENV-TREE-SOWING-001 — Regional growing-zone tree regression (2026-10-08 JST)
 
 **Requested by:** author
