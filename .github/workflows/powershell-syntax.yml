@@ -28,6 +28,10 @@ on:
       - 'Tests/test_run_tests_entrypoint.py'
       - '.github/workflows/powershell-syntax.yml'
 
+concurrency:
+  group: powershell-syntax-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   parse:
     runs-on: ubuntu-latest
