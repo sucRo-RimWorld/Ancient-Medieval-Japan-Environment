@@ -45,12 +45,24 @@ if ($CctoCompatibilityOnly -or $TreeTextureAuditOnly) {
         "AMJWarmTemperateTerrainQuickstart"
     )
 }
+elseif ($CoreIntegrationOnly) {
+    $scenarios = @(
+        "AMJWarmTemperateTerrainQuickstart",
+        "AMJCoolTemperateTerrainQuickstart",
+        "AMJSubalpineTerrainQuickstart",
+        "AMJAlpineTerrainQuickstart",
+        "AMJRiverMapHandoffQuickstart",
+        "AMJCoastMapHandoffQuickstart"
+    )
+}
 else {
     $scenarios = @(
         "AMJWarmTemperateTerrainQuickstart",
         "AMJCoolTemperateTerrainQuickstart",
         "AMJSubalpineTerrainQuickstart",
         "AMJAlpineTerrainQuickstart",
+        "AMJTemperateSwampVegetationQuickstart",
+        "AMJColdBogVegetationQuickstart",
         "AMJRiverMapHandoffQuickstart",
         "AMJCoastMapHandoffQuickstart"
     )

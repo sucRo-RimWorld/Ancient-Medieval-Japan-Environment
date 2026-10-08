@@ -158,7 +158,6 @@ if defined QUICKSTART_DLL (
         /reference:"%NETSTANDARD%" ^
         /reference:"%HARMONY_DLL%" ^
         /reference:"!QUICKSTART_DLL!" ^
-        /reference:"%OUTPUT_DLL%" ^
         "!QUICKTEST_SOURCE!"
 
     if errorlevel 1 (

@@ -28,7 +28,9 @@ A one-off trivial text edit with no reusable procedure can be marked N/A. A work
 
 - [Plant Harvest Resource Tests](PlantHarvestTests.md) — native cutting outputs in Vanilla and actual MO.
 
-- [Rendered Runtime Tests](RenderedRuntimeTests.md) — rendering enabled on an independent non-visible Windows desktop.
+- [Regional Tree Sowing Tests](PlantSowingTests.md) — static tree-pool contract and native growing-zone eligibility before/after research; fresh runtime matrix pending.
+
+- [Rendered Runtime Tests](RenderedRuntimeTests.md) — `run-tests.bat` standard gate: static validation followed by rendering-enabled Quickstarts on an independent non-visible Windows desktop.
 
 - [Plant Visual Coverage Gate](PlantVisualCoverage.md) — per-state approval/evidence and scoped invalidation.
 
@@ -37,4 +39,4 @@ A one-off trivial text edit with no reusable procedure can be marked N/A. A work
 
 - [Texture Asset Golden Path](TextureAssetPipeline.md) — production PNG validation/install, Def-switch order, automated gate, and correct-biome runtime review for ENV-010 art.
 
-- [Retexture Generation / New-Chat Start Procedure](RetextureGeneration.md) — generation preflight, actual approved references, current Core+Environment style-rule assembly, and candidate review before the production texture pipeline.
+- [Retexture Generation / New-Chat Start Procedure](RetextureGeneration.md) — generation preflight, actual approved references, current Grains+Environment style-rule assembly, and candidate review before the production texture pipeline.

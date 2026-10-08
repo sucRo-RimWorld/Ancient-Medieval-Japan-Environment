@@ -19,30 +19,6 @@ namespace AncientMedievalJapan.Environment
 
     public static class EnvironmentTerrainProcessor
     {
-        // Restrict only this root-surface generation pass. Keep Vanilla Defs
-        // intact for saves; water and third-party workers remain eligible.
-        public static bool IsBiomeCandidateAllowed(string defName)
-        {
-            switch (defName)
-            {
-                case "TropicalRainforest":
-                case "TemperateForest":
-                case "BorealForest":
-                case "Tundra":
-                case "TropicalSwamp":
-                case "TemperateSwamp":
-                case "ColdBog":
-                case "AridShrubland":
-                case "Desert":
-                case "ExtremeDesert":
-                case "IceSheet":
-                case "SeaIce":
-                    return false;
-                default:
-                    return true;
-            }
-        }
-
         private sealed class RuggedTile
         {
             public SurfaceTile tile;
@@ -200,36 +176,7 @@ namespace AncientMedievalJapan.Environment
                 tile.PrimaryBiome = SelectBiome(tile, planetTile, layer);
             }
 
-            EnsureAlpineSettlementAccess(layer);
             WorldGenDiagnostics.LogTerrainSummary(layer);
-        }
-
-        public const float MaxAlpineImpassableFraction = 0.25f;
-
-        private static void EnsureAlpineSettlementAccess(PlanetLayer layer)
-        {
-            int alpineCount = 0;
-            List<SurfaceTile> impassableAlpine = new List<SurfaceTile>();
-            for (int i = 0; i < layer.TilesCount; i++)
-            {
-                SurfaceTile tile = layer.Tiles[i] as SurfaceTile;
-                if (tile == null || tile.PrimaryBiome == null ||
-                    tile.PrimaryBiome.defName != "AMJ_AlpineZone") continue;
-                alpineCount++;
-                if (tile.hilliness == Hilliness.Impassable) impassableAlpine.Add(tile);
-            }
-            // Preserve the highest peaks; change access, not elevation/climate.
-            impassableAlpine.Sort(delegate(SurfaceTile a, SurfaceTile b)
-            {
-                return a.elevation.CompareTo(b.elevation);
-            });
-            int limit = Mathf.FloorToInt(alpineCount * MaxAlpineImpassableFraction);
-            int converted = Mathf.Max(0, impassableAlpine.Count - limit);
-            for (int i = 0; i < converted; i++) impassableAlpine[i].hilliness = Hilliness.Mountainous;
-            Log.Message("[AMJ Environment] Alpine access | total=" + alpineCount +
-                " impassableBefore=" + impassableAlpine.Count +
-                " impassableAfter=" + (impassableAlpine.Count - converted) +
-                " convertedToMountainous=" + converted);
         }
 
         private static float AdjustBaseElevation(
@@ -309,7 +256,6 @@ namespace AncientMedievalJapan.Environment
 
                 if (!biome.implemented ||
                     !biome.generatesNaturally ||
-                    !IsBiomeCandidateAllowed(biome.defName) ||
                     !biome.Worker.CanPlaceOnLayer(biome, layer))
                 {
                     continue;

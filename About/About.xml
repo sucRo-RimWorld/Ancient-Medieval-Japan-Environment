@@ -6,6 +6,7 @@
   <supportedVersions>
     <li>1.6</li>
   </supportedVersions>
+  <modVersion>0.1.0</modVersion>
 
   <modDependencies>
     <li>
@@ -22,9 +23,7 @@
 
   <description>Beta.
 
-A standalone environment overhaul that reshapes RimWorld toward a pre-Edo Japan-like climate and landscape, including world climate, terrain, rivers, coastlines, biomes, vegetation, weather, seasonal scenery, and natural soil distribution.
-
-Replaces Vanilla terrestrial biomes, including wetlands, with four Japan-oriented climate bands. Ocean and lakes remain, and biomes added by other mods retain their normal generation conditions and scoring. At least 75% of AMJE Alpine tiles remain non-Impassable. These generation changes apply to new worlds; existing worlds are not converted.
+A standalone environment overhaul that replaces and reconfigures Vanilla terrain, vegetation, and biome composition for a Japanese-archipelago-inspired landscape. It reconfigures world climate, terrain, rivers, coastlines, natural soils, biome placement, and wildlife distribution, and adds Thin Soil as a new natural terrain. RimWorld's existing world-generation, river, and coastal systems are retained while the generated environment is reshaped for pre-Edo Japan. The first broad Vanilla-vegetation retention pass has removed the clearest mismatches while preserving intended forest/woody density through rebalancing. Retained Vanilla plants are reviewed and rewritten for Japanese historical/ecological context before retexturing; missing Japanese vegetation and medicinal plants follow, with fictional Wild Healroot removed only at the final cleanup stage. Wildlife pools are also curated toward Japan using Vanilla animals as functional gameplay proxies rather than literal species reconstructions. Compatible specialized biomes can coexist.
 
 Ancient &amp; Medieval Japan Core is not required. Crop Cold Tolerance Overhaul (CCTO) is optional; when present, AMJE applies a stricter realism-focused cold-response model to its own structural plants. Medieval Overhaul is also optional and treated as a first-class coexistence target.
 

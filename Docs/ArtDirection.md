@@ -69,6 +69,18 @@ These are **style harmonization only**. Great Oak / Great Iter / Great Fir / Gre
 
 No new weather, snow, river, coast, or seasonal-effect art is required for the Alpha pass because those systems intentionally reuse Vanilla rendering.
 
+## AMJ / Medieval Overhaul visual baseline
+
+Environment inherits the AMJ-wide in-game art direction from `Ancient-Medieval-Japan-Grains/Docs/ArtStyle.md`. The shared AMJ target is to **look at home beside Medieval Overhaul, not beside RimWorld Vanilla**. Medieval Overhaul is therefore the primary visual calibration reference for AMJ in-game sprites/textures; Vanilla is not the target style.
+
+For AMJE specifically:
+- AMJE-owned structural plants must remain compatible with that shared AMJ / Medieval Overhaul-oriented visual language;
+- Vanilla vegetation retained by AMJE should be retextured toward the same AMJ baseline when its visual pass is performed, rather than pulling AMJE art back toward Vanilla;
+- optional Medieval Overhaul retextures are style-harmonization work inside the same baseline, not a separate visual direction;
+- while only part of the retained vegetation has been retextured, a visible contrast against untouched Vanilla art can be a temporary rollout mismatch. Judge whether AMJE art itself is on-style against the accepted AMJ/MO references before deciding to redraw it toward Vanilla.
+
+Environment's tree/plant rules below intentionally allow controlled class differences such as restrained internal gradient variation, but they do not change this project-wide target.
+
 ## Plant technical direction
 
 Current plant Defs use `Graphic_Random`.
@@ -93,7 +105,7 @@ Production texture transfer, validation, Def-switch ordering, and focused runtim
 
 ## Generation entry and new-chat continuity
 
-Before a plant/tree generation call, follow [RetextureGeneration.md](GoldenPaths/RetextureGeneration.md). That procedure reads the current Core `Docs/ArtStyle.md`, this document, the current coordination state, and the actual accepted reference images. Do not preserve a separate frozen style prompt in this repository.
+Before a plant/tree generation call, follow [RetextureGeneration.md](GoldenPaths/RetextureGeneration.md). That procedure reads the current Ancient-Medieval-Japan-Grains `Docs/ArtStyle.md`, this document, the current coordination state, and the actual accepted reference images. Do not preserve a separate frozen style prompt in this repository.
 
 ## Retexture visual-style rules
 
@@ -138,7 +150,7 @@ These rules are the canonical visual baseline for AMJE tree/plant retextures. In
 
 ### Shared style
 
-AMJE tree/plant sprites inherit the project-wide invariants in Core `Docs/ArtStyle.md`: silhouette-first simplification, strong readable outlines, restrained palette/detail, no photographic or painterly surface treatment, and readability at gameplay scale.
+AMJE tree/plant sprites inherit the project-wide invariants in Ancient-Medieval-Japan-Grains `Docs/ArtStyle.md`: silhouette-first simplification, strong readable outlines, restrained palette/detail, no photographic or painterly surface treatment, and readability at gameplay scale.
 
 Environment-specific additions/controlled differences are:
 
@@ -348,7 +360,7 @@ This is the most important silhouette distinction for keeping the alpine zone ab
 
 ## Retextured plant description policy
 
-This section is the ENV-010 application of the AMJ-wide historical description policy in Ancient-Medieval-Japan-Core `Docs/HistoricalDescriptionGuidelines.md`.
+This section is the ENV-010 application of the AMJ-wide historical description policy in Ancient-Medieval-Japan-Grains `Docs/HistoricalDescriptionGuidelines.md`.
 
 Every plant whose in-game artwork is replaced by AMJE must also receive an AMJE-authored description so the visual pass does not retain text that conflicts with AMJE's tone, environmental role, or ancient/medieval Japanese historical context. This is a minimum requirement for the art scope; the shared AMJ policy is broader and also applies to Vanilla/MO items, plants, and animals that AMJ explicitly adopts, patches, selects, or localizes.
 
@@ -414,7 +426,7 @@ World textures should distinguish the four AMJ bands at globe zoom without becom
 ### Cool-temperate forest
 - medium natural green;
 - lighter/more neutral than Warm-temperate;
-- must be visibly distinguishable from Warm-temperate. The current implementation reuses Vanilla TropicalRainforest for Warm-temperate and TemperateForest for Cool-temperate.
+- must be visibly distinguishable from Warm-temperate because both currently reuse Vanilla TemperateForest.
 
 ### Subalpine forest
 - dark cool blue-green / conifer impression;
@@ -511,7 +523,7 @@ The atlas itself is a **style/reference board**, not a shippable sprite sheet. P
 
 ## Fixed reused components
 
-When a future Environment asset intentionally reuses a visible component pixel-exactly, follow Core `Docs/GoldenPaths/FixedImageTemplates.md`. Same-style but structurally distinct species do not use fixed-pixel templates.
+When a future Environment asset intentionally reuses a visible component pixel-exactly, follow Ancient-Medieval-Japan-Grains `Docs/GoldenPaths/FixedImageTemplates.md`. Same-style but structurally distinct species do not use fixed-pixel templates.
 
 ### Revision 5 native appearance accepted; leafless snow complete (2026-10-06 JST)
 

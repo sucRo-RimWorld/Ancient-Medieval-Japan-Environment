@@ -1,8 +1,8 @@
-# Ancient & Medieval Japan: Environment
+# Ancient & Medieval Japan - Environment
 
 **RimWorld 1.6 — Beta**
 
-A standalone environment overhaul that reshapes RimWorld toward a **pre-Edo Japan-like climate and landscape**, with Japan-oriented world generation, biomes, vegetation, weather, seasonal scenery, rivers, coastlines, and natural soil distribution.
+A standalone environment overhaul that replaces and reconfigures Vanilla terrain, vegetation, and biome composition for a Japanese-archipelago-inspired landscape. It changes world climate, mountains, rivers, coastlines, natural soil distribution, and the placement and vegetation of biomes to create a **pre-Edo Japan-like natural environment**.
 
 AMJ Environment is designed to work on its own for players who mainly want a medieval-Japan-like natural setting. **[Ancient & Medieval Japan Core](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core) is not required.**
 
@@ -21,7 +21,8 @@ The goal is a gameplay-oriented environmental profile inspired by the Japanese a
 - long, irregular coastlines with more bays, peninsulas, and islands;
 - vegetation belts that shift from warm-temperate evergreen forest through cool-temperate deciduous forest and subalpine conifers to alpine scrub;
 - natural soil quality that becomes poorer and stonier in colder/high-elevation zones;
-- weather and seasonal scenery that emerge primarily from RimWorld's existing temperature, snow, and plant systems.
+- weather and seasonal scenery that emerge primarily from RimWorld's existing temperature, snow, and plant systems;
+- biome wildlife pools adjusted toward a Japan-like ecological composition using curated Vanilla animals as functional gameplay proxies.
 
 Historical and ecological research is used as a reference, but gameplay clarity takes priority over literal simulation.
 
@@ -29,7 +30,7 @@ Historical and ecological research is used as a reference, but gameplay clarity 
 
 ### Japan-oriented world generation
 
-AMJ Environment modifies the root-surface world after Vanilla terrain generation, preserving compatibility with later world-generation systems.
+AMJ Environment recalculates elevation, hilliness, temperature, rainfall, and biome placement while retaining RimWorld's existing world-generation pipeline. The resulting environment replaces the broad Vanilla baseline with a Japan-oriented configuration. Local river and coastal map generation remains compatible with RimWorld's standard systems.
 
 Current Beta targets include:
 
@@ -39,7 +40,7 @@ Current Beta targets include:
 - northern cool lowlands: roughly **5–9°C**;
 - elevation cooling: approximately **6.25°C per 1000 m**;
 - elevation up to roughly **3800 m**, with most land below 1500 m;
-- initial Hilliness distribution target: **25% Flat / 20% Small Hills / 25% Large Hills / 25% Mountainous / 5% Impassable**; an Alpine access correction then limits Impassable to at most 25% of AMJ Alpine tiles, turning excess tiles into Mountainous while preserving elevation and climate;
+- Hilliness distribution target: **25% Flat / 20% Small Hills / 25% Large Hills / 25% Mountainous / 5% Impassable**;
 - rainfall broadly around **800–3000**;
 - coastal land frequency around **1.5× the same-seed Vanilla baseline** through more complex coastlines rather than simply flooding land.
 
@@ -51,11 +52,11 @@ Natural world rivers favor smaller channels:
 - River: lower spawn threshold, width 6;
 - Large River / Huge River: retained for compatibility but disabled from normal natural spawning.
 
-AMJ Environment changes the world-level river distribution only. Local river maps continue to use RimWorld's standard River tile mutator and moving-water terrain system.
+AMJ Environment changes the world-level river distribution only. Local river maps continue to use RimWorld's standard river and moving-water terrain systems.
 
 ### Four Japan-oriented biome bands
 
-AMJ Environment adds four natural biome bands:
+AMJ Environment adds four natural biome bands that take precedence over broad Vanilla biomes on eligible land:
 
 - **Warm-temperate forest** — evergreen broadleaf forest;
 - **Cool-temperate forest** — deciduous broadleaf forest;
@@ -64,11 +65,9 @@ AMJ Environment adds four natural biome bands:
 
 These bands are not prefectural or regional borders. They are a gameplay simplification of the broad natural vegetation sequence seen across the Japanese archipelago: warm-temperate evergreen broadleaf forest gives way to cool-temperate deciduous broadleaf forest, then subalpine evergreen conifers, and finally alpine scrub above the treeline as climate becomes colder northward or with elevation.
 
-The temperature thresholds are therefore approximations for RimWorld rather than literal botanical boundaries. AMJE replaces Vanilla terrestrial biomes, including wetlands, with these four climate bands. Ocean and lakes remain. Biomes from other mods, such as Medieval Overhaul, retain normal worker eligibility and can still coexist where their own conditions and scores fit. These changes apply to newly generated worlds; existing worlds are not converted.
+The temperature thresholds are therefore approximations for RimWorld rather than literal botanical boundaries. AMJE uses these four BiomeDefs as **baseline vegetation bands**, not as an exclusive replacement for every other biome. Wetlands and stronger specialized biome workers from compatible mods such as Medieval Overhaul can still coexist where their own conditions fit.
 
-Replacement covers all twelve Vanilla terrestrial biomes: Tropical Rainforest, Temperate Forest, Boreal Forest, Tundra, Tropical Swamp, Temperate Swamp, Cold Bog, Arid Shrubland, Desert, Extreme Desert, Ice Sheet and Sea Ice. Wet land also receives an AMJ climate band. Biomes added by other mods continue to compete through their own generation conditions and scores. Rivers, coastlines and local mud/shallow-water terrain are preserved.
-
-The design also avoids presenting every map as untouched single-species climax forest. Historical vegetation research shows that human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions. Vanilla secondary trees, shrubs, grasses, and other filler vegetation therefore remain part of the biome mixes.
+The design also avoids presenting every map as untouched climax forest. Human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions, but that does **not** justify retaining arbitrary Vanilla vegetation. The first broad retention pass is now largely complete: Vanilla Poplar and Oak were removed from the warm-temperate forest, generic Pine from the subalpine forest, and generic Pine, Birch, Dandelion, and Astragalus from the alpine zone. Their removed woody share was reassigned to Sudajii, Shirabiso, and Haimatsu so the cleanup does not accidentally thin the intended forest structure. RimWorld's fictional Wild Healroot is retained temporarily and is scheduled for removal only at the final vegetation-cleanup stage, after Japanese medicinal vegetation has been added and validated.
 
 ### Structural Japanese vegetation
 
@@ -105,11 +104,9 @@ Shirabiso is a major evergreen conifer of Honshu's subalpine forests. On mountai
 
 Haimatsu is a creeping evergreen dwarf pine of alpine areas from Hokkaido to the high mountains of central and northern Honshu. It forms dense scrub above the treeline and is one of the clearest visual markers of Japanese alpine vegetation. Its distribution also reflects the history of northern cold-climate flora persisting at high elevation after postglacial warming.
 
-Generic grasses, mosses, shrubs, secondary trees, and other filler vegetation continue to reuse Vanilla PlantDefs. The goal is to make the vegetation bands structurally legible without turning Environment into a large plant-content mod or implying that each biome is a monoculture.
+Some generic grasses, mosses, shrubs, secondary trees, and other filler vegetation still reuse Vanilla PlantDefs where the current audit has not rejected them. This reuse is not a permanent retention promise: unsuitable plants are removed or replaced as they are confirmed. The goal is to keep the vegetation bands structurally legible without turning Environment into a large plant-content mod or implying that each biome is a monoculture.
 
-Sudajii, Japanese beech, Shirabiso, and Haimatsu now use AMJE-authored custom graphics. Broader Vanilla / Medieval Overhaul tree retextures remain planned follow-up work after the initial public Beta.
-
-Sudajii, Japanese beech, Shirabiso, and Haimatsu use AMJE-authored custom artwork, including snow overlays and beech leafless/autumn states. Their production appearance and UI states have been reviewed.\n\nDetailed research rationale and sources are retained in [Docs/Design.md](Docs/Design.md) and [Docs/ArtDirection.md](Docs/ArtDirection.md).
+Detailed research rationale and sources for the representative plants are retained in [Docs/Design.md](Docs/Design.md) and [Docs/ArtDirection.md](Docs/ArtDirection.md).
 
 ### Natural soil fertility
 
@@ -147,7 +144,7 @@ No custom seasonal controller is added in Beta.
 
 ### Functional wildlife proxies
 
-AMJ Environment does not add Japan-specific animal Defs.
+AMJ Environment adjusts wildlife distribution by biome toward a Japan-like ecological composition but does not add Japan-specific animal Defs.
 
 The custom biomes use a curated set of Vanilla animals as functional gameplay proxies. Clearly unsuitable placeholders such as Raccoon, Elk, Ibex, Arctic Fox, and Lynx were removed from the AMJ biome pools.
 
@@ -226,17 +223,18 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-The four AMJE structural plants and their required visual states are implemented, including snow overlays and beech leafless/autumn states. Real-play balance/compatibility feedback may still refine the current baselines.
+The four AMJE representative plants are implemented. The first broad Vanilla-vegetation retention pass is largely complete, with unsuitable inherited plants removed while intended woody density is preserved through rebalancing. The next vegetation step is to audit and rewrite the descriptions of retained Vanilla plants before retexturing them. Real-play balance/compatibility feedback may still refine the current baselines.
 
 ## Planned follow-up
 
-After the initial public Beta, the visual follow-up is staged retexturing of existing trees that appear inside AMJE environments:
+The first broad Vanilla-vegetation retention pass has classified the plants currently reused by AMJE and removed the clearest mismatches. Remaining follow-up follows this order:
 
-- Vanilla trees used as secondary vegetation in AMJE biomes;
-- Medieval Overhaul trees that coexist with AMJE biomes;
-- the complete loaded visible state family for each target, including base, leafless, immature, polluted, and snow states where that tree actually uses them.
+1. audit and rewrite retained Vanilla plant descriptions in the AMJE historical-description format;
+2. retexture only those retained and description-approved targets, including every loaded visible state actually used by each plant;
+3. add missing ancient-to-medieval Japanese vegetation where inherited Vanilla/MO proxies are insufficient, including traditional medicinal plants such as yomogi;
+4. remove fictional Wild Healroot only as the final vegetation-cleanup step, after replacement medicinal vegetation and gathering balance are established.
 
-These retextures are visual-only by default. Existing gameplay behavior and rendering metadata are preserved unless a documented technical correction is required, and AMJE-owned texture paths/patches are preferred to avoid unnecessary compatibility conflicts.
+Medieval Overhaul vegetation follows the same retention → description → retexture rule. Retexturing is not a commitment to preserve inherited content; retention and description fit are decided before art.
 
 ## Research and detailed design
 

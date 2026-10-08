@@ -297,17 +297,6 @@ foreach ($defName in $expectedBiomeDefs) {
     }
 }
 
-$worldBiomeTextures = @{
-    'AMJ_WarmTemperateForest' = 'World/Biomes/TropicalRainforest'
-    'AMJ_CoolTemperateForest' = 'World/Biomes/TemperateForest'
-}
-foreach ($defName in $worldBiomeTextures.Keys) {
-    $biome = $biomeDefs.Defs.BiomeDef | Where-Object { $_.defName -eq $defName }
-    $path = $worldBiomeTextures[$defName]
-    if ($biome.texture -ne $path) { Fail "$defName must use its assigned Vanilla world texture." }
-}
-Pass 'Warm/cool-temperate biomes use distinct Vanilla world textures'
-
 $expectedWeather = @{
     "AMJ_WarmTemperateForest" = @{
         "Clear" = 16.0
@@ -391,7 +380,7 @@ foreach ($expected in @(
     "BiomeWorker_AMJCoolTemperateForest",
     "BiomeWorker_AMJSubalpineForest",
     "BiomeWorker_AMJAlpineZone",
-    "tile.rainfall >= 800f",
+    "WetlandThreshold = 0.5f",
     "return 38f"
 )) {
     if (-not $biomeWorkerSource.Contains($expected)) {
@@ -399,23 +388,6 @@ foreach ($expected in @(
     }
 }
 Pass "AMJ Alpha vegetation-band BiomeDefs and workers are present"
-
-if ($biomeWorkerSource.Contains('tile.swampiness <')) {
-    Fail 'AMJ biome workers must accept wetland candidates.'
-}
-$replacementSource = Get-Content -LiteralPath (Join-Path $RepoRoot 'Source\AncientMedievalJapanEnvironment\WorldGenStep_AMJEnvironmentTerrain.cs') -Raw
-foreach ($name in @('TropicalRainforest', 'TemperateForest', 'BorealForest', 'Tundra',
-    'TropicalSwamp', 'TemperateSwamp', 'ColdBog', 'AridShrubland', 'Desert',
-    'ExtremeDesert', 'IceSheet', 'SeaIce')) {
-    if (-not $replacementSource.Contains('case "' + $name + '":')) {
-        Fail "Missing Vanilla terrestrial exclusion: $name"
-    }
-}
-if (-not $replacementSource.Contains('!IsBiomeCandidateAllowed(biome.defName)') -or
-    -not $replacementSource.Contains('MaxAlpineImpassableFraction = 0.25f')) {
-    Fail 'Missing terrestrial candidate filter or Alpine access cap.'
-}
-Pass 'Terrestrial replacement includes all twelve Vanilla biomes and preserves Alpine access'
 
 $biomeJaPath = Join-Path $RepoRoot "Languages\Japanese\DefInjected\BiomeDef\AMJ_Biomes.xml"
 if (-not (Test-Path $biomeJaPath)) {
@@ -1137,10 +1109,10 @@ if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
 
 foreach ($pair in @(
     @($workshopJaText, '現在はβ版です。', 'Japanese Workshop Beta stage'),
-    @($workshopJaText, '中世日本風の自然環境だけ欲しい場合は、このMod単体で遊べます。', 'Japanese Workshop standalone environment'),
+    @($workshopJaText, 'Ancient & Medieval Japan Coreは不要です。', 'Japanese Workshop Core independence'),
     @($workshopJaText, 'Crop Cold Tolerance Overhaul（CCTO）は任意です。', 'Japanese Workshop CCTO optionality'),
     @($workshopEnText, 'Currently Beta.', 'English Workshop Beta stage'),
-    @($workshopEnText, 'If you only want a medieval-Japan-like natural environment, this mod can be used on its own.', 'English Workshop standalone environment'),
+    @($workshopEnText, 'Ancient & Medieval Japan Core is not required.', 'English Workshop Core independence'),
     @($workshopEnText, 'Crop Cold Tolerance Overhaul (CCTO) is optional.', 'English Workshop CCTO optionality')
 )) {
     if (-not $pair[0].Contains($pair[1])) {

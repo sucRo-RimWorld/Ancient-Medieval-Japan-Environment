@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using HarmonyLib;
 using RimWorks.Quickstarts;
 using RimWorks.Quickstarts.Verification;
@@ -420,6 +421,16 @@ namespace AncientMedievalJapan.Environment.Quicktests
             get { return new string[0]; }
         }
 
+        protected virtual string[] ExcludedPlantDefNames
+        {
+            get { return new string[0]; }
+        }
+
+        protected virtual bool ValidateAmjBiomeContracts
+        {
+            get { return true; }
+        }
+
         protected virtual float MaxLimitedTimberCellFraction
         {
             get { return 1f; }
@@ -441,7 +452,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
         public override float planetCoverage
         {
-            get { return System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_WORLD_BIOME_AUDIT") == "1" ? 0.30f : 0.05f; }
+            get { return 0.05f; }
         }
 
         public override string seed
@@ -481,84 +492,6 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " targetBiomeScore=" + targetBiomeScore.ToString("F2") +
                 " rainfall=" + worldTile.rainfall.ToString("F0") +
                 " annualTemp=" + worldTile.temperature.ToString("F1"));
-        }
-
-        private static void AddWorldBiomeReplacementAssertions(QuickstartVerification verification)
-        {
-            verification.Assert("at least 75 percent of AMJ Alpine tiles are not impassable", delegate
-            {
-                int alpine = 0, impassable = 0;
-                for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
-                {
-                    Tile tile = Find.WorldGrid[i];
-                    if (tile.PrimaryBiome == null || tile.PrimaryBiome.defName != "AMJ_AlpineZone") continue;
-                    alpine++;
-                    if (tile.hilliness == Hilliness.Impassable) impassable++;
-                }
-                if (alpine == 0) return System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_WORLD_BIOME_AUDIT") != "1";
-                return (float)impassable / alpine <= 0.25f;
-            });
-            verification.Assert("generated world contains no Vanilla terrestrial biomes", delegate
-            {
-                int land = 0;
-                for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
-                {
-                    Tile tile = Find.WorldGrid[i];
-                    if (tile.WaterCovered) continue;
-                    land++;
-                    if (tile.PrimaryBiome == null ||
-                        !EnvironmentTerrainProcessor.IsBiomeCandidateAllowed(tile.PrimaryBiome.defName)) return false;
-                }
-                return land > 0;
-            });
-            verification.Assert("wetland candidates resolve to allowed land biomes", delegate
-            {
-                int wet = 0;
-                for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
-                {
-                    Tile tile = Find.WorldGrid[i];
-                    if (tile.WaterCovered || tile.swampiness < 0.5f) continue;
-                    wet++;
-                    if (tile.PrimaryBiome == null ||
-                        !EnvironmentTerrainProcessor.IsBiomeCandidateAllowed(tile.PrimaryBiome.defName)) return false;
-                }
-                return wet > 0 || System.Environment.GetEnvironmentVariable("RIMWORLD_AMJE_WORLD_BIOME_AUDIT") != "1";
-            });
-            verification.Assert("all climate boundaries retain an AMJ candidate on saturated wetland", delegate
-            {
-                float[] temperatures = { -8f, -0.01f, 0f, 7.99f, 8f, 14.99f, 15f, 20f };
-                string[] biomes = { "AMJ_AlpineZone", "AMJ_AlpineZone", "AMJ_SubalpineForest",
-                    "AMJ_SubalpineForest", "AMJ_CoolTemperateForest", "AMJ_CoolTemperateForest",
-                    "AMJ_WarmTemperateForest", "AMJ_WarmTemperateForest" };
-                for (int i = 0; i < temperatures.Length; i++)
-                {
-                    SurfaceTile tile = new SurfaceTile();
-                    tile.elevation = 100f;
-                    tile.temperature = temperatures[i];
-                    tile.rainfall = 800f;
-                    tile.swampiness = 1f;
-                    BiomeDef biome = DefDatabase<BiomeDef>.GetNamedSilentFail(biomes[i]);
-                    if (biome == null || biome.Worker.GetScore(biome, tile, PlanetTile.Invalid) <= 0f) return false;
-                }
-                return true;
-            });
-            verification.Assert("Vanilla biome Defs remain loaded and water candidates remain allowed", delegate
-            {
-                return DefDatabase<BiomeDef>.GetNamedSilentFail("TropicalSwamp") != null &&
-                    DefDatabase<BiomeDef>.GetNamedSilentFail("TropicalRainforest") != null &&
-                    EnvironmentTerrainProcessor.IsBiomeCandidateAllowed("Ocean") &&
-                    EnvironmentTerrainProcessor.IsBiomeCandidateAllowed("Lake");
-            });
-            BiomeDef darkForest = DefDatabase<BiomeDef>.GetNamedSilentFail("DankPyon_DarkForest");
-            if (darkForest != null)
-            {
-                verification.Assert("MO Dark Forest still generates through its own worker", delegate
-                {
-                    for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
-                        if (Find.WorldGrid[i].PrimaryBiome == darkForest) return true;
-                    return false;
-                });
-            }
         }
 
         public override QuickstartVerification Verify()
@@ -620,15 +553,19 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     return PawnRenderBadMaterialDiagnostics.BadMaterialUseCount == 0;
                 });
 
-            AddWeatherAssertions(verification, map == null ? null : map.Biome);
-            AddWorldBiomeReplacementAssertions(verification);
+            if (ValidateAmjBiomeContracts)
+            {
+                AddWeatherAssertions(verification, map == null ? null : map.Biome);
+                AddWildlifeAssertions(verification, map == null ? null : map.Biome);
+                AddTreeSowingAssertions(verification, map);
+            }
+
             AddSeasonalSceneryAssertions(verification);
-            AddWildlifeAssertions(verification, map == null ? null : map.Biome);
             AddLivePlantTextureAssertions(verification, map);
             AddLiveThingTextureAssertions(verification, map);
             AddTerrainScatterTextureAssertions(verification, map);
 
-            if (CoreIsActive())
+            if (ValidateAmjBiomeContracts && CoreIsActive())
             {
                 AddCoreAgricultureIntegrationAssertions(verification, map);
             }
@@ -636,6 +573,15 @@ namespace AncientMedievalJapan.Environment.Quicktests
             if (TargetBiomeDefName == "AMJ_WarmTemperateForest")
             {
                 AddTreeTextureAuditAssertions(verification);
+            }
+
+            string[] excludedPlants = ExcludedPlantDefNames;
+            for (int i = 0; i < excludedPlants.Length; i++)
+            {
+                string excludedDefName = excludedPlants[i];
+                verification.Assert(
+                    excludedDefName + " excluded plant is absent from target biome",
+                    delegate { return CountThings(map, excludedDefName) == 0; });
             }
 
             int targetCount = CountThings(map, TargetPlantDefName);
@@ -689,13 +635,16 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     return limitedTimberFraction <= MaxLimitedTimberCellFraction;
                 });
 
-            if (CctoIsActive())
+            if (ValidateAmjBiomeContracts)
             {
-                AddCctoCompatibilityAssertions(verification);
-            }
-            else
-            {
-                AddStandaloneTemperatureAssertions(verification);
+                if (CctoIsActive())
+                {
+                    AddCctoCompatibilityAssertions(verification);
+                }
+                else
+                {
+                    AddStandaloneTemperatureAssertions(verification);
+                }
             }
 
             Log.Message(
@@ -710,6 +659,124 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " cctoActive=" + CctoIsActive());
 
             return verification;
+        }
+
+        private static string[] ExpectedSowableTrees(string biome)
+        {
+            switch (biome)
+            {
+                case "AMJ_WarmTemperateForest":
+                    return new[] { "AMJ_Tree_Shii", "Plant_TreeMaple", "Plant_TreeBamboo" };
+                case "AMJ_CoolTemperateForest":
+                    return new[] { "AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch", "Plant_TreePine" };
+                case "AMJ_SubalpineForest":
+                    return new[] { "AMJ_Tree_Shirabiso", "Plant_TreeBirch" };
+                case "AMJ_AlpineZone":
+                    return new string[0];
+                default:
+                    throw new InvalidOperationException("No tree-sowing contract for " + biome);
+            }
+        }
+
+        private static HashSet<string> AvailableGrowingZoneTrees(Zone_Growing zone, Map map)
+        {
+            HashSet<string> result = new HashSet<string>();
+            // Use both native stages of Command_SetPlantToGrow.ProcessInput.
+            foreach (ThingDef plant in PlantUtility.ValidPlantTypesForGrowers(
+                new List<IPlantToGrowSettable> { zone }))
+            {
+                if (plant.plant.IsTree && Command_SetPlantToGrow.IsPlantAvailable(plant, map))
+                {
+                    result.Add(plant.defName);
+                }
+            }
+            return result;
+        }
+
+        private static void AddTreeSowingAssertions(QuickstartVerification verification, Map map)
+        {
+            verification.Assert("tree-sowing regression setup and cleanup succeed", delegate
+            {
+                if (map == null || map.Biome == null)
+                    throw new InvalidOperationException("Tree sowing requires a live map.");
+                ResearchProjectDef research = DefDatabase<ResearchProjectDef>.GetNamed("TreeSowing");
+                if (research.Cost <= 0f)
+                    throw new InvalidOperationException("TreeSowing must have a positive cost.");
+                Dictionary<ResearchProjectDef, float> progress =
+                    (Dictionary<ResearchProjectDef, float>)AccessTools.Field(
+                        typeof(ResearchManager), "progress").GetValue(Find.ResearchManager);
+                Dictionary<ResearchProjectDef, float> saved =
+                    new Dictionary<ResearchProjectDef, float>(progress);
+                try
+                {
+                    // Unregistered test zone: no zone-grid, home-area or selection changes.
+                    Zone_Growing zone = new Zone_Growing();
+                    zone.zoneManager = map.zoneManager;
+                    foreach (IntVec3 cell in map.AllCells)
+                    {
+                        if (!cell.IsPolluted(map))
+                        {
+                            zone.cells.Add(cell);
+                            break;
+                        }
+                    }
+                    if (zone.cells.Count == 0)
+                        throw new InvalidOperationException("No unpolluted test cell.");
+
+                    string[] ordinaryTrees = { "AMJ_Tree_Shii", "AMJ_Tree_Beech",
+                        "AMJ_Tree_Shirabiso", "Plant_TreeOak", "Plant_TreeMaple",
+                        "Plant_TreeBirch", "Plant_TreePine", "Plant_TreeBamboo", "Plant_TreePoplar" };
+                    foreach (string name in ordinaryTrees)
+                    {
+                        ThingDef tree = DefDatabase<ThingDef>.GetNamed(name);
+                        verification.Assert(name + " keeps regional Ground/TreeSowing contract", delegate
+                        {
+                            return tree.plant != null && tree.plant.IsTree &&
+                                tree.plant.sowTags.Contains("Ground") && tree.plant.mustBeWildToSow &&
+                                tree.plant.sowResearchPrerequisites != null &&
+                                tree.plant.sowResearchPrerequisites.Contains(research);
+                        });
+                    }
+
+                    HashSet<string> expected = new HashSet<string>(ExpectedSowableTrees(map.Biome.defName));
+                    HashSet<string> regionalWildTrees = new HashSet<string>();
+                    foreach (ThingDef plant in map.wildPlantSpawner.AllWildPlants)
+                        if (plant.plant != null && plant.plant.IsTree)
+                            regionalWildTrees.Add(plant.defName);
+                    verification.Assert("regional wild tree set equals approved sowing set",
+                        delegate { return regionalWildTrees.SetEquals(expected); });
+
+                    progress[research] = 0f;
+                    verification.Assert("TreeSowing is unfinished in locked-state test",
+                        delegate { return !research.IsFinished; });
+                    HashSet<string> locked = AvailableGrowingZoneTrees(zone, map);
+                    verification.Assert("no ordinary tree selectable before TreeSowing",
+                        delegate { return locked.Count == 0; });
+
+                    progress[research] = research.Cost;
+                    verification.Assert("TreeSowing is finished in unlocked-state test",
+                        delegate { return research.IsFinished; });
+                    HashSet<string> available = AvailableGrowingZoneTrees(zone, map);
+                    verification.Assert("growing-zone tree options equal approved regional set",
+                        delegate { return available.SetEquals(expected); });
+                    ThingDef haimatsu = DefDatabase<ThingDef>.GetNamed("AMJ_Shrub_Haimatsu");
+                    verification.Assert("Haimatsu remains outside growing-zone sowing options", delegate
+                    {
+                        return !PlantUtility.CanSowOnGrower(haimatsu, zone);
+                    });
+                    Log.Message("[AMJ Environment TreeSowing] biome=" + map.Biome.defName +
+                        " expected={" + string.Join(",", expected) + "}" +
+                        " available={" + string.Join(",", available) + "}");
+                }
+                finally
+                {
+                    // IsFinished can insert missing progress entries; restore the whole dictionary.
+                    progress.Clear();
+                    foreach (KeyValuePair<ResearchProjectDef, float> item in saved)
+                        progress.Add(item.Key, item.Value);
+                }
+                return true;
+            });
         }
 
         private static void AddHarvestOutputAssertions(QuickstartVerification verification, Map map, string expected)
@@ -2805,12 +2872,169 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreeOak",
-                    "Plant_TreePoplar",
                     "Plant_TreeMaple",
                     "Plant_TreeBamboo"
                 };
             }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreePoplar",
+                    "Plant_TreeOak"
+                };
+            }
+        }
+    }
+
+    public sealed class AMJTemperateSwampVegetationQuickstart : BiomeTerrainQuickstartBase
+    {
+        protected override string TargetBiomeDefName
+        {
+            get { return "TemperateSwamp"; }
+        }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "Plant_TallGrass"; }
+        }
+
+        protected override string[] SecondaryPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreeWillow",
+                    "Plant_TreeMaple",
+                    "Plant_Brambles"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_Chokevine",
+                    "Plant_TreeCypress"
+                };
+            }
+        }
+
+        protected override bool ValidateAmjBiomeContracts
+        {
+            get { return false; }
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            BiomeDef biome = Find.CurrentMap == null ? null : Find.CurrentMap.Biome;
+            string[] names =
+            {
+                "Plant_TallGrass",
+                "Plant_Brambles",
+                "Plant_Bush",
+                "Plant_TreeWillow",
+                "Plant_TreeMaple",
+                "Plant_Berry",
+                "Plant_HealrootWild"
+            };
+            float[] expected = { 3.2f, 0.8f, 0.2f, 2.0f, 1.0f, 0.05f, 0.05f };
+            for (int i = 0; i < names.Length; i++)
+            {
+                string name = names[i];
+                float value = expected[i];
+                result.Assert("TemperateSwamp " + name + " commonality=" + value, delegate
+                {
+                    ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                    return biome != null && def != null &&
+                        System.Math.Abs(biome.CommonalityOfPlant(def) - value) < 0.001f;
+                });
+            }
+            return result;
+        }
+    }
+
+    public sealed class AMJColdBogVegetationQuickstart : BiomeTerrainQuickstartBase
+    {
+        protected override string TargetBiomeDefName
+        {
+            get { return "ColdBog"; }
+        }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "Plant_TallGrass"; }
+        }
+
+        protected override string[] SecondaryPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_Moss",
+                    "Plant_TreeWillow",
+                    "Plant_TreeBirch",
+                    "Plant_TreeMaple"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_Chokevine",
+                    "Plant_TreeCypress",
+                    "Plant_Astragalus"
+                };
+            }
+        }
+
+        protected override bool ValidateAmjBiomeContracts
+        {
+            get { return false; }
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            BiomeDef biome = Find.CurrentMap == null ? null : Find.CurrentMap.Biome;
+            string[] names =
+            {
+                "Plant_TallGrass",
+                "Plant_Moss",
+                "Plant_Bush",
+                "Plant_TreeWillow",
+                "Plant_TreeBirch",
+                "Plant_TreeMaple",
+                "Plant_Berry",
+                "Plant_HealrootWild"
+            };
+            float[] expected = { 3.4f, 2.6f, 0.3f, 0.6f, 0.6f, 0.6f, 0.07f, 0.05f };
+            for (int i = 0; i < names.Length; i++)
+            {
+                string name = names[i];
+                float value = expected[i];
+                result.Assert("ColdBog " + name + " commonality=" + value, delegate
+                {
+                    ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                    return biome != null && def != null &&
+                        System.Math.Abs(biome.CommonalityOfPlant(def) - value) < 0.001f;
+                });
+            }
+            return result;
         }
     }
 
@@ -3183,8 +3407,18 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreePine",
                     "Plant_TreeBirch"
+                };
+            }
+        }
+
+        protected override string[] ExcludedPlantDefNames
+        {
+            get
+            {
+                return new string[]
+                {
+                    "Plant_TreePine"
                 };
             }
         }
@@ -3236,38 +3470,23 @@ namespace AncientMedievalJapan.Environment.Quicktests
             get { return "AMJ_Shrub_Haimatsu"; }
         }
 
-        protected override string[] SecondaryPlantDefNames
-        {
-            get
-            {
-                return new string[]
-                {
-                    "Plant_TreePine",
-                    "Plant_TreeBirch"
-                };
-            }
-        }
-
         protected override float MaxTargetCellFraction
         {
             get { return 0.05f; }
         }
 
-        protected override string[] LimitedTimberPlantDefNames
+        protected override string[] ExcludedPlantDefNames
         {
             get
             {
                 return new string[]
                 {
+                    "Plant_Dandelion",
+                    "Plant_Astragalus",
                     "Plant_TreePine",
                     "Plant_TreeBirch"
                 };
             }
-        }
-
-        protected override float MaxLimitedTimberCellFraction
-        {
-            get { return 0.01f; }
         }
     }
 

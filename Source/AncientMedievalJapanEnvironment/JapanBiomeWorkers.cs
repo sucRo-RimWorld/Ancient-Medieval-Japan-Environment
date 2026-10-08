@@ -5,17 +5,20 @@ namespace AncientMedievalJapan.Environment
 {
     public static class JapanBiomeScoring
     {
+        public const float WetlandThreshold = 0.5f;
+
         public static bool EligibleLand(Tile tile)
         {
             return tile != null &&
                 !tile.WaterCovered &&
-                tile.rainfall >= 800f;
+                tile.rainfall >= 800f &&
+                tile.swampiness < WetlandThreshold;
         }
 
         public static float BandScore(Tile tile, float centerTemperature)
         {
             // Strong enough to establish the AMJ baseline vegetation bands
-            // over ordinary workers, but intentionally not authoritative:
+            // over broad Vanilla workers, but intentionally not authoritative:
             // specialized biomes from MO or other compatible mods may still
             // win part of the same climate band through normal worker scoring.
             return 38f - System.Math.Abs(tile.temperature - centerTemperature) * 0.25f;

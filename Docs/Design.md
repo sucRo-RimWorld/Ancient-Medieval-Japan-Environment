@@ -1,4 +1,4 @@
-# Ancient & Medieval Japan: Environment — Design
+# Ancient & Medieval Japan - Environment — Design
 
 **Target:** RimWorld 1.6  
 **Repository:** `sucRo-RimWorld/Ancient-Medieval-Japan-Environment`  
@@ -16,6 +16,7 @@ Environment owns:
 - world rivers and their size/frequency;
 - biome definitions and placement;
 - wild vegetation composition;
+- regional tree distribution and the ordinary growing-zone tree species available through that distribution;
 - weather/environmental regional differences;
 - seasonal scenery where it affects the environment.
 
@@ -28,6 +29,23 @@ Environment does not own:
 - animals merely for regional flavor;
 - unrelated farming automation.
 
+### Regional tree sowing contract
+
+樹木の地域分布と、それに連動する通常の植林可能樹種はEnvironmentの責務とする。作物栽培の所有とは分け、AMJE樹木もVanillaの樹木栽培研究後に、その樹種が自然分布する地域で植林できるものとする。
+
+`TreeBase` / `DeciduousTreeBase` 由来の `sowTags=Ground`、`sowResearchPrerequisites=TreeSowing`、`mustBeWildToSow=true` を保持する。AMJE管理Biomeでは、自然植生から除外した通常樹木を植林候補にも残さない。Vanilla Def自体の削除や、他Mod所有Biomeでの植林制限は行わない。
+
+| AMJE Biome | 樹木栽培研究後の通常植林候補 |
+|---|---|
+| `AMJ_WarmTemperateForest` | `AMJ_Tree_Shii`, `Plant_TreeMaple`, `Plant_TreeBamboo` |
+| `AMJ_CoolTemperateForest` | `AMJ_Tree_Beech`, `Plant_TreeOak`, `Plant_TreeMaple`, `Plant_TreeBirch`, `Plant_TreePine` |
+| `AMJ_SubalpineForest` | `AMJ_Tree_Shirabiso`, `Plant_TreeBirch` |
+| `AMJ_AlpineZone` | 通常樹木なし |
+
+`AMJ_Shrub_Haimatsu` は自然低木・伐採資源として残し、植林候補には含めない。樹木の残存監査では自然生成と植林候補を一体で判定する。候補変更時はBiome、上表、静的契約テスト、ロード後のQuickstarts期待値を同じ変更で同期する。
+
+回帰手順と静的／実行時検証の区別は [PlantSowingTests](GoldenPaths/PlantSowingTests.md) を参照。実際のメニュー判定はGround適合だけでなく `PlantUtility.ValidPlantTypesForGrowers` と `Command_SetPlantToGrow.IsPlantAvailable` の両段階を使い、ロード後の継承・研究・野生分布条件を検証する。
+
 AMJ Core remains responsible for the minimum Terrain/Defs required for its agriculture to function. Environment may alter the *distribution/context* of land, but does not become a prerequisite for Core agriculture.
 
 Environment remains technically standalone: AMJ Core, CCTO and Medieval Overhaul are not hard dependencies.
@@ -35,6 +53,10 @@ Environment remains technically standalone: AMJ Core, CCTO and Medieval Overhaul
 However, the **normal AMJ play configuration is expected to coexist with Medieval Overhaul (MO)**. MO compatibility is therefore a first-class design requirement rather than an incidental third-party compatibility case. Environment must not unnecessarily suppress, replace or invalidate MO-owned biomes, plants, terrain or other environmental content when both mods are active.
 
 **Harmony is the sole current technical dependency.** It is used for the post-Vanilla terrain transformation and for temperature-runtime hooks that RimWorld 1.6 does not expose cleanly through Def/XML.
+
+### Public replacement scope
+
+AMJE replaces and reconfigures the generated Vanilla terrain, vegetation, and baseline biome composition for a Japanese-archipelago-inspired environment. This describes the generated result, not wholesale deletion of Vanilla Defs or replacement of the engine pipeline. `EnvironmentTerrainProcessor.Apply` transforms root-surface elevation/coastlines, hilliness, climate and biome selection after Vanilla terrain generation. The four AMJE biome workers take precedence over broad Vanilla workers on eligible land, while wetlands and stronger compatible specialized workers can remain. The current Beta biome mixes still reuse some Vanilla vegetation provisionally alongside AMJE representative plants, but Vanilla vegetation has no default retention right: each reused plant must be re-audited and removed/replaced unless its Japanese distribution, period fit, ecological role, and presentation justify retention. Natural soil distribution is rebalanced without replacing every TerrainDef. Local River / Coast mutators and Vanilla weather/snow/deciduous systems remain the implementation foundation. Public summaries must state both the changed environment and these reuse/coexistence boundaries.
 
 ## 2. Design goal
 
@@ -144,8 +166,6 @@ This is a gameplay abstraction of a mountainous archipelago. "Mountainous countr
 The target should be evaluated statistically over multiple generated worlds rather than requiring exact percentages per seed.
 
 Current Alpha implementation uses a spatial ruggedness score (terrain noise plus elevation influence), ranks generated land tiles by that score, and maps the resulting bands toward the 25/20/25/25/5 target. This replaces the first prototype's incremental promotion rules, which overproduced Small Hills and underproduced Mountainous terrain.
-
-2026-10-07 access revision: after climate and biome assignment, no more than 25% of AMJ Alpine tiles may remain Impassable. Excess Impassable Alpine tiles, starting at the lowest elevation, become Mountainous. Keep elevation and annual temperature unchanged; retain the highest impassable peaks. Other biomes are not changed by this correction. The table above is the pre-correction distribution; the final Mountainous share can increase and Impassable share can fall below 5%.
 
 ### 3.4 Rivers
 
@@ -420,7 +440,7 @@ For Alpha gameplay, use four coarse climate bands:
 
 These thresholds are gameplay approximations, not literal botanical boundaries. The existing Environment temperature/elevation model already makes the same sequence occur both northward and upward.
 
-Wetland degree remains terrain diagnostic data, with **swampiness >= 0.5** recorded as a wet candidate. It no longer selects a separate Vanilla wetland biome or excludes AMJ forest candidates. Such land resolves to an AMJ climate band or an eligible third-party biome. This does not remove local mud/shallow water, rivers, lakes or coastlines.
+Wetlands are treated as a moisture/topography overlay on those climate bands rather than as a separate latitude zone. Initial diagnostic candidate threshold: **swampiness >= 0.5**.
 
 ### 9.2 Biome Def strategy
 
@@ -437,7 +457,7 @@ Instead:
 - start each biome from the nearest Vanilla gameplay profile, then replace vegetation/weather/terrain details deliberately rather than by hidden inheritance;
 - keep exact animal additions outside Environment unless required for biome functionality;
 - allow third-party naturally generated biomes to remain compatible through normal worker scoring rather than globally suppressing all non-AMJ BiomeDefs;
-- replace all twelve Vanilla terrestrial biome candidates with the four AMJ climate bands during Environment's root-surface generation pass: TropicalRainforest, TemperateForest, BorealForest, Tundra, TropicalSwamp, TemperateSwamp, ColdBog, AridShrubland, Desert, ExtremeDesert, IceSheet and SeaIce. Keep their Defs intact; do not globally disable or rename them. Ocean/Lake and other layers remain intact. Third-party biome workers retain normal eligibility and may win a matching climate band through ordinary scoring.
+- treat the four AMJ biomes as **baseline vegetation bands**, not an exclusive world-biome replacement. Specialized biomes from Medieval Overhaul and other compatible mods should be able to replace part of a matching climate band when their own workers score higher.
 
 ### 9.3 ReGrowth 2 reference policy
 
@@ -505,21 +525,19 @@ The first AMJ-owned biome pass is implemented with four BiomeDefs:
 Biome workers:
 - use the accepted annual-mean temperature bands;
 - require rainfall >=800;
-- accept land irrespective of swampiness; Vanilla wetlands are no longer selection candidates;
+- exclude swampiness >=0.5 so existing wetland biomes continue to handle the initial 0.7% wetland minority;
 - return an ordinary score centered near 38, sufficient to establish the AMJ baseline over broad Vanilla workers while intentionally allowing stronger specialized workers from MO or other compatible mods to coexist.
 
 Alpha content policy:
-- world-map textures reuse distinct Vanilla assets: Warm-temperate = `World/Biomes/TropicalRainforest`, Cool-temperate = `World/Biomes/TemperateForest`, Subalpine = `World/Biomes/BorealForest`, Alpine = `World/Biomes/Tundra`. This changes only world display, not climate, biome scoring, vegetation or wildlife;
+- world-map textures temporarily reuse nearest Vanilla biome textures;
 - wild plants use existing Vanilla Defs only;
 - wildlife pools are temporary Vanilla-backed functional placeholders so generated maps are not empty, not a historical fauna specification;
 - no final textures, new plant graphics, regional weather effects, or Japan-specific wild-plant Defs are part of this pass;
 - all placeholder content must be revisited after runtime distribution/map-generation validation.
 
-The validation gate is runtime: generate a representative 30%-coverage world; require zero Vanilla terrestrial biome tiles, eligible AMJ forest candidates across all temperature boundaries even at swampiness=1, at most 25% impassable AMJ Alpine tiles, and continued generation of MO Dark Forest in the optional MO profile. Water and Vanilla biome Defs remain available. Existing worlds are not converted.
+The next validation gate is runtime, not further spreadsheet-style tuning: generate a world and verify that the four AMJ baseline biomes occupy substantial shares, swamp tiles still resolve to wetland/compatibility biomes, and specialized mod biomes can coexist without preventing the AMJ climate bands from appearing.
 
-2026-10-07 local rendered validation passed: seven base/MO reports, 311 assertions, zero startup/runtime errors and complete live logs. The deterministic 30% world has 62,655 land tiles: base profile Warm/Cool/Subalpine/Alpine = 16,663/32,646/12,336/1,010, with zero Vanilla terrestrial residuals. Alpine Impassable fell from 871 to 252 (24.95%). MO Dark Forest remains at 6,996 tiles (11.2%); AMJ Alpine Impassable fell from 726/787 to 196/787 (24.90%). These are one-seed observations, not target biome shares. Reuse [BiomeReplacement.md](GoldenPaths/BiomeReplacement.md) for the gate.
-
-Historical runtime distribution with Medieval Overhaul active, before the 2026-10-07 terrestrial replacement:
+First runtime distribution with Medieval Overhaul active:
 - AMJ WarmTemperate: **27.0%**;
 - AMJ CoolTemperate: **43.7%**;
 - AMJ Subalpine: **7.2%**;
@@ -528,7 +546,7 @@ Historical runtime distribution with Medieval Overhaul active, before the 2026-1
 - Temperate Swamp: **2.0%**;
 - remaining Vanilla tropical/temperate biomes: small residual shares.
 
-This was accepted under the previous coexistence policy; Vanilla residuals and wetlands are no longer accepted after the 2026-10-07 revision. MO Dark Forest remains eligible through its own worker. Exact AMJ biome percentages are mod-list dependent, not balance targets.
+This is accepted as a valid coexistence result rather than treated as an AMJ-band failure. MO Dark Forest is a specialized naturally generated biome with its own score rules and is allowed to replace part of the otherwise suitable AMJ cool/subalpine climate space. Exact AMJ biome percentages are therefore mod-list dependent and are not balance targets.
 
 
 ### 9.6 Japan-specific structural wild vegetation
@@ -556,8 +574,9 @@ Alpha structural set:
 | Alpine | `AMJ_Shrub_Haimatsu` / haimatsu dwarf pine | low alpine scrub dominant above treeline |
 
 Scope rules:
-- keep the set deliberately small; generic grass, moss, brambles, bushes and secondary tree components continue to reuse Vanilla PlantDefs;
-- keep some Vanilla oak/maple/birch/pine/bamboo in the biome pools at lower commonality so maps do not imply untouched single-species climax forest and can also stand in for secondary vegetation during Alpha;
+- the four AMJE structural plants remain the initial minimum custom set, but generic grass, moss, brambles, bushes, and secondary trees are **not** permanently delegated to Vanilla by default;
+- current reuse of Vanilla oak/maple/birch/pine/bamboo and other filler vegetation is a Beta implementation shortcut, not a historical-design justification. Before the post-Beta vegetation/art pass, audit every reused plant for Japanese distribution, pre-Edo period fit, ecological/landscape role, and whether its Def/description/graphic can represent the intended Japanese vegetation without distortion;
+- only plants that pass that audit remain in AMJE biome pools. Others are removed, replaced by a more suitable AMJE plant, or left outside AMJE-controlled biome vegetation;
 - add no new food, medicine, fiber or other harvested item types in this pass. Gatherable-resource design belongs to the relevant AMJ resource/gathering systems and should be coordinated separately;
 - 2026-10-06 wood-yield update: Haimatsu provides a small amount of existing wood (base yield 8), while retaining its low BushBase form. The other base yields are Shii42/Beech40/Shirabiso30. Vanilla yields WoodLog; MO's enabled wood-chain patch substitutes DankPyon_RawWood. This adds no new resource Def. Verify actual cutting outputs with `Docs/GoldenPaths/PlantHarvestTests.md`.
 - the three AMJ trees yield ordinary Vanilla wood only;
@@ -843,6 +862,86 @@ Environmentでは特に以下を固定する。
 - 外部Modの配布テクスチャを複製・改変再配布するのではなく、Environmentが権利上問題のない独自テクスチャを所有し、Patchから参照する。
 - 機能・分布検証が不安定なAlpha段階ではプレースホルダーを許容するが、**Environmentの最終アート工程には、AMJE独自植物だけでなく必要なVanilla / MO前提資産のリテクスチャも含める。**
 - 既存のENV-010対象となっているVanilla/MO樹木リテクスチャは、このEnvironment所有原則に基づく正式な作業であり、別Retexture Modへ移管しない。
+
+### 11.5.5 既存樹木の再精査と説明統一
+
+既存Vanilla / Medieval Overhaul樹木については、**現在残しているという事実をそのまま採用理由にしない**。ポストBetaのリテクスチャ工程へ入る前に、まず各樹木をAMJEの植生として残す必要があるかを再監査する。
+
+監査順序は以下とする。
+
+1. AMJEの対象地域・対象時代・4植生帯・景観上の役割に照らし、その既存樹木を残す必要があるか判定する。
+2. 不要・不適切・代替済みの樹木は、リテクスチャ対象へ自動的に残さず、分布からの除外・置換・非採用を検討する。
+3. 残すと判断した樹木だけをEnvironment所有のリテクスチャ対象とする。
+4. 残す既存樹木の説明文は、継承元のVanilla / MO文をそのまま残さず、AMJ共通のHistorical Description Guidelinesと現在のAMJE植物説明フォーマットに沿って日本語から再監査・再記述し、承認後に英訳する。
+
+AMJE植物説明フォーマットは、現行の独自4植物と同様に、原則として**名称・別名 → 日本での分布／生態 → 古代～中世日本での利用・景観・文化的文脈 → 現代との差異や現代利用（裏付け可能な場合）**の順とする。直接史料が弱い場合は用途を捏造せず、景観・分布文脈に留める。
+
+この説明監査には、文化的・歴史的文脈を欠くVanilla説明の補正も含む。特に竹を「美しくない」とするVanillaの文化的に偏った説明は修正対象とし、竹をAMJEに残すかの植生監査と分離せず同じ工程で扱う。
+
+したがってポストBetaの既存樹木作業は、**retention audit（残すか） → distribution/ownership decision → description rewrite → retexture** の順を基本とし、「既存樹木をすべて残してから描き直す」ことは前提にしない。
+
+### 11.5.6 Vanilla自然植物の残存ゲートと樹木量保全
+
+Vanilla自然植物は、既存のBiomeDefに入っていること自体を採用理由にしない。AMJEの各植生帯へ残す場合は、少なくとも以下を満たすこと。
+
+- 日本列島の対象植生帯に対応できる分布・生態上の理由がある。
+- 古代～中世というAMJ対象時代に対して明白な時代外来種・未来植物ではない。
+- Vanilla Defの名称・外観・季節挙動を、日本側の植物群・景観の代理として扱っても別物へのすり替えにならない。
+- AMJE所有の代表植物と役割が重複する場合は、残す側に副次林・林床・遷移帯など明確な役割がある。
+
+GenericなGrass / Moss / Bush / Brambles等は、特定の外来種を主張しない林床・草地フィラーとして残してよい。これに対し、樹木や固有名を持つ草本は個別監査する。
+
+**樹木を削除するときは植生密度と木材供給を別問題として確認する。** `wildPlants` commonalityから木を単純削除すると、総 `plantDensity` が同じでも選択比率が草本へ移り、結果として森林の樹木量・木材量だけが落ち得る。そのため、森林帯で既存樹木を除外する場合は、削除理由と独立した理由がない限り、削除した樹木commonalityをその帯に妥当なAMJE所有樹木または残存樹木へ再配分し、監査前の木本比率を概ね維持する。
+
+例外は高山帯の森林限界で、通常高木を削除した分を別の高木で埋め戻してはならない。この場合はハイマツ等の低木性木本へ必要分だけ再配分し、「木本植生は維持するが通常高木は生やさない」構造を優先する。
+
+2026-10-08監査後の残存方針:
+- 暖温帯: Maple / Bambooを残し、主構造はSudajiiへ集約。Vanilla Poplar / Oakは除外。
+- 冷温帯: Oak / Maple / Birch / Pineを副次樹木として残す。Oakはナラ類、Birchはカバノキ類、Pineはアカマツ系二次林を表す汎用代理として扱い、後続の説明・外観監査対象とする。
+- 亜高山帯: Birchをダケカンバ系の副次高木として残し、汎用Pineは除外してShirabisoへcommonalityを移す。
+- 高山帯: 通常高木Pine / Birchと汎用Dandelion / Astragalusを除外し、Haimatsu・Grass・Mossへ再配分する。
+- Berryは特定種を断定しない採集用低木、Grass / TallGrass / Brambles / Moss / Bushはgenericな林床・草地要素として当面残す。
+
+Vanilla湿地Biomeも同じ残存ゲートの対象とする。AMJEの4植生帯は `swampiness < 0.5` の陸地を基準にし、湿潤地では `TemperateSwamp` / `ColdBog` が共存できるため、そこに残る `wildPlants` を監査しないとVanilla植生が湿地経由で再流入する。
+
+2026-10-08湿地監査:
+- `TemperateSwamp`: Chokevine 0.80をBrambles 0.80へ、Cypress 1.00を削除してWillow 1.00→2.00へ移す。総commonality **7.30**、木本commonality **3.00**を維持する。
+- `ColdBog`: Chokevine 3.00をTallGrass +1.00 / Moss +2.00へ、Astragalus 0.10をMossへ、Cypress 0.60をBirch 0.60へ置換する。総commonality **8.22**、木本commonality **1.80**を維持する。
+- Willowは日本の湿地・河畔に対応可能な汎用ヤナギ類代理、Mapleは在来カエデ類代理として残す。ColdBogのBirchは冷温帯～亜高山帯で既に採用しているカバノキ類代理を流用する。
+- Vanilla Cypressは湿地性のVanilla樹木であり、日本のヒノキを表す代理としては扱わない。
+- `Plant_HealrootWild` はこの湿地監査では一時的に維持し、後続のHealroot→Yomogi置換時に湿地からも除外する。ヨモギは湿地Biomeの既定構成には追加しない。
+
+`Plant_HealrootWild` はRimWorld固有の架空植物であり、AMJEの最終的な自然植生には残さない。ただし、野生薬草採集ループを途中で失わせないため、AMJE側の日本向け薬草植生が十分に実装・検証されるまで暫定維持する。ヨモギ（`AMJ_Plant_Yomogi`）は不足植生追加段階で先に導入してよく、その追加とHealroot削除を同一変更へ固定しない。ヨモギの主分布は暖温帯・冷温帯とし、亜高山帯・高山帯・Vanilla湿地Biomeには原則配置しない。収穫物はゲームプレイ上の抽象化として少量の `MedicineHerbal` を候補とするが、ヨモギ単独が万能薬であるという史実主張にはしない。
+
+### 11.5.7 植生整備ロードマップ
+
+Environmentの植生整備は、以下の順序を正本とする。
+
+1. **不要なVanilla樹木・植生と、そこから再流入する不適切なBiome bundleを整理する。** 古代～中世日本の植生として残す根拠が弱いものを除外し、必要に応じて木本・総植生commonalityを妥当な日本側植物へ再配分する。AMJE-owned 4植生帯の主要植物監査は2026-10-08時点で完了したが、`TemperateSwamp` / `ColdBog` は植物だけでなく野生動物・病気・天候・説明を含むBiome全体の採用監査を完了してからStep 1を閉じる。
+2. **残すVanilla樹木・植物の説明文を先に監査・承認し、その後にリテクスチャする。** 日本語説明をHistorical Description GuidelinesとAMJE形式へ直し、名称・分布・生態・古代～中世日本での利用／景観文脈が妥当であることを確認してから、AMJE/MO系の画風へ揃える。説明未監査の対象を先に描き直さない。Medieval Overhaul由来の採用植生も同じ `retention → description → retexture` 原則に従う。
+3. **不足している古代～中世日本の自然植生を追加する。** 既存Vanilla/MO代理では表現しにくく、Environmentの自然景観として意味がある樹木・草地・湿地植物・伝統薬草等を対象とする。ヨモギ等の薬草はこの段階で追加・検証する。主目的が果実・木の実・加工・採集ゲームプレイになる植物は、Environmentへ抱え込まずHunting & Gathering / Preservation等の自然な所有先と分担する。
+4. **Wild Healrootを最終段階で削除する。** Step 3の薬草植生と供給量・分布・収穫挙動が成立したことを確認した後、`Plant_HealrootWild` をAMJE対象Biomeと共存Vanilla湿地から除外し、必要なら植生commonalityを再調整する。栽培用 `Plant_Healroot` はこの自然植生ロードマップの対象外とする。
+
+この順序は、植生の正当性を決める前にアートへ投資したり、代替薬草が整う前にHealrootを消したりすることを避けるためのものである。
+
+### 11.5.8 Vanilla湿地Biomeの採用監査
+
+2026-10-08の再監査では、`TemperateSwamp` / `ColdBog` について「湿地だから残す」だけでは不十分と判定した。
+
+**結論:** 湿地環境自体は日本列島の自然環境として必要であり、両Vanilla BiomeDefの名称・基本Worker・mud / marsh / shallow water等の地形生成はgenericな湿地基盤として再利用してよい。互換性上の利点も大きいため、現段階では新しいAMJE湿地BiomeDefへ分離しない。
+
+ただし、AMJEが両Biomeを採用する以上、`wildPlants` だけをPatchした状態を最終形とはしない。以下はEnvironmentの監査対象とする。
+
+- **野生動物:** Vanilla湿地にはRaccoon / Ibex / Muffalo / Alpaca / Megasloth / Rhinoceros / Arctic Fox / Polar Bear / Lynx等、AMJEのJapan-oriented wildlife proxy policyと矛盾する候補が多数残る。湿地でも4基準Biomeと同じproxy原則へ揃える。
+- **病気:** VanillaのFlu / Plague / Malaria / parasites / Mechanites等のbundleを、そのまま日本の湿地性疾患として採用しない。AMJの時代・Incident方針と整合させて再監査する。
+- **天候:** Vanilla湿地のDryThunderstorm 1および暖冷湿地共通のSnow 4/4は、AMJEの湿潤気候・温度帯別weather baselineと不整合なので補正対象とする。
+- **説明:** 「diseaseにchoked」「trees and vines」といったVanilla汎用過酷Biome説明を残さず、日本の湿原・沼沢地の生態と景観へ書き換える。
+- **植生:** Phase 5のChokevine / Cypress / Astragalus除外とcommonality再配分は維持する。不足するヨシ・スゲ・ハンノキ・ミズゴケ等はStep 3で追加候補とする。
+- **地形:** MarshyTerrain / Mud / WaterShallow / MossyTerrain / Marsh等による湿地構造は再利用候補として維持し、Step 1では新規地形追加を要求しない。
+
+日本の湿地は低地のヨシ・スゲ湿原、ハンノキ林、ミズゴケ高層湿原等を含み、温暖側から冷涼側まで広く存在するため、TemperateSwamp / ColdBogというgenericな二類型自体には残存理由がある。正本の詳細監査は `Docs/VanillaWetlandBiomeAudit-ja.md` とする。
+
+**Step 1の完了条件:** 両湿地のwildAnimals / diseases / weather / descriptionをAMJE方針へ揃え、loaded Defテストで不適切な植物・動物の再流入がないこと、湿地地形生成が維持されること、world上の湿地比率が不意に消失・急増していないことを確認する。これが通るまでStep 2の既存植物説明監査へ移行しない。
 
 
 ## 12. Seasonal scenery baseline

@@ -17,7 +17,7 @@ class EnvironmentArtRuleStructureTest(unittest.TestCase):
     def test_agents_is_routing_layer(self):
         text = read("AGENTS.md")
         for required in (
-            "Core `Docs/ArtStyle.md`",
+            "Ancient-Medieval-Japan-Grains `Docs/ArtStyle.md`",
             "`Docs/ArtDirection.md`",
             "`Docs/GoldenPaths/RetextureGeneration.md`",
             "`Docs/GoldenPaths/TextureAssetPipeline.md`",
@@ -46,7 +46,7 @@ class EnvironmentArtRuleStructureTest(unittest.TestCase):
 
     def test_retexture_generation_assembles_current_rules(self):
         text = read("Docs/GoldenPaths/RetextureGeneration.md")
-        self.assertIn("Core `Docs/ArtStyle.md`", text)
+        self.assertIn("Ancient-Medieval-Japan-Grains `Docs/ArtStyle.md`", text)
         self.assertIn("Do not maintain a second frozen style prompt", text)
         self.assertIn("do not add a mandatory extra approval round", text.lower())
         for forbidden in (
@@ -60,19 +60,19 @@ class EnvironmentArtRuleStructureTest(unittest.TestCase):
 
     def test_art_direction_explicitly_inherits_shared_style(self):
         text = read("Docs/ArtDirection.md")
-        self.assertIn("inherit the project-wide invariants in Core `Docs/ArtStyle.md`", text)
+        self.assertIn("inherit the project-wide invariants in Ancient-Medieval-Japan-Grains `Docs/ArtStyle.md`", text)
         self.assertIn("restrained soft gradient variation is allowed", text)
         self.assertIn("explicit class difference from the flatter Core crop/item budget", text)
 
     def test_golden_path_index_does_not_claim_frozen_prompt(self):
         text = read("Docs/GoldenPaths/README.md")
-        self.assertIn("current Core+Environment style-rule assembly", text)
+        self.assertIn("current Grains+Environment style-rule assembly", text)
         self.assertNotIn("shared prompt", text)
         self.assertNotIn("proposal/approval sequence", text)
 
     def test_texture_pipeline_points_to_shared_fixed_policy_only(self):
         text = read("Docs/GoldenPaths/TextureAssetPipeline.md")
-        self.assertIn("Core `Docs/GoldenPaths/FixedImageTemplates.md`", text)
+        self.assertIn("Ancient-Medieval-Japan-Grains `Docs/GoldenPaths/FixedImageTemplates.md`", text)
         self.assertNotIn("Same style does not mean identical parts", text)
         self.assertNotIn("zero protected RGBA pixel differences", text)
 
