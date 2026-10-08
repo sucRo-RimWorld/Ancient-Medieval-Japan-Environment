@@ -17,5 +17,7 @@ jobs:
         run: python Tests/validate_workshop_payload.py
       - name: Reject stale sources, wrong upload roots and payload mutations
         run: python Tests/test_workshop_payload.py && python Tests/test_workshop_pickle.py
+      - name: Validate RimTest and development Pickle automation contract
+        run: python Tests/test_framework_automation.py
       - name: Compile publication tooling
-        run: python -m py_compile Scripts/Build-WorkshopPayload.py Scripts/Run-WorkshopPayloadTests.py Scripts/Combine-WorkshopPayloadResults.py Scripts/Run-WorkshopPickle.py Scripts/Audit-WorkshopUploadSource.py Scripts/Build-ReleaseCandidate.py
+        run: python -m py_compile Scripts/Build-WorkshopPayload.py Scripts/Run-WorkshopPayloadTests.py Scripts/Combine-WorkshopPayloadResults.py Scripts/Run-WorkshopPickle.py Scripts/EnvironmentFrameworkTestCommon.py Scripts/Run-EnvironmentRimTest.py Scripts/Run-DevelopmentPickle.py Scripts/Audit-WorkshopUploadSource.py Scripts/Build-ReleaseCandidate.py
