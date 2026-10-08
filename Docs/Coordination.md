@@ -1,5 +1,16 @@
 # AMJ Environment Coordination
 
+### ENV-WETLAND-DESCRIPTIONS-20261008 — approved bilingual description implementation
+
+**Owner:** Environment / retained Vanilla wetland localization  
+**Status:** IN PROGRESS — author-approved Japanese source; [draft PR #28](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/28) pending new loaded-description runtime PASS
+
+- On 2026-10-08 the author approved the two Japanese texts presented in the chat for `TemperateSwamp` and `ColdBog`; preserve those exact approved sentences. The source-of-truth is now `Docs/VanillaWetlandBiomeAudit-ja.md` in PR #28.
+- PR #28 commit `7bdc8f1a65659d918285c072bbfc458f2b38aca9` implements English description-only `PatchOperationReplace` operations and Japanese `BiomeDef` DefInjected, with exact bilingual static contract and loaded-BiomeDef EN/JA assertions added to the existing wetland Quickstarts.
+- This is not a new BiomeDef, plant, weather, biome label, or gameplay change. Keep EN/JA semantic parity and the approved Japanese unchanged.
+- **Evidence boundary:** the author-reported PR #27 nine-scenario PASS predates these added assertions, so it does not prove the new description tests. Static CI and a fresh installed-game `run-tests.bat` still need reconciliation before marking the description step runtime-verified. The four-profile matrix remains separate.
+- After the runtime gate, assess the remaining Step 1 requirements and unblock `ENV-RETEX-012` only if its documented dependencies are satisfied. No request for the user to relay to a different workstream.
+
 ### ENV-WETLAND-NATURAL-DISTRIBUTION-002 — independent natural-world wetland gate (2026-10-08 JST)
 
 **Owner:** Environment / world distribution test  
@@ -10,13 +21,13 @@
 - All five PR checks (two PowerShell, tree-sowing contract, plant visual coverage, Workshop payload) returned **SUCCESS**. These are static/infrastructure results, not installed RimWorld runtime evidence.
 - Follow-up PR #27 commit `76fa4435045414426f492dd47d7cfd9e6ceb3a0e` optimizes settlement-suitability probing across the 30%-coverage world, adds `candidateShare` and `wetlandOfCandidates` diagnostic fields, and gives only the ninth scenario a 420-second timeout. The original eight retain their default timeout. Updated branch CI and post-merge CI are **5/5 PASS**. The author reported the new test passed; its detailed runtime results were not attached.
 - **Acceptance on 2026-10-08:** author explicitly reported that the new test passed; the PR was merged only after this report and successful static CI. This is **author-reported runtime PASS**, not independent validation of the nine `.json`/`.log` reports. Exact assertion counts, world wetland candidate/selected shares, live-capture completeness and the owned ERROR gate are not independently audited without those artifacts. Never infer a numerical wetland share or a calibrated historical frequency from the report. The distinct four-profile matrix remains open.
-- Confirmed design/test intent belongs to `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` and `Docs/GoldenPaths/RenderedRuntimeTests.md` in that PR. `ENV-WETLAND-BIOME-001` remains OPEN; Japanese-first wetland descriptions still await approval.
+- Confirmed design/test intent belongs to `Docs/VanillaWetlandBiomeAudit-ja.md`, `Docs/Design.md` and `Docs/GoldenPaths/RenderedRuntimeTests.md` in that PR. `ENV-WETLAND-BIOME-001` remains OPEN; the wetland descriptions are now author-approved and implemented in PR #28, with post-change loaded-description runtime verification pending.
 
 ### TEST-ENV-UNIFIED-20261008 — unify parallel AMJE test and wetland development tracks
 
 **Requested by:** author (2026-10-08 JST)  
 **Owner:** Environment / runtime testing and wetland development — one shared handoff  
-**Status:** IN PROGRESS — prior base 8/8 and CCTO runner PASS evidenced; newer 9-scenario run and Highland-fix Grains/Core integration author-reported PASS; detailed world-share numbers, descriptions, four-profile matrix pending
+**Status:** IN PROGRESS — prior base 8/8 and CCTO runner PASS evidenced; newer 9-scenario run and Highland-fix Grains/Core integration author-reported PASS; detailed world-share numbers, new description test runtime PASS, four-profile matrix pending
 
 The author requested integration of the separate test chat with the current wetland/vegetation development chat. These now use the **same authoritative main** and `run-tests.bat` as the standard local automated entry; no duplicate branch, competing test scope, or user-mediated relay is required. PR #27 added the ninth natural-world wetland distribution scenario; the author reports that test PASSED. Earlier eight-scenario counts below remain historical evidence, not fresh logs for this ninth scenario.
 
