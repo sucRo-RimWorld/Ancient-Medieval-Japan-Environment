@@ -2,7 +2,7 @@
   "schema_version": 1,
   "feature": "Four AMJ Environment wetland-native plants (Yoshi, Suge, Hannoki, Mizugoke)",
   "owner": "sucRo-RimWorld/Ancient-Medieval-Japan-Environment",
-  "scope": "DLC-free standalone naturally generated Japanese wetlands; four owned PlantDefs with no new harvested products, processing or medical mechanics. Existing Mods are optional coexistence targets only.",
+  "scope": "DLC-free standalone naturally generated Japanese wetlands with four Environment-owned PlantDefs. Suge may yield existing Vanilla Hay with optional MO Hay-to-Straw processing (approved integration; yield unapproved); Mizugoke is selectable and cuttable, non-harvestable and non-sowable. No new material ThingDefs or independent crafting/medicine subsystem. Other Mods remain optional coexistence targets.",
   "status": "ready",
   "search": {
     "date": "2026-10-09",
@@ -25,7 +25,7 @@
     {
       "id": "environment-step3-xml-audit-20261009",
       "path": "Docs/Research/WetlandPlantExistingModAudit-ja.md",
-      "sha256": "76c66433271eb706bd531fe14c46150dcbb827b5bddc34a195bfe68a8cbdded9"
+      "sha256": "6c9c2c8453ee5dfc512af81634ce33e50439c6d4d3742b6e35ea28480ed469c7"
     }
   ],
   "candidates": [

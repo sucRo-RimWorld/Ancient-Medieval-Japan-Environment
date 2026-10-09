@@ -23,6 +23,7 @@ FIXTURE = """
     <defName>AMJ_Plant_Suge</defName>
     <selectable>true</selectable>
     <plant>
+      <harvestTag>Standard</harvestTag>
       <harvestedThingDef>Hay</harvestedThingDef>
       <harvestYield>1</harvestYield>
     </plant>
@@ -62,6 +63,8 @@ def inspect_plant(definition: ET.Element, species: str) -> list[str]:
     if species == SUGE:
         if plant.findtext("harvestedThingDef") != "Hay":
             problems.append("Suge: primary output must be Vanilla Hay")
+        if plant.findtext("harvestTag") != "Standard":
+            problems.append("Suge: harvestTag must use Vanilla Standard")
         if plant.find("harvestYield") is None:
             problems.append("Suge: output requires a positive harvestYield")
         else:
@@ -119,6 +122,14 @@ class WetlandMaterialPlantContract(unittest.TestCase):
         )
         self.assertIn(
             "Suge: no unconditional Medieval Overhaul item reference",
+            inspect_plant(definition, SUGE),
+        )
+
+    def test_suge_must_have_standard_harvest_tag(self):
+        definition = self.fixtures()[SUGE]
+        definition.find("plant").remove(definition.find("plant/harvestTag"))
+        self.assertIn(
+            "Suge: harvestTag must use Vanilla Standard",
             inspect_plant(definition, SUGE),
         )
 

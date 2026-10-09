@@ -15,7 +15,7 @@
 ## スゲ — PlantDef実装形状の確定部分
 
 - DefNameは`AMJ_Plant_Suge`、ベース候補は`ParentName=PlantBase`（**継承後の実ロード確認が必要**）。
-- 選択可能。野生植物としての基本表示と、`harvestedThingDef=Hay`を基本構成に記載。MOが存在しなくても`DankPyon_*`参照なしでロードする。
+- 選択可能。野生植物としての基本表示と`harvestedThingDef=Hay`を基本構成に記載。**Vanilla既存の収穫対象植物（Haygrass等）が持つ`harvestTag=Standard`を候補Defに明示し、通常の収穫Jobで有効かロード済みDef／実機で確認する。** MOが存在しなくても`DankPyon_*`参照なしでロードする。
 - `harvestYield`は**必須となるが数値は未承認**。自動テストの仮値`1`は例示であり採用値ではない。
 - 野生の新植物を自動で栽培可能にしない：`sowTags`や農業研究設定を無断追加せず、最終の継承後`sowTags`・栽培メニューを確認する。
 - MO時もスゲから`DankPyon_Straw`を直接落とさず、`Hay`一種類だけを採取する。MO乾燥棚の加工工程と二重採取を混同しない。
@@ -32,7 +32,7 @@
 
 `Tests/test_wetland_material_plant_contract.py` は、**実際の収穫機能やUIの成功を証明しない**静的形状の回帰テスト。
 
-- **スゲ:** Vanilla`Hay`の取得先、正の`harvestYield`が将来Defに必要、MO専用アイテムへの置換や新規直接副産物なしを検査する。
+- **スゲ:** Vanilla`Hay`の取得先、正の`harvestYield`が将来Defに必要、**`harvestTag=Standard`明示**、MO専用アイテムへの置換や新規直接副産物なしを検査する。タグを付けただけで収穫可能と主張せず、本番の収穫Jobを実機テストする。
 - **ミズゴケ:** 選択可能、収穫先なし、播種設定なし、除去を妨げる明示的設定なしを検査する。
 - 未実装中は、モックDefに対する正例と誤設定の変更テストを実行する。**実PlantDefの検査は存在しない間SKIP**と明示する。新Defが追加されれば、同じ検査がそのDefに対して働く。基本画像・本文・配分や既存セーブのゲートはこれとは別。
 - 実ロード後は**Vanilla / MO / CCTO / MO+CCTO**で、成熟前後の選択／命令（Harvest/Cut）／切り倒し後のドロップ／栽培リスト、MO乾燥棚でのStraw生成、既存セーブの読み戻しを実地でチェック。数値・画像・日本語説明が作者承認されるまで、本番Defに着手しない。
