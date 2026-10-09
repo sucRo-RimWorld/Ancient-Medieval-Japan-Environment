@@ -7,12 +7,18 @@
 
 | 対象 | 根拠と確認できる範囲 | 本文で避ける主張 |
 |---|---|---|
-| 葦（ヨシ・アシ） | [環境省釧路湿原の特徴](https://www.env.go.jp/nature/nationalparks/list/kushiro-shitsugen/feature/) は低層湿原のヨシ・スゲとハンノキ林を、高層湿原のミズゴケと区別する。[文化庁2025年3月19日発表](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/94187001.html) は「茅」素材の一つとして葦（よし）を挙げ、古来の屋根葺き材に含める。 | 中世の地域別消費量／全建物の屋根材／採取設備や収穫アイテムがAMJEで利用可能だという主張。 |
+| 葦（アシ・ヨシ） | [環境省釧路湿原の特徴](https://www.env.go.jp/nature/nationalparks/list/kushiro-shitsugen/feature/) は低層湿原のヨシ・スゲとハンノキ林を、高層湿原のミズゴケと区別する。[文化庁2025年3月19日発表](https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/94187001.html) は「茅」素材の一つとして葦（よし）を挙げ、古来の屋根葺き材に含める。 | 中世の地域別消費量／全建物の屋根材／採取設備や収穫アイテムがAMJEで利用可能だという主張。 |
 | 菅（スゲ） | [國學院大學「万葉神事語辞典」すげ](https://jmapps.ne.jp/kokugakuin/det.html?data_id=32059) は「すが」という別称、スゲ属の総称、万葉集に菅および菅笠を題材にした歌があること、笠・蓑への利用を記す。[環境省釧路湿原自然再生プロジェクト資料](https://kushirodata-center.env.go.jp/webgis/webgis_article2_5.html) は低層湿原にヨシ・スゲとハンノキ、高層湿原にミズゴケを対応させる。 | 万葉集の「菅」の全例を今回描く同一の生物種と決めつけること。菅笠や蓑のRecipe／収穫が実装済みという主張。 |
 | 榛の木（ハンノキ） | [森林総合研究所「関東地方の遺跡出土材の識別による木材利用史の解明」](https://www.ffpri.go.jp/pubs/seikasenshu/2000/p20.html) は縄文期の関東中央部の谷にヤチダモ・**ハンノキ属**の湿地林が成立していたことを示す。[環境省釧路湿原の特徴](https://www.env.go.jp/nature/nationalparks/list/kushiro-shitsugen/feature/) は低層湿原でハンノキが主体の植生を示す。 | 古代すべてのハンノキ属＝現代のハンノキ単一種という同定、特定の木製品の主要材だという断定、現代分布比率を中世全国へ外挿すること。 |
 | 水苔（ミズゴケ類） | [環境省釧路湿原自然再生プロジェクト](https://kushirodata-center.env.go.jp/webgis/webgis_article2_5.html) は高層湿原のミズゴケ群落を示し、[環境省「別寒辺牛湿原」](https://www.env.go.jp/nature/important_wetland/wetland/w033.html) は高層湿原の具体的なミズゴケ類を記載する。 | 中世日本での薬用・資材利用、全国全湿地への分布、古代の全国湿原面積比について、該当する史料なしに断定すること。 |
 
 **重要な限界:** 生態情報の主要出典は現代の北海道の湿原であり、それだけで古代～中世の本州・四国・九州の湿地の面積構成や頻度は証明できない。縄文期の関東湿地林に関する学術成果も古代～中世全期間の同一分布を証明しない。描く植物を「環境を表す代表要素」として限定し、史実の全国一律再現とは表現しない。
+
+## 葦（アシ／ヨシ）の呼称監査（2026-10-10）
+
+- [国立科学博物館「ヨシ」](https://www.kahaku.go.jp/research/activities/project/hotspot_japan/ryukyus/db/S576.html)は**標準和名ヨシ**、別名アシと記載。[国交省太田川水系「ヨシ（アシ）」](https://www.cgr.mlit.go.jp/ootagawa/Bio/plants/index082.htm)はアシが古い呼称と説明する。
+- AMJの日本語レビュー草案では歴史的な読み方を優先して**「葦（アシ、ヨシとも呼ぶ）」**を先頭にする。全国でどちらが多数派かを示す定量資料は確認していないため、その優劣は断定しない。
+- 内部Def名`AMJ_Plant_Yoshi`と既存の植物学的資料でのヨシ表記は維持し、ゲーム内の日本語表示名・説明のみアシ優先を検討する。作者の正式本文承認・翻訳・実装は別。
 
 ## 出典原文の再確認と草案修正（2026-10-10）
 
