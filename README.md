@@ -67,7 +67,7 @@ These bands are not prefectural or regional borders. They are a gameplay simplif
 
 The temperature thresholds are therefore approximations for RimWorld rather than literal botanical boundaries. AMJE uses these four BiomeDefs as **baseline vegetation bands**, not as an exclusive replacement for every other biome. Wetlands and stronger specialized biome workers from compatible mods such as Medieval Overhaul can still coexist where their own conditions fit.
 
-The design also avoids presenting every map as untouched climax forest. Human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions, but that does **not** justify retaining arbitrary Vanilla vegetation. The first broad retention pass is now largely complete: Vanilla Poplar and Oak were removed from the warm-temperate forest, generic Pine from the subalpine forest, and generic Pine, Birch, Dandelion, and Astragalus from the alpine zone. Their removed woody share was reassigned to Sudajii, Shirabiso, and Haimatsu so the cleanup does not accidentally thin the intended forest structure. RimWorld's fictional Wild Healroot is retained temporarily and is scheduled for removal only at the final vegetation-cleanup stage, after Japanese medicinal vegetation has been added and validated.
+The design also avoids presenting every map as untouched climax forest. Human activity from the Yayoi period through the medieval period increased pine woodland, grassland, and secondary-forest signatures in many settled regions, but that does **not** justify retaining arbitrary Vanilla vegetation. The first broad retention pass is now largely complete: Vanilla Poplar and Oak were removed from the warm-temperate forest, generic Pine from the subalpine forest, and generic Pine, Birch, Dandelion, and Astragalus from the alpine zone. Their removed woody share was reassigned to Sudajii, Shirabiso, and Haimatsu so the cleanup does not accidentally thin the intended forest structure. Existing wild/cultivated Healroot and MedicineHerbal supply remain. Medicinal plants and remedies belong to a future separate medicine Mod, not Environment.
 
 ### Structural Japanese vegetation
 
@@ -150,6 +150,20 @@ The custom biomes use a curated set of Vanilla animals as functional gameplay pr
 
 These are gameplay proxies, not literal historical-species claims. Japan-specific animals or retextures belong in a separate content feature/mod if added later.
 
+### Vanilla wetlands and retained-tree updates
+
+AMJE retains Vanilla's Temperate Swamp and Cold Bog workers, labels, marsh/mud/shallow-water terrain, movement difficulty and basic densities. The following changes are implemented:
+
+- Replace unsuitable wild-plant pools while preserving total and woody commonality.
+- Rebalance wetland wildlife and exclude unsuitable pack-animal candidates.
+- Change wetland disease types, weights and average intervals, removing mechanite diseases and retaining reduced malaria only in warmer wetlands.
+- Reweight wetland rain, fog, storms and snow by wetland climate.
+- Rewrite both wetland descriptions and the descriptions of six retained Vanilla trees (Bamboo, Maple, Oak, Birch, Pine and Willow) in Japanese and English, without changing those trees' stats.
+- Restrict regional tree-sowing choices to the natural distribution; alpine Haimatsu remains wild-only.
+- Provide the four representative plants' native cutting wood outputs.
+
+Candidate additions of Yoshi reed, Suge sedges, Hannoki alder and Mizugoke sphagnum moss are not implemented. Existing-tree Vanilla/MO retextures also remain deferred.
+
 ## CCTO integration
 
 **Crop Cold Tolerance Overhaul is optional.**
@@ -223,18 +237,16 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-The four AMJE representative plants are implemented. The first broad Vanilla-vegetation retention pass is largely complete, with unsuitable inherited plants removed while intended woody density is preserved through rebalancing. The next vegetation step is to audit and rewrite the descriptions of retained Vanilla plants before retexturing them. Real-play balance/compatibility feedback may still refine the current baselines.
+The four structural plants, retained-tree descriptions, and wetland vegetation/wildlife/disease/weather/description adjustments are implemented. New wetland-plant candidates and retained-tree retextures remain unimplemented; normal-play balance still needs evaluation.
 
 ## Planned follow-up
 
-The first broad Vanilla-vegetation retention pass has classified the plants currently reused by AMJE and removed the clearest mismatches. Remaining follow-up follows this order:
+These candidates are not implemented:
 
-1. audit and rewrite retained Vanilla plant descriptions in the AMJE historical-description format;
-2. retexture only those retained and description-approved targets, including every loaded visible state actually used by each plant;
-3. add missing ancient-to-medieval Japanese vegetation where inherited Vanilla/MO proxies are insufficient, including traditional medicinal plants such as yomogi;
-4. remove fictional Wild Healroot only as the final vegetation-cleanup step, after replacement medicinal vegetation and gathering balance are established.
+- Yoshi reed, Suge sedges, Hannoki alder and Mizugoke sphagnum moss, subject to habitat, existing-Mod, historical wording and art approval.
+- Selected retained Vanilla/Medieval Overhaul tree retextures (deferred).
 
-Medieval Overhaul vegetation follows the same retention → description → retexture rule. Retexturing is not a commitment to preserve inherited content; retention and description fit are decided before art.
+New vegetation must pass older-save migration and actual natural-generation tests. Existing Healroot and medicine supply will remain. Medicinal species and remedies belong to a separate future medicine Mod.
 
 ## Research and detailed design
 
