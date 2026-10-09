@@ -114,6 +114,26 @@ class TreeSowingContractTests(unittest.TestCase):
             )
             self.assertEqual(trees, {n for n in weights if n.startswith("Plant_Tree")})
 
+    def test_dlc_free_wetland_baseline_preserves_herbal_medicine(self):
+        """Odyssey-only vegetation cannot become a mandatory base-game Def reference."""
+        wetland = ET.parse(ROOT / "Patches/VanillaWetlandVegetation.xml").getroot()
+        for operation in wetland.findall("./Operation/operations/li"):
+            pool = operation.find("value/wildPlants")
+            self.assertIsNotNone(pool)
+            self.assertGreater(float(pool.findtext("Plant_HealrootWild", "0")), 0)
+            self.assertIsNone(pool.find("Plant_Reeds"))
+            self.assertIsNone(pool.find("Plant_Bulrush"))
+        for biome in self.biomes.findall("BiomeDef"):
+            wild = biome.find("wildPlants")
+            self.assertIsNotNone(wild)
+            self.assertGreater(float(wild.findtext("Plant_HealrootWild", "0")), 0)
+            self.assertIsNone(wild.find("Plant_Reeds"))
+            self.assertIsNone(wild.find("Plant_Bulrush"))
+        about = ET.parse(ROOT / "About/About.xml").getroot()
+        dependencies = {p.text.lower() for p in about.findall("./modDependencies/li/packageId") if p.text}
+        self.assertNotIn("ludeon.rimworld.odyssey", dependencies)
+        self.assertNotIn("Wild Healroot removed", about.findtext("description", ""))
+
     def test_runtime_expectations_and_native_menu_gate_are_wired(self):
         source = (ROOT / "Tests/Quickstarts/EnvironmentBiomeTerrainQuickstarts.cs").read_text()
         method = source.split("private static string[] ExpectedSowableTrees", 1)[1].split(

@@ -980,6 +980,8 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 湿地候補・説明草案・承認ゲートは `Docs/NativeVegetationStep3Design-ja.md` を正本とする。2026-10-08最新作者指示で薬系を分離したため、ヨモギ・葛の追加／葛根採取はEnvironment対象外。研究と承認済み説明は[Project薬系企画](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/MedicinalPlantsAndRemedies.md)へ移管した。Environmentは既存Healrootを維持し、旧Step 4撤去計画を実行しない。新PlantDef・画像参照は承認ゲートを通す。
 
+**DLC非所持プロファイルと既存植物の重複（2026-10-09）：** Odyssey専用のReeds/Bulrushがヨシ等の水辺景観と部分的に重なることは公開資料で確認したが、作者の環境にはOdyssey DLCがなく、その実Def・水域配置・パッチ競合をロード済み実機では検証していない。**EnvironmentはOdysseyを必須依存にせず、DLCなしの湿地植生を成立させる。** Odyssey互換は独立した任意機能として保留し、配布可能・互換PASSと主張しない。完全置換方式の`Patches/VanillaWetlandVegetation.xml`とOdysseyの水域植物との競合は未検証として扱う。実装前のVE／非VE現行Mod調査、必要性の決定記録、日本語説明・画像承認ゲートは引き続き有効。詳細は`Docs/NativeVegetationStep3Design-ja.md`。
+
 ## 12. Seasonal scenery baseline
 
 ### 12.1 Alpha principle

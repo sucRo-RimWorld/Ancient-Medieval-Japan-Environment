@@ -10,7 +10,7 @@
     ColdBog/Cypress on the user's installed RimWorld 1.6 build. This ownership
     boundary prevents missing/reordered Vanilla plant entries from leaving the
     entire biome vegetation patch in a partially applied state.
-    Wild Healroot is retained only until the final vegetation cleanup.
+    Wild Healroot remains in the wetland pools under the 2026-10-08 medicine-Mod split; do not remove it as a deferred cleanup.
   -->
   <Operation Class="PatchOperationSequence">
     <operations>

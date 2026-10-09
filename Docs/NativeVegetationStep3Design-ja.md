@@ -17,11 +17,20 @@
 | `Plant_TallGrass` | ヨシ、湿地のスゲ類 | TallGrass をヨシ・スゲという特定種／属と断定しない |
 | `Plant_Moss` | 泥炭性のミズゴケ類 | 通常のコケを高層湿原のミズゴケと同一視しない |
 | `Plant_TreeWillow`・`Plant_TreeBirch`・`Plant_TreeMaple` | 低層湿原のハンノキ林 | Birch は Alnus ではない。河岸・縁辺林と湿原中心部を混同しない |
-| `Plant_Grass`・`Plant_HealrootWild` | 人里周辺のヨモギと歴史的な薬用草本 | ヨモギを汎用Healroot、近代医薬品、万能回復薬と同一視しない |
 
-**VE最優先の機能重複監査（暫定）：** Vanilla Plants Expanded（Workshop 2134308522）は公開説明上、果樹・作物の追加と農業選択肢を主軸とする。既存農作物・雑草等の発想は参考にする一方、日本の湿地のヨシ／スゲ／ハンノキ／ミズゴケ自然群落や、AMJ独自の古代～中世の採集・薬草代替設計をそれだけで満たすとは確認できない。**前提化しない／実装参考・任意互換候補**。MOおよび同Modのロード済みDefとの名称・画像・Harvest重複は、実装PRで実Defを確認する。既存Modの主要内容を大幅削除して前提化しない。
+**VE最優先の機能重複監査（暫定）：** Vanilla Plants Expanded（Workshop 2134308522）は公開説明上、果樹・作物の追加と農業選択肢を主軸とする。既存農作物・雑草等の発想は参考にする一方、日本の湿地のヨシ／スゲ／ハンノキ／ミズゴケ自然群落をそれだけで満たすとは確認できない。**前提化しない／実装参考・任意互換候補**。MOおよび同Modのロード済みDefとの名称・画像・Harvest重複は、実装PRで実Defを確認する。既存Modの主要内容を大幅削除して前提化しない。
 
-資料：環境省・釧路湿原国立公園はヨシ・スゲ湿原、ハンノキ林とミズゴケ高層湿原を区別。環境省「赤名湿原」はハンノキ・カサスゲを記載。文化庁「ふるさと文化財の森」はヨシを伝統的な草葺き材に含める。日本薬学会・日光植物園・岡山理科大学はヨモギの形態、草地・路傍での生育、薬草・食利用を記載。これら**現代植生資料から古代～中世の各地の割合・作業技術をそのまま外挿しない**。
+資料：環境省・釧路湿原国立公園はヨシ・スゲ湿原、ハンノキ林とミズゴケ高層湿原を区別。環境省「赤名湿原」はハンノキ・カサスゲを記載。文化庁「ふるさと文化財の森」はヨシを伝統的な草葺き材に含める。これら**現代植生資料から古代～中世の各地の割合・作業技術をそのまま外挿しない**。
+
+### Odyssey DLC重複・非所持プロファイルの扱い（2026-10-09、先行調査）
+
+- RimWorld Wikiの公開情報で、**Reeds（ヨシに景観・水辺機能の重複がある）**と**Bulrush（ガマ型の水生草本）**はOdyssey DLC専用と確認できる。Reedsは泥・湿地・浅い淡水、Bulrushは湿地・浅い静水に現れると記載されている。**Bulrushはスゲ類と同一種ではない**。公開情報での類似は、AMJが予定する日本のヨシ・スゲ・ハンノキ・ミズゴケをすべて代替できる根拠にはならない。
+- 提供されたMedieval Overhaul 1.6ソースアーカイブの `1.6/Defs/Biomes/Biomes_DarkForest.xml` には、`Plant_Reeds`（commonality 1）と`Plant_Bulrush`（0.2）がどちらも `MayRequire="Ludeon.RimWorld.Odyssey"` 付きで定義されている。**DLCなしではロードされない条件付きエントリであり、MO単独でReeds/Bulrushが利用できる根拠にはならない。** これは手元アーカイブのXML静的調査のみで、MO＋Odyssey実機テストではない。
+- 作者の検証環境にOdyssey DLCがなく、当面はDLC有効状態でのロード済みDef・生育地形・出現分布・テクスチャ・パッチ競合を実機検証できない。**DLCを必須化しない**。DLC未導入のVanilla基準（任意MO/CCTO共存を含む）を主たる実装・回帰ゲートとする。DLC専用Def・画像・参照を通常の配布ファイルへ無条件に追加しない。
+- 将来Odyssey互換に着手する際は、実際の`Plants_Water.xml`等の版固定したDef、`wildPlants`再配分経路、Odysseyの水域植物生成経路、同種景観の重複量を確認する。特にAMJEの`Patches/VanillaWetlandVegetation.xml`は湿地の`wildPlants`全体を置換するため、Odyssey由来エントリを保持しているとは**未確認**。DLC向け調整は`Ludeon.RimWorld.Odyssey`条件の任意パッチとして独立させ、実機証拠がない間は互換済み・PASSと表示しない。
+- 上記は公開情報を使った**部分的な重複監査**であり、独自植物の必要性を確定する新機能実装エントリ審査ではない。VEと非VEの現行Mod候補、実XML/コード・ライセンス・依存を別途比較し、Project `Docs/Research/ExistingModAudit.md` の決定記録ゲートを完了するまで、新PlantDef実装は保留する。承認済み日本語説明・実画像が揃うまで英訳や出荷も行わない。
+
+公開参照：[Reeds](https://rimworldwiki.com/wiki/Reeds)、[Bulrush](https://rimworldwiki.com/wiki/Bulrush)、[Odyssey DLC公式発売案内](https://ludeon.com/blog/2025/07/the-rimworld-odyssey-expansion-is-out-now/)、[任意DLC条件 `MayRequire`](https://www.rimworldwiki.com/wiki/Modding_Tutorials/MayRequire)。
 
 ## 3. Step 3 候補・実装順（最終配分値は未決定）
 
@@ -40,7 +49,7 @@
 
 - まず元代理のcommonalityを減らして新候補へ移す。候補を単純追加して植物総量や木本量を増やさない。
 - ヨシ・スゲは主としてTallGrass側の一部配分。ミズゴケはColdBogのMoss側。ハンノキは木本側。採用済みWillow/Maple/Birchを機械的に全削除せず、前Step 2の「河岸・微高地・林縁」の用途を考慮する。
-- 4独自Biomeにヨモギを置く場合も、各Biomeの既存草本総量と林床構造を維持する。常緑林・落葉林・亜高山・高山の差を弱めない。
+- 本工程で4独自Biomeに薬用植物を追加しない。将来の新規自然植生を検討する際も、既存草本総量・林床構造と四帯の違いを維持する。
 - `wildPlants`は「河岸／湿原中心／微高地」を個別指定する装置ではない。**植物自身の生育地形・水域・肥沃度／地形適性と実際のマップ生成を評価**し、追加先のBiomeを選ぶ。必要なら現行の二類型内で制御可能な範囲を先に検証し、無理に精密な生態分布を実装したと主張しない。
 - 湿地の地形・Worker・天候・動物・疾病の完成済みStep 1を破壊しない。新PlantDefの植林タグ／研究前後の植林メニューは意図せず拡大させない。
 
@@ -80,9 +89,11 @@ Environmentでは野生・栽培Healrootと既存MedicineHerbal供給を維持�
 
 ## 5. 新規アート・技術設計の実装ゲート
 
+- **DLC非導入を標準の成立条件とする。** 基本湿地プールはDLC固有の`Plant_Reeds`・`Plant_Bulrush`を参照せず、既存Healrootの全Biome供給を維持する。Odyssey同時導入時の重複・水域生育・`wildPlants`置換挙動は未試験なので、現時点ではOdyssey互換パッチを実装しない。
+
 - 新PlantDefを生かすには対応する**実在・承認済みPNG**が先に必要。既存Vanilla/MOの樹木・雑草画像を、史実上不一致の日本種として無断流用しない。欠損texPathや仮画像でリリースしてはならない。
 - 新規植物は既存 `Docs/GoldenPaths/RetextureGeneration.md` → `TextureAssetPipeline.md` → `Docs/PlantVisualCoverage.json` の手順へ追加する。**共通画風を既存の承認済み画像と現物比較**し、作者承認前のイメージを自動採用しない。
-- ヨシ：細く長い葉と直立した稈・穂、スゲ：低めで葉が叢生、ハンノキ：落葉性の小～中型湿地樹冠、ミズゴケ：水際地面を覆う低いコケ状、ヨモギ：切れ込みのある草葉と株。**作画指示案であって完成画像ではない**。
+- ヨシ：細く長い葉と直立した稈・穂、スゲ：低めで葉が叢生、ハンノキ：落葉性の小～中型湿地樹冠、ミズゴケ：水際地面を覆う低いコケ状。**作画指示案であって完成画像ではない**。
 - 画像状態は成熟／未熟／アイコン／積雪を基本とする。ハンノキは落葉／秋色／季節移行も別検証。新種の植生・描画・雪・成長のコストと現行アート完成状態を混同しない。
 - 第一実装PRは候補1種ごとにDef構造、地形適性、自然発生数・比率、画像読込BadTex検出、表示状態、植林候補の意図的非拡張、バニラ／MO任意共存を試験する。日本語承認後の英訳・DefInjectedの一致を検証する。
 - 自動テストは `run-tests.bat` の非表示RimWorld描画経路で行い、所有ERRORゼロ・完全ログを要求。既存の暖温帯／冷温帯／亜高山／高山／湿地2種／河川／海岸／自然湿地世界サンプルの回帰を維持。別の Vanilla/MO/CCTO/MO+CCTO 4構成検証は別ゲートである。
@@ -95,16 +106,13 @@ Environmentでは野生・栽培Healrootと既存MedicineHerbal供給を維持�
 - 環境省「重要湿地・別寒辺牛湿原」 https://www.env.go.jp/nature/important_wetland/wetland/w033.html
 - 日本漢字能力検定協会・漢字ペディア「榛の木」 https://www.kanjipedia.jp/kotoba/0003658400
 - 文化庁「ふるさと文化財の森」 https://www.bunka.go.jp/koho_hodo_oshirase/hodohappyo/94187001.html
-- 日本薬学会「ヨモギ」 https://www.pharm.or.jp/flowers/post_29.html
-- 東京大学大学院理学系研究科附属植物園・日光植物園「ヨモギ」 https://nikko-bg.jp/nikko-old/5_jokyo/species/Artemisia_indica.html
-- 岡山理科大学「ヨモギ」 https://www1.ous.ac.jp/garden/hada/plantsdic/angiospermae/dicotyledoneae/sympetalae/compositae/yomogi/yomogi.htm
 - Steam Workshop「Vanilla Plants Expanded」 https://steamcommunity.com/sharedfiles/filedetails/?id=2134308522
 
 ## 7. 次回実装前に固定する条件
 
-1. ヨシ・スゲ・ハンノキ・ミズゴケ・ヨモギの日本語説明文の個別承認と、各PlantDefの種代理の範囲。
+1. ヨシ・スゲ・ハンノキ・ミズゴケの日本語説明文の個別承認と、各PlantDefの種代理の範囲。薬用植物は薬系Modの責務。
 2. 各新規植物の承認済み画像、状態差、描画・地形適性（野生生成が消滅しないこと）。
 3. 二つの湿地と暖・冷温帯のcommonality移管案（元代理・新種・総量・木本量の増減を表にして確認）。
 4. ハンノキの通常植林・研究前後メニューへの影響と、MOの植物／資源との重複監査。
-5. 薬系の実装は行わず、既存Healroot供給を維持する。
+5. 薬系の実装は行わず、既存Healroot供給を維持する。Odyssey非導入を標準構成とし、Odyssey互換を実機未検証と記録する。
 
