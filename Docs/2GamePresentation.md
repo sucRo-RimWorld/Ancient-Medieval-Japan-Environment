@@ -2,7 +2,7 @@
 
 共通正本はProjectの[ModDescriptionGuidelines.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/ModDescriptionGuidelines.md)。形式の基準はCCTOの[2GamePresentation.md](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/main/Docs/2GamePresentation.md)と[日本語説明](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/main/Docs/2GameDescription-ja.txt)。
 
-貼り付け用の管理元は `Docs/2GameDescription-ja.txt`。READMEを詳細な公開内容の正本とし、Workshopよりさらに短く要約する。新しい機能・互換性の主張を追加しない。
+貼り付け用の管理元は `Docs/2GameDescription-ja.txt`。READMEを詳細な公開内容の正本とし、Workshopより短く説明する。ただし**実装済み変更点はすべて箇条書きし、未実装の候補も個別の箇条書きで各行末に `（未実装）` を付ける**。候補は実装確約としない。新しい機能・互換性の主張を追加しない。
 
 常体・1文1情報・短い箇条書きを使う。見出しは `▼ `（半角スペース付き）とし、短い要約 → 特徴 → バランス方針 → 対応範囲 → 対応・互換性 → セーブ互換性 → 今後の予定、の順に揃える。BBCodeやMarkdownの装飾は使わない。
 
@@ -19,7 +19,7 @@ AMJEの2game掲載ページIDは本リポジトリでは未記録。IDを推測�
 - 2game本文では内部実装用語を避け、利用者から見える挙動で説明する。河川・海岸については `River / Coast mutator` ではなく「バニラの河川・海岸生成と互換」と書く。
 - 「追加した要素」と「既存要素の分布・挙動を再構成した部分」を混同しない。痩せた土壌は新規地形として明記し、礫地等は自然土壌バランスの変更として説明する。
 - 制作手法や画像の出自はアピールポイントにしない。「独自画像」「自作グラフィック」「AI生成」等ではなく、プレイヤーに影響する機能だけを記載する。
-- 2gameはWorkshopよりさらに短い導入判断用説明とし、内部実装・制作工程・詳細な研究説明は載せない。
+- 2gameはWorkshopより短くするが変更カテゴリを省略しない。未実装の変更候補も一項目一箇条書きとし、行末は必ず `（未実装）` とする。内部実装・制作工程・詳細研究は載せない。
 
 ## 更新時の確認
 
