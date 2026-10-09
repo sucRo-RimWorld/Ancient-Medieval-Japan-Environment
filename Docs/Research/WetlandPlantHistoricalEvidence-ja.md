@@ -1,6 +1,6 @@
 # 湿地4種 — 日本語説明の史実・生態資料点検（2026-10-09）
 
-**所有:** AMJ Environment Step 3。`Docs/NativeVegetationStep3Design-ja.md` §4の日本語草案の判断材料。
+**所有:** AMJ Environment Step 3。`Docs/NativeVegetationStep3Design-ja.md` §4の承認済み日本語本文の根拠・判断材料。
 **状態（2026-10-10更新）:** 史料監査後、**4種すべての日本語説明本文は作者が「OK」と回答し承認済み**。唯一の本文正本は`Docs/NativeVegetationStep3Design-ja.md` §4、対応英訳は同§4.1。本研究記録は根拠と史料の限界のみを保持。**英訳作成は可能だが、本番DefInjected・PlantDef・画像・Steamへの適用は別ゲート**。この資料は既存Mod互換／実装判定・ゲーム数値とは別。
 
 ## 現代生態資料と歴史資料の区別
