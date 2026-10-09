@@ -62,9 +62,9 @@
 
 ### 3.2 湿地資材と3構成の接続（未承認）
 
-`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** スゲの`Hay`採用自体と、採取収量`1`の承認は分ける。ヨシのHay採用、各植物の収量と製品Recipeは未承認。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
+`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/test_wetland_material_plant_contract.py`。**実際の新Defは未実装**であり、テストの仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** スゲの`Hay`採用自体と、採取収量`1`の承認は分ける。ヨシのHay採用、各植物の収量と製品Recipeは未承認。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
 
-### 3.2 医療供給の維持
+### 3.3 医療供給の維持
 
 Environmentでは野生・栽培Healrootと既存MedicineHerbal供給を維持する。薬草の追加・置換・撤去・医療機能は本工程の対象外。薬系Modの独立設計へ移管する。
 
