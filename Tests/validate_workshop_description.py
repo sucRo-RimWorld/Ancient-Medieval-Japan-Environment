@@ -70,5 +70,45 @@ require(not any(term in body for term in
                 ("MIT License", "AI assistance", "AIの支援", "Ko-fi",
                  "img.shields.io", "ライセンス")),
         "Workshop description contains license, AI or donation disclosure")
+
+# Public change-list coverage must not omit implemented features or mislabel candidates.
+two_game = (ROOT / "Docs/2GameDescription-ja.txt").read_text(encoding="utf-8")
+english = body[:ja_pos]
+japanese = body[ja_pos:gallery_separator_pos]
+keywords = (
+    ("temperature", "気温・降水量"), ("rivers", "河川を増やし"),
+    ("coastal", "湾・半島"), ("four biomes", "4バイオーム"),
+    ("four plants", "4植物"), ("Vanilla vegetation", "バニラ植生"),
+    ("tree-sowing", "植林候補"), ("Thin Soil", "痩せた土壌"),
+    ("stony/poor", "礫地"), ("rain, fog", "雨・霧"),
+    ("wildlife", "野生動物の出現構成"), ("wild-plant pools", "温帯湿地・冷涼湿原"),
+    ("pack animals", "荷役動物"), ("disease types", "病気の種類"),
+    ("wetland rain", "湿地の雨"), ("movement difficulty", "移動困難度"),
+    ("six retained Vanilla trees", "バニラ樹木6種"), ("native wood yield", "伐採時の木材"),
+)
+for en_term, ja_term in keywords:
+    require(any(line.startswith("[*]") and en_term.lower() in line.lower()
+                for line in english.splitlines()), "Workshop English missing category: "+en_term)
+    require(any(line.startswith("[*]") and ja_term in line
+                for line in japanese.splitlines()), "Workshop Japanese missing category: "+ja_term)
+    require(any(line.startswith("・") and ja_term in line
+                for line in two_game.splitlines()), "2game missing category: "+ja_term)
+def pending_lines(text, heading, end):
+    require(heading in text, "missing future section")
+    block = text.split(heading, 1)[1].split(end, 1)[0]
+    return [line for line in block.splitlines() if line.startswith("[*]") or line.startswith("・")]
+for text, start, end in (
+    (english, "[h2]Future candidates[/h2]", "Vanilla world generation"),
+    (japanese, "[h2]追加候補・今後の予定[/h2]", "既存の世界生成"),
+    (two_game, "▼ 今後の予定", "詳しい仕様"),
+):
+    future = pending_lines(text, start, end)
+    require(len(future) == 5 and all(line.endswith("（未実装）") for line in future),
+            "every future candidate must end in （未実装）")
+for obsolete in ("final Wild Healroot cleanup", "野生Healrootを最後に"):
+    require(obsolete not in body and obsolete not in two_game and
+            obsolete not in (ROOT / "README.md").read_text(encoding="utf-8"),
+            "withdrawn Healroot-removal plan still present")
+
 print("PASS: one bilingual title, English→Japanese→shared gallery, 4 unique images,")
 print("      matching Japanese source, dependencies/save warnings, size and BBCode")
