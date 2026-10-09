@@ -75,7 +75,7 @@ require(not any(term in body for term in
 two_game = (ROOT / "Docs/2GameDescription-ja.txt").read_text(encoding="utf-8")
 english = body[:ja_pos]
 japanese = body[ja_pos:gallery_separator_pos]
-keywords = (
+workshop_keywords = (
     ("temperature", "気温・降水量"), ("rivers", "河川を増やし"),
     ("coastal", "湾・半島"), ("four biomes", "4バイオーム"),
     ("four plants", "4植物"), ("Vanilla vegetation", "バニラ植生"),
@@ -86,13 +86,29 @@ keywords = (
     ("wetland rain", "湿地の雨"), ("movement difficulty", "移動困難度"),
     ("six retained Vanilla trees", "バニラ樹木6種"), ("native wood yield", "伐採時の木材"),
 )
-for en_term, ja_term in keywords:
+for en_term, ja_term in workshop_keywords:
     require(any(line.startswith("[*]") and en_term.lower() in line.lower()
-                for line in english.splitlines()), "Workshop English missing category: "+en_term)
+                for line in english.splitlines()), "Workshop English missing category: " + en_term)
     require(any(line.startswith("[*]") and ja_term in line
-                for line in japanese.splitlines()), "Workshop Japanese missing category: "+ja_term)
-    require(any(line.startswith("・") and ja_term in line
-                for line in two_game.splitlines()), "2game missing category: "+ja_term)
+                for line in japanese.splitlines()), "Workshop Japanese missing category: " + ja_term)
+
+# 2game may combine related changes, but must preserve these player-visible topics.
+two_game_keywords = (
+    "気温・降水量", "病気の種類・発生間隔", "気候帯・湿地別に雨・霧・雷雨・積雪",
+    "小～中規模の河川", "湾・半島", "4バイオーム",
+    "4植物", "バニラ植生", "植林候補", "痩せた土壌",
+    "礫地", "野生動物の出現構成", "荷役動物候補",
+    "バニラ樹木と湿地の説明文",
+)
+for topic in two_game_keywords:
+    require(any(line.startswith("・") and topic in line
+                for line in two_game.splitlines()), "2game missing topic: " + topic)
+require("・湿地の病気の種類・発生間隔" in two_game,
+        "2game must identify wetland-only disease changes")
+weather_bullets = [line for line in two_game.splitlines()
+                   if line.startswith("・") and "雨・霧・雷雨" in line]
+require(len(weather_bullets) == 1,
+        "2game must combine climate-band and wetland weather changes in one bullet")
 def pending_lines(text, heading, end):
     require(heading in text, "missing future section")
     block = text.split(heading, 1)[1].split(end, 1)[0]
