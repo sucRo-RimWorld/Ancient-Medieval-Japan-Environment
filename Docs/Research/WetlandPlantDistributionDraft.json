@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "status": "proposal_not_approved",
+  "reason": "Optional pre-implementation weight transfer candidate; not an approved balance or a gameplay Patch. Actual habitat/terrain validation and human review are required.",
+  "source_patch": "Patches/VanillaWetlandVegetation.xml",
+  "baselines": {
+    "TemperateSwamp": {
+      "Plant_TallGrass": "3.2",
+      "Plant_Brambles": "0.8",
+      "Plant_Bush": "0.2",
+      "Plant_TreeWillow": "2.0",
+      "Plant_TreeMaple": "1.0",
+      "Plant_Berry": "0.05",
+      "Plant_HealrootWild": "0.05"
+    },
+    "ColdBog": {
+      "Plant_TallGrass": "3.4",
+      "Plant_Moss": "2.6",
+      "Plant_Bush": "0.3",
+      "Plant_TreeWillow": "0.6",
+      "Plant_TreeBirch": "0.6",
+      "Plant_TreeMaple": "0.6",
+      "Plant_Berry": "0.07",
+      "Plant_HealrootWild": "0.05"
+    }
+  },
+  "proposed": {
+    "TemperateSwamp": {
+      "Plant_TallGrass": "1.40",
+      "AMJ_Plant_Yoshi": "1.00",
+      "AMJ_Plant_Suge": "0.80",
+      "Plant_Brambles": "0.80",
+      "Plant_Bush": "0.20",
+      "Plant_TreeWillow": "1.30",
+      "Plant_TreeMaple": "1.00",
+      "AMJ_Tree_Hannoki": "0.70",
+      "Plant_Berry": "0.05",
+      "Plant_HealrootWild": "0.05"
+    },
+    "ColdBog": {
+      "Plant_TallGrass": "1.70",
+      "AMJ_Plant_Yoshi": "0.60",
+      "AMJ_Plant_Suge": "1.10",
+      "Plant_Moss": "1.40",
+      "AMJ_Plant_Mizugoke": "1.20",
+      "Plant_Bush": "0.30",
+      "Plant_TreeWillow": "0.45",
+      "Plant_TreeBirch": "0.45",
+      "Plant_TreeMaple": "0.45",
+      "AMJ_Tree_Hannoki": "0.45",
+      "Plant_Berry": "0.07",
+      "Plant_HealrootWild": "0.05"
+    }
+  },
+  "plant_roles": {
+    "AMJ_Plant_Yoshi": "Reed stands on river and low-marsh fringes; do not assume all cold peat wetlands permit reeds.",
+    "AMJ_Plant_Suge": "Sedge-like grass on wet meadow and marginal bog; ecological proxy for Japanese sedges.",
+    "AMJ_Tree_Hannoki": "Alder wetland woodland, primarily low-fen and margins; preserve total woody weight.",
+    "AMJ_Plant_Mizugoke": "Sphagnum carpet in cool peat bogs, not uniform woody wetland cover."
+  },
+  "change_rules": [
+    "Replace part of Vanilla TallGrass with Yoshi and Suge in both retained wetland BiomeDefs.",
+    "Replace part of ColdBog Vanilla Moss with Mizugoke.",
+    "Transfer fractions of current wetland Willow/Maple/Birch woody weight to Hannoki, do not remove other accepted tree proxies.",
+    "Keep all other plant weights and Wild Healroot supply exactly unchanged.",
+    "Validate actual allowed terrain and map spawn densities before accepting any weights.",
+    "Do not make Environment depend on optional DLC or other vegetation Mods."
+  ]
+}

@@ -17,6 +17,8 @@ on:
       - 'Docs/Research/WetlandPlantImplementationDecision.json'
       - 'Docs/NativeVegetationStep3Design-ja.md'
       - 'Tests/test_wetland_implementation_decision.py'
+      - 'Docs/Research/WetlandPlantDistributionDraft.json'
+      - 'Tests/test_wetland_distribution_draft.py'
       - '.github/workflows/tree-sowing-contract.yml'
   pull_request:
     paths:
@@ -34,6 +36,8 @@ on:
       - 'Docs/Research/WetlandPlantImplementationDecision.json'
       - 'Docs/NativeVegetationStep3Design-ja.md'
       - 'Tests/test_wetland_implementation_decision.py'
+      - 'Docs/Research/WetlandPlantDistributionDraft.json'
+      - 'Tests/test_wetland_distribution_draft.py'
       - '.github/workflows/tree-sowing-contract.yml'
 concurrency:
   group: tree-sowing-${{ github.event.pull_request.number || github.ref }}
@@ -49,5 +53,7 @@ jobs:
         run: python Tests/test_wetland_ecology_contract.py
       - name: Validate evidence-backed native wetland implementation scope
         run: python Tests/test_wetland_implementation_decision.py
+      - name: Validate unapproved wetland plant distribution draft against live XML baseline
+        run: python Tests/test_wetland_distribution_draft.py
       - name: Validate approved Vanilla tree descriptions without gameplay changes
         run: python Tests/test_vanilla_bamboo_description.py
