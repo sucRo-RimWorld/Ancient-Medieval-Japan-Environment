@@ -316,7 +316,8 @@ def run(payload, manifest, output, game):
             report = report_dir / "summary.json"
             result = json.loads(report.read_text(encoding="utf-8-sig"))
             names = [s["name"] for s in result["scenarios"]]
-            if (result["total"] != len(SCENARIOS) or
+            if (result.get("exitReason") != "passed" or
+                    result["total"] != len(SCENARIOS) or
                     result["passed"] != len(SCENARIOS) or
                     result["failed"] != 0 or result["skipped"] != 0 or
                     set(names) != set(SCENARIOS) or len(names) != len(SCENARIOS)):
