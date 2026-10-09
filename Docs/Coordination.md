@@ -82,6 +82,15 @@ The old pinned 32-file candidate has author-reported four-profile map/native-cut
 
 ## Vegetation, ecology, artwork and runtime follow-ups
 
+### ENV-SUGI-FOREST-20261010 — priority-A cedar candidate restored
+
+**Owner:** AMJ Environment
+**Status:** PRIORITY-A DESIGN CANDIDATE RECORDED; NO PLANTDEF / SOURCED ART / APPROVED YIELDS OR DISTRIBUTION
+
+The 2026-10-07 additional-vegetation grading explicitly gave **Sugi (Cryptomeria japonica) A** alongside Susuki A. Sugi was intended as a cool-temperate-dominant, partly warm-temperate forestry/woodland species, but was omitted when Environment Step 3 narrowed around four wetland natives. Restored in `Docs/NativeVegetationStep3Design-ja.md` §3.5 and `Docs/Design.md` without changing existing implementations. Historical natural cedar habitat is not automatically equivalent to post-medieval/modern planted forest distributions. New need/VE+non-VE audit, author-approved Japanese text and artwork, distribution / parent / tree sowing / optional MO wood / yield tests remain OPEN. The four-species wetland decision JSON does NOT cover Sugi. No requirement to add cedar to the current Wetland PR, no release or gameplay change.
+
+Grade audit: the 2026-10-07 explicitly A-rated plants were **Sugi and Susuki**; Susuki is already covered in its own item, while Yoshi was A-minus, Kuri B-plus, Hinoki B. Later chestnut/fruit gathering ownership and wetland scope decisions remain unchanged.
+
 ### ENV-SUSUKI-GRASSLAND-20261010 — priority-A grassland species restored
 
 **Owner:** AMJ Environment; future architecture/fiber resource consumers separately.
