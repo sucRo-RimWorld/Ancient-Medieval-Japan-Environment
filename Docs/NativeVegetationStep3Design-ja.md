@@ -5,6 +5,7 @@
 ## 1. 所有範囲・先行工程
 
 - 所有者は **AMJ Environment**。対象は古代～中世日本に対応する自然植生と野生植物の分布、表示、野生採集を含む場合の基本生態。江戸期の技術・文化を実装範囲としない。
+- **作者確定方針（2026-10-09）：Environment一つで中世日本の自然環境を再現する。** ヨシ・スゲ・ハンノキ・ミズゴケは既存Modに類似植物が存在してもEnvironment自身で実装する。外部植生Mod／Odyssey DLCを必須にしない。他Modは二重出現・分布・Patch競合を扱う**任意互換候補のみ**。調査・日本語説明・画像・テストの開始条件は維持する。
 - 正本のロードマップは `Docs/Design.md` 11.5.7、既存種残存とHealroot除外条件は `Docs/VanillaPlantRetentionAudit-ja.md`、湿地の現行配分は `Patches/VanillaWetlandVegetation.xml`、4独自Biomeの現行配分は `Defs/BiomeDefs/AMJ_Biomes.xml`。
 - Step 1 湿地生態・Step 2 既存Vanilla樹木説明は作者報告のゲートを経て完了。**既存樹木リテクスチャは作者の指示どおり保留**。新規植物の表示状態確認は別の新規アート工程。
 - 栽培／新規食材／屋根葺材／加工設備／採集Job等の大きなゲームプレイループは、Environmentだけで勝手に追加しない。新素材やレシピは、実装時点の所有Mod（将来の採集・建築・加工等）へ渡し、Environmentがその完成を先取りして説明しない。
@@ -18,7 +19,7 @@
 | `Plant_Moss` | 泥炭性のミズゴケ類 | 通常のコケを高層湿原のミズゴケと同一視しない |
 | `Plant_TreeWillow`・`Plant_TreeBirch`・`Plant_TreeMaple` | 低層湿原のハンノキ林 | Birch は Alnus ではない。河岸・縁辺林と湿原中心部を混同しない |
 
-**実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがある。Projectの形式的判定JSON・承認済み日本語説明・実画像は未完成のため、新PlantDefはHOLD。
+**実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがあるが、**Environmentの独自実装を省略する理由にはならない**。Projectの形式的判定JSON・承認済み日本語説明・実画像は未完成のため、新PlantDefの実装着手はHOLD。
 
 **VE最優先の機能重複監査（暫定）：** Vanilla Plants Expanded（Workshop 2134308522）は公開説明上、果樹・作物の追加と農業選択肢を主軸とする。既存農作物・雑草等の発想は参考にする一方、日本の湿地のヨシ／スゲ／ハンノキ／ミズゴケ自然群落をそれだけで満たすとは確認できない。**前提化しない／実装参考・任意互換候補**。MOおよび同Modのロード済みDefとの名称・画像・Harvest重複は、実装PRで実Defを確認する。既存Modの主要内容を大幅削除して前提化しない。
 
@@ -30,7 +31,7 @@
 - 提供されたMedieval Overhaul 1.6ソースアーカイブの `1.6/Defs/Biomes/Biomes_DarkForest.xml` には、`Plant_Reeds`（commonality 1）と`Plant_Bulrush`（0.2）がどちらも `MayRequire="Ludeon.RimWorld.Odyssey"` 付きで定義されている。**DLCなしではロードされない条件付きエントリであり、MO単独でReeds/Bulrushが利用できる根拠にはならない。** これは手元アーカイブのXML静的調査のみで、MO＋Odyssey実機テストではない。
 - 作者の検証環境にOdyssey DLCがなく、当面はDLC有効状態でのロード済みDef・生育地形・出現分布・テクスチャ・パッチ競合を実機検証できない。**DLCを必須化しない**。DLC未導入のVanilla基準（任意MO/CCTO共存を含む）を主たる実装・回帰ゲートとする。DLC専用Def・画像・参照を通常の配布ファイルへ無条件に追加しない。
 - 将来Odyssey互換に着手する際は、実際の`Plants_Water.xml`等の版固定したDef、`wildPlants`再配分経路、Odysseyの水域植物生成経路、同種景観の重複量を確認する。特にAMJEの`Patches/VanillaWetlandVegetation.xml`は湿地の`wildPlants`全体を置換するため、Odyssey由来エントリを保持しているとは**未確認**。DLC向け調整は`Ludeon.RimWorld.Odyssey`条件の任意パッチとして独立させ、実機証拠がない間は互換済み・PASSと表示しない。
-- 上記は公開情報を使った**部分的な重複監査**であり、独自植物の必要性を確定する新機能実装エントリ審査ではない。VEと非VEの現行Mod候補、実XML/コード・ライセンス・依存を別途比較し、Project `Docs/Research/ExistingModAudit.md` の決定記録ゲートを完了するまで、新PlantDef実装は保留する。承認済み日本語説明・実画像が揃うまで英訳や出荷も行わない。
+- 上記は公開情報を使った**部分的な重複・任意互換監査**であり、互換済みを証明するものではない。**4種のEnvironment実装範囲は作者判断で確定しており、他Modの有無では省略しない。** VE／非VEの実XML・コード、ライセンスと依存を比較し、Project `Docs/Research/ExistingModAudit.md` の形式的な決定記録ゲートを完了するまで新PlantDefの実装着手は保留する。承認済み日本語説明・実画像が揃うまで英訳や出荷も行わない。
 
 公開参照：[Reeds](https://rimworldwiki.com/wiki/Reeds)、[Bulrush](https://rimworldwiki.com/wiki/Bulrush)、[Odyssey DLC公式発売案内](https://ludeon.com/blog/2025/07/the-rimworld-odyssey-expansion-is-out-now/)、[任意DLC条件 `MayRequire`](https://www.rimworldwiki.com/wiki/Modding_Tutorials/MayRequire)。
 
@@ -43,7 +44,7 @@
 | 3A-3 | `AMJ_Tree_Hannoki` | ハンノキ（Alnus）、低層湿原の落葉湿地林 | TemperateSwamp、ColdBogの適切な湿地林 | 既存Willow/Maple/Birchの木本配分から移す。木本総量維持と研究後植林候補を同時監査 |
 | 3B-1 | `AMJ_Plant_Mizugoke` | ミズゴケ類、冷涼な泥炭湿原の蘚苔類 | ColdBogの高層湿原相当 | `Plant_Moss`の一部を置換。通常の木立と均一混在するような無条件配置に注意 |
 
-**優先度は一括導入の承認ではない。** 3Aの最初の小さい実装単位はヨシ1種を想定し、専用テクスチャ・日本語本文承認・Def継承・地形適性・単独自然発生を確認してから拡張する。ヨシとスゲの違い、ハンノキの湿潤立地、ミズゴケの冷涼な泥炭地という区別を検証できなければ、機能を実装せず設計を再検討する。
+**4種はすべてEnvironmentの実装対象だが、優先度は一括実装・出荷の承認ではない。** 3Aの最初の小さい実装単位はヨシ1種を想定し、専用テクスチャ・日本語本文承認・Def継承・地形適性・単独自然発生を確認してから拡張する。ヨシとスゲの違い、ハンノキの湿潤立地、ミズゴケの冷涼な泥炭地という区別を検証できなければ、機能を実装せず設計を再検討する。
 
 ### 3.1 Biome構成比・木本総量の保持
 
