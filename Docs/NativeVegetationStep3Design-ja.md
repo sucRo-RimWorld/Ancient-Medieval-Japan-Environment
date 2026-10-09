@@ -21,7 +21,7 @@
 
 **正式な実装必要性・所有権の判定記録（2026-10-09）：** `Docs/Research/WetlandPlantImplementationDecision.json` に、4種をEnvironmentが提供する独立実装として、VE・非VE・Vanilla/MO・AMJの証拠SHA256・比較・任意互換候補を記録した。これは**実装するかどうかの判断**に限った`ready`であり、新規PlantDef・草案説明・画像の作者承認や実機互換を意味しない。固定証拠ハッシュ・独自実装の結論・4対象種の回帰は `Tests/test_wetland_implementation_decision.py` で検査する。
 
-**実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがあるが、**Environmentの独自実装を省略する理由にはならない**。Projectの形式的判定JSON・承認済み日本語説明・実画像は未完成のため、新PlantDefの実装着手はHOLD。
+**実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがあるが、**Environmentの独自実装を省略する理由にはならない**。形式的判定JSONは作成済み（構造・証拠ハッシュ照合PASS、Project側Python CLI実行は未実施）。**承認済み日本語説明・実画像が未完成**のため、新PlantDefの実装着手はHOLD。
 
 **VE最優先の機能重複監査（暫定）：** Vanilla Plants Expanded（Workshop 2134308522）は公開説明上、果樹・作物の追加と農業選択肢を主軸とする。既存農作物・雑草等の発想は参考にする一方、日本の湿地のヨシ／スゲ／ハンノキ／ミズゴケ自然群落をそれだけで満たすとは確認できない。**前提化しない／実装参考・任意互換候補**。MOおよび同Modのロード済みDefとの名称・画像・Harvest重複は、実装PRで実Defを確認する。既存Modの主要内容を大幅削除して前提化しない。
 
@@ -33,7 +33,7 @@
 - 提供されたMedieval Overhaul 1.6ソースアーカイブの `1.6/Defs/Biomes/Biomes_DarkForest.xml` には、`Plant_Reeds`（commonality 1）と`Plant_Bulrush`（0.2）がどちらも `MayRequire="Ludeon.RimWorld.Odyssey"` 付きで定義されている。**DLCなしではロードされない条件付きエントリであり、MO単独でReeds/Bulrushが利用できる根拠にはならない。** これは手元アーカイブのXML静的調査のみで、MO＋Odyssey実機テストではない。
 - 作者の検証環境にOdyssey DLCがなく、当面はDLC有効状態でのロード済みDef・生育地形・出現分布・テクスチャ・パッチ競合を実機検証できない。**DLCを必須化しない**。DLC未導入のVanilla基準（任意MO/CCTO共存を含む）を主たる実装・回帰ゲートとする。DLC専用Def・画像・参照を通常の配布ファイルへ無条件に追加しない。
 - 将来Odyssey互換に着手する際は、実際の`Plants_Water.xml`等の版固定したDef、`wildPlants`再配分経路、Odysseyの水域植物生成経路、同種景観の重複量を確認する。特にAMJEの`Patches/VanillaWetlandVegetation.xml`は湿地の`wildPlants`全体を置換するため、Odyssey由来エントリを保持しているとは**未確認**。DLC向け調整は`Ludeon.RimWorld.Odyssey`条件の任意パッチとして独立させ、実機証拠がない間は互換済み・PASSと表示しない。
-- 上記は公開情報を使った**部分的な重複・任意互換監査**であり、互換済みを証明するものではない。**4種のEnvironment実装範囲は作者判断で確定しており、他Modの有無では省略しない。** VE／非VEの実XML・コード、ライセンスと依存を比較し、Project `Docs/Research/ExistingModAudit.md` の形式的な決定記録ゲートを完了するまで新PlantDefの実装着手は保留する。承認済み日本語説明・実画像が揃うまで英訳や出荷も行わない。
+- 上記は公開情報を使った**部分的な重複・任意互換監査**であり、互換済みを証明するものではない。**4種のEnvironment実装範囲は作者判断で確定しており、他Modの有無では省略しない。** VE／非VEの実XML・コード、ライセンスと依存の比較は実施済みで、Project `Docs/Research/ExistingModAudit.md` の形式的決定JSONも記録済み。ProjectのPython CLIによる正規チェックは未実施で、ゲーム内の採取・描画・日本語本文も未承認のため、新PlantDef着手は引き続き保留する。承認済み日本語説明・実画像が揃うまで英訳や出荷も行わない。
 
 公開参照：[Reeds](https://rimworldwiki.com/wiki/Reeds)、[Bulrush](https://rimworldwiki.com/wiki/Bulrush)、[Odyssey DLC公式発売案内](https://ludeon.com/blog/2025/07/the-rimworld-odyssey-expansion-is-out-now/)、[任意DLC条件 `MayRequire`](https://www.rimworldwiki.com/wiki/Modding_Tutorials/MayRequire)。
 
