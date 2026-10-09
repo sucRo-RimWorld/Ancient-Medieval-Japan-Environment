@@ -91,9 +91,12 @@ was not recorded, so this is a hypothesis, not proven attribution. Keep
 release gate unchanged. The Pickle smoke semantic verifier must reject this
 extra path and is not a permission to bypass release checks.
 
-To correct publication, the author must select the **previously verified
-extracted candidate root** as the Workshop upload source, not the development
-Mod and not a filtered copy of the development tree. Immediately before
+To correct publication at the next manual update, the author must select a
+**verified extracted candidate root built from the then-current pinned clean
+source** as the Workshop upload source, never the development Mod or its
+YADA-filtered copy. The previously approved 32-file candidate is valid only
+for its historical pinned source and must not silently replace an updated
+current-source candidate. Immediately before
 confirming upload, validate the actual selected source root against the
 external pinned manifest. Where duplicate local Mods with identical
 `packageId` exist, identify the concrete physical source root; do not assume
@@ -113,6 +116,23 @@ Pickle tests loaded game state; RimTest Redux tests isolated C# logic.
 **Neither can make mismatched published source correct.** Keep runtime
 Pickle validation distinct from artifact validation and full native-job
 Quickstarts coverage.
+
+## Author scheduling decision — 2026-10-09
+
+The known installed-Workshop `loadFolders.xml` discrepancy is to be corrected
+**at the next regularly planned author-manual Workshop update**, not through an
+immediate dedicated upload. This scheduling choice does not accept the wrong
+downloaded loader, clear the provenance/runtime HOLD or weaken any manifest,
+Pickle, or full rendered/native-cutting gate.
+
+At that next update, pin the then-current clean Git commit, build and validate
+the current extracted subscriber candidate and its external manifest, and verify
+the exact physical source root selected for YADA/Steam before the author confirms
+upload. Do not assume that the historically approved 32-file candidate still
+matches later source revisions. After Steam has downloaded the update, verify
+downloaded source/DLL/metadata against the expected manifest, then run the
+separate Pickle and four-profile map/native-cutting checks. Publication remains
+author-manual; no upload is performed by recording this decision.
 
 ## Steam Change Notes via Add Changenote
 
