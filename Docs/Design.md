@@ -8,6 +8,8 @@
 
 Environment is independent from AMJ Core.
 
+**Standalone Japan-environment contract (2026-10-09 author decision):** Environment must provide its ancient-to-medieval Japanese natural environment on the baseline RimWorld/Harmony installation **without requiring other vegetation Mods, Medieval Overhaul or optional DLC**. Its required landscapes and vegetation remain Environment-owned **even if an existing Mod already supplies equivalent species or functions**. VE, non-VE, MO and DLC comparisons inform **optional compatibility only** (duplicate spawns, natural distribution, patch load order and licenses), not removal of Environment species or migration of that scope to another Mod. The shared VE/non-VE implementation-entry audit and formal evidence record still apply, as do accepted-art, historical-description, save and runtime gates. This does not expand Environment into crops, medicinal treatments, processing or harvesting subsystems owned by other AMJ Mods.
+
 Environment owns:
 - world-map climate;
 - temperature distribution and seasonal range;
@@ -977,6 +979,8 @@ Environmentの植生整備は、以下の順序を正本とする。
 竹の英語 `ThingDef.description` Patch・日本語DefInjected・ロード済み検証に加え、楓・楢・樺・松・柳の英訳／説明限定Patch／日本語DefInjected／Quickstartロード後アサーションをPR #30で実装・マージ済み（`bfb27420428dc75a060a317b3c22bdd4c5856fa8`）。Vanillaのラベル、Biome・自然分布、植林、ゲームプレイ、画像は変更しない。**追加5樹木を含む最新版 `run-tests.bat` は2026-10-08に作者から通過報告あり**。これは作者報告ランタイムPASSであり、最新実行の個別JSON・完全ログ・所有ERRORゼロの独立監査はまだ行っていない。過去の竹テストPASSはそれ自体の旧版証拠として保持する。独立したVanilla/MO/CCTO/MO+CCTOの4構成統合試験は未完了であり、既存樹木のリテクスチャは引き続き保留する。
 
 ### 11.5.10 Step 3 不足する日本の自然植生
+
+**2026-10-09作者決定：** ヨシ・スゲ・ハンノキ・ミズゴケの4種は、他Modに同名・類似の植物がある場合でも、**Environment自身の実装対象**とする。Environment一つで中世日本の自然環境を成立させるのが目的であり、重複監査は実装省略判定には使わない。既存Modは任意互換（同時導入時の二重出現、植物分布、Patch競合、ロード後Def）の調査対象のみとする。形式的な実装開始判定記録、日本語説明・画像の作者承認、実機テストは維持する。
 
 湿地候補・説明草案・承認ゲートは `Docs/NativeVegetationStep3Design-ja.md` を正本とする。2026-10-08最新作者指示で薬系を分離したため、ヨモギ・葛の追加／葛根採取はEnvironment対象外。研究と承認済み説明は[Project薬系企画](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/MedicinalPlantsAndRemedies.md)へ移管した。Environmentは既存Healrootを維持し、旧Step 4撤去計画を実行しない。新PlantDef・画像参照は承認ゲートを通す。
 
