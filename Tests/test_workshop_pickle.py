@@ -186,6 +186,7 @@ class WorkshopPickleTests(unittest.TestCase):
             "-pickle-mode=fast",
             "-pickle-no-browser",
             "summary.json",
+            'result.get("exitReason") != "passed"',
         ):
             self.assertIn(required, text)
         self.assertIn('"steam_release_cleared"] = False', text)
