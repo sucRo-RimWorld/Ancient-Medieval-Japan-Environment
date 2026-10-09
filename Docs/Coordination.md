@@ -85,11 +85,13 @@ The old pinned 32-file candidate has author-reported four-profile map/native-cut
 ### ENV-STEP3-NATIVE-VEGETATION-20261008 — four Environment-owned wetland plants
 
 **Owner:** Environment natural vegetation; future Medicine Mod separately owns medicinal plants and remedies
-**Status:** FOUR PLANTS IN ENVIRONMENT SCOPE; OPTIONAL-COMPATIBILITY AUDIT RECORDED; NEW PLANTDEFS BLOCKED ON FORMAL ENTRY RECORD / APPROVED JAPANESE TEXT / SOURCE ART
+**Status:** FOUR PLANTS IN ENVIRONMENT SCOPE; FORMAL VE/NON-VE ENTRY DECISION RECORDED (CI GATE SEPARATE); NEW PLANTDEFS BLOCKED ON AUTHOR-APPROVED JAPANESE TEXT / SOURCE ART
 
 **2026-10-09 author decision:** Environment must reconstruct the ancient-to-medieval Japanese natural environment **by itself**, with no required other vegetation Mod or optional DLC. Yoshi, Suge, Hannoki and Mizugoke remain Environment implementation targets even if equivalent plants exist in other Mods. VE, Biomes! Prehistoric, ReGrowth 2, MO and Odyssey are **optional compatibility** targets only; prior-art review is used to prevent duplicate spawns, unexpected pool changes and loaded patch conflicts, **not to omit AMJE plants**. Canonical sources: `Docs/Design.md`, `Docs/NativeVegetationStep3Design-ja.md`, `Docs/Research/WetlandPlantExistingModAudit-ja.md` (prior-art PR #49).
 
-**Still gated:** Project's formal VE/non-VE implementation-entry JSON, author-approved Japanese descriptions and original plant assets, per-species XML/static/visual/native runtime and save-update tests. First bounded implementation remains Yoshi once these conditions are met. Four species are within agreed scope, not implemented or released. No new Steam/Windows runtime evidence is claimed.
+**2026-10-09 decision-file progress:** `Docs/Research/WetlandPlantImplementationDecision.json` records `ready` for the scoped independent-implementation necessity, backed by the pinned `Docs/Research/WetlandPlantExistingModAudit-ja.md` SHA256 and a repo-owned negative-mutation/static check in `Tests/test_wetland_implementation_decision.py`. This does NOT approve historical Japanese text or visual assets, and does NOT constitute a runtime compatibility PASS. Project's exact cross-repository validator has not been executed in this chat; keep that separate from the repo CI gate.
+
+**Still gated:** Author-approved Japanese descriptions and original plant assets, per-species XML/static/visual/native runtime and save-update tests. First bounded implementation remains Yoshi once these conditions are met. Four species are within agreed scope, not implemented or released. No new Steam/Windows runtime evidence is claimed.
 
 **Unchanged responsibilities:** Retain wild/cultivated Healroot and MedicineHerbal supply. Medicinal Yomogi/Kuzu and remedies belong to the future Medicine Mod, not Environment; Vanilla/MO tree retextures remain deferred. Wetland current total/woody commonality: 7.30/3.00 and 8.22/1.80. Old handoff language suggesting later Healroot removal, Yomogi Environment implementation or skipping a plant because of an equivalent Mod is superseded.
 

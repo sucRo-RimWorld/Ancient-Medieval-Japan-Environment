@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "feature": "Four AMJ Environment wetland-native plants (Yoshi, Suge, Hannoki, Mizugoke)",
+  "owner": "sucRo-RimWorld/Ancient-Medieval-Japan-Environment",
+  "scope": "DLC-free standalone naturally generated Japanese wetlands; four owned PlantDefs with no new harvested products, processing or medical mechanics. Existing Mods are optional coexistence targets only.",
+  "status": "ready",
+  "search": {
+    "date": "2026-10-09",
+    "queries": [
+      "RimWorld 1.6 reed sedge sphagnum alder wetland plants ヨシ スゲ ミズゴケ ハンノキ",
+      "Vanilla Plants Expanded More Plants wild vs cultivated wetland plants",
+      "Biomes! Prehistoric sedge sphagnum bog moss XML 1.6",
+      "ReGrowth 2 swamp plants XML 1.6",
+      "Medieval Overhaul Odyssey Reeds Bulrush MayRequire"
+    ],
+    "ecosystems": [
+      "vanilla_mo",
+      "amj",
+      "ve",
+      "non_ve"
+    ],
+    "limitations": "Bounded source comparison, not exhaustive Workshop search. Odyssey is not owned or runtime-tested by the author. No mixed installed-MO/VE/Biomes!/ReGrowth loaded-Def test yet; actual load-order conflicts and optional coexistence behavior remain separate post-implementation gates. Japanese descriptions and source art still require author approval. Evidence document records pinned XML and uncertainty; the formal ready state authorizes the independent-implementation scope, not art publication or runtime acceptance."
+  },
+  "evidence": [
+    {
+      "id": "environment-step3-xml-audit-20261009",
+      "path": "Docs/Research/WetlandPlantExistingModAudit-ja.md",
+      "sha256": "76c66433271eb706bd531fe14c46150dcbb827b5bddc34a195bfe68a8cbdded9"
+    }
+  ],
+  "candidates": [
+    {
+      "name": "Vanilla generic wetland plants and Odyssey DLC Reeds/Bulrush",
+      "ecosystem": "vanilla_mo",
+      "version": "RimWorld 1.6; Odyssey optional",
+      "evidence": [
+        "environment-step3-xml-audit-20261009"
+      ],
+      "comparison": {
+        "function": "Vanilla TallGrass/Moss/Willow are generic proxies. Odyssey adds Reeds/Bulrush, but only when DLC is active.",
+        "historical_fit": "Generic proxies cannot distinctly depict all four historical Japanese wetland roles; Bulrush is not sedge.",
+        "dependencies": "Vanilla baseline exists; Odyssey is an unavailable optional DLC.",
+        "retention": "Preserve Vanilla baseline behavior and the existing Healroot supply; do not convert to Odyssey-dependent content.",
+        "progression_balance": "Add one species at a time; preserve approved wetland plant-weight totals and woody proportions.",
+        "reuse": "Reuse gameplay's standard plant Def and biome mechanisms, not the optional Odyssey species as mandatory prerequisites.",
+        "maintenance_license": "No DLC XML or assets are copied; Odyssey runtime compatibility is unverified."
+      },
+      "outcome": "optional_compatibility"
+    },
+    {
+      "name": "Medieval Overhaul Dark Forest Odyssey-conditional water plants",
+      "ecosystem": "vanilla_mo",
+      "version": "Author-provided Medieval Overhaul 1.6 archive",
+      "evidence": [
+        "environment-step3-xml-audit-20261009"
+      ],
+      "comparison": {
+        "function": "MO references Reeds/Bulrush under MayRequire Odyssey in Dark Forest, not an independent source of all four plants.",
+        "historical_fit": "The Dark Forest pool is not a sufficient replacement for AMJE's two natural Japanese wetland biomes.",
+        "dependencies": "MO and its Odyssey-gated entries are optional and must not be added as AMJE baseline dependencies.",
+        "retention": "Keep MO useful content intact; avoid forcing it into standalone Environment.",
+        "progression_balance": "Check optional overlap without changing AMJE's fundamental vegetation balance.",
+        "reuse": "Reference optional compatibility and Patch load order only; avoid copying MO definitions.",
+        "maintenance_license": "The archive was statically inspected; no MO/Odyssey loaded-Def test was claimed."
+      },
+      "outcome": "optional_compatibility"
+    },
+    {
+      "name": "AMJ Environment four-plant natural vegetation responsibility",
+      "ecosystem": "amj",
+      "version": "Environment source 2026-10-09 Design and Step 3",
+      "evidence": [
+        "environment-step3-xml-audit-20261009"
+      ],
+      "comparison": {
+        "function": "Owner of AMJE biome, climate, wild plant placement and the four proposed native plant Defs.",
+        "historical_fit": "Full wetland vegetation must be coherent for medieval Japan without optional external Mods.",
+        "dependencies": "Only RimWorld/Harmony baseline; no MO, VE, Biomes! or Odyssey requirement.",
+        "retention": "Retain AMJE current approved wetland ecosystems, wildlife, diseases and Healroot while adding species.",
+        "progression_balance": "Keep 7.30/8.22 total and 3.00/1.80 woody commonality unless separately approved after review.",
+        "reuse": "Use Environment-owned XML/graphics and existing plant generation machinery; optional coexistence patches only if tested.",
+        "maintenance_license": "New graphics and historical descriptions require author acceptance; no third-party source assets copied."
+      },
+      "outcome": "independent"
+    },
+    {
+      "name": "Vanilla Plants Expanded",
+      "ecosystem": "ve",
+      "version": "Vanilla-Expanded/VanillaPlantsExpanded 1d64cbe34a98585a29e87678dc37ea4c144f3999 (1.6)",
+      "evidence": [
+        "environment-step3-xml-audit-20261009"
+      ],
+      "comparison": {
+        "function": "Cultivated farms and fruit trees; no inspected natural wetland quartet.",
+        "historical_fit": "Cultivated non-Japanese-specific species do not reconstruct wild Japanese marsh and peat-bog composition.",
+        "dependencies": "A content Mod dependency would replace neither Environment's four plant roles nor its world/biome ownership.",
+        "retention": "Leave VPE crops and fruit trees unchanged if installed.",
+        "progression_balance": "Optional co-existence must not change AMJE wild wetland totals or add duplicate populations.",
+        "reuse": "Study farming plant patterns only if useful; not a natural Japanese wetland replacement.",
+        "maintenance_license": "No VPE XML or assets reused; inspect pinned source for compatible behavior."
+      },
+      "outcome": "optional_compatibility"
+    },
+    {
+      "name": "Vanilla Plants Expanded - More Plants",
+      "ecosystem": "ve",
+      "version": "Vanilla-Expanded/VanillaPlantsExpanded-MorePlants 9caf7c02c07dbf1fda2ecfcc203d71e6e67cd6f7 (1.6)",
+      "evidence": [
+        "environment-step3-xml-audit-20261009"
+      ],
+      "comparison": {
+        "function": "Watercress/Lotus/WaterChestnut are cultivated; no direct inspected wild wetland quartet.",
+        "historical_fit": "Aquatic cultivation and spontaneous forest/swamp ecology are distinct activities.",
+        "dependencies": "Additional VE module is optional and not needed by the standalone environment.",
+        "retention": "Do not suppress More Plants' cultivated content.",
+        "progression_balance": "Wild-pool adjustments must not interfere with cultivated plant progression.",
+        "reuse": "Potential compatibility for map presence only; do not share as a required plant provider.",
+        "maintenance_license": "No external definitions or images copied."
+      },
+      "outcome": "optional_compatibility"
+    },
+    {
+      "name": "Biomes! Prehistoric Sedge, Red Sphagnum and Bog Moss",
+      "ecosystem": "non_ve",
+      "version": "biomes-team/BiomesPrehistoric 5d9b69e1e8e41b49a25b1737963111d064993b4e (1.6)",
+      "evidence": [
+        "environment-step3-xml-audit-20261009"
+      ],
+      "comparison": {
+        "function": "Contains BMT_Sedge, BMT_RedSphagnum and BMT_BogMoss with Biomes! Core plant-control extension and Vanilla wetland additive patches.",
+        "historical_fit": "Overlaps the sedge/moss roles but provides a broader prehistoric biome ecosystem rather than an integrated Japan-native set.",
+        "dependencies": "Biomes! Core and a large prehistoric dinosaur/vegetation pack are not acceptable mandatory dependencies just for these plants.",
+        "retention": "Retain full third-party prehistoric content if installed; never strip it to extract three plant assets.",
+        "progression_balance": "Its ColdBog PatchOperationAdd may be overridden by AMJE whole-pool replacement or alter totals in the reverse order; test both paths.",
+        "reuse": "Treat source as prior art and consider a separately gated conditional compatibility patch to balance coexistence, not basic AMJE species replacement.",
+        "maintenance_license": "Third-party CC BY-NC-SA 4.0 plus its custom Def classes require independent original XML/assets; do not copy."
+      },
+      "outcome": "optional_compatibility"
+    },
+    {
+      "name": "ReGrowth 2 wetland plants",
+      "ecosystem": "non_ve",
+      "version": "Helixien/ReGrowth2 0c6e3c4770f6d9e8acd8d6e74dc468e4f55f2aab (1.6)",
+      "evidence": [
+        "environment-step3-xml-audit-20261009"
+      ],
+      "comparison": {
+        "function": "Wild Swamp defines White Willow and fantasy-plant variants but not the four native Japanese wetland species.",
+        "historical_fit": "White Willow is not Hannoki (Alnus); decorative swamp plants do not substitute natural Japanese wetland structure.",
+        "dependencies": "ReGrowth 2 is not required for AMJE.",
+        "retention": "Keep existing ReGrowth biome/plant features if installed.",
+        "progression_balance": "Its whole-pool and conditional DLC patch paths need final loaded-Def conflict checks.",
+        "reuse": "Prior art and optional coexistence, not a mandatory source of species.",
+        "maintenance_license": "Upstream compatibility untested at runtime; no external art or XML copied."
+      },
+      "outcome": "optional_compatibility"
+    }
+  ],
+  "decision": {
+    "kind": "independent",
+    "rationale": "The author's explicit 2026-10-09 standalone-environment requirement means AMJE must itself supply Yoshi, Suge, Hannoki and Mizugoke. Vanilla proxies cannot distinguish their natural ecological roles; Odyssey is optional and unowned, VE focuses on cultivation, Biomes! Prehistoric adds a broad dependent prehistoric ecosystem, and ReGrowth does not supply an equivalent Japanese four-species set. The external Mods are investigated for optional coexistence only; an existing similar species never cancels Environment-owned scope.",
+    "specification": "Docs/NativeVegetationStep3Design-ja.md",
+    "independent_gap": "Standalone Japanese wetland-native vegetation in TemperateSwamp and ColdBog, depicting reeds, sedges, alder wetlands and sphagnum peat bogs without requiring Odyssey, Biomes!, ReGrowth or VE."
+  },
+  "unresolved": []
+}
