@@ -1,6 +1,6 @@
 # Steam Workshop Presentation — Ancient & Medieval Japan - Environment（中世日本 - 環境）
 
-`README.md` is the detailed public-content source of truth. The Workshop description is a concise summary of that README: it should select and compress the information players need to understand, evaluate, and install the mod, but it must not introduce substantive features, design rationale, or compatibility claims that are absent from the README.
+`README.md` is the detailed public-content source of truth. The Workshop condenses README explanations but **must list every implemented player-visible change category as a bullet**. List each scoped unimplemented candidate as a bullet with the exact terminal suffix `（未実装）` in both English and Japanese. Distinguish candidate from approved development, and never repeat a withdrawn plan. No new feature claim may be introduced beyond README.
 
 ## Authoring order
 
@@ -64,7 +64,9 @@ Emphasize:
 - optional CCTO realism layer;
 - Medieval Overhaul coexistence;
 - save-compatibility limitations;
-- Beta status, the active Vanilla / Medieval Overhaul vegetation-retention audit, and the rule that only retained plants proceed to staged retexturing.
+- completed wetland vegetation, wildlife, pack-animal, disease, weather and descriptions; retained-tree descriptions, sowing and cutting outcomes;
+- unimplemented native wetland plant candidates and deferred Vanilla/MO retextures, each as a bullet ending `（未実装）`;
+- Beta status and continued Healroot supply, with medicinal plants outside Environment.
 
 For the representative-plant section, keep the Workshop summaries shorter than the in-game historical descriptions. The Workshop should explain the vegetation-band design and provide a short educational note for each plant; the in-game descriptions retain the fuller kanji/alias/historical detail.
 
