@@ -1,7 +1,7 @@
 # Step 3 湿地植生 — 既存Mod重複監査（2026-10-09）
 
 **所有:** AMJ Environment。対象：ヨシ・スゲ・ハンノキ・ミズゴケの4候補。薬草・加工薬・山野採集は対象外。
-**状態:** 1.6のVE／非VE／MO実XMLとOdyssey公開資料を比較済み。**作者確定方針（2026-10-09）：4種ともAMJEの実装対象、既存Modは任意互換候補のみ。** 新PlantDefは未実装。Projectの正式な判定JSON・日本語説明の作者承認・実画像は未完了。
+**状態:** 1.6のVE／非VE／MO実XMLとOdyssey公開資料を比較済み。**作者確定方針（2026-10-09）：4種ともAMJEの実装対象、既存Modは任意互換候補のみ。** 新PlantDefは未実装。正式な判定JSON（`Docs/Research/WetlandPlantImplementationDecision.json`）は記録済みで、証拠SHA256と4環境種の構造照合を実施済み。Project指定のPython CLI実行結果と作者による日本語説明・画像の承認はなお別ゲート。
 
 ## 目的と判断基準
 
@@ -37,4 +37,4 @@ Odyssey DLCなしの基本構成で、古代～中世日本の河岸・低層湿
 - **ハンノキ:** Environmentが湿地林木本として実装する。Vanilla／ReGrowthのWillow・Birchとの共存、木本総量・植林・落葉・伐採・旧セーブを確認する。
 - **ミズゴケ:** Environmentが冷涼泥炭湿原の植生として実装する。Biomes! PrehistoricのSphagnum／BogMossは任意互換時の重複・分布調整対象。
 
-**実装開始HOLD:** Project `Docs/Research/ExistingModAudit.md` に従い、Environment単体成立という独自実装の理由と、VE／非VEの任意互換・競合に関する正式な決定JSON（証拠SHA256・検証含む）、日本語説明・画像の作者承認が必要。実マップ・4構成／既存セーブ検証は実装受け入れ時の別ゲートであり、この調査だけでPASSにはしない。Odysseyは作者未所持。Biomes!／VE／ReGrowthとの実機相互ロードは未確認。全Workshopの網羅調査をしたとは主張しない。
+**現在のゲート：** Project `Docs/Research/ExistingModAudit.md` に沿う独自実装の必要性・VE／非VE比較・正式判定JSONは記録済みで、証拠ハッシュの一致と同等構造照合を確認した（**Project指定のPython CLI自体は未実行**）。今後の新PlantDef着手は**日本語説明・画像の作者承認**でHOLD。採取収量とヨシ等の未決仕様は別途確定が必要。実マップ・4構成／既存セーブ検証は実装受け入れ時の別ゲートであり、この調査だけでPASSにはしない。Odysseyは作者未所持。Biomes!／VE／ReGrowthとの実機相互ロードは未確認。全Workshopの網羅調査をしたとは主張しない。
