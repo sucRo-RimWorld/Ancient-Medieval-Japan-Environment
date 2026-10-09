@@ -25,6 +25,8 @@
 
 **ミズゴケの確定操作仕様（2026-10-09作者承認）：** `selectable=true`相当の設定でクリック選択・名前／説明／成長状態の表示を可能にする。`harvestedThingDef`を設定せず収穫指示を提供しない。通常の伐採／刈り取り（`CutPlant`相当）で除去はできるが、アイテムを一切ドロップしない。栽培用播種は開放しない。選択UI・収穫指示の非表示・刈り取り・無ドロップ・播種不可を最終ロード済みDefと実機で確認する。**選択可と採取可は独立した性質**であり、コード・XMLへの反映は新植物実装時とする。
 
+**MO 1.6の実XML構造・スゲ／ミズゴケの静的ガード（2026-10-09）：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md` に作者提供MO ZIPを解析したPatch XPath／Hay→Straw ProcessDef／木材チェーントグルの証拠、PlantDefの継承／選択／Harvest／Cut／播種ゲートを記録。特に**MOがHayを追加するのは既存のPlant_Grass／Plant_TallGrassのみで、新しいスゲ自身のHay採取DefはEnvironmentが持つ必要がある**。`Tests/test_wetland_material_plant_contract.py`は正誤の仮Defを検査し、本番Defが未存在の間は本番検査を**SKIP**する。作者未承認の数値／画像／説明はこの監査で承認されない。
+
 ## ② Medieval Overhaul + Environment（任意互換）
 
 **ソースの固定:** 作者提供 `3219596926.zip` の `1.6/` XML を静的確認。MOなし基盤へ `DankPyon_*` を無条件参照しない。
