@@ -82,18 +82,16 @@ The old pinned 32-file candidate has author-reported four-profile map/native-cut
 
 ## Vegetation, ecology, artwork and runtime follow-ups
 
-### ENV-STEP3-NATIVE-VEGETATION-20261008 — new native wetland plants and mugwort
+### ENV-STEP3-NATIVE-VEGETATION-20261008 — four Environment-owned wetland plants
 
-**Owner:** Environment / native vegetation and medicine-supply boundary
-**Status:** BLOCKED ON JAPANESE DESCRIPTION / SOURCE ART APPROVAL — new wetland species NOT IMPLEMENTED; medicinal species MOVED TO FUTURE MEDICINE MOD
+**Owner:** Environment natural vegetation; future Medicine Mod separately owns medicinal plants and remedies
+**Status:** FOUR PLANTS IN ENVIRONMENT SCOPE; OPTIONAL-COMPATIBILITY AUDIT RECORDED; NEW PLANTDEFS BLOCKED ON FORMAL ENTRY RECORD / APPROVED JAPANESE TEXT / SOURCE ART
 
-**Latest ownership correction:** Environment retains wild/cultivated Healroot and MedicineHerbal supply. Yomogi/Kuzu medicinal species and remedies moved to the future Medicine Mod; the herb-related historical plans below are superseded by Project `Docs/Research/MedicinalPlantsAndRemedies.md`. Wetland-native plants remain Environment scope. Do not remove Healroot.
+**2026-10-09 author decision:** Environment must reconstruct the ancient-to-medieval Japanese natural environment **by itself**, with no required other vegetation Mod or optional DLC. Yoshi, Suge, Hannoki and Mizugoke remain Environment implementation targets even if equivalent plants exist in other Mods. VE, Biomes! Prehistoric, ReGrowth 2, MO and Odyssey are **optional compatibility** targets only; prior-art review is used to prevent duplicate spawns, unexpected pool changes and loaded patch conflicts, **not to omit AMJE plants**. Canonical sources: `Docs/Design.md`, `Docs/NativeVegetationStep3Design-ja.md`, `Docs/Research/WetlandPlantExistingModAudit-ja.md` (prior-art PR #49).
 
-2026-10-08: Step 2 tree-description work was author-confirmed PASS and closed, so Step 3's missing Japan-appropriate wetland vegetation and traditional herbs is now the active scoped workstream. [PR #32](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/32) squash-merged as `def9a2d17d6b3030b52d675718fadda2dc6aacf3`, after successful Workshop-payload PR CI. Formal design source of truth: `Docs/NativeVegetationStep3Design-ja.md`, referenced by `Docs/Design.md` 11.5.10. It covers VE-first overlap, selected prospective reed/sedge/alder/sphagnum/mugwort owners, two wetland commonality totals 7.30/8.22 and woody totals 3.00/1.80, controlled redistribution of Vanilla proxies, per-biome habitat and tree-sowing checks, historical Japanese drafts, art asset gate, automated Quickstarts/error gate and no premature medicinal yield.
+**Still gated:** Project's formal VE/non-VE implementation-entry JSON, author-approved Japanese descriptions and original plant assets, per-species XML/static/visual/native runtime and save-update tests. First bounded implementation remains Yoshi once these conditions are met. Four species are within agreed scope, not implemented or released. No new Steam/Windows runtime evidence is claimed.
 
-**Immediate implementation route:** Start with one Japanese reed (`AMJ_Plant_Yoshi`) on a separate PR only after approved Japanese description and approved source PNG exist; then handle other wetland species and Yomogi as independently auditable slices. The original candidates, commonality transfers, Japanese draft text and harvest mechanics are NOT yet author-approved or implemented. ENV-KUZU-MEDICINAL-OWNER-20261008 confirms author-assigned Kuzu-root ownership and scope, not detailed mechanics or assets. Do not translate unapproved drafts or create live Def references to missing textures. Existing four AMJE plant visual coverage rows remain complete; legacy-tree retextures are still deferred and new plant visual reviews are separate.
-
-**Critical safeguard:** Wild `Plant_HealrootWild` remains in all six currently covered Biomes until separate Step 4 full harvest/supply verification. Yomogi proposed only for warm/cool temperate and cannot itself replace medicine collection in subalpine, alpine or wetlands. One successful standard `run-tests.bat` for Step 2 does not prove Step 3's new Defs or the separate Vanilla/MO/CCTO/MO+CCTO four-profile matrix. No Steam publication is claimed.
+**Unchanged responsibilities:** Retain wild/cultivated Healroot and MedicineHerbal supply. Medicinal Yomogi/Kuzu and remedies belong to the future Medicine Mod, not Environment; Vanilla/MO tree retextures remain deferred. Wetland current total/woody commonality: 7.30/3.00 and 8.22/1.80. Old handoff language suggesting later Healroot removal, Yomogi Environment implementation or skipping a plant because of an equivalent Mod is superseded.
 
 ### ENV-SAVE-FRIENDLY-VEGETATION-20261008 — staged additions / existing-save gate
 

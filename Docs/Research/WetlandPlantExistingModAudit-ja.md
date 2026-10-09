@@ -1,9 +1,11 @@
 # Step 3 湿地植生 — 既存Mod重複監査（2026-10-09）
 
 **所有:** AMJ Environment。対象：ヨシ・スゲ・ハンノキ・ミズゴケの4候補。薬草・加工薬・山野採集は対象外。
-**状態:** 1.6のVE／非VE／MO実XMLとOdyssey公開資料を比較済み。**新PlantDefは未実装。Projectの正式な必要性判定JSON・日本語説明の作者承認・実画像は未完了。**
+**状態:** 1.6のVE／非VE／MO実XMLとOdyssey公開資料を比較済み。**作者確定方針（2026-10-09）：4種ともAMJEの実装対象、既存Modは任意互換候補のみ。** 新PlantDefは未実装。Projectの正式な判定JSON・日本語説明の作者承認・実画像は未完了。
 
 ## 目的と判断基準
+
+**既存Mod監査の役割（2026-10-09作者確定）：** Environment単体で中世日本の自然環境を成立させるため、同等種が既存Modに存在してもAMJE自身の必要な植生実装を省略しない。他Modは任意併用時の二重出現、分布、Patchロード順、依存・ライセンスを検討する**互換候補だけ**とする。外部Defsや画像を無断転載せず、自身の植生として実装する。Projectの形式的な既存Mod比較・判断記録、日本語本文・画像承認、実機検証の各ゲートは維持する。
 
 Odyssey DLCなしの基本構成で、古代～中世日本の河岸・低層湿原・冷涼湿原の自然植生を表す。既存の`TemperateSwamp`・`ColdBog`の`wildPlants`はAMJEが**全体置換**している（それぞれ総commonality 7.30／8.22、木本3.00／1.80）。新種はTallGrass／Moss／Willow等の代理から配分を移し、総量と森林構造を維持する。新採取アイテム・Job・資材加工・医療機能は追加しない。
 
@@ -28,11 +30,11 @@ Odyssey DLCなしの基本構成で、古代～中世日本の河岸・低層湿
 3. Biomes!固有地形タグ／ライセンス／幅広い先史コンテンツを含むModを、わずかな植物のために基本構成へ依存追加しない。XML・PNGは流用しない。
 4. MedicineHerbal供給は維持する。野生・栽培Healrootは削除しない。
 
-### 種別の暫定結論
+### 4種の確定実装範囲と任意互換
 
-- **ヨシ:** Odyssey DLCなしの自然植生Def候補として独立実装を検討。専用画像と日本語本文の承認前には着手しない。
-- **スゲ:** Biomes! Prehistoric`BMT_Sedge`が直接競合。任意互換を優先比較し、基本構成で独立種を置く必要性を判断する。
-- **ハンノキ:** Vanilla／ReGrowthのWillow・Birchとは異なる湿地林。独立木本候補は維持するが、植林・落葉・伐採量・既存セーブE2Eを条件とする。
-- **ミズゴケ:** Biomes! PrehistoricのSphagnum／BogMossが重複。依存コスト・任意互換と、ColdBog泥炭景観への専用種追加を比較する。
+- **ヨシ:** Environmentが河岸・低層湿原の植生として実装する。OdysseyのReedsはDLC有効時の任意互換・二重出現調整候補。
+- **スゲ:** Environmentが湿地草本として実装する。Biomes! Prehistoricの`BMT_Sedge`は任意互換の分布・Patch競合対象であり、AMJE独自Defを省略しない。
+- **ハンノキ:** Environmentが湿地林木本として実装する。Vanilla／ReGrowthのWillow・Birchとの共存、木本総量・植林・落葉・伐採・旧セーブを確認する。
+- **ミズゴケ:** Environmentが冷涼泥炭湿原の植生として実装する。Biomes! PrehistoricのSphagnum／BogMossは任意互換時の重複・分布調整対象。
 
-**実装開始HOLD:** Project`Docs/Research/ExistingModAudit.md`に従う必要性判定JSON（証拠SHA256・実行検証含む）、日本語説明と各画像の作者承認、実マップ・4構成／既存セーブ検証が別途必要。今回の調査はこれらを代替しない。Odysseyは作者未所持。Biomes!／VE／ReGrowthとの実機相互ロードは未確認。全Workshopの網羅調査をしたとは主張しない。
+**実装開始HOLD:** Project `Docs/Research/ExistingModAudit.md` に従い、Environment単体成立という独自実装の理由と、VE／非VEの任意互換・競合に関する正式な決定JSON（証拠SHA256・検証含む）、日本語説明・画像の作者承認が必要。実マップ・4構成／既存セーブ検証は実装受け入れ時の別ゲートであり、この調査だけでPASSにはしない。Odysseyは作者未所持。Biomes!／VE／ReGrowthとの実機相互ロードは未確認。全Workshopの網羅調査をしたとは主張しない。
