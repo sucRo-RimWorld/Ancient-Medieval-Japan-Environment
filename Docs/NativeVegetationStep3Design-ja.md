@@ -18,6 +18,8 @@
 | `Plant_Moss` | 泥炭性のミズゴケ類 | 通常のコケを高層湿原のミズゴケと同一視しない |
 | `Plant_TreeWillow`・`Plant_TreeBirch`・`Plant_TreeMaple` | 低層湿原のハンノキ林 | Birch は Alnus ではない。河岸・縁辺林と湿原中心部を混同しない |
 
+**実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがある。Projectの形式的判定JSON・承認済み日本語説明・実画像は未完成のため、新PlantDefはHOLD。
+
 **VE最優先の機能重複監査（暫定）：** Vanilla Plants Expanded（Workshop 2134308522）は公開説明上、果樹・作物の追加と農業選択肢を主軸とする。既存農作物・雑草等の発想は参考にする一方、日本の湿地のヨシ／スゲ／ハンノキ／ミズゴケ自然群落をそれだけで満たすとは確認できない。**前提化しない／実装参考・任意互換候補**。MOおよび同Modのロード済みDefとの名称・画像・Harvest重複は、実装PRで実Defを確認する。既存Modの主要内容を大幅削除して前提化しない。
 
 資料：環境省・釧路湿原国立公園はヨシ・スゲ湿原、ハンノキ林とミズゴケ高層湿原を区別。環境省「赤名湿原」はハンノキ・カサスゲを記載。文化庁「ふるさと文化財の森」はヨシを伝統的な草葺き材に含める。これら**現代植生資料から古代～中世の各地の割合・作業技術をそのまま外挿しない**。
