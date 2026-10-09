@@ -19,6 +19,8 @@
 | `Plant_Moss` | 泥炭性のミズゴケ類 | 通常のコケを高層湿原のミズゴケと同一視しない |
 | `Plant_TreeWillow`・`Plant_TreeBirch`・`Plant_TreeMaple` | 低層湿原のハンノキ林 | Birch は Alnus ではない。河岸・縁辺林と湿原中心部を混同しない |
 
+**正式な実装必要性・所有権の判定記録（2026-10-09）：** `Docs/Research/WetlandPlantImplementationDecision.json` に、4種をEnvironmentが提供する独立実装として、VE・非VE・Vanilla/MO・AMJの証拠SHA256・比較・任意互換候補を記録した。これは**実装するかどうかの判断**に限った`ready`であり、新規PlantDef・草案説明・画像の作者承認や実機互換を意味しない。固定証拠ハッシュ・独自実装の結論・4対象種の回帰は `Tests/test_wetland_implementation_decision.py` で検査する。
+
 **実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがあるが、**Environmentの独自実装を省略する理由にはならない**。Projectの形式的判定JSON・承認済み日本語説明・実画像は未完成のため、新PlantDefの実装着手はHOLD。
 
 **VE最優先の機能重複監査（暫定）：** Vanilla Plants Expanded（Workshop 2134308522）は公開説明上、果樹・作物の追加と農業選択肢を主軸とする。既存農作物・雑草等の発想は参考にする一方、日本の湿地のヨシ／スゲ／ハンノキ／ミズゴケ自然群落をそれだけで満たすとは確認できない。**前提化しない／実装参考・任意互換候補**。MOおよび同Modのロード済みDefとの名称・画像・Harvest重複は、実装PRで実Defを確認する。既存Modの主要内容を大幅削除して前提化しない。
