@@ -1,6 +1,6 @@
 # Steam Workshop Presentation — Ancient & Medieval Japan - Environment（中世日本 - 環境）
 
-`README.md` is the detailed public-content source of truth. The Workshop condenses README explanations but **must list every implemented player-visible change category as a bullet**. List each scoped unimplemented candidate as a bullet with the exact terminal suffix `（未実装）` in both English and Japanese. Distinguish candidate from approved development, and never repeat a withdrawn plan. No new feature claim may be introduced beyond README.
+`README.md` is the detailed public-content source of truth. Workshop follows the author's finalized 2game organization: order the features by function (climate/weather → rivers/coasts → biomes → soil → vegetation → wildlife → wetland disease → descriptions), combine overlapping bullets, and preserve coverage of **all implemented player-visible change categories** even when one bullet covers several. Keep additional Workshop-only details such as wetland terrain retention and plant cutting yield when needed for complete coverage. Do not repeat a 'balance' section that merely duplicates features or compatibility. Structure the body as features → scope → compatibility → save compatibility → future candidates. The four unimplemented wetland-plant candidates are child bullets of one parent marked `（未実装）`; deferred retexturing is another marked parent. Retain the literal Japanese suffix in both language blocks. Distinguish candidates from approved work and never repeat withdrawn plans. No new feature claim may be introduced beyond README.
 
 ## Authoring order
 
@@ -55,7 +55,7 @@ For public-copy updates, verify `Docs/Design.md` against `EnvironmentTerrainProc
 ## Workshop content policy
 
 Emphasize:
-- replacement/reconfiguration of Vanilla terrain, vegetation and biome composition for Japan, stated in the opening;
+- replacement/reconfiguration of Vanilla terrain, vegetation and biome composition for medieval Japan, stated in the opening;
 - distinguish the changed generated environment from reuse of RimWorld's existing world-generation and river/coast systems;
 - why the four AMJ biomes are simplified vegetation/climate bands rather than prefectural or exclusive biome replacements;
 - one representative structural plant for each band: Sudajii / Japanese beech / Shirabiso / Haimatsu, with concise bilingual captions;
@@ -65,7 +65,7 @@ Emphasize:
 - Medieval Overhaul coexistence;
 - save-compatibility limitations;
 - completed wetland vegetation, wildlife, pack-animal, disease, weather and descriptions; retained-tree descriptions, sowing and cutting outcomes;
-- unimplemented native wetland plant candidates and deferred Vanilla/MO retextures, each as a bullet ending `（未実装）`;
+- unimplemented native wetland plant candidates grouped under a single `（未実装）` parent with four named child items, plus deferred Vanilla/MO retextures as a separate `（未実装）` parent;
 - Beta status and continued Healroot supply, with medicinal plants outside Environment.
 
 For the representative-plant section, keep the Workshop summaries shorter than the in-game historical descriptions. The Workshop should explain the vegetation-band design and provide a short educational note for each plant; the in-game descriptions retain the fuller kanji/alias/historical detail.
@@ -74,7 +74,7 @@ The four current Workshop images reference production PNGs directly through `raw
 
 When the Workshop body names another mod, provide a direct link at least at its first or dependency-list mention. Prefer its Steam Workshop page when published; use the owning GitHub repository for an AMJ mod that has no public Workshop item yet. Keep the **combined English + Japanese + image gallery** below Steam's 8,000-byte limit rather than repeating the same long URL on every occurrence. Omit license, AI-production descriptions and donation requests from the Steam copy; preserve legally required repository/distribution notices.
 
-The development-status section must state that Vanilla / Medieval Overhaul vegetation is already being audited for retention, with unsuitable plants removed or replaced before visual work. It should then summarize staged retexturing for the retained targets, covering the visible state family used by each plant. README remains the detailed source for the scope and technical compatibility policy.
+The future-candidates section must keep unfinished wetland plants and deferred Vanilla / Medieval Overhaul tree retextures visibly distinct from implemented features, without listing every plant as a separate promised development. README remains the detailed source for scope, prior vegetation audits and technical compatibility policy.
 
 Keep detailed world-generation numbers, full test results, exact plant cold-tolerance values, implementation details, and research rationale in README / Design rather than the Workshop body.
 
