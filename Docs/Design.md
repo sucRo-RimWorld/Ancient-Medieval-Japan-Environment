@@ -980,7 +980,7 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 ### 11.5.10 Step 3 不足する日本の自然植生
 
-**2026-10-09一次採取の3構成設計案：** `Docs/Research/WetlandPlantMaterialsProfiles-ja.md` に、Vanilla単体／Medieval Overhaul併用／将来の他AMJ連携におけるヨシ・スゲ・ハンノキ・ミズゴケの採取・加工責務を整理した。基本の候補はヨシ・スゲ→既存`Hay`（飼料化の歴史的不整合リスクあり）、ハンノキ→`WoodLog`、ミズゴケ→無採取。MOの既存`Hay→DankPyon_Straw`乾燥経路／任意WoodChainと、将来AMJの茅葺き・菅笠等を明確に分離する。**採取収量・Hay採用・新機能は未承認の設計候補で、本番Defは変更していない。**
+**2026-10-09一次採取の3構成設計：** `Docs/Research/WetlandPlantMaterialsProfiles-ja.md` にVanilla単体／Medieval Overhaul併用／将来の他AMJ連携の素材責務を記録。**作者確定：スゲはVanilla `Hay`、MOでは既存`Hay→DankPyon_Straw`へ統合し、スゲ専用原料を作らない。将来の菅笠・蓑・敷物も汎用干し草／藁でよい。ミズゴケは選択と情報表示・刈り取り除去を許可、収穫指示・素材ドロップ・栽培は不可。** ヨシのHay採用、ハンノキの`WoodLog`収量、スゲを含む`2/1/24`の収量は未承認。MOの任意WoodChain、他AMJの製品・Recipeは未実装。本番Defは変更していない。
 
 **2026-10-09作者決定：** ヨシ・スゲ・ハンノキ・ミズゴケの4種は、他Modに同名・類似の植物がある場合でも、**Environment自身の実装対象**とする。Environment一つで中世日本の自然環境を成立させるのが目的であり、重複監査は実装省略判定には使わない。既存Modは任意互換（同時導入時の二重出現、植物分布、Patch競合、ロード後Def）の調査対象のみとする。形式的な実装開始判定記録、日本語説明・画像の作者承認、実機テストは維持する。
 
