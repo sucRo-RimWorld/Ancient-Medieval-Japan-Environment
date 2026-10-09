@@ -145,7 +145,8 @@ def run(root: Path, output: Path, game: Path):
                 raise ValueError("Pickle summary missing: " + profile)
             result = json.loads(report.read_text(encoding="utf-8-sig"))
             names = [scenario["name"] for scenario in result.get("scenarios", [])]
-            if (result.get("total") != len(SCENARIOS) or result.get("passed") != len(SCENARIOS) or
+            if (result.get("exitReason") != "passed" or
+                result.get("total") != len(SCENARIOS) or result.get("passed") != len(SCENARIOS) or
                     result.get("failed") != 0 or result.get("skipped") != 0 or
                     set(names) != set(SCENARIOS) or len(names) != len(SCENARIOS)):
                 raise ValueError("Pickle scenarios incomplete or failing: " + profile)
