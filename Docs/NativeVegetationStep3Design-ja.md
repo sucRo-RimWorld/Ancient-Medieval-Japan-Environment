@@ -9,7 +9,7 @@
 - 正本のロードマップは `Docs/Design.md` 11.5.7、既存種残存とHealroot除外条件は `Docs/VanillaPlantRetentionAudit-ja.md`、湿地の現行配分は `Patches/VanillaWetlandVegetation.xml`、4独自Biomeの現行配分は `Defs/BiomeDefs/AMJ_Biomes.xml`。
 - Step 1 湿地生態・Step 2 既存Vanilla樹木説明は作者報告のゲートを経て完了。**既存樹木リテクスチャは作者の指示どおり保留**。新規植物の表示状態確認は別の新規アート工程。
 - **2026-10-09一次採取の検討範囲拡張：** 植物を追加するだけでなく、素材を採れるようにするかをVanilla／MO／他AMJの3構成で比較する。提案元資料は`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`。植物と一次採取はEnvironmentが担い得るが、採取品・収量は**未承認**。屋根葺材・笠・蓑の製品化、加工設備、別分野のRecipe／Job等の大きなループは、Environmentで勝手に実装せず、用途側Modの任意連携とする。未実装機能の存在を説明文で先取りしない。
-- 日本語説明を**先に作者承認**してから英訳する。以下の候補文を英訳・Defに配置してはならない。
+- **2026-10-10に4種の日本語説明本文を作者承認済み**。確定日本語§4を正本に、英訳§4.1を意味対応させる。画像や未確定数値の承認を経るまで、本番Def・DefInjectedへの配置は禁止。
 
 ## 2. 現在の不足と先行Mod監査
 
@@ -21,7 +21,7 @@
 
 **正式な実装必要性・所有権の判定記録（2026-10-09）：** `Docs/Research/WetlandPlantImplementationDecision.json` に、4種をEnvironmentが提供する独立実装として、VE・非VE・Vanilla/MO・AMJの証拠SHA256・比較・任意互換候補を記録した。これは**実装するかどうかの判断**に限った`ready`であり、新規PlantDef・草案説明・画像の作者承認や実機互換を意味しない。固定証拠ハッシュ・独自実装の結論・4対象種の回帰は `Tests/test_wetland_implementation_decision.py` で検査する。
 
-**実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがあるが、**Environmentの独自実装を省略する理由にはならない**。形式的判定JSONは作成済み。**Projectの正式Python CLIを2026-10-09に同一内容で実行し、構造／証拠バイト照合PASS**を取得した。対象Environmentコミット・Project PRとActionsログを `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md` に記録した。**承認済み日本語説明・実画像が未完成**のため、新PlantDefの実装着手はHOLD。
+**実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがあるが、**Environmentの独自実装を省略する理由にはならない**。形式的判定JSONは作成済み。**Projectの正式Python CLIを2026-10-09に同一内容で実行し、構造／証拠バイト照合PASS**を取得した。対象Environmentコミット・Project PRとActionsログを `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md` に記録した。**日本語説明本文は2026-10-10に作者承認済み**。必要な実画像・他の未確定仕様が残るため、新PlantDefの実装着手はHOLD。
 
 **VE最優先の機能重複監査（暫定）：** Vanilla Plants Expanded（Workshop 2134308522）は公開説明上、果樹・作物の追加と農業選択肢を主軸とする。既存農作物・雑草等の発想は参考にする一方、日本の湿地のヨシ／スゲ／ハンノキ／ミズゴケ自然群落をそれだけで満たすとは確認できない。**前提化しない／実装参考・任意互換候補**。MOおよび同Modのロード済みDefとの名称・画像・Harvest重複は、実装PRで実Defを確認する。既存Modの主要内容を大幅削除して前提化しない。
 
@@ -33,7 +33,7 @@
 - 提供されたMedieval Overhaul 1.6ソースアーカイブの `1.6/Defs/Biomes/Biomes_DarkForest.xml` には、`Plant_Reeds`（commonality 1）と`Plant_Bulrush`（0.2）がどちらも `MayRequire="Ludeon.RimWorld.Odyssey"` 付きで定義されている。**DLCなしではロードされない条件付きエントリであり、MO単独でReeds/Bulrushが利用できる根拠にはならない。** これは手元アーカイブのXML静的調査のみで、MO＋Odyssey実機テストではない。
 - 作者の検証環境にOdyssey DLCがなく、当面はDLC有効状態でのロード済みDef・生育地形・出現分布・テクスチャ・パッチ競合を実機検証できない。**DLCを必須化しない**。DLC未導入のVanilla基準（任意MO/CCTO共存を含む）を主たる実装・回帰ゲートとする。DLC専用Def・画像・参照を通常の配布ファイルへ無条件に追加しない。
 - 将来Odyssey互換に着手する際は、実際の`Plants_Water.xml`等の版固定したDef、`wildPlants`再配分経路、Odysseyの水域植物生成経路、同種景観の重複量を確認する。特にAMJEの`Patches/VanillaWetlandVegetation.xml`は湿地の`wildPlants`全体を置換するため、Odyssey由来エントリを保持しているとは**未確認**。DLC向け調整は`Ludeon.RimWorld.Odyssey`条件の任意パッチとして独立させ、実機証拠がない間は互換済み・PASSと表示しない。
-- 上記は公開情報を使った**部分的な重複・任意互換監査**であり、互換済みを証明するものではない。**4種のEnvironment実装範囲は作者判断で確定しており、他Modの有無では省略しない。** VE／非VEの実XML・コード、ライセンスと依存の比較は実施済みで、Project `Docs/Research/ExistingModAudit.md` の形式的決定JSONも記録済み。ProjectのPython CLIによる正式な構造／根拠照合は固定Environmentコミット `41db6dc` に対してPASS（証跡は `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md`）。**しかし**ゲーム内の採取・描画・日本語本文は未承認／未検証のため、新PlantDef着手は引き続き保留する。承認済み日本語説明・実画像が揃うまで英訳や出荷も行わない。
+- 上記は公開情報を使った**部分的な重複・任意互換監査**であり、互換済みを証明するものではない。**4種のEnvironment実装範囲は作者判断で確定しており、他Modの有無では省略しない。** VE／非VEの実XML・コード、ライセンスと依存の比較は実施済みで、Project `Docs/Research/ExistingModAudit.md` の形式的決定JSONも記録済み。ProjectのPython CLIによる正式な構造／根拠照合は固定Environmentコミット `41db6dc` に対してPASS（証跡は `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md`）。**しかし**ゲーム内の採取・描画と未決数値は未承認／未検証で、新PlantDef着手は引き続き保留する。**日本語説明本文は2026-10-10に作者承認済み、英訳も§4.1に作成済み**。必要な承認済み実画像・動作確認が揃うまで本番Def配置・出荷はしない。
 
 公開参照：[Reeds](https://rimworldwiki.com/wiki/Reeds)、[Bulrush](https://rimworldwiki.com/wiki/Bulrush)、[Odyssey DLC公式発売案内](https://ludeon.com/blog/2025/07/the-rimworld-odyssey-expansion-is-out-now/)、[任意DLC条件 `MayRequire`](https://www.rimworldwiki.com/wiki/Modding_Tutorials/MayRequire)。
 
@@ -96,11 +96,11 @@ Environmentでは野生・栽培Healrootと既存MedicineHerbal供給を維持�
 **優先度Aの漏れ監査（2026-10-10）：** 2026-10-07に**Aと明示評価した追加植物はスギとススキの2候補**。ススキは本書§3.4に復元済み、スギは本節で復元する。当時のヨシはA−、クリB＋、ヒノキBであり、**Aと区別する**。後続でヨシは湿地4種に、実・木の実の採集はEnvironment外へ責務移管されたので、これらの優先度だけを根拠に現在の対象を勝手に変えない。
 
 **状態：** 設計・優先順位のみ記録復旧。新規植物データ、画像、収量、分布、既存セーブ、Workshop配布物は変更なし。
-## 4. 日本語説明・作者レビュー用最終候補（未承認・英訳禁止）
+## 4. 日本語説明 — 2026-10-10作者承認済み正本
 
-**2026-10-10 史資料再点検・文章統一：** 出典の確認結果と、2026-10-09に確定したスゲの`Hay`採取・ミズゴケ無採取の設計を照合して改稿した。**以下は4種とも作者による本文承認前の草案**。作者承認まで英訳・DefInjected・本番PlantDef・Workshop本文に転記しない。
+**2026-10-10作者承認：** 史資料再点検・文章統一後、アシ優先の呼称と「枯れた部分が分解されにくい状態で堆積し、泥炭の形成に関わる」というミズゴケの修正文を含む**以下4種の日本語説明本文を作者が「OK」と回答し正式承認**。引用段落を日本語の確定正本とする。承認は**説明本文のみ**で、ゲーム内表示ラベル、採取量、収穫物の未決部分、植生比率、生育条件、テクスチャ、PlantDef、Steam掲載や配布を承認するものではない。英訳は許可されるが、本番Def/DefInjectedへの転記は画像を含む実装ゲートを通過後に行う。
 
-説明は「漢字と一般名・別名 → 日本の生息環境 → 古代～中世との接点」を優先する。機能の実装有無や開発状態を本文に混ぜない。未証明の利用史／現代との比較は創作しない。研究上の留保と出典は `Docs/Research/WetlandPlantHistoricalEvidence-ja.md` に記録。実際のゲーム内説明では2段落を `\\n\\n` で分割する。
+説明は「漢字と一般名・別名 → 日本の生息環境 → 古代～中世との接点」を優先する。機能の実装有無や開発状態を本文に混ぜない。未証明の利用史／現代との比較は創作しない。研究上の留保と出典は `Docs/Research/WetlandPlantHistoricalEvidence-ja.md` に記録。英語版は§4.1の承認済み日本語本文に忠実な翻訳を採用する。実際のゲーム内説明では日英ともに2段落を `\\n\\n` で分割する。
 
 ### 葦（アシ、ヨシとも呼ぶ）— `AMJ_Plant_Yoshi`
 
@@ -134,6 +134,34 @@ Environmentでは野生・栽培Healrootと既存MedicineHerbal供給を維持�
 
 根拠：環境省「釧路湿原国立公園の特徴」「重要湿地・別寒辺牛湿原」、環境省自然環境保全基礎調査「特定植物群落調査」。**選択・刈り取り可能、収穫・栽培不可、ドロップなしは作者承認済み**。史実に裏付けのない古代～中世の医療・資材利用を本文へ追加しない。
 
+## 4.1 English translations aligned with approved Japanese
+
+**Prepared 2026-10-10 after Japanese author approval.** The following English descriptions translate the four Japanese paragraphs in §4; these are translation source text, **not a claim that game Defs, graphics, in-game labels, or translations have been installed or runtime-tested**. Do not add extra historical claims, product Recipes, or unapproved harvest behavior when using them. Preserve two paragraphs per species using literal `\\n\\n` within RimWorld XML/DefInjected.
+
+### Reed (ashi; also called yoshi) — `AMJ_Plant_Yoshi`
+
+> Reed (ashi, also called yoshi) is a tall herbaceous plant that grows in dense stands along rivers and lakes and in wet lowlands. In low-lying fens supplied with water from their surroundings, it forms reedbeds alongside sedges.
+>
+> Reeds have long been used as thatching material for roofs. Thatch also includes Japanese silver grass and rice or barley straw, and the materials used have varied by region and building.
+
+### Sedge (suge; also called suga) — `AMJ_Plant_Suge`
+
+> Sedge (suge, also called suga) is a collective name for sedges that grow in wet grasslands and fens. Their long, narrow leaves grow in dense clumps, forming stands near reedbeds and alder woods.
+>
+> The Man'yōshū includes poems about suge and hats made from it. Its leaves have long been used to make hats and traditional rain capes.
+
+### Alder (hannoki) — `AMJ_Tree_Hannoki`
+
+> Alder (hannoki) is a tall deciduous tree that grows along rivers and in wetlands with a high water table. It forms woods in damp lowlands, shaping wetland landscapes together with reeds and sedges.
+>
+> Studies of naturally occurring wood recovered from archaeological sites show that wetland forests containing trees of the alder genus existed in valleys of the Kantō region during the Jōmon period. Such forests were one of the forms of natural vegetation found in Japan's river lowlands long ago.
+
+### Sphagnum moss (mizugoke) — `AMJ_Plant_Mizugoke`
+
+> Sphagnum moss (mizugoke) is a group of mosses that forms mats over wetland ground. In cool, rain-fed raised bogs, sphagnum spreads, and its dead parts accumulate where they decompose slowly, contributing to the formation of peat.
+>
+> These bogs differ in their water supply and vegetation from reed and sedge fens fed by rivers or groundwater. Sphagnum is one of the characteristic plants of peat bogs in Japan's cooler regions.
+
 ## 5. 新規アート・技術設計の実装ゲート
 
 - **DLC非導入を標準の成立条件とする。** 基本湿地プールはDLC固有の`Plant_Reeds`・`Plant_Bulrush`を参照せず、既存Healrootの全Biome供給を維持する。Odyssey同時導入時の重複・水域生育・`wildPlants`置換挙動は未試験なので、現時点ではOdyssey互換パッチを実装しない。
@@ -157,7 +185,7 @@ Environmentでは野生・栽培Healrootと既存MedicineHerbal供給を維持�
 
 ## 7. 次回実装前に固定する条件
 
-1. ヨシ・スゲ・ハンノキ・ミズゴケの日本語説明文の個別承認と、各PlantDefの種代理の範囲。薬用植物は薬系Modの責務。
+1. **日本語説明文4種は2026-10-10に作者承認済み**。§4.1の英訳との意味・改行対応を本番実装時に検査。各PlantDefの種代理の範囲・表示ラベル・未決の採取物と数値は実装前に別途審査し、薬用植物は薬系Modの責務。
 2. 各新規植物の承認済み画像、状態差、描画・地形適性（野生生成が消滅しないこと）。
 3. 二つの湿地と暖・冷温帯のcommonality移管案（元代理・新種・総量・木本量の増減を表にして確認）。
 4. ハンノキの通常植林・研究前後メニューへの影響と、MOの植物／資源との重複監査。
