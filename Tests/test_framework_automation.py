@@ -46,6 +46,7 @@ class FrameworkAutomationContractTests(unittest.TestCase):
             self.assertIn('[Then("' + sentence + '")]', self.steps)
         for marker in (
             "-pickle-run=", "-pickle-mode=fast", "summary.json",
+            'result.get("exitReason") != "passed"',
             "DevelopmentPickleSummary.json", "RIMWORLD_AMJE_ERROR_DIRECTORY",
         ):
             self.assertIn(marker, self.pickle)
