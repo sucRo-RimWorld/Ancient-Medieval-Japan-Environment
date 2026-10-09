@@ -93,6 +93,8 @@ The old pinned 32-file candidate has author-reported four-profile map/native-cut
 
 **Still gated:** Author-approved Japanese descriptions and original plant assets, per-species XML/static/visual/native runtime and save-update tests. First bounded implementation remains Yoshi once these conditions are met. Four species are within agreed scope, not implemented or released. No new Steam/Windows runtime evidence is claimed.
 
+**2026-10-09 weight-transfer draft:** `Docs/Research/WetlandPlantDistributionDraft.json` proposes a numerically conserved four-plant redistribution for TemperateSwamp and ColdBog (total/woody unchanged), with source-pool drift and mutation checks in `Tests/test_wetland_distribution_draft.py`. Draft only: no approved weights, no live vegetation/asset updates or runtime/Steam evidence. The eventual terrain suitability, per-biome spawn proportions and save migration require real tests and author balance review.
+
 **Unchanged responsibilities:** Retain wild/cultivated Healroot and MedicineHerbal supply. Medicinal Yomogi/Kuzu and remedies belong to the future Medicine Mod, not Environment; Vanilla/MO tree retextures remain deferred. Wetland current total/woody commonality: 7.30/3.00 and 8.22/1.80. Old handoff language suggesting later Healroot removal, Yomogi Environment implementation or skipping a plant because of an equivalent Mod is superseded.
 
 ### ENV-SAVE-FRIENDLY-VEGETATION-20261008 — staged additions / existing-save gate
