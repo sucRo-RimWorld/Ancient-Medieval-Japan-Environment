@@ -25,6 +25,7 @@
 ### Odyssey DLC重複・非所持プロファイルの扱い（2026-10-09、先行調査）
 
 - RimWorld Wikiの公開情報で、**Reeds（ヨシに景観・水辺機能の重複がある）**と**Bulrush（ガマ型の水生草本）**はOdyssey DLC専用と確認できる。Reedsは泥・湿地・浅い淡水、Bulrushは湿地・浅い静水に現れると記載されている。**Bulrushはスゲ類と同一種ではない**。公開情報での類似は、AMJが予定する日本のヨシ・スゲ・ハンノキ・ミズゴケをすべて代替できる根拠にはならない。
+- 提供されたMedieval Overhaul 1.6ソースアーカイブの `1.6/Defs/Biomes/Biomes_DarkForest.xml` には、`Plant_Reeds`（commonality 1）と`Plant_Bulrush`（0.2）がどちらも `MayRequire="Ludeon.RimWorld.Odyssey"` 付きで定義されている。**DLCなしではロードされない条件付きエントリであり、MO単独でReeds/Bulrushが利用できる根拠にはならない。** これは手元アーカイブのXML静的調査のみで、MO＋Odyssey実機テストではない。
 - 作者の検証環境にOdyssey DLCがなく、当面はDLC有効状態でのロード済みDef・生育地形・出現分布・テクスチャ・パッチ競合を実機検証できない。**DLCを必須化しない**。DLC未導入のVanilla基準（任意MO/CCTO共存を含む）を主たる実装・回帰ゲートとする。DLC専用Def・画像・参照を通常の配布ファイルへ無条件に追加しない。
 - 将来Odyssey互換に着手する際は、実際の`Plants_Water.xml`等の版固定したDef、`wildPlants`再配分経路、Odysseyの水域植物生成経路、同種景観の重複量を確認する。特にAMJEの`Patches/VanillaWetlandVegetation.xml`は湿地の`wildPlants`全体を置換するため、Odyssey由来エントリを保持しているとは**未確認**。DLC向け調整は`Ludeon.RimWorld.Odyssey`条件の任意パッチとして独立させ、実機証拠がない間は互換済み・PASSと表示しない。
 - 上記は公開情報を使った**部分的な重複監査**であり、独自植物の必要性を確定する新機能実装エントリ審査ではない。VEと非VEの現行Mod候補、実XML/コード・ライセンス・依存を別途比較し、Project `Docs/Research/ExistingModAudit.md` の決定記録ゲートを完了するまで、新PlantDef実装は保留する。承認済み日本語説明・実画像が揃うまで英訳や出荷も行わない。
