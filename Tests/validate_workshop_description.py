@@ -77,14 +77,14 @@ english = body[:ja_pos]
 japanese = body[ja_pos:gallery_separator_pos]
 workshop_keywords = (
     ("temperature", "気温・降水量"), ("rivers", "河川を増やし"),
-    ("coastal", "湾・半島"), ("four biomes", "4バイオーム"),
+    ("coasts", "湾・半島"), ("four biomes", "4バイオーム"),
     ("four plants", "4植物"), ("Vanilla vegetation", "バニラ植生"),
     ("tree-sowing", "植林候補"), ("Thin Soil", "痩せた土壌"),
     ("stony/poor", "礫地"), ("rain, fog", "雨・霧"),
     ("wildlife", "野生動物の出現構成"), ("wild-plant pools", "温帯湿地・冷涼湿原"),
     ("pack animals", "荷役動物"), ("disease types", "病気の種類"),
-    ("wetland rain", "湿地の雨"), ("movement difficulty", "移動困難度"),
-    ("six retained Vanilla trees", "バニラ樹木6種"), ("native wood yield", "伐採時の木材"),
+    ("by climate zone and wetland", "気候帯・湿地ごとの天候"), ("movement difficulty", "移動困難度"),
+    ("six retained Vanilla trees", "バニラ樹木6種"), ("cut-wood yields", "伐採時の木材"),
 )
 for en_term, ja_term in workshop_keywords:
     require(any(line.startswith("[*]") and en_term.lower() in line.lower()
@@ -94,7 +94,7 @@ for en_term, ja_term in workshop_keywords:
 
 # 2game may combine related changes, but must preserve these player-visible topics.
 two_game_keywords = (
-    "気温・降水量", "病気の種類・発生間隔", "気候帯・湿地別に雨・霧・雷雨・積雪",
+    "気温・降水量", "病気の種類・発生間隔", "気候帯・湿地ごとの天候",
     "小～中規模の河川", "湾・半島", "4バイオーム",
     "4植物", "バニラ植生", "植林候補", "痩せた土壌",
     "礫地", "野生動物の出現構成", "荷役動物候補",
@@ -109,18 +109,42 @@ weather_bullets = [line for line in two_game.splitlines()
                    if line.startswith("・") and "雨・霧・雷雨" in line]
 require(len(weather_bullets) == 1,
         "2game must combine climate-band and wetland weather changes in one bullet")
-def pending_lines(text, heading, end):
-    require(heading in text, "missing future section")
-    block = text.split(heading, 1)[1].split(end, 1)[0]
-    return [line for line in block.splitlines() if line.startswith("[*]") or line.startswith("・")]
-for text, start, end in (
-    (english, "[h2]Future candidates[/h2]", "Vanilla world generation"),
-    (japanese, "[h2]追加候補・今後の予定[/h2]", "既存の世界生成"),
-    (two_game, "▼ 今後の予定", "詳しい仕様"),
+# Future features are grouped, not counted as separate implementation promises.
+for text, heading, parent, children in (
+    (english, "[h2]Future candidates[/h2]",
+     "[*]Additional wetland plants（未実装）",
+     ("Yoshi", "Suge", "Hannoki", "Mizugoke")),
+    (japanese, "[h2]今後の予定[/h2]",
+     "[*]湿地植物の追加（未実装）",
+     ("ヨシ", "スゲ類", "ハンノキ", "ミズゴケ類")),
 ):
-    future = pending_lines(text, start, end)
-    require(len(future) == 5 and all(line.endswith("（未実装）") for line in future),
-            "every future candidate must end in （未実装）")
+    future = text.split(heading, 1)[1]
+    require(future.count("（未実装）") == 2, "Workshop must contain two future parent items")
+    require(parent + "\n[list]" in future, "wetland parent must contain a nested list")
+    require(future.count("[list]") == 2 and future.count("[/list]") == 2,
+            "future list nesting changed")
+    require(all("[*]" + child in future for child in children),
+            "future wetland species are missing")
+
+two_game_future = two_game.split("▼ 今後の予定", 1)[1].split("詳しい仕様", 1)[0]
+require([line for line in two_game_future.splitlines() if line.startswith("・")] == [
+    "・湿地植物の追加（未実装）",
+    "・残存バニラ・MO樹木のリテクスチャ（保留中）（未実装）",
+], "2game future parent bullets changed")
+require([line.strip() for line in two_game_future.splitlines() if line.startswith("　・")] == [
+    "・ヨシ", "・スゲ類", "・ハンノキ", "・ミズゴケ類"
+], "2game nested wetland plant names changed")
+require(two_game.rstrip().endswith("生成物はAI製"), "final 2game attribution line missing")
+require([line for line in two_game.splitlines() if line.startswith("▼ ")] == [
+    "▼ 特徴", "▼ 対応範囲", "▼ 対応・互換性", "▼ セーブ互換性", "▼ 今後の予定"
+], "2game heading order changed")
+for text, headings in (
+    (english, ("Features", "Scope", "Compatibility", "Save compatibility", "Future candidates")),
+    (japanese, ("主な特徴", "対応範囲", "対応・互換性", "セーブ互換性", "今後の予定")),
+):
+    positions = [text.find("[h2]" + h + "[/h2]") for h in headings]
+    require(all(x >= 0 for x in positions) and positions == sorted(positions),
+            "Workshop must use finalized 2game section order")
 for obsolete in ("final Wild Healroot cleanup", "野生Healrootを最後に"):
     require(obsolete not in body and obsolete not in two_game and
             obsolete not in (ROOT / "README.md").read_text(encoding="utf-8"),
