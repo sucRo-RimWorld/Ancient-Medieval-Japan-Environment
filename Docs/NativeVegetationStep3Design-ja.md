@@ -9,7 +9,7 @@
 - 正本のロードマップは `Docs/Design.md` 11.5.7、既存種残存とHealroot除外条件は `Docs/VanillaPlantRetentionAudit-ja.md`、湿地の現行配分は `Patches/VanillaWetlandVegetation.xml`、4独自Biomeの現行配分は `Defs/BiomeDefs/AMJ_Biomes.xml`。
 - Step 1 湿地生態・Step 2 既存Vanilla樹木説明は作者報告のゲートを経て完了。**既存樹木リテクスチャは作者の指示どおり保留**。新規植物の表示状態確認は別の新規アート工程。
 - **2026-10-09一次採取の検討範囲拡張：** 植物を追加するだけでなく、素材を採れるようにするかをVanilla／MO／他AMJの3構成で比較する。提案元資料は`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`。植物と一次採取はEnvironmentが担い得るが、採取品・収量は**未承認**。屋根葺材・笠・蓑の製品化、加工設備、別分野のRecipe／Job等の大きなループは、Environmentで勝手に実装せず、用途側Modの任意連携とする。未実装機能の存在を説明文で先取りしない。
-- 日本語説明を**先に作者承認**してから英訳する。以下の候補文を英訳・Defに配置してはならない。
+- **2026-10-10に4種の日本語説明本文を作者承認済み**。確定日本語§4を正本に、英訳§4.1を意味対応させる。画像や未確定数値の承認を経るまで、本番Def・DefInjectedへの配置は禁止。
 
 ## 2. 現在の不足と先行Mod監査
 
@@ -21,7 +21,7 @@
 
 **正式な実装必要性・所有権の判定記録（2026-10-09）：** `Docs/Research/WetlandPlantImplementationDecision.json` に、4種をEnvironmentが提供する独立実装として、VE・非VE・Vanilla/MO・AMJの証拠SHA256・比較・任意互換候補を記録した。これは**実装するかどうかの判断**に限った`ready`であり、新規PlantDef・草案説明・画像の作者承認や実機互換を意味しない。固定証拠ハッシュ・独自実装の結論・4対象種の回帰は `Tests/test_wetland_implementation_decision.py` で検査する。
 
-**実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがあるが、**Environmentの独自実装を省略する理由にはならない**。形式的判定JSONは作成済み。**Projectの正式Python CLIを2026-10-09に同一内容で実行し、構造／証拠バイト照合PASS**を取得した。対象Environmentコミット・Project PRとActionsログを `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md` に記録した。**承認済み日本語説明・実画像が未完成**のため、新PlantDefの実装着手はHOLD。
+**実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがあるが、**Environmentの独自実装を省略する理由にはならない**。形式的判定JSONは作成済み。**Projectの正式Python CLIを2026-10-09に同一内容で実行し、構造／証拠バイト照合PASS**を取得した。対象Environmentコミット・Project PRとActionsログを `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md` に記録した。**日本語説明本文は2026-10-10に作者承認済み**。必要な実画像・他の未確定仕様が残るため、新PlantDefの実装着手はHOLD。
 
 **VE最優先の機能重複監査（暫定）：** Vanilla Plants Expanded（Workshop 2134308522）は公開説明上、果樹・作物の追加と農業選択肢を主軸とする。既存農作物・雑草等の発想は参考にする一方、日本の湿地のヨシ／スゲ／ハンノキ／ミズゴケ自然群落をそれだけで満たすとは確認できない。**前提化しない／実装参考・任意互換候補**。MOおよび同Modのロード済みDefとの名称・画像・Harvest重複は、実装PRで実Defを確認する。既存Modの主要内容を大幅削除して前提化しない。
 
@@ -33,7 +33,7 @@
 - 提供されたMedieval Overhaul 1.6ソースアーカイブの `1.6/Defs/Biomes/Biomes_DarkForest.xml` には、`Plant_Reeds`（commonality 1）と`Plant_Bulrush`（0.2）がどちらも `MayRequire="Ludeon.RimWorld.Odyssey"` 付きで定義されている。**DLCなしではロードされない条件付きエントリであり、MO単独でReeds/Bulrushが利用できる根拠にはならない。** これは手元アーカイブのXML静的調査のみで、MO＋Odyssey実機テストではない。
 - 作者の検証環境にOdyssey DLCがなく、当面はDLC有効状態でのロード済みDef・生育地形・出現分布・テクスチャ・パッチ競合を実機検証できない。**DLCを必須化しない**。DLC未導入のVanilla基準（任意MO/CCTO共存を含む）を主たる実装・回帰ゲートとする。DLC専用Def・画像・参照を通常の配布ファイルへ無条件に追加しない。
 - 将来Odyssey互換に着手する際は、実際の`Plants_Water.xml`等の版固定したDef、`wildPlants`再配分経路、Odysseyの水域植物生成経路、同種景観の重複量を確認する。特にAMJEの`Patches/VanillaWetlandVegetation.xml`は湿地の`wildPlants`全体を置換するため、Odyssey由来エントリを保持しているとは**未確認**。DLC向け調整は`Ludeon.RimWorld.Odyssey`条件の任意パッチとして独立させ、実機証拠がない間は互換済み・PASSと表示しない。
-- 上記は公開情報を使った**部分的な重複・任意互換監査**であり、互換済みを証明するものではない。**4種のEnvironment実装範囲は作者判断で確定しており、他Modの有無では省略しない。** VE／非VEの実XML・コード、ライセンスと依存の比較は実施済みで、Project `Docs/Research/ExistingModAudit.md` の形式的決定JSONも記録済み。ProjectのPython CLIによる正式な構造／根拠照合は固定Environmentコミット `41db6dc` に対してPASS（証跡は `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md`）。**しかし**ゲーム内の採取・描画・日本語本文は未承認／未検証のため、新PlantDef着手は引き続き保留する。承認済み日本語説明・実画像が揃うまで英訳や出荷も行わない。
+- 上記は公開情報を使った**部分的な重複・任意互換監査**であり、互換済みを証明するものではない。**4種のEnvironment実装範囲は作者判断で確定しており、他Modの有無では省略しない。** VE／非VEの実XML・コード、ライセンスと依存の比較は実施済みで、Project `Docs/Research/ExistingModAudit.md` の形式的決定JSONも記録済み。ProjectのPython CLIによる正式な構造／根拠照合は固定Environmentコミット `41db6dc` に対してPASS（証跡は `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md`）。**しかし**ゲーム内の採取・描画と未決数値は未承認／未検証で、新PlantDef着手は引き続き保留する。**日本語説明本文は2026-10-10に作者承認済み、英訳も§4.1に作成済み**。必要な承認済み実画像・動作確認が揃うまで本番Def配置・出荷はしない。
 
 公開参照：[Reeds](https://rimworldwiki.com/wiki/Reeds)、[Bulrush](https://rimworldwiki.com/wiki/Bulrush)、[Odyssey DLC公式発売案内](https://ludeon.com/blog/2025/07/the-rimworld-odyssey-expansion-is-out-now/)、[任意DLC条件 `MayRequire`](https://www.rimworldwiki.com/wiki/Modding_Tutorials/MayRequire)。
 
