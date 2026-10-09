@@ -37,7 +37,7 @@ Vanilla world generation is reused; special biomes including Medieval Overhaul's
 
 [h2]Compatibility[/h2]
 [b]Required:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url].
-[b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]CCTO[/url] (plant cold growth/death/dormancy) and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url].
+[b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul (CCTO)[/url] (plant cold growth/death/dormancy) and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url].
 
 [h2]Save compatibility[/h2]
 [b]New game recommended[/b] for world, river, terrain and biome changes. Adding to old saves is unverified; the world is not rebuilt. Runtime temperature may change. [b]Do not remove AMJE[/b] from saves using its biomes, terrain or plants.
