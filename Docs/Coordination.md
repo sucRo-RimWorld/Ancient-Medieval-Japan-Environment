@@ -82,6 +82,15 @@ The old pinned 32-file candidate has author-reported four-profile map/native-cut
 
 ## Vegetation, ecology, artwork and runtime follow-ups
 
+### ENV-SUSUKI-GRASSLAND-20261010 — priority-A grassland species restored
+
+**Owner:** AMJ Environment; future architecture/fiber resource consumers separately.
+**Status:** PRIORITY A DESIGN CANDIDATE RESTORED; NO PLANTDEF/ART; FORMAL PRIOR-ART/EDITORIAL/ART GATES NOT CLEARED.
+
+The author's 2026-10-07 review marked Susuki (Miscanthus sinensis) priority A to represent open warm/cool temperate secondary grasslands. It was not carried into the Environment's canonical Step3 design or current gameplay. `Docs/NativeVegetationStep3Design-ja.md` §3.4 and `Docs/Design.md` now retain this as a **separate grassland candidate**, not a fifth approved plant in the wetland four-species gate. Existing-Mod comparisons (VE/non-VE), Project decision record, historical Japanese prose, original artwork, biome placement, harvest material and save/runtime tests are all pending. Do not assume Suge's approved Hay/MO Straw contract applies to Susuki. No production assets or Steam files changed.
+
+**Reed display-name follow-up:** For the already planned wetland plant `AMJ_Plant_Yoshi`, Japanese author-review text now uses 「葦（アシ、ヨシとも呼ぶ）」. The botanical standard name is Yoshi, historically Ashi is older; no national frequency claim. Internal defName remains unchanged, no English translation or gameplay edit.
+
 ### ENV-STEP3-NATIVE-VEGETATION-20261008 — four Environment-owned wetland plants
 
 **Owner:** Environment natural vegetation; future Medicine Mod separately owns medicinal plants and remedies
