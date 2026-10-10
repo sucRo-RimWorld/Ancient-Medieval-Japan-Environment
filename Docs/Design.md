@@ -936,6 +936,7 @@ Vanilla湿地Biomeも同じ残存ゲートの対象とする。AMJEの4植生帯
 2026-10-08湿地監査:
 - `TemperateSwamp`: Chokevine 0.80をBrambles 0.80へ、Cypress 1.00を削除してWillow 1.00→2.00へ移す。総commonality **7.30**、木本commonality **3.00**を維持する。
 - `ColdBog`: Chokevine 3.00をTallGrass +1.00 / Moss +2.00へ、Astragalus 0.10をMossへ、Cypress 0.60をBirch 0.60へ置換する。総commonality **8.22**、木本commonality **1.80**を維持する。
+- **2026-10-10作者確定のMO薬草境界：** MOが追加する野生薬草（Mindwort／Poppy／Fleawort／FlyAgaric）の定義、湿地での出現設定、重みをEnvironmentは**削除・再定義・上書きしない**。過去の`Patches/VanillaWetlandVegetation.xml`の`wildPlants`全ノード置換方式は廃止し、**採用済みVanilla種名だけを対象とする条件付き除去＋Vanilla基準値の追加**に修正する。MO独自の`DankPyon_*`エントリはこの選択対象外とし、MOがEnvironmentより先にPatchしても後にPatchしても生き残る。Cypress等のエントリが最初から欠ける場合もエラーにしない。上記7.30／8.22と木本量は**AMJE管理のVanilla基準植生だけ**の値で、MOや他の任意Modが独立に追加する植物を含む最終合計ではない。MO薬草の採集・薬用効果・分類はEnvironmentの新機能にしない。ロード済みMO併用テストは別の必須確認対象。
 - Willowは日本の湿地・河畔に対応可能な汎用ヤナギ類代理、Mapleは在来カエデ類代理として残す。ColdBogのBirchは冷温帯～亜高山帯で既に採用しているカバノキ類代理を流用する。
 - Vanilla Cypressは湿地性のVanilla樹木であり、日本のヒノキを表す代理としては扱わない。
 - `Plant_HealrootWild` は湿地を含む既存供給を維持する。薬系分離により撤去予定はない。
