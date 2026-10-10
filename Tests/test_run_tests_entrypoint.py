@@ -154,6 +154,21 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         )
         self.assertNotIn("DevQuickstarts", self.load_folders)
         self.assertNotIn("IfModActive", self.load_folders)
+        # The PowerShell validator must enforce the same root-only production
+        # contract. An old Quickstarts gating check once blocked run-tests.bat.
+        for marker in (
+            "[xml]$loadFoldersXml = Get-Content -LiteralPath $loadFoldersPath -Raw -Encoding UTF8",
+            "$loadFolderVersions.Count -ne 1",
+            "$loadFolderEntries.Count -ne 1",
+            "$loadFolderEntries[0].Attributes.Count -ne 0",
+            "$loadFolderEntries[0].InnerText -ne '/'",
+            "developer Quickstarts are staged as a separate test Mod",
+        ):
+            self.assertIn(marker, self.validator)
+        self.assertNotIn("loadFolders.xml is missing expected Quickstarts gating marker",
+                         self.validator)
+        self.assertNotIn("Developer Quickstarts are gated behind rimworks.quickstarts",
+                         self.validator)
 
     def test_runtime_quicktests_are_staged_outside_production_load_path(self):
         for marker in (
