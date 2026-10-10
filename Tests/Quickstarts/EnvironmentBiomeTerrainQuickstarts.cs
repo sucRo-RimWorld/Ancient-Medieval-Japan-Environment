@@ -915,6 +915,37 @@ namespace AncientMedievalJapan.Environment.Quicktests
                             approvedJapaneseDescription, StringComparison.Ordinal));
                 });
 
+            // The Environment wetland patch must preserve any MO additions,
+            // independent of whether MO's PatchOperationAdd runs before/after it.
+            bool medievalOverhaulActive = false;
+            foreach (ModContentPack mod in LoadedModManager.RunningModsListForReading)
+            {
+                if (mod.PackageIdPlayerFacing.StartsWith(
+                    "dankpyon.medieval.overhaul", StringComparison.OrdinalIgnoreCase))
+                {
+                    medievalOverhaulActive = true;
+                    break;
+                }
+            }
+            if (medievalOverhaulActive)
+            {
+                verification.Assert(id + " preserves MO wild medicinal plants", delegate
+                {
+                    if (biome == null)
+                        return false;
+                    foreach (string name in new[] {
+                        "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
+                        "DankPyon_Plant_FleawortWild", "DankPyon_Plant_FlyAgaricWild" })
+                    {
+                        ThingDef herb = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                        if (herb == null ||
+                            System.Math.Abs(biome.CommonalityOfPlant(herb) - 0.05f) > 0.001f)
+                            return false;
+                    }
+                    return true;
+                });
+            }
+
             var animalField = AccessTools.Field(typeof(BiomeDef), "wildAnimals");
             var diseaseField = AccessTools.Field(typeof(BiomeDef), "diseases");
             var packField = AccessTools.Field(typeof(BiomeDef), "allowedPackAnimals");

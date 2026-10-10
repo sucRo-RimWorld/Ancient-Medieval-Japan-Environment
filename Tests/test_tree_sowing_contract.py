@@ -87,42 +87,75 @@ class TreeSowingContractTests(unittest.TestCase):
         alpine.find("wildPlants/AMJ_Shrub_Haimatsu").text = "0"
         self.assertTrue(validate(self.biomes, self.plants))
 
-    def test_approved_wetland_pools_are_atomic_and_balanced(self):
-        wetland = ET.parse(ROOT / "Patches/VanillaWetlandVegetation.xml").getroot()
-        ops = wetland.findall("./Operation/operations/li")
-        self.assertEqual(2, len(ops))
+    def test_scoped_wetland_baselines_preserve_vanilla_balance(self):
+        from test_wetland_distribution_draft import loaded_baselines
+        source = (ROOT / "Patches/VanillaWetlandVegetation.xml").read_text()
+        root = ET.fromstring(source)
+        ops = root.findall("./Operation/operations/li")
+        self.assertEqual(4, len(ops))
         expected = {
-            "TemperateSwamp": (7.30, 3.00, {"Plant_TreeWillow", "Plant_TreeMaple"}),
-            "ColdBog": (8.22, 1.80, {"Plant_TreeWillow", "Plant_TreeMaple", "Plant_TreeBirch"}),
+            "TemperateSwamp": (7.30, 3.00, {"Plant_TreeWillow", "Plant_TreeMaple"},
+                               {"Plant_Chokevine", "Plant_TreeCypress"}),
+            "ColdBog": (8.22, 1.80, {"Plant_TreeWillow", "Plant_TreeMaple",
+                                      "Plant_TreeBirch"},
+                        {"Plant_Chokevine", "Plant_TreeCypress", "Plant_Astragalus"}),
         }
-        for op, (biome, (total, woody, trees)) in zip(ops, expected.items()):
-            self.assertEqual("PatchOperationReplace", op.get("Class"))
-            self.assertEqual(
-                f'/Defs/BiomeDef[defName="{biome}"]/wildPlants',
-                op.findtext("xpath"),
-            )
-            plants = op.findall("value/wildPlants/*")
-            self.assertTrue(plants)
-            self.assertEqual(len(plants), len({p.tag for p in plants}))
-            weights = {p.tag: float(p.text) for p in plants}
-            self.assertFalse(
-                {"Plant_Chokevine", "Plant_TreeCypress", "Plant_Astragalus"} & weights.keys()
-            )
+        baselines = loaded_baselines(source)
+        for i, (biome, (total, woody, trees, excluded)) in enumerate(expected.items()):
+            remove, add = ops[2*i:2*i+2]
+            path = f'/Defs/BiomeDef[defName="{biome}"]/wildPlants'
+            self.assertEqual(remove.get("Class"), "PatchOperationConditional")
+            self.assertEqual(remove.find("match").get("Class"), "PatchOperationRemove")
+            self.assertEqual(remove.findtext("match/xpath"), remove.findtext("xpath"))
+            self.assertTrue(remove.findtext("xpath").startswith(path + "/*["))
+            self.assertEqual(add.get("Class"), "PatchOperationAdd")
+            self.assertEqual(add.findtext("xpath"), path)
+            self.assertEqual({x.tag: x.text for x in add.findall("value/*")}, baselines[biome])
+            # The removal is limited to exact Vanilla entries; an absent
+            # Cypress cannot abort a patch and MO's herbs are never selected.
+            targeted = set(re.findall(r"self::(\w+)", remove.findtext("xpath")))
+            self.assertEqual(targeted, set(baselines[biome]) | excluded)
+            self.assertFalse(any(name.startswith("DankPyon_") for name in targeted))
+            weights = {k: float(v) for k, v in baselines[biome].items()}
+            self.assertEqual(set(), excluded.intersection(weights))
+            self.assertEqual(trees, {k for k in weights if k.startswith("Plant_Tree")})
             self.assertAlmostEqual(total, sum(weights.values()))
-            self.assertAlmostEqual(
-                woody, sum(w for name, w in weights.items() if name.startswith("Plant_Tree"))
-            )
-            self.assertEqual(trees, {n for n in weights if n.startswith("Plant_Tree")})
+            self.assertAlmostEqual(woody, sum(v for k, v in weights.items()
+                                               if k.startswith("Plant_Tree")))
+            self.assertGreater(weights["Plant_HealrootWild"], 0)
+            self.assertNotIn("Plant_Reeds", weights)
+            self.assertNotIn("Plant_Bulrush", weights)
+
+    def test_scoped_patch_keeps_mo_herbs_before_or_after_environment(self):
+        from test_wetland_distribution_draft import loaded_baselines
+        source = (ROOT / "Patches/VanillaWetlandVegetation.xml").read_text()
+        ops = ET.fromstring(source).findall("./Operation/operations/li")
+        baseline = loaded_baselines(source)
+        herbs = dict.fromkeys((
+            "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
+            "DankPyon_Plant_FleawortWild", "DankPyon_Plant_FlyAgaricWild"), "0.05")
+        for i, (biome, approved) in enumerate(baseline.items()):
+            targets = set(re.findall(r"self::(\w+)", ops[2*i].findtext("xpath")))
+            for mo_before in (True, False):
+                # ColdBog/Cypress is deliberately missing: a real earlier
+                # prelaunch PatchOperation failure must not recur.
+                loaded = {**approved, "Plant_Chokevine": "0.8",
+                          "UnrelatedMod_Plant": "0.123"}
+                if mo_before:
+                    loaded.update(herbs)
+                for name in targets:
+                    loaded.pop(name, None)
+                loaded.update(approved)
+                if not mo_before:
+                    loaded.update(herbs)
+                with self.subTest(biome=biome, mo_before=mo_before):
+                    self.assertTrue(all(loaded[k] == v for k, v in herbs.items()))
+                    self.assertEqual(loaded["UnrelatedMod_Plant"], "0.123")
+                    self.assertTrue(all(loaded[k] == v for k, v in approved.items()))
+                    self.assertNotIn("Plant_Chokevine", loaded)
 
     def test_dlc_free_wetland_baseline_preserves_herbal_medicine(self):
         """Odyssey-only vegetation cannot become a mandatory base-game Def reference."""
-        wetland = ET.parse(ROOT / "Patches/VanillaWetlandVegetation.xml").getroot()
-        for operation in wetland.findall("./Operation/operations/li"):
-            pool = operation.find("value/wildPlants")
-            self.assertIsNotNone(pool)
-            self.assertGreater(float(pool.findtext("Plant_HealrootWild", "0")), 0)
-            self.assertIsNone(pool.find("Plant_Reeds"))
-            self.assertIsNone(pool.find("Plant_Bulrush"))
         for biome in self.biomes.findall("BiomeDef"):
             wild = biome.find("wildPlants")
             self.assertIsNotNone(wild)

@@ -17,20 +17,28 @@ ADDITIONS = {
 
 
 def loaded_baselines(patch_xml):
+    """Read only AMJE's approved Vanilla baseline entries from its Add operations.
+
+    Other mods can append their own wildPlants entries; their totals are not
+    part of this draft and must not be cleared/normalized by Environment.
+    """
     root = ET.fromstring(patch_xml)
     result = {}
     for op in root.findall("./Operation/operations/li"):
+        if op.get("Class") != "PatchOperationAdd":
+            continue
         xpath = op.findtext("xpath", "")
         for biome in ADDITIONS:
             if xpath == f'/Defs/BiomeDef[defName="{biome}"]/wildPlants':
-                if op.get("Class") != "PatchOperationReplace" or biome in result:
-                    raise ValueError("unexpected wetland operation")
-                node = op.find("value/wildPlants")
-                if node is None:
-                    raise ValueError("missing wildPlants")
+                if biome in result:
+                    raise ValueError("duplicate Vanilla wetland baseline")
+                node = op.find("value")
+                if node is None or not len(node):
+                    raise ValueError("missing Vanilla baseline values")
                 result[biome] = {p.tag: p.text for p in node}
+    if set(result) != set(ADDITIONS):
+        raise ValueError("missing retained Vanilla wetland baselines")
     return result
-
 
 def total(pool, woody=False):
     return sum((Decimal(value) for name, value in pool.items()
