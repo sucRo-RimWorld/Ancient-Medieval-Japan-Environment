@@ -101,6 +101,70 @@ namespace AMJE.WorkshopPickle
         public void VerifyDevelopmentPlantOwnership(PickleContext ctx)
         {
             VerifyPlantOwnership(ctx);
+            VerifyImplementedWetlandColdSpecs(ctx);
+        }
+
+        // Add to the existing four-profile Pickle scenario; no extra scenario or
+        // CCTO assembly reference is required. Each wetland species enters this
+        // gate when its approved production PlantDef actually exists.
+        // Absence does NOT establish wetland implementation/runtime acceptance.
+        private static void VerifyImplementedWetlandColdSpecs(PickleContext ctx)
+        {
+            bool ccto = LoadedModManager.RunningModsListForReading.Any(m =>
+                m.PackageIdPlayerFacing.StartsWith("sucro.cropcoldtoleranceoverhaul",
+                    StringComparison.OrdinalIgnoreCase));
+            string root = Environment.GetEnvironmentVariable("AMJE_EXPECTED_PAYLOAD_ROOT");
+            string[] names = {
+                "AMJ_Plant_Yoshi", "AMJ_Plant_Suge",
+                "AMJ_Tree_Hannoki", "AMJ_Plant_Mizugoke"
+            };
+            float[] cctoGrowth = { 5f, 0f, 5f, 0f };
+            bool[] dormancy = { true, true, true, false };
+            float[] coldDeath = { float.NaN, float.NaN, float.NaN, -35f };
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(names[i]);
+                if (def == null)
+                    continue; // Not implemented yet; not a passing wetland-species test.
+
+                ctx.Assert(LoadedPlantOwnedBySteam(names[i], root),
+                    "Wetland PlantDef absent, duplicated or not owned by Environment: " + names[i]);
+                ctx.Assert(def.plant != null, "Wetland PlantDef has no plant properties: " + names[i]);
+                if (def.plant == null)
+                    continue;
+
+                float expectedGrowth = ccto ? cctoGrowth[i] : 0f;
+                ctx.Assert(Math.Abs(def.plant.minGrowthTemperature - expectedGrowth) < 0.001f,
+                    "Wetland minimum growth mismatch: " + names[i]);
+
+                DefModExtension[] extensions = def.modExtensions == null
+                    ? new DefModExtension[0]
+                    : def.modExtensions.Where(ext => ext != null
+                        && ext.GetType().FullName ==
+                           "CropColdToleranceOverhaul.ColdToleranceExtension").ToArray();
+
+                ctx.Assert(extensions.Length == (ccto ? 1 : 0),
+                    "Wetland CCTO extension count mismatch: " + names[i]);
+                if (!ccto || extensions.Length != 1)
+                    continue;
+
+                FieldInfo dormantField = extensions[0].GetType().GetField("coldDormancy");
+                FieldInfo deathField = extensions[0].GetType().GetField("coldDeathTemperature");
+                ctx.Assert(dormantField != null
+                    && (bool)dormantField.GetValue(extensions[0]) == dormancy[i],
+                    "Wetland CCTO dormancy mismatch: " + names[i]);
+                bool deathMatches = false;
+                if (deathField != null)
+                {
+                    float loadedDeath = (float)deathField.GetValue(extensions[0]);
+                    deathMatches = float.IsNaN(coldDeath[i])
+                        ? float.IsNaN(loadedDeath)
+                        : Math.Abs(loadedDeath - coldDeath[i]) < 0.001f;
+                }
+                ctx.Assert(deathMatches,
+                    "Wetland CCTO death threshold mismatch: " + names[i]);
+            }
         }
 
         [Then("rejected Vanilla vegetation is absent from the selected Japanese biomes")]
