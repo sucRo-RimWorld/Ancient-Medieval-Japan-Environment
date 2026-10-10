@@ -897,13 +897,15 @@ Environmentでは特に以下を固定する。
 1. AMJEの対象地域・対象時代・4植生帯・景観上の役割に照らし、その既存樹木を残す必要があるか判定する。
 2. 不要・不適切・代替済みの樹木は、リテクスチャ対象へ自動的に残さず、分布からの除外・置換・非採用を検討する。
 3. 残すと判断した樹木だけをEnvironment所有のリテクスチャ対象とする。
-4. 残す既存樹木の説明文は、継承元のVanilla / MO文をそのまま残さず、AMJ共通のHistorical Description Guidelinesと現在のAMJE植物説明フォーマットに沿って日本語から再監査・再記述し、承認後に英訳する。
+4. 残す既存樹木の**表示名と説明文の両方**を日本列島の古代～中世に対応する植生・樹種群へ整合させる。継承元Vanilla / MOの欧米的・汎用的な呼称を無条件で残さず、日本語名を先に確認し、英語名と説明文に反映する。承認済みの説明本文は名称変更を口実に改稿しない。
 
 AMJE植物説明フォーマットは、現行の独自4植物と同様に、原則として**名称・別名 → 日本での分布／生態 → 古代～中世日本での利用・景観・文化的文脈 → 現代との差異や現代利用（裏付け可能な場合）**の順とする。直接史料が弱い場合は用途を捏造せず、景観・分布文脈に留める。
 
 この説明監査には、文化的・歴史的文脈を欠くVanilla説明の補正も含む。特に竹を「美しくない」とするVanillaの文化的に偏った説明は修正対象とし、竹をAMJEに残すかの植生監査と分離せず同じ工程で扱う。
 
-したがってポストBetaの既存樹木作業は、**retention audit（残すか） → distribution/ownership decision → description rewrite → retexture** の順を基本とし、「既存樹木をすべて残してから描き直す」ことは前提にしない。
+**2026-10-10作者方針変更：表示名も日本向けに修正する。** 表示名は `ThingDef.label`／日本語 `DefInjected .label`（Biome等は該当Defのlabel）で修正し、識別子 `defName`、収量、収穫品、植林、分布、画像、保存データを改名の都合で変更しない。特定種と断定できないVanilla代理樹木は、現行説明・生態・外観に矛盾しない和名の**樹種群の総称**を使う。固有種への限定（例：Oakをミズナラと断定）は、その地域・外観と承認済み説明の整合を別途確認する。残す樹木以外のVanilla/MO由来の植物・動物・Biomeも、実在物への対応を確認して名称を段階的に監査する。Generic植生は根拠なしに日本固有種へ改称せず、MOの幻想種も無根拠に日本在来種と呼ばない。
+
+したがってポストBetaの既存樹木作業は、**retention audit（残すか） → distribution/ownership decision → Japanese label + approved description → retexture** の順を基本とし、「既存樹木をすべて残してから描き直す」ことは前提にしない。
 
 ### 11.5.6 Vanilla自然植物の残存ゲートと樹木量保全
 
@@ -943,7 +945,7 @@ Vanilla湿地Biomeも同じ残存ゲートの対象とする。AMJEの4植生帯
 Environmentの植生整備は、以下の順序を正本とする。
 
 1. **不要なVanilla樹木・植生と、そこから再流入する不適切なBiome bundleを整理する。** 古代～中世日本の植生として残す根拠が弱いものを除外し、必要に応じて木本・総植生commonalityを妥当な日本側植物へ再配分する。AMJE-owned 4植生帯の主要植物監査は2026-10-08時点で完了したが、`TemperateSwamp` / `ColdBog` は植物だけでなく野生動物・病気・天候・説明を含むBiome全体の採用監査を完了してからStep 1を閉じる。
-2. **残すVanilla樹木・植物の説明文を先に監査・承認し、その後にリテクスチャする。** 日本語説明をHistorical Description GuidelinesとAMJE形式へ直し、名称・分布・生態・古代～中世日本での利用／景観文脈が妥当であることを確認してから、AMJE/MO系の画風へ揃える。説明未監査の対象を先に描き直さない。Medieval Overhaul由来の採用植生も同じ `retention → description → retexture` 原則に従う。
+2. **残すVanilla/MO樹木・植物の日本向け表示名と説明文を監査してからリテクスチャする。** 日本語名・地域／樹種対応・Historical Description Guidelinesを確認し、英語ラベルも日本向けの意味に揃える。承認済み本文は維持し、未承認の本文変更は公表しない。実物に一致する範囲で `retention → Japanese label + description → retexture` とする。
 3. **不足している日本の自然植生を追加する。** 湿地・森林・草地の自然景観を対象とし、薬用植物・薬材・加工薬は薬系Mod、果実・木の実の採集ゲームプレイは独立[Wild Food Foraging](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Wild-Food-Foraging/blob/main/Docs/Design.md)が所有する。**2026-10-10作者決定：Wild Food ForagingはEnvironment（`sucro.ancientmedievaljapan.environment`）を必須依存とする。** スダジイ（`AMJ_Tree_Shii`）などEnvironmentが提供する日本在来植生が前提となり、山野採集側に代替樹木・代替Biomeを重複定義しない。**依存方向はForaging→Environmentのみ**で、Environmentは採集Modを必須依存化せず単独で成立する。スダジイの分布は地域生態の現行ルールを維持し、全Biomeへの強制出現を意味しない。木の実の採集機能・収量・追加種・旧セーブ互換は未承認／未検証。
 4. **既存の医療供給を維持する。** Wild Healrootの最終撤去工程は撤回。薬系Modの導入をEnvironmentの成立条件にしない。
 
@@ -981,7 +983,7 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 現行の6Biomeに含まれるVanilla樹木6種とgeneric植物7種の採用状態を再点検し、日本語説明と歴史資料を`Docs/VanillaPlantStep2DescriptionReview-ja.md` に記録した。竹は江戸期のモウソウチクへ一律に同定しない。マツ二次林の歴史的な存在を全自然林への分布根拠にしない。**6樹木すべての日本語本文を2026-10-08に作者承認済み**。既存のAMJE代表樹木4種は3段落構成、今回のVanilla樹木6種は2段落構成だが、いずれも名前・分布・歴史的な利用または景観・現代との差異（裏付け可能な場合）の共通順序を保持する。Birch/Willowは裏付けのない中世利用を加えず景観文脈に留める。改行はXMLリテラル `\\n\\n` に統一する。
 
-竹の英語 `ThingDef.description` Patch・日本語DefInjected・ロード済み検証に加え、楓・楢・樺・松・柳の英訳／説明限定Patch／日本語DefInjected／Quickstartロード後アサーションをPR #30で実装・マージ済み（`bfb27420428dc75a060a317b3c22bdd4c5856fa8`）。Vanillaのラベル、Biome・自然分布、植林、ゲームプレイ、画像は変更しない。**追加5樹木を含む最新版 `run-tests.bat` は2026-10-08に作者から通過報告あり**。これは作者報告ランタイムPASSであり、最新実行の個別JSON・完全ログ・所有ERRORゼロの独立監査はまだ行っていない。過去の竹テストPASSはそれ自体の旧版証拠として保持する。独立したVanilla/MO/CCTO/MO+CCTOの4構成統合試験は未完了であり、既存樹木のリテクスチャは引き続き保留する。
+竹の英語 `ThingDef.description` Patch・日本語DefInjected・ロード済み検証に加え、楓・楢・樺・松・柳の英訳／説明限定Patch／日本語DefInjected／Quickstartロード後アサーションをPR #30で実装・マージ済み（`bfb27420428dc75a060a317b3c22bdd4c5856fa8`）。**この2026-10-08のPR #30時点では** Vanillaのラベル、Biome・自然分布、植林、ゲームプレイ、画像は変更していなかった。**追加5樹木を含む最新版 `run-tests.bat` は2026-10-08に作者から通過報告あり**。これは作者報告ランタイムPASSであり、最新実行の個別JSON・完全ログ・所有ERRORゼロの独立監査はまだ行っていない。過去の竹テストPASSはそれ自体の旧版証拠として保持する。独立したVanilla/MO/CCTO/MO+CCTOの4構成統合試験は未完了であり、既存樹木のリテクスチャは引き続き保留する。
 
 ### 11.5.10 Step 3 不足する日本の自然植生
 
