@@ -31,7 +31,18 @@
 
 ## 日本語説明（6樹木すべて承認済み）
 
-既存ラベルは変更しない。6樹木の日本語本文はいずれも2026-10-08に作者承認済みで、各2段落を固定する。残る5種も承認後に英語へ翻訳し、Vanillaの説明文のみ置換する。歴史的な利用を記した場合も、新しい生産レシピの実装を意味しない。
+**2026-10-10作者方針変更：残存樹木は説明だけでなく表示名も日本の対象植生に整合させる。** 6樹木の日本語説明本文は2026-10-08に作者承認済みであり、各2段落を維持する。従前の「既存ラベルを維持」は撤回し、次表の日本語ラベルと英語ラベルを現行説明・地域分布に合わせる。識別子 `defName`・分布・伐採・植林・画像は変更しない。種への限定は別の植生監査対象とする。本文の歴史的利用は新しい生産レシピの実装を意味しない。
+
+| Vanilla識別子（維持） | 日本語ゲーム内名 | 英語ゲーム内名 | 対応範囲 |
+| --- | --- | --- | --- |
+| `Plant_TreeBamboo` | 竹 | Bamboo (take) | マダケ・ハチク等の竹類の総称 |
+| `Plant_TreeMaple` | カエデ | Maple (kaede) | 日本の落葉カエデ類の総称 |
+| `Plant_TreeOak` | ナラ | Oak (nara) | 冷温帯の落葉ナラ類の総称。ミズナラ等の種への限定は今後の植生・外観監査で判断。常緑カシ類ではない |
+| `Plant_TreeBirch` | カバノキ | Birch (kaba) | 冷温帯のカバノキ類～亜高山帯のダケカンバ等 |
+| `Plant_TreePine` | マツ | Pine (matsu) | アカマツなど日本のマツ類の総称 |
+| `Plant_TreeWillow` | ヤナギ | Willow (yanagi) | 日本の河畔ヤナギ類の総称 |
+
+**適用範囲：** 日本語は `Languages/Japanese/DefInjected/ThingDef/AMJ_WildPlants.xml` の `.label`、英語は `Patches/VanillaTreeDescriptions.xml` の `label` 置換とする。既存の承認済み日英 `.description` は編集しない。実ゲーム上のロード表示確認は新たな試験対象であり、以前の本文だけのPASSを名称のPASSとみなさない。
 
 ### Plant_TreeBamboo — 竹（タケ）
 
@@ -47,7 +58,7 @@
 >
 > Lightweight and flexible, bamboo has long been used for baskets, everyday objects, and materials for building, farming, and fishing. Moso bamboo, common in Japan today, is recorded as having arrived during the Edo period and is distinguished here from these earlier bamboo types.
 
-**実装:** `Patches/VanillaTreeDescriptions.xml` で `Plant_TreeBamboo.description` の英語だけを置換し、`Languages/Japanese/DefInjected/ThingDef/AMJ_WildPlants.xml` の `Plant_TreeBamboo.description` に承認済み日本語を同期する。原文と英訳の段落境界はXMLのリテラル `\\n\\n` で保持する。Vanillaラベル・伐採資源・分布・植林・PlantDef・画像は変更しない。暖温帯のQuickstartにロード済み日英本文の一致検証を追加し、**2026-10-08に作者提供の `EnvironmentIsolatedRuntime.log` 末尾で、更新後のEnvironmentランタイムゲートPASSが確認された。** 暖温帯シナリオ個別のJSON・詳細アサーション一覧は未添付のため、竹説明文アサーション1件のPASSをログから独立集計したとまでは主張しない。
+**2026-10-08本文実装:** `Patches/VanillaTreeDescriptions.xml` で `Plant_TreeBamboo.description` の英語を置換し、`Languages/Japanese/DefInjected/ThingDef/AMJ_WildPlants.xml` の `Plant_TreeBamboo.description` に承認済み日本語を同期した。原文と英訳の段落境界はXMLのリテラル `\\n\\n` で保持する。**当時は** Vanillaラベル・伐採資源・分布・植林・PlantDef・画像を変更していなかった。2026-10-10の新しいラベル規則は上表を正本とする。暖温帯のQuickstartにロード済み日英本文の一致検証を追加し、**2026-10-08に作者提供の `EnvironmentIsolatedRuntime.log` 末尾で、更新後のEnvironmentランタイムゲートPASSが確認された。** 暖温帯シナリオ個別のJSON・詳細アサーション一覧は未添付のため、竹説明文アサーション1件のPASSをログから独立集計したとまでは主張しない。
 
 **留保：** 種同定・現行画像は要確認。Vanillaの「not beautiful」という主観的評価は不採用。新たな竹加工レシピは未実装。
 
