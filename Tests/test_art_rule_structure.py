@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import unittest
 from pathlib import Path
 
@@ -76,24 +77,43 @@ class EnvironmentArtRuleStructureTest(unittest.TestCase):
         self.assertNotIn("Same style does not mean identical parts", text)
         self.assertNotIn("zero protected RGBA pixel differences", text)
 
-    def test_superseded_visual_review_statuses_are_reconciled(self):
-        text = read("Docs/Coordination.md")
-        expected_done = (
-            "ENV-010 Sudajii final visual direction",
-            "ENV-010 leafy-beech payload recovery and decoded-PNG regression gate (2026-10-05 JST)",
-            "ENV-010 Shirabiso source approval and integration (2026-10-05 JST)",
+    def test_current_visual_review_statuses_are_reconciled(self):
+        """Check canonical current state, not deleted DONE headings from compacted history."""
+        coordination = read("Docs/Coordination.md")
+        marker = "### ENV-010 — existing tree retextures deferred; current plant art accepted"
+        self.assertIn(marker, coordination)
+        section = coordination.split(marker, 1)[1].split("\n### ", 1)[0]
+        self.assertIn(
+            "**Status:** CURRENT FOUR STRUCTURAL PLANT VISUALS ACCEPTED; "
+            "VANILLA/MO RETEXTURES AUTHOR-DEFERRED",
+            section,
         )
-        for heading in expected_done:
-            marker = f"### {heading}"
-            start = text.find(marker)
-            self.assertGreaterEqual(start, 0, heading)
-            end = text.find("\n### ", start + len(marker))
-            section = text[start:] if end < 0 else text[start:end]
-            status_marker = "**Status:** "
-            status_start = section.find(status_marker)
-            self.assertGreaterEqual(status_start, 0, heading)
-            status = section[status_start + len(status_marker):].splitlines()[0]
-            self.assertTrue(status.startswith("DONE"), f"{heading}: {status}")
+
+        art = read("Docs/ArtDirection.md")
+        self.assertIn(
+            "All four AMJE species have accepted normal, immature, UI and snow appearances.",
+            art,
+        )
+        ledger = json.loads(read("Docs/PlantVisualCoverage.json"))
+        plants = ledger["plants"]
+        self.assertEqual(
+            {
+                "AMJ_Tree_Shii", "AMJ_Tree_Beech",
+                "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu",
+            },
+            set(plants),
+        )
+        for name, plant in plants.items():
+            self.assertIs(plant["complete"], True, name)
+            for state in ("normal", "immature", "icon", "snow"):
+                entry = plant["states"][state]
+                self.assertEqual("accepted", entry["status"], f"{name}/{state}")
+                self.assertTrue(entry.get("author_statement"), f"{name}/{state}")
+                self.assertTrue(entry.get("fingerprint"), f"{name}/{state}")
+        beech = plants["AMJ_Tree_Beech"]["states"]
+        self.assertEqual("accepted", beech["leafless"]["status"])
+        self.assertEqual("accepted", beech["autumn"]["status"])
+        self.assertEqual("verified", beech["transition"]["status"])
 
 
 if __name__ == "__main__":
