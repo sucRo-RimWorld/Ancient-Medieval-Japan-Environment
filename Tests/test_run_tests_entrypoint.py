@@ -132,7 +132,7 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         # existing wetland map scenarios, not only the four forest/river/coast
         # scenarios. Read the real Quickstart map; never force MO herb spawns.
         core = self.quickstarts.split("elseif ($CoreIntegrationOnly) {", 1)[1].split(
-            "\\nelse {", 1
+            "else {", 1
         )[0]
         for name in (
             "AMJTemperateSwampVegetationQuickstart",
