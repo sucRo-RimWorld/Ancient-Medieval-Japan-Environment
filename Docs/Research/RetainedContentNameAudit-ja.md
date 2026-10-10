@@ -52,7 +52,7 @@ Environment正本 `Defs/BiomeDefs/AMJ_Biomes.xml` と `Patches/VanillaWetlandVeg
 | `1.6/Defs/ThingDefs_Plants/Plants_Wild_DarkForest.xml` | `DankPyon_GreatOak` = great oak、`DankPyon_GreatIter` = great Iter、`DankPyon_GreatFir` = great fir、`DankPyon_GreatWillow` = great Willow。固有／幻想的な樹種として**一律にナラ・シラビソ・ヤナギ等へ改称しない**。 |
 | `1.6/Defs/Biomes/Biomes_DarkForest.xml` | `DankPyon_DarkForest` (Dark Forest)の自然植物に`DankPyon_GreatOak`、`DankPyon_GreatFir`とVanillaの`Plant_TreeWillow`・`Plant_TreeOak`・`Plant_TreeMaple`・`Plant_TreePoplar`が同居。**GreatIter／GreatWillowのPlantDef存在＝DarkForestでの自然出現とは限らない**。 |
 | `1.6/Defs/ThingDefs_Plants/Plants_Cultivated_Farm.xml` | MO果樹`DankPyon_Tree_Apple`、`DankPyon_Tree_Lemon`、`DankPyon_Tree_Mulberry`、`DankPyon_Tree_GriffonBerry`を確認。自動的に中世日本の自然植生と判定せず、農業・食材の所有ModおよびWild Food Foragingとの重複を別監査。 |
-| `1.6/Patches/Core/Add_Plants_To_Biomes.xml` | MO固有野生薬草（Mindwort/Poppy/Fleawort/FlyAgaric）をVanilla`TemperateSwamp`・`ColdBog`等へ追加するPatchあり。**AMJEの湿地wildPlants全置換Patchとの相互作用はロード順に依存し得る**。名称の問題ではなく別のMO互換実機テスト課題としてowner Coordinationに引き継ぐ。 |
+| `1.6/Patches/Core/Add_Plants_To_Biomes.xml` | MO固有野生薬草（Mindwort/Poppy/Fleawort/FlyAgaric）をVanilla`TemperateSwamp`・`ColdBog`等へ追加するPatchあり。**当時のAMJE湿地wildPlants全置換Patchとの競合が確認された**。**2026-10-10修正:** AMJEは既存Vanilla項目だけを対象にするPatchへ変更し、MO由来薬草は変更対象外にした（正本は`Docs/VanillaWetlandBiomeAudit-ja.md`）。ロード済みMO同居テストは依然未確認。 |
 | `Patches/Compatibility/MedievalOverhaul.xml` (Environment本体) | MO DarkForestで現在置換するのは**地表肥沃度地形の階層だけ**。MO樹木Defのラベル・種名をPatchしている証拠はない。 |
 
 Environment `Docs/ArtDirection.md` の四大MO樹木対象は**将来の条件付き画風調整**であり、日本種への置換計画ではない。既存の画像延期ルールも維持する。MO DarkForestの`Plant_TreePoplar`はEnvironmentの4基準Biomeに採用しないが、MO上の存在をもってEnvironmentの新規種名同定に含めない。
@@ -60,6 +60,6 @@ Environment `Docs/ArtDirection.md` の四大MO樹木対象は**将来の条件�
 ## 5. 次のゲート／他ownerとの境界
 
 1. **表示名についての今回の追加実装は不要**：6 Vanilla樹木と2 Vanilla湿地Biomeの既存改称のみ維持。ユーザー承認済み本文・植生分布・森林・気候の設計を再変更しない。
-2. **MO湿地野生薬草の実機互換**：MOの野生薬草追加PatchとAMJEの湿地wildPlants全置換のロード後結果を、将来のEnvironment+MOプロファイルで検証する。名称問題として扱わず、別の互換課題として記録。源Mod側の草Defを勝手に二重作成しない。
+2. **MO湿地野生薬草の実機互換**：MOの野生薬草追加PatchとAMJEの変更後のVanilla限定Patchが共存したロード後結果を、将来のEnvironment+MOプロファイルで検証する。名称問題として扱わず、別の互換課題として記録。源Mod側の草Defを勝手に二重作成しない。
 3. **ロード済み名称**：既存6樹木・湿地2種の英日表示を、必要なVanilla/MO/CCTO/MO+CCTOプロファイルで検証する。static/CIだけでゲーム内テスト済みとしない。広範囲の別名追加テストは作らない。
 4. **新しい種・獣**：古代～中世日本に適した新規個別種が必要になった場合だけ、実在・分布・史料／VEと非VEの既存Mod、元Defの外観・収穫・互換性、owner責務を比較して設計する。
