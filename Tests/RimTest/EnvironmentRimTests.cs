@@ -163,7 +163,7 @@ namespace AMJE.Environment.RimTests
                     throw new InvalidOperationException("RimTest Redux Viewer.LogTestsResults was not found");
                 new Harmony("sucro.amje.environment.rimtest.bridge").Patch(
                     target,
-                    postfix: new HarmonyMethod(typeof(RimTestAutomationBridge), nameof(AfterResultsLogged)));
+                    postfix: new HarmonyMethod(typeof(RimTestAutomationBridge), "AfterResultsLogged"));
             }
             catch (Exception error)
             {
