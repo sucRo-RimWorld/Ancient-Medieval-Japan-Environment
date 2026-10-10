@@ -82,6 +82,14 @@ The old pinned 32-file candidate has author-reported four-profile map/native-cut
 
 ## Vegetation, ecology, artwork and runtime follow-ups
 
+### ENV-RETAINED-TREE-LABELS-20261010 — historically appropriate Japanese names
+
+**Owner:** Environment vegetation/localization and Vanilla tree regression  
+**Status:** POLICY APPROVED; SIX-TREE EN/JA LABEL PATCH AND STATIC/QUICKSTART ASSERTIONS PREPARED; NATIVE FOUR-PROFILE TEST UNVERIFIED
+
+2026-10-10 author correction: Japanese pre-Edo flora naming includes **display labels, not merely descriptions**. Formal owner `Docs/Design.md` §11.5.5, six-Def mapping and existing approved two-paragraph texts `Docs/VanillaPlantStep2DescriptionReview-ja.md`. English `Patches/VanillaTreeDescriptions.xml` and Japanese `Languages/Japanese/DefInjected/ThingDef/AMJ_WildPlants.xml` add labels without changing DefNames, forest distribution, sowing, wood cutting, ingredients or art. The six existing Quickstart description assertions also check corresponding EN/JA loaded labels without changing expected assertion counts. The retained oak is a group-level Japanese deciduous Nara proxy; a narrower specific Mizunara identity is a separate evidence/visual/approved-text decision. Other adopted Vanilla/MO plants, animals and biome labels are follow-up audit scope, not automatic specific-species renaming. Fresh runtime bilingual labels/four-profile verification remains outstanding.
+
+
 ### ENV-SUGI-FOREST-20261010 — priority-A cedar candidate restored
 
 **Owner:** AMJ Environment
