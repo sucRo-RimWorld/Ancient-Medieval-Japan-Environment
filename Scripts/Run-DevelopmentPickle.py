@@ -86,6 +86,16 @@ def run(root: Path, output: Path, game: Path):
         )
         shutil.copy2(ROOT / "Tests/Pickle/Features" / FEATURE, fixture / "Pickle/Features" / FEATURE)
 
+        # RimWorld does not count Pickle/Features or Pickle/Assemblies as
+        # ordinary Mod content. A test-only Strings asset prevents the engine
+        # from reporting this valid Pickle-only fixture as an empty Mod.
+        # Strings assets do not register any gameplay Defs or alter balance.
+        (fixture / "Strings").mkdir()
+        (fixture / "Strings/AMJEDevelopmentPickleAudit.txt").write_text(
+            "AMJE development Pickle fixture load marker (test-only).\n",
+            encoding="utf-8",
+        )
+
         early.mkdir()
         owned.append(early)
         (early / "Assemblies").mkdir()

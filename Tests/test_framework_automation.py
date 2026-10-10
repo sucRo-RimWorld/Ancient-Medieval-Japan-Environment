@@ -75,6 +75,20 @@ class FrameworkAutomationContractTests(unittest.TestCase):
         ):
             self.assertIn(marker, self.pickle)
 
+        # Pickle-only test folders are invisible to RimWorld's normal
+        # ModContentPack.AnyNonTranslationContentLoaded guard. The fixture
+        # must include a harmless text asset, not a dummy gameplay Def.
+        self.assertIn('(fixture / "Strings").mkdir()', self.pickle)
+        self.assertIn(
+            '(fixture / "Strings/AMJEDevelopmentPickleAudit.txt").write_text(',
+            self.pickle,
+        )
+        self.assertIn('AMJE development Pickle fixture load marker (test-only)', self.pickle)
+        self.assertLess(
+            self.pickle.index('(fixture / "Strings/AMJEDevelopmentPickleAudit.txt").write_text('),
+            self.pickle.index('common.run_hidden(desktop, batch, env, runner_log)'),
+        )
+
     def test_harmony_rimworld_16_loader_selects_current_not_old_dlls(self):
         spec = importlib.util.spec_from_file_location(
             "amje_framework_common",
