@@ -154,11 +154,15 @@ namespace AMJE.WorkshopPickle
                 ctx.Assert(dormantField != null
                     && (bool)dormantField.GetValue(extensions[0]) == dormancy[i],
                     "Wetland CCTO dormancy mismatch: " + names[i]);
-                ctx.Assert(deathField != null
-                    && (float.IsNaN(coldDeath[i])
-                        ? float.IsNaN(deathField == null ? 0f : (float)deathField.GetValue(extensions[0]))
-                        : deathField != null
-                            && Math.Abs((float)deathField.GetValue(extensions[0]) - coldDeath[i]) < 0.001f),
+                bool deathMatches = false;
+                if (deathField != null)
+                {
+                    float loadedDeath = (float)deathField.GetValue(extensions[0]);
+                    deathMatches = float.IsNaN(coldDeath[i])
+                        ? float.IsNaN(loadedDeath)
+                        : Math.Abs(loadedDeath - coldDeath[i]) < 0.001f;
+                }
+                ctx.Assert(deathMatches,
                     "Wetland CCTO death threshold mismatch: " + names[i]);
             }
         }
