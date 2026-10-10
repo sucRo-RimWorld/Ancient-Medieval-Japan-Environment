@@ -47,7 +47,7 @@ def _validate_owned_fixture(root):
         raise ValueError("Quicktests fixture DLL missing: " + str(dll))
 
 
-def stage(game, dll):
+def stage(game, dll, defs=None):
     root = fixture_root(game)
     if root.exists():
         raise ValueError("Quicktests fixture path already exists; refusing to overwrite: " + str(root))
@@ -56,12 +56,23 @@ def stage(game, dll):
     data = dll.read_bytes()
     if not data.startswith(b"MZ"):
         raise ValueError("Quicktests DLL is not a PE assembly: " + str(dll))
+    if defs is not None:
+        if not defs.is_file():
+            raise ValueError("Wetland probe XML was not found: " + str(defs))
+        probe = ET.parse(defs).getroot()
+        names = [n.findtext("defName") for n in probe.findall("ThingDef")]
+        if probe.tag != "Defs" or sorted(names) != [
+                "AMJE_Test_Mizugoke", "AMJE_Test_Suge"]:
+            raise ValueError("Wrong temporary wetland probe Defs: " + str(defs))
     try:
         (root / "About").mkdir(parents=True)
         (root / "Assemblies").mkdir()
         (root / MARKER_NAME).write_text(MARKER_TEXT, encoding="utf-8")
         (root / "About" / "About.xml").write_text(ABOUT_XML, encoding="utf-8")
         (root / "Assemblies" / DLL_NAME).write_bytes(data)
+        if defs is not None:
+            (root / "Defs").mkdir()
+            shutil.copy2(defs, root / "Defs" / "WetlandBehaviorProbeDefs.xml")
         _validate_owned_fixture(root)
     except Exception:
         if root.exists():
@@ -117,6 +128,7 @@ def main():
     make = sub.add_parser("stage")
     make.add_argument("--game", type=Path, required=True)
     make.add_argument("--dll", type=Path, required=True)
+    make.add_argument("--defs", type=Path, help="Optional test-only wetland PlantDefs")
 
     use = sub.add_parser("activate")
     use.add_argument("--game", type=Path, required=True)
@@ -127,7 +139,9 @@ def main():
 
     args = parser.parse_args()
     if args.action == "stage":
-        stage(args.game.resolve(), args.dll.resolve())
+        stage(
+            args.game.resolve(), args.dll.resolve(),
+            args.defs.resolve() if args.defs is not None else None)
     elif args.action == "activate":
         activate(args.game.resolve(), args.config.resolve())
     else:
