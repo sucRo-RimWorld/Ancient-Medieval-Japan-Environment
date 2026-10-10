@@ -101,29 +101,45 @@ in MO and MO+CCTO, not merely source/static coverage. Aggregate summary,
 raw per-profile logs and capture files were not supplied for independent
 audit; the command's final exit code is not separately shown.
 
-**2026-10-10 author-reported non-visible Quickstart runner success:**
-the separate `Scripts/Run-EnvironmentIsolatedDesktop.ps1` invocation
-reported `[EXIT] 0` and identified
-`TestResults/EnvironmentIsolatedRuntime.log`. Its child `run-runtime-tests.bat`
-returns zero only after the default rendered Quickstarts and any locally
-detected optional compatibility suites have returned success. The outer
-fixture cleanup then printed `AMJE Quicktests fixture already absent`:
-this is an idempotent, successful cleanup after the child already removed
-the temporary Mod. **No second run or fixture repair is necessary.**
-The report excerpt alone does not identify scenario counts, optional-profile
-participation or individual Unity/log captures; those live under the named
-saved test results and have not been independently audited. The author
-previously reported RimTest Redux 10/10 PASS and development Pickle
-four-profile 20/20 PASS separately. These three native test paths succeeded
-independently; a single combined `run-tests.bat` pass was not run in this
-latest exchange.
+**2026-10-10 uploaded non-visible runtime-runner log verified:**
+The author supplied `EnvironmentIsolatedRuntime(3).log` (687 lines) from
+`Scripts/Run-EnvironmentIsolatedDesktop.ps1` / `run-runtime-tests.bat`.
+Unlike the earlier two-line exit-code excerpt, the full console log explicitly
+records **16/16 Quickstarts passed, each with its own
+`No owned AMJ runtime ERROR entries were found` check**:
 
-**Still required for broader acceptance:** inspect detailed saved reports
-if exact Quickstart counts and optional matrix composition are needed;
-explicit real wetland natural-spawn sampling; separate **full four-profile**
-rendered/cutting release matrix, old-save E2E and Steam payload identity
-verification. Neither loaded-Def Pickle nor default Quickstarts alone
-establishes the separate four-profile native release gate.
+| Actually activated profile | PASS | Scenarios |
+|---|---:|---|
+| Environment base (without MO) | 9/9 | 4 forest/climate, 2 retained wetlands, natural wetland world distribution, river, coast |
+| Environment + CCTO | 1/1 | Warm-temperate focused loaded-Def compatibility |
+| Environment + legacy-ID Grains/Core and MO | 6/6 | 4 forest/climate, river and coast with climate-gradient checks |
+
+The loaded mixed profile lists `DankPyon.Medieval.Overhaul` and
+`sucro.ancientmedievaljapan.core`. Current Grains `About/About.xml` still
+uses the latter **legacy packageId**, so the package ID alone cannot prove
+whether the installed bytes were the current Grains source or an old Core
+build. The log does not include source/DLL hashes.
+It reports `Environment runtime gate passed` and removes the test-only
+Quicktests fixture; the outer launcher returns `[EXIT] 0`, and the
+second cleanup prints `already absent` as expected. **Do not rerun
+this suite merely because the second cleanup did not find the fixture.**
+
+The reported natural-world wetland distribution PASS verifies world layout,
+not actual **MO-added wetland herb natural spawning**. MO's standalone
+rendered-Quickstarts profile is explicitly disabled in the standard runner;
+the mixed Core/Grains profile does not include its two wetland Quickstarts.
+Individual Quickstart JSON results, Unity/Player captures and exact source
+provenance were not supplied. Prior separate author-reported RimTest Redux
+10/10 and development Pickle Vanilla/MO/CCTO/MO-CCTO 20/20 remain separate,
+not a single combined `run-tests.bat` exit.
+
+**Still required for broader acceptance:** inspect individual saved
+Quickstart report JSON and Unity/Player logs if deeper error/provenance
+confirmation is needed; verify MO herb natural spawning in both wetlands,
+the **full four-profile** rendered/cutting release matrix, old-save E2E,
+current source/DLL identity and Steam subscriber payload. Neither loaded-Def
+Pickle nor these 16 default/focused Quickstarts alone establish the native
+four-profile release gate.
 
 ## Unified current-development test status (2026-10-08)
 
