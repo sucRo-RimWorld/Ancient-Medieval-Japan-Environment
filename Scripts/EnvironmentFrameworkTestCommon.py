@@ -15,12 +15,46 @@ def invoke(args, **kwargs):
 
 
 def find_dll(root: Path, name: str) -> Path:
+    """Select a RimWorld 1.6-loaded DLL, not an older version in the same Mod.
+
+    Harmony ships 1.4, 1.5 and Current assemblies. Its v1.6 loadFolders
+    activates "/" and "Current"; a recursive count is not a validity check.
+    """
+    loader = next((root / file for file in ("LoadFolders.xml", "loadFolders.xml")
+                   if (root / file).is_file()), None)
+    if loader is not None:
+        try:
+            version = ET.parse(loader).getroot().find("v1.6")
+        except ET.ParseError as error:
+            raise ValueError(f"Invalid {loader}: {error}") from error
+        if version is None:
+            raise ValueError(f"No RimWorld v1.6 load folders declared in {loader}")
+
+        candidates = []
+        for item in version.findall("li"):
+            if item.attrib:
+                continue  # Conditional folders cannot be assumed active.
+            folder = (item.text or "").strip()
+            relative = Path(".") if folder == "/" else Path(folder)
+            if not folder or relative.is_absolute() or ".." in relative.parts:
+                raise ValueError(f"Unsafe RimWorld load folder {folder!r} in {loader}")
+            candidate = root / relative / "Assemblies" / name
+            if candidate.is_file():
+                candidates.append(candidate)
+        if candidates:
+            return candidates[-1]  # Last loaded folder has precedence.
+        raise ValueError(f"No active RimWorld 1.6 {name} in {root} (load folders: "
+                         + ", ".join((item.text or "").strip()
+                                     for item in version.findall("li")) + ")")
+
+    # Mods with no LoadFolders.xml use one assembly folder (or the 1.6 layout).
     preferred = root / "1.6" / "Assemblies" / name
     if preferred.is_file():
         return preferred
     matches = sorted(root.rglob(name)) if root.is_dir() else []
     if len(matches) != 1:
-        raise ValueError(f"Expected one {name} in {root}; found {len(matches)}")
+        raise ValueError(f"Expected one {name} in {root} without LoadFolders.xml; "
+                         f"found {len(matches)}: " + ", ".join(map(str, matches)))
     return matches[0]
 
 
