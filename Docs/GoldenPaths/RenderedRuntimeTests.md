@@ -55,6 +55,33 @@ marker and packageId match. This keeps test assemblies out of normal AMJE load
 semantics and prevents YADA filtering from depending on an executable
 `IfModActive` loader entry.
 
+### Temporary wetland harvest/removal probes (not production plants)
+
+The established Quicktests fixture manager now stages
+`Tests/Quickstarts/Fixtures/WetlandBehaviorProbeDefs.xml` **inside the
+temporary `AMJE.EnvironmentQuicktests` Mod only**, alongside its
+developer DLL. Production `loadFolders.xml`, Environment-owned
+`Defs/`, normal save data and subscriber payload are unchanged.
+The existing fixture cleanup removes the temporary Mod after the gate.
+
+The two existing wetland Quickstarts use genuine loaded RimWorld
+`PlantBase` inheritance and a colonist's native `CutPlant` job on
+disposable soil cells for `AMJE_Test_Suge` and `AMJE_Test_Mizugoke`.
+They check that the test-only sedge drops Hay and the test-only moss
+drops no item. Both are intentionally distinct from the future
+`AMJ_Plant_Suge` and `AMJ_Plant_Mizugoke` production DefNames. The
+test sedge's yield=1 and its borrowed already-owned Haimatsu sprite
+are **fixture mechanics only**, not author-approved crop balance
+or artwork. No biome `wildPlants` placement or wild spawning of
+these test plants is performed.
+
+Use the existing hidden `run-tests.bat` as usual. The native wetland
+result must include the probe assertions and the complete per-scenario
+runtime ERROR gate. CI/source review alone does **not** establish a
+loaded-game PASS, real future PlantDef inheritance, seasonal appearance,
+winter dormancy or a save migration. The original four-plant Steam
+release and editorial/art approval gates remain separate.
+
 The wiring is regression-locked by
 `Tests/test_run_tests_entrypoint.py`. In particular, the test requires both
 wetland Quickstarts to remain part of the default runtime suite and protects
