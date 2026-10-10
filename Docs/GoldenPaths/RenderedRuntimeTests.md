@@ -61,6 +61,30 @@ Environment no longer depends on that repository merely to obtain a non-visible
 runtime path; its own standard `run-tests.bat` now provides the same isolation
 property for AMJE-only validation.
 
+### MO-added wetlands herbs — loaded-Def coverage, runtime pending (2026-10-10)
+
+The MO 1.6 source archive `3219596926.zip` contains
+`1.6/Patches/Core/Add_Plants_To_Biomes.xml`, which adds Mindwort, Poppy,
+Fleawort and FlyAgaric at `0.05` each to **both** `TemperateSwamp` and
+`ColdBog`. Environment's wetland patch now operates only on named Vanilla
+vegetation entries, leaving those additions outside its mutation scope.
+
+The **existing** two wetland Quickstarts contain MO-conditional checks for
+all eight actual `BiomeDef.CommonalityOfPlant` readings. Development Pickle's
+**existing** "Replacement native plants retain tuned development commonality"
+scenario now also validates those same readings when MO is active in the
+`MO` and `MO-CCTO` profiles. It does not require MO in the Vanilla/CCTO
+profiles. No new redundant Pickle scenario or additional RimTest test was added:
+RimTest covers isolated logic, while Pickle/Quickstarts inspect actual loaded
+Defs. The tests use the same MO-supplied `0.05` source weights; they are not
+an Environment-authored herbal balance.
+
+Required evidence remains: execute `run-tests.bat` on the Windows installation
+with the development Environment root and installed MO, inspect complete
+RimTest/Pickle/Quickstart logs and owned ERROR gate, and sample actual wetland
+maps for native spawn as separate evidence. Source review, static CI and these
+new assertions are **not runtime PASS**.
+
 ## Unified current-development test status (2026-10-08)
 
 This page is the single runtime-testing handoff for Environment's vegetation,
