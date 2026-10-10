@@ -210,6 +210,38 @@ namespace AMJE.WorkshopPickle
                                                     StringComparison.OrdinalIgnoreCase));
             if (mo)
             {
+                // Retained Vanilla MO pools must stay untouched. AMJE's
+                // new climate BiomeDefs need corresponding optional entries
+                // because they replace most of the source Vanilla world tiles.
+                foreach (string[] source in new[] {
+                    new[] { "TemperateForest", "0.05" },
+                    new[] { "BorealForest", "0.16" },
+                    new[] { "Tundra", "0.05" }
+                })
+                foreach (string herb in new[] {
+                    "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
+                    "DankPyon_Plant_FleawortWild", "DankPyon_Plant_FlyAgaricWild"
+                })
+                    ctx.Assert(CommonalityIs(source[0], herb,
+                        float.Parse(source[1], System.Globalization.CultureInfo.InvariantCulture)),
+                        "MO original Vanilla herbal pool was modified: "
+                        + source[0] + "/" + herb);
+
+                foreach (string[] target in new[] {
+                    new[] { "AMJ_WarmTemperateForest", "0.05" },
+                    new[] { "AMJ_CoolTemperateForest", "0.05" },
+                    new[] { "AMJ_SubalpineForest", "0.16" },
+                    new[] { "AMJ_AlpineZone", "0.05" }
+                })
+                foreach (string herb in new[] {
+                    "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
+                    "DankPyon_Plant_FleawortWild", "DankPyon_Plant_FlyAgaricWild"
+                })
+                    ctx.Assert(CommonalityIs(target[0], herb,
+                        float.Parse(target[1], System.Globalization.CultureInfo.InvariantCulture)),
+                        "MO medicinal wild plant missing from replacement AMJE biome: "
+                        + target[0] + "/" + herb);
+
                 foreach (string biome in new[] { "TemperateSwamp", "ColdBog" })
                 foreach (string herb in new[] {
                     "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
