@@ -1151,11 +1151,11 @@ if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
 }
 
 foreach ($pair in @(
-    @($workshopJaText, '現在β版です。', 'Japanese Workshop Beta stage'),
-    @($workshopJaText, '他のAMJ Modは必須ではありません。', 'Japanese Workshop standalone support'),
-    @($workshopJaText, '任意Mod: Crop Cold Tolerance Overhaul（CCTO）', 'Japanese Workshop CCTO optionality'),
-    @($workshopEnText, 'Beta.', 'English Workshop Beta stage'),
-    @($workshopEnText, 'No other AMJ Mod is required.', 'English Workshop standalone support'),
+    @($workshopJaText, 'RimWorld 1.6対応、β版。', 'Japanese Workshop Beta stage'),
+    @($workshopJaText, '必須MOD: Harmony', 'Japanese Workshop standalone support'),
+    @($workshopJaText, '任意MOD: CCTO', 'Japanese Workshop CCTO optionality'),
+    @($workshopEnText, 'RimWorld 1.6, Beta.', 'English Workshop Beta stage'),
+    @($workshopEnText, 'Required: Harmony', 'English Workshop standalone support'),
     @($workshopEnText, 'Optional: Crop Cold Tolerance Overhaul (CCTO)', 'English Workshop CCTO optionality')
 )) {
     if (-not $pair[0].Contains($pair[1])) {
