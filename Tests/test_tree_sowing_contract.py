@@ -113,7 +113,7 @@ class TreeSowingContractTests(unittest.TestCase):
             self.assertEqual({x.tag: x.text for x in add.findall("value/*")}, baselines[biome])
             # The removal is limited to exact Vanilla entries; an absent
             # Cypress cannot abort a patch and MO's herbs are never selected.
-            targeted = set(re.findall(r"self::(\\w+)", remove.findtext("xpath")))
+            targeted = set(re.findall(r"self::(\w+)", remove.findtext("xpath")))
             self.assertEqual(targeted, set(baselines[biome]) | excluded)
             self.assertFalse(any(name.startswith("DankPyon_") for name in targeted))
             weights = {k: float(v) for k, v in baselines[biome].items()}
@@ -135,7 +135,7 @@ class TreeSowingContractTests(unittest.TestCase):
             "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
             "DankPyon_Plant_FleawortWild", "DankPyon_Plant_FlyAgaricWild"), "0.05")
         for i, (biome, approved) in enumerate(baseline.items()):
-            targets = set(re.findall(r"self::(\\w+)", ops[2*i].findtext("xpath")))
+            targets = set(re.findall(r"self::(\w+)", ops[2*i].findtext("xpath")))
             for mo_before in (True, False):
                 # ColdBog/Cypress is deliberately missing: a real earlier
                 # prelaunch PatchOperation failure must not recur.
