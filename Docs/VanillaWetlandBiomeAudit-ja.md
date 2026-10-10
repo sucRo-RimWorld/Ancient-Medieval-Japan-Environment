@@ -171,6 +171,16 @@ Step 1では、現行generic植物を使った暫定構成でもよいが、Biom
 
 このゲートが通ってから、植生ロードマップStep 2「説明文監査 → リテクスチャ」へ進む。
 
+## 2026-10-10 MO追加薬草をEnvironmentの変更対象から除外（作者確定）
+
+`TemperateSwamp`／`ColdBog`の基本植生で`Plant_Chokevine`／`Plant_TreeCypress`／`Plant_Astragalus`を整理し、Vanillaの採用済み植物へ重みを振り替える方針は**維持**する。ただし、MO（Medieval Overhaul）が別途追加した薬草はEnvironmentの対象外とし、消去／再追加／重み付けしない。
+
+**実装方式変更:** `Patches/VanillaWetlandVegetation.xml`の`wildPlants`**全ノード置換を廃止**し、両Biomeの**列挙したVanilla `Plant_*`だけ**を条件付きで取り除いた後、同じ採用済みVanilla基準エントリを追加する。VanillaのCypressやAstragalusが未定義・既に削除済みでも、非存在を通常の条件として処理する（旧ColdBog/CypressパッチERROR回避）。`DankPyon_Plant_MindwortWild`、`DankPyon_Plant_PoppyWild`、`DankPyon_Plant_FleawortWild`、`DankPyon_Plant_FlyAgaricWild`はXPath削除対象に含まれず、AMJEのvalueにも存在しない。MOのPatch実行前後いずれでもその独自項目を保持する。
+
+**数値の意味:** 温帯湿地7.30・木本3.00／冷涼湿原8.22・木本1.80は**Environmentが管理するVanilla構成の基準値のみ**。MOの追加植物を含む最終`wildPlants`全体が常に同じ合計になるという契約ではない。MO自身の薬草出現重みはMOのソースに従う。AMJEはMO薬草の収穫、薬効、他Biomeへの設定に手を加えない。
+
+**検証:** Python静的契約はVanilla基準値、対象を絞ったXPath、MO項目の未変更、およびMOの前後読み込み順をモデルとして確認する。Environment＋MOの**実RimWorldロード済み`BiomeDef.wildPlants`、ログと自然出現**は別途実行するまで未検証であり、CI PASSを実機互換PASSと記載しない。
+
 ## 2026-10-08 湿地生態bundle実装（RimWorld 1.6・実機検証待ち）
 
 ### 実装境界
