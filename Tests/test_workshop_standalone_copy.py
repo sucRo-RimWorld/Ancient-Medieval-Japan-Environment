@@ -5,8 +5,8 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 
-JA_STANDALONE = "他のAMJ Modは必須ではありません。"
-EN_STANDALONE = "No other AMJ Mod is required."
+JA_REQUIRED = "必須MOD: Harmony"
+EN_REQUIRED = "Required: Harmony"
 JA_CORE_OLD = "Ancient & Medieval Japan Coreは不要です。"
 EN_CORE_OLD = "Ancient & Medieval Japan Core is not required."
 
@@ -26,16 +26,16 @@ class WorkshopStandaloneContractTests(unittest.TestCase):
         cls.ja_raw, cls.ja = workshop_text("SteamWorkshopDescription-ja.txt")
         cls.en_raw, cls.en = workshop_text("SteamWorkshopDescription.txt")
 
-    def test_current_standalone_copy_and_optional_dependencies(self):
+    def test_current_required_and_optional_compatibility_copy(self):
         for name, content, required in (
             ("Japanese", self.ja, (
-                "現在β版です。",
-                JA_STANDALONE,
-                "任意Mod: Crop Cold Tolerance Overhaul（CCTO）",
+                "RimWorld 1.6対応、β版。",
+                JA_REQUIRED,
+                "任意MOD: CCTO",
             )),
             ("English", self.en, (
-                "Beta.",
-                EN_STANDALONE,
+                "RimWorld 1.6, Beta.",
+                EN_REQUIRED,
                 "Optional: Crop Cold Tolerance Overhaul (CCTO)",
             )),
         ):
@@ -53,15 +53,15 @@ class WorkshopStandaloneContractTests(unittest.TestCase):
             "English Workshop Core independence", self.validator
         )
 
-    def test_validator_matches_actual_workshop_standalone_copy(self):
+    def test_validator_matches_actual_workshop_required_mod_copy(self):
         self.assertIn(
-            "@($workshopJaText, '" + JA_STANDALONE +
-            "', 'Japanese Workshop standalone support')",
+            "@($workshopJaText, '" + JA_REQUIRED +
+            "', 'Japanese Workshop required Harmony')",
             self.validator,
         )
         self.assertIn(
-            "@($workshopEnText, '" + EN_STANDALONE +
-            "', 'English Workshop standalone support')",
+            "@($workshopEnText, '" + EN_REQUIRED +
+            "', 'English Workshop required Harmony')",
             self.validator,
         )
 

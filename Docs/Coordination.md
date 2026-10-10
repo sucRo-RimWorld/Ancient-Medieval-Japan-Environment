@@ -27,6 +27,18 @@ packageId and DLL are intact. The outer isolated-desktop launcher also attempts
 the same guarded cleanup after abnormal runner termination. Normal user
 ModsConfig/Prefs are not edited by this path.
 
+**2026-10-10 follow-up, runtime test blocker:** On the author's local
+`run-tests.bat`, `Scripts/Validate-Environment.ps1` still required the retired
+`<li IfModActive="rimworks.quickstarts">DevQuickstarts</li>` loader entry,
+contradicting the already-correct production root-only `loadFolders.xml`.
+The validator is corrected to parse XML and require only one `v1.6/li` entry
+with `/` and no attributes, preserving fail-closed detection of extra folders.
+`Tests/test_run_tests_entrypoint.py` now also guards against the obsolete
+validator expectation. Do not reintroduce `DevQuickstarts` in the production
+loader or use visible runtime execution; rerun the same isolated `run-tests.bat`
+on the Windows machine after the corrected source is present. No latest native
+RimWorld test result is claimed by this source-only fix.
+
 This repair changes publication/test plumbing, not Environment gameplay Defs,
 production C# behavior or art. The root-only loader bytes are the same bytes
 already present in the previously validated 32-file candidate. It reduces the
