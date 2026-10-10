@@ -34,12 +34,12 @@ if errorlevel 1 exit /b 1
 
 echo.
 echo Running Environment logic/calculation tests through RimTest Redux...
-py -3 "%ROOT%Scripts\Run-EnvironmentRimTest.py" --game "%RIMWORLD_DIR%" --root "%ROOT%"
+py -3 "%ROOT%Scripts\Run-EnvironmentRimTest.py" --game "%RIMWORLD_DIR%"
 if errorlevel 1 exit /b 1
 
 echo.
 echo Running Environment loaded-Def integration matrix through RimWorks Pickle...
-py -3 "%ROOT%Scripts\Run-DevelopmentPickle.py" --game "%RIMWORLD_DIR%" --root "%ROOT%"
+py -3 "%ROOT%Scripts\Run-DevelopmentPickle.py" --game "%RIMWORLD_DIR%"
 if errorlevel 1 exit /b 1
 
 echo.
