@@ -905,6 +905,8 @@ AMJE植物説明フォーマットは、現行の独自4植物と同様に、原
 
 **2026-10-10作者方針変更：表示名も日本向けに修正する。** 表示名は `ThingDef.label`／日本語 `DefInjected .label`（Biome等は該当Defのlabel）で修正し、識別子 `defName`、収量、収穫品、植林、分布、画像、保存データを改名の都合で変更しない。特定種と断定できないVanilla代理樹木は、現行説明・生態・外観に矛盾しない和名の**樹種群の総称**を使う。固有種への限定（例：Oakをミズナラと断定）は、その地域・外観と承認済み説明の整合を別途確認する。残す樹木以外のVanilla/MO由来の植物・動物・Biomeも、実在物への対応を確認して名称を段階的に監査する。Generic植生は根拠なしに日本固有種へ改称せず、MOの幻想種も無根拠に日本在来種と呼ばない。
 
+**2026-10-10実ソース追加監査：** 残るVanilla generic植物7種は種を限定しない名称のまま維持する。Environmentの野生動物9種は§14の**機能的代理**であり、`Bear_Grizzly`をツキノワグマ、`Wolf_Timber`をニホンオオカミ等と**ラベルだけで実在種に偽装しない**。MO 1.6のGreat Oak / Great Iter / Great Fir / Great WillowはMOの独自・幻想的種の同一性を維持し、Environmentは現時点では名称を上書きしない。これらの共用Def名はAMJEの地域Biome外にも影響する。使用した実ソース・対応Def・今回の未変更判断は [`Docs/Research/RetainedContentNameAudit-ja.md`](Research/RetainedContentNameAudit-ja.md) を参照。現在のスコープには新しい名称Patch・種レベル改名は含めない。
+
 したがってポストBetaの既存樹木作業は、**retention audit（残すか） → distribution/ownership decision → Japanese label + approved description → retexture** の順を基本とし、「既存樹木をすべて残してから描き直す」ことは前提にしない。
 
 ### 11.5.6 Vanilla自然植物の残存ゲートと樹木量保全
