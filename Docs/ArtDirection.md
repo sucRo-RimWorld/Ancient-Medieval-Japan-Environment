@@ -92,6 +92,12 @@ Environment's tree/plant rules below intentionally allow controlled class differ
 - **採用範囲：** 成熟株の視覚的源画のみ。未熟、UIアイコン、積雪時の各状態、ゲーム内の見え方や`Docs/PlantVisualCoverage.json`の本番fingerprintは未承認・未記録。元画像には形状の境界がキャンバスに達する箇所があるため、実装時のクロップ・余白と描画スケールを別途検証する。
 - **工程順：** 草地植物ススキの**本番実装は湿地4種完了後**。独立実装要否の調査・日本語本文・出現率・収穫物などの未決仕様はススキ単独で審査する。アシの新画像制作は湿地4種の先行作業であり、**この採用元をアシ扱いしない**。
 
+### 2026-10-10 穂形状の再検討と左右固定条件（候補段階）
+
+作者は写真を見直し、穂の枝先を示した直線に沿って揃える修正、透過背景、単純縮小ではなくゲーム用への再生成を指示した。その後「左右の向きが変わらないようにできるならこの画像でもよさそうだが」と条件を付けた。新しい右向きの5穂候補は旧採用源画の上書き承認ではない。候補は少色・簡略化し、全体を収めた256×256 RGBA PNGとして書き出す。穂先の直線整列、見え方、未熟・UI・積雪の受入は未了。
+
+**左右固定要件：** この非対称候補を採用する場合、ススキの穂を元画どおり右向きに保持する。既存の4樹種や他の植物の反転設定は変更しない。RimWorld 1.6.9438.38202の[`Plant.Print`](https://github.com/Chillu1/RimWorldDecompiled/blob/2d508035082e7cb0c8e29e230d26bda6e546928f/RimWorld/Plant.cs)は`bool flipUv = Rand.Bool`を直接生成し、テクスチャアトラスと通常・積雪の両平面へ渡している。そこで`graphicData.allowFlip`を参照していないため、`allowFlip=false`や`Graphic_Single`への切替だけを左右固定の実装として扱わない。必要時はススキに限定した描画処理を検討し、通常・積雪・複数株、他種への非干渉を実ゲームで検証する。**本調査では描画処理、PlantDef、Texturesを変更しておらず、実装・ランタイムPASSは未成立。** 湿地4種の後という本番実装順を維持する。
+
 ## Plant technical direction
 
 Current plant Defs use `Graphic_Random`.
