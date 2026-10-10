@@ -17,11 +17,21 @@ run-tests.bat "D:\SteamLibrary\steamapps\common\RimWorld"
 `run-tests.bat` is the canonical AMJE automated gate. It runs:
 
 1. `run-static-tests.bat` for PowerShell syntax, build, installed-source Def validation, texture-copy smoke, and the installed Medieval Overhaul tree-reference audit;
-2. `run-framework-tests.bat --skip-static`, which runs the separate RimTest Redux logic/calculation suite and the four-profile development Pickle loaded-Def matrix on non-visible isolated desktops;
-3. `Scripts/Run-EnvironmentIsolatedDesktop.ps1`;
-4. the rendered runtime suite on a newly created, non-visible Windows desktop with normal Direct3D rendering;
-5. the default Environment Quickstart matrix, including four AMJE climate biomes, two Vanilla wetlands, a natural-world wetland distribution scenario, and River/Coast handoff;
-6. optional installed CCTO and Core/Grains integration profiles already owned by `run-runtime-tests.bat`.
+2. `Scripts/Run-EnvironmentIsolatedDesktop.ps1` for the established rendered runtime suite on a newly created, non-visible Windows desktop with normal Direct3D rendering;
+3. the default Environment Quickstart matrix, including four AMJE climate biomes, two Vanilla wetlands, a natural-world wetland distribution scenario, River/Coast handoff and optional installed CCTO and Core/Grains integration profiles owned by `run-runtime-tests.bat`;
+4. `run-framework-tests.bat --skip-static` for the separate RimTest Redux logic/calculation suite and the four-profile development Pickle loaded-Def matrix on non-visible isolated desktops.
+
+**Both native and framework gates remain mandatory for the final `run-tests.bat` PASS.**
+The established native Quickstarts run **before** the newer framework runners,
+so a RimTest/Pickle test-harness fault does not prevent collecting native
+map/rendered-regression evidence. Failures still make the full command fail;
+they are never ignored or relabelled PASS. Framework-only troubleshooting
+must use the independent `run-framework-tests.bat` entry point. To narrow
+an already-isolated Pickle issue without repeating a completed RimTest run,
+the existing Pickle runner may be invoked directly using
+`py -3 Scripts/Run-DevelopmentPickle.py --game "D:\\SteamLibrary\\steamapps\\common\\RimWorld"`;
+this remains **the actual Pickle runtime harness**, not a substitute Python
+test or a release-equivalent full gate. Native game execution stays hidden.
 
 The isolated launcher does not switch the active desktop and does not use
 `-nographics`. Rendering therefore remains active while automated RimWorld

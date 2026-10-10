@@ -46,6 +46,22 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertIn('Run-EnvironmentRimTest.py', self.run_framework)
         self.assertIn('Run-DevelopmentPickle.py', self.run_framework)
         self.assertIn('--skip-static', self.run_framework)
+        # The established hidden rendered Quickstarts must run even if a
+        # later RimTest/Pickle development harness gate fails. Neither gate
+        # may be silently skipped or treated as optional in the full command.
+        self.assertLess(
+            self.run_tests.index('run-static-tests.bat'),
+            self.run_tests.index('Run-EnvironmentIsolatedDesktop.ps1'),
+        )
+        self.assertLess(
+            self.run_tests.index('Run-EnvironmentIsolatedDesktop.ps1'),
+            self.run_tests.index('run-framework-tests.bat'),
+        )
+        self.assertLess(
+            self.run_tests.index('run-framework-tests.bat'),
+            self.run_tests.index('[OK] AMJ Environment full static + framework + isolated runtime validation passed'),
+        )
+        self.assertEqual(self.run_tests.count('if errorlevel 1 exit /b 1'), 3)
 
     def test_runtime_runner_does_not_recurse_into_run_tests(self):
         self.assertNotIn('call "%ROOT%run-tests.bat"', self.run_runtime)
