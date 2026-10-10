@@ -1,49 +1,62 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
   <!--
-    AMJE retains the compatible Vanilla TemperateSwamp / ColdBog BiomeDefs.
-    Replace only their natural vegetation pools with the approved Japan-oriented
-    Phase 5 compositions, preserving the Vanilla wetland worker, terrains, etc.
+    AMJE owns the two retained Vanilla wetland baseline compositions, not the
+    entire wildPlants node. Only remove known Vanilla entries by exact DefName,
+    then append the already approved Vanilla weights. This preserves all other
+    current children, including MO's Mindwort/Poppy/Fleawort/FlyAgaric when
+    MO patches before Environment. If MO patches afterward, its additions are
+    also preserved. This Mod never adds, removes or adjusts MO's herbal entries.
 
-    Replacing the complete wildPlants node is intentional. The former sequence
-    performed individual Chokevine/Cypress removals/replacements and failed at
-    ColdBog/Cypress on the user's installed RimWorld 1.6 build. This ownership
-    boundary prevents missing/reordered Vanilla plant entries from leaving the
-    entire biome vegetation patch in a partially applied state.
-    Wild Healroot remains in the wetland pools under the 2026-10-08 medicine-Mod split; do not remove it as a deferred cleanup.
+    The conditional removal is safe when Vanilla 1.6 lacks a named entry
+    (historical ColdBog/Cypress failure): it does not abort the rest of the
+    patch. Do not substitute a whole-node replacement.
+    Wild Healroot stays in both wetlands under the separate medicine boundary.
+    The stated commonality totals cover only Environment's baseline entries;
+    optional Mod additions legitimately increase the loaded total.
   -->
   <Operation Class="PatchOperationSequence">
     <operations>
-      <!-- TemperateSwamp: total commonality=7.30, woody=3.00. -->
-      <li Class="PatchOperationReplace">
+      <!-- TemperateSwamp: Vanilla-only baseline (7.30 total / 3.00 woody).
+           Preserve MO/DLC/third-party entries with different DefNames. -->
+      <li Class="PatchOperationConditional">
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants/*[self::Plant_TallGrass or self::Plant_Brambles or self::Plant_Bush or self::Plant_TreeWillow or self::Plant_TreeMaple or self::Plant_Berry or self::Plant_HealrootWild or self::Plant_Chokevine or self::Plant_TreeCypress]</xpath>
+        <match Class="PatchOperationRemove">
+          <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants/*[self::Plant_TallGrass or self::Plant_Brambles or self::Plant_Bush or self::Plant_TreeWillow or self::Plant_TreeMaple or self::Plant_Berry or self::Plant_HealrootWild or self::Plant_Chokevine or self::Plant_TreeCypress]</xpath>
+        </match>
+      </li>
+      <li Class="PatchOperationAdd">
         <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants</xpath>
         <value>
-          <wildPlants>
-            <Plant_TallGrass>3.2</Plant_TallGrass>
-            <Plant_Brambles>0.8</Plant_Brambles>
-            <Plant_Bush>0.2</Plant_Bush>
-            <Plant_TreeWillow>2.0</Plant_TreeWillow>
-            <Plant_TreeMaple>1.0</Plant_TreeMaple>
-            <Plant_Berry>0.05</Plant_Berry>
-            <Plant_HealrootWild>0.05</Plant_HealrootWild>
-          </wildPlants>
+          <Plant_TallGrass>3.2</Plant_TallGrass>
+          <Plant_Brambles>0.8</Plant_Brambles>
+          <Plant_Bush>0.2</Plant_Bush>
+          <Plant_TreeWillow>2.0</Plant_TreeWillow>
+          <Plant_TreeMaple>1.0</Plant_TreeMaple>
+          <Plant_Berry>0.05</Plant_Berry>
+          <Plant_HealrootWild>0.05</Plant_HealrootWild>
         </value>
       </li>
 
-      <!-- ColdBog: total commonality=8.22, woody=1.80. -->
-      <li Class="PatchOperationReplace">
+      <!-- ColdBog: Vanilla-only baseline (8.22 total / 1.80 woody).
+           Preserve MO/DLC/third-party entries with different DefNames. -->
+      <li Class="PatchOperationConditional">
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants/*[self::Plant_TallGrass or self::Plant_Moss or self::Plant_Bush or self::Plant_TreeWillow or self::Plant_TreeBirch or self::Plant_TreeMaple or self::Plant_Berry or self::Plant_HealrootWild or self::Plant_Chokevine or self::Plant_TreeCypress or self::Plant_Astragalus]</xpath>
+        <match Class="PatchOperationRemove">
+          <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants/*[self::Plant_TallGrass or self::Plant_Moss or self::Plant_Bush or self::Plant_TreeWillow or self::Plant_TreeBirch or self::Plant_TreeMaple or self::Plant_Berry or self::Plant_HealrootWild or self::Plant_Chokevine or self::Plant_TreeCypress or self::Plant_Astragalus]</xpath>
+        </match>
+      </li>
+      <li Class="PatchOperationAdd">
         <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants</xpath>
         <value>
-          <wildPlants>
-            <Plant_TallGrass>3.4</Plant_TallGrass>
-            <Plant_Moss>2.6</Plant_Moss>
-            <Plant_Bush>0.3</Plant_Bush>
-            <Plant_TreeWillow>0.6</Plant_TreeWillow>
-            <Plant_TreeBirch>0.6</Plant_TreeBirch>
-            <Plant_TreeMaple>0.6</Plant_TreeMaple>
-            <Plant_Berry>0.07</Plant_Berry>
-            <Plant_HealrootWild>0.05</Plant_HealrootWild>
-          </wildPlants>
+          <Plant_TallGrass>3.4</Plant_TallGrass>
+          <Plant_Moss>2.6</Plant_Moss>
+          <Plant_Bush>0.3</Plant_Bush>
+          <Plant_TreeWillow>0.6</Plant_TreeWillow>
+          <Plant_TreeBirch>0.6</Plant_TreeBirch>
+          <Plant_TreeMaple>0.6</Plant_TreeMaple>
+          <Plant_Berry>0.07</Plant_Berry>
+          <Plant_HealrootWild>0.05</Plant_HealrootWild>
         </value>
       </li>
     </operations>
