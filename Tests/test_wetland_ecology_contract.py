@@ -191,6 +191,59 @@ class WetlandEcologyContractTests(unittest.TestCase):
             self.assertIn(names["ja"], self.quickstart)
             self.assertIn(names["en"], self.quickstart)
 
+    def test_mo_herbs_remain_available_in_replacement_climate_biomes(self):
+        # Existing 1.6 MO archive Add_Plants_To_Biomes.xml weights:
+        # TemperateForest 0.05, BorealForest 0.16, Tundra 0.05.
+        # This is static contract coverage; native Pickle/Quickstarts prove
+        # loaded values and real generated-map spawning separately.
+        root = ET.parse(
+            ROOT / "Patches/Compatibility/MedievalOverhaul.xml"
+        ).getroot()
+        operations = root.findall("./Operation/operations/li")
+        self.assertEqual(17, len(operations))
+        self.assertEqual(operations[0].get("Class"), "PatchOperationReplace")
+        expected = {
+            "AMJ_WarmTemperateForest": "0.05",
+            "AMJ_CoolTemperateForest": "0.05",
+            "AMJ_SubalpineForest": "0.16",
+            "AMJ_AlpineZone": "0.05",
+        }
+        herbs = (
+            "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
+            "DankPyon_Plant_FleawortWild", "DankPyon_Plant_FlyAgaricWild",
+        )
+        actual = {}
+        for op in operations[1:]:
+            self.assertEqual(op.get("Class"), "PatchOperationConditional")
+            self.assertEqual(op.get("MayRequire"), "DankPyon.Medieval.Overhaul")
+            self.assertIsNone(op.find("match"))
+            add = op.find("nomatch")
+            self.assertIsNotNone(add)
+            self.assertEqual(add.get("Class"), "PatchOperationAdd")
+            xpath = add.findtext("xpath")
+            biome = next(
+                (b for b in expected
+                 if xpath == f'/Defs/BiomeDef[defName="{b}"]/wildPlants'),
+                None,
+            )
+            self.assertIsNotNone(biome)
+            value = add.find("value")
+            self.assertIsNotNone(value)
+            self.assertEqual(len(value), 1)
+            plant = value[0].tag
+            self.assertIn(plant, herbs)
+            self.assertEqual(
+                op.findtext("xpath"), xpath + "/" + plant,
+                "Must only append absent MO species without replacing third-party entries",
+            )
+            self.assertNotIn((biome, plant), actual)
+            actual[biome, plant] = value[0].text
+        self.assertEqual(
+            actual,
+            {(biome, herb): weight
+             for biome, weight in expected.items() for herb in herbs},
+        )
+
     def test_quickstarts_check_loaded_ecology_and_wetland_terrain(self):
         source = self.quickstart
         self.assertIn("protected static void AddWetlandEcologyAssertions", source)
