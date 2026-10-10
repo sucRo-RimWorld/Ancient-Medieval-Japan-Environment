@@ -71,7 +71,7 @@ Environment no longer depends on that repository merely to obtain a non-visible
 runtime path; its own standard `run-tests.bat` now provides the same isolation
 property for AMJE-only validation.
 
-### MO-added wetlands herbs — loaded-Def coverage, runtime pending (2026-10-10)
+### MO-added wetlands herbs — development Pickle loaded-Def PASS, spawn pending (2026-10-10)
 
 The MO 1.6 source archive `3219596926.zip` contains
 `1.6/Patches/Core/Add_Plants_To_Biomes.xml`, which adds Mindwort, Poppy,
@@ -89,11 +89,24 @@ RimTest covers isolated logic, while Pickle/Quickstarts inspect actual loaded
 Defs. The tests use the same MO-supplied `0.05` source weights; they are not
 an Environment-authored herbal balance.
 
-Required evidence remains: execute `run-tests.bat` on the Windows installation
-with the development Environment root and installed MO, inspect complete
-RimTest/Pickle/Quickstart logs and owned ERROR gate, and sample actual wetland
-maps for native spawn as separate evidence. Source review, static CI and these
-new assertions are **not runtime PASS**.
+**2026-10-10 author-reported loaded-game result:** Running
+`Scripts/Run-DevelopmentPickle.py` directly after fixing the temporary
+Pickle-only Mod content loader, the author reported `PICKLE PASS Vanilla 5`,
+`PICKLE PASS MO 5`, `PICKLE PASS CCTO 5`,
+`PICKLE PASS MO-CCTO 5` — **20/20 in four development profiles**.
+Each output line follows validation of `exitReason == "passed"`,
+all five scenarios and zero Player.log/Unity-capture errors for that profile.
+Thus the loaded-Def MO herb commonality checks have author-reported PASS
+in MO and MO+CCTO, not merely source/static coverage. Aggregate summary,
+raw per-profile logs and capture files were not supplied for independent
+audit; the command's final exit code is not separately shown.
+
+**Still required:** the standard `run-tests.bat` full native,
+non-visible rendered Quickstart regression on current source, explicit
+real wetland natural-spawn/visual sampling and logs, full four-profile
+rendered/cutting release gate and old-save/Steam payload identity verification.
+Development Pickle's five loaded-Def scenarios do **not** establish
+these distinct gates.
 
 ## Unified current-development test status (2026-10-08)
 
