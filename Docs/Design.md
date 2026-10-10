@@ -648,6 +648,17 @@ Temperature layers:
 
 The standalone 0°C values are explicit even though RimWorld's `PlantProperties.minGrowthTemperature` default is also 0°C. This makes the Vanilla-style baseline a deliberate AMJE value rather than an accidental inherited default.
 
+**2026-10-10 accepted Step 3 wetland CCTO design (not yet implemented):** The next four native wetland species follow the same optional, Environment-owned CCTO extension pattern. Exact approved values are:
+
+| Planned species | Without CCTO: minimum growth | With CCTO: minimum growth | With CCTO: cold response |
+|---|---:|---:|---|
+| `AMJ_Plant_Yoshi` | 0°C | 5°C | cold dormancy |
+| `AMJ_Plant_Suge` | 0°C | 0°C | cold dormancy |
+| `AMJ_Tree_Hannoki` | 0°C | 5°C | cold dormancy |
+| `AMJ_Plant_Mizugoke` | 0°C | 0°C | death below −35°C |
+
+This is an approved **game-balance/compatibility specification**, not a statement of measured botanical lethal temperatures. Do not create CCTO patch references before the corresponding author-approved production PlantDefs and art exist; the current four implemented trees are unchanged. Scope the additions to AMJE-owned DefNames only. The canonical wetland-specific behavior, winter Harvest/CutPlant conflict and non-visible four-profile test requirements are in `Docs/NativeVegetationStep3Design-ja.md` §3.3.1. The existing `run-tests.bat` and framework runners keep Direct3D rendering active on a non-visible isolated Windows desktop; running the lower-level visible/debug Quickstarts directly is not the acceptance path. Fresh loaded-native/survival/snow tests are still OPEN.
+
 The CCTO values are Alpha gameplay values on CCTO's existing scale, not claims of exact physiological lethal temperatures. Beech follows the same deciduous dormancy model as CCTO Oak/Birch/Maple; Shirabiso follows the CCTO Pine/Great Fir subalpine-conifer model; Haimatsu uses the same strong evergreen frost tolerance without inventing a new lower threshold solely for its alpine label. Sudajii uses a warmer 8°C growth threshold and a conservative -8°C lethal threshold appropriate to the warm-temperate role.
 
 Implementation is isolated in `Patches/Compatibility/CCTO.xml` with `MayRequire="sucro.cropcoldtoleranceoverhaul"`. AMJE's base PlantDefs never contain a CCTO class reference.

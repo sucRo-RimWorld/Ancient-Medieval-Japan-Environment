@@ -54,6 +54,12 @@ Both runners:
 
 RimTest emits `RimTestSummary.json`. Pickle emits its normal per-profile `summary.json` files plus `DevelopmentPickleSummary.json`. Result directories are created under the Windows temporary directory by default and are evidence only for the exact source/provider tested.
 
+## Upcoming four-species wetland/CCTO regression (approved design; not yet implemented)
+
+The proposed CCTO temperature/dormancy values are owned by Environment `Docs/NativeVegetationStep3Design-ja.md` §3.3.1. Do not stage unapproved PlantDefs, art, or CCTO patch entries merely to make a test pass. Once the actual four wetland PlantDefs are available, run the four existing Pickle profiles (Vanilla/MO/CCTO/MO-CCTO) and the required native winter/harvest/save Quickstarts. Assert exactly one CCTO extension per AMJE wetland plant only in CCTO-enabled profiles; no extension in CCTO-free profiles. Verify the specified 0°C/5°C growth minima, 3 dormancy responses, Mizugoke −35°C death threshold, cold-to-warm recovery and real Harvest/CutPlant/drop outcomes. Distinguish loaded-Def success from generated-map, rendered snow/leafless, winter survival and old-save success.
+
+**No game window on the user's desktop:** use `run-tests.bat` as the default full test entry, or `run-framework-tests.bat` for the isolated RimTest/Pickle subset. The standard launchers already use non-visible Windows desktops and preserve actual graphics; do not pass `-nographics`. The lower-level `run-runtime-tests.bat` can display a window if invoked directly and therefore is **not** the entrance for these unattended acceptance tests. Do not launch a second game while another RimWorld instance is running. No new Windows runtime PASS is implied by this documentation.
+
 ## Coverage boundary
 
 A green framework run establishes logic/calculation and loaded-Def integration for the tested source and profiles. It does **not** establish generated-map distribution, visual quality, terrain/rendering appearance, native cutting-job behavior, Workshop byte identity, or publication readiness. Those remain with their existing Quickstarts, art, release and Workshop gates.

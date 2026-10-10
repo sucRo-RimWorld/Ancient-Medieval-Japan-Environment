@@ -73,6 +73,25 @@
 
 Environmentでは野生・栽培Healrootと既存MedicineHerbal供給を維持する。薬草の追加・置換・撤去・医療機能は本工程の対象外。薬系Modの独立設計へ移管する。
 
+### 3.3.1 湿地4種のCCTO低温挙動 — 2026-10-10作者承認
+
+EnvironmentはCCTOを必須依存とせず、4種の基礎PlantDefにはVanilla型の最低生育温度だけを置く。CCTO導入時のみEnvironment所有の`Patches/Compatibility/CCTO.xml`から`CropColdToleranceOverhaul.ColdToleranceExtension`を適用する。CCTO本体へAMJEのDef・数値を移さない。
+
+| 植物Def | Environment単体：最低生育温度 | CCTO併用：最低生育温度 | CCTO低温応答 |
+|---|---:|---:|---|
+| `AMJ_Plant_Yoshi`（葦） | 0℃ | 5℃ | `coldDormancy=true` |
+| `AMJ_Plant_Suge`（菅） | 0℃ | 0℃ | `coldDormancy=true` |
+| `AMJ_Tree_Hannoki`（榛の木） | 0℃ | 5℃ | `coldDormancy=true` |
+| `AMJ_Plant_Mizugoke`（水苔） | 0℃ | 0℃ | `coldDeathTemperature=-35` |
+
+上表は2026-10-10作者が採用した**ゲームバランス値**であり、自然界の実測枯死温度を主張しない。CCTOの既存Grass/TallGrass（0℃・休眠）、Willow/Birch/Maple/Beech（5℃・休眠）、高耐寒常緑種（−35℃枯死）との役割比較による。アシは多年草の地下部越冬、ハンノキは冬季の落葉を意図する。ミズゴケは落葉休眠にせず、低温生存・積雪表示の実挙動を別に検証する。
+
+**実装条件：** 画像を含む各種の本番PlantDefが承認・作成されるまでは、上表のDef参照・拡張を本番CCTO.xmlに先行追加しない。将来は対象種ごとに最低生育温度を条件付きで置換し、拡張を**ちょうど1個**付与する。既存のAMJE4樹種とCCTO所有Vanilla/MO植物の設定・Def・植物供給、既存MO薬草には触れない。CCTO無しの4種も単独で成立させる。
+
+**冬季の検証条件：** 気温が最低生育温度より上下したときの成長停止・休眠・回復、ColdBogの冬季残存と再生、ミズゴケの−35℃境界、休眠中のHarvest可否・通常CutPlant時の除去とドロップ、春季の実際の再成長、積雪・落葉描画を区別して確認する。冬季アシ刈りはCCTO休眠中のHarvest停止と競合するため、通常Harvestで冬季も採取できるとは扱わない。積雪用画像を先に作るのでなく、**低温時に植物が残るか／どの画像が描画されるか**を非表示の実ゲーム試験で先に調べる。
+
+**実行方法：** 4構成（Vanilla／MO／CCTO／MO+CCTO）のPickle/RimTestおよび必要な描画Quickstartsを、既存の`run-tests.bat`・`run-framework-tests.bat`経由で隔離・非表示実行する。Quickstartsは正常なDirect3D描画を保ち、`-nographics`は使わない。画面が見える可能性のある`run-runtime-tests.bat`直接実行は、この自動検証の入口に使わない。既存の通常プレイModsConfig/Prefsおよびセーブを変更せず、全構成のロード済みDef・自然発生・Cut/Harvest・セーブ再読込・エラー無しを記録する。画像や数値の実機PASSは未取得。採取量2/1/24・生育日数などCCTO以外の従来の暫定値を、今回の承認で確定値へ変更しない。
+
 ### 3.4 草地植生の不足候補：薄・芒（ススキ）— 優先度A・湿地4種完了後に着手
 
 **2026-10-07検討事項の復元（2026-10-10）：** ススキ（*Miscanthus sinensis*）は、暖温帯・冷温帯の開放的な草地、とくに採草・管理によって維持される二次草原の景観を補う、**Environment所有の優先度Aの追加候補**。湿地4種とは異なる生息環境を代表する別工程であり、既存の湿地4種専用判定JSONはススキを承認していない。以前の検討は存在したが正式設計・PlantDefに移管されていなかったため、本節を作る。
