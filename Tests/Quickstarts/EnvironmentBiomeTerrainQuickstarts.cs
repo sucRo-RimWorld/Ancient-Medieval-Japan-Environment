@@ -558,6 +558,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 AddWeatherAssertions(verification, map == null ? null : map.Biome);
                 AddWildlifeAssertions(verification, map == null ? null : map.Biome);
                 AddTreeSowingAssertions(verification, map);
+                AddMoForestHerbAssertions(verification, map);
             }
 
             AddSeasonalSceneryAssertions(verification);
@@ -869,6 +870,69 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
             }
             finally { Find.Storyteller.difficulty.cropYieldFactor = originalYieldFactor; }
+        }
+
+        private static void AddMoForestHerbAssertions(
+            QuickstartVerification verification, Map map)
+        {
+            if (ModLister.GetActiveModWithIdentifier(
+                    "dankpyon.medieval.overhaul", true) == null)
+                return;
+
+            string biome = map == null || map.Biome == null
+                ? "" : map.Biome.defName;
+            float expected = 0f;
+            switch (biome)
+            {
+                case "AMJ_WarmTemperateForest":
+                case "AMJ_CoolTemperateForest":
+                case "AMJ_AlpineZone":
+                    expected = 0.05f;
+                    break;
+                case "AMJ_SubalpineForest":
+                    expected = 0.16f;
+                    break;
+                default:
+                    return;
+            }
+
+            // MO owns the ThingDefs and its five Vanilla biome values.
+            // These are equivalent weights on AMJE's replacement habitats.
+            string[] herbs = {
+                "DankPyon_Plant_MindwortWild",
+                "DankPyon_Plant_PoppyWild",
+                "DankPyon_Plant_FleawortWild",
+                "DankPyon_Plant_FlyAgaricWild"
+            };
+            int naturallySpawned = 0;
+            string observations = "";
+            foreach (string name in herbs)
+            {
+                ThingDef herb = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                float targetWeight = expected;
+                verification.Assert(biome + " preserves MO herbal wild commonality " + name,
+                    delegate
+                    {
+                        return map != null && herb != null &&
+                            System.Math.Abs(map.Biome.CommonalityOfPlant(herb) -
+                                targetWeight) < 0.001f;
+                    });
+                int found = herb == null || map == null
+                    ? 0 : map.listerThings.ThingsOfDef(herb).Count;
+                naturallySpawned += found;
+                observations += " " + name + "=" + found;
+            }
+            Log.Message("[AMJ Environment MO Forest Native Spawn] biome=" +
+                biome + " total=" + naturallySpawned + observations);
+
+            // Alpine terrain and severe snow can suppress current live plants
+            // even though its loaded Tundra-equivalent pool stays registered.
+            if (biome != "AMJ_AlpineZone")
+            {
+                int observed = naturallySpawned;
+                verification.Assert(biome + " naturally spawns MO medicinal vegetation",
+                    delegate { return map != null && observed > 0; });
+            }
         }
 
         protected static void AddWetlandEcologyAssertions(
