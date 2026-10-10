@@ -944,7 +944,7 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 1. **不要なVanilla樹木・植生と、そこから再流入する不適切なBiome bundleを整理する。** 古代～中世日本の植生として残す根拠が弱いものを除外し、必要に応じて木本・総植生commonalityを妥当な日本側植物へ再配分する。AMJE-owned 4植生帯の主要植物監査は2026-10-08時点で完了したが、`TemperateSwamp` / `ColdBog` は植物だけでなく野生動物・病気・天候・説明を含むBiome全体の採用監査を完了してからStep 1を閉じる。
 2. **残すVanilla樹木・植物の説明文を先に監査・承認し、その後にリテクスチャする。** 日本語説明をHistorical Description GuidelinesとAMJE形式へ直し、名称・分布・生態・古代～中世日本での利用／景観文脈が妥当であることを確認してから、AMJE/MO系の画風へ揃える。説明未監査の対象を先に描き直さない。Medieval Overhaul由来の採用植生も同じ `retention → description → retexture` 原則に従う。
-3. **不足している日本の自然植生を追加する。** 湿地・森林・草地の自然景観を対象とし、薬用植物・薬材・加工薬は薬系Mod、果実・木の実の採集ゲームプレイは山野採集側と分担する。
+3. **不足している日本の自然植生を追加する。** 湿地・森林・草地の自然景観を対象とし、薬用植物・薬材・加工薬は薬系Mod、果実・木の実の採集ゲームプレイは独立[Wild Food Foraging](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Wild-Food-Foraging/blob/main/Docs/Design.md)が所有する。Environmentは引き続き自然樹木・植物と地域分布を所有し、採集Modを必須依存化しない。
 4. **既存の医療供給を維持する。** Wild Healrootの最終撤去工程は撤回。薬系Modの導入をEnvironmentの成立条件にしない。
 
 植生・アート整備は既存医療供給を維持したまま進める。

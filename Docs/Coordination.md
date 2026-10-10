@@ -154,7 +154,7 @@ implementation, installed-game test PASS or Workshop publication is claimed.
 
 ### PRIORITY-FOREST-FOODS-20261008 — native fruit/forest-food feature queue
 
-**Owner:** Environment native vegetation; Project owns future Gathering consumer  
+**Owner:** Environment native vegetation; [Wild Food Foraging](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Wild-Food-Foraging) edible-food harvesting consumer  
 **Status:** PROJECT EXECUTION ORDER CONFIRMED; fruit/forest-food feature work NOT IMPLEMENTED
 
 2026-10-08 author priority: complete the current Environment vegetation/runtime
@@ -168,9 +168,7 @@ Authority: Project `Docs/ImplementationPriorities.md` and `Docs/Roadmap.md`;
 Environment's accepted old-save-friendly design remains `Docs/Design.md`,
 with migration test plan in `Docs/GoldenPaths/PlantSowingTests.md`.
 Environment owns PlantDefs, appearance and regional natural distribution. The
-Project-level Gathering candidate remains responsible for edible-nut and
-forest-food **harvesting gameplay**; Preservation owns downstream fruit
-processing where appropriate. Establish actual consumer ownership and run an
+Dedicated Wild Food Foraging now owns the **harvesting gameplay design** (its prior-art implementation gate is still OPEN); Preservation owns downstream fruit processing. Verify the Environment/consumer ownership and run an
 old-AMJE-save to new-AMJE-build natural-spawn/real-harvest/sow/save-load E2E
 before declaring midway-save compatibility. Do not represent this handoff as
 a completed fruit feature or runtime PASS.
