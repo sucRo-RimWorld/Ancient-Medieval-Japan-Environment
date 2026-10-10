@@ -133,14 +133,15 @@ provenance were not supplied. Prior separate author-reported RimTest Redux
 10/10 and development Pickle Vanilla/MO/CCTO/MO-CCTO 20/20 remain separate,
 not a single combined `run-tests.bat` exit.
 
-**Next existing-suite native MO wetland check (source added, runtime pending):**
+**2026-10-10 non-visible MO wetland native-spawn Quickstart PASS (uploaded log):**
 The `CoreIntegrationOnly` compatibility profile now invokes the **two
 pre-existing** `AMJTemperateSwampVegetationQuickstart` and
 `AMJColdBogVegetationQuickstart` alongside its former four climate and
 two river/coast scenarios. This extends only the mixed Grains/Core+MO
 profile from 6 to **8** runs (total **18** across the same base 9,
-optional CCTO 1 and mixed 8); previous **16/16** remains historical
-evidence for the original source, not evidence of the new two runs.
+optional CCTO 1 and mixed 8); the former **16/16** result is historical
+evidence for the original source; the author subsequently supplied the
+**18/18** complete native run log below.
 
 The existing MO-conditional wetland assertions still verify all four
 MO-owned herb `CommonalityOfPlant` values at `0.05`. On the actual
@@ -157,16 +158,24 @@ proof of lost commonality. The aggregate assertion and independent
 The standalone MO profile is still disabled because of its previously
 unstable Quickstarts startup; use the existing MO-loaded mixed profile.
 
-To verify the edited Quicktests DLL on Windows, run the existing
-`run-static-tests.bat` first (build and static validation), then
-`Scripts/Run-EnvironmentIsolatedDesktop.ps1`. This uses the
-previously approved non-visible Direct3D desktop, without repeating
-already-passed RimTest/Pickle. Inspect the mixed-profile
-`Reports-Core/AMJTemperateSwampVegetationQuickstart.*` and
-`Reports-Core/AMJColdBogVegetationQuickstart.*` evidence; the earlier
-16-scenario run does not certify these new assertions. A successful
-18-scenario run still does not establish the separate four-profile
-release/native cutting gate or long-term naturally grown populations.
+The author-provided `EnvironmentIsolatedRuntime(4).log` (773 lines)
+shows **18/18** Quickstarts PASS, each with its own
+`No owned AMJ runtime ERROR entries were found` check.
+The mixed Grains/Core+MO profile explicitly ran the two added wetland
+Quickstarts and both PASSed: with the current test source, this
+establishes 0.05 loaded commonality per MO herb **and** at least
+one already-present MO medicinal plant in aggregate on **each**
+of the two generated maps. No artificial MO herb spawn is performed.
+The console log does **not** report four individual herb counts;
+those values are emitted in the wetland-specific RimWorld game logs
+under `Reports-Core/AMJTemperateSwampVegetationQuickstart.log`
+and `Reports-Core/AMJColdBogVegetationQuickstart.log`.
+Those detailed logs, per-scenario JSON, raw Unity/Player captures and
+exact loaded provider SHA were not attached, so individual herb presence
+on both maps and long-term spawner behavior are **not** established.
+Do not rerun the same suite merely to re-establish the verified
+aggregate-spawn result. This still does not clear full native
+four-profile release/cutting, old saves, or Steam-subscriber evidence.
 
 **Still required for broader acceptance:** inspect individual saved
 Quickstart report JSON and Unity/Player logs if deeper error/provenance
