@@ -149,7 +149,7 @@ Step 1では、現行generic植物を使った暫定構成でもよいが、Biom
 - `wildAnimals`
 - `diseases` / `diseaseMtbDays`
 - `baseWeatherCommonalities`
-- description / localization
+- display label / description localization
 - 必要に応じてforage / pack animal / world texture等の残存field
 
 ### 後段へ送る
@@ -227,7 +227,7 @@ Step 1では、現行generic植物を使った暫定構成でもよいが、Biom
 
 ### 確定説明文（日本語承認済み・2026-10-08）
 
-ユーザー承認の日本語を正本とし、文意と範囲を変えずに英語へ翻訳した。既存のVanilla `label` は変更しない。英語本文は `Patches/VanillaWetlandDescriptions.xml` で置換し、日本語本文は `Languages/Japanese/DefInjected/BiomeDef/AMJ_Biomes.xml` で上書きする。病気の過度な強調や未実装の植物・機能は追加しない。
+ユーザー承認の日本語説明本文を正本とし、文意と範囲を変えずに英語へ翻訳した。**2026-10-08時点ではVanilla `label` を維持していたが、2026-10-10の作者による全Environment名称監査方針で、表示名も日本列島の湿地類型に合わせて更新する。** 日本語ラベルは `TemperateSwamp`＝**温帯湿地**、`ColdBog`＝**冷涼湿原**。英語ラベルはそれぞれ **temperate wetland**、**cool wetland**。これは地理・気候の総称であり、個別の高層湿原/低層湿原や特定時代の植生群落を強制する種同定ではない。`defName`、BiomeWorker、地形、植物・動物、移動条件は不変。英語ラベル/本文は `Patches/VanillaWetlandDescriptions.xml`、日本語ラベル/本文は `Languages/Japanese/DefInjected/BiomeDef/AMJ_Biomes.xml` が正本。病気の過度な強調や未実装の植物・機能は追加しない。
 
 **TemperateSwamp（温帯湿地）**
 
@@ -249,7 +249,7 @@ English:
 
 > A wetland found across cooler regions. Grasses and mosses grow alongside scattered stands of willow and birch trees. The waterlogged ground readily turns muddy, making travel and construction difficult.
 
-**実装と検証:** 両英文の `/Defs/BiomeDef[defName="..."]/description` のみをPatchOperationReplaceし、日本語は同一DefNameの `.description` DefInjectedで置換する。BiomeのWorker、名称、湿地地形・動植物・天候・病気には影響させない。`Tests/test_wetland_ecology_contract.py` でXML/日英本文/変更対象を固定し、両湿地Quickstartのロード済み `BiomeDef.description` が日本語または英語の承認本文と一致することを回帰確認する。**実装変更後の実機テストは2026-10-08に作者報告PASS**。先行するPR #27の9シナリオPASSとは独立の報告として記録する。対応するログ・JSONは未添付のため、個別アサーション数・ログ完全性・起動前/実行時ERRORゼロを独立監査したものとは扱わない。
+**実装と検証:** 2026-10-08には両英文 `/description` のみをPatchOperationReplaceし、日本語は `.description` DefInjectedで置換していた。2026-10-10に**同じ2つのVanilla BiomeDefの `/label` 英文置換と `.label` 日本語DefInjected** を追加した。BiomeWorker・地形・生態・既存説明本文は変更しない。`Tests/test_wetland_ecology_contract.py` が英日ラベル・本文・変更対象の範囲を固定し、既存2件のQuickstartは `BiomeDef.label` と `BiomeDef.description` の双方を確認する。**説明文のみの実装変更後の実機テストは2026-10-08に作者報告PASS**。今回追加したラベルの新しいゲーム内実行PASSは未確認。先行するPR #27の9シナリオPASSとは独立の報告として記録する。対応するログ・JSONは未添付のため、個別アサーション数・ログ完全性・起動前/実行時ERRORゼロを独立監査したものとは扱わない。
 
 ### 残る完了判定
 
