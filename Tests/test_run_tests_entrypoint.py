@@ -218,6 +218,7 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             self.assertIn(marker, self.run_runtime)
         self.assertEqual(self.run_runtime.count('activate --game "%RIMWORLD_DIR%"'), 3)
         self.assertIn("sucro.ancientmedievaljapan.environment.quicktests", self.quicktest_manager)
+        self.assertIn('--defs "%WETLAND_PROBE_DEFS%"', self.run_runtime)
         self.assertIn("Quicktests fixture path already exists; refusing to overwrite", self.quicktest_manager)
         self.assertIn("Refusing to manage unowned Quicktests fixture", self.quicktest_manager)
 
@@ -235,10 +236,13 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             (game / "Mods").mkdir(parents=True)
             dll = temp / manager.DLL_NAME
             dll.write_bytes(b"MZfixture")
-            manager.stage(game, dll)
+            probe = ROOT / "Tests/Quickstarts/Fixtures/WetlandBehaviorProbeDefs.xml"
+            manager.stage(game, dll, probe)
+            staged = manager.fixture_root(game) / "Defs/WetlandBehaviorProbeDefs.xml"
+            self.assertEqual(staged.read_bytes(), probe.read_bytes())
 
             with self.assertRaisesRegex(ValueError, "refusing to overwrite"):
-                manager.stage(game, dll)
+                manager.stage(game, dll, probe)
 
             config = temp / "ModsConfig.xml"
             config.write_text(
