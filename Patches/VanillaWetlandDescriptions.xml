@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
-  <!-- Replace only the English descriptions of retained Vanilla wetlands.
-       Leave labels, workers, terrain, vegetation and other ecology intact.
-       Japanese localization is in Languages/Japanese/DefInjected/BiomeDef. -->
+  <!-- Replace English display labels and approved descriptions for the two retained
+       Vanilla wetland BiomeDefs. Keep DefNames, workers, terrain and ecology intact.
+       Japanese localized labels/descriptions are in DefInjected/BiomeDef. -->
   <Operation Class="PatchOperationSequence">
     <operations>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/label</xpath>
+        <value>
+          <label>temperate wetland</label>
+        </value>
+      </li>
       <li Class="PatchOperationReplace">
         <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/description</xpath>
         <value>
           <description>A wetland found in the warm, rainy lowlands and along rivers of the Japanese archipelago. Tall grasses and stands of willow trees intermingle among muddy ground and shallow water. The damp ground restricts travel and construction.</description>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/label</xpath>
+        <value>
+          <label>cool wetland</label>
         </value>
       </li>
       <li Class="PatchOperationReplace">
