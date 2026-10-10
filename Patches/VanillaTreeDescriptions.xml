@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
-  <!-- English descriptions only; keep all six Vanilla tree labels, plant mechanics,
-       graphic paths, wild/commonality and all sowing behavior unchanged.
-       Approved Japanese source: Docs/VanillaPlantStep2DescriptionReview-ja.md. -->
+  <!-- English labels and descriptions of six retained Vanilla tree Defs;
+       Japanese labels/descriptions in DefInjected. Name edits do not alter
+       defName, tree mechanics, distribution, timber, sowing or graphics.
+       Approved descriptive source: Docs/VanillaPlantStep2DescriptionReview-ja.md. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]/label</xpath>
+    <value>
+      <label>Bamboo (take)</label>
+    </value>
+  </Operation>
   <Operation Class="PatchOperationReplace">
     <xpath>/Defs/ThingDef[defName="Plant_TreeBamboo"]/description</xpath>
     <value>
       <description>Bamboo (take) is a member of the grass family that grows in stands in Japan's warm, humid regions, despite its tree-like appearance. Here it represents bamboo types such as madake and hachiku that existed in ancient and medieval Japan.\n\nLightweight and flexible, bamboo has long been used for baskets, everyday objects, and materials for building, farming, and fishing. Moso bamboo, common in Japan today, is recorded as having arrived during the Edo period and is distinguished here from these earlier bamboo types.</description>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeMaple"]/label</xpath>
+    <value>
+      <label>Maple (kaede)</label>
     </value>
   </Operation>
   <Operation Class="PatchOperationReplace">
@@ -17,12 +30,24 @@
   </Operation>
 
   <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeOak"]/label</xpath>
+    <value>
+      <label>Oak (nara)</label>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
     <xpath>/Defs/ThingDef[defName="Plant_TreeOak"]/description</xpath>
     <value>
       <description>Oak (nara) represents deciduous Japanese oaks such as konara. These trees form part of deciduous broadleaf forests alongside Japanese beech and other species.\n\nForests containing oaks have existed across the Japanese archipelago since ancient times, and regional patterns of fire use and forest management have influenced them. Here this plant represents deciduous oaks, not evergreen kashi oaks.</description>
     </value>
   </Operation>
 
+  <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeBirch"]/label</xpath>
+    <value>
+      <label>Birch (kaba)</label>
+    </value>
+  </Operation>
   <Operation Class="PatchOperationReplace">
     <xpath>/Defs/ThingDef[defName="Plant_TreeBirch"]/description</xpath>
     <value>
@@ -31,12 +56,24 @@
   </Operation>
 
   <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/ThingDef[defName="Plant_TreePine"]/label</xpath>
+    <value>
+      <label>Pine (matsu)</label>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
     <xpath>/Defs/ThingDef[defName="Plant_TreePine"]/description</xpath>
     <value>
       <description>Pine (matsu) is a type of conifer that also grows in Japan's mountains and on nutrient-poor soils. Here it represents pines such as akamatsu (Japanese red pine).\n\nPollen analysis suggests that, from ancient through medieval times, pines increased in some regions as trees were felled and wood was gathered for fuel. This does not mean that pine forests covered the Japanese archipelago uniformly.</description>
     </value>
   </Operation>
 
+  <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/ThingDef[defName="Plant_TreeWillow"]/label</xpath>
+    <value>
+      <label>Willow (yanagi)</label>
+    </value>
+  </Operation>
   <Operation Class="PatchOperationReplace">
     <xpath>/Defs/ThingDef[defName="Plant_TreeWillow"]/description</xpath>
     <value>
