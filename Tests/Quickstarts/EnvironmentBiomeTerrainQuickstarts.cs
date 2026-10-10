@@ -929,13 +929,14 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
             if (medievalOverhaulActive)
             {
+                string[] moHerbs = new[] {
+                    "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
+                    "DankPyon_Plant_FleawortWild", "DankPyon_Plant_FlyAgaricWild" };
                 verification.Assert(id + " preserves MO wild medicinal plants", delegate
                 {
                     if (biome == null)
                         return false;
-                    foreach (string name in new[] {
-                        "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
-                        "DankPyon_Plant_FleawortWild", "DankPyon_Plant_FlyAgaricWild" })
+                    foreach (string name in moHerbs)
                     {
                         ThingDef herb = DefDatabase<ThingDef>.GetNamedSilentFail(name);
                         if (herb == null ||
@@ -944,6 +945,23 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     }
                     return true;
                 });
+
+                // Count only already spawned plants on the generated map.
+                // Do not artificially spawn MO species or change their weights.
+                int naturalHerbs = 0;
+                string observations = "";
+                foreach (string name in moHerbs)
+                {
+                    ThingDef herb = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                    int count = (map == null || herb == null)
+                        ? 0 : map.listerThings.ThingsOfDef(herb).Count;
+                    naturalHerbs += count;
+                    observations += " " + name + "=" + count;
+                }
+                Log.Message("[AMJ Environment MO Wetland Native Spawn] biome=" + id +
+                    " total=" + naturalHerbs + observations);
+                verification.Assert(id + " naturally spawned MO medicinal vegetation",
+                    delegate { return map != null && naturalHerbs > 0; });
             }
 
             var animalField = AccessTools.Field(typeof(BiomeDef), "wildAnimals");
