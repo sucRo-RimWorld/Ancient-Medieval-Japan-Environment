@@ -101,12 +101,29 @@ in MO and MO+CCTO, not merely source/static coverage. Aggregate summary,
 raw per-profile logs and capture files were not supplied for independent
 audit; the command's final exit code is not separately shown.
 
-**Still required:** the standard `run-tests.bat` full native,
-non-visible rendered Quickstart regression on current source, explicit
-real wetland natural-spawn/visual sampling and logs, full four-profile
-rendered/cutting release gate and old-save/Steam payload identity verification.
-Development Pickle's five loaded-Def scenarios do **not** establish
-these distinct gates.
+**2026-10-10 author-reported non-visible Quickstart runner success:**
+the separate `Scripts/Run-EnvironmentIsolatedDesktop.ps1` invocation
+reported `[EXIT] 0` and identified
+`TestResults/EnvironmentIsolatedRuntime.log`. Its child `run-runtime-tests.bat`
+returns zero only after the default rendered Quickstarts and any locally
+detected optional compatibility suites have returned success. The outer
+fixture cleanup then printed `AMJE Quicktests fixture already absent`:
+this is an idempotent, successful cleanup after the child already removed
+the temporary Mod. **No second run or fixture repair is necessary.**
+The report excerpt alone does not identify scenario counts, optional-profile
+participation or individual Unity/log captures; those live under the named
+saved test results and have not been independently audited. The author
+previously reported RimTest Redux 10/10 PASS and development Pickle
+four-profile 20/20 PASS separately. These three native test paths succeeded
+independently; a single combined `run-tests.bat` pass was not run in this
+latest exchange.
+
+**Still required for broader acceptance:** inspect detailed saved reports
+if exact Quickstart counts and optional matrix composition are needed;
+explicit real wetland natural-spawn sampling; separate **full four-profile**
+rendered/cutting release matrix, old-save E2E and Steam payload identity
+verification. Neither loaded-Def Pickle nor default Quickstarts alone
+establishes the separate four-profile native release gate.
 
 ## Unified current-development test status (2026-10-08)
 
