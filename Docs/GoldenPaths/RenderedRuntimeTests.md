@@ -133,6 +133,41 @@ provenance were not supplied. Prior separate author-reported RimTest Redux
 10/10 and development Pickle Vanilla/MO/CCTO/MO-CCTO 20/20 remain separate,
 not a single combined `run-tests.bat` exit.
 
+**Next existing-suite native MO wetland check (source added, runtime pending):**
+The `CoreIntegrationOnly` compatibility profile now invokes the **two
+pre-existing** `AMJTemperateSwampVegetationQuickstart` and
+`AMJColdBogVegetationQuickstart` alongside its former four climate and
+two river/coast scenarios. This extends only the mixed Grains/Core+MO
+profile from 6 to **8** runs (total **18** across the same base 9,
+optional CCTO 1 and mixed 8); previous **16/16** remains historical
+evidence for the original source, not evidence of the new two runs.
+
+The existing MO-conditional wetland assertions still verify all four
+MO-owned herb `CommonalityOfPlant` values at `0.05`. On the actual
+newly generated wetland map they now read `map.listerThings.ThingsOfDef`
+for each herb; `[AMJ Environment MO Wetland Native Spawn]` logs all
+four counts plus the total, and the loaded-game assertion requires
+**at least one naturally generated MO herb in aggregate on each wetland
+map**. No forced spawning and no changes to the herb definitions or
+Environment's managed Vanilla vegetation pool. A particular rare herb
+may be absent from one sampled map even if the 0.05 pool entry remains
+valid; record individual counts rather than treating one zero as
+proof of lost commonality. The aggregate assertion and independent
+`Player.log`/Unity ERROR checks are fail-closed, not observation-only.
+The standalone MO profile is still disabled because of its previously
+unstable Quickstarts startup; use the existing MO-loaded mixed profile.
+
+To verify the edited Quicktests DLL on Windows, run the existing
+`run-static-tests.bat` first (build and static validation), then
+`Scripts/Run-EnvironmentIsolatedDesktop.ps1`. This uses the
+previously approved non-visible Direct3D desktop, without repeating
+already-passed RimTest/Pickle. Inspect the mixed-profile
+`Reports-Core/AMJTemperateSwampVegetationQuickstart.*` and
+`Reports-Core/AMJColdBogVegetationQuickstart.*` evidence; the earlier
+16-scenario run does not certify these new assertions. A successful
+18-scenario run still does not establish the separate four-profile
+release/native cutting gate or long-term naturally grown populations.
+
 **Still required for broader acceptance:** inspect individual saved
 Quickstart report JSON and Unity/Player logs if deeper error/provenance
 confirmation is needed; verify MO herb natural spawning in both wetlands,
