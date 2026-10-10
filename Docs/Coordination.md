@@ -168,9 +168,7 @@ Authority: Project `Docs/ImplementationPriorities.md` and `Docs/Roadmap.md`;
 Environment's accepted old-save-friendly design remains `Docs/Design.md`,
 with migration test plan in `Docs/GoldenPaths/PlantSowingTests.md`.
 Environment owns PlantDefs, appearance and regional natural distribution. The
-Dedicated Wild Food Foraging now owns the **harvesting gameplay design** (its prior-art implementation gate is still OPEN); Preservation owns downstream fruit processing. Verify the Environment/consumer ownership and run an
-old-AMJE-save to new-AMJE-build natural-spawn/real-harvest/sow/save-load E2E
-before declaring midway-save compatibility. Do not represent this handoff as
+**2026-10-10 author dependency decision:** Wild Food Foraging now **requires** Environment (`sucro.ancientmedievaljapan.environment`) as the provider of Sudajii and other Japan-native vegetation; Environment has **no** reverse dependency, and regional species pools stay Environment-owned. No forced Sudajii everywhere, no new tree/food Defs or yield approvals. Dedicated Wild Food Foraging owns harvesting gameplay and will add its required `modDependencies` metadata when its playable About is created. Its prior-art implementation entry is still OPEN. Preservation owns downstream fruit processing. Verify cross-owner harvesting with the existing-AMJE-save→new-build natural-spawn/real-harvest/sow/save-load E2E before claiming compatibility. Do not represent this handoff as
 a completed fruit feature or runtime PASS.
 
 ### TEST-ENV-UNIFIED-20261008 — unify parallel AMJE test and wetland development tracks
