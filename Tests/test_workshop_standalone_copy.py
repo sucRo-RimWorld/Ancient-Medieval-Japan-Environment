@@ -5,8 +5,8 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 
-JA_STANDALONE = "必須MOD: Harmony"
-EN_STANDALONE = "Required: Harmony"
+JA_REQUIRED = "必須MOD: Harmony"
+EN_REQUIRED = "Required: Harmony"
 JA_CORE_OLD = "Ancient & Medieval Japan Coreは不要です。"
 EN_CORE_OLD = "Ancient & Medieval Japan Core is not required."
 
@@ -30,12 +30,12 @@ class WorkshopStandaloneContractTests(unittest.TestCase):
         for name, content, required in (
             ("Japanese", self.ja, (
                 "RimWorld 1.6対応、β版。",
-                JA_STANDALONE,
+                JA_REQUIRED,
                 "任意MOD: CCTO",
             )),
             ("English", self.en, (
                 "RimWorld 1.6, Beta.",
-                EN_STANDALONE,
+                EN_REQUIRED,
                 "Optional: Crop Cold Tolerance Overhaul (CCTO)",
             )),
         ):
@@ -55,13 +55,13 @@ class WorkshopStandaloneContractTests(unittest.TestCase):
 
     def test_validator_matches_actual_workshop_required_mod_copy(self):
         self.assertIn(
-            "@($workshopJaText, '" + JA_STANDALONE +
-            "', 'Japanese Workshop standalone support')",
+            "@($workshopJaText, '" + JA_REQUIRED +
+            "', 'Japanese Workshop required Harmony')",
             self.validator,
         )
         self.assertIn(
-            "@($workshopEnText, '" + EN_STANDALONE +
-            "', 'English Workshop standalone support')",
+            "@($workshopEnText, '" + EN_REQUIRED +
+            "', 'English Workshop required Harmony')",
             self.validator,
         )
 
