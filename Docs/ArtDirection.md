@@ -96,13 +96,19 @@ Environment's tree/plant rules below intentionally allow controlled class differ
 
 作者は写真を見直し、穂の枝先を示した直線に沿って揃える修正、透過背景、単純縮小ではなくゲーム用への再生成を指示した。その後「左右の向きが変わらないようにできるならこの画像でもよさそうだが」と条件を付けた。新しい右向きの5穂候補は旧採用源画の上書き承認ではない。候補は少色・簡略化し、全体を収めた256×256 RGBA PNGとして書き出す。穂先の直線整列、見え方、未熟・UI・積雪の受入は未了。
 
-**左右固定要件：** この非対称候補を採用する場合、ススキの穂を元画どおり右向きに保持する。既存の4樹種や他の植物の反転設定は変更しない。RimWorld 1.6.9438.38202の[`Plant.Print`](https://github.com/Chillu1/RimWorldDecompiled/blob/2d508035082e7cb0c8e29e230d26bda6e546928f/RimWorld/Plant.cs)は`bool flipUv = Rand.Bool`を直接生成し、テクスチャアトラスと通常・積雪の両平面へ渡している。そこで`graphicData.allowFlip`を参照していないため、`allowFlip=false`や`Graphic_Single`への切替だけを左右固定の実装として扱わない。必要時はススキに限定した描画処理を検討し、通常・積雪・複数株、他種への非干渉を実ゲームで検証する。**本調査では描画処理、PlantDef、Texturesを変更しておらず、実装・ランタイムPASSは未成立。** 湿地4種の後という本番実装順を維持する。
+**左右固定要件：** この非対称候補を採用する場合、ススキの穂を元画どおり右向きに保持する。アシにも同じ反転抑制仕様を適用する（下記「ススキ・アシの左右固定仕様」）。湿地4種の後というススキの本番実装順を維持する。
 
 ## Plant technical direction
 
 Current plant Defs use `Graphic_Random`.
 
 RimWorld's `Graphic_Collection` loads every texture found inside the configured folder path. A folder containing a single valid texture therefore remains compatible with `Graphic_Random`; additional variants can be added later without changing the Def class.
+
+### ススキ・アシの左右固定仕様（2026-10-10作者指定・未実装）
+
+対象はススキと葦（アシ、`AMJ_Plant_Yoshi`）に限定し、各種の採用元画像の左右の向きを保持してランダムな水平反転を抑制する。アシの非対称な穂も同じ扱いとする。通常・積雪の描画と複数株で方向を揃え、未熟・UIも各種の状態画像と整合させる。種ごとの画像・形状・受入は独立して維持し、既存4樹種・スゲ・ハンノキ・ミズゴケ・他Mod植物の反転挙動は変えない。
+
+RimWorld 1.6.9438.38202の[`Plant.Print`](https://github.com/Chillu1/RimWorldDecompiled/blob/2d508035082e7cb0c8e29e230d26bda6e546928f/RimWorld/Plant.cs)は`bool flipUv = Rand.Bool`を直接生成してアトラスと通常・積雪の両平面へ渡し、`graphicData.allowFlip`を参照しない。`allowFlip=false`や`Graphic_Single`への切替だけでは成立しないため、対象2種に限定した描画処理が必要。通常・積雪・複数株と他種への非干渉を実ゲームで検証する。**現在は設計確定のみで、描画処理・PlantDef・Texturesの実装やランタイムPASSは未成立。** 各種の既定の実装順・画像承認・分布・採取仕様のゲートを維持する。
 
 Alpha art policy:
 - begin with **one strong final texture per state** rather than producing many variants immediately;
