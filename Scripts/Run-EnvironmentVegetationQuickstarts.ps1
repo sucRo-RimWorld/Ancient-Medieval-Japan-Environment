@@ -51,6 +51,8 @@ elseif ($CoreIntegrationOnly) {
         "AMJCoolTemperateTerrainQuickstart",
         "AMJSubalpineTerrainQuickstart",
         "AMJAlpineTerrainQuickstart",
+        "AMJTemperateSwampVegetationQuickstart",
+        "AMJColdBogVegetationQuickstart",
         "AMJRiverMapHandoffQuickstart",
         "AMJCoastMapHandoffQuickstart"
     )

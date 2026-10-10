@@ -127,6 +127,28 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertIn('"AMJRiverMapHandoffQuickstart"', self.quickstarts)
         self.assertIn('"AMJCoastMapHandoffQuickstart"', self.quickstarts)
 
+    def test_mo_core_integration_reuses_wetland_native_spawn_quickstarts(self):
+        # The separately launched, proven MO+Grains/Core profile needs both
+        # existing wetland map scenarios, not only the four forest/river/coast
+        # scenarios. Read the real Quickstart map; never force MO herb spawns.
+        core = self.quickstarts.split("elseif ($CoreIntegrationOnly) {", 1)[1].split(
+            "else {", 1
+        )[0]
+        for name in (
+            "AMJTemperateSwampVegetationQuickstart",
+            "AMJColdBogVegetationQuickstart",
+        ):
+            self.assertIn('"' + name + '"', core)
+        wetland = self.world_quickstarts.split(
+            "protected static void AddWetlandEcologyAssertions(", 1
+        )[1].split("private static void AddWildlifeAssertions(", 1)[0]
+        self.assertIn("map.listerThings.ThingsOfDef(herb).Count", wetland)
+        self.assertIn("[AMJ Environment MO Wetland Native Spawn]", wetland)
+        self.assertIn('naturalHerbs > 0', wetland)
+        self.assertIn('if (medievalOverhaulActive)', wetland)
+        self.assertNotIn("GenSpawn.Spawn(", wetland)
+        self.assertNotIn("GenSpawn.TrySpawn", wetland)
+
     def test_unforced_natural_world_wetlands_gate(self):
         scenario = "AMJWorldWetlandDistributionQuickstart"
         self.assertIn(f'"{scenario}"', self.quickstarts)
