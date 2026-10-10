@@ -36,31 +36,30 @@ def read_owned_plant_defs(xml_sources):
 
 
 def read_wetland_references(patch_xml):
-    """Read each current whole-pool replacement, not author-unapproved draft."""
+    """Read AMJE-added wildPlants only; leave external MO entries out of scope."""
     root = ET.fromstring(patch_xml)
     references = {biome: set() for biome in BIOMES}
     seen = set()
     for op in root.findall("./Operation/operations/li"):
+        if op.get("Class") != "PatchOperationAdd":
+            continue
         xpath = op.findtext("xpath", "")
         match = XPATH.fullmatch(xpath)
         if not match:
             continue
         biome = match.group(1)
         if biome in seen:
-            raise ValueError(f"duplicate wildPlants replacement: {biome}")
+            raise ValueError(f"duplicate Vanilla wetland baseline: {biome}")
         seen.add(biome)
-        if op.get("Class") != "PatchOperationReplace":
-            raise ValueError(f"unexpected patch operation for {biome}")
-        plants = op.find("value/wildPlants")
+        plants = op.find("value")
         if plants is None:
-            raise ValueError(f"missing replacement pool: {biome}")
+            raise ValueError(f"missing baseline entries: {biome}")
         references[biome] = {
             node.tag for node in plants if node.tag in WETLAND_SPECIES
         }
     if seen != set(BIOMES):
-        raise ValueError("expected both Vanilla wetland pool replacements")
+        raise ValueError("expected both scoped Vanilla wetland baseline additions")
     return references
-
 
 def issues(references, definitions):
     """Check only source linkage and restricted candidate wetland placement."""
