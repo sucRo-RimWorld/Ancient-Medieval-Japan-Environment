@@ -137,6 +137,24 @@ namespace AMJE.WorkshopPickle
                 ctx.Assert(CommonalityIs(row[0], row[1],
                     float.Parse(row[2], System.Globalization.CultureInfo.InvariantCulture)),
                     "Representative plant weight mismatch: " + row[0] + "/" + row[1]);
+
+            // MO itself adds all four medicinal wild plants to both Vanilla
+            // wetlands. Environment may not remove or reweight their entries.
+            // These are loaded-game assertions, not a synthetic XML fixture.
+            bool mo = LoadedModManager.RunningModsListForReading.Any(m =>
+                m.PackageIdPlayerFacing.StartsWith("dankpyon.medieval.overhaul",
+                                                    StringComparison.OrdinalIgnoreCase));
+            if (mo)
+            {
+                foreach (string biome in new[] { "TemperateSwamp", "ColdBog" })
+                foreach (string herb in new[] {
+                    "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
+                    "DankPyon_Plant_FleawortWild", "DankPyon_Plant_FlyAgaricWild"
+                })
+                    ctx.Assert(CommonalityIs(biome, herb, 0.05f),
+                        "MO medicinal plant missing/reweighted in loaded wetland: "
+                        + biome + "/" + herb);
+            }
         }
 
         [Then("the harvested wood Def contracts remain correct with or without Medieval Overhaul")]
