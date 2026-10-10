@@ -48,6 +48,17 @@ class FrameworkAutomationContractTests(unittest.TestCase):
             .read_text(encoding="utf-8"),
         )
 
+    def test_rimtest_bridge_compiles_with_bundled_net_framework_csc(self):
+        # Framework64/v4.0.30319/csc.exe is C# 5-era: nameof (C# 6)
+        # aborts before the non-visible RimTest desktop is ever launched.
+        self.assertIn(
+            'postfix: new HarmonyMethod(typeof(RimTestAutomationBridge), "AfterResultsLogged")',
+            self.rimtest_source,
+        )
+        self.assertIn("public static void AfterResultsLogged()", self.rimtest_source)
+        self.assertNotIn("nameof(", self.rimtest_source)
+        self.assertIn("Microsoft.NET/Framework64/v4.0.30319/csc.exe", self.common)
+
     def test_pickle_development_matrix_and_bindings(self):
         self.assertIn('PROFILES = ("Vanilla", "MO", "CCTO", "MO-CCTO")', self.pickle)
         self.assertEqual(self.feature.count("  Scenario:"), 5)
