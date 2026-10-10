@@ -1135,7 +1135,7 @@ foreach ($expected in @(
 }
 
 # Workshop intentionally omits the redundant Core-not-required claim.
-# Its standalone capability remains an enforced public compatibility contract.
+# Validate required Harmony and optional CCTO as written in the current copy.
 $workshopJaPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription-ja.txt"
 $workshopEnPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription.txt"
 $workshopJaRaw = Get-Content -LiteralPath $workshopJaPath -Raw -Encoding UTF8
@@ -1152,10 +1152,10 @@ if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
 
 foreach ($pair in @(
     @($workshopJaText, 'RimWorld 1.6対応、β版。', 'Japanese Workshop Beta stage'),
-    @($workshopJaText, '必須MOD: Harmony', 'Japanese Workshop standalone support'),
+    @($workshopJaText, '必須MOD: Harmony', 'Japanese Workshop required Harmony'),
     @($workshopJaText, '任意MOD: CCTO', 'Japanese Workshop CCTO optionality'),
     @($workshopEnText, 'RimWorld 1.6, Beta.', 'English Workshop Beta stage'),
-    @($workshopEnText, 'Required: Harmony', 'English Workshop standalone support'),
+    @($workshopEnText, 'Required: Harmony', 'English Workshop required Harmony'),
     @($workshopEnText, 'Optional: Crop Cold Tolerance Overhaul (CCTO)', 'English Workshop CCTO optionality')
 )) {
     if (-not $pair[0].Contains($pair[1])) {
