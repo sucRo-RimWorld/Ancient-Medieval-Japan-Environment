@@ -35,6 +35,167 @@
           </terrainsByFertility>
         </value>
       </li>
+      <!--
+        MO adds four herbal wild plants to Vanilla TemperateForest (0.05),
+        BorealForest (0.16), and Tundra (0.05). AMJE's four distinct
+        climate-band BiomeDefs replace most of those tiles, not their XML
+        definitions: without this additive mapping, MO herbs lose their
+        habitat in AMJE climate forests despite still existing in Vanilla Defs.
+
+        Preserve MO's source weights on the corresponding AMJE-owned pools.
+        Do not touch MO's plant definitions, original Vanilla biomes, DarkForest
+        or either Vanilla wetland. Conditional absence checks are per herb so
+        another compatibility patch's existing entries are not duplicated or
+        overwritten. No AMJE-only profile references these optional Defs.
+      -->
+      <!-- AMJ_WarmTemperateForest draws MO baseline 0.05 from TemperateForest. -->
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_WarmTemperateForest"]/wildPlants/DankPyon_Plant_MindwortWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_WarmTemperateForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_MindwortWild>0.05</DankPyon_Plant_MindwortWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_WarmTemperateForest"]/wildPlants/DankPyon_Plant_PoppyWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_WarmTemperateForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_PoppyWild>0.05</DankPyon_Plant_PoppyWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_WarmTemperateForest"]/wildPlants/DankPyon_Plant_FleawortWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_WarmTemperateForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_FleawortWild>0.05</DankPyon_Plant_FleawortWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_WarmTemperateForest"]/wildPlants/DankPyon_Plant_FlyAgaricWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_WarmTemperateForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_FlyAgaricWild>0.05</DankPyon_Plant_FlyAgaricWild>
+          </value>
+        </nomatch>
+      </li>
+      <!-- AMJ_CoolTemperateForest draws MO baseline 0.05 from TemperateForest. -->
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_CoolTemperateForest"]/wildPlants/DankPyon_Plant_MindwortWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_CoolTemperateForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_MindwortWild>0.05</DankPyon_Plant_MindwortWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_CoolTemperateForest"]/wildPlants/DankPyon_Plant_PoppyWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_CoolTemperateForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_PoppyWild>0.05</DankPyon_Plant_PoppyWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_CoolTemperateForest"]/wildPlants/DankPyon_Plant_FleawortWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_CoolTemperateForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_FleawortWild>0.05</DankPyon_Plant_FleawortWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_CoolTemperateForest"]/wildPlants/DankPyon_Plant_FlyAgaricWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_CoolTemperateForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_FlyAgaricWild>0.05</DankPyon_Plant_FlyAgaricWild>
+          </value>
+        </nomatch>
+      </li>
+      <!-- AMJ_SubalpineForest draws MO baseline 0.16 from BorealForest. -->
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_SubalpineForest"]/wildPlants/DankPyon_Plant_MindwortWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_SubalpineForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_MindwortWild>0.16</DankPyon_Plant_MindwortWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_SubalpineForest"]/wildPlants/DankPyon_Plant_PoppyWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_SubalpineForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_PoppyWild>0.16</DankPyon_Plant_PoppyWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_SubalpineForest"]/wildPlants/DankPyon_Plant_FleawortWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_SubalpineForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_FleawortWild>0.16</DankPyon_Plant_FleawortWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_SubalpineForest"]/wildPlants/DankPyon_Plant_FlyAgaricWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_SubalpineForest"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_FlyAgaricWild>0.16</DankPyon_Plant_FlyAgaricWild>
+          </value>
+        </nomatch>
+      </li>
+      <!-- AMJ_AlpineZone draws MO baseline 0.05 from Tundra. -->
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_AlpineZone"]/wildPlants/DankPyon_Plant_MindwortWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_AlpineZone"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_MindwortWild>0.05</DankPyon_Plant_MindwortWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_AlpineZone"]/wildPlants/DankPyon_Plant_PoppyWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_AlpineZone"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_PoppyWild>0.05</DankPyon_Plant_PoppyWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_AlpineZone"]/wildPlants/DankPyon_Plant_FleawortWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_AlpineZone"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_FleawortWild>0.05</DankPyon_Plant_FleawortWild>
+          </value>
+        </nomatch>
+      </li>
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="AMJ_AlpineZone"]/wildPlants/DankPyon_Plant_FlyAgaricWild</xpath>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="AMJ_AlpineZone"]/wildPlants</xpath>
+          <value>
+            <DankPyon_Plant_FlyAgaricWild>0.05</DankPyon_Plant_FlyAgaricWild>
+          </value>
+        </nomatch>
+      </li>
     </operations>
   </Operation>
 </Patch>
