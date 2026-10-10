@@ -177,7 +177,7 @@ Step 1では、現行generic植物を使った暫定構成でもよいが、Biom
 
 **実装方式変更:** `Patches/VanillaWetlandVegetation.xml`の`wildPlants`**全ノード置換を廃止**し、両Biomeの**列挙したVanilla `Plant_*`だけ**を条件付きで取り除いた後、同じ採用済みVanilla基準エントリを追加する。VanillaのCypressやAstragalusが未定義・既に削除済みでも、非存在を通常の条件として処理する（旧ColdBog/CypressパッチERROR回避）。`DankPyon_Plant_MindwortWild`、`DankPyon_Plant_PoppyWild`、`DankPyon_Plant_FleawortWild`、`DankPyon_Plant_FlyAgaricWild`はXPath削除対象に含まれず、AMJEのvalueにも存在しない。MOのPatch実行前後いずれでもその独自項目を保持する。
 
-**数値の意味:** 温帯湿地7.30・木本3.00／冷涼湿原8.22・木本1.80は**Environmentが管理するVanilla構成の基準値のみ**。MOの追加植物を含む最終`wildPlants`全体が常に同じ合計になるという契約ではない。MO自身の薬草出現重みはMOのソースに従う。AMJEはMO薬草の収穫、薬効、他Biomeへの設定に手を加えない。
+**数値の意味:** 温帯湿地7.30・木本3.00／冷涼湿原8.22・木本1.80は**Environmentが管理するVanilla構成の基準値のみ**。MOの追加植物を含む最終`wildPlants`全体が常に同じ合計になるという契約ではない。MO自身の薬草出現重みはMOのソースに従う。AMJEはMO薬草の収穫、薬効、MOが設定した元Vanilla／MO所有Biomeの値に手を加えない。なお、森林・高山のAMJE独自Biomeへ元のVanilla森林／TundraからMO薬草の生息地を引き継ぐ任意互換は、`Docs/Design.md` §9.5と`Patches/Compatibility/MedievalOverhaul.xml`が所有する。これは湿地の保持パッチとは別であり、MO Def自体の再定義や既存値の変更ではない。
 
 **検証:** Python静的契約はVanilla基準値、対象を絞ったXPath、MO項目の未変更、およびMOの前後読み込み順をモデルとして確認する。Environment＋MOの**実RimWorldロード済み`BiomeDef.wildPlants`、ログと自然出現**は別途実行するまで未検証であり、CI PASSを実機互換PASSと記載しない。
 
