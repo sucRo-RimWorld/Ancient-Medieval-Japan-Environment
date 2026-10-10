@@ -81,6 +81,17 @@ For AMJE specifically:
 
 Environment's tree/plant rules below intentionally allow controlled class differences such as restrained internal gradient variation, but they do not change this project-wide target.
 
+## 2026-10-10採用源画：薄・芒（ススキ）成熟株（実装予約）
+
+**作者の2026-10-10の明示指示：** 「直前の画像を採用にする」。その後「**この画像はススキ。その後にアシを作れ**」と種名を訂正したため、採用元は**ススキ（*Miscanthus sinensis*）の成熟株の源画**とする。**アシ（ヨシ）用には流用しない。** 画像の制作段階でアシと誤認した旧チャット記録に優先し、この種名判定を正本とする。
+
+- **承認元画像のファイル名（会話添付）：** `三本の穂が揺れるススキの草株.png`。
+- **元画像の形式：** PNG / RGBA / 1254×1254 px / 936760 bytes。SHA-256 `d2b5bbca0f4112bacf4426800c92c985d5f52266c21e08602d822f8ff67d340f`。
+- **256px派生レビューPNG：** `AMJE_Susuki_Mature_256_Review.png`、SHA-256 `bff51c894f345a6069da47f736b802b30e84e532aa7cbb1167ce6868864e1046`（縮小版は**元画と同一バイトではない**）。64pxでのゲーム視認性は本番テスト未了。
+- **予定する源画所有パス：** `Art/Sources/Things/Plant/AMJ/Susuki/Susuki_Mature_Source.png`。**2026-10-10現在、GitHubには元PNGバイナリ未転送**。画像のSHAと採用履歴を先に登録したのみで、リポジトリへの画像取り込み、`Textures/`インストール、実Def参照、読み込みテストは未完了。実際の源画転送後にSHA-256完全一致を確認し、受け入れ証跡を追記する。
+- **採用範囲：** 成熟株の視覚的源画のみ。未熟、UIアイコン、積雪時の各状態、ゲーム内の見え方や`Docs/PlantVisualCoverage.json`の本番fingerprintは未承認・未記録。元画像には形状の境界がキャンバスに達する箇所があるため、実装時のクロップ・余白と描画スケールを別途検証する。
+- **工程順：** 草地植物ススキの**本番実装は湿地4種完了後**。独立実装要否の調査・日本語本文・出現率・収穫物などの未決仕様はススキ単独で審査する。アシの新画像制作は湿地4種の先行作業であり、**この採用元をアシ扱いしない**。
+
 ## Plant technical direction
 
 Current plant Defs use `Graphic_Random`.
