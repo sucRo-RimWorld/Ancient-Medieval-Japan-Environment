@@ -12,6 +12,8 @@
   <AMJ_AlpineZone.label>高山帯</AMJ_AlpineZone.label>
   <AMJ_AlpineZone.description>高山帯は、森林限界より上に広がる寒冷な高山環境。高木はほとんど育たず、ハイマツなどの低木と疎らな植生が主体となる。</AMJ_AlpineZone.description>
   <!-- Approved Japanese descriptions for retained Vanilla wetlands, 2026-10-08. -->
+  <TemperateSwamp.label>温帯湿地</TemperateSwamp.label>
   <TemperateSwamp.description>日本列島の温暖で雨の多い低地や河川沿いに広がる湿地。背の高い草やヤナギ類の木立が入り混じり、泥土と浅い水面が広がる。湿った地盤は通行や建築に制約を与える。</TemperateSwamp.description>
+  <ColdBog.label>冷涼湿原</ColdBog.label>
   <ColdBog.description>冷涼な地域に広がる湿原。草本やコケ類に加え、ヤナギやカバノキ類の木立が点在する。水を多く含む地盤はぬかるみやすく、移動や建築が難しい。</ColdBog.description>
 </LanguageData>

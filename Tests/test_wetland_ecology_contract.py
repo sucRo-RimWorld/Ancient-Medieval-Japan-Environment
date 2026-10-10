@@ -28,6 +28,12 @@ APPROVED_DESCRIPTIONS = {
     },
 }
 
+# Group-level geographic names; the underlying Vanilla BiomeDefs and Workers stay intact.
+WETLAND_LABELS = {
+    "TemperateSwamp": {"ja": "温帯湿地", "en": "temperate wetland"},
+    "ColdBog": {"ja": "冷涼湿原", "en": "cool wetland"},
+}
+
 
 WILDLIFE = {
     "TemperateSwamp": {
@@ -136,11 +142,11 @@ class WetlandEcologyContractTests(unittest.TestCase):
                     DISEASE_MTB[biome],
                 )
 
-    def test_only_approved_wetland_descriptions_are_replaced(self):
+    def test_only_approved_wetland_labels_and_descriptions_are_replaced(self):
         root = ET.parse(DESCRIPTION_PATCH).getroot()
         self.assertEqual(root.tag, "Patch")
         operations = root.findall("./Operation/operations/li")
-        self.assertEqual(len(operations), len(APPROVED_DESCRIPTIONS))
+        self.assertEqual(len(operations), 2 * len(APPROVED_DESCRIPTIONS))
         actual = {}
         for op in operations:
             self.assertEqual(op.get("Class"), "PatchOperationReplace")
@@ -149,13 +155,15 @@ class WetlandEcologyContractTests(unittest.TestCase):
             self.assertIsNotNone(xpath)
             self.assertIsNotNone(body)
             self.assertEqual(len(body), 1)
-            self.assertEqual(body[0].tag, "description")
+            self.assertTrue(xpath.endswith("/" + body[0].tag))
             self.assertNotIn(xpath, actual)
             actual[xpath] = body[0].text
-        self.assertEqual(actual, {
-            f'/Defs/BiomeDef[defName="{id}"]/description': parts["en"]
-            for id, parts in APPROVED_DESCRIPTIONS.items()
-        })
+        expected = {}
+        for id, parts in APPROVED_DESCRIPTIONS.items():
+            prefix = f'/Defs/BiomeDef[defName="{id}"]/'
+            expected[prefix + "description"] = parts["en"]
+            expected[prefix + "label"] = WETLAND_LABELS[id]["en"]
+        self.assertEqual(actual, expected)
 
     def test_japanese_definjected_contains_exact_approved_text(self):
         root = ET.parse(JAPANESE_DESCRIPTIONS).getroot()
@@ -166,15 +174,22 @@ class WetlandEcologyContractTests(unittest.TestCase):
                 nodes = root.findall(key)
                 self.assertEqual(len(nodes), 1)
                 self.assertEqual(nodes[0].text, text["ja"])
-                self.assertIsNone(root.find(biome + ".label"))
+                self.assertEqual(len(root.findall(biome + ".label")), 1)
+                self.assertEqual(root.findtext(biome + ".label"),
+                                 WETLAND_LABELS[biome]["ja"])
 
     def test_loaded_wetland_quickstarts_validate_approved_description(self):
-        self.assertIn("has an approved EN/JA wetland description", self.quickstart)
+        self.assertIn("has an approved EN/JA wetland label and description", self.quickstart)
         for parts in APPROVED_DESCRIPTIONS.values():
             self.assertIn(parts["ja"], self.quickstart)
             self.assertIn(parts["en"], self.quickstart)
         self.assertIn("approvedEnglishDescription", self.quickstart)
         self.assertIn("approvedJapaneseDescription", self.quickstart)
+        self.assertIn("approvedEnglishLabel", self.quickstart)
+        self.assertIn("approvedJapaneseLabel", self.quickstart)
+        for names in WETLAND_LABELS.values():
+            self.assertIn(names["ja"], self.quickstart)
+            self.assertIn(names["en"], self.quickstart)
 
     def test_quickstarts_check_loaded_ecology_and_wetland_terrain(self):
         source = self.quickstart

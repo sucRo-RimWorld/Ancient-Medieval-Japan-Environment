@@ -960,7 +960,7 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 2026-10-08の再監査では、`TemperateSwamp` / `ColdBog` について「湿地だから残す」だけでは不十分と判定した。
 
-**結論:** 湿地環境自体は日本列島の自然環境として必要であり、両Vanilla BiomeDefの名称・基本Worker・mud / marsh / shallow water等の地形生成はgenericな湿地基盤として再利用してよい。互換性上の利点も大きいため、現段階では新しいAMJE湿地BiomeDefへ分離しない。
+**結論:** 湿地環境自体は日本列島の自然環境として必要であり、両Vanilla BiomeDefの**`defName`・基本Worker・mud / marsh / shallow water等の地形生成**はgenericな湿地基盤として再利用してよい。互換性上の利点も大きいため、現段階では新しいAMJE湿地BiomeDefへ分離しない。**表示用 `label` は2026-10-10作者方針に従い日本列島の類型名へ変更する**（`TemperateSwamp`＝温帯湿地／temperate wetland、`ColdBog`＝冷涼湿原／cool wetland）。名称・説明以外のバイオーム挙動は変更しない。名称表と対応範囲は `Docs/VanillaWetlandBiomeAudit-ja.md` を正本とする。
 
 ただし、AMJEが両Biomeを採用する以上、`wildPlants` だけをPatchした状態を最終形とはしない。以下はEnvironmentの監査対象とする。
 
@@ -975,7 +975,7 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 **Step 1の完了条件:** 両湿地のwildAnimals / diseases / weather / descriptionをAMJE方針へ揃え、loaded Defテストで不適切な植物・動物の再流入がないこと、湿地地形生成が維持されること、world上の湿地比率が不意に消失・急増していないことを確認する。これらの回帰ゲートについて2026-10-08に作者からPASS報告を受領したため、**基本Step 1を作者報告ベースで完了**とし、既存植物の残存判定・日本語説明監査へ進める。ただし実機ログによる独立監査や実際の湿地比率の較正、別構成のMO/CCTO統合検証は未完了と区別する。画像リテクスチャの保留は解除しない。
 
-**2026-10-08暫定実装:** `Patches/VanillaWetlandEcology.xml` が両Vanilla湿地の `wildAnimals` / `baseWeatherCommonalities` / `diseaseMtbDays` / `diseases` / `allowedPackAnimals` をAMJE方針に沿って補正する。具体的な全Def・relative commonalityは `Docs/VanillaWetlandBiomeAudit-ja.md` の「湿地生態bundle実装」を正本とする。Vanillaの湿地地形とBiomeWorker、Phase 5植物構成はそのまま保持する。数値は史実の再現値ではなく実機確認待ちのゲームバランス案。説明文の日本語本文は2026-10-08に作者承認済み。英語版と日本語DefInjectedの置換を実装し、旧VanillaラベルとBiomeWorkerは維持する。ロード済み説明文の新たな回帰アサーションについて、2026-10-08に作者から実機テストPASSの報告を受領した。実機ログ・JSONは未添付のため、個別アサーション数、完全キャプチャ、起動前・実行時ERRORゼロを独立再監査したとまでは扱わない。これのみで全構成の統合試験完了や詳細な湿地出現率の確定を宣言しない。確定本文と英訳は `Docs/VanillaWetlandBiomeAudit-ja.md` を正本とする。
+**2026-10-08暫定実装:** `Patches/VanillaWetlandEcology.xml` が両Vanilla湿地の `wildAnimals` / `baseWeatherCommonalities` / `diseaseMtbDays` / `diseases` / `allowedPackAnimals` をAMJE方針に沿って補正する。具体的な全Def・relative commonalityは `Docs/VanillaWetlandBiomeAudit-ja.md` の「湿地生態bundle実装」を正本とする。Vanillaの湿地地形とBiomeWorker、Phase 5植物構成はそのまま保持する。数値は史実の再現値ではなく実機確認待ちのゲームバランス案。説明文の日本語本文は2026-10-08に作者承認済み。英語版と日本語DefInjectedの置換を実装し、**当時は旧VanillaラベルとBiomeWorkerを維持していた**。**2026-10-10にラベルのみ新方針で変更し、BiomeWorkerと既存の説明本文は引き続き維持する。**ロード済み説明文の新たな回帰アサーションについて、2026-10-08に作者から実機テストPASSの報告を受領した。実機ログ・JSONは未添付のため、個別アサーション数、完全キャプチャ、起動前・実行時ERRORゼロを独立再監査したとまでは扱わない。これのみで全構成の統合試験完了や詳細な湿地出現率の確定を宣言しない。確定本文と英訳は `Docs/VanillaWetlandBiomeAudit-ja.md` を正本とする。
 
 **自然分布回帰（2026-10-08）:** 湿地Biomeを強制できる既存Quickstartとは独立して、coverage 0.30の決定的seedの自然生成世界を読み取り専用で計数するテストを追加する。両湿地合算の存在、湿潤度0.5以上の候補の存在、候補外湿地・Biome未割当ゼロ、自然湿地マップへの入植、湿地の陸地比率20%以下を初期の粗い異常検出条件とする。20%は歴史的な適正比率ではなく、精密な目標比率は実測後に再評価する。作者から新しいテストのPASS報告を受けているが、実機ログ・JSONは未受領のため詳細なアサーション数、湿地比率、ERROR検証結果の独立監査は未完了。先行8/8の証拠とは区別する。詳細は `Docs/VanillaWetlandBiomeAudit-ja.md`。
 

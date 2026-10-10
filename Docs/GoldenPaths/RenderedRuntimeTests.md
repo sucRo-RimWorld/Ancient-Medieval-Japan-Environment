@@ -89,13 +89,17 @@ neither can be turned into a PASS without rerunning it.
 
 The author approved the revised Japanese `TemperateSwamp` and `ColdBog`
 descriptions. The approved text is in `Docs/VanillaWetlandBiomeAudit-ja.md`,
-with a corresponding English translation. The new
-`Patches/VanillaWetlandDescriptions.xml` replaces only the two English
-`BiomeDef.description` fields; the Japanese DefInjected entries replace only
-the corresponding Japanese descriptions. Biome names and gameplay fields are
-unchanged. `Tests/test_wetland_ecology_contract.py` checks both languages and
-the exact patch scope, while each wetland Quickstart now validates the loaded
-description in English or Japanese.
+with a corresponding English translation. **As of the original 2026-10-08 test**,
+`Patches/VanillaWetlandDescriptions.xml` replaced only two English
+`BiomeDef.description` fields and Japanese DefInjected only their descriptions;
+at that point Biome labels were unchanged. **The 2026-10-10 naming update**
+adds `BiomeDef.label` replacements and Japanese `.label` entries for
+temperate wetland / 温帯湿地 and cool wetland / 冷涼湿原. `defName`, BiomeWorker
+and gameplay fields remain unchanged. `Tests/test_wetland_ecology_contract.py`
+now checks both labels and retained descriptions in both languages, while
+each existing wetland Quickstart assertion checks loaded label **and** description.
+The 2026-10-08 reported runtime PASS belongs to the **old description-only**
+commit; do not apply it to the new names without a fresh native run.
 
 The author separately reported that the newly updated runtime test PASSED
 on 2026-10-08, after the description assertions were added to PR #28. This is

@@ -896,10 +896,19 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 ? "冷涼な地域に広がる湿原。草本やコケ類に加え、ヤナギやカバノキ類の木立が点在する。水を多く含む地盤はぬかるみやすく、移動や建築が難しい。"
                 : "日本列島の温暖で雨の多い低地や河川沿いに広がる湿地。背の高い草やヤナギ類の木立が入り混じり、泥土と浅い水面が広がる。湿った地盤は通行や建築に制約を与える。";
 
-            verification.Assert(id + " has an approved EN/JA wetland description",
+            string approvedEnglishLabel = cold
+                ? "cool wetland" : "temperate wetland";
+            string approvedJapaneseLabel = cold
+                ? "冷涼湿原" : "温帯湿地";
+            verification.Assert(id + " has an approved EN/JA wetland label and description",
                 delegate
                 {
-                    return biome != null && biome.description != null &&
+                    return biome != null && biome.label != null &&
+                        biome.description != null &&
+                        (string.Equals(biome.label.Trim(),
+                            approvedEnglishLabel, StringComparison.Ordinal) ||
+                         string.Equals(biome.label.Trim(),
+                            approvedJapaneseLabel, StringComparison.Ordinal)) &&
                         (string.Equals(biome.description.Trim(),
                             approvedEnglishDescription, StringComparison.Ordinal) ||
                          string.Equals(biome.description.Trim(),
