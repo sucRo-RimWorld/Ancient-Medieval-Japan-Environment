@@ -71,7 +71,7 @@ Environment no longer depends on that repository merely to obtain a non-visible
 runtime path; its own standard `run-tests.bat` now provides the same isolation
 property for AMJE-only validation.
 
-### MO-added wetlands herbs — development Pickle loaded-Def PASS, spawn pending (2026-10-10)
+### MO-added wetland herbs — development Pickle and aggregate native-spawn Quickstarts PASS (2026-10-10)
 
 The MO 1.6 source archive `3219596926.zip` contains
 `1.6/Patches/Core/Add_Plants_To_Biomes.xml`, which adds Mindwort, Poppy,
