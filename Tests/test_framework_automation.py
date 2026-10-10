@@ -20,6 +20,17 @@ class FrameworkAutomationContractTests(unittest.TestCase):
         self.assertLess(self.entry.index("Run-EnvironmentRimTest.py"), self.entry.index("Run-DevelopmentPickle.py"))
         self.assertIn("--skip-static", self.entry)
 
+    def test_framework_uses_script_source_root_without_trailing_backslash_argument(self):
+        # %~dp0 has a trailing backslash on Windows. Passing it as
+        # --root "%ROOT%" can escape the closing quote in Python argv and
+        # produce a nonexistent path ending in a literal double quote.
+        self.assertNotIn('--root "%ROOT%"', self.entry)
+        self.assertEqual(self.entry.count('--game "%RIMWORLD_DIR%"'), 2)
+        for source in (self.rimtest, self.pickle):
+            self.assertIn("ROOT = common.ROOT", source)
+            self.assertIn('parser.add_argument("--root", type=Path, default=ROOT)', source)
+            self.assertIn('args.root.resolve()', source)
+
     def test_rimtest_is_test_only_and_structured(self):
         for marker in (
             "[TestSuite]", "[Test]", "AMJE_RIMTEST_RESULT", "RimTestSummary.json",
