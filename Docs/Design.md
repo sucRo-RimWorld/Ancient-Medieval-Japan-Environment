@@ -322,6 +322,13 @@ Automated validation is layered by responsibility:
 
 The reusable development procedure is `Docs/GoldenPaths/FrameworkRuntimeTests.md`. Neither RimTest Redux nor Pickle is a production dependency of Environment.
 
+The 2026-10-11 test audit removed checks that merely searched implementation
+source for names/log strings, froze document wording or historical completion
+states, or pinned production PNG hashes independently of the artwork ledger.
+Executable fixture/payload tests, XML contracts, PNG decoding and registered
+fixed-master/mask/composite checks remain. Native loaded-game checks retain
+the responsibilities described above.
+
 For several seeds at common planet coverage values, collect at minimum:
 - land annual mean temperature min/max and distribution;
 - elevation min/max and distribution;

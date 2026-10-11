@@ -213,66 +213,19 @@ if (-not (Test-Path $terrainSourcePath)) {
     Fail "Environment terrain Harmony source was not found."
 }
 
-$terrainSource = Get-Content -LiteralPath $terrainSourcePath -Raw
-if (-not $terrainSource.Contains('[HarmonyPatch(typeof(WorldGenStep_Terrain), "GenerateFresh")]')) {
-    Fail "Environment terrain source does not patch Vanilla WorldGenStep_Terrain.GenerateFresh."
-}
-if (-not $terrainSource.Contains("EnvironmentTerrainProcessor.Apply(seed, layer);")) {
-    Fail "Environment terrain Harmony postfix does not invoke the terrain processor."
-}
-Pass "Environment terrain processing uses Harmony postfix with no custom WorldGenStep XML type"
-
 $bootstrapSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\Bootstrap.cs"
 if (-not (Test-Path $bootstrapSourcePath)) {
     Fail "Environment Bootstrap.cs was not found."
 }
-$bootstrapSource = Get-Content -LiteralPath $bootstrapSourcePath -Raw
-if (-not $bootstrapSource.Contains("DailyVariationScale = 3f / 7f")) {
-    Fail "Environment daily random temperature scale is not the calibrated 3/7 value."
-}
-Pass "Daily random temperature variation uses calibrated ~3 C scale"
-
-
 $climateSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\ClimateCalibrationDiagnostics.cs"
 if (-not (Test-Path $climateSourcePath)) {
     Fail "Climate calibration diagnostics source was not found."
 }
 
-$climateSource = Get-Content -LiteralPath $climateSourcePath -Raw
-foreach ($expected in @(
-    '[HarmonyPatch(typeof(Game), "InitNewGame")]',
-    'Find.TickManager.gameStartAbsTick == 0',
-    'OutdoorTemperatureAt(tile, absTick)',
-    '10f, 8f, 5f, 0f, -1f, -4f, -8f',
-    '"WarmLowland"',
-    '"TemperateLowland"',
-    '"CoolLowland"',
-    '"Highland"'
-)) {
-    if (-not $climateSource.Contains($expected)) {
-        Fail "Climate calibration diagnostics are missing expected source marker: $expected"
-    }
-}
-Pass "Automatic CCTO climate-calibration diagnostics are present"
-
 $diagnosticsSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\WorldGenDiagnostics.cs"
 if (-not (Test-Path $diagnosticsSourcePath)) {
     Fail "WorldGenDiagnostics.cs was not found."
 }
-$diagnosticsSource = Get-Content -LiteralPath $diagnosticsSourcePath -Raw
-foreach ($expected in @(
-    '"[AMJ Environment] Japan vegetation-band preview"',
-    'tile.temperature >= 15f',
-    'tile.temperature >= 8f',
-    'tile.temperature >= 0f',
-    'tile.swampiness >= 0.5f'
-)) {
-    if (-not $diagnosticsSource.Contains($expected)) {
-        Fail "Japan vegetation-band preview is missing expected source marker: $expected"
-    }
-}
-Pass "Japan vegetation-band preview diagnostics are present"
-
 $biomeDefsPath = Join-Path $RepoRoot "Defs\BiomeDefs\AMJ_Biomes.xml"
 if (-not (Test-Path $biomeDefsPath)) {
     Fail "AMJ biome Defs were not found."
@@ -374,21 +327,6 @@ $biomeWorkerSourcePath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnviron
 if (-not (Test-Path $biomeWorkerSourcePath)) {
     Fail "JapanBiomeWorkers.cs was not found."
 }
-$biomeWorkerSource = Get-Content -LiteralPath $biomeWorkerSourcePath -Raw
-foreach ($expected in @(
-    "BiomeWorker_AMJWarmTemperateForest",
-    "BiomeWorker_AMJCoolTemperateForest",
-    "BiomeWorker_AMJSubalpineForest",
-    "BiomeWorker_AMJAlpineZone",
-    "WetlandThreshold = 0.5f",
-    "return 38f"
-)) {
-    if (-not $biomeWorkerSource.Contains($expected)) {
-        Fail "Japan biome worker source is missing expected marker: $expected"
-    }
-}
-Pass "AMJ Alpha vegetation-band BiomeDefs and workers are present"
-
 $biomeJaPath = Join-Path $RepoRoot "Languages\Japanese\DefInjected\BiomeDef\AMJ_Biomes.xml"
 if (-not (Test-Path $biomeJaPath)) {
     Fail "Japanese localization for AMJ biomes was not found."
@@ -737,21 +675,6 @@ $mapTerrainDiagnosticsPath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnv
 if (-not (Test-Path $mapTerrainDiagnosticsPath)) {
     Fail "MapTerrainDiagnostics.cs was not found."
 }
-$mapTerrainDiagnostics = Get-Content -LiteralPath $mapTerrainDiagnosticsPath -Raw
-foreach ($expected in @(
-    '[HarmonyPatch(typeof(MapGenerator), "GenerateMap")]',
-    '"[AMJ Environment] Map terrain summary"',
-    '"AMJ_ThinSoil"',
-    '"DankPyon_DarkForest"',
-    '" | OtherTop="',
-    'Dictionary<string, int> otherTerrains'
-)) {
-    if (-not $mapTerrainDiagnostics.Contains($expected)) {
-        Fail "Map terrain diagnostics are missing expected marker: $expected"
-    }
-}
-Pass "Map terrain-share diagnostics are present"
-
 $loadFoldersPath = Join-Path $RepoRoot "loadFolders.xml"
 if (-not (Test-Path $loadFoldersPath)) {
     Fail "loadFolders.xml was not found."
@@ -777,20 +700,6 @@ if ($loadFoldersXml.DocumentElement.Name -ne 'loadFolders' -or
 }
 Pass "Production loadFolders.xml is root-only; developer Quickstarts use a standalone test fixture"
 
-$bootstrapPath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\Bootstrap.cs"
-$bootstrapSource = Get-Content -LiteralPath $bootstrapPath -Raw
-foreach ($expected in @(
-    '[AMJ Environment] Dev load-folder diagnostic',
-    'GetActiveModWithIdentifier("rimworks.quickstarts", true)',
-    'foldersToLoadDescendingOrder'
-)) {
-    if (-not $bootstrapSource.Contains($expected)) {
-        Fail "Bootstrap is missing expected dev load-folder diagnostic marker: $expected"
-    }
-}
-Pass "Runtime load-folder diagnostic is present"
-
-
 $aboutRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml") -Raw
 if (-not $aboutRaw.Contains('<li>rimworks.quickstarts</li>')) {
     Fail "About.xml must load after Quickstarts when that mod is active."
@@ -800,292 +709,24 @@ if (-not $aboutRaw.Contains('<li>sucro.cropcoldtoleranceoverhaul</li>')) {
 }
 Pass "Environment declares optional Quickstarts/CCTO load order"
 
-$buildSource = Get-Content -LiteralPath (Join-Path $RepoRoot "build.bat") -Raw
-foreach ($expected in @(
-    '/reference:"%HARMONY_DLL%"',
-    'AncientMedievalJapanEnvironment.Quicktests.dll'
-)) {
-    if (-not $buildSource.Contains($expected)) {
-        Fail "build.bat is missing expected Quicktest Harmony marker: $expected"
-    }
-}
-
 $quicktestSourcePath = Join-Path $RepoRoot "Tests\Quickstarts\EnvironmentBiomeTerrainQuickstarts.cs"
 if (-not (Test-Path $quicktestSourcePath)) {
     Fail "Fixed-biome Quickstart source was not found."
 }
-$quicktestSource = Get-Content -LiteralPath $quicktestSourcePath -Raw
-foreach ($expected in @(
-    'AMJWarmTemperateTerrainQuickstart',
-    'AMJCoolTemperateTerrainQuickstart',
-    'AMJSubalpineTerrainQuickstart',
-    'AMJAlpineTerrainQuickstart',
-    'AMJDarkForestTerrainQuickstart',
-    'AMJRiverMapHandoffQuickstart',
-    'AMJCoastMapHandoffQuickstart',
-    'TileMutatorDefOf.River',
-    'TileMutatorDefOf.Coast',
-    '"[AMJ Environment WaterHandoff] verified"',
-    'terrain.IsRiver',
-    'terrain.IsOcean',
-    'Find.GameInitData.startingTile = tile;',
-    'Hilliness.Flat',
-    'Hilliness.Impassable',
-    'forcedNonSettlementTile',
-    'forcedBiome',
-    'targetBiome.Worker.GetScore',
-    'proxy.PrimaryBiome = targetBiome;',
-    'FindClosestClimateProxy',
-    'TargetRepresentativeTemperature',
-    'forcedClimate',
-    'proxy.temperature = forcedTemperature;',
-    'Find.WorldObjects.AnyWorldObjectAt(tile)',
-    'AMJ-Environment-Terrain-Alpha',
-    'QuickstartVerification Verify()',
-    'AMJ_Tree_Shii',
-    'AMJ_Tree_Beech',
-    'AMJ_Tree_Shirabiso',
-    'AMJ_Shrub_Haimatsu',
-    'MaxTargetCellFraction',
-    '"[AMJ Environment Vegetation] biome="',
-    'AddWeatherAssertions',
-    'ExpectedWeatherCommonality',
-    '"[AMJ Environment Weather] biome="',
-    'AddSeasonalSceneryAssertions',
-    'AddWildlifeAssertions',
-    'ExpectedWildlifeForBiome',
-    'excludes wildlife placeholder',
-    'keeps wildlife proxy',
-    'Japanese beech has a loaded leafless graphic',
-    'Sudajii graphic resolves a non-BadTex texture',
-    'Sudajii UI icon resolves a non-BadTex texture',
-    '"BadTexture"',
-    'Japanese beech leafy graphic resolves a non-BadTex texture',
-    'Japanese beech leafless graphic resolves a non-BadTex texture',
-    'Shirabiso graphic resolves a non-BadTex texture',
-    'Haimatsu graphic resolves a non-BadTex texture',
-    'AddTreeTextureAuditAssertions',
-    'AddLiveThingTextureAssertions',
-    '[AMJ Environment LiveThingTextureAudit] BAD',
-    'all live non-plant Thing graphics resolve non-BadTex textures',
-    'AddTerrainScatterTextureAssertions',
-    '[AMJ Environment TerrainScatterTextureAudit] BAD',
-    'all terrain scatter graphics resolve non-BadTex textures',
-    'BadRenderMaterialDiagnostics',
-    '[AMJ Environment BadRenderMaterial]',
-    'System.Environment.GetEnvironmentVariable',
-    'material.HasProperty("_MainTex")',
-    'MapDrawLayer',
-    'GetSubMesh',
-    'map render pipeline emitted no BadTex submesh materials',
-    'PreAtlasBadTextureDiagnostics',
-    '[AMJ Environment PreAtlasBadTexture]',
-    'TryGetTextureAtlasReplacementInfo',
-    'pre-atlas map graphics emitted no BadTex materials',
-    'RealtimeBadGraphicDiagnostics',
-    '[AMJ Environment RealtimeBadGraphic]',
-    'RealtimeBadGraphicFromDefDiagnostics',
-    '[AMJ Environment RealtimeBadGraphicFromDef]',
-    'Graphic_Shadow',
-    'realtime Thing graphics emitted no non-shadow BadTex materials',
-    'PawnRenderBadMaterialDiagnostics',
-    '[AMJ Environment PawnRenderBadMaterial]',
-    'PawnRenderNodeWorker',
-    'GetFinalizedMaterial',
-    'pawn render nodes emitted no BadTex materials',
-    'all loaded tree graphic states resolve non-BadTex textures',
-    '[AMJ Environment TreeTextureAudit]',
-    'leaflessSnowOverlayGraphicPath',
-    'immatureSnowOverlayGraphicPath',
-    'ModsConfig.BiotechActive',
-    'Graphic_Collection',
-    'HasLoadedNonBadTexture',
-    'BaseContent.BadTex',
-    '_FallBehaviorEnabled',
-    'Vanilla snow weather remains available for seasonal scenery',
-    'CctoIsActive()',
-    'ModLister.GetActiveModWithIdentifier',
-    'AddCctoCompatibilityAssertions',
-    'CropColdToleranceOverhaul.ColdToleranceExtension',
-    'AMJ_Tree_Shii',
-    'AMJ_Tree_Beech',
-    'AMJ_Tree_Shirabiso',
-    'AMJ_Shrub_Haimatsu'
-)) {
-    if (-not $quicktestSource.Contains($expected)) {
-        Fail "Fixed-biome Quickstart source is missing expected marker: $expected"
-    }
-}
-Pass "Deterministic Environment Quickstarts and tree-texture audit hooks are present"
-
 foreach ($relative in @(
     "run-runtime-tests.bat",
     "run-texture-debug.bat",
     "Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1",
     "Scripts\Run-EnvironmentVegetationQuickstarts.ps1",
     "Scripts\Validate-EnvironmentRuntimeLog.ps1",
-    "Scripts\Validate-MedievalOverhaulTreeTextures.ps1"
+    "Scripts\Validate-MedievalOverhaulTreeTextures.ps1",
+    "Source\AncientMedievalJapanEnvironment\LiveTextureDiagnostics.cs"
 )) {
     $path = Join-Path $RepoRoot $relative
     if (-not (Test-Path -LiteralPath $path)) {
         Fail "Environment runtime-test harness file is missing: $relative"
     }
 }
-
-$runtimeBatch = Get-Content -LiteralPath (Join-Path $RepoRoot "run-runtime-tests.bat") -Raw
-foreach ($expected in @(
-    'run-static-tests.bat',
-    '--skip-static',
-    'Run-EnvironmentVegetationQuickstarts.ps1',
-    'TestResults\VegetationRuntime',
-    'CCTO_INSTALLED',
-    'SaveData-CCTO',
-    'Reports-CCTO',
-    '-IncludeCCTO',
-    '-CctoCompatibilityOnly',
-    'Medieval Overhaul tree-path validation is handled by the static gate'
-)) {
-    if (-not $runtimeBatch.Contains($expected)) {
-        Fail "run-runtime-tests.bat is missing expected marker: $expected"
-    }
-}
-
-$textureDebugBatch = Get-Content -LiteralPath (Join-Path $RepoRoot "run-texture-debug.bat") -Raw
-foreach ($expected in @(
-    'TestResults\TextureDebug',
-    'TEXTURE_DEBUG_TARGET',
-    'RIMWORLD_QUICKSTART=%TEXTURE_DEBUG_TARGET%',
-    '-quickstart=%TEXTURE_DEBUG_TARGET%',
-    'if not defined BIOME set "BIOME=CoolTemperate"',
-    'AMJWarmTemperateTerrainQuickstart',
-    'AMJCoolTemperateTerrainQuickstart',
-    'AMJSubalpineTerrainQuickstart',
-    'AMJAlpineTerrainQuickstart',
-    'RimWorld will stay open until you close it manually',
-    'Prepare-EnvironmentRuntimeTestSaveData.ps1'
-)) {
-    if (-not $textureDebugBatch.Contains($expected)) {
-        Fail "run-texture-debug.bat is missing expected Golden Path marker: $expected"
-    }
-}
-
-foreach ($forbidden in @(
-    '-quickstartreport',
-    '-quickstartverify'
-)) {
-    if ($textureDebugBatch.Contains($forbidden)) {
-        Fail "run-texture-debug.bat must remain focused/non-auto-exit; forbidden marker found: $forbidden"
-    }
-}
-
-Pass "Focused texture-debug runner supports all four AMJE Golden Path biome targets"
-
-# The public entry point delegates to run-static-tests.bat; the MO audit
-# must be present in that static gate, not in the parent entry point.
-$runTestsSource = Get-Content -LiteralPath (Join-Path $RepoRoot "run-tests.bat") -Raw
-foreach ($expected in @(
-    'run-static-tests.bat',
-    'Run-EnvironmentIsolatedDesktop.ps1'
-)) {
-    if (-not $runTestsSource.Contains($expected)) {
-        Fail "run-tests.bat is missing expected test-entrypoint marker: $expected"
-    }
-}
-
-$runStaticTestsSource = Get-Content -LiteralPath (Join-Path $RepoRoot "run-static-tests.bat") -Raw
-foreach ($expected in @(
-    'Validate-PowerShellSyntax.ps1',
-    'build.bat',
-    'Validate-Environment.ps1',
-    'Validate-MedievalOverhaulTreeTextures.ps1',
-    'Auditing installed Medieval Overhaul tree texture references'
-)) {
-    if (-not $runStaticTestsSource.Contains($expected)) {
-        Fail "run-static-tests.bat is missing expected static-audit marker: $expected"
-    }
-}
-
-if ($runtimeBatch.Contains('call "%ROOT%run-tests.bat"')) {
-    Fail "run-runtime-tests.bat must not call run-tests.bat recursively."
-}
-
-$moTreeAudit = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Validate-MedievalOverhaulTreeTextures.ps1") -Raw
-foreach ($expected in @(
-    '3219596926',
-    'TreeBase',
-    'DeciduousTreeBase',
-    'leaflessGraphicPath',
-    'immatureGraphicPath',
-    'Test-TexturePath',
-    'Medieval Overhaul tree texture references resolve'
-)) {
-    if (-not $moTreeAudit.Contains($expected)) {
-        Fail "MO tree-texture static audit is missing expected marker: $expected"
-    }
-}
-
-$runtimeProfileBuilder = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Prepare-EnvironmentRuntimeTestSaveData.ps1") -Raw
-foreach ($expected in @(
-    'IncludeMedievalOverhaul',
-    'OskarPotocki.VanillaFactionsExpanded.Core',
-    'syrchalis.processor.framework',
-    'DankPyon.Medieval.Overhaul'
-)) {
-    if (-not $runtimeProfileBuilder.Contains($expected)) {
-        Fail "Environment runtime profile builder is missing expected marker: $expected"
-    }
-}
-
-$runtimeRunner = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Run-EnvironmentVegetationQuickstarts.ps1") -Raw
-foreach ($expected in @(
-    'AMJWarmTemperateTerrainQuickstart',
-    'AMJCoolTemperateTerrainQuickstart',
-    'AMJSubalpineTerrainQuickstart',
-    'AMJAlpineTerrainQuickstart',
-    'AMJRiverMapHandoffQuickstart',
-    'AMJCoastMapHandoffQuickstart',
-    'quickstartreport',
-    'Validate-EnvironmentRuntimeLog.ps1',
-    'CctoCompatibilityOnly',
-    'TreeTextureAuditOnly',
-    '[WAIT]',
-    'preLaunchErrors'
-)) {
-    if (-not $runtimeRunner.Contains($expected)) {
-        Fail "Vegetation runtime runner is missing expected marker: $expected"
-    }
-}
-
-$liveTextureDiagnosticPath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\LiveTextureDiagnostics.cs"
-if (-not (Test-Path -LiteralPath $liveTextureDiagnosticPath)) {
-    Fail "Live texture diagnostic source is missing."
-}
-$liveTextureDiagnostic = Get-Content -LiteralPath $liveTextureDiagnosticPath -Raw
-foreach ($expected in @(
-    'Scan current map for bad live textures',
-    '[AMJ Environment LiveTextureAudit] BAD',
-    'thing.Graphic',
-    'MatAt(thing.Rotation, thing)',
-    'SnowOverlayGraphic',
-    'BaseContent.BadTex'
-)) {
-    if (-not $liveTextureDiagnostic.Contains($expected)) {
-        Fail "Live texture diagnostic is missing expected marker: $expected"
-    }
-}
-
-$runtimeLogValidator = Get-Content -LiteralPath (Join-Path $RepoRoot "Scripts\Validate-EnvironmentRuntimeLog.ps1") -Raw
-foreach ($expected in @(
-    'sucro.ancientmedievaljapan.environment',
-    'Level:\s*ERROR',
-    'Owned AMJ runtime ERROR'
-)) {
-    if (-not $runtimeLogValidator.Contains($expected)) {
-        Fail "Environment runtime ERROR gate is missing expected marker: $expected"
-    }
-}
-Pass "Automated four-biome vegetation runtime harness and mod-origin ERROR gate are present"
-
 
 $steamapps = [System.IO.Path]::GetFullPath((Join-Path $RimWorldDir "..\.."))
 $quickstartsRoot = Join-Path $steamapps "workshop\content\294100\3793646067"
@@ -1118,30 +759,11 @@ foreach ($relative in $publicDocs) {
     }
 }
 
-$readmeRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "README.md") -Raw -Encoding UTF8
-# Public copy links named mods; validate the visible text, not link delimiters.
-$readmeRaw = [regex]::Replace($readmeRaw, '\[([^\]]+)\]\([^\)]+\)', '$1').Replace('**', '')
-foreach ($expected in @(
-    'RimWorld 1.6',
-    'Beta',
-    'Ancient & Medieval Japan Core is not required',
-    'Crop Cold Tolerance Overhaul is optional',
-    'Use a new game',
-    'Removing the mod from a save'
-)) {
-    if (-not $readmeRaw.Contains($expected)) {
-        Fail "README is missing required public-positioning marker: $expected"
-    }
-}
-
-# Workshop intentionally omits the redundant Core-not-required claim.
-# Validate required Harmony and optional CCTO as written in the current copy.
+# Validate the available public description byte budgets.
 $workshopJaPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription-ja.txt"
 $workshopEnPath = Join-Path $RepoRoot "Docs\SteamWorkshopDescription.txt"
 $workshopJaRaw = Get-Content -LiteralPath $workshopJaPath -Raw -Encoding UTF8
 $workshopEnRaw = Get-Content -LiteralPath $workshopEnPath -Raw -Encoding UTF8
-$workshopJaText = [regex]::Replace($workshopJaRaw, '\[(?:/?url[^\]]*|/?b)\]', '')
-$workshopEnText = [regex]::Replace($workshopEnRaw, '\[(?:/?url[^\]]*|/?b)\]', '')
 
 if ([System.Text.Encoding]::UTF8.GetByteCount($workshopJaRaw) -gt 8000) {
     Fail "Japanese Workshop description exceeds 8,000 UTF-8 bytes."
@@ -1150,35 +772,7 @@ if ([System.Text.Encoding]::UTF8.GetByteCount($workshopEnRaw) -gt 8000) {
     Fail "English Workshop description exceeds 8,000 UTF-8 bytes."
 }
 
-foreach ($pair in @(
-    @($workshopJaText, 'RimWorld 1.6対応、β版。', 'Japanese Workshop Beta stage'),
-    @($workshopJaText, '必須MOD: Harmony', 'Japanese Workshop required Harmony'),
-    @($workshopJaText, '任意MOD: CCTO', 'Japanese Workshop CCTO optionality'),
-    @($workshopEnText, 'RimWorld 1.6, Beta.', 'English Workshop Beta stage'),
-    @($workshopEnText, 'Required: Harmony', 'English Workshop required Harmony'),
-    @($workshopEnText, 'Optional: Crop Cold Tolerance Overhaul (CCTO)', 'English Workshop CCTO optionality')
-)) {
-    if (-not $pair[0].Contains($pair[1])) {
-        Fail "$($pair[2]) marker is missing."
-    }
-}
-
-$aboutPublicRaw = Get-Content -LiteralPath (Join-Path $RepoRoot "About\About.xml") -Raw -Encoding UTF8
-if ($aboutPublicRaw.Contains('Development build')) {
-    Fail "About.xml still describes AMJE as a Development build."
-}
-foreach ($expected in @(
-    '<description>Beta.',
-    'Ancient &amp; Medieval Japan Core is not required.',
-    'Crop Cold Tolerance Overhaul (CCTO) is optional',
-    'A new game is recommended',
-    'Removing this mod from saves'
-)) {
-    if (-not $aboutPublicRaw.Contains($expected)) {
-        Fail "About.xml is missing required public-positioning marker: $expected"
-    }
-}
-Pass "README / Workshop / About public-positioning sources are present and size-safe"
+Pass "Public description sources are present and size-safe"
 
 Write-Host ""
 Write-Host "[OK] AMJ Environment static validation passed"

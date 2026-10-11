@@ -9,7 +9,6 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 PATCH = ROOT / "Patches" / "VanillaWetlandEcology.xml"
-QUICKSTART = ROOT / "Tests" / "Quickstarts" / "EnvironmentBiomeTerrainQuickstarts.cs"
 DESCRIPTION_PATCH = ROOT / "Patches" / "VanillaWetlandDescriptions.xml"
 JAPANESE_DESCRIPTIONS = (
     ROOT / "Languages" / "Japanese" / "DefInjected"
@@ -80,7 +79,6 @@ class WetlandEcologyContractTests(unittest.TestCase):
     def setUpClass(cls):
         root = ET.parse(PATCH).getroot()
         cls.ops = root.findall("./Operation/operations/li")
-        cls.quickstart = QUICKSTART.read_text(encoding="utf-8")
 
     def test_exact_fields_and_atomic_target_xpaths(self):
         self.assertEqual(len(self.ops), 10)
@@ -178,18 +176,6 @@ class WetlandEcologyContractTests(unittest.TestCase):
                 self.assertEqual(root.findtext(biome + ".label"),
                                  WETLAND_LABELS[biome]["ja"])
 
-    def test_loaded_wetland_quickstarts_validate_approved_description(self):
-        self.assertIn("has an approved EN/JA wetland label and description", self.quickstart)
-        for parts in APPROVED_DESCRIPTIONS.values():
-            self.assertIn(parts["ja"], self.quickstart)
-            self.assertIn(parts["en"], self.quickstart)
-        self.assertIn("approvedEnglishDescription", self.quickstart)
-        self.assertIn("approvedJapaneseDescription", self.quickstart)
-        self.assertIn("approvedEnglishLabel", self.quickstart)
-        self.assertIn("approvedJapaneseLabel", self.quickstart)
-        for names in WETLAND_LABELS.values():
-            self.assertIn(names["ja"], self.quickstart)
-            self.assertIn(names["en"], self.quickstart)
 
     def test_mo_herbs_remain_available_in_replacement_climate_biomes(self):
         # Existing 1.6 MO archive Add_Plants_To_Biomes.xml weights:
@@ -243,18 +229,6 @@ class WetlandEcologyContractTests(unittest.TestCase):
             {(biome, herb): weight
              for biome, weight in expected.items() for herb in herbs},
         )
-
-    def test_quickstarts_check_loaded_ecology_and_wetland_terrain(self):
-        source = self.quickstart
-        self.assertIn("protected static void AddWetlandEcologyAssertions", source)
-        self.assertIn("AddWetlandEcologyAssertions(result, Find.CurrentMap, false)", source)
-        self.assertIn("AddWetlandEcologyAssertions(result, Find.CurrentMap, true)", source)
-        for field in ("wildAnimals", "diseases", "allowedPackAnimals",
-                      "baseWeatherCommonalities", "diseaseMtbDays",
-                      "terrainPatchMakers"):
-            self.assertIn(field, source)
-        for terrain in ("Mud", "MarshyTerrain", "Marsh", "WaterShallow"):
-            self.assertIn('t.defName == "' + terrain + '"', source)
 
 
 if __name__ == "__main__":

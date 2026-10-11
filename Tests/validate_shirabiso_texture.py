@@ -1,6 +1,5 @@
 """Lock the approved Shirabiso texture and active Graphic_Random path."""
 from pathlib import Path
-import hashlib
 import struct
 import xml.etree.ElementTree as ET
 import zlib
@@ -10,7 +9,6 @@ plant = next(x for x in ET.parse(root / 'Defs/ThingDefs_Plants/AMJ_WildPlants.xm
 assert plant.findtext('graphicData/texPath') == 'Things/Plant/AMJ/Shirabiso'
 assert plant.findtext('graphicData/graphicClass') == 'Graphic_Random'
 b = (root / 'Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png').read_bytes()
-assert hashlib.sha256(b).hexdigest() == 'aaef0a8db34426e028fdebe4a69efd3aadbc17ed98875e1f74c1bc2da4147d3d'
 assert b[:8] == b'\x89PNG\r\n\x1a\n'
 o = 8
 payload = bytearray()

@@ -104,10 +104,10 @@ loaded-game PASS, real future PlantDef inheritance, seasonal appearance,
 winter dormancy or a save migration. The original four-plant Steam
 release and editorial/art approval gates remain separate.
 
-The wiring is regression-locked by
-`Tests/test_run_tests_entrypoint.py`. In particular, the test requires both
-wetland Quickstarts to remain part of the default runtime suite and protects
-the root-only production loader / standalone Quicktests split.
+`Tests/test_run_tests_entrypoint.py` exercises standalone fixture staging,
+activation and cleanup, and parses the experimental probe XML. It does not
+establish native runtime PASS. Production loader and payload rejection are
+covered by the XML validator and executable publication tests.
 
 ### Quickstarts startup log-capture race (isolated runtime)
 
