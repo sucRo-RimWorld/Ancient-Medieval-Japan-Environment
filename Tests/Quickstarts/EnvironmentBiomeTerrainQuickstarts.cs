@@ -1328,6 +1328,30 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 }
             }
 
+            // Report the *loaded 1.6 runtime* terrain tags and water
+            // classification exactly once per biome. Older public Core XML
+            // copies do not establish the author's installed 1.6 values.
+            List<string> terrainContracts = new List<string>();
+            for (int i = 0; i < terrains.Length; i++)
+            {
+                TerrainDef terrain = DefDatabase<TerrainDef>.GetNamedSilentFail(terrains[i]);
+                if (terrain == null)
+                {
+                    terrainContracts.Add(terrains[i] + ":loaded=false");
+                    continue;
+                }
+                string tags = terrain.tags == null
+                    ? "(none)" : string.Join(",", terrain.tags.ToArray());
+                terrainContracts.Add(terrains[i] +
+                    ":loaded=true,isWater=" + terrain.IsWater +
+                    ",defFertility=" + terrain.fertility.ToString("F2") +
+                    ",tags=" + tags + ",mapCells=" + allByTerrain[i]);
+            }
+            Log.Message("[AMJ Environment Wetland Loaded Terrain Contract] " +
+                "biome=" + map.Biome.defName +
+                " readOnly=true meaning=loaded-terrain-tags-not-species-habitat" +
+                " terrains={" + string.Join("; ", terrainContracts.ToArray()) + "}");
+
             const int MaxSamplesPerTerrain = 96;
             foreach (string name in names)
             {

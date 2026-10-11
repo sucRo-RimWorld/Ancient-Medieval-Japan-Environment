@@ -34,6 +34,26 @@
 
 これらは生態に基づく比較対象であり、`fertilityMin`、`WildTerrainTags`、`terrainBlacklist`、`completelyIgnoreFertility`、`wildPlantUseDistanceToShore` のいずれも本番値として承認しない。バイオーム全体の `wildPlants` 重みは河岸・水縁・低層/高層湿原の地形区分を直接表現しない。
 
+## 次に検証するロード済み地形タグ（設計への先行反映は禁止）
+
+既存の湿地Quickstartsへ、実際にロードされた地形Defの
+`tags`、`IsWater`、`fertility` を一マップ一行で報告する処理を追加した。
+`[AMJ Environment Wetland Loaded Terrain Contract]` で検索できる。
+この記録は温帯湿地と冷涼湿原に関する静的地形情報の**観測**であり、
+既存植物の野生配置やヨシの浅水発生を証明しない。
+
+`WildTerrainTags` は該当地形にタグが付いて初めて使える。
+ただし水辺タグが共有されるなら、ヨシだけを浅水に許可する設計は
+`fertilityMin` の回避と、意図しない深水・海水・Mud等の排除を
+**セットで**評価する必要がある。独自タグの追加が必要になる場合は、
+既存植物や他Modの地形条件への副作用を先に調べ、承認無しに
+共通地形Defを編集しない。
+
+旧公開Core XMLの`Water`タグ等の構造は年代が古い場合があり、
+1.6現行との完全同一性を仮定しない。今回のロード済みログを
+優先する。既に分かっている冷涼湿原の肥沃度0拒否を繰り返し
+確認するだけの別テストは追加しない。
+
 ## RimWorld自然発生の実装上の留保
 
 公開されているRimWorld逆コンパイルコード（現在のインストール版1.6と同一の保証なし）では、`PlantUtility.CanEverPlantAt` に肥沃度、地形タグ、占有物等の条件があり、`WildPlantSpawner.CheckSpawnWildPlantAt` はそれに加えて候補プール、密度、周辺植物、選択重み等を判定する。

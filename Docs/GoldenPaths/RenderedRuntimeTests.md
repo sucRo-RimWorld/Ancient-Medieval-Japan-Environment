@@ -82,6 +82,18 @@ species-specific fertility/terrain constraints, commonalities or final
 production vegetation. The fixed single-seed map sample alone cannot
 validate a proposed Japanese low-fen/peat-bog ecological gradient.
 
+The same two Quickstarts also emit **one** read-only
+`[AMJ Environment Wetland Loaded Terrain Contract]` line per map,
+before the fixture placement scan. It reports each relevant loaded
+`TerrainDef`'s actual `tags`, `IsWater`, definition fertility and
+generated-map cell count. This helps determine whether the current
+game installation has sufficient *existing* tags for water/soil
+habitat restrictions without guessing from old Core XML copies.
+It does not mutate tags, apply proposed plant habitat settings,
+or establish naturally spawned plants. A zero-cell terrain may
+still have a loaded definition; absent terrain samples must not
+be misread as a suitability failure.
+
 ### Disposable wetland terrain eligibility survey (not natural spawning)
 
 In the same two existing wetland Quickstarts, **after the distribution
