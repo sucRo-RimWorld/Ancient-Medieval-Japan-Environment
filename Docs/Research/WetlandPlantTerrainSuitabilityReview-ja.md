@@ -1,0 +1,47 @@
+# Step 3 湿地4種の地形適性・野生発生モデル調査（未承認）
+
+**状態：検討資料／ゲームへの適用なし。** 2026-10-11。所有：AMJ Environment。
+正式な植生・資材・CCTOの承認範囲は `Docs/NativeVegetationStep3Design-ja.md` §3.1–3.3.1 および `Docs/Research/WetlandPlantMaterialsProfiles-ja.md` を優先する。配分数値は引き続き `Docs/Research/WetlandPlantDistributionDraft.json` の `proposal_not_approved` のまま。本記録は許可・採用・自然発生PASSではない。
+
+## 現行ゲームの観測（作者提供ログ抜粋）
+
+- 開発専用 `AMJE_Test_Yoshi/Suge/Hannoki/Mizugoke` は全て `fertilityMin=0.05`、`completelyIgnoreFertility=False`、`WildTerrainTagsCount=0`。いずれも本番PlantDefではない。検証APIは `CanEverPlantAt`、`checkMapTemperature=false`。
+- 温帯湿地・冷涼湿原では全4種とも、Mud・WaterShallow、冷涼湿原のMarshで採用0/96。冷涼湿原の2026-10-11 08:24ログはこれらの**全拒否96/96を肥沃度0.00に帰属**した。MarshyTerrainは96/96、SoilRichは冷涼湿原81/81、Soilは冷涼湿原95/96（残る1件の理由未判定）。温帯湿地にMarshはなく、両マップにAMJ_ThinSoilもない。
+- 以前の基礎分布実測は温帯湿地62,500セル中MarshyTerrain 13,336、冷涼湿原10,886。これらの地形はサンプル肥沃度1.00であり、**湿原の貧栄養泥炭面と等価ではない**。植物ごとの実生定着・自然発生・広がりや複数シードの分布は未測定。
+- 根拠となる行番号・サンプル件数・重み保持の監査は `WetlandPlantDistributionDraft.json` の `generated_map_observations`、`terrain_eligibility_observations`、`terrain_rejection_diagnostics` に保存。提示ログは全体 `run-tests.bat` PASSの代用にはしない。
+
+## 生態資料からの区別
+
+- 環境省の湿原分類は、流水・地下水の影響が強い低層湿原、スゲ類が見られる中間湿原、降水依存・貧栄養でミズゴケ類が主になる高層湿原を区別する。ひとつの `ColdBog` と単一 `MarshyTerrain` はこのすべてを意味しない。
+  - https://www.biodic.go.jp/reports/2-3/a040.html
+  - https://kushirodata-center.env.go.jp/wetland/wetland_article1_2.html
+- ヨシ・スゲ類は低層～中間湿原の植物群落候補。スゲは多様な種を含むため「一律に深水面で育つ」という扱いはできない。
+  - https://www.biodic.go.jp/reports/2-3/a040.html
+- ハンノキは湿地・沼沢地の湿生林を形成し、地下水位の高い場所に自生する。ただし水面一面を高木で覆うモデルは不要。
+  - https://www.ktr.mlit.go.jp/arajo/arajo00047.html
+  - https://www1.ous.ac.jp/garden/hada/plantsdic/angiospermae/dicotyledoneae/choripetalae/betulaceae/hannoki/hannoki.htm
+- ミズゴケは冷涼・酸性・貧栄養の泥炭湿原に関係する。地表の浅い水域すべてをミズゴケへ置換するのは不適切。
+  - https://www.biodic.go.jp/moni1000/findings/reports/pdf/FY2009-2017_Inland_Waters_Survey.pdf
+
+## 植物別の**非採用候補**（数値未設定）
+
+| 植物 | 最初に検討する生育場 | 避ける表現と留保 |
+|---|---|---|
+| ヨシ（葦） | 温帯湿地の水際／低層湿原、ぬかるみや岸辺。冷涼湿原も低層型なら候補 | 単なる一般土壌全域、深い開放水域への一律出現は不可。浅水への進出は別実験 |
+| スゲ（菅） | 低層～中間湿原の湿った草地・周縁。両湿地の候補 | すべてのスゲを深水草本と同一視しない |
+| ハンノキ（榛の木） | 湿地林・河岸の比較的安定した地表。ぬかるみと岸辺を中心に木本重みの置換候補 | 浅水／泥面に全域伐採木が立つ、既存Willow/Birch/Mapleを全撤去する、などを避ける |
+| ミズゴケ（水苔） | `ColdBog`の低木密度・水位・貧栄養環境を勘案した限定区域 | 現行`MarshyTerrain`肥沃度1.00が高層湿原の泥炭面を表すと断定しない。TemperateSwamp追加は現行草案では対象外 |
+
+これらは生態に基づく比較対象であり、`fertilityMin`、`WildTerrainTags`、`terrainBlacklist`、`completelyIgnoreFertility`、`wildPlantUseDistanceToShore` のいずれも本番値として承認しない。バイオーム全体の `wildPlants` 重みは河岸・水縁・低層/高層湿原の地形区分を直接表現しない。
+
+## RimWorld自然発生の実装上の留保
+
+公開されているRimWorld逆コンパイルコード（現在のインストール版1.6と同一の保証なし）では、`PlantUtility.CanEverPlantAt` に肥沃度、地形タグ、占有物等の条件があり、`WildPlantSpawner.CheckSpawnWildPlantAt` はそれに加えて候補プール、密度、周辺植物、選択重み等を判定する。
+- https://github.com/Chillu1/RimWorldDecompiled/blob/master/RimWorld/PlantUtility.cs
+- https://github.com/Chillu1/RimWorldDecompiled/blob/master/RimWorld/WildPlantSpawner.cs
+
+`completelyIgnoreFertility` を用いれば一部ゼロ肥沃度での候補適性が変わりうるが、`WildPlantSpawner`側のゼロ肥沃度セル候補／密度条件にも作用する。**4種に一律ON、または水だけでなくMud/Marsh全域まで許可する無制限実装はしない。** `wildPlantUseDistanceToShore` は参照コードでは主に水面セルの岸からの距離に対応し、陸上のぬかるみ分布を自動的に水縁集中へ変えるとは限らない。
+
+**次の必要証拠（無意味なテスト追加禁止）：** 既存の4構成隔離Quickstarts/Pickleを再利用し、RimWorld 1.6の実際のロード済み地形タグ・肥沃度・候補Def・自然発生適性を調べる。ゼロ肥沃度水面対応を採る必要がある場合のみ、使い捨てDefで種別／地形別の限定実験を行い、対象外の植物密度への副作用を比較する。画像完成後の本番PlantDef・分布比・古いセーブとの互換性は別ゲート。
+
+**現時点の結論：** 特にハンノキとミズゴケを水面全域の植物にする根拠はない。現行草案の配分値を承認・適用せず、ゲーム内で識別可能な湿地の下位環境と対応制限を確認してから値を決める。
