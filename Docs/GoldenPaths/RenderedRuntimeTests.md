@@ -76,8 +76,10 @@ For Yoshi, the existing wetland tests also compare the loaded
 inherited sowing tags. This is not a Harvest-designated Job test, nor
 proof of natural reed habitat or CCTO dormancy. All three test DefNames
 are distinct from production names. Borrowed Haimatsu graphics and all
-fixture growth/yield values are test mechanics only. No biome
-`wildPlants` placement or natural spawning of these test plants occurs.
+fixture growth/yield values are test mechanics only. These three CutPlant
+plants are not added to `wildPlants`; the separate test-only
+`AMJE_Test_YoshiWaterSpawn` below is the **only** temporary native
+spawning experiment.
 
 The same **two existing wetland Quickstarts** also load
 `AMJE_Test_Hannoki` from a separate temporary
@@ -108,6 +110,41 @@ release and editorial/art approval gates remain separate.
 activation and cleanup, and parses the experimental probe XML. It does not
 establish native runtime PASS. Production loader and payload rejection are
 covered by the XML validator and executable publication tests.
+
+### Shallow-water Yoshi native map-generation experiment (temporary only)
+
+`Tests/Quickstarts/Fixtures/WetlandBehaviorProbeDefs.xml` includes
+`AMJE_Test_YoshiWaterSpawn` as a **separate** disposable Def, leaving
+the existing Yoshi CutPlant test unchanged. It uses borrowed Haimatsu
+graphics, `completelyIgnoreFertility=true`,
+`wildTerrainTags=WaterFreshShallowStill`,
+`wildPlantUseDistanceToShore=true` and `wildOrder=1`.
+The isolated fixture manager stages the paired
+`Tests/Quickstarts/Fixtures/WetlandWaterYoshiSpawnPatch.xml` **only**
+under the owned `AMJE.EnvironmentQuicktests/Patches` directory.
+This temporary patch adds `0.25` commonality to each of the two Vanilla
+wetlands solely during isolated tests; it does not alter existing
+production proxy commonalities or appear in a subscriber payload.
+
+The **existing two** wetland Quickstarts count this experimental plant on
+the actual generated map **before** their manual native CutPlant tests,
+checking that at least one plant spawned on `WaterShallow` and none
+spawns on any other terrain. Logs include the number of test-only reeds
+and the current map's TallGrass, Moss and all-plant counts, allowing
+qualitative comparison against the archived no-reed baseline.
+The map seed and generated-map RNG are not a paired A/B experiment:
+count differences alone cannot prove the precise density effect of
+`completelyIgnoreFertility`. Do not claim baseline density unchanged,
+long-term regrowth PASS, or MO/CCTO compatibility until those profile
+results are observed. The assertion intentionally fails on zero genuine
+water plants instead of artificially spawning one.
+
+All new Defs and the wildPlants patch are owned by the automatically
+cleaned temporary Quicktests Mod. **No live AMJE PlantDef, production
+patch, terrain tag, approved yield or distribution has changed.**
+After capturing the required evidence, remove this disposable
+experiment and preserve findings in research; do not accumulate
+permanent exploratory tests.
 
 ### Quickstarts startup log-capture race (isolated runtime)
 

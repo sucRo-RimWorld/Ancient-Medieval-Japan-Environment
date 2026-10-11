@@ -63,8 +63,25 @@ def stage(game, dll, defs=None):
         names = [n.findtext("defName") for n in probe.findall("ThingDef")]
         if probe.tag != "Defs" or sorted(names) != [
                 "AMJE_Test_Hannoki", "AMJE_Test_Mizugoke",
-                "AMJE_Test_Suge", "AMJE_Test_Yoshi"]:
+                "AMJE_Test_Suge", "AMJE_Test_Yoshi",
+                "AMJE_Test_YoshiWaterSpawn"]:
             raise ValueError("Wrong temporary wetland probe Defs: " + str(defs))
+        # Only this owned temporary Mod receives the water-spawn pool patch.
+        wetland_patch = defs.with_name("WetlandWaterYoshiSpawnPatch.xml")
+        if not wetland_patch.is_file():
+            raise ValueError("Missing isolated wetland spawn patch: " + str(wetland_patch))
+        patch = ET.parse(wetland_patch).getroot()
+        operations = patch.findall("Operation/operations/li")
+        if patch.tag != "Patch" or len(operations) != 2 or {
+                (op.findtext("xpath") or "").strip()
+                for op in operations
+        } != {
+                '/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants',
+                '/Defs/BiomeDef[defName="ColdBog"]/wildPlants'
+        } or any(op.attrib.get("Class") != "PatchOperationAdd" or
+                 op.findtext("value/AMJE_Test_YoshiWaterSpawn") != "0.25"
+                 for op in operations):
+            raise ValueError("Wrong temporary water-spawn patch: " + str(wetland_patch))
     try:
         (root / "About").mkdir(parents=True)
         (root / "Assemblies").mkdir()
@@ -74,6 +91,9 @@ def stage(game, dll, defs=None):
         if defs is not None:
             (root / "Defs").mkdir()
             shutil.copy2(defs, root / "Defs" / "WetlandBehaviorProbeDefs.xml")
+            (root / "Patches").mkdir()
+            shutil.copy2(wetland_patch, root / "Patches" /
+                         "WetlandWaterYoshiSpawnPatch.xml")
         _validate_owned_fixture(root)
     except Exception:
         if root.exists():

@@ -1199,6 +1199,66 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
         }
 
+        // This disposable plant exists ONLY in the automatically removed
+        // Quicktests Mod. Its temp biome PatchOperationAdd is evaluated
+        // before GenStep_Plants, so these are genuine generated-map plants:
+        // never call GenSpawn.Spawn for this def or claim real production
+        // habitat approval. Count before destructive CutPlant probes.
+        protected static void AddWaterYoshiNativeSpawnAssertions(
+            QuickstartVerification verification, Map map)
+        {
+            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(
+                "AMJE_Test_YoshiWaterSpawn");
+            BiomeDef biome = map == null ? null : map.Biome;
+            verification.Assert("test-only water Yoshi loaded spawning contract",
+                delegate
+                {
+                    return def != null && def.plant != null &&
+                        def.modContentPack != null &&
+                        def.modContentPack.PackageIdPlayerFacing ==
+                            "sucro.ancientmedievaljapan.environment.quicktests" &&
+                        def.plant.completelyIgnoreFertility &&
+                        def.plant.WildTerrainTags.Count == 1 &&
+                        def.plant.WildTerrainTags.Contains("WaterFreshShallowStill") &&
+                        def.plant.wildPlantUseDistanceToShore &&
+                        Math.Abs(biome.CommonalityOfPlant(def) - 0.25f) < 0.001f;
+                });
+
+            if (map == null || def == null)
+                return;
+
+            int onShallow = 0;
+            int onOther = 0;
+            foreach (Thing thing in map.listerThings.ThingsOfDef(def))
+            {
+                TerrainDef terrain = map.terrainGrid.TerrainAt(thing.Position);
+                if (terrain != null && terrain.defName == "WaterShallow")
+                    onShallow++;
+                else
+                    onOther++;
+            }
+            ThingDef tallGrass = DefDatabase<ThingDef>.GetNamedSilentFail(
+                "Plant_TallGrass");
+            ThingDef moss = DefDatabase<ThingDef>.GetNamedSilentFail(
+                "Plant_Moss");
+            int tallGrassCount = tallGrass == null ? -1 :
+                map.listerThings.ThingsOfDef(tallGrass).Count;
+            int mossCount = moss == null ? -1 :
+                map.listerThings.ThingsOfDef(moss).Count;
+            int totalPlants = map.listerThings.ThingsInGroup(
+                ThingRequestGroup.NonStumpPlant).Count;
+            Log.Message("[AMJ Environment Water Yoshi Generated] biome=" +
+                biome.defName + " def=" + def.defName +
+                " shallow=" + onShallow + " otherTerrain=" + onOther +
+                " existingTallGrass=" + tallGrassCount +
+                " existingMoss=" + mossCount +
+                " totalPlants=" + totalPlants +
+                " commonalityAdded=0.25" +
+                " meaning=test-only-real-map-generation-not-production");
+            verification.Assert("test-only Yoshi genuinely spawned on shallow freshwater",
+                delegate { return onShallow > 0 && onOther == 0; });
+        }
+
         protected static void AddWetlandEcologyAssertions(
             QuickstartVerification verification, Map map, bool cold)
         {
@@ -3717,6 +3777,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, false);
+            AddWaterYoshiNativeSpawnAssertions(result, Find.CurrentMap);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
@@ -3795,6 +3856,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, true);
+            AddWaterYoshiNativeSpawnAssertions(result, Find.CurrentMap);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
