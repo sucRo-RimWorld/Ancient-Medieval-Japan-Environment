@@ -256,6 +256,7 @@ namespace AncientMedievalJapan.Environment
 
                 if (!biome.implemented ||
                     !biome.generatesNaturally ||
+                    IsReplacedVanillaBiome(biome.defName) ||
                     !biome.Worker.CanPlaceOnLayer(biome, layer))
                 {
                     continue;
@@ -271,6 +272,29 @@ namespace AncientMedievalJapan.Environment
             }
 
             return best;
+        }
+
+        private static bool IsReplacedVanillaBiome(string defName)
+        {
+            // This selector is called only by the root-surface AMJE pass.
+            // Keep the original Defs available for saves, textures and other
+            // mods; exclude their bundles from new Japanese surface worlds.
+            switch (defName)
+            {
+                case "TropicalRainforest":
+                case "TropicalSwamp":
+                case "TemperateForest":
+                case "BorealForest":
+                case "Tundra":
+                case "AridShrubland":
+                case "Desert":
+                case "ExtremeDesert":
+                case "IceSheet":
+                case "SeaIce":
+                    return true;
+                default:
+                    return false;
+            }
         }
     }
 }

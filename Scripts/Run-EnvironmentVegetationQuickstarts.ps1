@@ -14,7 +14,9 @@ param(
 
     [switch]$TreeTextureAuditOnly,
 
-    [switch]$CoreIntegrationOnly
+    [switch]$CoreIntegrationOnly,
+
+    [switch]$WorldBiomesOnly
 )
 
 $ErrorActionPreference = "Stop"
@@ -56,14 +58,18 @@ New-Item -ItemType Directory -Force -Path $ResultDir | Out-Null
 $modeCount = @(
     $CctoCompatibilityOnly,
     $TreeTextureAuditOnly,
-    $CoreIntegrationOnly
+    $CoreIntegrationOnly,
+    $WorldBiomesOnly
 ) | Where-Object { $_ } | Measure-Object | Select-Object -ExpandProperty Count
 
 if ($modeCount -gt 1) {
     Fail "Only one focused runtime mode may be selected at a time."
 }
 
-if ($CctoCompatibilityOnly -or $TreeTextureAuditOnly) {
+if ($WorldBiomesOnly) {
+    $scenarios = @("AMJWorldWetlandDistributionQuickstart")
+}
+elseif ($CctoCompatibilityOnly -or $TreeTextureAuditOnly) {
     $scenarios = @(
         "AMJWarmTemperateTerrainQuickstart"
     )
@@ -256,6 +262,9 @@ elseif ($TreeTextureAuditOnly) {
 }
 elseif ($CoreIntegrationOnly) {
     Write-Host "[OK] AMJ Core + Environment gameplay-contract Quickstarts passed." -ForegroundColor Green
+}
+elseif ($WorldBiomesOnly) {
+    Write-Host "[OK] Environment unforced natural-world biome replacement Quickstart passed." -ForegroundColor Green
 }
 else {
     Write-Host "[OK] Environment vegetation, natural-world wetlands, and river/coast Quickstarts passed." -ForegroundColor Green

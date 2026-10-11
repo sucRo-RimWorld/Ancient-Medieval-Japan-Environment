@@ -2,6 +2,49 @@
 
 Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs and procedures remain in `Docs/Design.md`, `Docs/GoldenPaths/`, and production source/tests. Historical DONE/superseded details have been condensed; the pre-compaction Git history plus canonical owner docs retain original evidence. This is a status queue, not a second specification.
 
+## Immediate execution priority
+
+### ENV-BIOME-REPLACEMENT-20261012 — inappropriate Vanilla biomes
+
+**Owner:** Environment world generation / existing native test gates
+**Status:** SOURCE REPAIR IMPLEMENTED; LOCAL STATIC PREFLIGHT PASS; NATIVE BUILD/FOUR-PROFILE AND WORKSHOP CORRECTION OPEN
+
+The author reports TropicalRainforest/TropicalSwamp in the installed Workshop
+build and explicitly made this repair the highest execution priority. This
+supersedes the earlier instruction to continue wetland Step 3 first: pause
+wetland species/art and other feature expansion until the biome repair has
+fresh natural-world evidence. Project priority/roadmap/handoff are reflected
+in Project main `9156770a7f857db033e847f08c952ddc75166d26` (PR #19).
+
+Canonical corrected scope/inventory: `Docs/Design.md` §9.2.1. The production
+root-surface selector excludes ten original Vanilla identities before Worker
+scoring, retains the two audited wetlands and water, and leaves MO scoring /
+Def ownership intact. Existing saved worlds are not rewritten. The former
+residual-Vanilla acceptance is revoked; old distribution/fixed-map PASS cannot
+certify this repair.
+
+The existing unforced WorldWetlandDistribution Quickstart now has 24
+assertions including each excluded biome == 0 over ALL surface tiles, four
+AMJ bands, both adopted wetlands and DarkForest when MO is loaded. The
+existing ten-test RimTest replaces its threshold-only test with 128 real
+loaded-Worker production-selector combinations plus ocean handling. The
+existing four-profile hidden payload runner accepts `--world-biomes-only` for
+this same natural-world scenario and reports scoped biome evidence separately
+from full map/native-cutting release acceptance. Procedure:
+`Docs/GoldenPaths/RenderedRuntimeTests.md`; release remains gated by
+`Docs/ReleaseReadiness.md` and publication provenance.
+
+Editing-host checks: C# syntax, executable Python fixture/report/payload/XML
+regressions and available static preflights passed; the PowerShell parser CI
+must pass on the exact PR head. Pending-production wetland
+acceptance remains SKIP. This host has no RimWorld/reference assemblies or
+Windows desktop, so no native compilation, RimTest execution, generated-world
+PASS or Steam update is claimed. Required next evidence: fresh built DLL /
+clean candidate, same-source Vanilla/MO/CCTO/MO+CCTO natural-world 24/24,
+complete captured ERROR-0 and unchanged payload/config, then the separately
+required release/distribution gates. Steam upload remains author-manual; do
+not route the inter-workstream handoff through the author.
+
 ## Publication and distribution
 
 ### ENV-LOADFOLDERS-SOURCE-REPAIR-20261009 — root-only source contract and isolated Quicktests

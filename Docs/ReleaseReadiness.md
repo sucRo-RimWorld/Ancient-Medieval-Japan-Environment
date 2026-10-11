@@ -1,5 +1,20 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+## Highest-priority biome replacement repair — 2026-10-12 JST
+
+The author reports tropical rainforest/swamp in the installed Workshop build.
+Source candidate selection also admitted inappropriate Vanilla biomes, and the
+former natural-world test did not reject them. This is a foundational defect;
+old candidate/runtime PASS below does not certify biome replacement.
+`Docs/Design.md` §9.2.1 owns the corrected full base-surface inventory and scope.
+Source now filters ten replaced Vanilla identities before scoring and the
+existing unforced world test has 24 assertions, including zero excluded tiles,
+four AMJ bands, both retained wetlands and real MO coexistence. Build a fresh
+production DLL/candidate and obtain the same-source Vanilla/MO/CCTO/MO+CCTO
+natural-world/ERROR-0 evidence before clearing this repair. Native build/runtime
+and corrected Steam upload/download are still OPEN. Prioritize this before
+wetland species/art additions; Steam remains author-manual.
+
 ## Current candidate status (2026-10-08 JST)
 
 A 32-file pinned candidate from `1d46727102f53243099927b59881091d448dba61`

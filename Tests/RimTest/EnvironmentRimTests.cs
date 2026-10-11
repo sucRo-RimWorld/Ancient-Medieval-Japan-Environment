@@ -41,9 +41,43 @@ namespace AMJE.Environment.RimTests
     public static class BiomeScoringTests
     {
         [Test]
-        public static void WetlandThresholdRemainsHalf()
+        public static void NativeSelectorReplacesVanillaBundlesAcrossClimateAndWetlandConditions()
         {
-            Assert.That(Math.Abs(JapanBiomeScoring.WetlandThreshold - 0.5f) < 0.0001f).Is.True();
+            // Run the production selector with loaded native workers and AMJE
+            // Defs, not a duplicate scoring implementation. This suite's
+            // isolated profile contains Vanilla + Environment only.
+            PlanetLayer layer = new PlanetLayer();
+            AccessTools.Field(typeof(PlanetLayer), "def").SetValue(layer, PlanetLayerDefOf.Surface);
+            layer.MarkRootSurface();
+            MethodInfo select = typeof(EnvironmentTerrainProcessor).GetMethod(
+                "SelectBiome", BindingFlags.NonPublic | BindingFlags.Static);
+            if (select == null || PlanetLayerDefOf.Surface == null)
+                throw new AssertionException("Production biome selector or Surface layer Def missing");
+
+            foreach (float temperature in new[] { -8f, -0.01f, 0f, 7.99f, 8f, 14.99f, 15f, 20f })
+            foreach (float rainfall in new[] { 800f, 1200f, 2000f, 3000f })
+            foreach (float swampiness in new[] { 0f, 0.49f, 0.5f, 1f })
+            {
+                SurfaceTile tile = TestTile.Land(temperature, rainfall, swampiness);
+                BiomeDef selected = (BiomeDef)select.Invoke(null,
+                    new object[] { tile, default(PlanetTile), layer });
+                string expected = temperature >= 15f ? "AMJ_WarmTemperateForest"
+                    : temperature >= 8f ? "AMJ_CoolTemperateForest"
+                    : temperature >= 0f ? "AMJ_SubalpineForest" : "AMJ_AlpineZone";
+                bool ok = selected != null && (swampiness < 0.5f
+                    ? selected.defName == expected
+                    : selected.defName == "TemperateSwamp" || selected.defName == "ColdBog");
+                if (!ok)
+                    throw new AssertionException("Unexpected natural selection: temperature=" + temperature +
+                        " rainfall=" + rainfall + " swampiness=" + swampiness +
+                        " selected=" + (selected == null ? "null" : selected.defName));
+            }
+
+            SurfaceTile ocean = TestTile.Land(20f, 3000f);
+            ocean.elevation = -100f;
+            BiomeDef water = (BiomeDef)select.Invoke(null,
+                new object[] { ocean, default(PlanetTile), layer });
+            Assert.That(water != null && (water.defName == "Ocean" || water.defName == "Lake")).Is.True();
         }
 
         [Test]

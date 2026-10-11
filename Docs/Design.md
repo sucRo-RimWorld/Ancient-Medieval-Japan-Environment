@@ -489,7 +489,34 @@ Instead:
 - start each biome from the nearest Vanilla gameplay profile, then replace vegetation/weather/terrain details deliberately rather than by hidden inheritance;
 - keep exact animal additions outside Environment unless required for biome functionality;
 - allow third-party naturally generated biomes to remain compatible through normal worker scoring rather than globally suppressing all non-AMJ BiomeDefs;
-- treat the four AMJ biomes as **baseline vegetation bands**, not an exclusive world-biome replacement. Specialized biomes from Medieval Overhaul and other compatible mods should be able to replace part of a matching climate band when their own workers score higher.
+- use the four AMJ biomes to **replace the broad Vanilla land-biome bundles**. Retain the audited Vanilla wetlands and water; specialized biomes from Medieval Overhaul and other compatible mods may replace part of a matching AMJ climate band when their own workers score higher. This compatibility allowance does not permit replaced Vanilla biomes to remain.
+
+### 9.2.1 Vanilla surface-biome replacement contract (2026-10-12 correction)
+
+The author made this foundational defect the highest execution priority, ahead of wetland plant additions and artwork. The former acceptance of residual Vanilla tropical/temperate biomes was a design error, not approved behavior. On a newly generated root-surface world, exclude the following original Vanilla biome bundles **before worker scoring**, then select the appropriate AMJ/retained/compatible biome using the already accepted temperature, rainfall and wetland conditions.
+
+| Vanilla surface biome | New-world decision | Replacement / reason |
+|---|---|---|
+| `TropicalRainforest` | Exclude | Japanese warm-temperate AMJ band; do not inherit tropical flora/fauna/diseases |
+| `TropicalSwamp` | Exclude | Retained temperate/cool wetlands selected by their native workers |
+| `TemperateForest` | Replace | AMJ warm/cool bands own the Japan-oriented ecological bundles |
+| `BorealForest` | Replace | AMJ subalpine and adjacent bands follow the accepted annual-temperature model |
+| `Tundra` | Replace | AMJ alpine and adjacent bands; cold land does not retain the original tundra bundle |
+| `AridShrubland` | Exclude | Outside the accepted humid Japan-oriented world model |
+| `Desert` | Exclude | Outside that world model; ordinary sandy terrain is a separate matter |
+| `ExtremeDesert` | Exclude | Outside that world model |
+| `IceSheet` | Exclude | AMJ alpine land represents cold mountains, not a continental ice sheet |
+| `SeaIce` | Exclude | Preserve ordinary water rather than a polar sea-ice biome |
+| `TemperateSwamp` | Retain | Audited 温帯湿地 bundle; native Worker and terrain unchanged |
+| `ColdBog` | Retain | Audited 冷涼湿原 bundle; native Worker and terrain unchanged |
+| `Ocean` | Retain | Native water/coast handling |
+| `Lake` | Retain | Native water/lake handling; this repair does not force natural lake generation |
+
+Production owner: `EnvironmentTerrainProcessor.SelectBiome` in `Source/AncientMedievalJapanEnvironment/WorldGenStep_AMJEnvironmentTerrain.cs`. The filter operates only in the existing root-surface regeneration pass. It does not delete/relabel original BiomeDefs, change global `generatesNaturally`, raise AMJ scores to suppress MO, alter retained wetland Workers, or migrate saved worlds. Existing worlds and maps keep their saved biomes; test the correction on **fresh natural worlds**. DLC/other planet layers retain their own selection, and this base-surface repair does not certify their content.
+
+The root cause was candidate admission plus relying only on score competition: at annual 20°C and rainfall 3000, Vanilla `TropicalRainforest` scores about 42.55 while AMJ warm-temperate scores 37.375; at swampiness 0.5 or more, all four AMJ band workers deliberately return 0 and Vanilla `TropicalSwamp` can win. Keeping AMJ score 38 preserves MO coexistence; excluding inappropriate candidate identities fixes both paths. Native Worker/SurfaceTile reference: `Chillu1/RimWorldDecompiled` `RimWorld/BiomeWorker_TropicalRainforest.cs`, `BiomeWorker_TropicalSwamp.cs`, `BiomeWorker_TemperateSwamp.cs`, `BiomeWorker_ColdBog.cs`, `RimWorld.Planet/SurfaceTile.cs` (GetScore/WaterCovered inspected). The supplied MO 1.6 archive retains `DankPyon_DarkForest` with its own Worker; no MO Def/Worker or herb weights change.
+
+Acceptance uses the **existing** `AMJWorldWetlandDistributionQuickstart`, without forced tile-biome replacement: scan all surface tiles including water, require each excluded biome count to be zero, all four AMJ bands and both adopted wetland types to exist, no missing biome, and MO Dark Forest presence when real MO is loaded. Keep the original wetland/settlement/error/capture checks. Run the same natural-world gate in Vanilla / MO / CCTO / MO+CCTO using the existing hidden four-profile payload runner's `--world-biomes-only` option; focused success is scoped biome evidence, not full release/cutting PASS. The existing RimTest selector check samples 128 loaded-worker temperature/rainfall/swampiness combinations and an ocean tile. Historical fixed-map/world-share PASS, one profile or static syntax checks cannot close this repair. Four-profile runtime and actual Workshop correction remain unverified until new same-source evidence is obtained.
 
 ### 9.3 ReGrowth 2 reference policy
 
@@ -558,7 +585,7 @@ Biome workers:
 - use the accepted annual-mean temperature bands;
 - require rainfall >=800;
 - exclude swampiness >=0.5 so existing wetland biomes continue to handle the initial 0.7% wetland minority;
-- return an ordinary score centered near 38, sufficient to establish the AMJ baseline over broad Vanilla workers while intentionally allowing stronger specialized workers from MO or other compatible mods to coexist.
+- return an ordinary score centered near 38 among admitted candidates, allowing stronger specialized workers from MO or other compatible mods to coexist; excluded Vanilla identities cannot win regardless of their score.
 
 Alpha content policy:
 - world-map textures temporarily reuse nearest Vanilla biome textures;
@@ -567,7 +594,7 @@ Alpha content policy:
 - no final textures, new plant graphics, regional weather effects, or Japan-specific wild-plant Defs are part of this pass;
 - all placeholder content must be revisited after runtime distribution/map-generation validation.
 
-The next validation gate is runtime, not further spreadsheet-style tuning: generate a world and verify that the four AMJ baseline biomes occupy substantial shares, swamp tiles still resolve to wetland/compatibility biomes, and specialized mod biomes can coexist without preventing the AMJ climate bands from appearing.
+The next validation gate is runtime: apply §9.2.1's zero-excluded-biome acceptance criteria alongside the four AMJ bands, retained wetlands and specialized-mod coexistence. Do not accept world shares alone as replacement success.
 
 First runtime distribution with Medieval Overhaul active:
 - AMJ WarmTemperate: **27.0%**;
@@ -576,9 +603,9 @@ First runtime distribution with Medieval Overhaul active:
 - AMJ Alpine: **0.3%**;
 - MO Dark Forest: **16.3%**;
 - Temperate Swamp: **2.0%**;
-- remaining Vanilla tropical/temperate biomes: small residual shares.
+- remaining Vanilla tropical/temperate biomes: small residual shares (**historical defect; fails the corrected replacement contract**).
 
-This is accepted as a valid coexistence result rather than treated as an AMJ-band failure. MO Dark Forest is a specialized naturally generated biome with its own score rules and is allowed to replace part of the otherwise suitable AMJ cool/subalpine climate space. Exact AMJ biome percentages are therefore mod-list dependent and are not balance targets.
+MO Dark Forest coexistence remains valid: its own score rules may replace part of the suitable AMJ cool/subalpine climate space. Exact AMJ percentages are mod-list dependent and are not balance targets. The residual Vanilla tropical/temperate biomes were incorrectly accepted and do **not** satisfy the corrected contract; this historical distribution is not evidence for the repaired source.
 
 **2026-10-11 MO野生薬草の独自Biome互換修正：** MO 1.6.2.2の`Patches/Core/Add_Plants_To_Biomes.xml`は野生Mindwort／Poppy／Fleawort／FlyAgaricを`TemperateForest`（各0.05）、`BorealForest`（各0.16）、`Tundra`（各0.05）に追加する。AMJEの4植生帯がそれらVanillaの世界生成枠を置き換えると、MOの元Def・元Biome設定が残っていても実際に薬草が生えるマップの比率が低下する。このため、MOが有効な場合に限り、AMJE所有の`AMJ_WarmTemperateForest`／`AMJ_CoolTemperateForest`（各0.05）、`AMJ_SubalpineForest`（各0.16）、`AMJ_AlpineZone`（各0.05）の各`wildPlants`へ、MO側の4種を欠損分だけ追加する。MO所有の植物ThingDef、元Vanilla5Biome（森林3・湿地2）の値、MO所有DarkForestは変更しない。既に追加されている場合は重複させず上書きもしない。これは既存MOの生息場所をAMJE新Biomeへ継承する**任意互換**であり、AMJE単独の植物・薬草の追加機能ではない。XML/static、実ロード済みPickle、森林実マップQuickstartsで個別に検証し、新規実機結果を得るまではPASS扱いにしない。極寒・積雪の高山帯は実生数ゼロを直ちに配分欠落と判断せず、ロード済み出現設定と実生を区別して記録する。
 

@@ -22,8 +22,8 @@ SCENARIOS = (
 
 # Strictly verify all nine map scenarios and the warm native-cutting scenario.
 # Alpine adds two excluded-plant assertions; warm cutting has six descriptions.
-MAP_ASSERTIONS_BASE = (80, 73, 70, 70, 50, 53, 7, 3, 3)
-MAP_ASSERTIONS_CCTO = (92, 85, 82, 82, 50, 53, 7, 3, 3)
+MAP_ASSERTIONS_BASE = (80, 73, 70, 70, 50, 53, 24, 3, 3)
+MAP_ASSERTIONS_CCTO = (92, 85, 82, 82, 50, 53, 24, 3, 3)
 CUTTING_ASSERTIONS = 15
 REPORTS_PER_PROFILE = len(SCENARIOS) + 1
 
@@ -55,7 +55,7 @@ def call(args, **kwargs):
     subprocess.run([str(a) for a in args], check=True, **kwargs)
 
 
-def run(payload, manifest, output, game, steam, profiles=PROFILES):
+def run(payload, manifest, output, game, steam, profiles=PROFILES, world_biomes_only=False):
     if 'RimWorldWin64.exe' in subprocess.check_output(['tasklist', '/FI', 'IMAGENAME eq RimWorldWin64.exe'], text=True):
         raise ValueError('An existing game must close before release tests')
     if output.exists():
@@ -106,7 +106,9 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES):
               *['/reference:' + str(managed / p) for p in ('Assembly-CSharp.dll', 'UnityEngine.CoreModule.dll', 'netstandard.dll')], ROOT / 'Tests/Release/HarvestErrorObserver.cs'])
         desktop = output / 'IsolatedDesktopRunner.exe'
         call([csc, '/nologo', '/target:exe', '/out:' + str(desktop), ROOT / 'Tests/Release/IsolatedDesktopRunner.cs'])
-        summary = {'source': 'Steam downloaded root' if steam else 'main candidate; only fixture About identity changed', 'root': str(payload), 'profiles': {}}
+        summary = {'source': 'Steam downloaded root' if steam else 'main candidate; only fixture About identity changed',
+                   'root': str(payload), 'profiles': {},
+                   'test_scope': 'natural-world-biomes' if world_biomes_only else 'full-map-and-cutting'}
         for mode in profiles:
             config_dir = output / ('SaveData-' + mode) / 'Config'; config_dir.mkdir(parents=True)
             config = ET.parse(normal / 'ModsConfig.xml'); active = config.find('activeMods'); active.clear()
@@ -139,14 +141,22 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES):
             common = f'-ExePath "{game / "RimWorldWin64.exe"}" -SaveDataFolder "{config_dir.parent}" -TimeoutSeconds 420'
             command = f'"{ps}" -NoProfile -ExecutionPolicy Bypass -File "{generated / "Run-WorkshopHarvestQuickstarts.ps1"}" {common}'
             batch = output / (mode + '.cmd')
-            batch.write_text('@echo off\n' + command + f' -ResultDir "{report_dir}"\nif errorlevel 1 exit /b 1\n'
-                             + 'set "RIMWORLD_AMJE_HARVEST_EXPECTED=' + ('DankPyon_RawWood' if mode.startswith('MO') else 'WoodLog') + '"\n'
-                             + command + f' -ResultDir "{harvest_dir}" -TreeTextureAuditOnly\nif errorlevel 1 exit /b 1\nexit /b 0\n', encoding='ascii')
+            batch_text = '@echo off\n' + command + f' -ResultDir "{report_dir}"'
+            batch_text += (' -WorldBiomesOnly' if world_biomes_only else '') + '\nif errorlevel 1 exit /b 1\n'
+            if not world_biomes_only:
+                batch_text += 'set "RIMWORLD_AMJE_HARVEST_EXPECTED=' + ('DankPyon_RawWood' if mode.startswith('MO') else 'WoodLog') + '"\n'
+                batch_text += command + f' -ResultDir "{harvest_dir}" -TreeTextureAuditOnly\nif errorlevel 1 exit /b 1\n'
+            batch.write_text(batch_text + 'exit /b 0\n', encoding='ascii')
             with (output / (mode + '-Runner.log')).open('w') as log:
                 call([desktop, batch, ROOT], env=env, stdout=log, stderr=subprocess.STDOUT)
             counts = expected_map_assertions(mode)
             totals = []
-            for directory, scenarios, expected in [(report_dir, SCENARIOS, counts), (harvest_dir, SCENARIOS[:1], [CUTTING_ASSERTIONS])]:
+            if world_biomes_only:
+                index = SCENARIOS.index('WorldWetlandDistribution')
+                groups = [(report_dir, SCENARIOS[index:index + 1], counts[index:index + 1])]
+            else:
+                groups = [(report_dir, SCENARIOS, counts), (harvest_dir, SCENARIOS[:1], [CUTTING_ASSERTIONS])]
+            for directory, scenarios, expected in groups:
                 for scenario, count in zip(scenarios, expected):
                     name = 'Workshop_AMJ' + scenario + 'Quickstart'
                     data = json.loads((directory / (name + '.json')).read_text(encoding='utf-8-sig'))
@@ -163,9 +173,11 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES):
                         raise ValueError('Four native cutting outputs missing')
                     totals.append(count)
             captures = list(errors.glob('Unity-*.log'))
-            if len(captures) != REPORTS_PER_PROFILE or any('[CAPTURE_READY]' not in p.read_text(encoding='utf-8-sig') or '[ERROR]' in p.read_text(encoding='utf-8-sig') for p in captures):
+            if len(captures) != (1 if world_biomes_only else REPORTS_PER_PROFILE) or any('[CAPTURE_READY]' not in p.read_text(encoding='utf-8-sig') or '[ERROR]' in p.read_text(encoding='utf-8-sig') for p in captures):
                 raise ValueError('Independent Unity ERROR capture incomplete')
-            summary['profiles'][mode] = {'map_assertions': sum(totals[:-1]), 'cutting_assertions': totals[-1], 'runtime_errors': 0, 'reports': REPORTS_PER_PROFILE}
+            summary['profiles'][mode] = {'map_assertions': sum(totals) if world_biomes_only else sum(totals[:-1]),
+                                         'cutting_assertions': 0 if world_biomes_only else totals[-1],
+                                         'runtime_errors': 0, 'reports': len(totals)}
             (output / 'Summary.json').write_text(json.dumps(summary, indent=2))
             print('PASS', mode, summary['profiles'][mode], flush=True)
         if payload_tool.inventory(selected) != selected_before:
@@ -180,7 +192,8 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES):
             raise ValueError('Original payload or normal configuration changed')
         (output / 'Preservation.json').write_text(json.dumps({'payload_unchanged': True, 'normal_config_unchanged': True}))
     summary['passed'] = True
-    summary['full_four_profile_gate'] = set(profiles) == set(PROFILES)
+    summary['full_four_profile_gate'] = not world_biomes_only and set(profiles) == set(PROFILES)
+    summary['four_profile_biome_gate'] = set(profiles) == set(PROFILES)
     (output / 'Summary.json').write_text(json.dumps(summary, indent=2))
 
 
@@ -192,5 +205,6 @@ if __name__ == '__main__':
     parser.add_argument('--game', type=Path, default=Path('D:/SteamLibrary/steamapps/common/RimWorld'))
     parser.add_argument('--steam', action='store_true')
     parser.add_argument('--profiles', nargs='+', choices=PROFILES, default=list(PROFILES), help='Focused rerun; fewer than four profiles cannot alone clear the release gate')
+    parser.add_argument('--world-biomes-only', action='store_true', help='Run the existing unforced natural-world test only in each selected profile; does not clear full release/cutting gate')
     args = parser.parse_args()
-    run(args.payload.resolve(), args.manifest.resolve() if args.manifest else None, args.output.resolve(), args.game.resolve(), args.steam, args.profiles)
+    run(args.payload.resolve(), args.manifest.resolve() if args.manifest else None, args.output.resolve(), args.game.resolve(), args.steam, args.profiles, args.world_biomes_only)
