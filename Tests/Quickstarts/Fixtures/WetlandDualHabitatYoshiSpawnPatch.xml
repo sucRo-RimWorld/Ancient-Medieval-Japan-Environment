@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <!-- TEST-ONLY and staged solely into AMJE.EnvironmentQuicktests.
+       Use the real GenStep_Plants/WildPlantSpawner at map generation.
+       Do not copy to the production Environment Patches folder.
+       Extra commonality is experimental; no approved balance change. -->
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants</xpath>
+        <value>
+          <AMJE_Test_YoshiDualHabitatSpawn>0.05</AMJE_Test_YoshiDualHabitatSpawn>
+        </value>
+      </li>
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants</xpath>
+        <value>
+          <AMJE_Test_YoshiDualHabitatSpawn>0.05</AMJE_Test_YoshiDualHabitatSpawn>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+</Patch>

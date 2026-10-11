@@ -76,8 +76,10 @@ For Yoshi, the existing wetland tests also compare the loaded
 inherited sowing tags. This is not a Harvest-designated Job test, nor
 proof of natural reed habitat or CCTO dormancy. All three test DefNames
 are distinct from production names. Borrowed Haimatsu graphics and all
-fixture growth/yield values are test mechanics only. No biome
-`wildPlants` placement or natural spawning of these test plants occurs.
+fixture growth/yield values are test mechanics only. These three CutPlant
+plants are not added to `wildPlants`; the separate test-only
+`AMJE_Test_YoshiDualHabitatSpawn` below is the **only** temporary native
+spawning experiment.
 
 The same **two existing wetland Quickstarts** also load
 `AMJE_Test_Hannoki` from a separate temporary
@@ -108,6 +110,56 @@ release and editorial/art approval gates remain separate.
 activation and cleanup, and parses the experimental probe XML. It does not
 establish native runtime PASS. Production loader and payload rejection are
 covered by the XML validator and executable publication tests.
+
+### One-Def water-and-soil Yoshi native spawn comparison (temporary only)
+
+The existing two wetland Quickstarts use a test-only plant
+`AMJE_Test_YoshiDualHabitatSpawn` from `Tests/Quickstarts/Fixtures/WetlandBehaviorProbeDefs.xml`.
+It is entirely separate from the unchanged Yoshi native CutPlant probe.
+The owned temporary Quicktests fixture stages
+`Tests/Quickstarts/Fixtures/WetlandDualHabitatYoshiSpawnPatch.xml` into its own
+`Patches/` folder, adding experimental commonality **0.05** to each of
+`TemperateSwamp` and `ColdBog` for map generation **only**. The real
+production wetland XML and all other existing plant commonalities are
+unchanged.
+
+The temporary PlantBase has `completelyIgnoreFertility=true`,
+`wildTerrainTags` containing both `WaterFreshShallowStill` and
+`Soil` (RimWorld's **OR** tag test), `wildPlantUseDistanceToShore=true`
+and `wildOrder=1`. This deliberately permits **ordinary soil and
+marshy Soil-tagged terrain** as well as shallow still freshwater.
+It does not simulate a shoreline-restricted terrestrial grassland:
+the shoreline probability applies on water cells, not dry Soil.
+The comparison is against the archived **water-only** temporary
+experiment with commonality 0.25; it is not an independent, paired
+randomized A/B test or an approved production weight.
+
+On each already-generated wetland map, before any disposable manual
+CutPlant setup, the existing verification logs
+`[AMJ Environment Yoshi Dual Habitat Generated]`: natural experimental
+plant counts on `WaterShallow`, `MarshyTerrain`, `Soil`,
+`SoilRich`, other allowed Soil-tagged terrains and disallowed terrains.
+The first four categories also log **current-map cell counts** for
+same-run denominator clarity; it logs TallGrass/Moss/total other plants
+as non-causal comparison context. The assertion requires at least one
+naturally generated instance in shallow water, at least one on Soil-tagged
+ground, and none outside the allowed tags. It must **fail** when either
+target habitat is empty; do not artificially place a plant to obtain PASS.
+
+**Purpose:** determine if one Def can occupy both habitats, and whether
+reducing the added commonality from 0.25 (water-only prior experiment)
+to 0.05 controls water density when the probe is the only eligible
+shallow-water candidate. An exact density response cannot be inferred
+from two different habitat configurations/experimental sessions, so
+any apparent change requires caution. The water cell cap, other wild
+plants, optional MO additions, map random state and save/regrowth
+effects remain separate future gates.
+
+No production Def, terrain, water source, material yield, rendering
+decision, commonality contract or new Quickstart scenario is introduced.
+As with the prior experiment, archive observations in the research
+documents and remove this disposable implementation before merging
+the completed study.
 
 ### Quickstarts startup log-capture race (isolated runtime)
 

@@ -1199,6 +1199,89 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
         }
 
+        // Disposable observation before any manual test-cell changes.
+        // The temporary Quicktests wildPlants addition is loaded before the
+        // native GenStep_Plants generation; no direct plants are spawned here.
+        protected static void AddWaterYoshiNativeSpawnAssertions(
+            QuickstartVerification verification, Map map)
+        {
+            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(
+                "AMJE_Test_YoshiDualHabitatSpawn");
+            BiomeDef biome = map == null ? null : map.Biome;
+            verification.Assert("test-only dual-habitat Yoshi loaded contract",
+                delegate
+                {
+                    return def != null && def.plant != null &&
+                        biome != null && def.modContentPack != null &&
+                        def.modContentPack.PackageIdPlayerFacing ==
+                            "sucro.ancientmedievaljapan.environment.quicktests" &&
+                        def.plant.completelyIgnoreFertility &&
+                        def.plant.WildTerrainTags.Count == 2 &&
+                        def.plant.WildTerrainTags.Contains("WaterFreshShallowStill") &&
+                        def.plant.WildTerrainTags.Contains("Soil") &&
+                        def.plant.wildPlantUseDistanceToShore &&
+                        Math.Abs(biome.CommonalityOfPlant(def) - 0.05f) < 0.001f;
+                });
+
+            if (map == null || def == null || biome == null)
+                return;
+
+            int shallowCells = 0, marshyCells = 0;
+            int soilCells = 0, richCells = 0;
+            foreach (IntVec3 cell in map.AllCells)
+            {
+                string terrainName = map.terrainGrid.TerrainAt(cell).defName;
+                if (terrainName == "WaterShallow") shallowCells++;
+                else if (terrainName == "MarshyTerrain") marshyCells++;
+                else if (terrainName == "Soil") soilCells++;
+                else if (terrainName == "SoilRich") richCells++;
+            }
+
+            int shallow = 0, marshy = 0, soil = 0, rich = 0;
+            int otherSoilTagged = 0, outsideTags = 0;
+            foreach (Thing thing in map.listerThings.ThingsOfDef(def))
+            {
+                TerrainDef terrain = map.terrainGrid.TerrainAt(thing.Position);
+                if (terrain.defName == "WaterShallow") shallow++;
+                else if (terrain.defName == "MarshyTerrain") marshy++;
+                else if (terrain.defName == "Soil") soil++;
+                else if (terrain.defName == "SoilRich") rich++;
+                else if (terrain.tags != null && terrain.tags.Contains("Soil"))
+                    otherSoilTagged++;
+                else outsideTags++;
+            }
+            ThingDef tallGrass = DefDatabase<ThingDef>.GetNamedSilentFail(
+                "Plant_TallGrass");
+            ThingDef moss = DefDatabase<ThingDef>.GetNamedSilentFail(
+                "Plant_Moss");
+            int tallGrassCount = tallGrass == null ? -1 :
+                map.listerThings.ThingsOfDef(tallGrass).Count;
+            int mossCount = moss == null ? -1 :
+                map.listerThings.ThingsOfDef(moss).Count;
+            int totalPlants = map.listerThings.ThingsInGroup(
+                ThingRequestGroup.NonStumpPlant).Count;
+            Log.Message("[AMJ Environment Yoshi Dual Habitat Generated] biome=" +
+                biome.defName + " def=" + def.defName +
+                " shallow=" + shallow + "/cells=" + shallowCells +
+                " marshy=" + marshy + "/cells=" + marshyCells +
+                " soil=" + soil + "/cells=" + soilCells +
+                " rich=" + rich + "/cells=" + richCells +
+                " otherSoilTagged=" + otherSoilTagged +
+                " outsideAllowedTags=" + outsideTags +
+                " existingTallGrass=" + tallGrassCount +
+                " existingMoss=" + mossCount +
+                " totalPlants=" + totalPlants +
+                " experimentalCommonalityAdded=0.05" +
+                " meaning=native-generated-before-manual-probes-not-production");
+            verification.Assert("dual-habitat Yoshi naturally spawned on water and soil",
+                delegate
+                {
+                    return shallow > 0 &&
+                        marshy + soil + rich + otherSoilTagged > 0 &&
+                        outsideTags == 0;
+                });
+        }
+
         protected static void AddWetlandEcologyAssertions(
             QuickstartVerification verification, Map map, bool cold)
         {
@@ -3717,6 +3800,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, false);
+            AddWaterYoshiNativeSpawnAssertions(result, Find.CurrentMap);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
@@ -3795,6 +3879,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, true);
+            AddWaterYoshiNativeSpawnAssertions(result, Find.CurrentMap);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
