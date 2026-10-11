@@ -169,6 +169,18 @@ OR判定である。`Soil` と `WaterFreshShallowStill` の両方を許す
 | コケ（Moss） | 0 | 8,305 |
 | 全植物（NonStumpPlant） | 37,777 | 26,633 |
 
+同一実行の地形セルを分母とする別の見方では、
+**浅水の仮ヨシ出現率はTemperateSwamp 28.95%（1,063/3,672）、
+ColdBog 21.88%（775/3,542）**。
+陸側でログが列挙した3地形（MarshyTerrain＋Soil＋SoilRich）の
+合計では、それぞれ**0.060%（28/46,585）、
+0.027%（11/40,475）**だった。
+この陸側分母には他の未知の`Soil`タグ地形や水域は含めない。
+個体総数に対する浅水の割合（97.43%／98.60%）とは
+分母が異なる統計なので混同しない。
+既存草案のヨシ`commonality`（1.00／0.60）を
+水域の密度へ単純に置き換える根拠はない。
+
 証拠：`TestResults/VegetationRuntime/Reports/AMJTemperateSwampVegetationQuickstart.log:1093`
 （2026-10-11 14:17:59.897）および
 `AMJColdBogVegetationQuickstart.log:1080`
