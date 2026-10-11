@@ -213,5 +213,138 @@
         }
       }
     }
+  },
+  "terrain_eligibility_observations": {
+    "status": "observed_temporary_fixture_gate_only",
+    "observation_date": "2026-10-11",
+    "source": "User-supplied selected Quickstarts INFO excerpts; no full log/report or full-suite PASS provided",
+    "probe_commit": "b1f5e5a8742a1c41f78c0cd9f8cbfc4ee9cc2156",
+    "exact_local_head_unverified": true,
+    "common_fixture_fertility_min": "0.05",
+    "temperature_check_enabled": false,
+    "probe_names": [
+      "AMJE_Test_Yoshi",
+      "AMJE_Test_Suge",
+      "AMJE_Test_Hannoki",
+      "AMJE_Test_Mizugoke"
+    ],
+    "all_four_probes_identical": true,
+    "meaning": "Vacant-cell native CanEverPlantAt result only; not actual new-plant natural spawn or approved ecological balance",
+    "fertility_rejection_cause": "not yet measured; follow-up survey adds belowFertilityMin and rejectedWithEnoughFertility",
+    "caveats": [
+      "Marsh absent in TemperateSwamp",
+      "AMJ_ThinSoil absent in both maps",
+      "one generated map per biome",
+      "sampled up to 96 available vacant cells per terrain",
+      "no source-art/production Def/temperature/hydrological preference validation"
+    ],
+    "biomes": {
+      "TemperateSwamp": {
+        "source_log": "TestResults/VegetationRuntime/Reports/AMJTemperateSwampVegetationQuickstart.log",
+        "source_lines_by_probe": {
+          "AMJE_Test_Yoshi": 1190,
+          "AMJE_Test_Suge": 1199,
+          "AMJE_Test_Hannoki": 1208,
+          "AMJE_Test_Mizugoke": 1217
+        },
+        "terrain_result_for_each_probe": {
+          "Mud": {
+            "terrainCells": 6580,
+            "vacant": 6580,
+            "sampled": 96,
+            "nativeAccepted": 0
+          },
+          "MarshyTerrain": {
+            "terrainCells": 13336,
+            "vacant": 4104,
+            "sampled": 96,
+            "nativeAccepted": 96
+          },
+          "Marsh": {
+            "terrainCells": 0,
+            "vacant": 0,
+            "sampled": 0,
+            "nativeAccepted": 0
+          },
+          "WaterShallow": {
+            "terrainCells": 3672,
+            "vacant": 3672,
+            "sampled": 96,
+            "nativeAccepted": 0
+          },
+          "Soil": {
+            "terrainCells": 14774,
+            "vacant": 4543,
+            "sampled": 96,
+            "nativeAccepted": 96
+          },
+          "SoilRich": {
+            "terrainCells": 18469,
+            "vacant": 695,
+            "sampled": 96,
+            "nativeAccepted": 96
+          },
+          "AMJ_ThinSoil": {
+            "terrainCells": 0,
+            "vacant": 0,
+            "sampled": 0,
+            "nativeAccepted": 0
+          }
+        }
+      },
+      "ColdBog": {
+        "source_log": "TestResults/VegetationRuntime/Reports/AMJColdBogVegetationQuickstart.log",
+        "source_lines_by_probe": {
+          "AMJE_Test_Yoshi": 1177,
+          "AMJE_Test_Suge": 1186,
+          "AMJE_Test_Hannoki": 1195,
+          "AMJE_Test_Mizugoke": 1204
+        },
+        "terrain_result_for_each_probe": {
+          "Mud": {
+            "terrainCells": 10424,
+            "vacant": 10424,
+            "sampled": 96,
+            "nativeAccepted": 0
+          },
+          "MarshyTerrain": {
+            "terrainCells": 10886,
+            "vacant": 5499,
+            "sampled": 96,
+            "nativeAccepted": 96
+          },
+          "Marsh": {
+            "terrainCells": 477,
+            "vacant": 477,
+            "sampled": 96,
+            "nativeAccepted": 0
+          },
+          "WaterShallow": {
+            "terrainCells": 3542,
+            "vacant": 3542,
+            "sampled": 96,
+            "nativeAccepted": 0
+          },
+          "Soil": {
+            "terrainCells": 18010,
+            "vacant": 8647,
+            "sampled": 96,
+            "nativeAccepted": 96
+          },
+          "SoilRich": {
+            "terrainCells": 11582,
+            "vacant": 72,
+            "sampled": 72,
+            "nativeAccepted": 72
+          },
+          "AMJ_ThinSoil": {
+            "terrainCells": 0,
+            "vacant": 0,
+            "sampled": 0,
+            "nativeAccepted": 0
+          }
+        }
+      }
+    }
   }
 }

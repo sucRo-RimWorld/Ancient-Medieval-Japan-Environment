@@ -1345,6 +1345,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     List<IntVec3> vacant = vacantByTerrain[i];
                     int sampled = Math.Min(MaxSamplesPerTerrain, vacant.Count);
                     int accepted = 0;
+                    int belowFertilityMin = 0;
+                    int rejectedWithEnoughFertility = 0;
+                    float minObservedFertility = float.MaxValue;
+                    float maxObservedFertility = float.MinValue;
                     for (int n = 0; n < sampled; n++)
                     {
                         // Evenly spaced deterministic samples from all
@@ -1352,20 +1356,40 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         int index = (int)(((long)(2 * n + 1) *
                             vacant.Count) / (2 * sampled));
                         IntVec3 cell = vacant[index];
-                        if (def.CanEverPlantAt(cell, map,
+                        float fertility = map.fertilityGrid.FertilityAt(cell);
+                        minObservedFertility = Math.Min(minObservedFertility, fertility);
+                        maxObservedFertility = Math.Max(maxObservedFertility, fertility);
+                        bool fertilityBlocked =
+                            !def.plant.completelyIgnoreFertility &&
+                            fertility < def.plant.fertilityMin;
+                        if (fertilityBlocked)
+                            belowFertilityMin++;
+                        bool acceptedByNative = def.CanEverPlantAt(cell, map,
                             canWipePlantsExceptTree: false,
-                            checkMapTemperature: false))
+                            checkMapTemperature: false);
+                        if (acceptedByNative)
                             accepted++;
+                        else if (!fertilityBlocked)
+                            rejectedWithEnoughFertility++;
                     }
                     observations.Add(terrains[i] +
                         ":terrainCells=" + allByTerrain[i] +
                         ",vacant=" + vacant.Count +
                         ",sampled=" + sampled +
-                        ",nativeAccepted=" + accepted);
+                        ",nativeAccepted=" + accepted +
+                        ",belowFertilityMin=" + belowFertilityMin +
+                        ",rejectedWithEnoughFertility=" +
+                            rejectedWithEnoughFertility +
+                        ",sampledFertilityRange=" +
+                            (sampled == 0 ? "none" :
+                            minObservedFertility.ToString("F2") + ".." +
+                            maxObservedFertility.ToString("F2")));
                 }
                 Log.Message("[AMJ Environment Wetland Terrain Eligibility] " +
                     "biome=" + map.Biome.defName + " def=" + name +
                     " fertilityMin=" + def.plant.fertilityMin.ToString("F2") +
+                    " completelyIgnoreFertility=" + def.plant.completelyIgnoreFertility +
+                    " WildTerrainTagsCount=" + def.plant.WildTerrainTags.Count +
                     " maxSamplesPerTerrain=" + MaxSamplesPerTerrain +
                     " checkMapTemperature=false" +
                     " meaning=vacant-cell-native-placement-not-natural-spawn" +

@@ -98,8 +98,12 @@ terrain tags, pollution and blocking state. Temperature is deliberately
 disabled for this *terrain-only* query. Each species/biome logs
 `[AMJ Environment Wetland Terrain Eligibility]` with total named terrain
 cells, available vacant cells, actual number sampled and native-accepted
-samples. No cell is modified and no extra biome/spawner/test scenario is
-created. A terrain with zero available vacant cells produces
+samples. The same native samples log `belowFertilityMin`,
+`rejectedWithEnoughFertility`, their fertility range, and the loaded
+`completelyIgnoreFertility`/`WildTerrainTagsCount` flags to distinguish
+fertility exclusion from other native rejections. No cell is modified and
+no extra biome/spawner/test scenario is created. A terrain with zero
+available vacant cells produces
 `sampled=0,nativeAccepted=0`, **not** evidence of species incompatibility.
 
 **Limits:** the four fixture Defs currently have shared test-only
@@ -113,6 +117,16 @@ authorize the 4-species proposal weights, custom water support,
 new-game map distribution, or release. Compare sampled native
 placement capabilities to the documented ecological roles **before**
 making any new permanent terrain or distribution decision.
+
+**2026-10-11 baseline eligibility observations:** author-supplied snippets show
+identical results for all four `fertilityMin=0.05` fixtures in both maps:
+0/96 on Mud and WaterShallow (also ColdBog Marsh), 96/96 on
+MarshyTerrain and Soil, 96/96 on TemperateSwamp SoilRich and 72/72
+on ColdBog SoilRich. TemperateSwamp had no Marsh, and neither map had
+AMJ_ThinSoil. Actual original snippets are transcribed in the proposal
+research JSON, separately from unapproved weights. These samples alone
+do **not** establish the cause of rejection, a complete `run-tests.bat`
+PASS, the exact local HEAD, or species-specific ecosystem preferences.
 
 ### Temporary wetland harvest/removal probes (not production plants)
 

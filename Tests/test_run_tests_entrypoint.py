@@ -233,6 +233,10 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             "checkMapTemperature: false",
             "maxSamplesPerTerrain=",
             "nativeAccepted=",
+            "belowFertilityMin=",
+            "rejectedWithEnoughFertility=",
+            "sampledFertilityRange=",
+            "WildTerrainTagsCount=",
             "meaning=vacant-cell-native-placement-not-natural-spawn",
         ):
             self.assertIn(expected, method)
