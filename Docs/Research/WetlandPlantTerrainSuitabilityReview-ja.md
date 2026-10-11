@@ -54,6 +54,28 @@
 優先する。既に分かっている冷涼湿原の肥沃度0拒否を繰り返し
 確認するだけの別テストは追加しない。
 
+## ロード済み地形タグの実測確定事項（2026-10-11、非承認）
+
+作者提示の `[AMJ Environment Wetland Loaded Terrain Contract]` ログ2件より、実際の両湿地マップでロードされた地形の分類が一致した。生態・自然発生への適用可否は未承認。全値・行番号・地形セル数は `Docs/Research/WetlandPlantDistributionDraft.json` の `loaded_terrain_contract_observations` に記録する。これはログ抜粋であり、最新ブランチの `run-tests.bat` 総合PASSを意味しない。
+
+| 地形 | IsWater | fertility | 実際のタグ | 両湿地のセル存在 |
+|---|---|---:|---|---|
+| `Mud` | false | 0.00 | `Mud` | あり |
+| `MarshyTerrain` | false | 1.00 | `Soil` | あり |
+| `Marsh` | true | 0.00 | `Water`, `WaterMarshy` | ColdBogのみ |
+| `WaterShallow` | true | 0.00 | `Water`, `WaterFreshShallow`, `WaterFreshShallowStill` | あり |
+| `Soil` | false | 1.00 | `Soil` | あり |
+| `SoilRich` | false | 1.40 | `Soil` | あり |
+| `AMJ_ThinSoil` | false | 0.50 | `Soil` | 両マップとも0セル（Def自体はロード済み） |
+
+**機構上の解釈と限界：**
+
+- `WaterFreshShallowStill` は今回の7地形中では `WaterShallow` を `Marsh`・`Mud` から区別できるタグ。ただし世界全地形で唯一という証拠はない。浅水用候補タグがあることと、実際にヨシが定着・自然発生できることは別。
+- 既存4仮Defの `fertilityMin=0.05` と `completelyIgnoreFertility=false` では肥沃度0の `WaterShallow` に生えない。タグだけ追加しても解決しない。`completelyIgnoreFertility` の無条件利用は野生植物スポーナーの密度・候補集合へ影響し得るため、本番への採用を保留する。
+- `MarshyTerrain`・通常 `Soil`・`SoilRich`・`AMJ_ThinSoil` はすべて `Soil` タグ。**`WildTerrainTags=Soil` だけで湿地土壌のヨシ／スゲ／ハンノキや、貧栄養ミズゴケ地を限定することはできない。** 現状のColdBogとTemperateSwampのバイオーム単位の分布を使う簡略化案と、環境別の地形/タグを新設する精密案とは別途比較が必要。
+- 特に `Marsh` の `WaterMarshy` と `WaterShallow` の `WaterFreshShallowStill` は異なる。湿原＝浅水とみなし、双方をヨシに一律許可しない。
+- 新しい地形タグ／TerrainDef編集、C#制御や個体数比、種別の原料・収量・画像は**今回決めない**。既存MO・バニラ植物、ヒールルート、河川・地表生成の回帰を維持する。
+
 ## RimWorld自然発生の実装上の留保
 
 公開されているRimWorld逆コンパイルコード（現在のインストール版1.6と同一の保証なし）では、`PlantUtility.CanEverPlantAt` に肥沃度、地形タグ、占有物等の条件があり、`WildPlantSpawner.CheckSpawnWildPlantAt` はそれに加えて候補プール、密度、周辺植物、選択重み等を判定する。

@@ -434,5 +434,157 @@
     },
     "analysis": "On Mud, Marsh and WaterShallow, all 96 tested cells were rejected on fertility=0.00 (below 0.05); no extra rejections. MarshyTerrain and SoilRich accept all samples. Soil accepts 95/96, with the remaining rejection unrelated to fertility; its exact cause was not recorded (possible other native gates, not yet attributed). AMJ_ThinSoil was absent, not proved incompatible.",
     "decision": "This is fixture evidence only. Do not infer final terrain preferences, water support, naturally spawning plants, or approve commonality weights. Additional Soil failure investigation is optional and should not block the separate balance review."
+  },
+  "loaded_terrain_contract_observations": {
+    "status": "loaded_terrain_defs_only_no_plant_spawn_pass",
+    "observation_date": "2026-10-11",
+    "source_basis": "Author-supplied [AMJ Environment Wetland Loaded Terrain Contract] INFO lines from two standard isolated wetland Quickstarts; not full test report or four-profile PASS",
+    "instrumentation_commit": "876e6911e7e4c75d5fee61bbbb57fa1133d05f14",
+    "local_head_verified": false,
+    "full_run_tests_pass_verified": false,
+    "terrain_def_consistency": "Tags, IsWater and Def fertility matched between these two loaded map samples; mapCells can change with map generation and test timing.",
+    "biomes": {
+      "ColdBog": {
+        "log": "TestResults/VegetationRuntime/Reports/AMJColdBogVegetationQuickstart.log",
+        "source_line": 1177,
+        "logged_time": "2026-10-11 11:08:39.152",
+        "terrains": {
+          "Mud": {
+            "isWater": false,
+            "defFertility": "0.00",
+            "tags": [
+              "Mud"
+            ],
+            "mapCells": 10424
+          },
+          "MarshyTerrain": {
+            "isWater": false,
+            "defFertility": "1.00",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 10886
+          },
+          "Marsh": {
+            "isWater": true,
+            "defFertility": "0.00",
+            "tags": [
+              "Water",
+              "WaterMarshy"
+            ],
+            "mapCells": 477
+          },
+          "WaterShallow": {
+            "isWater": true,
+            "defFertility": "0.00",
+            "tags": [
+              "Water",
+              "WaterFreshShallow",
+              "WaterFreshShallowStill"
+            ],
+            "mapCells": 3542
+          },
+          "Soil": {
+            "isWater": false,
+            "defFertility": "1.00",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 18009
+          },
+          "SoilRich": {
+            "isWater": false,
+            "defFertility": "1.40",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 11576
+          },
+          "AMJ_ThinSoil": {
+            "isWater": false,
+            "defFertility": "0.50",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 0
+          }
+        }
+      },
+      "TemperateSwamp": {
+        "log": "TestResults/VegetationRuntime/Reports/AMJTemperateSwampVegetationQuickstart.log",
+        "source_line": 1190,
+        "logged_time": "2026-10-11 11:08:12.468",
+        "terrains": {
+          "Mud": {
+            "isWater": false,
+            "defFertility": "0.00",
+            "tags": [
+              "Mud"
+            ],
+            "mapCells": 6580
+          },
+          "MarshyTerrain": {
+            "isWater": false,
+            "defFertility": "1.00",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 13336
+          },
+          "Marsh": {
+            "isWater": true,
+            "defFertility": "0.00",
+            "tags": [
+              "Water",
+              "WaterMarshy"
+            ],
+            "mapCells": 0
+          },
+          "WaterShallow": {
+            "isWater": true,
+            "defFertility": "0.00",
+            "tags": [
+              "Water",
+              "WaterFreshShallow",
+              "WaterFreshShallowStill"
+            ],
+            "mapCells": 3672
+          },
+          "Soil": {
+            "isWater": false,
+            "defFertility": "1.00",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 14769
+          },
+          "SoilRich": {
+            "isWater": false,
+            "defFertility": "1.40",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 18469
+          },
+          "AMJ_ThinSoil": {
+            "isWater": false,
+            "defFertility": "0.50",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 0
+          }
+        }
+      }
+    },
+    "interpretation": {
+      "WaterShallow": "Water,WaterFreshShallow,WaterFreshShallowStill, fertility=0.00; distinct from sampled Marsh/Mud but tag uniqueness across all other game terrains is not established",
+      "Marsh": "Water,WaterMarshy, fertility=0.00; present only in ColdBog map",
+      "Mud": "Mud, fertility=0.00, isWater=false; not covered by water-specific tag alone",
+      "MarshyTerrain": "Soil, fertility=1.00, isWater=false; cannot distinguish from ordinary Soil/SoilRich/AMJ_ThinSoil by loaded terrain tags alone",
+      "AMJ_ThinSoil": "Soil, fertility=0.50, loaded in both profiles but no cells sampled",
+      "constraints": "An XML WildTerrainTags selection could distinguish shown shallow freshwater from shown Marsh and Mud, but zero fertility still blocks current fixtures. To consider natural water placement requires resolving fertility gating plus the wild spawner's density and competition effects, comparing all loaded water terrain types; not approved. Dedicated sphagnum peat habitat cannot be inferred from Soil-tagged terrain; no custom terrain or broad fertility-ignore is authorized."
+    },
+    "next_decision": "No production XML, PlantDef, wildPlants weights, TerrainDef tags, custom C#, or image changes. First compare the loaded 1.6 wild-plant spawner restrictions and selective XML-only feasibility, if gameplay design later requires truly shallow-water Yoshi. Preserve accepted source/design gates."
   }
 }
