@@ -95,6 +95,78 @@
 
 観測のデータ正本：`Docs/Research/WetlandPlantDistributionDraft.json` 内 `water_yoshi_natural_spawn_observations`。完了した一時試験のDef・Quickstarts計測・ステージングはPR #98で除去し、通常の自動回帰テストには増やさない。元の試験コード・条件はPR #98のコミット `b6a4ebde103f8b11b6c8c4527b19d59882e353f1` に残る。
 
+## 4種の水際・陸側の役割分担と次の限定実験（2026-10-11、未承認）
+
+### 地形の観測と設計上の分離可能性
+
+両湿地の実測済み `TerrainDef` タグによれば、`WaterShallow` は
+`WaterFreshShallowStill`（肥沃度0）、`Marsh` は `WaterMarshy`
+（肥沃度0）、`Mud` は `Mud`（肥沃度0）で、互いを区別できる。
+`MarshyTerrain`（肥沃度1.00）、通常 `Soil`（1.00）、
+`SoilRich`（1.40）、`AMJ_ThinSoil`（0.50）は全て
+`Soil` タグである。**湿地における `Soil` タグだけでは、
+河岸の乾湿境界や泥炭面を切り分けられない。**
+温帯湿地には `Marsh` が存在しない実測があり、ColdBogでは
+477セルだった。これは別サンプルの値であり恒常的な地形比率ではない。
+
+| 植物（正式仕様は未承認の部分を残す） | まず表現したい場所 | 現行のXMLのみでできること | 危険な近道・重複 |
+|---|---|---|---|
+| **ヨシ** | 水際の淡水浅水と低層湿原の陸側 | `WaterFreshShallowStill` と `Soil` のOR指定による**同一Defの水陸両生**は検証候補。浅水だけの自然発生はPR #98で既に実測 | `Soil` は普通の土も含む。岸からの距離を使う標準設定は陸上を水際だけに限定しない |
+| **スゲ** | 湿った草地・ぬかるみと中間湿原の周縁 | `Soil` 上で生育、TallGrassの一部重みを段階的に移す案 | 一般土壌とぬかるみを混同して大量発生させること。深水生育を一律解放すること |
+| **ハンノキ** | 浅い冠水の周辺、沼沢林・湿地林の立地 | 非水域の土壌と木本重み内で試す案。Willow/Maple/Birchは保護 | ゼロ肥沃度の水面全域で木本が成立する扱い／木本総量の単純増加 |
+| **ミズゴケ** | ColdBogの低木密度・貧栄養泥炭相当域 | **ColdBogのみに配置**するBiome単位の候補が最小。ただし`Soil`制約だけでは泥炭を再現しない | 温帯湿地も含め`MarshyTerrain`を高層湿原と同一視すること。水面へ肥沃度無視を一律適用すること |
+
+### ヨシの1つの本番Defで水陸共存させる案：比較の重要性
+
+`PlantUtility.CanEverPlantAt` の `wildTerrainTags` は複数タグの
+OR判定である。`Soil` と `WaterFreshShallowStill` の両方を許す
+**単一ヨシDef**は技術的には土地と浅水に配置しうるが、
+`BiomeDef.wildPlants` はこの1Defへ**1つのcommonality**しか与えない。
+水側と陸側それぞれに別の重みを付ける機構ではない。
+一方、浅水で競合する植物がヨシだけなら、commonalityを低くしても
+密度が単純比例して下がらない可能性がある。
+`wildPlantUseDistanceToShore` は水域側だけへの確率制限であり、
+`Soil` 上のヨシを河岸へ引き寄せる仕組みではない。
+
+- **案A：同一Def、水陸をOR許可。** 植物1種・Harvest/保存/翻訳/描画
+  の単一性は維持できる。しかし湿地以外も含む`Soil`に広く分布し、
+  浅水と陸側の重みを独立に制御できない。まずこの制限を実測する。
+- **案B：同じ植物を別Defの陸側型／水側型に分割。** 各型で
+  `commonality` と地形適性を区別できるが、ThingDefが2件となり、
+  収穫・名札・選択UI・画像・セーブ・将来CCTOの設定重複が生じる。
+  現行の「湿地ヨシ1種」という設計との齟齬もあるため、**採用しない**。
+- **案C：湿地土壌を局所的に認識する別の生成条件。** 精度は改善しうるが、
+  TerrainDef／PatchMaker／生成C#の追加、既存セーブやMO・Waterworksへ
+  波及するため、XML-onlyを使い切るまでは取りかからない。
+
+**試験PR #99（使い捨て・未承認）**：既存の隔離Quickstarts2シナリオで、
+単一の別仮Def `AMJE_Test_YoshiDualHabitatSpawn` に
+`wildTerrainTags=[WaterFreshShallowStill,Soil]`、
+`completelyIgnoreFertility=true`、岸距離制御ONを付ける。
+`commonality=0.05` は既存重みに**上乗せ**する観測用の仮値で、
+TallGrassの正本重みは変えない。通常マップ生成で出た個体を
+`WaterShallow`、`MarshyTerrain`、`Soil`、
+`SoilRich`、その他許可・非許可地形に分け、
+同一実行の地形セル数と共に記録する。
+以前の「水だけ0.25」と今回の「水陸0.05」は**候補地形と重みが
+同時に異なるため、比較しても単独の重み効果や因果的密度効果は
+推定できない**。いずれの結果も、植生の適正率の承認ではない。
+
+### 固定する現行の生態・所有契約
+
+- Yoshi/Sugeは既存TallGrass側、MizugokeはColdBogのMoss側、
+  Hannokiは現行木本配分から移す候補。今の草案
+  TemperateSwamp合計7.30/木本3.00、ColdBog合計8.22/木本1.80
+  を破らないこと。別Mod追加の植物は削除しない。
+- Suge→Vanilla Hay（MOでHay→Straw）、Mizugoke→選択可・
+  非収穫・伐採除去のみ／無ドロップは作者承認済み。
+  YoshiのHay/収量、HannokiのWoodLog量、全4種の分布重みは未承認。
+- CCTO併用時の最低生育温度と休眠・枯死温度は
+  `Docs/NativeVegetationStep3Design-ja.md` §3.3.1を優先し、
+  地形分布の調査によって勝手に再決定しない。
+- 新しい4種は**まだ本番PlantDefがない**。仮DefのCut/Spawn PASSを
+  実際の本番画像・採集・自然再生・旧セーブ・4構成PASSへ転用しない。
+
 ## RimWorld自然発生の実装上の留保
 
 公開されているRimWorld逆コンパイルコード（現在のインストール版1.6と同一の保証なし）では、`PlantUtility.CanEverPlantAt` に肥沃度、地形タグ、占有物等の条件があり、`WildPlantSpawner.CheckSpawnWildPlantAt` はそれに加えて候補プール、密度、周辺植物、選択重み等を判定する。
