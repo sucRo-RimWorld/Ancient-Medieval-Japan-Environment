@@ -77,6 +77,24 @@
 - 特に `Marsh` の `WaterMarshy` と `WaterShallow` の `WaterFreshShallowStill` は異なる。湿原＝浅水とみなし、双方をヨシに一律許可しない。
 - 新しい地形タグ／TerrainDef編集、C#制御や個体数比、種別の原料・収量・画像は**今回決めない**。既存MO・バニラ植物、ヒールルート、河川・地表生成の回帰を維持する。
 
+## ヨシ浅水自然発生：隔離実機の観測結果（2026-10-11）
+
+**結果：テスト専用ヨシは両湿地で通常のマップ生成後に浅水上で確認できた。**
+仮Defは `AMJE_Test_YoshiWaterSpawn`。本番ヨシでも正式な分布採用でもなく、隔離 `AMJE.EnvironmentQuicktests` に限る。試験HEAD `b6a4ebde103f8b11b6c8c4527b19d59882e353f1`、PR #98。作者から提示された各Quickstartの **INFOログ抜粋2本**が根拠。ログを出す時点はマップ生成後、既存CutPlantプローブによるセル改変の前である。
+
+| マップ | 浅水上の仮ヨシ | 他地形 | 背の高い草 | コケ | 総植物数 |
+|---|---:|---:|---:|---:|---:|
+| TemperateSwamp | **1,026** | **0** | 17,805 | 0 | 37,767 |
+| ColdBog | **789** | **0** | 10,917 | 8,287 | 26,656 |
+
+実験に限り、`wildTerrainTags=WaterFreshShallowStill`、`completelyIgnoreFertility=true`、`wildPlantUseDistanceToShore=true`、`wildOrder=1`、`fertilityMin=0.05`、各Biomeへ **0.25を追加**した。既存植物の重みは削っていない。別実行で得た浅水セル数3,672 / 3,542を仮の分母とすれば約 **27.94% / 22.28%** に相当する。ただし両ログには今回の地形セル数がなく、厳密な同一実行の被覆率ではない。この追加重みが高密度となることを示唆しても、本番の適量を決める根拠ではない。
+
+元のベースライン観測でのTallGrassは17,977 / 11,054、ColdBogのMossは8,488。今回のTallGrassは17,805 / 10,917、MossはColdBog 8,287。ただし**別実行の観測値の差は、ヨシの追加による因果的減少と判定しない**。比較用の同一設定・独立乱数管理された対照実験も長期再生試験もない。ゲーム版・実行プロファイル・完全なテスト集計および当該ローカルHEADは、このログ抜粋だけでは確定できない。
+
+技術的に実現可能なことと、生態・密度・原料・画像・古いセーブの承認は区別する。特に `0.25` の常設、全地形のゼロ肥沃度無視、公式の浅水専用ヨシDef追加は行わない。本番への採用前に、ヨシを陸側・水側へどう配分するか、他植物が実際にどれだけ影響を受けるか、採取量や景観に見合う密度を判断する必要がある。
+
+観測のデータ正本：`Docs/Research/WetlandPlantDistributionDraft.json` 内 `water_yoshi_natural_spawn_observations`。完了した一時試験のDef・Quickstarts計測・ステージングはPR #98で除去し、通常の自動回帰テストには増やさない。元の試験コード・条件はPR #98のコミット `b6a4ebde103f8b11b6c8c4527b19d59882e353f1` に残る。
+
 ## RimWorld自然発生の実装上の留保
 
 公開されているRimWorld逆コンパイルコード（現在のインストール版1.6と同一の保証なし）では、`PlantUtility.CanEverPlantAt` に肥沃度、地形タグ、占有物等の条件があり、`WildPlantSpawner.CheckSpawnWildPlantAt` はそれに加えて候補プール、密度、周辺植物、選択重み等を判定する。

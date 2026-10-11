@@ -10,8 +10,6 @@
     ONLY; neither is an approved AMJ_Plant_Yoshi harvest/resource decision.
     Hannoki's wood output and yield=1 are also provisional mechanics,
     not approved production settings.
-    An additional WaterYoshi candidate is staged in the temporary
-    Quicktests Mod to exercise real GenStep_Plants on fresh wetland maps.
     No production wetland PlantDef is provided here.
   -->
   <ThingDef ParentName="PlantBase">
@@ -110,35 +108,6 @@
       <harvestTag>Wood</harvestTag>
       <harvestWork>100</harvestWork>
       <harvestFailable>false</harvestFailable>
-    </plant>
-  </ThingDef>
-  <!-- Disposable experimental freshwater reed:
-       loaded into Quicktests-only wetland pools at map generation.
-       This is SEPARATE from the unchanged native CutPlant Yoshi probe.
-       Borrowed graphics and commonality=0.25 are NOT production choices. -->
-  <ThingDef ParentName="PlantBase">
-    <defName>AMJE_Test_YoshiWaterSpawn</defName>
-    <label>test-only water reed native spawn probe</label>
-    <description>Disposable shallow-water natural spawning experiment.</description>
-    <selectable>true</selectable>
-    <graphicData>
-      <texPath>Things/Plant/AMJ/Haimatsu</texPath>
-      <graphicClass>Graphic_Random</graphicClass>
-    </graphicData>
-    <ingestible>
-      <preferability>NeverForNutrition</preferability>
-    </ingestible>
-    <plant>
-      <growDays>12</growDays>
-      <fertilityMin>0.05</fertilityMin>
-      <fertilitySensitivity>0</fertilitySensitivity>
-      <minGrowthTemperature>0</minGrowthTemperature>
-      <completelyIgnoreFertility>true</completelyIgnoreFertility>
-      <wildTerrainTags>
-        <li>WaterFreshShallowStill</li>
-      </wildTerrainTags>
-      <wildPlantUseDistanceToShore>true</wildPlantUseDistanceToShore>
-      <wildOrder>1</wildOrder>
     </plant>
   </ThingDef>
 </Defs>

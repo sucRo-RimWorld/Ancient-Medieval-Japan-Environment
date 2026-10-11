@@ -586,5 +586,66 @@
       "constraints": "An XML WildTerrainTags selection could distinguish shown shallow freshwater from shown Marsh and Mud, but zero fertility still blocks current fixtures. To consider natural water placement requires resolving fertility gating plus the wild spawner's density and competition effects, comparing all loaded water terrain types; not approved. Dedicated sphagnum peat habitat cannot be inferred from Soil-tagged terrain; no custom terrain or broad fertility-ignore is authorized."
     },
     "next_decision": "No production XML, PlantDef, wildPlants weights, TerrainDef tags, custom C#, or image changes. First compare the loaded 1.6 wild-plant spawner restrictions and selective XML-only feasibility, if gameplay design later requires truly shallow-water Yoshi. Preserve accepted source/design gates."
+  },
+  "water_yoshi_natural_spawn_observations": {
+    "status": "positive_native_generated_spawn_in_two_quickstart_logs_not_production",
+    "observation_date": "2026-10-11",
+    "source": "Author-pasted two selected [AMJ Environment Water Yoshi Generated] INFO log excerpts; not a complete RimTest/Pickle or run-tests.bat report",
+    "tested_pr": 98,
+    "tested_commit": "b6a4ebde103f8b11b6c8c4527b19d59882e353f1",
+    "local_test_head_confirmed": false,
+    "full_suite_pass_confirmed": false,
+    "test_only_def_name": "AMJE_Test_YoshiWaterSpawn",
+    "test_only_mod": "sucro.ancientmedievaljapan.environment.quicktests",
+    "experimental_settings": {
+      "commonality_added_per_biome": "0.25",
+      "completelyIgnoreFertility": true,
+      "fertilityMin": "0.05",
+      "wildTerrainTags": [
+        "WaterFreshShallowStill"
+      ],
+      "wildPlantUseDistanceToShore": true,
+      "wildOrder": 1,
+      "builtin_genstep_plants": true
+    },
+    "observations_by_biome": {
+      "TemperateSwamp": {
+        "source_log": "TestResults/VegetationRuntime/Reports/AMJTemperateSwampVegetationQuickstart.log",
+        "source_line": 1181,
+        "logged_time": "2026-10-11 12:37:20.039",
+        "natural_water_yoshi_count_on_water_shallow": 1026,
+        "natural_water_yoshi_count_on_other_terrain": 0,
+        "existing_tall_grass_count": 17805,
+        "existing_moss_count": 0,
+        "whole_map_non_stump_plant_count": 37767,
+        "older_baseline_water_shallow_cells": 3672,
+        "ratio_to_older_water_shallow_cell_count_pct": 27.94,
+        "older_baseline_tall_grass_count": 17977,
+        "older_baseline_moss_count": 0
+      },
+      "ColdBog": {
+        "source_log": "TestResults/VegetationRuntime/Reports/AMJColdBogVegetationQuickstart.log",
+        "source_line": 1204,
+        "logged_time": "2026-10-11 12:37:47.836",
+        "natural_water_yoshi_count_on_water_shallow": 789,
+        "natural_water_yoshi_count_on_other_terrain": 0,
+        "existing_tall_grass_count": 10917,
+        "existing_moss_count": 8287,
+        "whole_map_non_stump_plant_count": 26656,
+        "older_baseline_water_shallow_cells": 3542,
+        "ratio_to_older_water_shallow_cell_count_pct": 22.28,
+        "older_baseline_tall_grass_count": 11054,
+        "older_baseline_moss_count": 8488
+      }
+    },
+    "interpretation": "Live isolated Quickstarts map counts prove test-only water Yoshi plants existed after normal map generation and before manually spawned native CutPlant fixtures; both maps had zero observed specimens on other terrain. Does not establish production viability, desired coverage, four-profile native PASS, long-term spread, or unmodified vegetation density.",
+    "limitations": [
+      "Reference WaterShallow counts are from earlier separate baseline runs, not verified same-run cells; percent values are approximate reference ratios, not exact measured coverage.",
+      "Experimental commonality=0.25 was added on top of existing totals of 7.30 and 8.22; no commonality was transferred from existing plants.",
+      "Old and new map runs are not paired random-seed A/B with independent identical RNG streams; no causal claim about plant density or vegetation displacement.",
+      "Only two INFO excerpts were supplied; full test summary, exact local commit and Mod profile were not supplied.",
+      "No production image/Def, approved Yoshi harvest output/yield, save compatibility, winter/long-term regrowth or natural group distribution was verified."
+    ],
+    "decision": "XML-only spawn is technically feasible for these selected Vanilla-equivalent wetland terrain tags, but 0.25 added weight and >700 new specimens per map must not be treated as balanced. Do not adopt permanent plant/commonality/zero-fertility settings without ecological and runtime review. Retire temporary experiment after archiving evidence."
   }
 }
