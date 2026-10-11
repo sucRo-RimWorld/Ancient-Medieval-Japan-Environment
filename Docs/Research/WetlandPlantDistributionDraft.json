@@ -65,5 +65,526 @@
     "Keep all other plant weights and Wild Healroot supply exactly unchanged.",
     "Validate actual allowed terrain and map spawn densities before accepting any weights.",
     "Do not make Environment depend on optional DLC or other vegetation Mods."
-  ]
+  ],
+  "generated_map_observations": {
+    "status": "observed_existing_biomes_only",
+    "basis": "User-supplied single log line per standard isolated wetland Quickstart; not a complete test-suite result",
+    "observation_date": "2026-10-11",
+    "instrumentation_commit": "b59a907c7a22791660140cd7c0865837ae365707",
+    "local_head_verified": false,
+    "full_runtime_pass_from_this_evidence": false,
+    "wet_terrain_labels": [
+      "Mud",
+      "MarshyTerrain",
+      "Marsh",
+      "WaterShallow"
+    ],
+    "method_limitations": "Plants on these terrain labels are counted; not a plantable-cell denominator, adjacency/hydrology survey, germination/terrain suitability proof, production AMJ plant spawn test, optional-MO profile, multiple-seed distribution, or final weight approval.",
+    "weight_decision": "No change: the proposed distribution stays proposal_not_approved.",
+    "biomes": {
+      "TemperateSwamp": {
+        "source_log": "TestResults/VegetationRuntime/Reports/AMJTemperateSwampVegetationQuickstart.log",
+        "source_line": 1181,
+        "map_cells": 62500,
+        "terrain_cells": {
+          "Mud": 6580,
+          "MarshyTerrain": 13336,
+          "Marsh": 0,
+          "WaterShallow": 3672,
+          "Soil": 14778,
+          "SoilRich": 18469,
+          "AMJ_ThinSoil": 0,
+          "otherTerrain": 5665
+        },
+        "wet_terrain_cell_count": 23588,
+        "loaded_wild_pool_entries": 7,
+        "loaded_wild_pool_weight": "7.30",
+        "observed_existing_proxy_plants": {
+          "Plant_TallGrass": {
+            "loadedWeight": "3.20",
+            "count": 17977,
+            "onWetTerrain": 3946
+          },
+          "Plant_Moss": {
+            "loadedWeight": "0.00",
+            "count": 0,
+            "onWetTerrain": 0
+          },
+          "Plant_Brambles": {
+            "loadedWeight": "0.80",
+            "count": 4471,
+            "onWetTerrain": 922
+          },
+          "Plant_Bush": {
+            "loadedWeight": "0.20",
+            "count": 1123,
+            "onWetTerrain": 279
+          },
+          "Plant_TreeWillow": {
+            "loadedWeight": "2.00",
+            "count": 7492,
+            "onWetTerrain": 2534
+          },
+          "Plant_TreeMaple": {
+            "loadedWeight": "1.00",
+            "count": 5599,
+            "onWetTerrain": 1418
+          },
+          "Plant_TreeBirch": {
+            "loadedWeight": "0.00",
+            "count": 0,
+            "onWetTerrain": 0
+          },
+          "Plant_Berry": {
+            "loadedWeight": "0.05",
+            "count": 275,
+            "onWetTerrain": 67
+          },
+          "Plant_HealrootWild": {
+            "loadedWeight": "0.05",
+            "count": 278,
+            "onWetTerrain": 66
+          }
+        }
+      },
+      "ColdBog": {
+        "source_log": "TestResults/VegetationRuntime/Reports/AMJColdBogVegetationQuickstart.log",
+        "source_line": 1168,
+        "map_cells": 62500,
+        "terrain_cells": {
+          "Mud": 10424,
+          "MarshyTerrain": 10886,
+          "Marsh": 477,
+          "WaterShallow": 3542,
+          "Soil": 18010,
+          "SoilRich": 11568,
+          "AMJ_ThinSoil": 0,
+          "otherTerrain": 7593
+        },
+        "wet_terrain_cell_count": 25329,
+        "loaded_wild_pool_entries": 8,
+        "loaded_wild_pool_weight": "8.22",
+        "observed_existing_proxy_plants": {
+          "Plant_TallGrass": {
+            "loadedWeight": "3.40",
+            "count": 11054,
+            "onWetTerrain": 2100
+          },
+          "Plant_Moss": {
+            "loadedWeight": "2.60",
+            "count": 8488,
+            "onWetTerrain": 1598
+          },
+          "Plant_Brambles": {
+            "loadedWeight": "0.00",
+            "count": 0,
+            "onWetTerrain": 0
+          },
+          "Plant_Bush": {
+            "loadedWeight": "0.30",
+            "count": 986,
+            "onWetTerrain": 232
+          },
+          "Plant_TreeWillow": {
+            "loadedWeight": "0.60",
+            "count": 1914,
+            "onWetTerrain": 581
+          },
+          "Plant_TreeMaple": {
+            "loadedWeight": "0.60",
+            "count": 1880,
+            "onWetTerrain": 395
+          },
+          "Plant_TreeBirch": {
+            "loadedWeight": "0.60",
+            "count": 1584,
+            "onWetTerrain": 371
+          },
+          "Plant_Berry": {
+            "loadedWeight": "0.07",
+            "count": 231,
+            "onWetTerrain": 68
+          },
+          "Plant_HealrootWild": {
+            "loadedWeight": "0.05",
+            "count": 157,
+            "onWetTerrain": 41
+          }
+        }
+      }
+    }
+  },
+  "terrain_eligibility_observations": {
+    "status": "observed_temporary_fixture_gate_only",
+    "observation_date": "2026-10-11",
+    "source": "User-supplied selected Quickstarts INFO excerpts; no full log/report or full-suite PASS provided",
+    "probe_commit": "b1f5e5a8742a1c41f78c0cd9f8cbfc4ee9cc2156",
+    "exact_local_head_unverified": true,
+    "common_fixture_fertility_min": "0.05",
+    "temperature_check_enabled": false,
+    "probe_names": [
+      "AMJE_Test_Yoshi",
+      "AMJE_Test_Suge",
+      "AMJE_Test_Hannoki",
+      "AMJE_Test_Mizugoke"
+    ],
+    "all_four_probes_identical": true,
+    "meaning": "Vacant-cell native CanEverPlantAt result only; not actual new-plant natural spawn or approved ecological balance",
+    "fertility_rejection_cause": "not yet measured; follow-up survey adds belowFertilityMin and rejectedWithEnoughFertility",
+    "caveats": [
+      "Marsh absent in TemperateSwamp",
+      "AMJ_ThinSoil absent in both maps",
+      "one generated map per biome",
+      "sampled up to 96 available vacant cells per terrain",
+      "no source-art/production Def/temperature/hydrological preference validation"
+    ],
+    "biomes": {
+      "TemperateSwamp": {
+        "source_log": "TestResults/VegetationRuntime/Reports/AMJTemperateSwampVegetationQuickstart.log",
+        "source_lines_by_probe": {
+          "AMJE_Test_Yoshi": 1190,
+          "AMJE_Test_Suge": 1199,
+          "AMJE_Test_Hannoki": 1208,
+          "AMJE_Test_Mizugoke": 1217
+        },
+        "terrain_result_for_each_probe": {
+          "Mud": {
+            "terrainCells": 6580,
+            "vacant": 6580,
+            "sampled": 96,
+            "nativeAccepted": 0
+          },
+          "MarshyTerrain": {
+            "terrainCells": 13336,
+            "vacant": 4104,
+            "sampled": 96,
+            "nativeAccepted": 96
+          },
+          "Marsh": {
+            "terrainCells": 0,
+            "vacant": 0,
+            "sampled": 0,
+            "nativeAccepted": 0
+          },
+          "WaterShallow": {
+            "terrainCells": 3672,
+            "vacant": 3672,
+            "sampled": 96,
+            "nativeAccepted": 0
+          },
+          "Soil": {
+            "terrainCells": 14774,
+            "vacant": 4543,
+            "sampled": 96,
+            "nativeAccepted": 96
+          },
+          "SoilRich": {
+            "terrainCells": 18469,
+            "vacant": 695,
+            "sampled": 96,
+            "nativeAccepted": 96
+          },
+          "AMJ_ThinSoil": {
+            "terrainCells": 0,
+            "vacant": 0,
+            "sampled": 0,
+            "nativeAccepted": 0
+          }
+        }
+      },
+      "ColdBog": {
+        "source_log": "TestResults/VegetationRuntime/Reports/AMJColdBogVegetationQuickstart.log",
+        "source_lines_by_probe": {
+          "AMJE_Test_Yoshi": 1177,
+          "AMJE_Test_Suge": 1186,
+          "AMJE_Test_Hannoki": 1195,
+          "AMJE_Test_Mizugoke": 1204
+        },
+        "terrain_result_for_each_probe": {
+          "Mud": {
+            "terrainCells": 10424,
+            "vacant": 10424,
+            "sampled": 96,
+            "nativeAccepted": 0
+          },
+          "MarshyTerrain": {
+            "terrainCells": 10886,
+            "vacant": 5499,
+            "sampled": 96,
+            "nativeAccepted": 96
+          },
+          "Marsh": {
+            "terrainCells": 477,
+            "vacant": 477,
+            "sampled": 96,
+            "nativeAccepted": 0
+          },
+          "WaterShallow": {
+            "terrainCells": 3542,
+            "vacant": 3542,
+            "sampled": 96,
+            "nativeAccepted": 0
+          },
+          "Soil": {
+            "terrainCells": 18010,
+            "vacant": 8647,
+            "sampled": 96,
+            "nativeAccepted": 96
+          },
+          "SoilRich": {
+            "terrainCells": 11582,
+            "vacant": 72,
+            "sampled": 72,
+            "nativeAccepted": 72
+          },
+          "AMJ_ThinSoil": {
+            "terrainCells": 0,
+            "vacant": 0,
+            "sampled": 0,
+            "nativeAccepted": 0
+          }
+        }
+      }
+    }
+  },
+  "terrain_rejection_diagnostics": {
+    "status": "one_biome_observed_temporary_fixture_only",
+    "observation_date": "2026-10-11",
+    "data_provenance": "User-supplied ColdBog Quickstart INFO excerpts only; no complete four-profile test summary, exact git HEAD or full ERROR gate evidence",
+    "probe_commit": "4609b4b9615e25a1b92193cf6e664ede310227e8",
+    "exact_local_head_verified": false,
+    "complete_runtime_pass_confirmed": false,
+    "biome": "ColdBog",
+    "source_log": "TestResults/VegetationRuntime/Reports/AMJColdBogVegetationQuickstart.log",
+    "source_lines_by_fixture": {
+      "AMJE_Test_Yoshi": 1177,
+      "AMJE_Test_Suge": 1186,
+      "AMJE_Test_Hannoki": 1195,
+      "AMJE_Test_Mizugoke": 1204
+    },
+    "same_result_all_four_fixtures": true,
+    "loaded_fixture_fertility_min": "0.05",
+    "loaded_completely_ignore_fertility": false,
+    "loaded_wild_terrain_tags_count": 0,
+    "check_map_temperature": false,
+    "terrain_results_each_fixture": {
+      "Mud": {
+        "terrainCells": 10424,
+        "vacant": 10424,
+        "sampled": 96,
+        "nativeAccepted": 0,
+        "belowFertilityMin": 96,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "0.00..0.00"
+      },
+      "MarshyTerrain": {
+        "terrainCells": 10886,
+        "vacant": 5498,
+        "sampled": 96,
+        "nativeAccepted": 96,
+        "belowFertilityMin": 0,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "1.00..1.00"
+      },
+      "Marsh": {
+        "terrainCells": 477,
+        "vacant": 477,
+        "sampled": 96,
+        "nativeAccepted": 0,
+        "belowFertilityMin": 96,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "0.00..0.00"
+      },
+      "WaterShallow": {
+        "terrainCells": 3542,
+        "vacant": 3542,
+        "sampled": 96,
+        "nativeAccepted": 0,
+        "belowFertilityMin": 96,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "0.00..0.00"
+      },
+      "Soil": {
+        "terrainCells": 18009,
+        "vacant": 8652,
+        "sampled": 96,
+        "nativeAccepted": 95,
+        "belowFertilityMin": 0,
+        "rejectedWithEnoughFertility": 1,
+        "sampledFertilityRange": "1.00..1.00"
+      },
+      "SoilRich": {
+        "terrainCells": 11579,
+        "vacant": 81,
+        "sampled": 81,
+        "nativeAccepted": 81,
+        "belowFertilityMin": 0,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "1.40..1.40"
+      },
+      "AMJ_ThinSoil": {
+        "terrainCells": 0,
+        "vacant": 0,
+        "sampled": 0,
+        "nativeAccepted": 0,
+        "belowFertilityMin": 0,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "none"
+      }
+    },
+    "analysis": "On Mud, Marsh and WaterShallow, all 96 tested cells were rejected on fertility=0.00 (below 0.05); no extra rejections. MarshyTerrain and SoilRich accept all samples. Soil accepts 95/96, with the remaining rejection unrelated to fertility; its exact cause was not recorded (possible other native gates, not yet attributed). AMJ_ThinSoil was absent, not proved incompatible.",
+    "decision": "This is fixture evidence only. Do not infer final terrain preferences, water support, naturally spawning plants, or approve commonality weights. Additional Soil failure investigation is optional and should not block the separate balance review."
+  },
+  "loaded_terrain_contract_observations": {
+    "status": "loaded_terrain_defs_only_no_plant_spawn_pass",
+    "observation_date": "2026-10-11",
+    "source_basis": "Author-supplied [AMJ Environment Wetland Loaded Terrain Contract] INFO lines from two standard isolated wetland Quickstarts; not full test report or four-profile PASS",
+    "instrumentation_commit": "876e6911e7e4c75d5fee61bbbb57fa1133d05f14",
+    "local_head_verified": false,
+    "full_run_tests_pass_verified": false,
+    "terrain_def_consistency": "Tags, IsWater and Def fertility matched between these two loaded map samples; mapCells can change with map generation and test timing.",
+    "biomes": {
+      "ColdBog": {
+        "log": "TestResults/VegetationRuntime/Reports/AMJColdBogVegetationQuickstart.log",
+        "source_line": 1177,
+        "logged_time": "2026-10-11 11:08:39.152",
+        "terrains": {
+          "Mud": {
+            "isWater": false,
+            "defFertility": "0.00",
+            "tags": [
+              "Mud"
+            ],
+            "mapCells": 10424
+          },
+          "MarshyTerrain": {
+            "isWater": false,
+            "defFertility": "1.00",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 10886
+          },
+          "Marsh": {
+            "isWater": true,
+            "defFertility": "0.00",
+            "tags": [
+              "Water",
+              "WaterMarshy"
+            ],
+            "mapCells": 477
+          },
+          "WaterShallow": {
+            "isWater": true,
+            "defFertility": "0.00",
+            "tags": [
+              "Water",
+              "WaterFreshShallow",
+              "WaterFreshShallowStill"
+            ],
+            "mapCells": 3542
+          },
+          "Soil": {
+            "isWater": false,
+            "defFertility": "1.00",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 18009
+          },
+          "SoilRich": {
+            "isWater": false,
+            "defFertility": "1.40",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 11576
+          },
+          "AMJ_ThinSoil": {
+            "isWater": false,
+            "defFertility": "0.50",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 0
+          }
+        }
+      },
+      "TemperateSwamp": {
+        "log": "TestResults/VegetationRuntime/Reports/AMJTemperateSwampVegetationQuickstart.log",
+        "source_line": 1190,
+        "logged_time": "2026-10-11 11:08:12.468",
+        "terrains": {
+          "Mud": {
+            "isWater": false,
+            "defFertility": "0.00",
+            "tags": [
+              "Mud"
+            ],
+            "mapCells": 6580
+          },
+          "MarshyTerrain": {
+            "isWater": false,
+            "defFertility": "1.00",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 13336
+          },
+          "Marsh": {
+            "isWater": true,
+            "defFertility": "0.00",
+            "tags": [
+              "Water",
+              "WaterMarshy"
+            ],
+            "mapCells": 0
+          },
+          "WaterShallow": {
+            "isWater": true,
+            "defFertility": "0.00",
+            "tags": [
+              "Water",
+              "WaterFreshShallow",
+              "WaterFreshShallowStill"
+            ],
+            "mapCells": 3672
+          },
+          "Soil": {
+            "isWater": false,
+            "defFertility": "1.00",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 14769
+          },
+          "SoilRich": {
+            "isWater": false,
+            "defFertility": "1.40",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 18469
+          },
+          "AMJ_ThinSoil": {
+            "isWater": false,
+            "defFertility": "0.50",
+            "tags": [
+              "Soil"
+            ],
+            "mapCells": 0
+          }
+        }
+      }
+    },
+    "interpretation": {
+      "WaterShallow": "Water,WaterFreshShallow,WaterFreshShallowStill, fertility=0.00; distinct from sampled Marsh/Mud but tag uniqueness across all other game terrains is not established",
+      "Marsh": "Water,WaterMarshy, fertility=0.00; present only in ColdBog map",
+      "Mud": "Mud, fertility=0.00, isWater=false; not covered by water-specific tag alone",
+      "MarshyTerrain": "Soil, fertility=1.00, isWater=false; cannot distinguish from ordinary Soil/SoilRich/AMJ_ThinSoil by loaded terrain tags alone",
+      "AMJ_ThinSoil": "Soil, fertility=0.50, loaded in both profiles but no cells sampled",
+      "constraints": "An XML WildTerrainTags selection could distinguish shown shallow freshwater from shown Marsh and Mud, but zero fertility still blocks current fixtures. To consider natural water placement requires resolving fertility gating plus the wild spawner's density and competition effects, comparing all loaded water terrain types; not approved. Dedicated sphagnum peat habitat cannot be inferred from Soil-tagged terrain; no custom terrain or broad fertility-ignore is authorized."
+    },
+    "next_decision": "No production XML, PlantDef, wildPlants weights, TerrainDef tags, custom C#, or image changes. First compare the loaded 1.6 wild-plant spawner restrictions and selective XML-only feasibility, if gameplay design later requires truly shallow-water Yoshi. Preserve accepted source/design gates."
+  }
 }
