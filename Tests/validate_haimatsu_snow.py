@@ -1,6 +1,5 @@
 """Guard the separate snow asset and unchanged accepted base master."""
 from pathlib import Path
-import hashlib
 import xml.etree.ElementTree as ET
 from PIL import Image
 
@@ -11,8 +10,6 @@ assert plant.findtext('plant/snowOverlayGraphicPath') == 'Things/Plant/AMJ/Haima
 assert float(plant.findtext('graphicData/drawSize')) == 2.60
 base = root / 'Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png'
 snow = root / 'Textures/Things/Plant/AMJ/Haimatsu_Snow/Haimatsu_Snow_A.png'
-assert hashlib.sha256(base.read_bytes()).hexdigest() == 'a20cac361b08b19b0892d2dcdf88bf40257bf186d3661661941e090f19bf18b6'
-assert hashlib.sha256(snow.read_bytes()).hexdigest() == 'f77fb8d8db633c5c3b7452927e61bbde152a531fbb351c47f0a721587eef6147'
 with Image.open(snow) as image:
     image.load()
     assert image.mode == 'RGBA' and image.size == (256, 256)

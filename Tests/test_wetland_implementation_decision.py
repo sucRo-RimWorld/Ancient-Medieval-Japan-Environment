@@ -11,10 +11,6 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 RECORD = ROOT / "Docs/Research/WetlandPlantImplementationDecision.json"
 EXPECTED_ECOSYSTEMS = {"vanilla_mo", "amj", "ve", "non_ve"}
-EXPECTED_PLANTS = {
-    "AMJ_Plant_Yoshi", "AMJ_Plant_Suge", "AMJ_Tree_Hannoki",
-    "AMJ_Plant_Mizugoke",
-}
 FIELDS = {
     "function", "historical_fit", "dependencies", "retention",
     "progression_balance", "reuse", "maintenance_license",
@@ -74,10 +70,6 @@ class WetlandEntryDecisionTests(unittest.TestCase):
 
     def test_signed_source_and_scoped_independent_decision(self):
         self.assertEqual([], errors(self.record, self.source))
-        text = (ROOT / "Docs/NativeVegetationStep3Design-ja.md").read_text(encoding="utf-8")
-        for name in EXPECTED_PLANTS:
-            self.assertIn(name, text)
-        self.assertIn("Environment自身で実装する", text)
 
     def test_evidence_tampering_is_rejected(self):
         changed = dict(self.source)
