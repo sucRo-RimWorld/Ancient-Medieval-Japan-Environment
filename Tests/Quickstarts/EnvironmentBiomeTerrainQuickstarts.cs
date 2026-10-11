@@ -1238,17 +1238,26 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
 
             int shallow = 0, marshy = 0, soil = 0, rich = 0;
-            int otherSoilTagged = 0, outsideTags = 0;
+            int otherSoilTagged = 0, otherShallowWaterTagged = 0;
+            int outsideTags = 0;
             foreach (Thing thing in map.listerThings.ThingsOfDef(def))
             {
                 TerrainDef terrain = map.terrainGrid.TerrainAt(thing.Position);
+                // Validate the loaded tag contract for every plant, including
+                // named Vanilla terrains whose tags another Mod may change.
+                bool soilTagged = terrain.tags != null &&
+                    terrain.tags.Contains("Soil");
+                bool shallowWaterTagged = terrain.tags != null &&
+                    terrain.tags.Contains("WaterFreshShallowStill");
+                if (!soilTagged && !shallowWaterTagged)
+                    outsideTags++;
+
                 if (terrain.defName == "WaterShallow") shallow++;
                 else if (terrain.defName == "MarshyTerrain") marshy++;
                 else if (terrain.defName == "Soil") soil++;
                 else if (terrain.defName == "SoilRich") rich++;
-                else if (terrain.tags != null && terrain.tags.Contains("Soil"))
-                    otherSoilTagged++;
-                else outsideTags++;
+                else if (soilTagged) otherSoilTagged++;
+                else if (shallowWaterTagged) otherShallowWaterTagged++;
             }
             ThingDef tallGrass = DefDatabase<ThingDef>.GetNamedSilentFail(
                 "Plant_TallGrass");
@@ -1267,6 +1276,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " soil=" + soil + "/cells=" + soilCells +
                 " rich=" + rich + "/cells=" + richCells +
                 " otherSoilTagged=" + otherSoilTagged +
+                " otherShallowWaterTagged=" + otherShallowWaterTagged +
                 " outsideAllowedTags=" + outsideTags +
                 " existingTallGrass=" + tallGrassCount +
                 " existingMoss=" + mossCount +
