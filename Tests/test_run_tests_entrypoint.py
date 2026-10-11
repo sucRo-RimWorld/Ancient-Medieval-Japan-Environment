@@ -241,6 +241,15 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             staged = manager.fixture_root(game) / "Defs/WetlandBehaviorProbeDefs.xml"
             self.assertEqual(staged.read_bytes(), probe.read_bytes())
 
+            # Zero-nutrition PlantBase probes must not retain inherited
+            # RawBad food preference (duplicate startup ERROR per Def).
+            for plant in ET.parse(probe).getroot().findall("ThingDef"):
+                self.assertEqual(
+                    plant.findtext("ingestible/preferability"),
+                    "NeverForNutrition",
+                    plant.findtext("defName"),
+                )
+
             with self.assertRaisesRegex(ValueError, "refusing to overwrite"):
                 manager.stage(game, dll, probe)
 
