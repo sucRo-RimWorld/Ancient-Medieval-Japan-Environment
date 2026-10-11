@@ -874,7 +874,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
         // These defs exist only in the temporary Quicktests Mod. This checks
         // RimWorld's REAL loaded inheritance and native CutPlant job, without
         // promoting unapproved wetland yields or provisional graphics.
-        private static void AddWetlandBehaviorProbeAssertions(
+        protected static void AddWetlandBehaviorProbeAssertions(
             QuickstartVerification verification, Map map)
         {
             string[] names = { "AMJE_Test_Suge", "AMJE_Test_Mizugoke" };
