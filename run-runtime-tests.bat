@@ -20,6 +20,7 @@ set "CORE_SAVEDATA=%RESULT_ROOT%\SaveData-Core"
 set "CORE_REPORT_DIR=%RESULT_ROOT%\Reports-Core"
 set "QUICKTEST_DLL=%ROOT%DevQuickstarts\Assemblies\AncientMedievalJapanEnvironment.Quicktests.dll"
 set "QUICKTEST_MANAGER=%ROOT%Scripts\Manage-EnvironmentQuicktestFixture.py"
+set "WETLAND_PROBE_DEFS=%ROOT%Tests\Quickstarts\Fixtures\WetlandBehaviorProbeDefs.xml"
 set "QUICKTEST_STAGED="
 
 if not defined SKIP_STATIC (
@@ -64,7 +65,7 @@ if errorlevel 1 (
 
 echo.
 echo Staging standalone Environment Quicktests test Mod...
-py -3 "%QUICKTEST_MANAGER%" stage --game "%RIMWORLD_DIR%" --dll "%QUICKTEST_DLL%"
+py -3 "%QUICKTEST_MANAGER%" stage --game "%RIMWORLD_DIR%" --dll "%QUICKTEST_DLL%" --defs "%WETLAND_PROBE_DEFS%"
 if errorlevel 1 exit /b 2
 set "QUICKTEST_STAGED=1"
 set "RESULT=0"

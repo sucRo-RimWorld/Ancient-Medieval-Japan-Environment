@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    TEST-ONLY PlantBase inheritance and native CutPlant probes.
+    Loaded solely from the temporary AMJE.EnvironmentQuicktests Mod during
+    isolated Quickstarts. Never load from Environment's production Defs.
+    Haimatsu's existing approved graphic is reused ONLY as a machine-test
+    placeholder; it is not candidate artwork for either wetland species.
+    AMJE_Test_Suge's yield=1 is an arbitrary test fixture, NOT an approved
+    AMJ_Plant_Suge yield. No production wetland PlantDef is provided here.
+  -->
+  <ThingDef ParentName="PlantBase">
+    <defName>AMJE_Test_Suge</defName>
+    <label>test-only sedge cut probe</label>
+    <description>Temporary native harvesting probe, not game content.</description>
+    <selectable>true</selectable>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Haimatsu</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <!-- PlantBase inherits RawBad; zero-nutrition plants are not food. -->
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
+    <plant>
+      <growDays>12</growDays>
+      <fertilityMin>0.05</fertilityMin>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <harvestedThingDef>Hay</harvestedThingDef>
+      <harvestYield>1</harvestYield>
+      <harvestTag>Standard</harvestTag>
+      <harvestMinGrowth>0.80</harvestMinGrowth>
+      <harvestWork>100</harvestWork>
+      <harvestFailable>false</harvestFailable>
+    </plant>
+  </ThingDef>
+  <ThingDef ParentName="PlantBase">
+    <defName>AMJE_Test_Mizugoke</defName>
+    <label>test-only moss cut probe</label>
+    <description>Temporary native no-drop removal probe, not game content.</description>
+    <selectable>true</selectable>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Haimatsu</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <!-- PlantBase inherits RawBad; zero-nutrition plants are not food. -->
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
+    <plant>
+      <growDays>12</growDays>
+      <fertilityMin>0.05</fertilityMin>
+      <minGrowthTemperature>0</minGrowthTemperature>
+    </plant>
+  </ThingDef>
+</Defs>

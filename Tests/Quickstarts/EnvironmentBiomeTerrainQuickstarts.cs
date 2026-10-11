@@ -935,6 +935,125 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
         }
 
+        // These defs exist only in the temporary Quicktests Mod. This checks
+        // RimWorld's REAL loaded inheritance and native CutPlant job, without
+        // promoting unapproved wetland yields or provisional graphics.
+        protected static void AddWetlandBehaviorProbeAssertions(
+            QuickstartVerification verification, Map map)
+        {
+            string[] names = { "AMJE_Test_Suge", "AMJE_Test_Mizugoke" };
+            float previousYieldFactor = Find.Storyteller.difficulty.cropYieldFactor;
+            Find.Storyteller.difficulty.cropYieldFactor = 1f;
+
+            try
+            {
+                for (int index = 0; index < names.Length; index++)
+                {
+                    string name = names[index];
+                    bool sedge = index == 0;
+                    ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                    verification.Assert(name + " belongs to disposable Quicktests fixture", delegate
+                    {
+                        return def != null && def.plant != null &&
+                            def.modContentPack != null &&
+                            def.modContentPack.PackageIdPlayerFacing ==
+                                "sucro.ancientmedievaljapan.environment.quicktests";
+                    });
+
+                    verification.Assert(name + " loaded parent/interaction contract", delegate
+                    {
+                        return def != null && def.plant != null &&
+                            def.selectable &&
+                            System.Math.Abs(def.plant.minGrowthTemperature) < 0.001f &&
+                            (sedge
+                                ? def.plant.harvestedThingDef != null &&
+                                  def.plant.harvestedThingDef.defName == "Hay" &&
+                                  def.plant.harvestTag == "Standard" &&
+                                  System.Math.Abs(def.plant.harvestYield - 1f) < 0.001f
+                                : def.plant.harvestedThingDef == null);
+                    });
+
+                    if (map == null || def == null || def.plant == null)
+                        continue;
+
+                    // Use prepared, disposable soil cells. The plant is NOT
+                    // added to the biome pool and no natural-spawn PASS is claimed.
+                    IntVec3 cell = map.Center + new IntVec3(index * 7 + 12, 0, 12);
+                    foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 2f, true))
+                    {
+                        if (!area.InBounds(map))
+                            continue;
+                        foreach (Thing thing in area.GetThingList(map).ToArray())
+                            if (!(thing is Pawn))
+                                thing.Destroy(DestroyMode.Vanish);
+                        map.terrainGrid.SetTerrain(area, TerrainDefOf.Soil);
+                    }
+
+                    Plant plant = (Plant)GenSpawn.Spawn(def, cell, map);
+                    plant.Growth = 1f;
+                    plant.HitPoints = plant.MaxHitPoints;
+                    Pawn pawn = PawnGenerator.GeneratePawn(
+                        PawnKindDefOf.Colonist, Faction.OfPlayer);
+                    pawn.skills.GetSkill(SkillDefOf.Plants).Level = 0;
+                    GenSpawn.Spawn(pawn, cell + IntVec3.North, map);
+                    map.designationManager.AddDesignation(
+                        new Designation(plant, DesignationDefOf.CutPlant));
+                    pawn.jobs.StartJob(
+                        JobMaker.MakeJob(JobDefOf.CutPlant, plant),
+                        JobCondition.InterruptForced);
+
+                    int ticks = 0;
+                    while (!plant.Destroyed && ticks++ < 15000)
+                    {
+                        pawn.pather.PatherTick();
+                        if (pawn.jobs.curDriver == null)
+                            break;
+                        pawn.jobs.curDriver.DriverTick();
+                        if (pawn.jobs.curDriver != null)
+                            pawn.jobs.curDriver.DriverTickInterval(1);
+                    }
+
+                    int hay = 0;
+                    bool unexpectedItem = false;
+                    foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 2f, true))
+                    {
+                        if (!area.InBounds(map))
+                            continue;
+                        foreach (Thing thing in area.GetThingList(map))
+                        {
+                            if (thing.def.category != ThingCategory.Item)
+                                continue;
+                            if (thing.def.defName == "Hay")
+                                hay += thing.stackCount;
+                            else
+                                unexpectedItem = true;
+                        }
+                    }
+
+                    bool removed = plant.Destroyed;
+                    int observedHay = hay;
+                    bool wrongDrop = unexpectedItem;
+                    verification.Assert(
+                        name + " native CutPlant removes and drops expected items",
+                        delegate
+                        {
+                            return removed && !wrongDrop &&
+                                observedHay == (sedge ? 1 : 0);
+                        });
+                    Log.Message("[AMJ Environment Wetland Native Cut Probe] " +
+                        "biome=" + map.Biome.defName +
+                        " def=" + name + " destroyed=" + removed +
+                        " Hay=" + observedHay +
+                        " otherItem=" + wrongDrop + " ticks=" + ticks);
+                    pawn.Destroy(DestroyMode.Vanish);
+                }
+            }
+            finally
+            {
+                Find.Storyteller.difficulty.cropYieldFactor = previousYieldFactor;
+            }
+        }
+
         protected static void AddWetlandEcologyAssertions(
             QuickstartVerification verification, Map map, bool cold)
         {
@@ -3453,6 +3572,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, false);
+            AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
         }
     }
@@ -3529,6 +3649,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, true);
+            AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
         }
     }

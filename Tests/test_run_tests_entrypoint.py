@@ -121,6 +121,33 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             self.runtime_log_validator,
         )
 
+    def test_known_quickstarts_logcapture_race_is_a_bounded_infrastructure_retry(self):
+        # Upstream Quickstarts LogCapture.CountErrors iterates Verse.Log.Messages
+        # while it may be modified by another logging thread at game startup.
+        # One precisely recognized bootstrap failure may restart only the
+        # current scenario. A real ERROR or any other timeout remains fatal.
+        for required in (
+            "function Test-KnownQuickstartsLogCaptureRace",
+            "RimWorks.Quickstarts.Verification.LogCapture.CountErrors",
+            "RimWorks.Quickstarts.Quickstarter.StartGame",
+            "Could not execute post-long-event action. Exception: System.InvalidOperationException:",
+            "([regex]::Matches($raw, '\\[ERROR\\]')).Count -eq 1",
+            "for ($startupAttempt = 1; $startupAttempt -le 2; $startupAttempt++)",
+            "$startupAttempt -eq 1",
+            '$name + ".quickstarts-startup-race.log"',
+            "Copy-Item -LiteralPath $log -Destination $raceLog -Force",
+            "if (-not (Test-Path -LiteralPath $report))",
+            "Validate-EnvironmentRuntimeLog.ps1",
+        ):
+            self.assertIn(required, self.quickstarts)
+        self.assertEqual(
+            self.quickstarts.count("Test-KnownQuickstartsLogCaptureRace -LogPath $log"),
+            2,
+        )
+        self.assertIn("if (-not $result.passed", self.quickstarts)
+        self.assertIn("if ([int]$result.preLaunchErrors -gt 0)", self.quickstarts)
+        self.assertIn("if (-not $result.captureLive -or $result.logTruncated)", self.quickstarts)
+
     def test_standard_runtime_suite_includes_both_wetlands(self):
         self.assertIn('"AMJTemperateSwampVegetationQuickstart"', self.quickstarts)
         self.assertIn('"AMJColdBogVegetationQuickstart"', self.quickstarts)
@@ -218,6 +245,7 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             self.assertIn(marker, self.run_runtime)
         self.assertEqual(self.run_runtime.count('activate --game "%RIMWORLD_DIR%"'), 3)
         self.assertIn("sucro.ancientmedievaljapan.environment.quicktests", self.quicktest_manager)
+        self.assertIn('--defs "%WETLAND_PROBE_DEFS%"', self.run_runtime)
         self.assertIn("Quicktests fixture path already exists; refusing to overwrite", self.quicktest_manager)
         self.assertIn("Refusing to manage unowned Quicktests fixture", self.quicktest_manager)
 
@@ -235,10 +263,22 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             (game / "Mods").mkdir(parents=True)
             dll = temp / manager.DLL_NAME
             dll.write_bytes(b"MZfixture")
-            manager.stage(game, dll)
+            probe = ROOT / "Tests/Quickstarts/Fixtures/WetlandBehaviorProbeDefs.xml"
+            manager.stage(game, dll, probe)
+            staged = manager.fixture_root(game) / "Defs/WetlandBehaviorProbeDefs.xml"
+            self.assertEqual(staged.read_bytes(), probe.read_bytes())
+
+            # Zero-nutrition PlantBase probes must not retain inherited
+            # RawBad food preference (duplicate startup ERROR per Def).
+            for plant in ET.parse(probe).getroot().findall("ThingDef"):
+                self.assertEqual(
+                    plant.findtext("ingestible/preferability"),
+                    "NeverForNutrition",
+                    plant.findtext("defName"),
+                )
 
             with self.assertRaisesRegex(ValueError, "refusing to overwrite"):
-                manager.stage(game, dll)
+                manager.stage(game, dll, probe)
 
             config = temp / "ModsConfig.xml"
             config.write_text(

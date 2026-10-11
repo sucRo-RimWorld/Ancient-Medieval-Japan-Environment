@@ -55,10 +55,62 @@ marker and packageId match. This keeps test assemblies out of normal AMJE load
 semantics and prevents YADA filtering from depending on an executable
 `IfModActive` loader entry.
 
+### Temporary wetland harvest/removal probes (not production plants)
+
+The established Quicktests fixture manager now stages
+`Tests/Quickstarts/Fixtures/WetlandBehaviorProbeDefs.xml` **inside the
+temporary `AMJE.EnvironmentQuicktests` Mod only**, alongside its
+developer DLL. Production `loadFolders.xml`, Environment-owned
+`Defs/`, normal save data and subscriber payload are unchanged.
+The existing fixture cleanup removes the temporary Mod after the gate.
+
+The two existing wetland Quickstarts use genuine loaded RimWorld
+`PlantBase` inheritance and a colonist's native `CutPlant` job on
+disposable soil cells for `AMJE_Test_Suge` and `AMJE_Test_Mizugoke`.
+They check that the test-only sedge drops Hay and the test-only moss
+drops no item. Both are intentionally distinct from the future
+`AMJ_Plant_Suge` and `AMJ_Plant_Mizugoke` production DefNames. The
+test sedge's yield=1 and its borrowed already-owned Haimatsu sprite
+are **fixture mechanics only**, not author-approved crop balance
+or artwork. No biome `wildPlants` placement or wild spawning of
+these test plants is performed.
+
+Use the existing hidden `run-tests.bat` as usual. The native wetland
+result must include the probe assertions and the complete per-scenario
+runtime ERROR gate. CI/source review alone does **not** establish a
+loaded-game PASS, real future PlantDef inheritance, seasonal appearance,
+winter dormancy or a save migration. The original four-plant Steam
+release and editorial/art approval gates remain separate.
+
 The wiring is regression-locked by
 `Tests/test_run_tests_entrypoint.py`. In particular, the test requires both
 wetland Quickstarts to remain part of the default runtime suite and protects
 the root-only production loader / standalone Quicktests split.
+
+### Quickstarts startup log-capture race (isolated runtime)
+
+RimWorks Quickstarts currently enumerates RimWorld's live `Verse.Log.Messages`
+`Queue` during `LogCapture.CountErrors()` without coordinating with
+concurrent log writers. The 2026-10-11 author-provided AMJE+CCTO trace
+records `InvalidOperationException: Collection was modified` within
+`Quickstarter.StartGame` immediately after game/Quicktests initialization.
+No Quickstarts report was written, and the single scenario subsequently
+timed out. This is a **framework bootstrap failure**, not a passed CCTO
+assertion or evidence of plant compatibility failure.
+
+The existing `Scripts/Run-EnvironmentVegetationQuickstarts.ps1` recognizes
+**only** this specific stack trace when it is the **sole ERROR** in the
+scenario log **and no Quickstarts JSON report exists**. It terminates that
+aborted launch, retains the failed log as
+`Reports[-CCTO/-Core]/<scenario>.quickstarts-startup-race.log`, and retries
+**the same scenario at most once**. The failed first launch is recorded as
+infrastructure evidence, not reclassified as PASS. No other timeout, additional
+ERROR, missing/failed report, failed capture-integrity check or owned
+runtime ERROR is retried/ignored. A successful subsequent attempt must pass
+every original Quickstarts and external log gate; a second failure remains
+FAIL. This narrowly avoids unnecessary manual full-suite restarts while the
+underlying Quickstarts log queue concurrency bug remains upstream.
+**2026-10-11 author report:** `run-tests.bat` completed its static, isolated rendered runtime, RimTest and all four development Pickle profiles (20/20) on PR #91 before integration with PR #93. No complete per-scenario log/structured artifact or pinned local HEAD accompanied that final summary; the post-integration merge head must be validated separately before merging.
 
 ## Combined AMJ launcher
 
