@@ -6,8 +6,10 @@
     isolated Quickstarts. Never load from Environment's production Defs.
     Haimatsu's existing approved graphic is reused ONLY as a machine-test
     placeholder; it is not candidate artwork for these wetland species.
-    Suge/Yoshi/Hannoki yield=1, Yoshi's Hay and Hannoki's wood output
-    are experiment-only mechanics, not approved gameplay decisions.
+    Suge/Yoshi yield=1 and Yoshi's Hay output are experimental mechanics
+    ONLY; neither is an approved AMJ_Plant_Yoshi harvest/resource decision.
+    Hannoki's wood output and yield=1 are also provisional mechanics,
+    not approved production settings.
     No production wetland PlantDef is provided here.
   -->
   <ThingDef ParentName="PlantBase">
@@ -88,6 +90,10 @@
     <label>test-only alder wood cut probe</label>
     <description>Disposable alder tree mechanics probe, not game content.</description>
     <selectable>true</selectable>
+    <!-- Keep test-only zero-nutrition trees from inheriting a food preference. -->
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <graphicData>
       <texPath>Things/Plant/AMJ/Beech</texPath>
       <graphicClass>Graphic_Random</graphicClass>
