@@ -148,6 +148,30 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertIn("if ([int]$result.preLaunchErrors -gt 0)", self.quickstarts)
         self.assertIn("if (-not $result.captureLive -or $result.logTruncated)", self.quickstarts)
 
+    def test_yoshi_fixture_is_experimental_and_preserves_wetland_probes(self):
+        fixture = ROOT / "Tests/Quickstarts/Fixtures/WetlandBehaviorProbeDefs.xml"
+        defs = {
+            node.findtext("defName"): node
+            for node in ET.parse(fixture).getroot().findall("ThingDef")
+        }
+        self.assertEqual(set(defs), {
+            "AMJE_Test_Suge", "AMJE_Test_Mizugoke", "AMJE_Test_Yoshi"
+        })
+        yoshi = defs["AMJE_Test_Yoshi"]
+        self.assertEqual(yoshi.get("ParentName"), "PlantBase")
+        self.assertEqual(yoshi.findtext("plant/minGrowthTemperature"), "0")
+        self.assertEqual(yoshi.findtext("plant/harvestedThingDef"), "Hay")
+        self.assertEqual(yoshi.findtext("plant/harvestYield"), "1")
+        self.assertEqual(yoshi.findtext("plant/harvestMinGrowth"), "0.80")
+        self.assertIsNone(yoshi.find("plant/sowTags"))
+        self.assertEqual(yoshi.findtext("ingestible/preferability"),
+                         "NeverForNutrition")
+        self.assertIn("neither is an approved AMJ_Plant_Yoshi", fixture.read_text(encoding="utf-8"))
+        self.assertIn("AMJE_Test_Yoshi", self.quicktest_manager)
+        self.assertIn("AMJE_Test_Yoshi", self.world_quickstarts)
+        self.assertIn("maturity gates native harvest eligibility", self.world_quickstarts)
+        self.assertIn("plant.HarvestableNow", self.world_quickstarts)
+
     def test_standard_runtime_suite_includes_both_wetlands(self):
         self.assertIn('"AMJTemperateSwampVegetationQuickstart"', self.quickstarts)
         self.assertIn('"AMJColdBogVegetationQuickstart"', self.quickstarts)

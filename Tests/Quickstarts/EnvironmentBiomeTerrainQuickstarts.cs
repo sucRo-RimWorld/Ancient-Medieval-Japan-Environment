@@ -941,7 +941,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
         protected static void AddWetlandBehaviorProbeAssertions(
             QuickstartVerification verification, Map map)
         {
-            string[] names = { "AMJE_Test_Suge", "AMJE_Test_Mizugoke" };
+            string[] names = { "AMJE_Test_Suge", "AMJE_Test_Mizugoke", "AMJE_Test_Yoshi" };
             float previousYieldFactor = Find.Storyteller.difficulty.cropYieldFactor;
             Find.Storyteller.difficulty.cropYieldFactor = 1f;
 
@@ -950,7 +950,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 for (int index = 0; index < names.Length; index++)
                 {
                     string name = names[index];
-                    bool sedge = index == 0;
+                    bool hayProbe = index != 1;
+                    bool yoshi = index == 2;
                     ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
                     verification.Assert(name + " belongs to disposable Quicktests fixture", delegate
                     {
@@ -965,12 +966,14 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         return def != null && def.plant != null &&
                             def.selectable &&
                             System.Math.Abs(def.plant.minGrowthTemperature) < 0.001f &&
-                            (sedge
+                            (hayProbe
                                 ? def.plant.harvestedThingDef != null &&
                                   def.plant.harvestedThingDef.defName == "Hay" &&
                                   def.plant.harvestTag == "Standard" &&
                                   System.Math.Abs(def.plant.harvestYield - 1f) < 0.001f
-                                : def.plant.harvestedThingDef == null);
+                                : def.plant.harvestedThingDef == null) &&
+                            (!yoshi || def.plant.sowTags == null ||
+                                def.plant.sowTags.Count == 0);
                     });
 
                     if (map == null || def == null || def.plant == null)
@@ -990,6 +993,21 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     }
 
                     Plant plant = (Plant)GenSpawn.Spawn(def, cell, map);
+                    if (yoshi)
+                    {
+                        // Probe the native harvest-eligibility threshold, not
+                        // an approved harvest product or a Harvest-designated job.
+                        plant.Growth = 0.40f;
+                        bool immatureHarvestable = plant.HarvestableNow;
+                        plant.Growth = 1f;
+                        bool matureHarvestable = plant.HarvestableNow;
+                        verification.Assert(name + " maturity gates native harvest eligibility",
+                            delegate { return !immatureHarvestable && matureHarvestable; });
+                        Log.Message("[AMJ Environment Reed Maturity Probe] " +
+                            "biome=" + map.Biome.defName +
+                            " immatureHarvestable=" + immatureHarvestable +
+                            " matureHarvestable=" + matureHarvestable);
+                    }
                     plant.Growth = 1f;
                     plant.HitPoints = plant.MaxHitPoints;
                     Pawn pawn = PawnGenerator.GeneratePawn(
@@ -1038,7 +1056,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         delegate
                         {
                             return removed && !wrongDrop &&
-                                observedHay == (sedge ? 1 : 0);
+                                observedHay == (hayProbe ? 1 : 0);
                         });
                     Log.Message("[AMJ Environment Wetland Native Cut Probe] " +
                         "biome=" + map.Biome.defName +

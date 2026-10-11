@@ -66,14 +66,18 @@ The existing fixture cleanup removes the temporary Mod after the gate.
 
 The two existing wetland Quickstarts use genuine loaded RimWorld
 `PlantBase` inheritance and a colonist's native `CutPlant` job on
-disposable soil cells for `AMJE_Test_Suge` and `AMJE_Test_Mizugoke`.
-They check that the test-only sedge drops Hay and the test-only moss
-drops no item. Both are intentionally distinct from the future
-`AMJ_Plant_Suge` and `AMJ_Plant_Mizugoke` production DefNames. The
-test sedge's yield=1 and its borrowed already-owned Haimatsu sprite
-are **fixture mechanics only**, not author-approved crop balance
-or artwork. No biome `wildPlants` placement or wild spawning of
-these test plants is performed.
+disposable soil cells for `AMJE_Test_Suge`, `AMJE_Test_Mizugoke`, and
+now `AMJE_Test_Yoshi`. The test-only sedge drops Hay and the test-only
+moss drops nothing. Yoshi's **experimental** fixture also drops one Hay
+solely to test what the native mechanics would do *if* Hay were selected;
+the author **has not approved Yoshi→Hay or any Yoshi harvest quantity**.
+For Yoshi, the existing wetland tests also compare the loaded
+`Plant.HarvestableNow` result at 40% and 100% growth and guard against
+inherited sowing tags. This is not a Harvest-designated Job test, nor
+proof of natural reed habitat or CCTO dormancy. All three test DefNames
+are distinct from production names. Borrowed Haimatsu graphics and all
+fixture growth/yield values are test mechanics only. No biome
+`wildPlants` placement or natural spawning of these test plants occurs.
 
 Use the existing hidden `run-tests.bat` as usual. The native wetland
 result must include the probe assertions and the complete per-scenario
