@@ -1,7 +1,7 @@
 # Step 3 湿地4種の地形適性・野生発生モデル調査（未承認）
 
 **状態：検討資料／ゲームへの適用なし。** 2026-10-11。所有：AMJ Environment。
-正式な植生・資材・CCTOの承認範囲は `Docs/NativeVegetationStep3Design-ja.md` §3.1–3.3.1 および `Docs/Research/WetlandPlantMaterialsProfiles-ja.md` を優先する。配分数値は引き続き `Docs/Research/WetlandPlantDistributionDraft.json` の `proposal_not_approved` のまま。本記録は許可・採用・自然発生PASSではない。
+正式な植生・資材・CCTOの承認範囲は `Docs/NativeVegetationStep3Design-ja.md` §3.1–3.3.1 および `Docs/Research/WetlandPlantMaterialsProfiles-ja.md` を優先する。配分数値は引き続き `Docs/Research/WetlandPlantDistributionDraft.json` の `proposal_not_approved` のまま。本記録は本番採用・本番PlantDef自然発生PASSではない。仮Defのみの観測結果を含む。
 
 ## 現行ゲームの観測（作者提供ログ抜粋）
 
@@ -95,7 +95,7 @@
 
 観測のデータ正本：`Docs/Research/WetlandPlantDistributionDraft.json` 内 `water_yoshi_natural_spawn_observations`。完了した一時試験のDef・Quickstarts計測・ステージングはPR #98で除去し、通常の自動回帰テストには増やさない。元の試験コード・条件はPR #98のコミット `b6a4ebde103f8b11b6c8c4527b19d59882e353f1` に残る。
 
-## 4種の水際・陸側の役割分担と次の限定実験（2026-10-11、未承認）
+## 4種の水際・陸側の役割分担と限定実験の結果（2026-10-11、未承認）
 
 ### 地形の観測と設計上の分離可能性
 
@@ -130,7 +130,7 @@ OR判定である。`Soil` と `WaterFreshShallowStill` の両方を許す
 
 - **案A：同一Def、水陸をOR許可。** 植物1種・Harvest/保存/翻訳/描画
   の単一性は維持できる。しかし湿地以外も含む`Soil`に広く分布し、
-  浅水と陸側の重みを独立に制御できない。まずこの制限を実測する。
+  浅水と陸側の重みを独立に制御できない。今回、水陸両域への自然発生を確認。ただし発生位置を個別に制御できない。
 - **案B：同じ植物を別Defの陸側型／水側型に分割。** 各型で
   `commonality` と地形適性を区別できるが、ThingDefが2件となり、
   収穫・名札・選択UI・画像・セーブ・将来CCTOの設定重複が生じる。
@@ -139,18 +139,63 @@ OR判定である。`Soil` と `WaterFreshShallowStill` の両方を許す
   TerrainDef／PatchMaker／生成C#の追加、既存セーブやMO・Waterworksへ
   波及するため、XML-onlyを使い切るまでは取りかからない。
 
-**試験PR #99（使い捨て・未承認）**：既存の隔離Quickstarts2シナリオで、
-単一の別仮Def `AMJE_Test_YoshiDualHabitatSpawn` に
-`wildTerrainTags=[WaterFreshShallowStill,Soil]`、
-`completelyIgnoreFertility=true`、岸距離制御ONを付ける。
-`commonality=0.05` は既存重みに**上乗せ**する観測用の仮値で、
-TallGrassの正本重みは変えない。通常マップ生成で出た個体を
-`WaterShallow`、`MarshyTerrain`、`Soil`、
-`SoilRich`、その他許可・非許可地形に分け、
-同一実行の地形セル数と共に記録する。
-以前の「水だけ0.25」と今回の「水陸0.05」は**候補地形と重みが
-同時に異なるため、比較しても単独の重み効果や因果的密度効果は
-推定できない**。いずれの結果も、植生の適正率の承認ではない。
+**試験PR #99：水陸両用ヨシ仮Defの実測（2026-10-11、観測のみ）**。
+
+作者提示の両湿地Quickstart INFOログ抜粋による。対象は
+`AMJE_Test_YoshiDualHabitatSpawn`、試験ブランチHEAD想定
+`bc6d50a116ecb727563e93d02ac4c0423a696346`。ローカル`git rev-parse HEAD`・全体`run-tests.bat`
+終了コード・完全なERRORゲートはこの2行だけでは照合できない。
+**仮Defがゲーム内の通常マップ生成によって発生した事実だけを認定し、
+テストスイート全体のPASSとは扱わない。**
+
+仮Defは`wildTerrainTags=[WaterFreshShallowStill,Soil]`（OR）、
+`completelyIgnoreFertility=true`、
+`wildPlantUseDistanceToShore=true`、`wildOrder=1`、
+`fertilityMin=0.05`。既存植生の重みは変えず、
+`commonality=0.05`を両湿地へ**追加**した。
+
+| 生育地形・同一実行の地形セル数 | TemperateSwamp | ColdBog |
+|---|---:|---:|
+| WaterShallow | **1,063 / 3,672** | **775 / 3,542** |
+| MarshyTerrain | 8 / 13,336 | 2 / 10,886 |
+| Soil | 7 / 14,780 | 4 / 18,009 |
+| SoilRich | 13 / 18,469 | 5 / 11,580 |
+| その他Soilタグ地形 | 0 | 0 |
+| その他浅水タグ地形 | 0 | 0 |
+| **許可タグ外** | **0** | **0** |
+| **仮ヨシ総数（うち陸側）** | **1,091（28）** | **786（11）** |
+| 浅水割合（仮ヨシ総数に占める） | **97.43%** | **98.60%** |
+| 背の高い草（TallGrass） | 17,889 | 10,841 |
+| コケ（Moss） | 0 | 8,305 |
+| 全植物（NonStumpPlant） | 37,777 | 26,633 |
+
+証拠：`TestResults/VegetationRuntime/Reports/AMJTemperateSwampVegetationQuickstart.log:1093`
+（2026-10-11 14:17:59.897）および
+`AMJColdBogVegetationQuickstart.log:1080`
+（同日14:18:34.006）。
+`[AMJ Environment Yoshi Dual Habitat Generated]` 行は
+既存CutPlant手動プローブ**前**の自然生成数である。
+
+**判定:** この構成で、淡水浅水と`Soil`タグを持つ陸地の
+**双方への自然発生は成立**。一方で生成個体の約97〜99%が浅水に集中した。
+`Soil`指定は岸辺だけでなく普通土・肥沃土にも及び、
+`wildPlantUseDistanceToShore`は陸地を水際に制限しない。
+これを本番バランスの承認とみなさない。
+
+以前の水域限定`commonality=0.25`時の浅水数は
+1,026 / 789で、今回の1,063 / 775と近い。
+しかし許可地形と重みを**同時に変更**し、
+別の非ペアマップで計測しているため、
+`commonality`低下の効果・変化の原因・既存植物への影響を
+**因果的に推定できない**。浅水候補が少ない場合には
+相対競合・密度ゲートが支配する可能性がある。
+
+**処理:** 仮Def・両湿地への仮Patch・一時Quickstart計測・
+そのためだけの静的テストはPR #99の統合前に撤去し、
+使い捨てコードの履歴はPRに残す。以降の常設シナリオは増やさない。
+正式な`AMJ_Plant_Yoshi`の水陸配置、必要な局所性、
+最終重み、収量・画像・4構成・セーブ・長期再生は別途検討し、
+未承認の値を本番XMLへ流用しない。
 
 ### 固定する現行の生態・所有契約
 

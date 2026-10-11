@@ -16,7 +16,7 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         }
         self.assertEqual(set(defs), {
             "AMJE_Test_Suge", "AMJE_Test_Mizugoke", "AMJE_Test_Yoshi",
-            "AMJE_Test_Hannoki", "AMJE_Test_YoshiDualHabitatSpawn"
+            "AMJE_Test_Hannoki"
         })
         yoshi = defs["AMJE_Test_Yoshi"]
         self.assertEqual(yoshi.get("ParentName"), "PlantBase")
@@ -27,16 +27,6 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertIsNone(yoshi.find("plant/sowTags"))
         self.assertEqual(yoshi.findtext("ingestible/preferability"),
                          "NeverForNutrition")
-        water = defs["AMJE_Test_YoshiDualHabitatSpawn"]
-        self.assertEqual(water.get("ParentName"), "PlantBase")
-        self.assertEqual(water.findtext("plant/completelyIgnoreFertility"), "true")
-        self.assertEqual(
-            [v.text for v in water.findall("plant/wildTerrainTags/li")],
-            ["WaterFreshShallowStill", "Soil"])
-        self.assertEqual(water.findtext("plant/wildPlantUseDistanceToShore"),
-                         "true")
-        self.assertEqual(water.findtext("plant/wildOrder"), "1")
-        self.assertIsNone(water.find("plant/harvestedThingDef"))
 
     def test_hannoki_fixture_native_wood_and_mo_control(self):
         fixture = ROOT / "Tests/Quickstarts/Fixtures/WetlandBehaviorProbeDefs.xml"
@@ -72,18 +62,6 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             manager.stage(game, dll, probe)
             staged = manager.fixture_root(game) / "Defs/WetlandBehaviorProbeDefs.xml"
             self.assertEqual(staged.read_bytes(), probe.read_bytes())
-            staged_patch = (manager.fixture_root(game) /
-                            "Patches/WetlandDualHabitatYoshiSpawnPatch.xml")
-            source_patch = (ROOT / "Tests/Quickstarts/Fixtures" /
-                            "WetlandDualHabitatYoshiSpawnPatch.xml")
-            self.assertEqual(staged_patch.read_bytes(), source_patch.read_bytes())
-            ops = ET.parse(source_patch).getroot().findall(
-                "Operation/operations/li")
-            self.assertEqual(len(ops), 2)
-            self.assertTrue(all(
-                op.get("Class") == "PatchOperationAdd" and
-                op.findtext("value/AMJE_Test_YoshiDualHabitatSpawn") == "0.05"
-                for op in ops))
 
             # Zero-nutrition PlantBase probes must not retain inherited
             # RawBad food preference (duplicate startup ERROR per Def).

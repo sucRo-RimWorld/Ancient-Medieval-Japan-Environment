@@ -647,5 +647,111 @@
       "No production image/Def, approved Yoshi harvest output/yield, save compatibility, winter/long-term regrowth or natural group distribution was verified."
     ],
     "decision": "XML-only spawn is technically feasible for these selected Vanilla-equivalent wetland terrain tags, but 0.25 added weight and >700 new specimens per map must not be treated as balanced. Do not adopt permanent plant/commonality/zero-fertility settings without ecological and runtime review. Retire temporary experiment after archiving evidence."
+  },
+  "dual_habitat_yoshi_natural_spawn_observations": {
+    "status": "natural_spawn_observed_in_two_test_only_info_excerpts_not_production_or_full_suite_pass",
+    "observation_date": "2026-10-11",
+    "source": "Author-pasted selected [AMJ Environment Yoshi Dual Habitat Generated] INFO lines from two isolated wetland Quickstarts; not complete run-tests.bat or captured ERROR gates.",
+    "tested_pr": 99,
+    "expected_test_branch_head": "bc6d50a116ecb727563e93d02ac4c0423a696346",
+    "local_test_head_confirmed": false,
+    "full_suite_pass_confirmed": false,
+    "test_only_def_name": "AMJE_Test_YoshiDualHabitatSpawn",
+    "test_only_mod": "sucro.ancientmedievaljapan.environment.quicktests",
+    "experimental_settings": {
+      "commonality_added_per_biome": "0.05",
+      "completelyIgnoreFertility": true,
+      "fertilityMin": "0.05",
+      "wildTerrainTags": [
+        "WaterFreshShallowStill",
+        "Soil"
+      ],
+      "wildPlantUseDistanceToShore": true,
+      "wildOrder": 1,
+      "builtin_genstep_plants": true
+    },
+    "observations_by_biome": {
+      "TemperateSwamp": {
+        "source_log": "TestResults/VegetationRuntime/Reports/AMJTemperateSwampVegetationQuickstart.log",
+        "source_line": 1093,
+        "logged_time": "2026-10-11 14:17:59.897",
+        "terrain": {
+          "WaterShallow": {
+            "generated": 1063,
+            "cells": 3672
+          },
+          "MarshyTerrain": {
+            "generated": 8,
+            "cells": 13336
+          },
+          "Soil": {
+            "generated": 7,
+            "cells": 14780
+          },
+          "SoilRich": {
+            "generated": 13,
+            "cells": 18469
+          }
+        },
+        "otherSoilTagged": 0,
+        "otherShallowWaterTagged": 0,
+        "outsideAllowedTags": 0,
+        "landCount": 28,
+        "totalExperimentPlants": 1091,
+        "waterSharePct": 97.43,
+        "existingTallGrass": 17889,
+        "existingMoss": 0,
+        "wholeMapNonStumpPlants": 37777
+      },
+      "ColdBog": {
+        "source_log": "TestResults/VegetationRuntime/Reports/AMJColdBogVegetationQuickstart.log",
+        "source_line": 1080,
+        "logged_time": "2026-10-11 14:18:34.006",
+        "terrain": {
+          "WaterShallow": {
+            "generated": 775,
+            "cells": 3542
+          },
+          "MarshyTerrain": {
+            "generated": 2,
+            "cells": 10886
+          },
+          "Soil": {
+            "generated": 4,
+            "cells": 18009
+          },
+          "SoilRich": {
+            "generated": 5,
+            "cells": 11580
+          }
+        },
+        "otherSoilTagged": 0,
+        "otherShallowWaterTagged": 0,
+        "outsideAllowedTags": 0,
+        "landCount": 11,
+        "totalExperimentPlants": 786,
+        "waterSharePct": 98.6,
+        "existingTallGrass": 10841,
+        "existingMoss": 8305,
+        "wholeMapNonStumpPlants": 26633
+      }
+    },
+    "prior_water_only_observations": {
+      "prior_pr": 98,
+      "prior_added_commonality": "0.25",
+      "prior_shallow_counts": {
+        "TemperateSwamp": 1026,
+        "ColdBog": 789
+      },
+      "not_paired_causal_comparison": true
+    },
+    "interpretation": "Test-only one-Def OR habitat admits natural shallow-water and soil spawns. Water comprises 97-99% of tested generated specimens, but one commonality is not separate habitat weights and Soil does not mean shore only. Neither density nor ecological suitability is approved.",
+    "limitations": [
+      "Only two INFO log excerpts provided; full suite completion, exact local head, loaded profile and runtime ERROR-zero gate not independently verified.",
+      "Original water-only 0.25 and new amphibious 0.05 vary commonality and eligible terrains together, with unpaired generation/random state.",
+      "Plant density and competing Vanilla/MO plants were not held constant; no causal density inference or official commonality decision.",
+      "No production image/Def, harvesting yield, winter/dormancy, natural regrowth, old saves, or full four-profile distribution/compatibility verification."
+    ],
+    "decision": "Archive observed one-Def feasibility; retire temporary instrumentation; retain unapproved production habitat and distribution/yield settings, without new tests or runtime files."
   }
 }
