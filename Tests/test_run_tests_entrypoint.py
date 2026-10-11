@@ -155,7 +155,8 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             for node in ET.parse(fixture).getroot().findall("ThingDef")
         }
         self.assertEqual(set(defs), {
-            "AMJE_Test_Suge", "AMJE_Test_Mizugoke", "AMJE_Test_Yoshi"
+            "AMJE_Test_Suge", "AMJE_Test_Mizugoke", "AMJE_Test_Yoshi",
+            "AMJE_Test_Hannoki"
         })
         yoshi = defs["AMJE_Test_Yoshi"]
         self.assertEqual(yoshi.get("ParentName"), "PlantBase")
@@ -171,6 +172,32 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         self.assertIn("AMJE_Test_Yoshi", self.world_quickstarts)
         self.assertIn("maturity gates native harvest eligibility", self.world_quickstarts)
         self.assertIn("plant.HarvestableNow", self.world_quickstarts)
+
+    def test_hannoki_fixture_native_wood_and_mo_control(self):
+        fixture = ROOT / "Tests/Quickstarts/Fixtures/WetlandBehaviorProbeDefs.xml"
+        defs = {
+            node.findtext("defName"): node
+            for node in ET.parse(fixture).getroot().findall("ThingDef")
+        }
+        tree = defs["AMJE_Test_Hannoki"]
+        self.assertEqual(tree.get("ParentName"), "DeciduousTreeBase")
+        self.assertEqual(tree.findtext("plant/minGrowthTemperature"), "0")
+        self.assertEqual(tree.findtext("plant/harvestedThingDef"), "WoodLog")
+        self.assertEqual(tree.findtext("plant/harvestTag"), "Wood")
+        self.assertEqual(tree.findtext("plant/harvestYield"), "1")
+        self.assertIsNone(tree.find("plant/sowTags"))
+        self.assertEqual(tree.findtext("plant/leaflessGraphicPath"),
+                         "Things/Plant/AMJ/Beech_Leafless")
+        self.assertIn("AMJE_Test_Hannoki", self.quicktest_manager)
+        self.assertIn("AddHannokiBehaviorProbeAssertions", self.world_quickstarts)
+        self.assertIn("AMJ_Tree_Shii", self.world_quickstarts)
+        self.assertIn("recognizedResource", self.world_quickstarts)
+        self.assertIn("native CutPlant drops reference wood only", self.world_quickstarts)
+        self.assertEqual(
+            self.world_quickstarts.count(
+                "AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap)"),
+            2,
+        )
 
     def test_standard_runtime_suite_includes_both_wetlands(self):
         self.assertIn('"AMJTemperateSwampVegetationQuickstart"', self.quickstarts)

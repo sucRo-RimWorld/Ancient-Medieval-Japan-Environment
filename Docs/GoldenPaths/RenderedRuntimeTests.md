@@ -67,7 +67,7 @@ The existing fixture cleanup removes the temporary Mod after the gate.
 The two existing wetland Quickstarts use genuine loaded RimWorld
 `PlantBase` inheritance and a colonist's native `CutPlant` job on
 disposable soil cells for `AMJE_Test_Suge`, `AMJE_Test_Mizugoke`, and
-now `AMJE_Test_Yoshi`. The test-only sedge drops Hay and the test-only
+`AMJE_Test_Yoshi`. The test-only sedge drops Hay and the test-only
 moss drops nothing. Yoshi's **experimental** fixture also drops one Hay
 solely to test what the native mechanics would do *if* Hay were selected;
 the author **has not approved Yoshi→Hay or any Yoshi harvest quantity**.
@@ -78,6 +78,24 @@ proof of natural reed habitat or CCTO dormancy. All three test DefNames
 are distinct from production names. Borrowed Haimatsu graphics and all
 fixture growth/yield values are test mechanics only. No biome
 `wildPlants` placement or natural spawning of these test plants occurs.
+
+The same **two existing wetland Quickstarts** also load
+`AMJE_Test_Hannoki` from a separate temporary
+`DeciduousTreeBase` fixture with borrowed approved Beech graphics.
+They verify the loaded tree classification, selection and 0°C
+minimum growth setting and run a native colonist `CutPlant` job. The
+experiment uses **one wood item** solely for deterministic native-job
+mechanics; `WoodLog` and yield=1 are not approved Hannoki gameplay.
+The expected item is independently taken from the actual loaded
+`AMJ_Tree_Shii` tree: Vanilla `WoodLog`, or, where MO's wood-chain
+patch is enabled, `DankPyon_RawWood`. The fixture must match that
+actual loaded baseline and must produce only the expected item. The
+scenario logs inherited `sowTags` and `mustBeWildToSow` but does not
+approve or assert final Hannoki sowability, and **does not toggle MO
+woodChain**: it tests only the profile's currently loaded state.
+MO woodChain ON/OFF as a two-state matrix, real Hannoki-specific
+winter leaflessness/snow images, terrain placement, source yield,
+natural spawn, old saves, and real production Def remain OPEN.
 
 Use the existing hidden `run-tests.bat` as usual. The native wetland
 result must include the probe assertions and the complete per-scenario
