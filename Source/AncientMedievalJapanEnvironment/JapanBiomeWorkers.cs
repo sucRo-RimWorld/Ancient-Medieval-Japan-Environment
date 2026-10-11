@@ -17,8 +17,8 @@ namespace AncientMedievalJapan.Environment
 
         public static float BandScore(Tile tile, float centerTemperature)
         {
-            // Strong enough to establish the AMJ baseline vegetation bands
-            // over broad Vanilla workers, but intentionally not authoritative:
+            // Establish the AMJ vegetation bands among admitted candidates,
+            // but intentionally not authoritative:
             // specialized biomes from MO or other compatible mods may still
             // win part of the same climate band through normal worker scoring.
             return 38f - System.Math.Abs(tile.temperature - centerTemperature) * 0.25f;

@@ -3368,6 +3368,21 @@ namespace AncientMedievalJapan.Environment.Quicktests
     // World distribution checks must never force a biome onto the sample tiles.
     public sealed class AMJWorldWetlandDistributionQuickstart : AbstractQuickstart
     {
+        // Independent acceptance inventory: do not derive this from the
+        // production exclusion predicate, which could itself regress.
+        private static readonly string[] ReplacedVanillaBiomes =
+        {
+            "TropicalRainforest", "TropicalSwamp", "TemperateForest", "BorealForest",
+            "Tundra", "AridShrubland", "Desert", "ExtremeDesert", "IceSheet", "SeaIce"
+        };
+        private static readonly string[] AmjBands =
+        {
+            "AMJ_WarmTemperateForest", "AMJ_CoolTemperateForest",
+            "AMJ_SubalpineForest", "AMJ_AlpineZone"
+        };
+        private readonly Dictionary<string, int> biomeCounts = new Dictionary<string, int>();
+        private int surfaceTiles;
+        private int unassignedSurfaceTiles;
         private int landTiles;
         private int unassignedLandTiles;
         private int wetlandCandidates;
@@ -3378,7 +3393,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
         public override TaggedString description
         {
-            get { return "Audits naturally selected wetland biomes on a larger AMJ world."; }
+            get { return "Audits biome replacement, retained wetlands and compatible biomes on an unforced AMJ world."; }
         }
 
         public override int mapSize
@@ -3401,10 +3416,32 @@ namespace AncientMedievalJapan.Environment.Quicktests
             PlanetTile preferredWetland = PlanetTile.Invalid;
             PlanetTile fallback = PlanetTile.Invalid;
 
+            biomeCounts.Clear();
+            surfaceTiles = unassignedSurfaceTiles = landTiles = unassignedLandTiles = 0;
+            wetlandCandidates = temperateSwampTiles = coldBogTiles = wetlandOutsideCandidateTiles = 0;
+            selectedNaturalWetland = false;
+
             for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
             {
                 SurfaceTile tile = Find.WorldGrid[i] as SurfaceTile;
-                if (tile == null || tile.WaterCovered)
+                if (tile == null)
+                {
+                    continue;
+                }
+
+                surfaceTiles++;
+                string biome = tile.PrimaryBiome == null ? null : tile.PrimaryBiome.defName;
+                if (biome == null)
+                {
+                    unassignedSurfaceTiles++;
+                }
+                else
+                {
+                    biomeCounts[biome] = CountBiome(biome) + 1;
+                }
+                // Include water-covered SeaIce in the exclusion audit, then
+                // retain the existing land/wetland distribution measurements.
+                if (tile.WaterCovered)
                 {
                     continue;
                 }
@@ -3416,9 +3453,6 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     wetlandCandidates++;
                 }
 
-                string biome = tile.PrimaryBiome == null
-                    ? null
-                    : tile.PrimaryBiome.defName;
                 if (biome == null)
                 {
                     unassignedLandTiles++;
@@ -3471,6 +3505,15 @@ namespace AncientMedievalJapan.Environment.Quicktests
             selectedNaturalWetland = preferredWetland.Valid;
             Find.GameInitData.startingTile = selectedTile;
 
+            List<string> counts = new List<string>();
+            foreach (string name in ReplacedVanillaBiomes)
+                counts.Add(name + "=" + CountBiome(name));
+            foreach (string name in AmjBands)
+                counts.Add(name + "=" + CountBiome(name));
+            counts.Add("DankPyon_DarkForest=" + CountBiome("DankPyon_DarkForest"));
+            Log.Message("[AMJ Environment NaturalBiomeAudit] | surface=" + surfaceTiles +
+                " unassigned=" + unassignedSurfaceTiles + " | " + string.Join(" ", counts.ToArray()));
+
             int wetlands = temperateSwampTiles + coldBogTiles;
             Log.Message(
                 "[AMJ Environment WorldWetlandDistribution]" +
@@ -3503,7 +3546,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             result.Assert("large world has at least 2,000 land tiles",
                 delegate { return landTiles >= 2000; });
             result.Assert("all natural land tiles have biomes",
-                delegate { return unassignedLandTiles == 0; });
+                delegate { return unassignedLandTiles == 0 && unassignedSurfaceTiles == 0; });
             result.Assert("natural world has wetland candidates",
                 delegate { return wetlandCandidates > 0; });
             result.Assert("natural world has actual wetland biomes",
@@ -3522,7 +3565,36 @@ namespace AncientMedievalJapan.Environment.Quicktests
                          map.Biome.defName == "ColdBog");
                 });
 
+            foreach (string biome in ReplacedVanillaBiomes)
+            {
+                string name = biome;
+                result.Assert("natural surface has zero " + name + " tiles",
+                    delegate { return surfaceTiles > 0 && CountBiome(name) == 0; });
+            }
+            foreach (string biome in AmjBands)
+            {
+                string name = biome;
+                result.Assert("natural world retains " + name,
+                    delegate { return CountBiome(name) > 0; });
+            }
+            result.Assert("natural world retains temperate wetland",
+                delegate { return temperateSwampTiles > 0; });
+            result.Assert("natural world retains cool wetland",
+                delegate { return coldBogTiles > 0; });
+            result.Assert("MO Dark Forest coexists when MO is loaded",
+                delegate
+                {
+                    return ModLister.GetActiveModWithIdentifier("DankPyon.Medieval.Overhaul", true) == null ||
+                        CountBiome("DankPyon_DarkForest") > 0;
+                });
+
             return result;
+        }
+
+        private int CountBiome(string name)
+        {
+            int count;
+            return biomeCounts.TryGetValue(name, out count) ? count : 0;
         }
     }
 

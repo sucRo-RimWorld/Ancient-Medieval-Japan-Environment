@@ -381,6 +381,41 @@ Vanilla/MO/CCTO/MO+CCTO four-profile release testing remains separate and OPEN.
 
 ### What the standard runner currently proves
 
+**2026-10-12 biome replacement correction:** the existing natural-world
+`AMJWorldWetlandDistributionQuickstart` now scans all surface tiles, including
+water, and requires zero tiles for each of the ten excluded Vanilla biomes in
+`Docs/Design.md` §9.2.1. It also requires all four AMJ bands, both adopted
+wetlands and MO Dark Forest when MO is loaded. Together with the original
+seven wetland checks this is **24 assertions**, not seven. The strict payload
+runner expects 24 and rejects old seven-assertion reports. Use the existing
+four-profile hidden `Scripts/Run-WorkshopPayloadTests.py --world-biomes-only` path against a fresh,
+exact candidate/DLL; inspect `[AMJ Environment NaturalBiomeAudit]` counts and
+complete captured ERROR gates in Vanilla/MO/CCTO/MO+CCTO. No forced-biome map
+test or standard partial-profile run can certify this contract. The existing
+ten-test RimTest suite replaces its threshold-only check with 128 executions
+of the production selector using loaded native Workers, plus an ocean tile;
+this supplies a specific warm/high-rainfall and wetland regression, without
+adding another test suite. The focused mode reuses the same scenario, exact
+payload/source checks, profiles, hidden desktop, render and complete ERROR
+capture. It reports `test_scope=natural-world-biomes`, 24 assertions and one
+report per profile, `four_profile_biome_gate=true` only after all four complete,
+and always `full_four_profile_gate=false`; it does not clear map/cutting release
+acceptance. Default full execution remains unchanged. Neither changed source
+has new native PASS yet.
+
+After building/verifying a fresh clean-source candidate, run from the owner
+repository (use a new result directory):
+
+```powershell
+py -3 Scripts/Run-WorkshopPayloadTests.py --payload <extracted-candidate-root> --manifest <Manifest.json> --output <new-result-directory> --world-biomes-only
+```
+
+This launches only the existing natural-world test in Vanilla/MO/CCTO/MO+CCTO.
+The ordinary `run-tests.bat` still builds and checks the modified ten-test
+RimTest/Quickstart suites; the focused four-profile run supplies the missing
+cross-profile natural-world evidence instead of forcing unrelated wetland
+plant probes through this urgent repair.
+
 `run-tests.bat` runs static/build checks followed by the non-visible,
 rendering-enabled runtime suite. The default runtime profile includes
 **nine** Quickstarts, in order: WarmTemperate, CoolTemperate, Subalpine,

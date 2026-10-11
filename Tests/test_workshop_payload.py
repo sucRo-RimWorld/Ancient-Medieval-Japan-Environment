@@ -46,6 +46,22 @@ class GateTests(unittest.TestCase):
         changed['results'] = valid['results'][:-1]
         with self.assertRaises(ValueError):
             gate.validate_report(changed, 70, name)
+
+        # An old natural-world PASS omitted biome replacement entirely.
+        # Reject it in every profile, and reject a failed exclusion even if
+        # the report's top-level passed flag incorrectly remains true.
+        world_name = 'Workshop_AMJWorldWetlandDistributionQuickstart'
+        for profile in gate.PROFILES:
+            count = gate.expected_map_assertions(profile)[gate.SCENARIOS.index('WorldWetlandDistribution')]
+            world = dict(valid, quickstart=world_name, total=count,
+                         results=[{'passed': True} for _ in range(count)])
+            gate.validate_report(world, count, world_name)
+            old = dict(world, total=7, results=world['results'][:7])
+            with self.subTest(profile=profile), self.assertRaises(ValueError):
+                gate.validate_report(old, count, world_name)
+            world['results'][-1] = {'passed': False}
+            with self.subTest(profile=profile), self.assertRaises(ValueError):
+                gate.validate_report(world, count, world_name)
         changed['results'] = valid['results'][:-1] + [{'passed': False}]
         with self.assertRaises(ValueError):
             gate.validate_report(changed, 70, name)
