@@ -62,9 +62,35 @@ def stage(game, dll, defs=None):
         probe = ET.parse(defs).getroot()
         names = [n.findtext("defName") for n in probe.findall("ThingDef")]
         if probe.tag != "Defs" or sorted(names) != [
-                "AMJE_Test_Hannoki", "AMJE_Test_Mizugoke",
-                "AMJE_Test_Suge", "AMJE_Test_Yoshi"]:
+                "AMJE_Test_Hannoki", "AMJE_Test_HannokiSoilNativeSpawn",
+                "AMJE_Test_Mizugoke", "AMJE_Test_MizugokeSoilNativeSpawn",
+                "AMJE_Test_Suge", "AMJE_Test_SugeSoilNativeSpawn",
+                "AMJE_Test_Yoshi"]:
             raise ValueError("Wrong temporary wetland probe Defs: " + str(defs))
+        # Keep the temporary biome pool additions inside the owned Quicktests
+        # Mod, never the source production Patches folder.
+        wetland_patch = defs.with_name("WetlandSoilNativeSpawnPatch.xml")
+        if not wetland_patch.is_file():
+            raise ValueError("Missing isolated soil-spawn patch: " + str(wetland_patch))
+        p = ET.parse(wetland_patch).getroot()
+        ops = p.findall("Operation/operations/li")
+        expected = {
+            '/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants': {
+                "AMJE_Test_SugeSoilNativeSpawn", "AMJE_Test_HannokiSoilNativeSpawn"},
+            '/Defs/BiomeDef[defName="ColdBog"]/wildPlants': {
+                "AMJE_Test_SugeSoilNativeSpawn", "AMJE_Test_HannokiSoilNativeSpawn",
+                "AMJE_Test_MizugokeSoilNativeSpawn"},
+        }
+        observed = {}
+        for op in ops:
+            xpath = op.findtext("xpath")
+            entries = list(op.find("value") or [])
+            if (op.get("Class") != "PatchOperationAdd" or xpath in observed or
+                    any(e.text != "0.15" for e in entries)):
+                raise ValueError("Wrong temporary soil-spawn patch: " + str(wetland_patch))
+            observed[xpath] = {e.tag for e in entries}
+        if p.tag != "Patch" or observed != expected:
+            raise ValueError("Wrong temporary soil-spawn patch: " + str(wetland_patch))
     try:
         (root / "About").mkdir(parents=True)
         (root / "Assemblies").mkdir()
@@ -74,6 +100,9 @@ def stage(game, dll, defs=None):
         if defs is not None:
             (root / "Defs").mkdir()
             shutil.copy2(defs, root / "Defs" / "WetlandBehaviorProbeDefs.xml")
+            (root / "Patches").mkdir()
+            shutil.copy2(wetland_patch, root / "Patches" /
+                         "WetlandSoilNativeSpawnPatch.xml")
         _validate_owned_fixture(root)
     except Exception:
         if root.exists():

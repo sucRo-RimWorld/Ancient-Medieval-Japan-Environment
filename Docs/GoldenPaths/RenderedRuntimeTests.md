@@ -109,6 +109,21 @@ activation and cleanup, and parses the experimental probe XML. It does not
 establish native runtime PASS. Production loader and payload rejection are
 covered by the XML validator and executable publication tests.
 
+### Temporary soil-native spawn sampling (wetland Step 3 research only)
+
+Two existing wetland Quickstarts (no new scenario) temporarily stage
+`WetlandSoilNativeSpawnPatch.xml` together with three additional
+`Soil`-tagged, test-only native-spawn PlantDefs. The separate CutPlant
+probes are retained. Capture `[AMJ Environment Wetland Soil Native Generated]`
+in the existing two wetland logs before the manual fixture mutations.
+The experiment uses temporary added commonality 0.15 and must never be
+published as approved balance. The test asserts presence on wet `MarshyTerrain`
+and `Soil`/`SoilRich`, no spawn outside loaded `Soil` tags, and
+ColdBog-only test Mizugoke allocation. The incomplete author-side runtime
+report is not treated as PASS. Archive measurements in the existing research
+files and **remove the temporary Def/Patch/code once observed**, as with Yoshi
+PR #99. Do not add another scenario or a permanent fixture dependency.
+
 ### Quickstarts startup log-capture race (isolated runtime)
 
 RimWorks Quickstarts currently enumerates RimWorld's live `Verse.Log.Messages`

@@ -10,6 +10,8 @@
     ONLY; neither is an approved AMJ_Plant_Yoshi harvest/resource decision.
     Hannoki's wood output and yield=1 are also provisional mechanics,
     not approved production settings.
+    Three additional Soil-tag natural-spawn probes are staged only for an
+    isolated map-generation study; they are distinct from native CutPlant probes.
     No production wetland PlantDef is provided here.
   -->
   <ThingDef ParentName="PlantBase">
@@ -108,6 +110,68 @@
       <harvestTag>Wood</harvestTag>
       <harvestWork>100</harvestWork>
       <harvestFailable>false</harvestFailable>
+    </plant>
+  </ThingDef>
+
+  <!-- Native-map-generation candidate only. The borrowed sprite, weight and
+       growth fields have no production/visual/harvest approval. -->
+  <ThingDef ParentName="PlantBase">
+    <defName>AMJE_Test_SugeSoilNativeSpawn</defName>
+    <label>test-only native wetland soil habitat probe</label>
+    <description>Temporary native initial-plant-generation measurement.</description>
+    <selectable>true</selectable>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Haimatsu</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <ingestible><preferability>NeverForNutrition</preferability></ingestible>
+    <plant>
+      <growDays>12</growDays>
+      <fertilityMin>0.05</fertilityMin>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <wildTerrainTags><li>Soil</li></wildTerrainTags>
+      <wildOrder>1</wildOrder>
+    </plant>
+  </ThingDef>
+  <!-- Native-map-generation candidate only. The borrowed sprite, weight and
+       growth fields have no production/visual/harvest approval. -->
+  <ThingDef ParentName="DeciduousTreeBase">
+    <defName>AMJE_Test_HannokiSoilNativeSpawn</defName>
+    <label>test-only native wetland soil habitat probe</label>
+    <description>Temporary native initial-plant-generation measurement.</description>
+    <selectable>true</selectable>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Beech</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <ingestible><preferability>NeverForNutrition</preferability></ingestible>
+    <plant>
+      <growDays>12</growDays>
+      <fertilityMin>0.05</fertilityMin>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <wildTerrainTags><li>Soil</li></wildTerrainTags>
+      <wildOrder>1</wildOrder>
+      <leaflessGraphicPath>Things/Plant/AMJ/Beech_Leafless</leaflessGraphicPath>
+    </plant>
+  </ThingDef>
+  <!-- Native-map-generation candidate only. The borrowed sprite, weight and
+       growth fields have no production/visual/harvest approval. -->
+  <ThingDef ParentName="PlantBase">
+    <defName>AMJE_Test_MizugokeSoilNativeSpawn</defName>
+    <label>test-only native wetland soil habitat probe</label>
+    <description>Temporary native initial-plant-generation measurement.</description>
+    <selectable>true</selectable>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Haimatsu</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <ingestible><preferability>NeverForNutrition</preferability></ingestible>
+    <plant>
+      <growDays>12</growDays>
+      <fertilityMin>0.05</fertilityMin>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <wildTerrainTags><li>Soil</li></wildTerrainTags>
+      <wildOrder>1</wildOrder>
     </plant>
   </ThingDef>
 </Defs>

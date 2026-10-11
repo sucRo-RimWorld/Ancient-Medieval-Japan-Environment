@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <!-- TEST ONLY. Staged in AMJE.EnvironmentQuicktests, never production.
+       The 0.15 values are not approved weights. Existing biome entries are
+       preserved; this experiment is NOT a controlled density comparison. -->
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName="TemperateSwamp"]/wildPlants</xpath>
+        <value>
+          <AMJE_Test_SugeSoilNativeSpawn>0.15</AMJE_Test_SugeSoilNativeSpawn>
+          <AMJE_Test_HannokiSoilNativeSpawn>0.15</AMJE_Test_HannokiSoilNativeSpawn>
+        </value>
+      </li>
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName="ColdBog"]/wildPlants</xpath>
+        <value>
+          <AMJE_Test_SugeSoilNativeSpawn>0.15</AMJE_Test_SugeSoilNativeSpawn>
+          <AMJE_Test_HannokiSoilNativeSpawn>0.15</AMJE_Test_HannokiSoilNativeSpawn>
+          <AMJE_Test_MizugokeSoilNativeSpawn>0.15</AMJE_Test_MizugokeSoilNativeSpawn>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+</Patch>

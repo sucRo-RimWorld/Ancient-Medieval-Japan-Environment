@@ -16,7 +16,10 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
         }
         self.assertEqual(set(defs), {
             "AMJE_Test_Suge", "AMJE_Test_Mizugoke", "AMJE_Test_Yoshi",
-            "AMJE_Test_Hannoki"
+            "AMJE_Test_Hannoki",
+            "AMJE_Test_SugeSoilNativeSpawn",
+            "AMJE_Test_HannokiSoilNativeSpawn",
+            "AMJE_Test_MizugokeSoilNativeSpawn"
         })
         yoshi = defs["AMJE_Test_Yoshi"]
         self.assertEqual(yoshi.get("ParentName"), "PlantBase")
@@ -62,6 +65,13 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             manager.stage(game, dll, probe)
             staged = manager.fixture_root(game) / "Defs/WetlandBehaviorProbeDefs.xml"
             self.assertEqual(staged.read_bytes(), probe.read_bytes())
+            patch = (ROOT / "Tests/Quickstarts/Fixtures" /
+                     "WetlandSoilNativeSpawnPatch.xml")
+            staged_patch = (manager.fixture_root(game) / "Patches" /
+                            "WetlandSoilNativeSpawnPatch.xml")
+            self.assertEqual(staged_patch.read_bytes(), patch.read_bytes())
+            # No new test case: the existing fixture round-trip covers this
+            # disposable patch and the prior native CutPlant probes.
 
             # Zero-nutrition PlantBase probes must not retain inherited
             # RawBad food preference (duplicate startup ERROR per Def).

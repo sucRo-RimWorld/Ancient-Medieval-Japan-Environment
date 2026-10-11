@@ -1199,6 +1199,95 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
         }
 
+
+        // Disposable first-generation habitat sampling. No plants are placed
+        // by the test before this runs; the same existing wetland Quickstarts
+        // are reused. 0.15 is a TEST weight, never a proposed production value.
+        protected static void AddWetlandSoilNativeSpawnAssertions(
+            QuickstartVerification verification, Map map, bool cold)
+        {
+            if (map == null || map.Biome == null)
+                return;
+
+            string[] candidates = cold
+                ? new[] { "AMJE_Test_SugeSoilNativeSpawn",
+                          "AMJE_Test_HannokiSoilNativeSpawn",
+                          "AMJE_Test_MizugokeSoilNativeSpawn" }
+                : new[] { "AMJE_Test_SugeSoilNativeSpawn",
+                          "AMJE_Test_HannokiSoilNativeSpawn" };
+
+            int marshyCells = 0, soilCells = 0, richCells = 0;
+            foreach (IntVec3 cell in map.AllCells)
+            {
+                string terrain = map.terrainGrid.TerrainAt(cell).defName;
+                if (terrain == "MarshyTerrain") marshyCells++;
+                else if (terrain == "Soil") soilCells++;
+                else if (terrain == "SoilRich") richCells++;
+            }
+
+            foreach (string name in candidates)
+            {
+                ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                verification.Assert(name + " disposable Soil-tag contract",
+                    delegate
+                    {
+                        return def != null && def.plant != null &&
+                            def.modContentPack != null &&
+                            def.modContentPack.PackageIdPlayerFacing ==
+                                "sucro.ancientmedievaljapan.environment.quicktests" &&
+                            def.plant.WildTerrainTags.Count == 1 &&
+                            def.plant.WildTerrainTags.Contains("Soil") &&
+                            !def.plant.completelyIgnoreFertility &&
+                            !def.plant.wildPlantUseDistanceToShore &&
+                            System.Math.Abs(map.Biome.CommonalityOfPlant(def) - 0.15f) <
+                                0.001f;
+                    });
+                if (def == null)
+                    continue;
+
+                int marshy = 0, soil = 0, rich = 0, otherSoil = 0, forbidden = 0;
+                foreach (Thing thing in map.listerThings.ThingsOfDef(def))
+                {
+                    TerrainDef terrain = map.terrainGrid.TerrainAt(thing.Position);
+                    bool tagged = terrain.tags != null &&
+                        terrain.tags.Contains("Soil");
+                    if (!tagged) forbidden++;
+                    if (terrain.defName == "MarshyTerrain") marshy++;
+                    else if (terrain.defName == "Soil") soil++;
+                    else if (terrain.defName == "SoilRich") rich++;
+                    else if (tagged) otherSoil++;
+                }
+                int naturalTotal = marshy + soil + rich + otherSoil + forbidden;
+                Log.Message("[AMJ Environment Wetland Soil Native Generated] biome=" +
+                    map.Biome.defName + " def=" + name +
+                    " marshy=" + marshy + "/cells=" + marshyCells +
+                    " soil=" + soil + "/cells=" + soilCells +
+                    " rich=" + rich + "/cells=" + richCells +
+                    " otherSoilTagged=" + otherSoil +
+                    " outsideSoilTag=" + forbidden +
+                    " total=" + naturalTotal +
+                    " experimentalCommonalityAdded=0.15" +
+                    " meaning=native-before-manual-probes-not-production");
+                verification.Assert(name + " native wetland soil/ordinary soil",
+                    delegate
+                    {
+                        return naturalTotal > 0 && marshy > 0 &&
+                            soil + rich > 0 && forbidden == 0;
+                    });
+            }
+            if (!cold)
+            {
+                ThingDef moss = DefDatabase<ThingDef>.GetNamedSilentFail(
+                    "AMJE_Test_MizugokeSoilNativeSpawn");
+                verification.Assert("Mizugoke temporary native pool remains ColdBog-only",
+                    delegate
+                    {
+                        return moss != null &&
+                            System.Math.Abs(map.Biome.CommonalityOfPlant(moss)) < 0.001f;
+                    });
+            }
+        }
+
         protected static void AddWetlandEcologyAssertions(
             QuickstartVerification verification, Map map, bool cold)
         {
@@ -3717,6 +3806,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, false);
+            AddWetlandSoilNativeSpawnAssertions(result, Find.CurrentMap, false);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
@@ -3795,6 +3885,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, true);
+            AddWetlandSoilNativeSpawnAssertions(result, Find.CurrentMap, true);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;

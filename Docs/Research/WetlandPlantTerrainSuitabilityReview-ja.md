@@ -266,3 +266,47 @@ ColdBog 21.88%（775/3,542）**。
 **次の必要証拠（無意味なテスト追加禁止）：** 既存の4構成隔離Quickstarts/Pickleを再利用し、RimWorld 1.6の実際のロード済み地形タグ・肥沃度・候補Def・自然発生適性を調べる。ゼロ肥沃度水面対応を採る必要がある場合のみ、使い捨てDefで種別／地形別の限定実験を行い、対象外の植物密度への副作用を比較する。画像完成後の本番PlantDef・分布比・古いセーブとの互換性は別ゲート。
 
 **現時点の結論：** 特にハンノキとミズゴケを水面全域の植物にする根拠はない。現行草案の配分値を承認・適用せず、ゲーム内で識別可能な湿地の下位環境と対応制限を確認してから値を決める。
+
+
+## スゲ・ハンノキ・ミズゴケの地表自然発生：隔離実験計画（2026-10-12、未承認）
+
+**対象:** 既存の`TemperateSwamp`／`ColdBog`湿地Quickstart **2件のみ**を
+そのまま利用する。前工程PR #99はヨシの水陸適性を実測したが、
+他3種は直接配置のCutPlant仮Defであり、`GenStep_Plants`による
+**初期自然発生**を確認していない。これを区別するため、
+別名の`AMJE_Test_SugeSoilNativeSpawn`、
+`AMJE_Test_HannokiSoilNativeSpawn`、
+`AMJE_Test_MizugokeSoilNativeSpawn`の一時仮Defを
+所有者マーカーで保護した`AMJE.EnvironmentQuicktests`に限定配置する。
+既存CutPlantの4仮Defはそのまま保持する。
+
+**変数:** 3仮Defは`WildTerrainTags=[Soil]`、
+`fertilityMin=0.05`、`completelyIgnoreFertility=false`、
+`wildOrder=1`。ハンノキ仮Defは
+`DeciduousTreeBase`継承、他2種は`PlantBase`。
+追加`commonality=0.15`は観測時の候補数を確保する
+**一時値**（競合を含む密度推定・最終重み案ではない）。
+スゲ・ハンノキは両湿地、ミズゴケは`ColdBog`だけへ追加する。
+既存Vanilla・MO植物を上書き・削除せず、希少採集植物と
+Healroot、CCTO、元の`wildPlants`を保つ。
+仮Defの採取・栽培／材木収量・画像／説明は**本番候補とみなさない**。
+
+**観測:** 既存Quickstartの地形・生態検査後、
+CutPlantなど手動プローブを置く前に、実際の新規生成マップの
+`MarshyTerrain`・`Soil`・`SoilRich`上の各仮Defの
+個体数と同一マップの地形セル数、その他Soilタグ地形、
+Soilタグ外の個体数をログに記録する。
+各仮Defが「ぬかるみ」と「普通土または肥沃土」に少なくとも
+各1本自然発生し、Soilタグ外0なら限定成功。
+`TemperateSwamp`にミズゴケを配分していないことも検査する。
+成果は**地形タグを分離できない制限と通常スポーナーの稼働確認**
+に限る。どの区分の望ましい株数かを示すものではなく、
+全体`run-tests.bat`／4構成PASSもログ抜粋のみでは認定しない。
+
+**終了条件:** 作者のWindows隔離実機で本試験HEADを検証し、
+2湿地の実際のINFO結果を本研究資料と
+`WetlandPlantDistributionDraft.json`へ保存した後、
+一時Def／Patch／Quickstart計測／fixtureマネージャー変更を撤去する。
+恒久的なテストや別シナリオを増やさない。
+不成立なら症状を観測し、肥沃度無視や追加TerrainDef、
+特殊C#を即採用しない。
