@@ -573,6 +573,8 @@ First runtime distribution with Medieval Overhaul active:
 
 This is accepted as a valid coexistence result rather than treated as an AMJ-band failure. MO Dark Forest is a specialized naturally generated biome with its own score rules and is allowed to replace part of the otherwise suitable AMJ cool/subalpine climate space. Exact AMJ biome percentages are therefore mod-list dependent and are not balance targets.
 
+**2026-10-11 MO野生薬草の独自Biome互換修正：** MO 1.6.2.2の`Patches/Core/Add_Plants_To_Biomes.xml`は野生Mindwort／Poppy／Fleawort／FlyAgaricを`TemperateForest`（各0.05）、`BorealForest`（各0.16）、`Tundra`（各0.05）に追加する。AMJEの4植生帯がそれらVanillaの世界生成枠を置き換えると、MOの元Def・元Biome設定が残っていても実際に薬草が生えるマップの比率が低下する。このため、MOが有効な場合に限り、AMJE所有の`AMJ_WarmTemperateForest`／`AMJ_CoolTemperateForest`（各0.05）、`AMJ_SubalpineForest`（各0.16）、`AMJ_AlpineZone`（各0.05）の各`wildPlants`へ、MO側の4種を欠損分だけ追加する。MO所有の植物ThingDef、元Vanilla5Biome（森林3・湿地2）の値、MO所有DarkForestは変更しない。既に追加されている場合は重複させず上書きもしない。これは既存MOの生息場所をAMJE新Biomeへ継承する**任意互換**であり、AMJE単独の植物・薬草の追加機能ではない。XML/static、実ロード済みPickle、森林実マップQuickstartsで個別に検証し、新規実機結果を得るまではPASS扱いにしない。極寒・積雪の高山帯は実生数ゼロを直ちに配分欠落と判断せず、ロード済み出現設定と実生を区別して記録する。
+
 
 ### 9.6 Japan-specific structural wild vegetation
 

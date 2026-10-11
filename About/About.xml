@@ -27,5 +27,13 @@ A standalone environment overhaul that replaces and reconfigures Vanilla terrain
 
 Ancient &amp; Medieval Japan Core is not required. Crop Cold Tolerance Overhaul (CCTO) is optional; when present, AMJE applies a stricter realism-focused cold-response model to its own structural plants. Medieval Overhaul is also optional and treated as a first-class coexistence target.
 
-Save compatibility: A new game is recommended to evaluate the intended world/biome/terrain generation. Adding to existing saves has not been verified and does not regenerate the existing world. Removing this mod from saves that use its custom biomes, terrains, or plants is not recommended.</description>
+Save compatibility: A new game is recommended to evaluate the intended world/biome/terrain generation. Adding to existing saves has not been verified and does not regenerate the existing world. Removing this mod from saves that use its custom biomes, terrains, or plants is not recommended.
+
+ベータ版。
+
+日本列島をイメージした景観を再現する独立型の環境オーバーホール。バニラの地形・植生・バイオーム構成を置換・再編する。世界の気候、地形、河川、海岸、自然土壌、バイオーム配置、野生動物の分布を調整し、新たな自然地形「痩せた土壌（Thin Soil）」を追加する。RimWorld既存の世界生成・河川・海岸の仕組みを維持しながら、江戸以前の日本を意識した環境へ再構成する。バニラ植生の最初の広範な整理では、明らかに不適切な種を除去しつつ、森林や木本植物の密度は調整して維持した。残存するバニラ植物は、画像変更に先立って日本の歴史・生態に合わせて説明を見直す。日本に適した不足植生の追加は今後の予定。野生のヒールルートと既存の薬草供給は維持し、史実に即した薬草や治療薬は将来の別Modで扱う。野生動物の構成も日本に寄せて調整するが、バニラ動物は日本固有種を厳密に再現するものではなく、ゲーム上の役割を代用する。専門的な追加バイオームとの共存にも対応する。
+
+Ancient &amp; Medieval Japan Coreは不要。Crop Cold Tolerance Overhaul（CCTO）は任意で、導入時はAMJ Environment独自の構造植物に、より厳格な現実寄りの低温応答モデルを適用する。Medieval Overhaulも任意で、共存を主要な対応対象としている。
+
+セーブ互換性：意図した世界・バイオーム・地形生成を確認するには新規ゲームを推奨する。既存セーブへの追加は未検証で、既存ワールドは再生成されない。独自のバイオーム・地形・植物を使用したセーブからの削除は推奨しない。</description>
 </ModMetaData>

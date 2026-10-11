@@ -110,7 +110,7 @@ runtime ERROR is retried/ignored. A successful subsequent attempt must pass
 every original Quickstarts and external log gate; a second failure remains
 FAIL. This narrowly avoids unnecessary manual full-suite restarts while the
 underlying Quickstarts log queue concurrency bug remains upstream.
-**The 2026-10-11 CCTO Quickstart has not yet been shown PASS on this fix.**
+**2026-10-11 author report:** `run-tests.bat` completed its static, isolated rendered runtime, RimTest and all four development Pickle profiles (20/20) on PR #91 before integration with PR #93. No complete per-scenario log/structured artifact or pinned local HEAD accompanied that final summary; the post-integration merge head must be validated separately before merging.
 
 ## Combined AMJ launcher
 
