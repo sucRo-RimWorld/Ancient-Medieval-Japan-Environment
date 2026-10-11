@@ -87,6 +87,31 @@ The wiring is regression-locked by
 wetland Quickstarts to remain part of the default runtime suite and protects
 the root-only production loader / standalone Quicktests split.
 
+### Quickstarts startup log-capture race (isolated runtime)
+
+RimWorks Quickstarts currently enumerates RimWorld's live `Verse.Log.Messages`
+`Queue` during `LogCapture.CountErrors()` without coordinating with
+concurrent log writers. The 2026-10-11 author-provided AMJE+CCTO trace
+records `InvalidOperationException: Collection was modified` within
+`Quickstarter.StartGame` immediately after game/Quicktests initialization.
+No Quickstarts report was written, and the single scenario subsequently
+timed out. This is a **framework bootstrap failure**, not a passed CCTO
+assertion or evidence of plant compatibility failure.
+
+The existing `Scripts/Run-EnvironmentVegetationQuickstarts.ps1` recognizes
+**only** this specific stack trace when it is the **sole ERROR** in the
+scenario log **and no Quickstarts JSON report exists**. It terminates that
+aborted launch, retains the failed log as
+`Reports[-CCTO/-Core]/<scenario>.quickstarts-startup-race.log`, and retries
+**the same scenario at most once**. The failed first launch is recorded as
+infrastructure evidence, not reclassified as PASS. No other timeout, additional
+ERROR, missing/failed report, failed capture-integrity check or owned
+runtime ERROR is retried/ignored. A successful subsequent attempt must pass
+every original Quickstarts and external log gate; a second failure remains
+FAIL. This narrowly avoids unnecessary manual full-suite restarts while the
+underlying Quickstarts log queue concurrency bug remains upstream.
+**The 2026-10-11 CCTO Quickstart has not yet been shown PASS on this fix.**
+
 ## Combined AMJ launcher
 
 For a combined Grains + Environment gate, the reusable launcher remains in the
