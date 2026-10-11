@@ -1285,6 +1285,94 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " proxies={" + string.Join("; ", observations.ToArray()) + "}");
         }
 
+        // Observation ONLY. The four disposable wetland fixtures have not
+        // been tuned for species-specific terrain/hydrology, and none is in
+        // the live biome wildPlants pools. Use the RimWorld 1.6 native
+        // PlantUtility.CanEverPlantAt gate on unchanged, vacant map cells.
+        // Temperature is excluded here to isolate ground placement; density,
+        // shore-distance weighting and natural spawning are NOT evaluated.
+        protected static void AddWetlandFixtureTerrainEligibilitySurvey(Map map)
+        {
+            if (map == null || map.Biome == null)
+                return;
+
+            string[] terrains = {
+                "Mud", "MarshyTerrain", "Marsh", "WaterShallow",
+                "Soil", "SoilRich", "AMJ_ThinSoil"
+            };
+            string[] names = {
+                "AMJE_Test_Yoshi", "AMJE_Test_Suge",
+                "AMJE_Test_Hannoki", "AMJE_Test_Mizugoke"
+            };
+            List<IntVec3>[] vacantByTerrain = new List<IntVec3>[terrains.Length];
+            int[] allByTerrain = new int[terrains.Length];
+            for (int i = 0; i < terrains.Length; i++)
+                vacantByTerrain[i] = new List<IntVec3>();
+
+            foreach (IntVec3 cell in map.AllCells)
+            {
+                TerrainDef ground = map.terrainGrid.TerrainAt(cell);
+                if (ground == null)
+                    continue;
+                for (int i = 0; i < terrains.Length; i++)
+                {
+                    if (ground.defName != terrains[i])
+                        continue;
+                    allByTerrain[i]++;
+                    if (!cell.Roofed(map) &&
+                        cell.GetPlant(map) == null &&
+                        cell.GetEdifice(map) == null &&
+                        cell.GetCover(map) == null)
+                        vacantByTerrain[i].Add(cell);
+                    break;
+                }
+            }
+
+            const int MaxSamplesPerTerrain = 96;
+            foreach (string name in names)
+            {
+                ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                if (def == null || def.plant == null)
+                {
+                    Log.Error("[AMJ Environment Wetland Terrain Eligibility] " +
+                        "missing disposable fixture " + name);
+                    continue;
+                }
+
+                List<string> observations = new List<string>();
+                for (int i = 0; i < terrains.Length; i++)
+                {
+                    List<IntVec3> vacant = vacantByTerrain[i];
+                    int sampled = Math.Min(MaxSamplesPerTerrain, vacant.Count);
+                    int accepted = 0;
+                    for (int n = 0; n < sampled; n++)
+                    {
+                        // Evenly spaced deterministic samples from all
+                        // vacant generated-map cells of this terrain.
+                        int index = (int)(((long)(2 * n + 1) *
+                            vacant.Count) / (2 * sampled));
+                        IntVec3 cell = vacant[index];
+                        if (def.CanEverPlantAt(cell, map,
+                            canWipePlantsExceptTree: false,
+                            checkMapTemperature: false))
+                            accepted++;
+                    }
+                    observations.Add(terrains[i] +
+                        ":terrainCells=" + allByTerrain[i] +
+                        ",vacant=" + vacant.Count +
+                        ",sampled=" + sampled +
+                        ",nativeAccepted=" + accepted);
+                }
+                Log.Message("[AMJ Environment Wetland Terrain Eligibility] " +
+                    "biome=" + map.Biome.defName + " def=" + name +
+                    " fertilityMin=" + def.plant.fertilityMin.ToString("F2") +
+                    " maxSamplesPerTerrain=" + MaxSamplesPerTerrain +
+                    " checkMapTemperature=false" +
+                    " meaning=vacant-cell-native-placement-not-natural-spawn" +
+                    " results={" + string.Join("; ", observations.ToArray()) + "}");
+            }
+        }
+
         protected static void AddWetlandEcologyAssertions(
             QuickstartVerification verification, Map map, bool cold)
         {
@@ -3804,6 +3892,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, false);
             AddWetlandDistributionBaselineSurvey(Find.CurrentMap);
+            AddWetlandFixtureTerrainEligibilitySurvey(Find.CurrentMap);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
@@ -3883,6 +3972,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, true);
             AddWetlandDistributionBaselineSurvey(Find.CurrentMap);
+            AddWetlandFixtureTerrainEligibilitySurvey(Find.CurrentMap);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;

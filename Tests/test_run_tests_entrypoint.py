@@ -220,6 +220,40 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             part = self.world_quickstarts.split(start, 1)[1].split(end, 1)[0]
             self.assertLess(part.index(survey), part.index(cut))
 
+    def test_native_terrain_gate_surveys_vacant_cells_without_mutation(self):
+        method = self.world_quickstarts.split(
+            "protected static void AddWetlandFixtureTerrainEligibilitySurvey(", 1
+        )[1].split("protected static void AddWetlandEcologyAssertions(", 1)[0]
+        for expected in (
+            "AMJE_Test_Yoshi", "AMJE_Test_Suge",
+            "AMJE_Test_Hannoki", "AMJE_Test_Mizugoke",
+            "Mud", "MarshyTerrain", "Marsh", "WaterShallow",
+            "Soil", "SoilRich", "AMJ_ThinSoil",
+            "def.CanEverPlantAt(cell, map,",
+            "checkMapTemperature: false",
+            "maxSamplesPerTerrain=",
+            "nativeAccepted=",
+            "meaning=vacant-cell-native-placement-not-natural-spawn",
+        ):
+            self.assertIn(expected, method)
+        for forbidden in ("GenSpawn.Spawn", "SpawnPlant(",
+                          "SetTerrain(", "AddDesignation(",
+                          "wildPlants.Add(", "wildPlants.Remove("):
+            self.assertNotIn(forbidden, method)
+        survey = "AddWetlandFixtureTerrainEligibilitySurvey(Find.CurrentMap);"
+        baseline = "AddWetlandDistributionBaselineSurvey(Find.CurrentMap);"
+        cutting = "AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);"
+        self.assertEqual(self.world_quickstarts.count(survey), 2)
+        for start, end in (
+            ("public sealed class AMJTemperateSwampVegetationQuickstart",
+             "public sealed class AMJColdBogVegetationQuickstart"),
+            ("public sealed class AMJColdBogVegetationQuickstart",
+             "public sealed class AMJPlantGrowthReviewQuickstart"),
+        ):
+            part = self.world_quickstarts.split(start, 1)[1].split(end, 1)[0]
+            self.assertLess(part.index(baseline), part.index(survey))
+            self.assertLess(part.index(survey), part.index(cutting))
+
     def test_standard_runtime_suite_includes_both_wetlands(self):
         self.assertIn('"AMJTemperateSwampVegetationQuickstart"', self.quickstarts)
         self.assertIn('"AMJColdBogVegetationQuickstart"', self.quickstarts)

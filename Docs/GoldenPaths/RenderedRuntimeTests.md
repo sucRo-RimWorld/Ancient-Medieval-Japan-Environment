@@ -82,6 +82,38 @@ species-specific fertility/terrain constraints, commonalities or final
 production vegetation. The fixed single-seed map sample alone cannot
 validate a proposed Japanese low-fen/peat-bog ecological gradient.
 
+### Disposable wetland terrain eligibility survey (not natural spawning)
+
+In the same two existing wetland Quickstarts, **after the distribution
+baseline line and before any temporary cutting tests**, the runner scans
+generated-map cells of seven explicitly named terrains: `Mud`,
+`MarshyTerrain`, `Marsh`, `WaterShallow`, `Soil`,
+`SoilRich`, and `AMJ_ThinSoil`. On unroofed cells without existing
+plants, covers or edifices, it takes up to 96 evenly spaced deterministic
+samples **per terrain**. For each of the four disposable PlantDefs
+(`AMJE_Test_Yoshi`, `AMJE_Test_Suge`,
+`AMJE_Test_Hannoki`, `AMJE_Test_Mizugoke`), the normal RimWorld 1.6
+`CanEverPlantAt` API checks that cell's loaded terrain, fertility,
+terrain tags, pollution and blocking state. Temperature is deliberately
+disabled for this *terrain-only* query. Each species/biome logs
+`[AMJ Environment Wetland Terrain Eligibility]` with total named terrain
+cells, available vacant cells, actual number sampled and native-accepted
+samples. No cell is modified and no extra biome/spawner/test scenario is
+created. A terrain with zero available vacant cells produces
+`sampled=0,nativeAccepted=0`, **not** evidence of species incompatibility.
+
+**Limits:** the four fixture Defs currently have shared test-only
+fertility thresholds and no accepted species-specific hydrology or
+terrain exclusions. A native placement acceptance result is not
+proof of the species' planned natural habitat: the plants are absent
+from live `wildPlants`; spawner density, `wildOrder`, local plant
+competition, shore-distance probabilities, temperatures, and final
+tuned `WildTerrainTags` are not checked. The observation does not
+authorize the 4-species proposal weights, custom water support,
+new-game map distribution, or release. Compare sampled native
+placement capabilities to the documented ecological roles **before**
+making any new permanent terrain or distribution decision.
+
 ### Temporary wetland harvest/removal probes (not production plants)
 
 The established Quicktests fixture manager now stages
