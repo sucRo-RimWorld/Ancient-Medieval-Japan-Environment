@@ -18,6 +18,10 @@
       <texPath>Things/Plant/AMJ/Haimatsu</texPath>
       <graphicClass>Graphic_Random</graphicClass>
     </graphicData>
+    <!-- PlantBase inherits RawBad; zero-nutrition plants are not food. -->
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <growDays>12</growDays>
       <fertilityMin>0.05</fertilityMin>
@@ -39,6 +43,10 @@
       <texPath>Things/Plant/AMJ/Haimatsu</texPath>
       <graphicClass>Graphic_Random</graphicClass>
     </graphicData>
+    <!-- PlantBase inherits RawBad; zero-nutrition plants are not food. -->
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <growDays>12</growDays>
       <fertilityMin>0.05</fertilityMin>
