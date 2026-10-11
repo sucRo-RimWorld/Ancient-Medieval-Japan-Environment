@@ -121,6 +121,33 @@ class UnifiedTestEntrypointTests(unittest.TestCase):
             self.runtime_log_validator,
         )
 
+    def test_known_quickstarts_logcapture_race_is_a_bounded_infrastructure_retry(self):
+        # Upstream Quickstarts LogCapture.CountErrors iterates Verse.Log.Messages
+        # while it may be modified by another logging thread at game startup.
+        # One precisely recognized bootstrap failure may restart only the
+        # current scenario. A real ERROR or any other timeout remains fatal.
+        for required in (
+            "function Test-KnownQuickstartsLogCaptureRace",
+            "RimWorks.Quickstarts.Verification.LogCapture.CountErrors",
+            "RimWorks.Quickstarts.Quickstarter.StartGame",
+            "Could not execute post-long-event action. Exception: System.InvalidOperationException:",
+            "([regex]::Matches($raw, '\\[ERROR\\]')).Count -eq 1",
+            "for ($startupAttempt = 1; $startupAttempt -le 2; $startupAttempt++)",
+            "$startupAttempt -eq 1",
+            '$name + ".quickstarts-startup-race.log"',
+            "Copy-Item -LiteralPath $log -Destination $raceLog -Force",
+            "if (-not (Test-Path -LiteralPath $report))",
+            "Validate-EnvironmentRuntimeLog.ps1",
+        ):
+            self.assertIn(required, self.quickstarts)
+        self.assertEqual(
+            self.quickstarts.count("Test-KnownQuickstartsLogCaptureRace -LogPath $log"),
+            2,
+        )
+        self.assertIn("if (-not $result.passed", self.quickstarts)
+        self.assertIn("if ([int]$result.preLaunchErrors -gt 0)", self.quickstarts)
+        self.assertIn("if (-not $result.captureLive -or $result.logTruncated)", self.quickstarts)
+
     def test_standard_runtime_suite_includes_both_wetlands(self):
         self.assertIn('"AMJTemperateSwampVegetationQuickstart"', self.quickstarts)
         self.assertIn('"AMJColdBogVegetationQuickstart"', self.quickstarts)
