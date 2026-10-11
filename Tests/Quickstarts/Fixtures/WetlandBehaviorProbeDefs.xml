@@ -6,8 +6,8 @@
     isolated Quickstarts. Never load from Environment's production Defs.
     Haimatsu's existing approved graphic is reused ONLY as a machine-test
     placeholder; it is not candidate artwork for these wetland species.
-    Suge/Yoshi yield=1 and Yoshi's Hay output are experimental mechanics
-    ONLY; neither is an approved AMJ_Plant_Yoshi harvest/resource decision.
+    Suge/Yoshi/Hannoki yield=1, Yoshi's Hay and Hannoki's wood output
+    are experiment-only mechanics, not approved gameplay decisions.
     No production wetland PlantDef is provided here.
   -->
   <ThingDef ParentName="PlantBase">
@@ -77,6 +77,29 @@
       <harvestYield>1</harvestYield>
       <harvestTag>Standard</harvestTag>
       <harvestMinGrowth>0.80</harvestMinGrowth>
+      <harvestWork>100</harvestWork>
+      <harvestFailable>false</harvestFailable>
+    </plant>
+  </ThingDef>
+  <!-- Deciduous alder mechanics only: borrowed accepted beech graphics and
+       test yield 1. Neither resource choice, amount nor sowing is approved. -->
+  <ThingDef ParentName="DeciduousTreeBase">
+    <defName>AMJE_Test_Hannoki</defName>
+    <label>test-only alder wood cut probe</label>
+    <description>Disposable alder tree mechanics probe, not game content.</description>
+    <selectable>true</selectable>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Beech</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <plant>
+      <growDays>12</growDays>
+      <fertilityMin>0.05</fertilityMin>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <leaflessGraphicPath>Things/Plant/AMJ/Beech_Leafless</leaflessGraphicPath>
+      <harvestedThingDef>WoodLog</harvestedThingDef>
+      <harvestYield>1</harvestYield>
+      <harvestTag>Wood</harvestTag>
       <harvestWork>100</harvestWork>
       <harvestFailable>false</harvestFailable>
     </plant>

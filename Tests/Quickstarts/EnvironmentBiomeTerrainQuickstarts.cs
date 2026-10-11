@@ -1072,6 +1072,133 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
         }
 
+        // Runs on the existing wetland maps, with a test-only tree from the
+        // temporary Quicktests Mod. No production Hannoki/harvest balancing.
+        protected static void AddHannokiBehaviorProbeAssertions(
+            QuickstartVerification verification, Map map)
+        {
+            const string name = "AMJE_Test_Hannoki";
+            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+            ThingDef reference = DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Shii");
+            bool mo = ModLister.GetActiveModWithIdentifier(
+                "dankpyon.medieval.overhaul", true) != null;
+            string expectedResource = reference != null && reference.plant != null &&
+                reference.plant.harvestedThingDef != null
+                ? reference.plant.harvestedThingDef.defName : null;
+            bool recognizedResource = expectedResource == "WoodLog" ||
+                (mo && expectedResource == "DankPyon_RawWood");
+
+            verification.Assert(name + " is owned by temporary Quicktests fixture",
+                delegate
+                {
+                    return def != null && def.plant != null &&
+                        def.modContentPack != null &&
+                        def.modContentPack.PackageIdPlayerFacing ==
+                            "sucro.ancientmedievaljapan.environment.quicktests";
+                });
+            verification.Assert(name + " inherits a native deciduous tree wood contract",
+                delegate
+                {
+                    return def != null && def.plant != null &&
+                        def.plant.IsTree && def.selectable &&
+                        System.Math.Abs(def.plant.minGrowthTemperature) < 0.001f &&
+                        def.plant.harvestedThingDef != null &&
+                        def.plant.harvestTag == "Wood" &&
+                        System.Math.Abs(def.plant.harvestYield - 1f) < 0.001f &&
+                        recognizedResource &&
+                        def.plant.harvestedThingDef.defName == expectedResource &&
+                        (!mo || expectedResource == "WoodLog" ||
+                            DefDatabase<ThingDef>.GetNamedSilentFail("DankPyon_RawWood") != null);
+                });
+
+            if (map == null || def == null || def.plant == null || !recognizedResource)
+                return;
+
+            // Existing Shii indicates the actual loaded wood-chain state.
+            // This run tests only that state; it does not toggle MO settings.
+            string tags = def.plant.sowTags == null
+                ? "(none)" : string.Join(",", def.plant.sowTags.ToArray());
+            Log.Message("[AMJ Environment Hannoki Native Contract] biome=" +
+                map.Biome.defName + " MO=" + mo + " woodReference=" +
+                expectedResource + " sowTags=" + tags +
+                " mustBeWildToSow=" + def.plant.mustBeWildToSow);
+
+            IntVec3 cell = map.Center + new IntVec3(33, 0, 12);
+            foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 2f, true))
+            {
+                if (!area.InBounds(map))
+                    continue;
+                foreach (Thing thing in area.GetThingList(map).ToArray())
+                    if (!(thing is Pawn))
+                        thing.Destroy(DestroyMode.Vanish);
+                map.terrainGrid.SetTerrain(area, TerrainDefOf.Soil);
+            }
+
+            float oldYieldFactor = Find.Storyteller.difficulty.cropYieldFactor;
+            Find.Storyteller.difficulty.cropYieldFactor = 1f;
+            try
+            {
+                Plant plant = (Plant)GenSpawn.Spawn(def, cell, map);
+                plant.Growth = 1f;
+                plant.HitPoints = plant.MaxHitPoints;
+                Pawn pawn = PawnGenerator.GeneratePawn(
+                    PawnKindDefOf.Colonist, Faction.OfPlayer);
+                pawn.skills.GetSkill(SkillDefOf.Plants).Level = 0;
+                GenSpawn.Spawn(pawn, cell + IntVec3.North, map);
+                map.designationManager.AddDesignation(
+                    new Designation(plant, DesignationDefOf.CutPlant));
+                pawn.jobs.StartJob(
+                    JobMaker.MakeJob(JobDefOf.CutPlant, plant),
+                    JobCondition.InterruptForced);
+
+                int ticks = 0;
+                while (!plant.Destroyed && ticks++ < 15000)
+                {
+                    pawn.pather.PatherTick();
+                    if (pawn.jobs.curDriver == null)
+                        break;
+                    pawn.jobs.curDriver.DriverTick();
+                    if (pawn.jobs.curDriver != null)
+                        pawn.jobs.curDriver.DriverTickInterval(1);
+                }
+
+                int output = 0;
+                bool unexpected = false;
+                foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 2f, true))
+                {
+                    if (!area.InBounds(map))
+                        continue;
+                    foreach (Thing thing in area.GetThingList(map))
+                    {
+                        if (thing.def.category != ThingCategory.Item)
+                            continue;
+                        if (thing.def.defName == expectedResource)
+                            output += thing.stackCount;
+                        else
+                            unexpected = true;
+                    }
+                }
+                bool destroyed = plant.Destroyed;
+                int observedOutput = output;
+                bool wrongItem = unexpected;
+                verification.Assert(name + " native CutPlant drops reference wood only",
+                    delegate
+                    {
+                        return destroyed && observedOutput == 1 && !wrongItem;
+                    });
+                Log.Message("[AMJ Environment Hannoki Native Cut Probe] biome=" +
+                    map.Biome.defName + " def=" + name + " resource=" +
+                    expectedResource + " count=" + observedOutput +
+                    " destroyed=" + destroyed + " otherItem=" + wrongItem +
+                    " ticks=" + ticks);
+                pawn.Destroy(DestroyMode.Vanish);
+            }
+            finally
+            {
+                Find.Storyteller.difficulty.cropYieldFactor = oldYieldFactor;
+            }
+        }
+
         protected static void AddWetlandEcologyAssertions(
             QuickstartVerification verification, Map map, bool cold)
         {
@@ -3591,6 +3718,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, false);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
+            AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
         }
     }
@@ -3668,6 +3796,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, true);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
+            AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
         }
     }
