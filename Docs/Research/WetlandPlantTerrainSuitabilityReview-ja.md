@@ -84,6 +84,37 @@
 
 `completelyIgnoreFertility` を用いれば一部ゼロ肥沃度での候補適性が変わりうるが、`WildPlantSpawner`側のゼロ肥沃度セル候補／密度条件にも作用する。**4種に一律ON、または水だけでなくMud/Marsh全域まで許可する無制限実装はしない。** `wildPlantUseDistanceToShore` は参照コードでは主に水面セルの岸からの距離に対応し、陸上のぬかるみ分布を自動的に水縁集中へ変えるとは限らない。
 
+## RimWorld 1.6.9438 ソース監査：XMLのみでできる範囲（検討用）
+
+**検証元:** `Chillu1/RimWorldDecompiled` の 2026-05-20 公開コミット
+`2d508035082e7cb0c8e29e230d26bda6e546928f`（表記 `v1.6.9438.38202`）。
+[PlantUtility.cs](https://github.com/Chillu1/RimWorldDecompiled/blob/2d508035082e7cb0c8e29e230d26bda6e546928f/RimWorld/PlantUtility.cs)、
+[PlantProperties.cs](https://github.com/Chillu1/RimWorldDecompiled/blob/2d508035082e7cb0c8e29e230d26bda6e546928f/RimWorld/PlantProperties.cs)、
+[WildPlantSpawner.cs](https://github.com/Chillu1/RimWorldDecompiled/blob/2d508035082e7cb0c8e29e230d26bda6e546928f/RimWorld/WildPlantSpawner.cs)、
+[GenStep_Plants.cs](https://github.com/Chillu1/RimWorldDecompiled/blob/2d508035082e7cb0c8e29e230d26bda6e546928f/RimWorld/GenStep_Plants.cs)。
+作者実機のビルド番号をこのコミットと照合した証拠はなく、実際の自然発生を通過した証拠でもない。
+
+1. `PlantUtility.CanEverPlantAt` は通常、`fertility < fertilityMin` を拒否し、`completelyIgnoreFertility` はこの**個々の植物の肥沃度ゲート**を迂回する。`WildTerrainTags` は地形タグとの**1個以上の重複**を要求し、全タグのAND条件ではない。タグ指定だけで水上生育は解放しない。
+2. `WildPlantSpawner.CheckSpawnWildPlantAt` は**植生候補全体**に肥沃度0を拒否するゲートを持ち、当該バイオームのロード済み野生植物に `completelyIgnoreFertility=true` を持つ候補がいない限り、`fertilityMin=0` だけの植物は肥沃度0セルで自然発生できない。候補植物がいると、`HaveAnyPlantsWhichIgnoreFertility` を通じ、密度計算も変わる。
+3. `GetBaseDesiredPlantsCountAt` ではゼロ肥沃度の**水域**セルへ暫定基礎値`0.1`が用いられる一方、非水域のMud（肥沃度0）にはこの水域用の補正がない。したがって、ゼロ肥沃度無視の対象を広げてもMud全面に通常水域と同数が生えるとは言えない。生成の最終量はBiome密度・競合・重み・ローカル飽和等に左右される。
+4. `wildPlantUseDistanceToShore=true` は野生植物選定の追加確率ゲートであり、`GetWaterPlantDistanceToShoreWeight` は**水域のセル**で岸からの距離に応じて重みを減らす。陸側`MarshyTerrain`へ水際距離制限を与える機能ではない。
+5. `GenStep_Plants` が同じ`WildPlantSpawner.CheckSpawnWildPlantAt`を生成時に利用するため、特殊な新規マップ生成C#を追加する前に、上述のXML設定＋既存Biomeの`wildPlants`だけで成立するかを限定実験できる。ただし`CanEverPlantAt`単独PASSは`GenStep_Plants`での自然発生PASSではない。
+
+### 実装候補の比較（全て未承認）
+
+| 選択肢 | XML/生成への影響 | 必ず残る問題 |
+|---|---|---|
+| **ヨシA：湿地土壌だけ** | `fertilityMin>0`を保ち、両湿地の現在の土壌上で生育。水面向け設定を使わない最小変更 | `Soil`タグだけでは通常土壌と`MarshyTerrain`を区別できず、実際の浅水に自生しない |
+| **ヨシB：淡水浅水だけ** | `wildTerrainTags=WaterFreshShallowStill`＋`completelyIgnoreFertility=true`＋任意で`wildPlantUseDistanceToShore=true`を**仮Defに限り検証**する候補。最終commonalityは別 | ゼロ肥沃度スポーナー密度への副作用、植物タグの全地形での衝突、岸からの距離、初期生成と長期再生を測定する必要。これだけでは陸側の葦群落ができない |
+| **スゲ・ハンノキ：湿地土壌** | 一般土壌をある程度許す簡略案、または限定的に`MarshyTerrain`を識別する専用タグを**調査** | 同じ`Soil`タグから湿地土壌だけを選ぶことはできない。既存の河岸・林縁木本との生存比率も不明 |
+| **ミズゴケA：ColdBog＋既存土壌** | `wildPlants`をColdBogのみとする最小案、初期は普通の`Soil`全域に出うる | 「貧栄養泥炭地だけ」という生態表現を満たさない。肥沃度1.00の`MarshyTerrain`を泥炭とみなせない |
+| **ミズゴケB：ぬかるみ向け独自タグ** | `MarshyTerrain`のタグにAMJE固有の**追加タグ**を与え、将来のミズゴケ側`WildTerrainTags`で選択するXML中心案 | 地形Def追加タグは全Biomeの同地形に適用され、他Modとのタグ衝突・追加適性を監査する必要。ColdBogのぬかるみが高層湿原を正確に表すわけではない |
+| **ミズゴケC：泥炭面専用TerrainDef** | ColdBog生成に限定した別TerrainDef／TerrainPatchの設計から始める、精密な将来案 | ワールド／新規マップ生成・既存セーブ・見た目・他Mod/Waterworks地形との互換を大きく再評価する必要。いま採用しない |
+
+**仕様上の注意:** `wildTerrainTags`に`Soil`と`WaterFreshShallowStill`を同時に並べても、タグはOR条件であるため「水際に限った土壌」にはならない。逆に、`terrainBlacklist`で現行の土壌Defだけを除外する案は、新規Mod地形が追加された際に抜け道になる。必要な環境分離がないまま既存TerrainDefの共通タグを変更・削除しない。
+
+**今回の作業範囲:** 正式な植生重み・最低肥沃度・タグ・ゼロ肥沃度無視・水域植物設置・地形生成を確定しない。既存の4構成と湿地Quickstartsを増やさず、ヨシBの初期生成・再生を本当に採用すると判断した時だけ、使い捨てDefで`GenStep_Plants`を含む限定検証を行う。作者承認済みの採取・CCTO温度値はこの調査で変更しない。
+
 **次の必要証拠（無意味なテスト追加禁止）：** 既存の4構成隔離Quickstarts/Pickleを再利用し、RimWorld 1.6の実際のロード済み地形タグ・肥沃度・候補Def・自然発生適性を調べる。ゼロ肥沃度水面対応を採る必要がある場合のみ、使い捨てDefで種別／地形別の限定実験を行い、対象外の植物密度への副作用を比較する。画像完成後の本番PlantDef・分布比・古いセーブとの互換性は別ゲート。
 
 **現時点の結論：** 特にハンノキとミズゴケを水面全域の植物にする根拠はない。現行草案の配分値を承認・適用せず、ゲーム内で識別可能な湿地の下位環境と対応制限を確認してから値を決める。
