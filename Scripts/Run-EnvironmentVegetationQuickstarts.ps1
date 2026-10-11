@@ -24,6 +24,29 @@ function Fail([string]$Message, [int]$Code = 2) {
     exit $Code
 }
 
+# Quickstarts LogCapture.CountErrors enumerates the live Verse.Log.Messages
+# Queue. Concurrent logging can abort the framework before any scenario runs.
+# Only this exact single framework ERROR may trigger one test-only restart.
+function Test-KnownQuickstartsLogCaptureRace([string]$LogPath) {
+    if (-not (Test-Path -LiteralPath $LogPath)) {
+        return $false
+    }
+
+    try {
+        $raw = Get-Content -LiteralPath $LogPath -Raw -Encoding UTF8 -ErrorAction Stop
+    }
+    catch {
+        return $false
+    }
+
+    return (
+        $raw.Contains("Could not execute post-long-event action. Exception: System.InvalidOperationException: Collection was modified; enumeration operation may not execute.") -and
+        $raw.Contains("RimWorks.Quickstarts.Verification.LogCapture.CountErrors") -and
+        $raw.Contains("RimWorks.Quickstarts.Quickstarter.StartGame") -and
+        ([regex]::Matches($raw, '\[ERROR\]')).Count -eq 1
+    )
+}
+
 if (-not (Test-Path -LiteralPath $ExePath)) {
     Fail "RimWorld executable was not found: $ExePath"
 }
@@ -86,8 +109,11 @@ foreach ($name in $scenarios) {
     $report = Join-Path $ResultDir ($name + ".json")
     $log = Join-Path $ResultDir ($name + ".log")
 
-    Remove-Item -LiteralPath $report -Force -ErrorAction SilentlyContinue
-    Remove-Item -LiteralPath $log -Force -ErrorAction SilentlyContinue
+    $raceLog = Join-Path $ResultDir ($name + ".quickstarts-startup-race.log")
+    Remove-Item -LiteralPath $raceLog -Force -ErrorAction SilentlyContinue
+    for ($startupAttempt = 1; $startupAttempt -le 2; $startupAttempt++) {
+        Remove-Item -LiteralPath $report -Force -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath $log -Force -ErrorAction SilentlyContinue
 
     Write-Host ""
     Write-Host "============================================================"
@@ -120,6 +146,7 @@ foreach ($name in $scenarios) {
         $elapsedSeconds = 0
         $pollSeconds = 15
         $finished = $false
+        $startupRace = $false
 
         while ($elapsedSeconds -lt $scenarioTimeout) {
             $remaining = $scenarioTimeout - $elapsedSeconds
@@ -131,6 +158,12 @@ foreach ($name in $scenarios) {
             }
 
             $elapsedSeconds += $waitSeconds
+            if ($startupAttempt -eq 1 -and
+                -not (Test-Path -LiteralPath $report) -and
+                (Test-KnownQuickstartsLogCaptureRace -LogPath $log)) {
+                $startupRace = $true
+                break
+            }
             Write-Host (
                 "[WAIT] " + $name +
                 " is still running (" + $elapsedSeconds +
@@ -139,7 +172,9 @@ foreach ($name in $scenarios) {
         }
 
         if (-not $finished) {
-            Write-Host "[ERROR] $name exceeded the outer timeout." -ForegroundColor Red
+            if (-not $startupRace) {
+                Write-Host "[ERROR] $name exceeded the outer timeout." -ForegroundColor Red
+            }
             try {
                 $process.Kill()
                 $process.WaitForExit()
@@ -147,15 +182,30 @@ foreach ($name in $scenarios) {
             catch {
                 Write-Host "[WARN] Failed to terminate RimWorld cleanly: $($_.Exception.Message)" -ForegroundColor Yellow
             }
-            exit 124
         }
 
-        if ($process.ExitCode -ne 0) {
+        if ($finished -and $process.ExitCode -ne 0) {
             Fail "$name exited with code $($process.ExitCode). See $log" 1
         }
     }
     finally {
         $process.Dispose()
+    }
+
+        if (-not $finished) {
+            # A failed framework bootstrap never counts as a test PASS.
+            # Keep the failed attempt's log as evidence and retry at most once.
+            if ($startupAttempt -eq 1 -and
+                -not (Test-Path -LiteralPath $report) -and
+                (Test-KnownQuickstartsLogCaptureRace -LogPath $log)) {
+                Copy-Item -LiteralPath $log -Destination $raceLog -Force
+                Write-Host "[WARN] Quickstarts LogCapture startup race; preserved $raceLog"
+                Write-Host "[WARN] Retrying only $name once; all normal ERROR/report gates remain mandatory."
+                continue
+            }
+            exit 124
+        }
+        break
     }
 
     if (-not (Test-Path -LiteralPath $report)) {
