@@ -1,13 +1,11 @@
-"""Approved Vanilla tree labels and descriptions: English/Japanese static and loaded contracts."""
+"""Approved Vanilla tree labels and descriptions: English/Japanese XML contracts."""
 from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "Docs/VanillaPlantStep2DescriptionReview-ja.md"
 LOCALIZATION = ROOT / "Languages/Japanese/DefInjected/ThingDef/AMJ_WildPlants.xml"
 PATCH = ROOT / "Patches/VanillaTreeDescriptions.xml"
-QUICKSTART = ROOT / "Tests/Quickstarts/EnvironmentBiomeTerrainQuickstarts.cs"
 
 APPROVED = {
     "Plant_TreeBamboo": {"label_en": "Bamboo (take)", "label_ja": "竹", "ja": ["竹（タケ）は、日本の温暖で湿潤な土地に群生する、木のような姿のイネ科植物。古代・中世に存在したマダケやハチクなどの竹類を、ここではまとめて表す。","竹は軽くしなやかで、古くからかご・日用品や建築・農漁業の資材に使われてきた。現在広く見られるモウソウチクは江戸時代の渡来とする記録があり、ここで想定する竹類とは区別する。"], "en": ["Bamboo (take) is a member of the grass family that grows in stands in Japan's warm, humid regions, despite its tree-like appearance. Here it represents bamboo types such as madake and hachiku that existed in ancient and medieval Japan.","Lightweight and flexible, bamboo has long been used for baskets, everyday objects, and materials for building, farming, and fishing. Moso bamboo, common in Japan today, is recorded as having arrived during the Edo period and is distinguished here from these earlier bamboo types."]},
@@ -20,22 +18,6 @@ APPROVED = {
 
 
 class ApprovedVanillaTreeDescriptionsTest(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.source = SOURCE.read_text(encoding="utf-8")
-        cls.quickstart = QUICKSTART.read_text(encoding="utf-8")
-
-    def test_approved_japanese_and_translated_paragraphs_in_documentation(self):
-        self.assertIn("6樹木すべて承認済み", self.source)
-        for name, parts in APPROVED.items():
-            with self.subTest(tree=name):
-                section = self.source.split("### " + name + " —", 1)[1].split(
-                    "\n### ", 1)[0].split("\n## ", 1)[0]
-                self.assertIn("日本語：作者承認済み", section)
-                for paragraph in parts["ja"] + parts["en"]:
-                    self.assertIn("> " + paragraph, section)
-                self.assertEqual(section.count("\n>\n"), 2)
-
     def test_patch_replaces_only_six_english_labels_and_descriptions(self):
         root = ET.parse(PATCH).getroot()
         self.assertEqual(root.tag, "Patch")
@@ -80,31 +62,6 @@ class ApprovedVanillaTreeDescriptionsTest(unittest.TestCase):
             self.assertEqual(
                 root.findtext(name + ".description").count(r"\n\n"), 1
             )
-
-    def test_loaded_tree_quickstart_asserts_exact_en_ja_paragraphs(self):
-        warm = self.quickstart.split(
-            "public sealed class AMJWarmTemperateTerrainQuickstart", 1
-        )[1].split("public sealed class AMJTemperateSwampVegetationQuickstart", 1)[0]
-        self.assertIn(
-            'result.Assert("Plant_TreeBamboo has approved EN/JA description"',
-            warm,
-        )
-        self.assertIn('DefDatabase<ThingDef>.GetNamedSilentFail("Plant_TreeBamboo")', warm)
-        self.assertIn("AssertApprovedVanillaTreeDescription(result", warm)
-        self.assertIn('defName + " has approved EN/JA description"', warm)
-        for name, parts in APPROVED.items():
-            with self.subTest(tree=name):
-                self.assertIn(name, warm)
-                for paragraph in parts["ja"] + parts["en"]:
-                    self.assertIn(paragraph, warm)
-        self.assertIn('string.Equals(actual, approvedEnglish', warm)
-        self.assertIn('string.Equals(actual, approvedJapanese', warm)
-        self.assertIn('string.Equals(tree.label, approvedEnglishLabel', warm)
-        self.assertIn('string.Equals(tree.label, approvedJapaneseLabel', warm)
-        self.assertIn('string.Equals(bamboo.label, "Bamboo (take)"', warm)
-        for parts in APPROVED.values():
-            self.assertIn(parts["label_en"], warm)
-            self.assertIn(parts["label_ja"], warm)
 
 
 if __name__ == "__main__":

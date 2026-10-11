@@ -1,6 +1,5 @@
 """Reject the observed wrong-root/exclusion/mutation publication failures."""
 import importlib.util
-import re
 import json
 from pathlib import Path
 import tempfile
@@ -22,59 +21,6 @@ def fixture():
 
 
 class GateTests(unittest.TestCase):
-    def test_four_profile_assertion_counts_track_current_quickstarts(self):
-        spec = importlib.util.spec_from_file_location(
-            'gate', payload.ROOT / 'Scripts/Run-WorkshopPayloadTests.py')
-        gate = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(gate)
-        source = (payload.ROOT / 'Tests/Quickstarts/'
-                  'EnvironmentBiomeTerrainQuickstarts.cs').read_text(
-                      encoding='utf-8-sig')
-        runner = (payload.ROOT / 'Scripts/'
-                  'Run-EnvironmentVegetationQuickstarts.ps1').read_text(encoding='utf-8-sig')
-        sowing = source.split('private static void AddTreeSowingAssertions(', 1)[1].split(
-            'private static void AddHarvestOutputAssertions(', 1)[0]
-        ordinary = sowing.split('string[] ordinaryTrees = {', 1)[1].split('};', 1)[0]
-        expanded = sowing.count('verification.Assert(') - 1 + len(re.findall(r'"[^"]+"', ordinary))
-        self.assertEqual(expanded, 16)
-        warm = source.split('public sealed class AMJWarmTemperateTerrainQuickstart :', 1)[1].split(
-            'public sealed class AMJCoolTemperateTerrainQuickstart :', 1)[0]
-        descriptions = (warm.count('AssertApprovedVanillaTreeDescription(result,') +
-                        warm.count('result.Assert("Plant_TreeBamboo has approved EN/JA description"'))
-        self.assertEqual(descriptions, 6)
-        alpine = source.split('public sealed class AMJAlpineTerrainQuickstart :', 1)[1].split(
-            'public sealed class AMJDarkForestTerrainQuickstart :', 1)[0]
-        self.assertEqual(len(re.findall(r'"Plant_[^"]+"', alpine)), 4)
-
-        base_forest = (58 + expanded + descriptions, 57 + expanded,
-                       54 + expanded, 52 + expanded + 2)
-        ccto_forest = tuple(n + 12 for n in base_forest)
-        wetlands_world_handoff = (50, 53, 7, 3, 3)
-        self.assertEqual(gate.MAP_ASSERTIONS_BASE, base_forest + wetlands_world_handoff)
-        self.assertEqual(gate.MAP_ASSERTIONS_CCTO, ccto_forest + wetlands_world_handoff)
-        self.assertEqual(gate.CUTTING_ASSERTIONS, 9 + descriptions)
-        self.assertEqual(gate.REPORTS_PER_PROFILE, 10)
-        self.assertEqual(len(gate.SCENARIOS), 9)
-        self.assertEqual(sum(gate.MAP_ASSERTIONS_BASE), 409)
-        self.assertEqual(sum(gate.MAP_ASSERTIONS_CCTO), 457)
-        for scenario in gate.SCENARIOS:
-            self.assertIn('"AMJ' + scenario + 'Quickstart"', runner)
-        for profile in gate.PROFILES:
-            expected = gate.MAP_ASSERTIONS_CCTO if 'CCTO' in profile else gate.MAP_ASSERTIONS_BASE
-            self.assertEqual(gate.expected_map_assertions(profile), expected)
-        with self.assertRaisesRegex(ValueError, 'Unknown release profile'):
-            gate.expected_map_assertions('unknown')
-
-        runner_src = (payload.ROOT / 'Scripts/Run-WorkshopPayloadTests.py').read_text(
-            encoding='utf-8')
-        combiner_src = (payload.ROOT / 'Scripts/Combine-WorkshopPayloadResults.py').read_text(
-            encoding='utf-8')
-        for value in ('expected_map_assertions(mode)', 'CUTTING_ASSERTIONS',
-                      'REPORTS_PER_PROFILE', 'validate_report(data, count, name)'):
-            self.assertIn(value, runner_src)
-        for value in ('gate.expected_map_assertions(mode)', 'gate.CUTTING_ASSERTIONS',
-                      'gate.REPORTS_PER_PROFILE', 'gate.validate_report(data, total, name)'):
-            self.assertIn(value, combiner_src)
 
     def test_reject_incorrect_release_reports(self):
         spec = importlib.util.spec_from_file_location(
@@ -115,10 +61,6 @@ class GateTests(unittest.TestCase):
 
     def test_tracked_loadfolders_matches_distribution_contract(self):
         self.assertEqual((payload.ROOT / 'loadFolders.xml').read_bytes(), payload.LOAD)
-        builder = (payload.ROOT / 'Scripts/Build-WorkshopPayload.py').read_text(encoding='utf-8')
-        self.assertIn('Tracked loadFolders.xml must match the root-only distribution contract', builder)
-        self.assertNotIn("data['loadFolders.xml'] = LOAD", builder)
-
     def test_root_only_and_identity(self):
         for key, value in [('loadFolders.xml', b'<loadFolders/>'), ('About/PublishedFileId.txt', b'999')]:
             data = fixture(); data[key] = value

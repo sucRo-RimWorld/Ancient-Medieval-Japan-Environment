@@ -14,38 +14,6 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class WorkshopPickleTests(unittest.TestCase):
-    def test_feature_step_binding_and_diagnostic_contract(self):
-        steps = (ROOT / "Tests/Pickle/EnvironmentWorkshopSteps.cs").read_text()
-        features = (ROOT / "Tests/Pickle/Features/amje-workshop.feature").read_text()
-        for sentence in (
-            "the installed Environment Mod and assembly come from the exact Steam folder",
-            "all four Environment plants are uniquely owned by the downloaded Mod",
-            "rejected Vanilla vegetation is absent from the selected Japanese biomes",
-            "the replacement structural plants preserve their balanced commonalities",
-            "the harvested wood Def contracts remain correct with or without Medieval Overhaul",
-        ):
-            self.assertIn('Then ' + sentence, features)
-            self.assertIn('[Then("' + sentence + '")]', steps)
-        self.assertEqual(features.count("  Scenario:"), 5)
-        self.assertIn("AMJE_EXPECTED_PAYLOAD_ROOT", steps)
-        self.assertIn("AMJE_EXPECTED_PROFILE", steps)
-        self.assertIn("AMJE_EXPECTED_PROFILE", (ROOT / "Scripts/Run-WorkshopPickle.py").read_text())
-        self.assertIn("DankPyon_RawWood", steps)
-        self.assertIn("WoodLog", steps)
-        self.assertIn('Plant_TreePoplar', steps)
-        self.assertIn('Plant_TreePine', steps)
-        self.assertIn('TemperateSwamp', steps)
-        self.assertIn('ColdBog', steps)
-
-    def test_one_command_batch_entry(self):
-        launcher = ROOT / "test-run.bat"
-        contents = launcher.read_text(encoding="utf-8")
-        for expected in ("Scripts\\Run-WorkshopPickle.py", "where py",
-                         "--game", 'if not "%RESULT%"=="0"'):
-            self.assertIn(expected, contents)
-        for forbidden in ("--manifest", "--output", "rmdir /S", "taskkill"):
-            self.assertNotIn(forbidden, contents)
-
     def test_manifest_discovery_fails_closed_and_selects_verified_bytes(self):
         path = ROOT / "Scripts/Run-WorkshopPickle.py"
         spec = importlib.util.spec_from_file_location("pickle_runner", path)
@@ -140,19 +108,6 @@ class WorkshopPickleTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "Workshop content differs"):
                     runner.verify_downloaded_for_pickle(steam, manifest)
 
-    def test_metadata_in_memory_normalization_does_not_write_workshop_files(self):
-        spec = importlib.util.spec_from_file_location(
-            "pickle_runner", ROOT / "Scripts/Run-WorkshopPickle.py")
-        runner = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(runner)
-        self.assertEqual(set(runner.METADATA_PATHS),
-                         {"About/PublishedFileId.txt", "loadFolders.xml"})
-        text = (ROOT / "Scripts/Run-WorkshopPickle.py").read_text()
-        self.assertIn("payload_tool.validate(normalized)", text)
-        self.assertIn("manifest_audit", text)
-        self.assertIn('"steam_release_cleared": False', text)
-        self.assertNotIn('manifest.write_text(', text)
-        self.assertNotIn('(payload / "loadFolders.xml").write', text)
 
     def test_preflight_failure_does_not_assume_result_folder(self):
         spec = importlib.util.spec_from_file_location(
@@ -164,38 +119,6 @@ class WorkshopPickleTests(unittest.TestCase):
                 runner.show_failure(ValueError("RimWorld is open"),
                                     Path(temp) / "missing")
                 self.assertTrue(stderr.write.called)
-
-    def test_pickle_runner_preserves_download_and_release_gate(self):
-        path = ROOT / "Scripts/Run-WorkshopPickle.py"
-        spec = importlib.util.spec_from_file_location("pickle_runner", path)
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-        self.assertEqual(len(module.SCENARIOS), 5)
-        self.assertEqual(len(module.PROFILES), 4)
-        self.assertEqual(module.FEATURE, "amje-workshop.feature")
-        text = path.read_text()
-        for required in (
-            "verify_downloaded_for_pickle(payload, manifest)",
-            "payload_tool.inventory(payload) != inventory",
-            "normal_config_unchanged",
-            "steam_release_cleared",
-            "IsolatedDesktopRunner.cs",
-            "RimWorks.Pickle.dll",
-            "HarvestErrorObserver.cs",
-            "-pickle-run=",
-            "-pickle-mode=fast",
-            "-pickle-no-browser",
-            "summary.json",
-            'result.get("exitReason") != "passed"',
-        ):
-            self.assertIn(required, text)
-        self.assertIn('"steam_release_cleared"] = False', text)
-        self.assertIn("find_verified_manifest(payload)", text)
-        self.assertIn("verify_downloaded_for_pickle(payload, candidate)", text)
-        self.assertIn("next_result_directory()", text)
-        self.assertIn("show_failure(error, output)", text)
-        self.assertNotIn("shutil.copytree(payload", text)
-        self.assertNotIn("os.remove(payload", text)
 
 
 if __name__ == "__main__":

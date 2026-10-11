@@ -33,8 +33,8 @@ ModsConfig/Prefs are not edited by this path.
 contradicting the already-correct production root-only `loadFolders.xml`.
 The validator is corrected to parse XML and require only one `v1.6/li` entry
 with `/` and no attributes, preserving fail-closed detection of extra folders.
-`Tests/test_run_tests_entrypoint.py` now also guards against the obsolete
-validator expectation. Do not reintroduce `DevQuickstarts` in the production
+Executable payload rejection tests cover invalid production load paths.
+Do not reintroduce `DevQuickstarts` in the production
 loader or use visible runtime execution; rerun the same isolated `run-tests.bat`
 on the Windows machine after the corrected source is present. No latest native
 RimWorld test result is claimed by this source-only fix.
@@ -211,6 +211,14 @@ a completed fruit feature or runtime PASS.
 **Status:** OPEN — author-side static/build PASS, RimTest Redux 10/10 and development Pickle 20/20 PASS across 4 profiles; latest uploaded non-visible Quickstarts console log **18/18 PASS, 18 owned-ERROR gates PASS**, including MO wetland native aggregate plants. Independent four-profile release/cutting, individual Unity logs, saves and Steam subscriber audit remain OPEN.
 
 **Current path:** `run-tests.bat` runs static/build, then non-visible rendered Quickstarts, then RimTest Redux and four-profile development Pickle; `Docs/GoldenPaths/RenderedRuntimeTests.md` owns the matrix/evidence and `Docs/GoldenPaths/PlantSowingTests.md` owns sowing assertions. Do not equate the standard Quickstart runtime profiles with the separate full four-profile release gate; isolated MO map startup is not automatically enabled for every map profile.
+
+**2026-10-11 author-requested test cleanup:** Removed source-substring gates
+from Python tests and `Validate-Environment.ps1`, document phrase/status locks,
+and duplicate hardcoded production PNG hashes. Removed the dedicated art-rule
+wording workflow. Retained executable fixture/Harmony/payload tests, XML
+contracts, decoded PNG corruption tests, artwork acceptance ledger and fixed
+master/mask/composite validation. RimTest, Pickle and rendered Quickstarts are
+unchanged; this maintenance supplies no new native-game or release PASS.
 
 **2026-10-10 resolved development framework blockers:** PR #80–83 corrected Windows args, Harmony DLL, C# compiler compatibility and ephemeral Pickle test content. Subsequent RimTest 10/10 and Pickle 20/20 supersede the earlier runner failures; see Git history.
 

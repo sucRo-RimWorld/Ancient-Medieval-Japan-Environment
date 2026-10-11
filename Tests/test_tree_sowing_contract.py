@@ -165,31 +165,6 @@ class TreeSowingContractTests(unittest.TestCase):
         about = ET.parse(ROOT / "About/About.xml").getroot()
         dependencies = {p.text.lower() for p in about.findall("./modDependencies/li/packageId") if p.text}
         self.assertNotIn("ludeon.rimworld.odyssey", dependencies)
-        self.assertNotIn("Wild Healroot removed", about.findtext("description", ""))
-
-    def test_runtime_expectations_and_native_menu_gate_are_wired(self):
-        source = (ROOT / "Tests/Quickstarts/EnvironmentBiomeTerrainQuickstarts.cs").read_text()
-        method = source.split("private static string[] ExpectedSowableTrees", 1)[1].split(
-            "private static HashSet<string>", 1)[0]
-        for name, expected in EXPECTED.items():
-            case = method.split(f'case "{name}":', 1)[1].split("case ", 1)[0].split("default:", 1)[0]
-            self.assertEqual(expected, set(re.findall(r'"((?:AMJ|Plant)_\w+)"', case)))
-        wild_method = source.split("private static string[] ExpectedWildTreeLikePlants", 1)[1].split(
-            "private static string[] ExpectedSowableTrees", 1)[0]
-        self.assertIn('biome == "AMJ_AlpineZone"', wild_method)
-        self.assertIn('return new[] { "AMJ_Shrub_Haimatsu" };', wild_method)
-        self.assertIn("return ExpectedSowableTrees(biome);", wild_method)
-        self.assertEqual(set(), EXPECTED["AMJ_AlpineZone"])
-        self.assertEqual({"AMJ_Shrub_Haimatsu"}, EXPECTED_WILD_WOODY["AMJ_AlpineZone"])
-        self.assertIn("regionalWildTrees.SetEquals(expectedWild)", source)
-        self.assertIn("available.SetEquals(expectedSowable)", source)
-        self.assertIn("foreach (BiomePlantRecord record in map.Biome.wildPlants)", source)
-        for required in ("AddTreeSowingAssertions(verification, map);",
-                         "PlantUtility.ValidPlantTypesForGrowers(",
-                         "Command_SetPlantToGrow.IsPlantAvailable(plant, map)",
-                         "progress[research] = 0f;", "progress[research] = research.Cost;",
-                         "finally", "progress.Clear();", "progress.Add(item.Key, item.Value);"):
-            self.assertIn(required, source)
 
 
 if __name__ == "__main__":
