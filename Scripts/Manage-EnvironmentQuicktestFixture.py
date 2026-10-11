@@ -62,7 +62,7 @@ def stage(game, dll, defs=None):
         probe = ET.parse(defs).getroot()
         names = [n.findtext("defName") for n in probe.findall("ThingDef")]
         if probe.tag != "Defs" or sorted(names) != [
-                "AMJE_Test_Mizugoke", "AMJE_Test_Suge"]:
+                "AMJE_Test_Mizugoke", "AMJE_Test_Suge", "AMJE_Test_Yoshi"]:
             raise ValueError("Wrong temporary wetland probe Defs: " + str(defs))
     try:
         (root / "About").mkdir(parents=True)
