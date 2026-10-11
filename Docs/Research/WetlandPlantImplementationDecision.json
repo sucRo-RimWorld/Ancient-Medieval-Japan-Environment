@@ -19,13 +19,13 @@
       "ve",
       "non_ve"
     ],
-    "limitations": "Bounded source comparison, not exhaustive Workshop search. Odyssey is not owned or runtime-tested by the author. No mixed installed-MO/VE/Biomes!/ReGrowth loaded-Def test yet; actual load-order conflicts and optional coexistence behavior remain separate post-implementation gates. Japanese descriptions and source art still require author approval. Evidence document records pinned XML and uncertainty; the formal ready state authorizes the independent-implementation scope, not art publication or runtime acceptance."
+    "limitations": "Bounded source comparison, not exhaustive Workshop search. Odyssey is not owned or runtime-tested by the author. No mixed installed-MO/VE/Biomes!/ReGrowth loaded-Def test yet; actual load-order conflicts and optional coexistence behavior remain separate post-implementation gates. Four Japanese species descriptions were author-approved on 2026-10-10; original source art, final yields, terrain distribution, and production compatibility remain unapproved. Evidence document records pinned XML and uncertainty; the formal ready state authorizes the independent-implementation scope, not art publication or runtime acceptance."
   },
   "evidence": [
     {
       "id": "environment-step3-xml-audit-20261009",
       "path": "Docs/Research/WetlandPlantExistingModAudit-ja.md",
-      "sha256": "6c9c2c8453ee5dfc512af81634ce33e50439c6d4d3742b6e35ea28480ed469c7"
+      "sha256": "f80c9c6bc0b402ebfa0ffad89027c105708108e39b2c6d09fc56dbd823e92f45"
     }
   ],
   "candidates": [
