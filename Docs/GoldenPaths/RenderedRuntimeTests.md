@@ -55,6 +55,33 @@ marker and packageId match. This keeps test assemblies out of normal AMJE load
 semantics and prevents YADA filtering from depending on an executable
 `IfModActive` loader entry.
 
+### Generated wetland distribution baseline survey (no proposal applied)
+
+Before the disposable Suge, Mizugoke, Yoshi and Hannoki cutting probes
+modify any test cells, the **existing two wetland Quickstarts** record one
+`[AMJ Environment Wetland Distribution Baseline]` log line per generated map.
+It includes the biome, named wetness/soil terrain cell counts (with
+`otherTerrain` for the remainder), actual loaded wildPlants entry count and
+total commonality (which may include optional MO plants), and each present
+Vanilla/MO proxy plant's loaded weight, generated-map specimen count and count
+on named wetland terrain (`Mud`, `MarshyTerrain`, `Marsh`,
+`WaterShallow`). This is **read-only** and reuses the standard hidden
+`run-tests.bat` and its existing per-scenario logs/ERROR validation.
+No new scenario, natural plant, spawn override or production Def is created.
+
+The survey is **observational**: it does not calculate true germination
+eligibility, sample multiple world seeds, distinguish every wetland
+microhabitat, or prove that any new AMJ plant has spawned naturally.
+The unapproved candidate weights in
+`Docs/Research/WetlandPlantDistributionDraft.json` are never applied.
+AMJE-owned pool totals `7.30/3.00` (TemperateSwamp overall/woody) and
+`8.22/1.80` (ColdBog overall/woody) are separate from loaded totals when
+other mods contribute plants. Do not interpret weight ratios as observed
+spawn shares. Review the **actual collected lines** before choosing
+species-specific fertility/terrain constraints, commonalities or final
+production vegetation. The fixed single-seed map sample alone cannot
+validate a proposed Japanese low-fen/peat-bog ecological gradient.
+
 ### Temporary wetland harvest/removal probes (not production plants)
 
 The established Quicktests fixture manager now stages

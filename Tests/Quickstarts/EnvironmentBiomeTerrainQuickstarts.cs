@@ -1199,6 +1199,92 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
         }
 
+        // Baseline observation only: record actual rendered map terrain and
+        // pre-existing proxy vegetation BEFORE disposable native-cut probes
+        // mutate any soil or spawn their test plants. Proposed 4-species
+        // weights are NOT applied, and no spawn/terrain suitability PASS is
+        // claimed for production wetland species absent from the game.
+        protected static void AddWetlandDistributionBaselineSurvey(Map map)
+        {
+            if (map == null || map.Biome == null)
+                return;
+
+            int cells = 0;
+            int mud = 0, marshy = 0, marsh = 0, shallow = 0;
+            int soil = 0, richSoil = 0, thinSoil = 0, other = 0;
+            foreach (IntVec3 cell in map.AllCells)
+            {
+                TerrainDef terrain = map.terrainGrid.TerrainAt(cell);
+                cells++;
+                string t = terrain == null ? "" : terrain.defName;
+                switch (t)
+                {
+                    case "Mud": mud++; break;
+                    case "MarshyTerrain": marshy++; break;
+                    case "Marsh": marsh++; break;
+                    case "WaterShallow": shallow++; break;
+                    case "Soil": soil++; break;
+                    case "SoilRich": richSoil++; break;
+                    case "AMJ_ThinSoil": thinSoil++; break;
+                    default: other++; break;
+                }
+            }
+
+            // Use real loaded wildPlants records, including MO's optional
+            // additions. The AMJE-only 7.30/8.22 proposals are NOT the
+            // loaded total when an external mod contributes plants.
+            float loadedWeight = 0f;
+            int poolRecords = 0;
+            foreach (BiomePlantRecord record in map.Biome.wildPlants)
+            {
+                if (record != null && record.plant != null)
+                {
+                    poolRecords++;
+                    loadedWeight += record.commonality;
+                }
+            }
+
+            string[] proxies = {
+                "Plant_TallGrass", "Plant_Moss", "Plant_Brambles",
+                "Plant_Bush", "Plant_TreeWillow", "Plant_TreeMaple",
+                "Plant_TreeBirch", "Plant_Berry", "Plant_HealrootWild",
+                "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
+                "DankPyon_Plant_FleawortWild",
+                "DankPyon_Plant_FlyAgaricWild"
+            };
+            List<string> observations = new List<string>();
+            foreach (string name in proxies)
+            {
+                ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                if (def == null || def.plant == null)
+                    continue;
+                int count = 0;
+                int onWet = 0;
+                foreach (Thing thing in map.listerThings.ThingsOfDef(def))
+                {
+                    count++;
+                    TerrainDef local = map.terrainGrid.TerrainAt(thing.Position);
+                    string t = local == null ? "" : local.defName;
+                    if (t == "Mud" || t == "MarshyTerrain" ||
+                        t == "Marsh" || t == "WaterShallow")
+                        onWet++;
+                }
+                observations.Add(name + ":weight=" +
+                    map.Biome.CommonalityOfPlant(def).ToString("F2") +
+                    ",count=" + count + ",onWetTerrain=" + onWet);
+            }
+            Log.Message("[AMJ Environment Wetland Distribution Baseline] " +
+                "biome=" + map.Biome.defName + " cells=" + cells +
+                " Mud=" + mud + " MarshyTerrain=" + marshy +
+                " Marsh=" + marsh + " WaterShallow=" + shallow +
+                " Soil=" + soil + " SoilRich=" + richSoil +
+                " AMJ_ThinSoil=" + thinSoil + " otherTerrain=" + other +
+                " loadedWildPoolEntries=" + poolRecords +
+                " loadedWildPoolWeight=" + loadedWeight.ToString("F2") +
+                " source=generated-map-before-disposable-probes" +
+                " proxies={" + string.Join("; ", observations.ToArray()) + "}");
+        }
+
         protected static void AddWetlandEcologyAssertions(
             QuickstartVerification verification, Map map, bool cold)
         {
@@ -3717,6 +3803,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, false);
+            AddWetlandDistributionBaselineSurvey(Find.CurrentMap);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
@@ -3795,6 +3882,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 });
             }
             AddWetlandEcologyAssertions(result, Find.CurrentMap, true);
+            AddWetlandDistributionBaselineSurvey(Find.CurrentMap);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             return result;
