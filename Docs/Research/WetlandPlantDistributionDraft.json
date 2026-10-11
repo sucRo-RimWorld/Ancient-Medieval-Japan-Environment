@@ -346,5 +346,93 @@
         }
       }
     }
+  },
+  "terrain_rejection_diagnostics": {
+    "status": "one_biome_observed_temporary_fixture_only",
+    "observation_date": "2026-10-11",
+    "data_provenance": "User-supplied ColdBog Quickstart INFO excerpts only; no complete four-profile test summary, exact git HEAD or full ERROR gate evidence",
+    "probe_commit": "4609b4b9615e25a1b92193cf6e664ede310227e8",
+    "exact_local_head_verified": false,
+    "complete_runtime_pass_confirmed": false,
+    "biome": "ColdBog",
+    "source_log": "TestResults/VegetationRuntime/Reports/AMJColdBogVegetationQuickstart.log",
+    "source_lines_by_fixture": {
+      "AMJE_Test_Yoshi": 1177,
+      "AMJE_Test_Suge": 1186,
+      "AMJE_Test_Hannoki": 1195,
+      "AMJE_Test_Mizugoke": 1204
+    },
+    "same_result_all_four_fixtures": true,
+    "loaded_fixture_fertility_min": "0.05",
+    "loaded_completely_ignore_fertility": false,
+    "loaded_wild_terrain_tags_count": 0,
+    "check_map_temperature": false,
+    "terrain_results_each_fixture": {
+      "Mud": {
+        "terrainCells": 10424,
+        "vacant": 10424,
+        "sampled": 96,
+        "nativeAccepted": 0,
+        "belowFertilityMin": 96,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "0.00..0.00"
+      },
+      "MarshyTerrain": {
+        "terrainCells": 10886,
+        "vacant": 5498,
+        "sampled": 96,
+        "nativeAccepted": 96,
+        "belowFertilityMin": 0,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "1.00..1.00"
+      },
+      "Marsh": {
+        "terrainCells": 477,
+        "vacant": 477,
+        "sampled": 96,
+        "nativeAccepted": 0,
+        "belowFertilityMin": 96,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "0.00..0.00"
+      },
+      "WaterShallow": {
+        "terrainCells": 3542,
+        "vacant": 3542,
+        "sampled": 96,
+        "nativeAccepted": 0,
+        "belowFertilityMin": 96,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "0.00..0.00"
+      },
+      "Soil": {
+        "terrainCells": 18009,
+        "vacant": 8652,
+        "sampled": 96,
+        "nativeAccepted": 95,
+        "belowFertilityMin": 0,
+        "rejectedWithEnoughFertility": 1,
+        "sampledFertilityRange": "1.00..1.00"
+      },
+      "SoilRich": {
+        "terrainCells": 11579,
+        "vacant": 81,
+        "sampled": 81,
+        "nativeAccepted": 81,
+        "belowFertilityMin": 0,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "1.40..1.40"
+      },
+      "AMJ_ThinSoil": {
+        "terrainCells": 0,
+        "vacant": 0,
+        "sampled": 0,
+        "nativeAccepted": 0,
+        "belowFertilityMin": 0,
+        "rejectedWithEnoughFertility": 0,
+        "sampledFertilityRange": "none"
+      }
+    },
+    "analysis": "On Mud, Marsh and WaterShallow, all 96 tested cells were rejected on fertility=0.00 (below 0.05); no extra rejections. MarshyTerrain and SoilRich accept all samples. Soil accepts 95/96, with the remaining rejection unrelated to fertility; its exact cause was not recorded (possible other native gates, not yet attributed). AMJ_ThinSoil was absent, not proved incompatible.",
+    "decision": "This is fixture evidence only. Do not infer final terrain preferences, water support, naturally spawning plants, or approve commonality weights. Additional Soil failure investigation is optional and should not block the separate balance review."
   }
 }
