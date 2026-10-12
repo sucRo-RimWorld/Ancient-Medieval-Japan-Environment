@@ -16,7 +16,7 @@
 
 作者提供のMO 1.6 XMLを再読し、**新たな実験用Defや追加レシピを作る必要はない**ことを確認した。下記は実装経路の静的確認であり、ロード後の成功判定ではない。
 
-- スゲ：`Patches/Core/Add_HarvestYield_Grass.xml` は `Plant_Grass`、`Plant_TallGrass`、`Plant_Bush` だけを対象とする。スゲの `AMJ_Plant_Suge` には命中しないため、採用済み `Hay` 出力はスゲ自身の本番Defに定義する。収量は未承認のため、ここでは決定しない。MO側 `DankPyon_StrawProcess` の `ingredientFilter/thingDefs/li` は `Hay` で、スゲ専用の加工Patchは追加しない。
+- スゲ：`Patches/Core/Add_HarvestYield_Grass.xml` は `Plant_Grass`、`Plant_TallGrass`、`Plant_Bush` だけを対象とする。スゲの `AMJ_Plant_Suge` には命中しないため、採用済み `Hay` 出力はスゲ自身の本番Defに定義する。**2026-10-12作者承認：成熟スゲ1株の基本収量は `Hay` 1（`harvestYield=1`）。** 実際の収穫Jobとドロップ量は本番Def導入後に検証する。MO側 `DankPyon_StrawProcess` の `ingredientFilter/thingDefs/li` は `Hay` で、スゲ専用の加工Patchは追加しない。
 - ハンノキ：`Patches/ToggleOptions/MOSetting_WoodChain.xml` の `woodChain` 有効側は `Defs/ThingDef/plant/harvestedThingDef[text()="WoodLog"]` を `DankPyon_RawWood` に置換する。XPathは**明示的なplant子要素**が一致する場合の操作であり、継承された値が同じタイミングで見えるか、AMJE新規Defが当該MO Patchより先に処理されるか、このファイルだけからは保証できない。ハンノキの採取物自体は未承認。後の本番Def検証では WoodChain ON/OFF のロード後 `harvestedThingDef` と実際のCutPlant出力を区別して検査し、不一致を見てから最小限の条件付き互換Patchを検討する。先回りした無条件 `DankPyon_*` 参照は追加しない。
 - ミズゴケ：MO専用の原料や収穫変換は不要。既存の承認済み「選択・CutPlant除去・ドロップなし」を本番Defの実ロードとJobで確認する。
 
@@ -26,7 +26,7 @@
 
 - DefNameは`AMJ_Plant_Suge`、ベース候補は`ParentName=PlantBase`（**継承後の実ロード確認が必要**）。
 - 選択可能。野生植物としての基本表示と`harvestedThingDef=Hay`を基本構成に記載。**Vanilla既存の収穫対象植物（Haygrass等）が持つ`harvestTag=Standard`を候補Defに明示し、通常の収穫Jobで有効かロード済みDef／実機で確認する。** MOが存在しなくても`DankPyon_*`参照なしでロードする。
-- `harvestYield`は**必須となるが数値は未承認**。自動テストの仮値`1`は例示であり採用値ではない。
+- `harvestYield`は**`harvestYield=1` を2026-10-12作者承認済み**。従来の自動テストの値1は当初は例示だったが、現在は承認済みの設定値である。
 - 野生の新植物を自動で栽培可能にしない：`sowTags`や農業研究設定を無断追加せず、最終の継承後`sowTags`・栽培メニューを確認する。
 - MO時もスゲから`DankPyon_Straw`を直接落とさず、`Hay`一種類だけを採取する。MO乾燥棚の加工工程と二重採取を混同しない。
 
