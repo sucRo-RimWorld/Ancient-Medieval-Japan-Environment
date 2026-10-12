@@ -8,7 +8,7 @@ import hashlib
 import json
 import unittest
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 RECORD = ROOT / "Docs/Research/WetlandPlantImplementationDecision.json"
 EXPECTED_ECOSYSTEMS = {"vanilla_mo", "amj", "ve", "non_ve"}
 FIELDS = {

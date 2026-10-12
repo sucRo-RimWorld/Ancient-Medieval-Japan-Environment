@@ -3,7 +3,7 @@ from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 LOCALIZATION = ROOT / "Languages/Japanese/DefInjected/ThingDef/AMJ_WildPlants.xml"
 PATCH = ROOT / "Patches/VanillaTreeDescriptions.xml"
 

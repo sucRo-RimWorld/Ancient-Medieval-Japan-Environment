@@ -6,7 +6,7 @@ an ordinary tree remains available for growing-zone sowing in an AMJE biome.
 
 ## Fast preflight
 
-Run `python Tests/test_tree_sowing_contract.py` before pushing. The scoped
+Run `python Tests/Production/test_tree_sowing_contract.py` before pushing. The scoped
 `Regional tree sowing contract` workflow runs the same gate on main/PR changes.
 It locks all four XML wild woody pools, positive commonality, AMJE parent
 inheritance, the absence of unreviewed sowing overrides, and the distinct
