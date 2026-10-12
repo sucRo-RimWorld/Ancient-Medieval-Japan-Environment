@@ -55,6 +55,41 @@ class FrameworkAutomationContractTests(unittest.TestCase):
         finally:
             sys.path.pop(0)
 
+    def test_17_test_version_gate_and_provider_resolution(self):
+        spec = importlib.util.spec_from_file_location(
+            "amje_framework_common_17",
+            ROOT / "Scripts/EnvironmentFrameworkTestCommon.py",
+        )
+        common = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(common)
+        self.assertEqual(common.parse_test_version("1.6.4871"), "1.6")
+        self.assertEqual(common.parse_test_version("1.7.5000"), "1.7")
+        for invalid in ("1.5.1", "1.8.0", "1.70.0", ""):
+            with self.assertRaisesRegex(ValueError, "Expected RimWorld 1.6 or 1.7"):
+                common.parse_test_version(invalid)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for folder in ("1.6", "1.7", "Current"):
+                dll = root / folder / "Assemblies/RimTestRedux.dll"
+                dll.parent.mkdir(parents=True)
+                dll.write_bytes(folder.encode("ascii"))
+            self.assertEqual(common.find_dll(root, "RimTestRedux.dll", "1.6").read_bytes(), b"1.6")
+            self.assertEqual(common.find_dll(root, "RimTestRedux.dll", "1.7").read_bytes(), b"1.7")
+            (root / "LoadFolders.xml").write_text(
+                "<loadFolders><v1.6><li>1.6</li></v1.6>"
+                "<v1.7><li>/</li><li>1.7</li></v1.7></loadFolders>",
+                encoding="utf-8",
+            )
+            self.assertEqual(common.find_dll(root, "RimTestRedux.dll", "1.7").read_bytes(), b"1.7")
+            (root / "LoadFolders.xml").write_text(
+                "<loadFolders><v1.6><li>1.6</li></v1.6></loadFolders>",
+                encoding="utf-8",
+            )
+            self.assertEqual(common.find_dll(root, "RimTestRedux.dll", "1.7").read_bytes(), b"1.6")
+            (root / "1.6/Assemblies/RimTestRedux.dll").unlink()
+            with self.assertRaisesRegex(ValueError, "No active RimWorld 1.7"):
+                common.find_dll(root, "RimTestRedux.dll", "1.7")
+
     def test_harmony_rimworld_16_loader_selects_current_not_old_dlls(self):
         spec = importlib.util.spec_from_file_location(
             "amje_framework_common",
