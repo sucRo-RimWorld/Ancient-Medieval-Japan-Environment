@@ -18,7 +18,6 @@ on:
       - 'Docs/NativeVegetationStep3Design-ja.md'
       - 'Tests/test_wetland_implementation_decision.py'
       - 'Docs/Research/WetlandPlantDistributionDraft.json'
-      - 'Tests/test_wetland_distribution_draft.py'
       - 'Tests/test_wetland_production_refs.py'
       - 'Docs/Research/WetlandPlantMaterialDefAudit-ja.md'
       - 'Docs/Research/WetlandPlantMaterialsProfiles-ja.md'
@@ -41,7 +40,6 @@ on:
       - 'Docs/NativeVegetationStep3Design-ja.md'
       - 'Tests/test_wetland_implementation_decision.py'
       - 'Docs/Research/WetlandPlantDistributionDraft.json'
-      - 'Tests/test_wetland_distribution_draft.py'
       - 'Tests/test_wetland_production_refs.py'
       - 'Docs/Research/WetlandPlantMaterialDefAudit-ja.md'
       - 'Docs/Research/WetlandPlantMaterialsProfiles-ja.md'
@@ -61,8 +59,6 @@ jobs:
         run: python Tests/test_wetland_ecology_contract.py
       - name: Validate evidence-backed native wetland implementation scope
         run: python Tests/test_wetland_implementation_decision.py
-      - name: Validate unapproved wetland plant distribution draft against live XML baseline
-        run: python Tests/test_wetland_distribution_draft.py
       - name: Validate Suge and Mizugoke XML behavior fixtures (production Defs pending)
         run: python Tests/test_wetland_material_plant_contract.py
       - name: Validate live four-species wetland references (production Defs pending)

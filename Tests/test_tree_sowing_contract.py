@@ -51,6 +51,27 @@ def validate(biomes, plants):
     return errors
 
 
+def loaded_wetland_baselines(patch_xml):
+    """Read approved live Vanilla additions, without using draft proposal data."""
+    root = ET.fromstring(patch_xml)
+    result = {}
+    for op in root.findall("./Operation/operations/li"):
+        if op.get("Class") != "PatchOperationAdd":
+            continue
+        xpath = op.findtext("xpath", "")
+        for biome in ("TemperateSwamp", "ColdBog"):
+            if xpath == f'/Defs/BiomeDef[defName="{biome}"]/wildPlants':
+                if biome in result:
+                    raise ValueError("duplicate Vanilla wetland baseline")
+                value = op.find("value")
+                if value is None or not len(value):
+                    raise ValueError("missing Vanilla wetland baseline values")
+                result[biome] = {node.tag: node.text for node in value}
+    if set(result) != {"TemperateSwamp", "ColdBog"}:
+        raise ValueError("missing retained Vanilla wetland baselines")
+    return result
+
+
 class TreeSowingContractTests(unittest.TestCase):
     def setUp(self):
         self.biomes = ET.parse(ROOT / "Defs/BiomeDefs/AMJ_Biomes.xml").getroot()
@@ -88,7 +109,6 @@ class TreeSowingContractTests(unittest.TestCase):
         self.assertTrue(validate(self.biomes, self.plants))
 
     def test_scoped_wetland_baselines_preserve_vanilla_balance(self):
-        from test_wetland_distribution_draft import loaded_baselines
         source = (ROOT / "Patches/VanillaWetlandVegetation.xml").read_text()
         root = ET.fromstring(source)
         ops = root.findall("./Operation/operations/li")
@@ -100,7 +120,7 @@ class TreeSowingContractTests(unittest.TestCase):
                                       "Plant_TreeBirch"},
                         {"Plant_Chokevine", "Plant_TreeCypress", "Plant_Astragalus"}),
         }
-        baselines = loaded_baselines(source)
+        baselines = loaded_wetland_baselines(source)
         for i, (biome, (total, woody, trees, excluded)) in enumerate(expected.items()):
             remove, add = ops[2*i:2*i+2]
             path = f'/Defs/BiomeDef[defName="{biome}"]/wildPlants'
@@ -127,10 +147,9 @@ class TreeSowingContractTests(unittest.TestCase):
             self.assertNotIn("Plant_Bulrush", weights)
 
     def test_scoped_patch_keeps_mo_herbs_before_or_after_environment(self):
-        from test_wetland_distribution_draft import loaded_baselines
         source = (ROOT / "Patches/VanillaWetlandVegetation.xml").read_text()
         ops = ET.fromstring(source).findall("./Operation/operations/li")
-        baseline = loaded_baselines(source)
+        baseline = loaded_wetland_baselines(source)
         herbs = dict.fromkeys((
             "DankPyon_Plant_MindwortWild", "DankPyon_Plant_PoppyWild",
             "DankPyon_Plant_FleawortWild", "DankPyon_Plant_FlyAgaricWild"), "0.05")
