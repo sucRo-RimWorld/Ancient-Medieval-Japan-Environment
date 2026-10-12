@@ -106,7 +106,7 @@ wildPlants総量と木本総量を維持する。
 
 ### 3.2 湿地資材と3構成の接続（未承認）
 
-`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/test_wetland_material_plant_contract.py`。**実際の新Defは未実装**であり、テストの仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** **2026-10-12作者承認：スゲの成熟株1株の基本収穫量は `Hay` 1（`harvestYield=1`）。** 他種の収量・収穫物の承認とは区別する。ヨシのHay採用、各植物の収量と製品Recipeは未承認。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
+`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/test_wetland_material_plant_contract.py`。**実際の新Defは未実装**であり、テストの仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** **2026-10-12作者承認：スゲの成熟株1株の基本収穫量は `Hay` 1（`harvestYield=1`）。** 他種の収量・収穫物の承認とは区別する。ヨシのHay採用、ヨシ・ハンノキの収量と製品Recipeは未承認。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
 
 **実装前のDef参照テスト（2026-10-10）：** `Tests/test_wetland_production_refs.py`は本番`Patches/VanillaWetlandVegetation.xml`の2湿地を読み、追加予定4種のDef名について「自然発生プールで参照した種に対応する実PlantDefが1件存在する」「実PlantDefが存在する種は対象プールから参照される」「ミズゴケは現在の設計ではColdBog限定」を検査する。未実装中は形状・誤参照のモックテストを実行し、本番種がなければ本番参照検査だけをSKIPする。**分布値は未承認であり、草案JSONをゲーム適用したり、ロード済みの適地・自然発生・画像・採取を検証済みと主張したりしない。**
 
@@ -176,7 +176,7 @@ EnvironmentはCCTOを必須依存とせず、4種の基礎PlantDefにはVanilla�
 >
 > 『万葉集』には菅や菅笠を詠んだ歌が残り、その葉は古くから笠や蓑の材料として用いられてきた。
 
-根拠：國學院大學「万葉神事語辞典 すげ」、環境省湿原植生資料。ゲーム内の汎用`Hay`採取は**作者承認済み**だが収量数値・完成した菅笠／蓑のRecipeは**未承認・未実装**。植物固有の原料アイテムを増やさない。
+根拠：國學院大學「万葉神事語辞典 すげ」、環境省湿原植生資料。ゲーム内の汎用`Hay`採取と基本収穫量 `Hay` 1 は**作者承認済み**だが、完成した菅笠／蓑のRecipeは**未承認・未実装**。植物固有の原料アイテムを増やさない。
 
 ### 榛の木（ハンノキ）— `AMJ_Tree_Hannoki`
 
