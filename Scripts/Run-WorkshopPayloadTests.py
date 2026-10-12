@@ -31,7 +31,13 @@ REPORTS_PER_PROFILE = len(SCENARIOS) + 1
 def expected_map_assertions(mode):
     if mode not in PROFILES:
         raise ValueError('Unknown release profile: ' + str(mode))
-    return MAP_ASSERTIONS_CCTO if 'CCTO' in mode else MAP_ASSERTIONS_BASE
+    counts = MAP_ASSERTIONS_CCTO if 'CCTO' in mode else MAP_ASSERTIONS_BASE
+    if mode.startswith('MO'):
+        # Four loaded herb weights + native aggregate spawn in three forests;
+        # Alpine checks weights only. Each wetland has two MO herb checks.
+        counts = tuple(count + extra for count, extra in
+                       zip(counts, (5, 5, 5, 4, 2, 2, 0, 0, 0)))
+    return counts
 
 
 

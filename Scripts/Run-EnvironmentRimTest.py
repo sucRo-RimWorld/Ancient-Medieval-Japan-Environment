@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import shutil
 import tempfile
+import xml.etree.ElementTree as ET
 
 import EnvironmentFrameworkTestCommon as common
 
@@ -15,6 +16,11 @@ ROOT = common.ROOT
 TEST_ID = "sucro.amje.environment.rimtests"
 ERROR_ID = "sucro.amje.rimtesterrors"
 EXPECTED_TESTS = 10
+
+
+def validate_loaded_source(result, root):
+    if Path(result.get("productionAssembly", "")).resolve() != (root / "Assemblies/AncientMedievalJapanEnvironment.dll").resolve():
+        raise ValueError("RimTest loaded a different Environment production assembly")
 
 
 def next_output() -> Path:
@@ -37,6 +43,11 @@ def run(root: Path, output: Path, game: Path):
         root.relative_to(mods_dir.resolve())
     except ValueError as exc:
         raise ValueError("Development Environment root must be under RimWorld/Mods so RimTest loads exact source") from exc
+
+    environment_id = ET.parse(root / "About/About.xml").findtext("packageId", "").lower()
+    if environment_id not in ("sucro.ancientmedievaljapan.environment",
+                              "sucro.ancientmedievaljapan.environment.releasevalidation"):
+        raise ValueError("Unsupported Environment source identity: " + environment_id)
 
     workshop = game.parents[1] / "workshop/content/294100"
     rimtest_dll = common.find_dll(workshop / "3762405308", "RimTestRedux.dll")
@@ -63,7 +74,7 @@ def run(root: Path, output: Path, game: Path):
             fixture,
             "AMJE Environment RimTest audit (temporary)",
             TEST_ID,
-            ["ilyvion.rimtestredux", "sucro.ancientmedievaljapan.environment"],
+            ["ilyvion.rimtestredux", environment_id],
         )
         early.mkdir()
         owned.append(early)
@@ -90,7 +101,7 @@ def run(root: Path, output: Path, game: Path):
             "ilyvion.laboratory",
             "ilyvion.rimtestredux",
             ERROR_ID,
-            "sucro.ancientmedievaljapan.environment",
+            environment_id,
             TEST_ID,
         ])
 
@@ -113,6 +124,7 @@ def run(root: Path, output: Path, game: Path):
         if not result_path.is_file():
             raise ValueError("RimTest result bridge did not create RimTestSummary.json")
         result = json.loads(result_path.read_text(encoding="utf-8-sig"))
+        validate_loaded_source(result, root)
         if (result.get("passed") is not True or result.get("total") != EXPECTED_TESTS or
                 result.get("pass") != EXPECTED_TESTS or result.get("failed") != 0 or
                 result.get("skipped") != 0 or result.get("unknown") != 0):

@@ -9,10 +9,22 @@ import re
 import shutil
 
 
+def release_quickstarts(source):
+    # Unapproved species probes belong to the disposable DEVELOPMENT fixture,
+    # not the subscriber payload. Preserve all production wetland assertions.
+    for helper in ('AddWetlandBehaviorProbeAssertions', 'AddHannokiBehaviorProbeAssertions'):
+        call = '            ' + helper + '(result, Find.CurrentMap);\n'
+        if source.count(call) != 2:
+            raise ValueError('Review development probe routing before release staging: ' + helper)
+        source = source.replace(call, '')
+    return source
+
+
 def stage(output):
     repository = pathlib.Path(__file__).resolve().parents[1]
     output.mkdir(parents=True, exist_ok=True)
     source = (repository / 'Tests/Quickstarts/EnvironmentBiomeTerrainQuickstarts.cs').read_text(encoding='utf-8-sig')
+    source = release_quickstarts(source)
     source = source.replace('AncientMedievalJapan.Environment.Quicktests', 'AncientMedievalJapan.Environment.WorkshopFinaltests')
     source = source.replace('sucro.ancientmedievaljapan.environment.quicktests', 'sucro.ancientmedievaljapan.environment.workshopfinaltests')
     source = re.sub(r'\bAMJ[A-Za-z0-9_]*Quickstart\b', lambda match: 'Workshop_' + match[0], source)
