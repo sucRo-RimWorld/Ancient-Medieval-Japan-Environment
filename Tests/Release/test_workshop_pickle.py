@@ -10,7 +10,7 @@ from unittest import mock
 import os
 import tempfile
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 
 
 class WorkshopPickleTests(unittest.TestCase):

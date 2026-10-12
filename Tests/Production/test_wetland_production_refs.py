@@ -9,7 +9,7 @@ import re
 import unittest
 import xml.etree.ElementTree as ET
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DEF_ROOT = ROOT / "Defs" / "ThingDefs_Plants"
 PATCH = ROOT / "Patches" / "VanillaWetlandVegetation.xml"
 

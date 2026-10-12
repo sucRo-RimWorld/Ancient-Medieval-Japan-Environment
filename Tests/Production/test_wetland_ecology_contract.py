@@ -7,7 +7,7 @@ from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 PATCH = ROOT / "Patches" / "VanillaWetlandEcology.xml"
 DESCRIPTION_PATCH = ROOT / "Patches" / "VanillaWetlandDescriptions.xml"
 JAPANESE_DESCRIPTIONS = (

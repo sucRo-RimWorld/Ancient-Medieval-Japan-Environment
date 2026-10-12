@@ -16,7 +16,7 @@ jobs:
       - name: Validate YADA filter and subscriber payload contract
         run: python Tests/validate_workshop_payload.py
       - name: Reject stale sources, wrong upload roots and payload mutations
-        run: python Tests/test_workshop_payload.py && python Tests/test_workshop_pickle.py
+        run: python Tests/Release/test_workshop_payload.py && python Tests/Release/test_workshop_pickle.py
       - name: Validate Harmony active-version selection
         run: python Tests/test_framework_automation.py
       - name: Compile publication tooling
