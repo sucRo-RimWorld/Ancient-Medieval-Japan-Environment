@@ -107,7 +107,7 @@ def run(root: Path, output: Path, game: Path, workers: int = 1):
 
         csc, refs, desktop = common.compile_support(game, output, early)
         common.invoke([
-            csc, "/nologo", "/target:library",
+            csc, "/nologo", "/nowarn:1684", "/target:library",
             "/out:" + str(fixture / "Pickle/Assemblies/AMJE.DevelopmentPickle.Steps.dll"),
             *["/reference:" + str(x) for x in [*refs, pickle_dll]],
             ROOT / "Tests/Pickle/EnvironmentWorkshopSteps.cs",
