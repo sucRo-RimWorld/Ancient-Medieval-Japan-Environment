@@ -1,0 +1,15 @@
+# Scoped native messages only. Complete private runtime/capture logs retained locally.
+[ColorCapture] actual material=Custom/Plant cutout_Beech_A mainTexture=Beech_A
+[ColorCapture] actual material=Custom/Plant cutout_TextureAtlas_Plant_False_-9922 mainTexture=TextureAtlas_Plant_False_-9922
+[ColorCapture] actual material=Custom/Plant cutout_Hannoki_A mainTexture=Hannoki_A
+[ColorCapture] actual material=Custom/Plant cutout_TextureAtlas_Plant_False_-9922 mainTexture=TextureAtlas_Plant_False_-9922
+[ColorCapture] ORIGINAL texture=AMJE_BeechFallGradient size=256x256 filter=Trilinear wrap=Repeat materials=4 shader=Custom/Plant cutout
+[ColorCapture] CAPTURE Calibration-Normal-OldSource localHour=12 weather=Clear transition=1 paused=True zoom=24 fall=0 ticks=15000 source=(0.38, 0.44, 0.15, 1.00) conditions=True
+[ColorCapture] CAPTURE Calibration-Normal-NewSource localHour=12 weather=Clear transition=1 paused=True zoom=24 fall=0 ticks=15000 source=(0.50, 0.54, 0.32, 1.00) conditions=True
+[ColorCapture] CAPTURE Calibration-CurrentMap-OldSource localHour=12 weather=Clear transition=1 paused=True zoom=24 fall=1 ticks=15000 source=(0.38, 0.44, 0.15, 1.00) conditions=True
+[ColorCapture] CAPTURE Calibration-CandidateMap-OldSource localHour=12 weather=Clear transition=1 paused=True zoom=24 fall=1 ticks=15000 source=(0.38, 0.44, 0.15, 1.00) conditions=True
+[ColorCapture] CAPTURE Calibration-CandidateMap-SaturationOnly localHour=12 weather=Clear transition=1 paused=True zoom=24 fall=1 ticks=15000 source=(0.40, 0.44, 0.26, 1.00) conditions=True
+[ColorCapture] CAPTURE Calibration-CandidateMap-ValueOnly localHour=12 weather=Clear transition=1 paused=True zoom=24 fall=1 ticks=15000 source=(0.47, 0.54, 0.18, 1.00) conditions=True
+[ColorCapture] CAPTURE Calibration-CandidateMap-Both localHour=12 weather=Clear transition=1 paused=True zoom=24 fall=1 ticks=15000 source=(0.50, 0.54, 0.32, 1.00) conditions=True
+[ColorCapture] CAPTURE Calibration-CandidateMap-Both-Half localHour=12 weather=Clear transition=1 paused=True zoom=24 fall=0.5 ticks=15000 source=(0.50, 0.54, 0.32, 1.00) conditions=True
+[ColorCapture] COMPLETE eight source calibration screenshots; natural seasonal timing not tested

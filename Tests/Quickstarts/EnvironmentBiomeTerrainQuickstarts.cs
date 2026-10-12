@@ -4044,13 +4044,27 @@ namespace AncientMedievalJapan.Environment.Quicktests
             base.PostLoaded();
             Map map = Find.CurrentMap;
             Plant selected = null;
+            float selectedThreshold = float.MinValue;
+            System.Reflection.PropertyInfo leaflessThresholdProperty =
+                AccessTools.Property(typeof(Plant), "LeaflessTemperatureThresh");
             foreach (Thing thing in map.listerThings.AllThings)
             {
                 Plant plant = thing as Plant;
                 if (plant != null && plant.def.defName == TargetPlantDefName &&
                     !map.roofGrid.Roofed(plant.Position) &&
-                    plant.Growth >= 0.95f && !plant.Dying &&
-                    (selected == null || plant.Age < selected.Age)) selected = plant;
+                    plant.Growth >= 0.95f && !plant.Dying)
+                {
+                    // Individual native thresholds span -18..-10 C. Pick the
+                    // most cold-sensitive existing tree for observable state
+                    // coverage; do not change its threshold, climate or seed.
+                    float candidateThreshold = (float)leaflessThresholdProperty.GetValue(plant, null);
+                    if (selected == null || candidateThreshold > selectedThreshold ||
+                        (candidateThreshold == selectedThreshold && plant.Age < selected.Age))
+                    {
+                        selected = plant;
+                        selectedThreshold = candidateThreshold;
+                    }
+                }
             }
             if (selected == null) { Log.Error("[AMJ Environment SeasonSample] No outdoor beech."); return; }
             AccessTools.Field(typeof(PlantFallColors), "FallIntensityOverride").SetValue(null, false);

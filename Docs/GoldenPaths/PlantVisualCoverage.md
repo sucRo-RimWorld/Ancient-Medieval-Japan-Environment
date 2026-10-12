@@ -52,6 +52,35 @@ explicitly. Do not label the whole plant or ENV-010 DONE from one accepted state
 
 ## Controlled color review
 
+### Autumn LUT and source-color calibration
+
+The native plant shader shifts HSV by destination-minus-source; it does not
+replace every leaf pixel with the lookup color. A source key darker and more
+saturated than the real foliage leaves that brightness/saturation difference
+in the autumn output. Diagnose source HSV, destination HSV and rendered output
+separately before darkening accepted normal artwork. Keep the key hue/range
+unchanged when only value/saturation calibration is authorized. Shader override
+and synthetic numeric readback are investigative evidence, not a replacement
+for testing the final loaded production Def and file-based LUT.
+
+Plant.Print can use an atlas replacement material. A prototype changing only
+the original Graphic material can produce an unchanged rendered comparison.
+Verify actual output differences and use the real atlas material for disposable
+probes; final validation must load the accepted PNG/DDS through the normal
+content loader, without destination/source material overrides.
+
+For this horizontal 256x256 opaque LUT, preserve the exact accepted PNG under
+`Art/Sources/Other`, run `python Scripts/Art/export_fall_gradient.py`, then
+`python Tests/validate_fall_gradient.py --self-test`. The uncompressed RGBA DDS
+is supported by the installed RimWorld 1.6 loader and preserves every decoded
+pixel. Never leave a stale sibling DDS when revising the PNG. Validate actual
+loaded texture pixels/source parameters and retain noon/Clear screenshots,
+complete logs and the runtime ERROR gate. Preserve earlier non-autumn art
+acceptance when source art, size and state paths are unchanged and native
+fall=0 remains identical; record technical revalidation rather than inventing
+a fresh human approval. Seasonal mechanics still require their scoped native
+evidence when the ledger fingerprint changes.
+
 Color/palette review baseline is **local map time 12:00, Clear weather, paused**.
 Set local solar time rather than assuming global/absolute noon is local noon.
 Let the previous weather finish fading, then verify actual weather and local time.
@@ -82,6 +111,14 @@ Set RIMWORLD_AMJE_COLOR_BASELINE=1 together with RIMWORLD_AMJE_BEECH_REVIEW=autu
 
 ### Native seasonal sampling
 AMJBeechSeasonalSampleQuickstart selects the coldest settlement-valid natural CoolTemperate tile in the generated world, then tracks one naturally generated mature outdoor beech across hourly calendar samples. It disables the fall override, refreshes native temperature caches and calls native Plant.TickLong. No temperature override or MakeLeafless call is used. Check its retained log with Tests/validate_beech_season_sample.py and the runtime ERROR gate. This is accelerated calendar/native-state sampling, not a full year of ordinary world simulation or human visual acceptance. Leafless behavior is temperature-dependent: a warm site can change autumn colors without crossing the tree's individual cold threshold, and foliage can recover when temperatures rise even before spring.
+
+Native individual leafless thresholds vary from growth-minimum minus18 to
+minus10C. The observer selects the highest threshold among existing healthy
+mature outdoor beech, using age only as a tie-break, so its state demonstration
+does not depend on an arbitrary first/youngest cold-resistant individual.
+Never move the climate, change a tree's threshold or force a state to satisfy
+the same-tree leafless/recovery assertions. Log the selected native threshold
+and sampled minimum temperature; retain any failed earlier attempt separately.
 
 ### Growth-stage comparison map
 Build and launch AMJPlantGrowthReviewQuickstart using an isolated profile and retained log. This developer-only setup clears a small central soil plot and places four rows (north to south: Shii, Beech, Shirabiso, Haimatsu), with growth 0.1, 0.5, 1.0 from west to east. It validates all 12 live materials, fixes local noon/Clear/paused/zoom=18 and disables autumn tint for a normal-foliage comparison. Apply the runtime ERROR gate and verify the actual baseline log before human review. The youngest column may use inherited immature graphics; inspect the actual resolved texture rather than assuming a scaled mature image. No production Def/art or ordinary saves are edited. Human growth-stage acceptance remains a separate ledger update.

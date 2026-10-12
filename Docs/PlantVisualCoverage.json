@@ -79,11 +79,11 @@
             "weather": "Clear",
             "paused": true,
             "weather_transition_complete": true,
-            "verified": true,
-            "season": "fixed calendar ticksAbs=330000, longitude=5.478611; autumn shader override",
+            "season": "Spring day6; native fall intensity override",
             "shader_intensity": 1,
             "zoom": 24,
-            "evidence": "TestResults/BeechNoonClearReview/CoolTemperate.log"
+            "evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-Review.log",
+            "verified": true
           },
           "runtime_observation": {
             "growth": 1,
@@ -96,18 +96,56 @@
             "texture": "Beech_A",
             "mod_error_gate": "passed"
           },
-          "date": "2026-10-05",
-          "author_statement": "では採用で。",
-          "evidence": "Docs/ArtDirection.md#Beech controlled autumn acceptance",
+          "date": "2026-10-13",
+          "author_statement": "ｙ（右側の明度・彩度校正後の発色を採用候補として進める確認への回答）",
+          "evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
           "fingerprint": {
-            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+            "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
-              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
             }
           },
-          "technical_revalidation": "Exact prior whole-Def/assets reconstructed after excluding unrelated UI/snow-only additions; original acceptance retained."
+          "technical_revalidation": "Exact prior whole-Def/assets reconstructed after excluding unrelated UI/snow-only additions; original acceptance retained.",
+          "prior_acceptance": {
+            "status": "accepted",
+            "review_kind": "color",
+            "color_conditions": {
+              "local_hour": 12,
+              "weather": "Clear",
+              "paused": true,
+              "weather_transition_complete": true,
+              "verified": true,
+              "season": "fixed calendar ticksAbs=330000, longitude=5.478611; autumn shader override",
+              "shader_intensity": 1,
+              "zoom": 24,
+              "evidence": "TestResults/BeechNoonClearReview/CoolTemperate.log"
+            },
+            "runtime_observation": {
+              "growth": 1,
+              "position": [
+                153,
+                0,
+                121
+              ],
+              "leafless": false,
+              "texture": "Beech_A",
+              "mod_error_gate": "passed"
+            },
+            "date": "2026-10-05",
+            "author_statement": "では採用で。",
+            "evidence": "Docs/ArtDirection.md#Beech controlled autumn acceptance",
+            "fingerprint": {
+              "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+              "pngs": {
+                "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+                "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+                "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              }
+            },
+            "technical_revalidation": "Exact prior whole-Def/assets reconstructed after excluding unrelated UI/snow-only additions; original acceptance retained."
+          }
         },
         "icon": {
           "status": "accepted",
@@ -115,13 +153,29 @@
           "author_statement": "OK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-Review.log",
           "fingerprint": {
-            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+            "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
-              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
             }
-          }
+          },
+          "prior_acceptance": {
+            "status": "accepted",
+            "date": "2026-10-06",
+            "author_statement": "OK",
+            "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-Review.log",
+            "fingerprint": {
+              "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+              "pngs": {
+                "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+                "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+                "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              }
+            }
+          },
+          "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
+          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md"
         },
         "immature": {
           "status": "accepted",
@@ -129,13 +183,29 @@
           "author_statement": "これ何回も見てるけどOK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
           "fingerprint": {
-            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+            "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
-              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
             }
-          }
+          },
+          "prior_acceptance": {
+            "status": "accepted",
+            "date": "2026-10-06",
+            "author_statement": "これ何回も見てるけどOK",
+            "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+            "fingerprint": {
+              "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+              "pngs": {
+                "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+                "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+                "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              }
+            }
+          },
+          "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
+          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md"
         },
         "leafless": {
           "status": "accepted",
@@ -172,13 +242,29 @@
           "author_statement": "これ何回も見てるけどOK",
           "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
           "fingerprint": {
-            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+            "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
-              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
             }
-          }
+          },
+          "prior_acceptance": {
+            "status": "accepted",
+            "date": "2026-10-06",
+            "author_statement": "これ何回も見てるけどOK",
+            "evidence": "Docs/ValidationEvidence/PlantIconGrowthReviewFinal-GrowthOnly.log",
+            "fingerprint": {
+              "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+              "pngs": {
+                "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+                "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+                "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              }
+            }
+          },
+          "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
+          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md"
         },
         "snow": {
           "status": "accepted",
@@ -186,13 +272,13 @@
           "author_statement": "ブナOKなのでPRマージして",
           "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md",
           "fingerprint": {
-            "definition": "55a774a1f2773677b1869db113513dffa3f37130a50dc8cc1b06e9ce750f4a87",
+            "definition": "ea02ccd7cdf579beb9ba63d4ab2786bb2c05dcf23b8bf9e26ab59f96a3dcfada",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
               "Textures/Things/Plant/AMJ/Beech_Snow/Beech_Snow_A.png": "221fdf06941864a7a366819042fe325b15ad587d5af9e3bb914a672b2f3d5f51",
               "Textures/Things/Plant/AMJ/Beech_Leafless_Snow/Beech_Leafless_Snow_A.png": "3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b",
-              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
             }
           },
           "reviewed_variants": [
@@ -201,19 +287,44 @@
           ],
           "source_art_status": "accepted_as_compromise",
           "source_author_statement": "これで妥協する",
-          "native_author_statement": "ブナOKなのでPRマージして"
+          "native_author_statement": "ブナOKなのでPRマージして",
+          "prior_acceptance": {
+            "status": "accepted",
+            "date": "2026-10-06",
+            "author_statement": "ブナOKなのでPRマージして",
+            "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md",
+            "fingerprint": {
+              "definition": "55a774a1f2773677b1869db113513dffa3f37130a50dc8cc1b06e9ce750f4a87",
+              "pngs": {
+                "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+                "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+                "Textures/Things/Plant/AMJ/Beech_Snow/Beech_Snow_A.png": "221fdf06941864a7a366819042fe325b15ad587d5af9e3bb914a672b2f3d5f51",
+                "Textures/Things/Plant/AMJ/Beech_Leafless_Snow/Beech_Leafless_Snow_A.png": "3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b",
+                "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              }
+            },
+            "reviewed_variants": [
+              "leafy",
+              "leafless"
+            ],
+            "source_art_status": "accepted_as_compromise",
+            "source_author_statement": "これで妥協する",
+            "native_author_statement": "ブナOKなのでPRマージして"
+          },
+          "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
+          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md"
         },
         "transition": {
           "status": "verified",
-          "date": "2026-10-06",
+          "date": "2026-10-13",
           "verification_kind": "automated_native_calendar_sampling",
-          "evidence": "Docs/ValidationEvidence/BeechSeasonSampleV5-Season.log",
+          "evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-Season.log",
           "fingerprint": {
-            "definition": "b35275998c1c354b6933d87dc3bac3114288474ab4ca96551a726bc9ce13ea7f",
+            "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
               "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
-              "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
             }
           },
           "scope": "Hourly native calendar/temperature-cache/Plant.TickLong sampling: fall0..1, same-tree cold leafless and recovery, valid textures. Not continuous full-world yearly simulation; no human visual acceptance claimed."

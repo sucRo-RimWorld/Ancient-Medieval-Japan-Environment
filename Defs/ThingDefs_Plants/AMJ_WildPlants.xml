@@ -39,7 +39,7 @@
       <texPath>Things/Plant/AMJ/Beech</texPath>
       <graphicClass>Graphic_Random</graphicClass>
       <shaderParameters Inherit="False">
-        <_FallColorSource>(0.3803, 0.4352, 0.1451)</_FallColorSource>
+        <_FallColorSource>(0.496758088, 0.537254902, 0.323263543)</_FallColorSource>
         <_FallColorDestination>/Other/AMJE_BeechFallGradient</_FallColorDestination>
         <_FallTransitionRange>(0.02, 0.10)</_FallTransitionRange>
         <_FallBehaviorEnabled>1</_FallBehaviorEnabled>

@@ -45,6 +45,7 @@ jobs:
         run: python -m pip install Pillow
       - name: Validate accepted production textures and snow registration
         run: |
+          python Tests/validate_fall_gradient.py --self-test
           python Tests/validate_haimatsu_texture.py
           python Tests/validate_shirabiso_texture.py
           python Tests/validate_haimatsu_snow.py
