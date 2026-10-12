@@ -88,7 +88,7 @@ def run(root: Path, output: Path, game: Path):
             root / "Assemblies/AncientMedievalJapanEnvironment.dll",
         ]
         common.invoke([
-            csc, "/nologo", "/target:library",
+            csc, "/nologo", "/nowarn:1684", "/target:library",
             "/out:" + str(fixture / "Assemblies/AMJE.Environment.RimTests.dll"),
             *["/reference:" + str(x) for x in invoke_refs],
             ROOT / "Tests/RimTest/EnvironmentRimTests.cs",
