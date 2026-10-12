@@ -103,12 +103,12 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES, world_biomes_
         csc = Path(os.environ['WINDIR']) / 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
         references = [managed / x for x in ('Assembly-CSharp.dll', 'UnityEngine.CoreModule.dll', 'UnityEngine.IMGUIModule.dll', 'Unity.Mathematics.dll', 'Unity.Collections.dll', 'netstandard.dll')]
         references += [next((workshop / mod).rglob(dll)) for mod, dll in [('2009463077', '0Harmony.dll'), ('3793646067', 'Quickstarts.dll')]]
-        call([csc, '/nologo', '/target:library', '/out:' + str(observer / 'Assemblies/ReleaseGate.dll'),
+        call([csc, '/nologo', '/nowarn:1684', '/target:library', '/out:' + str(observer / 'Assemblies/ReleaseGate.dll'),
               *['/reference:' + str(p) for p in references], generated / 'WorkshopHarvestQuickstarts.cs', ROOT / 'Tests/Release/WorkshopSourceAudit.cs'])
         error_observer.mkdir(); owned.append(error_observer)
         (error_observer / 'About').mkdir(); (error_observer / 'Assemblies').mkdir()
         (error_observer / 'About/About.xml').write_text('<ModMetaData><name>AMJE early Unity errors (temporary)</name><author>AMJ testing</author><packageId>sucro.amje.payloadgateerrors</packageId><supportedVersions><li>1.6</li></supportedVersions></ModMetaData>')
-        call([csc, '/nologo', '/target:library', '/out:' + str(error_observer / 'Assemblies/EarlyErrors.dll'),
+        call([csc, '/nologo', '/nowarn:1684', '/target:library', '/out:' + str(error_observer / 'Assemblies/EarlyErrors.dll'),
               *['/reference:' + str(managed / p) for p in ('Assembly-CSharp.dll', 'UnityEngine.CoreModule.dll', 'netstandard.dll')], ROOT / 'Tests/Release/HarvestErrorObserver.cs'])
         desktop = output / 'IsolatedDesktopRunner.exe'
         call([csc, '/nologo', '/target:exe', '/out:' + str(desktop), ROOT / 'Tests/Release/IsolatedDesktopRunner.cs'])
