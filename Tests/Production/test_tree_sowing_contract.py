@@ -4,7 +4,7 @@ import re
 import unittest
 import xml.etree.ElementTree as ET
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 EXPECTED = {
     "AMJ_WarmTemperateForest": {"AMJ_Tree_Shii", "Plant_TreeMaple", "Plant_TreeBamboo"},
     "AMJ_CoolTemperateForest": {"AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch", "Plant_TreePine"},

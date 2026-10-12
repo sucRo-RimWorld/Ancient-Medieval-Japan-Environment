@@ -6,7 +6,7 @@ import tempfile
 import unittest
 import subprocess
 
-spec = importlib.util.spec_from_file_location('payload', Path(__file__).resolve().parents[1] / 'Scripts/Build-WorkshopPayload.py')
+spec = importlib.util.spec_from_file_location('payload', Path(__file__).resolve().parents[2] / 'Scripts/Build-WorkshopPayload.py')
 payload = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(payload)
 

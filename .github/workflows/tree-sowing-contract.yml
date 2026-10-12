@@ -11,17 +11,17 @@ on:
       - 'Tests/test_vanilla_bamboo_description.py'
       - 'Docs/VanillaPlantStep2DescriptionReview-ja.md'
       - 'Tests/Quickstarts/**'
-      - 'Tests/test_tree_sowing_contract.py'
-      - 'Tests/test_wetland_ecology_contract.py'
+      - 'Tests/Production/test_tree_sowing_contract.py'
+      - 'Tests/Production/test_wetland_ecology_contract.py'
       - 'Docs/Research/WetlandPlantExistingModAudit-ja.md'
       - 'Docs/Research/WetlandPlantImplementationDecision.json'
       - 'Docs/NativeVegetationStep3Design-ja.md'
       - 'Tests/test_wetland_implementation_decision.py'
       - 'Docs/Research/WetlandPlantDistributionDraft.json'
-      - 'Tests/test_wetland_production_refs.py'
+      - 'Tests/Production/test_wetland_production_refs.py'
       - 'Docs/Research/WetlandPlantMaterialDefAudit-ja.md'
       - 'Docs/Research/WetlandPlantMaterialsProfiles-ja.md'
-      - 'Tests/test_wetland_material_plant_contract.py'
+      - 'Tests/Production/test_wetland_material_plant_contract.py'
       - '.github/workflows/tree-sowing-contract.yml'
   pull_request:
     paths:
@@ -33,17 +33,17 @@ on:
       - 'Tests/test_vanilla_bamboo_description.py'
       - 'Docs/VanillaPlantStep2DescriptionReview-ja.md'
       - 'Tests/Quickstarts/**'
-      - 'Tests/test_tree_sowing_contract.py'
-      - 'Tests/test_wetland_ecology_contract.py'
+      - 'Tests/Production/test_tree_sowing_contract.py'
+      - 'Tests/Production/test_wetland_ecology_contract.py'
       - 'Docs/Research/WetlandPlantExistingModAudit-ja.md'
       - 'Docs/Research/WetlandPlantImplementationDecision.json'
       - 'Docs/NativeVegetationStep3Design-ja.md'
       - 'Tests/test_wetland_implementation_decision.py'
       - 'Docs/Research/WetlandPlantDistributionDraft.json'
-      - 'Tests/test_wetland_production_refs.py'
+      - 'Tests/Production/test_wetland_production_refs.py'
       - 'Docs/Research/WetlandPlantMaterialDefAudit-ja.md'
       - 'Docs/Research/WetlandPlantMaterialsProfiles-ja.md'
-      - 'Tests/test_wetland_material_plant_contract.py'
+      - 'Tests/Production/test_wetland_material_plant_contract.py'
       - '.github/workflows/tree-sowing-contract.yml'
 concurrency:
   group: tree-sowing-${{ github.event.pull_request.number || github.ref }}
@@ -54,14 +54,14 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Validate regional tree sets
-        run: python Tests/test_tree_sowing_contract.py
+        run: python Tests/Production/test_tree_sowing_contract.py
       - name: Validate retained Vanilla wetland ecology bundle
-        run: python Tests/test_wetland_ecology_contract.py
+        run: python Tests/Production/test_wetland_ecology_contract.py
       - name: Validate evidence-backed native wetland implementation scope
         run: python Tests/test_wetland_implementation_decision.py
       - name: Validate Suge and Mizugoke XML behavior fixtures (production Defs pending)
-        run: python Tests/test_wetland_material_plant_contract.py
+        run: python Tests/Production/test_wetland_material_plant_contract.py
       - name: Validate live four-species wetland references (production Defs pending)
-        run: python Tests/test_wetland_production_refs.py
+        run: python Tests/Production/test_wetland_production_refs.py
       - name: Validate approved Vanilla tree descriptions without gameplay changes
         run: python Tests/test_vanilla_bamboo_description.py
