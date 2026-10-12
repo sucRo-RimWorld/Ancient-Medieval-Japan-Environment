@@ -249,11 +249,11 @@ def run(payload, manifest, output, game):
         pickle_dll = find_dll(workshop / "3791648678", "RimWorks.Pickle.dll")
         refs = [managed / name for name in (
             "Assembly-CSharp.dll", "UnityEngine.CoreModule.dll", "netstandard.dll")]
-        invoke([csc, "/nologo", "/target:library",
+        invoke([csc, "/nologo", "/nowarn:1684", "/target:library",
                 "/out:" + str(fixture / "Pickle/Assemblies/AMJE.WorkshopPickle.Steps.dll"),
                 *["/reference:" + str(x) for x in [*refs, pickle_dll]],
                 ROOT / "Tests/Pickle/EnvironmentWorkshopSteps.cs"])
-        invoke([csc, "/nologo", "/target:library",
+        invoke([csc, "/nologo", "/nowarn:1684", "/target:library",
                 "/out:" + str(early / "Assemblies/AMJE.PickleErrors.dll"),
                 *["/reference:" + str(x) for x in refs],
                 ROOT / "Tests/Release/HarvestErrorObserver.cs"])
