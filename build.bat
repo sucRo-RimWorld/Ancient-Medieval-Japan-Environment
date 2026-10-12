@@ -93,7 +93,7 @@ echo Compiler : %CSC%
 echo Output   : %OUTPUT_DLL%
 echo.
 
-"%CSC%" /nologo /target:library /optimize+ /out:"%OUTPUT_DLL%" ^
+"%CSC%" /nologo /nowarn:1684 /target:library /optimize+ /out:"%OUTPUT_DLL%" ^
     /reference:"%ASSEMBLY_CSHARP%" ^
     /reference:"%UNITY_CORE%" ^
     /reference:"%UNITY_MATH%" ^
@@ -150,7 +150,7 @@ if defined QUICKSTART_DLL (
     echo Quicktests : !QUICKTEST_OUTPUT_DLL!
     echo.
 
-    "%CSC%" /nologo /target:library /optimize+ /out:"!QUICKTEST_OUTPUT_DLL!" ^
+    "%CSC%" /nologo /nowarn:1684 /target:library /optimize+ /out:"!QUICKTEST_OUTPUT_DLL!" ^
         /reference:"%ASSEMBLY_CSHARP%" ^
         /reference:"%UNITY_CORE%" ^
         /reference:"%MANAGED%\UnityEngine.IMGUIModule.dll" ^
