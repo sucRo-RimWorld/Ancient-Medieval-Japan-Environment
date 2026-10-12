@@ -65,14 +65,8 @@ def inspect_plant(definition: ET.Element, species: str) -> list[str]:
             problems.append("Suge: primary output must be Vanilla Hay")
         if plant.findtext("harvestTag") != "Standard":
             problems.append("Suge: harvestTag must use Vanilla Standard")
-        if plant.find("harvestYield") is None:
-            problems.append("Suge: output requires a positive harvestYield")
-        else:
-            try:
-                if float(plant.findtext("harvestYield")) <= 0:
-                    problems.append("Suge: output requires a positive harvestYield")
-            except (ValueError, TypeError):
-                problems.append("Suge: invalid harvestYield")
+        if plant.findtext("harvestYield") != "1":
+            problems.append("Suge: approved harvestYield must be exactly 1")
         if "DankPyon" in ET.tostring(definition, encoding="unicode"):
             problems.append("Suge: no unconditional Medieval Overhaul item reference")
     elif species == MIZUGOKE:
@@ -140,6 +134,11 @@ class WetlandMaterialPlantContract(unittest.TestCase):
             "Suge: primary output must be Vanilla Hay",
             inspect_plant(definition, SUGE),
         )
+
+    def test_suge_rejects_unapproved_higher_yield(self):
+        definition = self.fixtures()[SUGE]
+        definition.find("plant/harvestYield").text = "2"
+        self.assertIn("Suge: approved harvestYield must be exactly 1", inspect_plant(definition, SUGE))
 
     def test_mizugoke_no_harvest_even_if_yield_zero(self):
         definition = self.fixtures()[MIZUGOKE]
