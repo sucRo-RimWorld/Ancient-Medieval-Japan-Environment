@@ -17,7 +17,7 @@
     <plantDensity>0.72</plantDensity>
     <settlementSelectionWeight>1</settlementSelectionWeight>
     <movementDifficulty>1</movementDifficulty>
-    <texture>World/Biomes/TemperateForest</texture>
+    <texture>World/Biomes/TropicalRainforest</texture>
     <forageability>1</forageability>
     <foragedFood>RawBerries</foragedFood>
     <wildPlantRegrowDays>18</wildPlantRegrowDays>
