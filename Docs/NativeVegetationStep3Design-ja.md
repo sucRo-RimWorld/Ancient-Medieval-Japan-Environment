@@ -106,7 +106,7 @@ wildPlants総量と木本総量を維持する。
 
 ### 3.2 湿地資材と3構成の接続（未承認）
 
-`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/test_wetland_material_plant_contract.py`。**実際の新Defは未実装**であり、テストの仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** スゲの`Hay`採用自体と、採取収量`1`の承認は分ける。ヨシのHay採用、各植物の収量と製品Recipeは未承認。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
+`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/test_wetland_material_plant_contract.py`。**実際の新Defは未実装**であり、テストの仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** **2026-10-12作者承認：スゲの成熟株1株の基本収穫量は `Hay` 1（`harvestYield=1`）。** 他種の収量・収穫物の承認とは区別する。ヨシのHay採用、各植物の収量と製品Recipeは未承認。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
 
 **実装前のDef参照テスト（2026-10-10）：** `Tests/test_wetland_production_refs.py`は本番`Patches/VanillaWetlandVegetation.xml`の2湿地を読み、追加予定4種のDef名について「自然発生プールで参照した種に対応する実PlantDefが1件存在する」「実PlantDefが存在する種は対象プールから参照される」「ミズゴケは現在の設計ではColdBog限定」を検査する。未実装中は形状・誤参照のモックテストを実行し、本番種がなければ本番参照検査だけをSKIPする。**分布値は未承認であり、草案JSONをゲーム適用したり、ロード済みの適地・自然発生・画像・採取を検証済みと主張したりしない。**
 
@@ -131,7 +131,7 @@ EnvironmentはCCTOを必須依存とせず、4種の基礎PlantDefにはVanilla�
 
 **冬季の検証条件：** 気温が最低生育温度より上下したときの成長停止・休眠・回復、ColdBogの冬季残存と再生、ミズゴケの−35℃境界、休眠中のHarvest可否・通常CutPlant時の除去とドロップ、春季の実際の再成長、積雪・落葉描画を区別して確認する。冬季アシ刈りはCCTO休眠中のHarvest停止と競合するため、通常Harvestで冬季も採取できるとは扱わない。積雪用画像を先に作るのでなく、**低温時に植物が残るか／どの画像が描画されるか**を非表示の実ゲーム試験で先に調べる。
 
-**実行方法：** 4構成（Vanilla／MO／CCTO／MO+CCTO）のPickle/RimTestおよび必要な描画Quickstartsを、既存の`run-tests.bat`・`run-framework-tests.bat`経由で隔離・非表示実行する。Quickstartsは正常なDirect3D描画を保ち、`-nographics`は使わない。画面が見える可能性のある`run-runtime-tests.bat`直接実行は、この自動検証の入口に使わない。既存の通常プレイModsConfig/Prefsおよびセーブを変更せず、全構成のロード済みDef・自然発生・Cut/Harvest・セーブ再読込・エラー無しを記録する。画像や数値の実機PASSは未取得。採取量2/1/24・生育日数などCCTO以外の従来の暫定値を、今回の承認で確定値へ変更しない。
+**実行方法：** 4構成（Vanilla／MO／CCTO／MO+CCTO）のPickle/RimTestおよび必要な描画Quickstartsを、既存の`run-tests.bat`・`run-framework-tests.bat`経由で隔離・非表示実行する。Quickstartsは正常なDirect3D描画を保ち、`-nographics`は使わない。画面が見える可能性のある`run-runtime-tests.bat`直接実行は、この自動検証の入口に使わない。既存の通常プレイModsConfig/Prefsおよびセーブを変更せず、全構成のロード済みDef・自然発生・Cut/Harvest・セーブ再読込・エラー無しを記録する。画像や数値の実機PASSは未取得。ヨシ2／ハンノキ24の収量案・生育日数などの未承認値は確定させない。スゲの `harvestYield=1` のみ2026-10-12に別途作者承認済み。
 
 ### 3.4 草地植生の不足候補：薄・芒（ススキ）— 優先度A・湿地4種完了後に着手
 
