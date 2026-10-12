@@ -25,4 +25,6 @@
   <Plant_TreePine.description>松（マツ）は、日本の山地や痩せた土地にも育つ針葉樹の仲間。ここではアカマツなどのマツ類を代表する樹木として扱う。\n\n古代から中世にかけて、地域によっては伐採や燃料利用に伴ってマツ類が増加したことが花粉分析からうかがえる。全国の森林が一律にマツ林だったわけではない。</Plant_TreePine.description>
   <Plant_TreeWillow.label>ヤナギ</Plant_TreeWillow.label>
   <Plant_TreeWillow.description>柳（ヤナギ）は、川沿いや湿った地面に育つヤナギ類を表す樹木。日本各地の川原では、氾濫や流水の影響を受ける場所にヤナギ林が見られる。\n\n河川沿いの湿地林は、集落が接する低地景観を理解するうえでも重要な自然環境である。この植物は特定のヤナギ一種を表すものではない。</Plant_TreeWillow.description>
+  <!-- Staged with the same Plant_Berry retexture; keep this Draft PR unmerged until art acceptance. -->
+  <Plant_Berry.label>木苺</Plant_Berry.label>
 </LanguageData>
