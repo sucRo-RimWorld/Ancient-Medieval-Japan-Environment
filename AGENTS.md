@@ -14,6 +14,7 @@ New features cannot enter implementation before the Project [existing-Mod audit 
 - Plant/tree art: follow `Docs/GoldenPaths/PlantVisualCoverage.md` and the test-specific guard in `Tests/AGENTS.md` when validating plant visual coverage. Existing-tree retextures remain author-deferred.
 - Color review: fixed actual local time 12:00, Clear weather, paused map, matching zoom and season/shader intensity for comparisons; record actual conditions. Follow the same coverage document. Dawn/dusk/night/weather screenshots cannot establish source colors.
 - Art procedures: `Docs/GoldenPaths/README.md` and the routing below. Accepted masters and fixed regions retain Project protection.
+- Accepted image binary transfer: `Art/AGENTS.md` (scope: accepted `Art/Sources/` masters and paired `Textures/` derivatives); use the established Base64 → temporary Library → Git Blob → topic-branch PR route, not a documentation-only substitute.
 - Release: `Docs/GoldenPaths/WorkshopPublication.md`, `Docs/GoldenPaths/ReleaseCandidate.md`, `Docs/ReleaseReadiness.md`. Pinned clean source, exact selected upload root and external manifest, actual downloaded source/DLL and four-profile cutting gate are required to clear distributed-release HOLD. Never upload a dirty development root or infer uploaded bytes from Git main. Steam remains author-manual.
 - Public copy: `Docs/WorkshopDescription.md`, `Docs/2GamePresentation.md`, and Project's current public-description contract.
 
