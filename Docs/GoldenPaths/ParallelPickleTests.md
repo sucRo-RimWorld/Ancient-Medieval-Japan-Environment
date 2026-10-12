@@ -6,7 +6,15 @@ Use the existing development Pickle runner with `--workers 2` for a first two-ga
 py -3 Scripts/Run-DevelopmentPickle.py --game "D:\SteamLibrary\steamapps\common\RimWorld" --workers 2
 ```
 
-The default `--workers 1` retains sequential profile execution. `--workers 4` allows four profiles in flight, subject to available memory and stable startup. This is an optional development loaded-Def test, **not** a replacement for `run-tests.bat`, native rendered Quickstarts, candidate release tests, or downloaded Workshop tests.
+The default `--workers 1` retains sequential profile execution. The standard framework and full entry points can use the same setting without changing their other gates:
+
+```powershell
+$env:AMJE_PICKLE_WORKERS = "4"
+.\run-tests.bat
+Remove-Item Env:AMJE_PICKLE_WORKERS
+```
+
+`run-framework-tests.bat` also accepts this environment setting. Only `1`, `2`, or `4` are accepted; omitted values preserve the sequential default. It affects the development Pickle matrix only, not RimTest, Quickstarts or release validation. `--workers 4` allows four profiles in flight, subject to available memory and stable startup. This is an optional development loaded-Def test, **not** a replacement for `run-tests.bat`, native rendered Quickstarts, candidate release tests, or downloaded Workshop tests.
 
 The runner checks that no RimWorld process is already running, stages its shared test-only fixtures and support binaries **once**, and then runs the Vanilla, MO, CCTO, and MO-CCTO profiles in separate isolated desktops. Profile paths are distinct: `SaveData-<profile>`, `<profile>-Player.log`, `Pickle-<profile>`, `Unity-<profile>` and `<profile>-Runner.log`. It validates each profile's complete scenarios, native log and Unity ERROR capture before claiming overall PASS. It waits for all worker futures before moving shared fixtures to `Retired`; a failed profile makes the overall command fail.
 
