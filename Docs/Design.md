@@ -954,7 +954,9 @@ AMJE植物説明フォーマットは、現行の独自4植物と同様に、原
 
 **2026-10-10作者方針変更：表示名も日本向けに修正する。** 表示名は `ThingDef.label`／日本語 `DefInjected .label`（Biome等は該当Defのlabel）で修正し、識別子 `defName`、収量、収穫品、植林、分布、画像、保存データを改名の都合で変更しない。特定種と断定できないVanilla代理樹木は、現行説明・生態・外観に矛盾しない和名の**樹種群の総称**を使う。固有種への限定（例：Oakをミズナラと断定）は、その地域・外観と承認済み説明の整合を別途確認する。残す樹木以外のVanilla/MO由来の植物・動物・Biomeも、実在物への対応を確認して名称を段階的に監査する。Generic植生は根拠なしに日本固有種へ改称せず、MOの幻想種も無根拠に日本在来種と呼ばない。
 
-**2026-10-10実ソース追加監査：** 残るVanilla generic植物7種は種を限定しない名称のまま維持する。Environmentの野生動物9種は§14の**機能的代理**であり、`Bear_Grizzly`をツキノワグマ、`Wolf_Timber`をニホンオオカミ等と**ラベルだけで実在種に偽装しない**。MO 1.6のGreat Oak / Great Iter / Great Fir / Great WillowはMOの独自・幻想的種の同一性を維持し、Environmentは現時点では名称を上書きしない。これらの共用Def名はAMJEの地域Biome外にも影響する。使用した実ソース・対応Def・今回の未変更判断は [`Docs/Research/RetainedContentNameAudit-ja.md`](Research/RetainedContentNameAudit-ja.md) を参照。現在のスコープには新しい名称Patch・種レベル改名は含めない。
+**2026-10-10実ソース追加監査：** 残るVanilla generic植物7種は種を限定しない名称のまま維持する。Environmentの野生動物9種は§14の**機能的代理**であり、`Bear_Grizzly`をツキノワグマ、`Wolf_Timber`をニホンオオカミ等と**ラベルだけで実在種に偽装しない**。MO 1.6のGreat Oak / Great Iter / Great Fir / Great WillowはMOの独自・幻想的種の同一性を維持し、Environmentは現時点では名称を上書きしない。これらの共用Def名はAMJEの地域Biome外にも影響する。使用した実ソース・対応Def・今回の未変更判断は [`Docs/Research/RetainedContentNameAudit-ja.md`](Research/RetainedContentNameAudit-ja.md) を参照。この時点のスコープには新しい名称Patch・種レベル改名は含めなかった。
+
+**2026-10-12 作者決定：Vanillaの `Plant_Berry` は、日本の在来キイチゴ属をまとめた「木苺（キイチゴ）」として扱う。** 個別種（モミジイチゴ、フユイチゴなど）への限定はせず、日本での分布や形態の異なるキイチゴ類を代表する汎用果実低木とする。英語表示名は `Wild raspberry (kiichigo)`、日本語表示名は `木苺`。`Plant_Berry` の `defName` と既存の採集・ベリー収穫物・生育・自然分布・他Modとの連携は維持する。共用Vanilla Defの表示名変更はAMJE以外の出現場面にも及ぶことを承知した上で、**専用リテクスチャと同一PRでのみ統合**する。先行して名称のみを公開・マージしない。新しい画像はキイチゴ類の集合果・葉・低木形状に適合するものを別途制作し、必要な描画状態と日本語説明文の作者承認、対応英訳・実機での日英表示／ロード済みテクスチャ確認を経て統合する。現行Vanillaの青紫色果実画像は最終採用画像とはしない。これは2026-10-10の汎用 `Plant_Berry` 据置監査をこの一種について更新するものであり、他の汎用植物6種の判断を変更しない。
 
 したがってポストBetaの既存樹木作業は、**retention audit（残すか） → distribution/ownership decision → Japanese label + approved description → retexture** の順を基本とし、「既存樹木をすべて残してから描き直す」ことは前提にしない。
 
@@ -978,7 +980,7 @@ GenericなGrass / Moss / Bush / Brambles等は、特定の外来種を主張し�
 - 冷温帯: Oak / Maple / Birch / Pineを副次樹木として残す。Oakはナラ類、Birchはカバノキ類、Pineはアカマツ系二次林を表す汎用代理として扱い、後続の説明・外観監査対象とする。
 - 亜高山帯: Birchをダケカンバ系の副次高木として残し、汎用Pineは除外してShirabisoへcommonalityを移す。
 - 高山帯: 通常高木Pine / Birchと汎用Dandelion / Astragalusを除外し、Haimatsu・Grass・Mossへ再配分する。
-- Berryは特定種を断定しない採集用低木、Grass / TallGrass / Brambles / Moss / Bushはgenericな林床・草地要素として当面残す。
+- Berry (`Plant_Berry`) はキイチゴ属の野生低木類「木苺」をまとめた採集用植物として残し、改称とリテクスチャは同時に統合する。Grass / TallGrass / Brambles / Moss / Bushはgenericな林床・草地要素として当面残す。
 
 Vanilla湿地Biomeも同じ残存ゲートの対象とする。AMJEの4植生帯は `swampiness < 0.5` の陸地を基準にし、湿潤地では `TemperateSwamp` / `ColdBog` が共存できるため、そこに残る `wildPlants` を監査しないとVanilla植生が湿地経由で再流入する。
 
