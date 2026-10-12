@@ -15,8 +15,9 @@ PLANT_ROOT = ROOT / "Defs" / "ThingDefs_Plants"
 SUGE = "AMJ_Plant_Suge"
 MIZUGOKE = "AMJ_Plant_Mizugoke"
 
-# Literal only: fixture descriptions and numbers are not approved content.
-# Their purpose is to exercise the schema checker and negative mutations.
+# The Suge fixture's Hay output and harvestYield=1 are author-approved.
+# Other fixture fields are structural examples, not approvals of gameplay values.
+# The fixtures exercise the schema checker and negative mutations.
 FIXTURE = """
 <Defs>
   <ThingDef ParentName="PlantBase">
