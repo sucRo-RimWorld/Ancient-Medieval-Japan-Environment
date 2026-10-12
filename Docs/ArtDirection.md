@@ -81,6 +81,16 @@ For AMJE specifically:
 
 Environment's tree/plant rules below intentionally allow controlled class differences such as restrained internal gradient variation, but they do not change this project-wide target.
 
+## 2026-10-12採用：葦（アシ／ヨシ）成熟株の画像
+
+作者は葦の成熟株の画風・形状を採用し、2026-10-12に「採用としてpush」と指示した。対象は**直近の独立した葦画像**（既存樹木をAIで再描画した比較表や、別の再生成画像・背景付きの切り出し画像ではない）。
+
+- **原画像の現物：** 会話内で承認されたPNG（1254×1254 RGBA）。SHA-256 `0d65557b5f3646fb04e96be9997ba239c990a995f33a02eb65f84ee3fa8f2ea4`。
+- **縮小派生画像：** 256×256 RGBA。SHA-256 `3604ab2b6c489870fdca1c0a0f660dd3beb5870c317dd581c65eca93ec020af2`。Pillow LANCZOSでの縮小のみ。元画像とは別のバイト列。
+- **採用範囲：** 成熟株のデザインと元画像。未熟・アイコン・積雪・実機描画、PlantDef・生態配分・採取仕様は未承認／未実装。ススキとの識別性と既存AMJE画風を維持する。承認済み原画を勝手に再生成・描き直さない。
+- **予定配置：** `Art/Sources/Things/Plant/AMJ/Yoshi/Yoshi_Mature_Source.png` に原画像の正確なバイト列を保存し、256px派生画像を `Textures/Things/Plant/AMJ/Yoshi/Yoshi_A.png` に配置する。Def採用前に正式なgraphic-state構成・最終texPathを確認する。
+- **転送・導入状態：** 現時点で画像バイナリはGitHubに取り込まれていない。上記SHAの記録はファイル転送やPNG検証・ロードテストを意味しない。両PNGの実体の保存・検証後にだけ導入を完了扱いする。
+
 ## 2026-10-10採用源画：薄・芒（ススキ）成熟株（実装予約）
 
 **作者の2026-10-10の明示指示：** 「直前の画像を採用にする」。その後「**この画像はススキ。その後にアシを作れ**」と種名を訂正したため、採用元は**ススキ（*Miscanthus sinensis*）の成熟株の源画**とする。**アシ（ヨシ）用には流用しない。** 画像の制作段階でアシと誤認した旧チャット記録に優先し、この種名判定を正本とする。
