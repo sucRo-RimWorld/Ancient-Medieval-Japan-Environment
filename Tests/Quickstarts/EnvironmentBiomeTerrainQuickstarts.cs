@@ -3390,6 +3390,15 @@ namespace AncientMedievalJapan.Environment.Quicktests
         private int coldBogTiles;
         private int wetlandOutsideCandidateTiles;
         private bool selectedNaturalWetland;
+        // Diagnostic only; the established 24 assertions remain unchanged.
+        private int coldWorkerWins;
+        private int temperateWorkerWins;
+        private int tiedWorkerScores;
+        private float candidateMinTemp, candidateMaxTemp;
+        private float candidateMinRain, candidateMaxRain;
+        private float candidateMinSwamp, candidateMaxSwamp;
+        private float closestColdScoreMargin;
+        private string closestColdSample;
 
         public override TaggedString description
         {
@@ -3420,6 +3429,13 @@ namespace AncientMedievalJapan.Environment.Quicktests
             surfaceTiles = unassignedSurfaceTiles = landTiles = unassignedLandTiles = 0;
             wetlandCandidates = temperateSwampTiles = coldBogTiles = wetlandOutsideCandidateTiles = 0;
             selectedNaturalWetland = false;
+            coldWorkerWins = temperateWorkerWins = tiedWorkerScores = 0;
+            candidateMinTemp = candidateMinRain = candidateMinSwamp = float.MaxValue;
+            candidateMaxTemp = candidateMaxRain = candidateMaxSwamp = float.MinValue;
+            closestColdScoreMargin = float.MinValue;
+            closestColdSample = "none";
+            BiomeDef coldDef = DefDatabase<BiomeDef>.GetNamedSilentFail("ColdBog");
+            BiomeDef temperateDef = DefDatabase<BiomeDef>.GetNamedSilentFail("TemperateSwamp");
 
             for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
             {
@@ -3451,6 +3467,34 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 if (candidate)
                 {
                     wetlandCandidates++;
+                    candidateMinTemp = Math.Min(candidateMinTemp, tile.temperature);
+                    candidateMaxTemp = Math.Max(candidateMaxTemp, tile.temperature);
+                    candidateMinRain = Math.Min(candidateMinRain, tile.rainfall);
+                    candidateMaxRain = Math.Max(candidateMaxRain, tile.rainfall);
+                    candidateMinSwamp = Math.Min(candidateMinSwamp, tile.swampiness);
+                    candidateMaxSwamp = Math.Max(candidateMaxSwamp, tile.swampiness);
+                    // Observe loaded native worker scores without changing the tile.
+                    float coldScore = coldDef == null ? 0f :
+                        coldDef.Worker.GetScore(coldDef, tile, tile.tile);
+                    float temperateScore = temperateDef == null ? 0f :
+                        temperateDef.Worker.GetScore(temperateDef, tile, tile.tile);
+                    if (coldScore > temperateScore)
+                        coldWorkerWins++;
+                    else if (temperateScore > coldScore)
+                        temperateWorkerWins++;
+                    else
+                        tiedWorkerScores++;
+                    float margin = coldScore - temperateScore;
+                    if (margin > closestColdScoreMargin)
+                    {
+                        closestColdScoreMargin = margin;
+                        closestColdSample = "temperature=" + tile.temperature.ToString("F2") +
+                            " rainfall=" + tile.rainfall.ToString("F1") +
+                            " swampiness=" + tile.swampiness.ToString("F3") +
+                            " coldScore=" + coldScore.ToString("F2") +
+                            " temperateScore=" + temperateScore.ToString("F2") +
+                            " actualBiome=" + (biome ?? "none");
+                    }
                 }
 
                 if (biome == null)
@@ -3514,6 +3558,19 @@ namespace AncientMedievalJapan.Environment.Quicktests
             Log.Message("[AMJ Environment NaturalBiomeAudit] | surface=" + surfaceTiles +
                 " unassigned=" + unassignedSurfaceTiles + " | " + string.Join(" ", counts.ToArray()));
 
+            Log.Message("[AMJ Environment ColdBogWorkerDiagnostic]" +
+                " candidates=" + wetlandCandidates +
+                " loadedColdBog=" + (coldDef != null) +
+                " loadedTemperateSwamp=" + (temperateDef != null) +
+                " tempRange=" + candidateMinTemp.ToString("F2") + ".." + candidateMaxTemp.ToString("F2") +
+                " rainRange=" + candidateMinRain.ToString("F1") + ".." + candidateMaxRain.ToString("F1") +
+                " swampRange=" + candidateMinSwamp.ToString("F3") + ".." + candidateMaxSwamp.ToString("F3") +
+                " coldWorkerWins=" + coldWorkerWins +
+                " temperateWorkerWins=" + temperateWorkerWins +
+                " tiedScores=" + tiedWorkerScores +
+                " nearestColdWin={" + closestColdSample + "}" +
+                " margin=" + closestColdScoreMargin.ToString("F2") +
+                " note=unforced-native-worker-scores-no-production-change");
             int wetlands = temperateSwampTiles + coldBogTiles;
             Log.Message(
                 "[AMJ Environment WorldWetlandDistribution]" +
