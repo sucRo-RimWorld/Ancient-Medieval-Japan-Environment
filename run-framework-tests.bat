@@ -39,7 +39,13 @@ if errorlevel 1 exit /b 1
 
 echo.
 echo Running Environment loaded-Def integration matrix through RimWorks Pickle...
-py -3 "%ROOT%Scripts\Run-DevelopmentPickle.py" --game "%RIMWORLD_DIR%"
+set "PICKLE_WORKERS=%AMJE_PICKLE_WORKERS%"
+if not defined PICKLE_WORKERS set "PICKLE_WORKERS=1"
+if not "%PICKLE_WORKERS%"=="1" if not "%PICKLE_WORKERS%"=="2" if not "%PICKLE_WORKERS%"=="4" (
+    echo [ERROR] AMJE_PICKLE_WORKERS must be 1, 2 or 4.
+    exit /b 2
+)
+py -3 "%ROOT%Scripts\Run-DevelopmentPickle.py" --game "%RIMWORLD_DIR%" --workers %PICKLE_WORKERS%
 if errorlevel 1 exit /b 1
 
 echo.
