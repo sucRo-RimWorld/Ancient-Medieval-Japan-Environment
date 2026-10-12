@@ -81,6 +81,14 @@ For AMJE specifically:
 
 Environment's tree/plant rules below intentionally allow controlled class differences such as restrained internal gradient variation, but they do not change this project-wide target.
 
+## 2026-10-12採用：菅（スゲ）成熟株の画像
+
+作者は直近のフラット化したスゲ成熟株画像を「一旦これで採用」として承認した。**この承認は成熟株の画像のみ**であり、未熟・UI・雪・実機描画・PlantDef実装を承認したものではない。承認元は比較表でも旧案でもなく、会話の最後に確認・監査された1254×1254 RGBA PNG。
+
+- 承認原画：`Art/Sources/Things/Plant/AMJ/Suge/Suge_Mature_Source.png`、SHA-256 `fc115d7af72b4f5009f6aab2a2f50387970318dd13ddf9b45c4ff6bb8f3c4917`。
+- 256px派生画像：`Textures/Things/Plant/AMJ/Suge/Suge_A.png`、SHA-256 `4e61c100ef5fb910d98c53aee4f8cbb15c3cd96cdac11d3f7bef635132790ede`。原画を変更せずLANCZOS縮小。
+- 現状：輪郭の色ノイズ・半透明ピクセルは既知の未解決品質課題。作者の一旦採用は実機表示品質の合格を意味しない。本番Defは画像状態族と参照先を確認してから実装し、既存の植生配分や採取承認を変更しない。
+
 ## 2026-10-12採用：葦（アシ／ヨシ）成熟株の画像
 
 作者は葦の成熟株の画風・形状を採用し、2026-10-12に「採用としてpush」と指示した。対象は**直近の独立した葦画像**（既存樹木をAIで再描画した比較表や、別の再生成画像・背景付きの切り出し画像ではない）。
