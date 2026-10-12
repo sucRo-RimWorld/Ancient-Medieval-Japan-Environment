@@ -89,6 +89,14 @@ Environment's tree/plant rules below intentionally allow controlled class differ
 - 256px派生：`Textures/Things/Plant/AMJ/Yoshi_Immature/Yoshi_Immature_A.png`。SHA-256 `ab6b8d36d535355f026d30ab3df08e33c45929f7829938a2b12bd21e929c90f6`。LANCZOS縮小のみ。
 - 範囲：未熟株の画像デザインを暫定採用。輪郭の半透明・色ノイズ、実機描画とDef参照は未検証。未熟株の採用をPlantDef・冬季画像・ゲーム内テストの承認とみなさない。
 
+## 2026-10-12 暫定採用：菅（スゲ）未熟株の画像
+
+作者は穂がなく葉主体の直近のスゲ未熟株画像を「一旦OK」として暫定採用した。原画はチャット内の `若いスゲの草むらスプライト.png`（1254×1254 RGBA）であり、成熟株原画は変更しない。
+
+- 原画：`Art/Sources/Things/Plant/AMJ/Suge/Suge_Immature_Source.png`。SHA-256 `960a77e05c98c28f9d1410af193cdaa555a6d930ef06218756a871fc65cf2eb7`。
+- 256px派生：`Textures/Things/Plant/AMJ/Suge_Immature/Suge_Immature_A.png`。SHA-256 `7dcbac89d64ae43e4498344fe51ae4d37574451a2f4f2b1abd455d887dd5f35c`。LANCZOS縮小。
+- 承認範囲：未熟株の画像のみ。輪郭品質、実機描画、PlantDef接続、積雪・UI画像、植生設定や収量は別途確認する。
+
 ## 2026-10-12採用：菅（スゲ）成熟株の画像
 
 作者は直近のフラット化したスゲ成熟株画像を「一旦これで採用」として承認した。**この承認は成熟株の画像のみ**であり、未熟・UI・雪・実機描画・PlantDef実装を承認したものではない。承認元は比較表でも旧案でもなく、会話の最後に確認・監査された1254×1254 RGBA PNG。
