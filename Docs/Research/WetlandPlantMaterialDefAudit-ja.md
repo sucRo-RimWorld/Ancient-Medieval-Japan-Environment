@@ -12,6 +12,16 @@
 - `Defs/ProcessorDef/ProcessDef_DryingRacks.xml`の`DankPyon_StrawProcess`: `ingredientFilter/thingDefs/li=Hay`、`thingDef=DankPyon_Straw`、`processDays=2.5`、`efficiency=1.0`。スゲはHayを落とせば既存経路の**投入素材条件に一致する見込み**。乾燥棚の実作業・温度／環境制約・必要設備・ロード後処理は未検証。
 - `Patches/ToggleOptions/MOSetting_WoodChain.xml`: `woodChain`有効時に`Defs/ThingDef/plant/harvestedThingDef[text()="WoodLog"]`を`DankPyon_RawWood`へ置換するPatchOperationが存在。ただしAMJEとMOのパッチ適用順やトグル状態は未確認。ハンノキへの最終効果も未試験。
 
+## 2026-10-12 再監査：本番Defで確認するMO接続条件
+
+作者提供のMO 1.6 XMLを再読し、**新たな実験用Defや追加レシピを作る必要はない**ことを確認した。下記は実装経路の静的確認であり、ロード後の成功判定ではない。
+
+- スゲ：`Patches/Core/Add_HarvestYield_Grass.xml` は `Plant_Grass`、`Plant_TallGrass`、`Plant_Bush` だけを対象とする。スゲの `AMJ_Plant_Suge` には命中しないため、採用済み `Hay` 出力はスゲ自身の本番Defに定義する。収量は未承認のため、ここでは決定しない。MO側 `DankPyon_StrawProcess` の `ingredientFilter/thingDefs/li` は `Hay` で、スゲ専用の加工Patchは追加しない。
+- ハンノキ：`Patches/ToggleOptions/MOSetting_WoodChain.xml` の `woodChain` 有効側は `Defs/ThingDef/plant/harvestedThingDef[text()="WoodLog"]` を `DankPyon_RawWood` に置換する。XPathは**明示的なplant子要素**が一致する場合の操作であり、継承された値が同じタイミングで見えるか、AMJE新規Defが当該MO Patchより先に処理されるか、このファイルだけからは保証できない。ハンノキの採取物自体は未承認。後の本番Def検証では WoodChain ON/OFF のロード後 `harvestedThingDef` と実際のCutPlant出力を区別して検査し、不一致を見てから最小限の条件付き互換Patchを検討する。先回りした無条件 `DankPyon_*` 参照は追加しない。
+- ミズゴケ：MO専用の原料や収穫変換は不要。既存の承認済み「選択・CutPlant除去・ドロップなし」を本番Defの実ロードとJobで確認する。
+
+この再監査で未承認の収量・出現率・植物画像・生育日数を確定しない。追加の使い捨て自然発生計測を再開せず、本番Defでの4構成実動作検証へ接続する。
+
 ## スゲ — PlantDef実装形状の確定部分
 
 - DefNameは`AMJ_Plant_Suge`、ベース候補は`ParentName=PlantBase`（**継承後の実ロード確認が必要**）。
