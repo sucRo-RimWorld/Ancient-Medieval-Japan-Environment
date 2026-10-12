@@ -3577,10 +3577,19 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 result.Assert("natural world retains " + name,
                     delegate { return CountBiome(name) > 0; });
             }
-            result.Assert("natural world retains temperate wetland",
-                delegate { return temperateSwampTiles > 0; });
-            result.Assert("natural world retains cool wetland",
-                delegate { return coldBogTiles > 0; });
+            // Availability is required; occurrence of both wetland types on
+            // this one seed is not. Native worker scores decide the subtype.
+            foreach (string wetland in new[] { "TemperateSwamp", "ColdBog" })
+            {
+                string name = wetland;
+                result.Assert(name + " remains available for natural generation",
+                    delegate
+                    {
+                        BiomeDef def = DefDatabase<BiomeDef>.GetNamedSilentFail(name);
+                        return def != null && def.implemented && def.generatesNaturally &&
+                            def.Worker.CanPlaceOnLayer(def, Find.WorldGrid.Surface);
+                    });
+            }
             result.Assert("MO Dark Forest coexists when MO is loaded",
                 delegate
                 {

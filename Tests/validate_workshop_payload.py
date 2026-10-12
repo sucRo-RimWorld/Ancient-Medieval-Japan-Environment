@@ -116,7 +116,13 @@ def main():
             leaks.append(".workshopignore diverges from .rimignore")
         if publisher.exists() and [e.text for e in ET.parse(publisher).findall("./Excluded/exclude")] != rules:
             leaks.append("PublisherPlus diverges from .rimignore")
-        if (ROOT / ".gitattributes").exists() and not args.inventory:
+        attributes = ROOT / ".gitattributes"
+        # EOL-only attributes do not turn a source archive into a subscriber
+        # archive. Enforce parity when export-ignore filtering is declared.
+        archive_filter = attributes.exists() and any(
+            not line.lstrip().startswith('#') and 'export-ignore' in line.split()[1:]
+            for line in attributes.read_text(encoding='utf-8-sig').splitlines())
+        if archive_filter and not args.inventory:
             data = subprocess.check_output(["git", "archive", "--format=zip", "HEAD"], cwd=ROOT)
             with zipfile.ZipFile(io.BytesIO(data)) as archive:
                 actual = sorted(p for p in archive.namelist() if not p.endswith("/"))

@@ -2,11 +2,30 @@ from pathlib import Path
 import importlib.util
 import tempfile
 import unittest
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class FrameworkAutomationContractTests(unittest.TestCase):
+    def test_rimtest_rejects_missing_or_wrong_production_provider(self):
+        sys.path.insert(0, str(ROOT / "Scripts"))
+        try:
+            spec = importlib.util.spec_from_file_location(
+                "rimtest_runner", ROOT / "Scripts/Run-EnvironmentRimTest.py")
+            runner = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(runner)
+            with tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp) / "candidate"
+                runner.validate_loaded_source({"productionAssembly": str(
+                    root / "Assemblies/AncientMedievalJapanEnvironment.dll")}, root)
+                for result in ({}, {"productionAssembly": str(
+                        Path(tmp) / "old-source/Assemblies/AncientMedievalJapanEnvironment.dll")}):
+                    with self.assertRaises(ValueError):
+                        runner.validate_loaded_source(result, root)
+        finally:
+            sys.path.pop(0)
+
     def test_harmony_rimworld_16_loader_selects_current_not_old_dlls(self):
         spec = importlib.util.spec_from_file_location(
             "amje_framework_common",

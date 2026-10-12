@@ -249,6 +249,7 @@ namespace AMJE.Environment.RimTests
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
                 File.WriteAllText(path,
                     "{\n  \"assembly\": \"" + AssemblyName + "\",\n" +
+                    "  \"productionAssembly\": \"" + Json(typeof(EnvironmentTerrainProcessor).Assembly.Location) + "\",\n" +
                     "  \"passed\": " + (ok ? "true" : "false") + ",\n" +
                     "  \"total\": " + total + ",\n" +
                     "  \"pass\": " + passed + ",\n" +

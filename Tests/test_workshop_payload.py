@@ -22,11 +22,53 @@ def fixture():
 
 class GateTests(unittest.TestCase):
 
+    def test_reaudit_cannot_promote_incomplete_native_profile(self):
+        spec = importlib.util.spec_from_file_location(
+            'combining', payload.ROOT / 'Scripts/Combine-WorkshopPayloadResults.py')
+        combining = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(combining)
+        with tempfile.TemporaryDirectory() as tmp:
+            result = Path(tmp)
+            maps = result / 'Reports-MO'
+            maps.mkdir()
+            for name in combining.gate.SCENARIOS:
+                (maps / ('Workshop_AMJ' + name + 'Quickstart.json')).write_text('{}')
+            self.assertEqual(set(), combining.completed_report_profiles(result))
+            harvest = result / 'Harvest-MO'
+            harvest.mkdir()
+            (harvest / 'Workshop_AMJWarmTemperateTerrainQuickstart.json').write_text('{}')
+            self.assertEqual({'MO'}, combining.completed_report_profiles(result))
+            (maps / 'Workshop_AMJColdBogVegetationQuickstart.json').unlink()
+            self.assertEqual(set(), combining.completed_report_profiles(result))
+
+    def test_release_observer_excludes_unapproved_development_probes(self):
+        spec = importlib.util.spec_from_file_location(
+            'staging', payload.ROOT / 'Scripts/Stage-WorkshopRegressionSources.py')
+        staging = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(staging)
+        source = (payload.ROOT / 'Tests/Quickstarts/EnvironmentBiomeTerrainQuickstarts.cs').read_text(encoding='utf-8-sig')
+        release = staging.release_quickstarts(source)
+        # Ordinary developer Quickstarts keep their probes. The release copy
+        # keeps all production assertions, including natural biome exclusion.
+        for helper in ('AddWetlandBehaviorProbeAssertions', 'AddHannokiBehaviorProbeAssertions'):
+            call = helper + '(result, Find.CurrentMap);'
+            self.assertEqual(2, source.count(call))
+            self.assertNotIn(call, release)
+            with self.assertRaises(ValueError):
+                staging.release_quickstarts(source.replace(call, '', 1))
+        self.assertEqual(source.count('result.Assert('), release.count('result.Assert('))
+        self.assertIn('natural surface has zero ', release)
+        self.assertIn('remains available for natural generation', release)
+
     def test_reject_incorrect_release_reports(self):
         spec = importlib.util.spec_from_file_location(
             'gate', payload.ROOT / 'Scripts/Run-WorkshopPayloadTests.py')
         gate = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(gate)
+        self.assertEqual((85, 78, 75, 74, 52, 55, 24, 3, 3),
+                         gate.expected_map_assertions('MO'))
+        self.assertEqual((97, 90, 87, 86, 52, 55, 24, 3, 3),
+                         gate.expected_map_assertions('MO-CCTO'))
         name = 'Workshop_AMJAlpineTerrainQuickstart'
         valid = {'quickstart': name, 'total': 70, 'passed': True, 'failed': 0,
                  'timedOut': False, 'preLaunchErrors': 0, 'logErrors': 0,

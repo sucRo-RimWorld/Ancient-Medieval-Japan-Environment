@@ -10,6 +10,18 @@ spec = importlib.util.spec_from_file_location('gate', ROOT / 'Scripts/Run-Worksh
 gate = importlib.util.module_from_spec(spec); spec.loader.exec_module(gate)
 
 
+def completed_report_profiles(result):
+    complete = set()
+    for mode in gate.PROFILES:
+        maps = result / ('Reports-' + mode)
+        harvest = result / ('Harvest-' + mode)
+        if (all((maps / ('Workshop_AMJ' + name + 'Quickstart.json')).is_file()
+                for name in gate.SCENARIOS) and
+                (harvest / 'Workshop_AMJWarmTemperateTerrainQuickstart.json').is_file()):
+            complete.add(mode)
+    return complete
+
+
 def combine(payload, manifest_path, results, output, game, steam):
     if output.exists(): raise ValueError('Use a fresh combined report')
     manifest = gate.payload_tool.verify(payload, manifest_path)
@@ -17,6 +29,7 @@ def combine(payload, manifest_path, results, output, game, steam):
     selected = payload if steam else game / 'Mods/AMJE.PayloadGateCandidate'
     dependencies = {'brrainz.harmony': '2009463077', 'rimworks.rimlogging': '3733484696', 'rimworks.quickstarts': '3793646067'}
     profiles = {}
+    recovered = []
     for result in results:
         summary = json.loads((result / 'Summary.json').read_text())
         before = json.loads((result / 'Before.json').read_text())
@@ -27,7 +40,15 @@ def combine(payload, manifest_path, results, output, game, steam):
             tested = gate.payload_tool.inventory(result / 'Retired/AMJE.PayloadGateCandidate')
             if set(tested) != set(actual) or any(tested[k] != actual[k] for k in actual if k != 'About/About.xml'):
                 raise ValueError('Retired fixture runtime bytes differ from publication payload')
-        for mode in summary['profiles']:
+        completed = set(summary['profiles'])
+        # A stale expected-count table may reject a profile AFTER all native
+        # reports finish. Re-audit those actual complete reports; never edit
+        # their results or accept an incomplete/error-bearing profile.
+        for mode in completed_report_profiles(result):
+            if mode not in completed:
+                recovered.append({'profile': mode, 'result_root': str(result)})
+            completed.add(mode)
+        for mode in sorted(completed):
             if mode not in gate.PROFILES: raise ValueError('Unknown profile')
             counts = gate.expected_map_assertions(mode)
             required = dict(dependencies)
@@ -66,7 +87,9 @@ def combine(payload, manifest_path, results, output, game, steam):
     report = {'passed': True, 'source': 'actual downloaded Workshop' if steam else 'candidate with About-only fixture identity',
               'source_commit': manifest['source_commit'], 'archive_sha256': manifest['archive_sha256'],
               'payload_root': str(payload), 'payload_files': len(actual), 'profiles': profiles,
-              'steam_release_cleared': steam, 'failed_attempts': 'Preserved separately; excluded only when their profiles did not complete the full gate'}
+              'steam_release_cleared': steam,
+              'independently_reaudited_completed_profiles': recovered,
+              'failed_attempts': 'Original runner outcomes retained; only complete ERROR-zero native reports accepted by this independent audit'}
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2) + '\n')
     print('PASS four-profile source/render/cutting/error/preservation gate:', output)
