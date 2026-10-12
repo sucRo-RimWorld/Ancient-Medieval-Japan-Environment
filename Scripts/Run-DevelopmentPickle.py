@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 import json
 import os
@@ -43,7 +44,10 @@ def local_package_present(game: Path, package_id: str) -> bool:
     return False
 
 
-def run(root: Path, output: Path, game: Path):
+def run(root: Path, output: Path, game: Path, workers: int = 1):
+    if workers not in (1, 2, 4):
+        raise ValueError('workers must be 1, 2 or 4')
+
     if not (game / "RimWorldWin64.exe").is_file():
         raise ValueError("RimWorld executable not found: " + str(game / "RimWorldWin64.exe"))
     if not (root / "About/About.xml").is_file() or not (root / "Assemblies/AncientMedievalJapanEnvironment.dll").is_file():
@@ -112,7 +116,9 @@ def run(root: Path, output: Path, game: Path):
         ccto_id = ("sucro.cropcoldtoleranceoverhaul" if
                    local_package_present(game, "sucro.cropcoldtoleranceoverhaul") else
                    "sucro.cropcoldtoleranceoverhaul_steam")
-        for profile in PROFILES:
+        # Shared fixtures are compiled and staged only once. Each worker owns
+        # its SaveData, logs, reports, desktop and error-capture directory.
+        def run_profile(profile: str):
             save_data = output / ("SaveData-" + profile)
             ids = [
                 "brrainz.harmony", "ludeon.rimworld", ERROR_ID,
@@ -161,11 +167,22 @@ def run(root: Path, output: Path, game: Path):
                     set(names) != set(SCENARIOS) or len(names) != len(SCENARIOS)):
                 raise ValueError("Pickle scenarios incomplete or failing: " + profile)
             common.validate_runtime_logs(log_path, errors)
-            summary["profiles"][profile] = {"passed": True, "scenarios": len(SCENARIOS), "errors": 0}
-            (output / "DevelopmentPickleSummary.json").write_text(
-                json.dumps(summary, indent=2) + "\n", encoding="utf-8"
+            return {"passed": True, "scenarios": len(SCENARIOS), "errors": 0}
+
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = {profile: pool.submit(run_profile, profile) for profile in PROFILES}
+            failures = []
+            for profile, future in futures.items():
+                try:
+                    summary['profiles'][profile] = future.result()
+                    print('PICKLE PASS', profile, len(SCENARIOS), flush=True)
+                except Exception as exc:
+                    failures.append(profile + ': ' + str(exc))
+            (output / 'DevelopmentPickleSummary.json').write_text(
+                json.dumps(summary, indent=2) + '\n', encoding='utf-8'
             )
-            print("PICKLE PASS", profile, len(SCENARIOS), flush=True)
+            if failures:
+                raise ValueError('Parallel Pickle profile failures: ' + '; '.join(failures))
 
         summary["passed"] = True
         summary["coverage"] = "development loaded-source/Def/wood integration; rendered map and native-job Quickstarts remain separate"
@@ -189,9 +206,11 @@ if __name__ == "__main__":
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--game", type=Path, default=Path("D:/SteamLibrary/steamapps/common/RimWorld"))
+    parser.add_argument("--workers", type=int, choices=(1, 2, 4), default=1,
+                        help="Concurrent isolated profile games (default: sequential)")
     args = parser.parse_args()
     try:
-        run(args.root.resolve(), (args.output.resolve() if args.output else next_output()), args.game.resolve())
+        run(args.root.resolve(), (args.output.resolve() if args.output else next_output()), args.game.resolve(), args.workers)
     except Exception as error:
         print("[FAIL] " + type(error).__name__ + ": " + str(error), file=__import__("sys").stderr)
         raise SystemExit(1)
