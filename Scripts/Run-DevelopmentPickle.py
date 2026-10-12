@@ -65,7 +65,8 @@ def run(root: Path, output: Path, game: Path, workers: int = 1):
     user_config = common.user_config_dir()
     originals = {name: common.digest(user_config / name) for name in ("ModsConfig.xml", "Prefs.xml")}
     workshop = game.parents[1] / "workshop/content/294100"
-    pickle_dll = common.find_dll(workshop / "3791648678", "RimWorks.Pickle.dll")
+    game_version = common.test_version_from_user_config()
+    pickle_dll = common.find_dll(workshop / "3791648678", "RimWorks.Pickle.dll", game_version)
     if not (workshop / "3733484696/About/About.xml").is_file():
         raise ValueError("Pickle dependency RimLogging is not installed")
 

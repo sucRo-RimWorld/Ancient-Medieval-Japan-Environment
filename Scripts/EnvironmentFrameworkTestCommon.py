@@ -14,21 +14,43 @@ def invoke(args, **kwargs):
     subprocess.run([str(x) for x in args], check=True, **kwargs)
 
 
-def find_dll(root: Path, name: str) -> Path:
-    """Select a RimWorld 1.6-loaded DLL, not an older version in the same Mod.
+SUPPORTED_TEST_VERSIONS = ("1.6", "1.7")
 
-    Harmony ships 1.4, 1.5 and Current assemblies. Its v1.6 loadFolders
-    activates "/" and "Current"; a recursive count is not a validity check.
+
+def parse_test_version(value: str) -> str:
+    major_minor = ".".join(value.split(".")[:2])
+    if major_minor not in SUPPORTED_TEST_VERSIONS:
+        raise ValueError("Expected RimWorld 1.6 or 1.7 test config, got: " + value)
+    return major_minor
+
+
+def test_version_from_user_config() -> str:
+    config = ET.parse(user_config_dir() / "ModsConfig.xml")
+    return parse_test_version(config.findtext("version", ""))
+
+
+def find_dll(root: Path, name: str, game_version: str = "1.6") -> Path:
+    """Resolve the selected game's test-provider DLL without arbitrary glob choice.
+
+    Version-specific LoadFolders have precedence. For 1.7 unstable only,
+    v1.6 is a logged compatibility probe if no v1.7 loader entry exists.
     """
+    game_version = parse_test_version(game_version)
     loader = next((root / file for file in ("LoadFolders.xml", "loadFolders.xml")
                    if (root / file).is_file()), None)
     if loader is not None:
         try:
-            version = ET.parse(loader).getroot().find("v1.6")
+            folders = ET.parse(loader).getroot()
         except ET.ParseError as error:
             raise ValueError(f"Invalid {loader}: {error}") from error
+        version = folders.find("v" + game_version)
+        if version is None and game_version == "1.7":
+            version = folders.find("v1.6")
+            if version is not None:
+                print("[WARN] " + name + " uses v1.6 LoadFolders for 1.7 unstable; "
+                      "this is a compatibility test, not proof of native 1.7 support.")
         if version is None:
-            raise ValueError(f"No RimWorld v1.6 load folders declared in {loader}")
+            raise ValueError(f"No RimWorld v{game_version} load folders declared in {loader}")
 
         candidates = []
         for item in version.findall("li"):
@@ -43,14 +65,20 @@ def find_dll(root: Path, name: str) -> Path:
                 candidates.append(candidate)
         if candidates:
             return candidates[-1]  # Last loaded folder has precedence.
-        raise ValueError(f"No active RimWorld 1.6 {name} in {root} (load folders: "
+        raise ValueError(f"No active RimWorld {game_version} {name} in {root} (load folders: "
                          + ", ".join((item.text or "").strip()
                                      for item in version.findall("li")) + ")")
 
-    # Mods with no LoadFolders.xml use one assembly folder (or the 1.6 layout).
-    preferred = root / "1.6" / "Assemblies" / name
-    if preferred.is_file():
-        return preferred
+    # Unversioned providers may use a game-version directory or Current.
+    for subdir in (game_version, "Current", ""):
+        candidate = root / subdir / "Assemblies" / name
+        if candidate.is_file():
+            return candidate
+    fallback = root / "1.6" / "Assemblies" / name
+    if game_version == "1.7" and fallback.is_file():
+        print("[WARN] " + name + " uses a 1.6 DLL in 1.7 unstable; "
+              "validate the actual loaded-game result.")
+        return fallback
     matches = sorted(root.rglob(name)) if root.is_dir() else []
     if len(matches) != 1:
         raise ValueError(f"Expected one {name} in {root} without LoadFolders.xml; "
@@ -170,6 +198,6 @@ def write_about(root: Path, name: str, package_id: str, load_after: list[str] | 
         load = "<loadAfter>" + "".join(f"<li>{x}</li>" for x in load_after) + "</loadAfter>"
     (root / "About/About.xml").write_text(
         "<ModMetaData><name>" + name + "</name><packageId>" + package_id +
-        "</packageId><supportedVersions><li>1.6</li></supportedVersions>" +
+        "</packageId><supportedVersions><li>1.6</li><li>1.7</li></supportedVersions>" +
         load + "</ModMetaData>", encoding="utf-8"
     )
