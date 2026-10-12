@@ -26,6 +26,35 @@ class FrameworkAutomationContractTests(unittest.TestCase):
         finally:
             sys.path.pop(0)
 
+    def test_parallel_pickle_entrypoint_preserves_worker_and_error_contract(self):
+        """Guard the default/opt-in wiring without starting a second game."""
+        batch = (ROOT / "run-framework-tests.bat").read_text(encoding="utf-8")
+        runner = (ROOT / "Scripts/Run-DevelopmentPickle.py").read_text(encoding="utf-8")
+        self.assertIn('if not defined PICKLE_WORKERS set "PICKLE_WORKERS=1"', batch)
+        self.assertIn('if not "%PICKLE_WORKERS%"=="1" if not "%PICKLE_WORKERS%"=="2" if not "%PICKLE_WORKERS%"=="4"', batch)
+        self.assertIn('--workers %PICKLE_WORKERS%', batch)
+        self.assertIn('ThreadPoolExecutor(max_workers=workers)', runner)
+        self.assertIn('common.validate_runtime_logs(log_path, errors)', runner)
+        self.assertIn('if failures:', runner)
+        self.assertIn('raise ValueError(\'Parallel Pickle profile failures:', runner)
+
+    def test_parallel_pickle_invalid_worker_rejected_before_game_launch(self):
+        sys.path.insert(0, str(ROOT / "Scripts"))
+        try:
+            spec = importlib.util.spec_from_file_location(
+                "amje_development_pickle", ROOT / "Scripts/Run-DevelopmentPickle.py"
+            )
+            runner = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(runner)
+            with tempfile.TemporaryDirectory() as tmp:
+                bogus = Path(tmp) / "does-not-exist"
+                for count in (0, 3, 5, -1):
+                    with self.subTest(workers=count):
+                        with self.assertRaisesRegex(ValueError, "workers must be 1, 2 or 4"):
+                            runner.run(bogus, bogus, bogus, count)
+        finally:
+            sys.path.pop(0)
+
     def test_harmony_rimworld_16_loader_selects_current_not_old_dlls(self):
         spec = importlib.util.spec_from_file_location(
             "amje_framework_common",
