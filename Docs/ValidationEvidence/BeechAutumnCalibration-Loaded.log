@@ -1,0 +1,6 @@
+# Scoped native messages only. Complete private runtime/capture logs retained locally.
+[ProductionColor] loaded source=0.496758074,0.53725493,0.323263556 lut=AMJE_BeechFallGradient format=RGBA32 filter=Trilinear sourceRoot=<owned isolated candidate>
+[ProductionColor] loaded LUT vs accepted PNG changedPixels=0
+[ProductionColor] CAPTURE stage=0 localHour=12 weather=Clear transition=1 paused=True zoom=24
+[ProductionColor] CAPTURE stage=1 localHour=12 weather=Clear transition=1 paused=True zoom=24
+[ProductionColor] COMPLETE; actual loaded Def and LUT, no source/destination material override

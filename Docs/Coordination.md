@@ -81,6 +81,33 @@ downloaded source/DLL and distributed four-profile correction remain OPEN.
 
 ## Publication and distribution
 
+### ENV-BEECH-FALL-CALIBRATION-20261013 — autumn value/saturation source mismatch
+
+**Owner:** Environment plant art / native seasonal observer
+**Status:** AUTHOR-REVIEWED ADOPTION CANDIDATE IMPLEMENTED; FILE-LOADED COLOR / NATIVE SEASON EVIDENCE PASS; HANNOKI PRODUCTION / DISTRIBUTION OPEN
+
+The author accepted proceeding with the right-hand source-value/saturation
+calibration on 2026-10-13 JST. Canonical palette/source values and preserved
+Hannoki master: `Docs/ArtDirection.md`; provenance/test premises and limitations:
+`Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md`; procedure:
+`Docs/GoldenPaths/PlantVisualCoverage.md`. Normal/leafless/snow source pixels,
+draw metadata, gameplay and the live player's config remain unchanged.
+The preferred DDS is decoded-RGBA-identical to the accepted PNG; final loaded
+Def/LUT GPU readback and noon/Clear screenshots pass separately from the
+prototype review. Seasonal evidence is retained in the named validation record;
+the first cold-resistant-individual sampling failure is preserved, with only
+the observer's native individual selection corrected. No seed/climate/Def
+change is made for that failure.
+
+Hannoki's provided accepted master is preserved locally; public source transfer
+needs separate explicit authorization and is not part of this PR. Shared LUT color conversion
+was observed only in a disposable comparison Def. Its production Def, actual
+state family, draw size/yield and natural seasonal behavior remain OPEN. PR136's
+earlier documentation is still independent; current source uses explicit
+TreeBase seasonal parameters, not a DeciduousTreeBase inheritance claim.
+GitHub integration and Steam/old-save/four-profile release results are separate;
+this item does not claim an upload or distributed correction.
+
 ### ENV-LOADFOLDERS-SOURCE-REPAIR-20261009 — root-only source contract and isolated Quicktests
 
 **Owner:** Environment publication provenance / developer runtime-test plumbing

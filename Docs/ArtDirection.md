@@ -11,6 +11,21 @@ Haimatsu retains drawSize2.60, visualSizeRange0.45..0.75 and an explicit UI path
 for native UI scale1. Existing Vanilla/MO retextures remain post-release work.
 
 
+## 2026-10-13 ブナ紅葉の基準色校正・カラーマップ採用候補
+
+作者は「明度・彩度を校正した右側の発色を採用候補として進める」確認に `ｙ` と回答した。
+対象は通常ブナPNGの再彩色ではなく、既存紅葉カラーマップと `_FallColorSource` の組み合わせ。
+通常・落葉・積雪の承認済み原画、描画寸法、生態・収量は保持する。
+
+- 基準RGB：`(0.496758088, 0.537254902, 0.323263543)`。従来の色相約71.35度と変換範囲 `(0.02,0.10)` は保持し、実葉色との明度・彩度の不整合を校正する。
+- カラーマップ正本：`Art/Sources/Other/AMJE_BeechFallGradient.png`。SHA256 `1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2`。本番PNGは同一バイト、DDSは全画素の復号RGBAが一致する別形式派生物。
+- 現行RimWorldの植物シェーダーはHSVで `元画素 + t × (変換先 − 基準色)` を計算する。従来の基準色は原画の明るい葉より暗く高彩度だったため、カラーマップより明るく淡い紅葉になった。実GPU10件で照合し、通常強度0の比較領域も画素差0を確認した。
+- 比較専用材質の校正は作者レビュー用。正式候補のロード済みDef・DDS画素・実発色は別に検証し、証跡は `Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md` に保持する。これはSteam配布・4構成・旧セーブの完了証拠ではない。
+
+ハンノキ提供原画と、それを含む比較画像はローカルに保持し、今回のブナ修正PRの公開物には含めない。
+共用カラーマップの色変化は比較専用Defで確認したが、ハンノキ本番Def、描画寸法・収量、落葉・積雪画像、自然な季節移行の採用は別途必要。
+ブナは実XML上 `TreeBase` に季節パラメータと落葉パスを明示している。`DeciduousTreeBase` を継承していると誤記せず、ハンノキでの再利用はこの実装と標準 `PlantFallColors` を参照する。
+
 ## Scope
 
 Environment intentionally deferred final art until the functional/balance Alpha loop was stable.
