@@ -11,7 +11,7 @@ New features cannot enter implementation before the Project [existing-Mod audit 
 ## Local task routes and stops
 
 - Design/implementation: `Docs/Design.md`. Retain the scoped XML-first preference below.
-- Plant/tree art: before resuming, selecting another target, handing off or claiming completion, read `Docs/GoldenPaths/PlantVisualCoverage.md` and run `python Tests/validate_plant_visual_coverage.py`. Resolve/report pending current-plant states first. Whole-plant/all-state completion requires `--require-complete`; normal-state approval is insufficient. Existing-tree retextures remain author-deferred.
+- Plant/tree art: follow `Docs/GoldenPaths/PlantVisualCoverage.md` and the test-specific guard in `Tests/AGENTS.md` when validating plant visual coverage. Existing-tree retextures remain author-deferred.
 - Color review: fixed actual local time 12:00, Clear weather, paused map, matching zoom and season/shader intensity for comparisons; record actual conditions. Follow the same coverage document. Dawn/dusk/night/weather screenshots cannot establish source colors.
 - Art procedures: `Docs/GoldenPaths/README.md` and the routing below. Accepted masters and fixed regions retain Project protection.
 - Release: `Docs/GoldenPaths/WorkshopPublication.md`, `Docs/GoldenPaths/ReleaseCandidate.md`, `Docs/ReleaseReadiness.md`. Pinned clean source, exact selected upload root and external manifest, actual downloaded source/DLL and four-profile cutting gate are required to clear distributed-release HOLD. Never upload a dirty development root or infer uploaded bytes from Git main. Steam remains author-manual.
@@ -23,13 +23,7 @@ Prefer RimWorld Def/XML/Patch operations when they are sufficient. Add C# only f
 
 ## PowerShell change safety
 
-PowerShell changes must not be committed directly to `main`.
-
-- Stage any `.ps1` edit on a temporary branch.
-- Keep `.github/workflows/powershell-syntax.yml` as the repository-level parser gate.
-- Open a pull request and require the PowerShell syntax check to pass before merging the branch to `main`.
-- `run-tests.bat` must execute `Scripts/Validate-PowerShellSyntax.ps1` before build/static validation so local test runs fail fast on parser errors.
-- Avoid large string-replacement edits to `Validate-Environment.ps1`; when changing a focused block, re-read the edited range and the end of file before merge to detect truncation or duplicated tails.
+For edits under `Scripts/`, follow `Scripts/AGENTS.md`. For root-level test entry points such as `run-tests.bat`, keep its PowerShell syntax preflight intact. Changes still require the Project PR-only protection gate.
 
 ## Art / retexture routing
 
