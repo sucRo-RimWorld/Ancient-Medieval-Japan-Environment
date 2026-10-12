@@ -128,7 +128,7 @@ def compiler(game: Path) -> tuple[Path, list[Path]]:
 def compile_support(game: Path, output: Path, error_mod: Path):
     csc, refs = compiler(game)
     invoke([
-        csc, "/nologo", "/target:library",
+        csc, "/nologo", "/nowarn:1684", "/target:library",
         "/out:" + str(error_mod / "Assemblies/AMJE.FrameworkErrors.dll"),
         *["/reference:" + str(x) for x in refs],
         ROOT / "Tests/Release/HarvestErrorObserver.cs",
