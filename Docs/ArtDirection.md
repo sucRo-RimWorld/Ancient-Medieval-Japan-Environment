@@ -126,9 +126,9 @@ Environment's tree/plant rules below intentionally allow controlled class differ
 
 - **原画像の現物：** 会話内で承認されたPNG（1254×1254 RGBA）。SHA-256 `0d65557b5f3646fb04e96be9997ba239c990a995f33a02eb65f84ee3fa8f2ea4`。
 - **縮小派生画像：** 256×256 RGBA。SHA-256 `3604ab2b6c489870fdca1c0a0f660dd3beb5870c317dd581c65eca93ec020af2`。Pillow LANCZOSでの縮小のみ。元画像とは別のバイト列。
-- **採用範囲：** 成熟株のデザインと元画像。未熟・アイコン・積雪・実機描画、PlantDef・生態配分・採取仕様は未承認／未実装。ススキとの識別性と既存AMJE画風を維持する。承認済み原画を勝手に再生成・描き直さない。
-- **予定配置：** `Art/Sources/Things/Plant/AMJ/Yoshi/Yoshi_Mature_Source.png` に原画像の正確なバイト列を保存し、256px派生画像を `Textures/Things/Plant/AMJ/Yoshi/Yoshi_A.png` に配置する。Def採用前に正式なgraphic-state構成・最終texPathを確認する。
-- **転送・導入状態：** 現時点で画像バイナリはGitHubに取り込まれていない。上記SHAの記録はファイル転送やPNG検証・ロードテストを意味しない。両PNGの実体の保存・検証後にだけ導入を完了扱いする。
+- **採用範囲：** 成熟株のデザインと元画像。さらに2026-10-12、作者が実機スクリーンショットを見て「採用とする」と回答し、確認用Defでの成熟株の通常表示を採用した。`drawSize=(1.5,1.5)`、`visualSizeRange=1~1`、成長度1、左右固定、`Things/Plant/AMJ/Yoshi`の採用画像が対象。昼12時・Clear・天候遷移完了・一時停止・春・秋色強度0・積雪0、zoom=18/9で撮影し、12株の画像読み込み／固定描画とERRORゼロを確認。証跡：`TestResults/AshiReview-20261012/Review.md`、`CloseRun/Ashi-Mature-Close.png`（SHA-256 `2f0b007c61a0a34c7b5cc6c066dc29e9980af57a4ad49153d128047dfe3b6730`）。確認用DefのSHA-256は`7cb5126c4b3845803bda63175ec5fd371114313ace34ab10c745b45d1b3c46ed`。未熟株の画像デザインは別節で暫定採用済みだが、未熟の実機表示・アイコン・積雪・自然分布・採取仕様・本番PlantDefは未承認／未実装。ススキとの識別性と既存AMJE画風を維持し、承認済み原画を再生成・描き直さない。本番Def導入時はこの採用設定と画像を照合して通常状態のfingerprintを登録する。現行`PlantVisualCoverage.json`は実装済み4樹種だけを対象とするため、未実装アシを完了行として追加しない。
+- **保存先：** `Art/Sources/Things/Plant/AMJ/Yoshi/Yoshi_Mature_Source.png` に原画像の正確なバイト列を保存済み。256px派生画像を `Textures/Things/Plant/AMJ/Yoshi/Yoshi_A.png` に配置済み。Def採用前に正式なgraphic-state構成・最終texPathを確認する。
+- **転送・導入状態：** 最新mainには両PNGの実体が保存され、上記SHA-256と一致する。確認用Defでの成熟株表示は前述の範囲で採用済み。本番PlantDefの接続・全状態の受入・配布完了を意味しない。
 
 ## 2026-10-10採用源画：薄・芒（ススキ）成熟株（実装予約）
 
@@ -157,7 +157,7 @@ RimWorld's `Graphic_Collection` loads every texture found inside the configured 
 
 対象はススキと葦（アシ、`AMJ_Plant_Yoshi`）に限定し、各種の採用元画像の左右の向きを保持してランダムな水平反転を抑制する。アシの非対称な穂も同じ扱いとする。通常・積雪の描画と複数株で方向を揃え、未熟・UIも各種の状態画像と整合させる。種ごとの画像・形状・受入は独立して維持し、既存4樹種・スゲ・ハンノキ・ミズゴケ・他Mod植物の反転挙動は変えない。
 
-RimWorld 1.6.9438.38202の[`Plant.Print`](https://github.com/Chillu1/RimWorldDecompiled/blob/2d508035082e7cb0c8e29e230d26bda6e546928f/RimWorld/Plant.cs)は`bool flipUv = Rand.Bool`を直接生成してアトラスと通常・積雪の両平面へ渡し、`graphicData.allowFlip`を参照しない。`allowFlip=false`や`Graphic_Single`への切替だけでは成立しないため、対象2種に限定した描画処理が必要。通常・積雪・複数株と他種への非干渉を実ゲームで検証する。**現在は設計確定のみで、描画処理・PlantDef・Texturesの実装やランタイムPASSは未成立。** 各種の既定の実装順・画像承認・分布・採取仕様のゲートを維持する。
+RimWorld 1.6.9438.38202の[`Plant.Print`](https://github.com/Chillu1/RimWorldDecompiled/blob/2d508035082e7cb0c8e29e230d26bda6e546928f/RimWorld/Plant.cs)は`bool flipUv = Rand.Bool`を直接生成してアトラスと通常・積雪の両平面へ渡し、`graphicData.allowFlip`を参照しない。`allowFlip=false`や`Graphic_Single`への切替だけでは成立しないため、対象2種に限定した描画処理が必要。通常・積雪・複数株と他種への非干渉を実ゲームで検証する。**本番の左右固定描画処理とPlantDefは未実装。アシ成熟株画像は保存済みで、2026-10-12の確認専用FixedPlantでは左右固定表示が採用された（上記証跡）。これは通常・積雪を含む本番2種の描画検証完了ではない。** 各種の既定の実装順・画像承認・分布・採取仕様のゲートを維持する。
 
 Alpha art policy:
 - begin with **one strong final texture per state** rather than producing many variants immediately;
