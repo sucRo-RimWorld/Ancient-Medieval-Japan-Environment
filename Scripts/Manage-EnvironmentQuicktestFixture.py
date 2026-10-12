@@ -18,6 +18,7 @@ ABOUT_XML = f"""<?xml version="1.0" encoding="utf-8"?>
   <packageId>{PACKAGE}</packageId>
   <supportedVersions>
     <li>1.6</li>
+    <li>1.7</li>
   </supportedVersions>
   <loadAfter>
     <li>{QUICKSTARTS_PACKAGE}</li>
