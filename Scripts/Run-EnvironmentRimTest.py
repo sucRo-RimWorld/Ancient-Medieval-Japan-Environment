@@ -50,8 +50,9 @@ def run(root: Path, output: Path, game: Path):
         raise ValueError("Unsupported Environment source identity: " + environment_id)
 
     workshop = game.parents[1] / "workshop/content/294100"
-    rimtest_dll = common.find_dll(workshop / "3762405308", "RimTestRedux.dll")
-    harmony_dll = common.find_dll(workshop / "2009463077", "0Harmony.dll")
+    game_version = common.test_version_from_user_config()
+    rimtest_dll = common.find_dll(workshop / "3762405308", "RimTestRedux.dll", game_version)
+    harmony_dll = common.find_dll(workshop / "2009463077", "0Harmony.dll", game_version)
     if not (workshop / "3296362231/About/About.xml").is_file():
         raise ValueError("RimTest Redux dependency ilyvion's Laboratory is not installed")
 
