@@ -8,15 +8,16 @@ on:
       - 'Patches/**'
       - 'Languages/Japanese/DefInjected/BiomeDef/**'
       - 'Languages/Japanese/DefInjected/ThingDef/**'
-      - 'Tests/test_vanilla_bamboo_description.py'
+      - 'Tests/Production/test_vanilla_bamboo_description.py'
       - 'Docs/VanillaPlantStep2DescriptionReview-ja.md'
       - 'Tests/Quickstarts/**'
       - 'Tests/Production/test_tree_sowing_contract.py'
+      - 'Tests/Production/test_structural_plant_commonality.py'
       - 'Tests/Production/test_wetland_ecology_contract.py'
       - 'Docs/Research/WetlandPlantExistingModAudit-ja.md'
       - 'Docs/Research/WetlandPlantImplementationDecision.json'
       - 'Docs/NativeVegetationStep3Design-ja.md'
-      - 'Tests/test_wetland_implementation_decision.py'
+      - 'Tests/Production/test_wetland_implementation_decision.py'
       - 'Docs/Research/WetlandPlantDistributionDraft.json'
       - 'Tests/Production/test_wetland_production_refs.py'
       - 'Docs/Research/WetlandPlantMaterialDefAudit-ja.md'
@@ -30,15 +31,16 @@ on:
       - 'Patches/**'
       - 'Languages/Japanese/DefInjected/BiomeDef/**'
       - 'Languages/Japanese/DefInjected/ThingDef/**'
-      - 'Tests/test_vanilla_bamboo_description.py'
+      - 'Tests/Production/test_vanilla_bamboo_description.py'
       - 'Docs/VanillaPlantStep2DescriptionReview-ja.md'
       - 'Tests/Quickstarts/**'
       - 'Tests/Production/test_tree_sowing_contract.py'
+      - 'Tests/Production/test_structural_plant_commonality.py'
       - 'Tests/Production/test_wetland_ecology_contract.py'
       - 'Docs/Research/WetlandPlantExistingModAudit-ja.md'
       - 'Docs/Research/WetlandPlantImplementationDecision.json'
       - 'Docs/NativeVegetationStep3Design-ja.md'
-      - 'Tests/test_wetland_implementation_decision.py'
+      - 'Tests/Production/test_wetland_implementation_decision.py'
       - 'Docs/Research/WetlandPlantDistributionDraft.json'
       - 'Tests/Production/test_wetland_production_refs.py'
       - 'Docs/Research/WetlandPlantMaterialDefAudit-ja.md'
@@ -58,10 +60,12 @@ jobs:
       - name: Validate retained Vanilla wetland ecology bundle
         run: python Tests/Production/test_wetland_ecology_contract.py
       - name: Validate evidence-backed native wetland implementation scope
-        run: python Tests/test_wetland_implementation_decision.py
+        run: python Tests/Production/test_wetland_implementation_decision.py
       - name: Validate Suge and Mizugoke XML behavior fixtures (production Defs pending)
         run: python Tests/Production/test_wetland_material_plant_contract.py
       - name: Validate live four-species wetland references (production Defs pending)
         run: python Tests/Production/test_wetland_production_refs.py
+      - name: Validate approved structural plant commonalities
+        run: python Tests/Production/test_structural_plant_commonality.py
       - name: Validate approved Vanilla tree descriptions without gameplay changes
-        run: python Tests/test_vanilla_bamboo_description.py
+        run: python Tests/Production/test_vanilla_bamboo_description.py

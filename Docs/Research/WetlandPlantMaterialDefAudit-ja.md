@@ -40,7 +40,7 @@
 
 ## 自動テストと受け入れ判定
 
-`Tests/test_wetland_material_plant_contract.py` は、**実際の収穫機能やUIの成功を証明しない**静的形状の回帰テスト。
+`Tests/Production/test_wetland_material_plant_contract.py` は、**実際の収穫機能やUIの成功を証明しない**静的形状の回帰テスト。
 
 - **スゲ:** Vanilla`Hay`の取得先、正の`harvestYield`が将来Defに必要、**`harvestTag=Standard`明示**、MO専用アイテムへの置換や新規直接副産物なしを検査する。タグを付けただけで収穫可能と主張せず、本番の収穫Jobを実機テストする。
 - **ミズゴケ:** 選択可能、収穫先なし、播種設定なし、除去を妨げる明示的設定なしを検査する。

@@ -19,7 +19,7 @@
 | `Plant_Moss` | 泥炭性のミズゴケ類 | 通常のコケを高層湿原のミズゴケと同一視しない |
 | `Plant_TreeWillow`・`Plant_TreeBirch`・`Plant_TreeMaple` | 低層湿原のハンノキ林 | Birch は Alnus ではない。河岸・縁辺林と湿原中心部を混同しない |
 
-**正式な実装必要性・所有権の判定記録（2026-10-09）：** `Docs/Research/WetlandPlantImplementationDecision.json` に、4種をEnvironmentが提供する独立実装として、VE・非VE・Vanilla/MO・AMJの証拠SHA256・比較・任意互換候補を記録した。これは**実装するかどうかの判断**に限った`ready`であり、新規PlantDef・草案説明・画像の作者承認や実機互換を意味しない。固定証拠ハッシュ・独自実装の結論・4対象種の回帰は `Tests/test_wetland_implementation_decision.py` で検査する。
+**正式な実装必要性・所有権の判定記録（2026-10-09）：** `Docs/Research/WetlandPlantImplementationDecision.json` に、4種をEnvironmentが提供する独立実装として、VE・非VE・Vanilla/MO・AMJの証拠SHA256・比較・任意互換候補を記録した。これは**実装するかどうかの判断**に限った`ready`であり、新規PlantDef・草案説明・画像の作者承認や実機互換を意味しない。固定証拠ハッシュ・独自実装の結論・4対象種の回帰は `Tests/Production/test_wetland_implementation_decision.py` で検査する。
 
 **実XMLでのVE／非VE重複監査（2026-10-09）：** `Docs/Research/WetlandPlantExistingModAudit-ja.md` にVE／More Plants、ReGrowth 2、Biomes! Prehistoric、MO／Odysseyの固定1.6ソースと比較・互換性の未解決点を記録した。特にスゲ・ミズゴケには既存のBiomes! Prehistoric PlantDefがあるが、**Environmentの独自実装を省略する理由にはならない**。形式的判定JSONは作成済み。**Projectの正式Python CLIを2026-10-09に同一内容で実行し、構造／証拠バイト照合PASS**を取得した。対象Environmentコミット・Project PRとActionsログを `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md` に記録した。**日本語説明本文は2026-10-10に作者承認済み**。必要な実画像・他の未確定仕様が残るため、新PlantDefの実装着手はHOLD。
 
@@ -106,9 +106,9 @@ wildPlants総量と木本総量を維持する。
 
 ### 3.2 湿地資材と3構成の接続（未承認）
 
-`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/test_wetland_material_plant_contract.py`。**実際の新Defは未実装**であり、テストの仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** **2026-10-12作者承認：スゲの成熟株1株の基本収穫量は `Hay` 1（`harvestYield=1`）。** 他種の収量・収穫物の承認とは区別する。ヨシのHay採用、ヨシ・ハンノキの収量と製品Recipeは未承認。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
+`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/Production/test_wetland_material_plant_contract.py`。**実際の新Defは未実装**であり、テストの仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** **2026-10-12作者承認：スゲの成熟株1株の基本収穫量は `Hay` 1（`harvestYield=1`）。** 他種の収量・収穫物の承認とは区別する。ヨシのHay採用、ヨシ・ハンノキの収量と製品Recipeは未承認。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
 
-**実装前のDef参照テスト（2026-10-10）：** `Tests/test_wetland_production_refs.py`は本番`Patches/VanillaWetlandVegetation.xml`の2湿地を読み、追加予定4種のDef名について「自然発生プールで参照した種に対応する実PlantDefが1件存在する」「実PlantDefが存在する種は対象プールから参照される」「ミズゴケは現在の設計ではColdBog限定」を検査する。未実装中は形状・誤参照のモックテストを実行し、本番種がなければ本番参照検査だけをSKIPする。**分布値は未承認であり、草案JSONをゲーム適用したり、ロード済みの適地・自然発生・画像・採取を検証済みと主張したりしない。**
+**実装前のDef参照テスト（2026-10-10）：** `Tests/Production/test_wetland_production_refs.py`は本番`Patches/VanillaWetlandVegetation.xml`の2湿地を読み、追加予定4種のDef名について「自然発生プールで参照した種に対応する実PlantDefが1件存在する」「実PlantDefが存在する種は対象プールから参照される」「ミズゴケは現在の設計ではColdBog限定」を検査する。未実装中は形状・誤参照のモックテストを実行し、本番種がなければ本番参照検査だけをSKIPする。**分布値は未承認であり、草案JSONをゲーム適用したり、ロード済みの適地・自然発生・画像・採取を検証済みと主張したりしない。**
 
 ### 3.3 医療供給の維持
 

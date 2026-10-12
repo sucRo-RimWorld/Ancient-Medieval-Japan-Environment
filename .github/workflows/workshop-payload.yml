@@ -18,6 +18,6 @@ jobs:
       - name: Reject stale sources, wrong upload roots and payload mutations
         run: python Tests/Release/test_workshop_payload.py && python Tests/Release/test_workshop_pickle.py
       - name: Validate Harmony active-version selection
-        run: python Tests/test_framework_automation.py
+        run: python Tests/Runtime/test_framework_automation.py
       - name: Compile publication tooling
         run: python -m py_compile Scripts/Build-WorkshopPayload.py Scripts/Run-WorkshopPayloadTests.py Scripts/Combine-WorkshopPayloadResults.py Scripts/Run-WorkshopPickle.py Scripts/EnvironmentFrameworkTestCommon.py Scripts/Run-EnvironmentRimTest.py Scripts/Run-DevelopmentPickle.py Scripts/Audit-WorkshopUploadSource.py Scripts/Build-ReleaseCandidate.py
