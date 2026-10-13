@@ -181,7 +181,7 @@ bash Scripts/Build-ChatLinux.sh \
 |---|---:|---:|---|---|
 | Vanilla | 70/70 | 0 | 2,815 natural Hannoki; commonality 0.70; `WoodLog` 24; CCTO off | **PASS** |
 | CCTO | 70/70 | 0 | 2,835 natural Hannoki; `WoodLog` 24; CCTO Extension 1 / `coldDormancy=true` / minimum growth 5℃ | **PASS** |
-| MO | 70/70 | 2 | 2,717 natural Hannoki; MO `DankPyon_RawWood` 24 | **FAIL** (2 Unity FMOD sound errors before Quickstart) |
+| MO | 72/72 | 2 | 2,717 natural Hannoki; MO `DankPyon_RawWood` 24 | **FAIL** (2 Unity FMOD sound errors before Quickstart) |
 | MO+CCTO | 72/72 | 2 | 2,716 natural Hannoki; `DankPyon_RawWood` 24; CCTO Extension 1 / dormancy true | **FAIL** (same 2 prelaunch Unity FMOD errors) |
 
 The real game generated a wetland map, checked loaded production Def,
