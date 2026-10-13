@@ -25,7 +25,7 @@ for native UI scale1. Existing Vanilla/MO retextures remain post-release work.
 ハンノキ提供原画と、それを含む比較画像はローカルに保持し、今回のブナ修正PRの公開物には含めない。
 2026-10-13、作者の「画像も更新」により、別PRで現在のローカル原画と256px画像を公開ソースへ反映する。原画は `Art/Sources/Things/Plant/AMJ/Hannoki/Hannoki_Mature_Source.png`（1289×1221 RGBA、SHA-256 `a63145b884dc943113f29171b8cc7366a40d7183ec27cf289d8243bbd1273cf8`）、配置用画像は `Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png`（256×256 RGBA、SHA-256 `6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1`）。両方とも提供された現物のバイト列を保持し、再生成・再縮小しない。これは画像ファイルの反映指示であり、未熟・UI・落葉・積雪・実機での全状態受入や本番Defの完了を意味しない。
 共用カラーマップの色変化は比較専用Defで確認したが、ハンノキ本番Def、描画寸法・収量、落葉・積雪画像、自然な季節移行の採用は別途必要。
-ブナは実XML上 `TreeBase` に季節パラメータと落葉パスを明示している。`DeciduousTreeBase` を継承していると誤記せず、ハンノキでの再利用はこの実装と標準 `PlantFallColors` を参照する。
+ブナは現行XML上 `DeciduousTreeBase` に季節パラメータと落葉パスを明示している。ハンノキも同じ親Defと標準 `PlantFallColors` を用いる。旧記録の `TreeBase` 表記は現行ソースと不一致だったため訂正。
 
 ## 2026-10-13 ハンノキ積雪オーバーレイ暫定採用
 
