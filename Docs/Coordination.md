@@ -162,6 +162,9 @@ Do not request passwords or circumvent ownership checks; resume using an
 isolated legitimate game copy when available. Existing Windows
 `run-tests.bat` remains the canonical full-runtime acceptance gate.
 
+**2026-10-13 subsequent user-supplied Linux game — previous missing-game blocker superseded:**
+Author supplied `RimWorldLinux_Data.zip` (excludes Steam Workshop's `steamapps` content but includes the complete Linux game root). The installer verified a real ELF `RimWorldLinux`, `UnityPlayer.so`, and 15,767,552-byte `RimWorldLinux_Data/Managed/Assembly-CSharp.dll` and installed them under the Chat-side isolated `Game` root. `Version.txt` reads `1.6.4871 rev598`; running Unity logs `RimWorld 1.6.4871 rev600`. A real Linux process under Xvfb 1280×720 (Mesa llvmpipe OpenGL 4.5) rendered the **Vanilla main menu** after dismissing the expected Steam API unavailable warning. Inspectable 1280×720 screenshot and full isolated Unity log are conversation-local. User's actual Steam login, home configuration, saves and Windows installation were not accessed. This is a **native Vanilla boot/UI smoke PASS only**: no AMJE, CCTO, Harmony, VEF, Processor, RimWorks Quickstarts or precompiled AMJE DLL has been staged, so Hannoki Def-loaded/render, 4-profile, harvest, snow, save and CCTO outcomes remain NOT RUN. Network-disabled Chat container cannot use git/Steam downloads; dependency Mod/payload archives or an independent connected-artifact transfer are still needed. Keep game staging reproducible and do not describe the empty `steamapps` as an incomplete base game. Existing Windows `run-tests.bat` remains the full final acceptance route.
+
 
 ## Publication and distribution
 
