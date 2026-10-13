@@ -3,7 +3,7 @@
 ## Verified scope
 
 This is a repeatable **dependency acquisition / actual game boot** procedure,
-NOT an accepted Hannoki or four-profile native-test result. The author
+not by itself an accepted native test; see the later pinned-source build results. The author
 supplied a legitimate Linux RimWorld 1.6.4871 game archive. The Chat
 container cannot directly resolve public hosts via DNS, but a temporary
 GitHub Actions runner can download public Mod distributions and the GitHub
@@ -107,3 +107,94 @@ live startup probes with the public Mod payloads observed:
   entry point remains `run-tests.bat` with isolated desktop and the
   exact current candidate payload; published Workshop results do not
   substitute for that suite.
+
+## 2026-10-13 — pinned GitHub source to native Linux build (VERIFIED)
+
+The earlier missing `main` / compiled `Quicktests` blocker is superseded.
+**Repository `main` commit `52c6530b2d78bcc6800b80d3d69d36048c0142d5`**
+was acquired, its binaries built, staged and run under RimWorld 1.6.4871.
+The direct Chat-side `git ls-remote` fails due to DNS; the *verified*
+alternative is GitHub Actions (runner checkout at an exact SHA) → Git
+`archive` tar.gz → uploaded short-lived Actions artifact → downloaded
+through the GitHub connector into Chat → tar SHA-256 verification.
+The archive was **261 regular files**, SHA-256
+`f9e1c8f07a2f2e73cf67050277e1fb9e9e7fbc0a5dde7d620345c3c6842dcf48`.
+This same procedure accepts any readable development **branch or commit**:
+resolve the precise target commit SHA first, replace the pinned SHA in the
+temporary GitHub Actions checkout, and log that SHA with the compiled
+artifacts. Never assume a previous tar snapshot is the latest branch.
+
+### Reproducible build
+
+- Debian 13 Mono 6.12 `mcs` was obtained from official Debian 13 packages
+  via a *temporary* GitHub Actions runner (no untrusted binaries), with
+  all 50 downloaded `.deb` checksums revalidated before local installation.
+  Runtime and compiler were installed **only in Chat container**.
+  This is separate from the user-provided owned Linux game files.
+- The checked-in entry point is `Scripts/Build-ChatLinux.sh`. Its four
+  arguments are `GAME_ROOT HARMONY_1_6_DLL QUICKSTARTS_1_6_DLL OUTPUT_ROOT`.
+  It compiles production from `Source/AncientMedievalJapanEnvironment/*.cs`
+  against the actual `RimWorldLinux_Data/Managed` libraries and
+  separately compiles `Tests/Quickstarts/EnvironmentBiomeTerrainQuickstarts.cs`
+  against that production DLL and Quickstarts 4.1.0 / Harmony 1.6.
+  The input `GAME_ROOT/Version.txt` must identify RimWorld **1.6**.
+- Example (paths are illustrative; do not use a Workshop Mod folder as source):
+
+```bash
+bash Scripts/Build-ChatLinux.sh \
+  /isolated/Game \
+  /isolated/Mods/harmony/1.6/Assemblies/0Harmony.dll \
+  /isolated/Mods/rimworks_quickstarts/1.6/Assemblies/Quickstarts.dll \
+  /isolated/DevBuild
+```
+
+- Verified production DLL: **28,672 bytes**, SHA-256
+  `4d495a5b9ca01ddd3cdffca9cef0b4ae37458b93ca0da566c10832afc8b0d28a`;
+  compilation returned exit 0 and only one existing unused-field
+  `CS0414` warning. Verified Quicktests DLL: **113,664 bytes**,
+  SHA-256 `a5dcac2c76151f5193322ec51afea238204091fad8d8bcf2cd393c29ecd13d02`,
+  compilation returned exit 0. A **second build via this script**
+  reproduced both identical SHA-256 digests.
+- Assemble the development payload with `About/ Defs/ Languages/ Patches/
+  Textures/ loadFolders.xml` from that same pinned commit and the
+  freshly built production DLL; do not silently use published Workshop
+  `Assemblies/` or overwrite the author's Windows Mod. Preserve the
+  Workshop copy outside the actual `Game/Mods` scan, because duplicate
+  `packageId` entries are not a valid game profile.
+- Build and stage the independent Quicktests Mod using
+  `Scripts/Manage-EnvironmentQuicktestFixture.py` and the
+  `Tests/Quickstarts/Fixtures/WetlandBehaviorProbeDefs.xml` fixture.
+  Load its `sucro.ancientmedievaljapan.environment.quicktests` package
+  **exactly once**, after AMJE and RimWorks Quickstarts. The test-only
+  `AMJE_Test_Hannoki` is not production `AMJ_Tree_Hannoki`.
+- **Important failure class discovered**: `-quickstart` is ignored when
+  RimWorld `Prefs.DevMode` is false. Before the native run,
+  set `<devMode>True</devMode>` under `PrefsData` in the
+  **isolated profile's** `Config/Prefs.xml` (never player preferences).
+  Remove duplicate Quicktests links; a first native probe hit exactly
+  these two issues and produced **no** valid report. Both were repaired
+  before the successful runs.
+
+### Actual native `AMJTemperateSwampVegetationQuickstart` results
+
+| Profile | Test assertions | Prelaunch ERROR | Actual native evidence | Strict verdict |
+|---|---:|---:|---|---|
+| Vanilla | 70/70 | 0 | 2,815 natural Hannoki; commonality 0.70; `WoodLog` 24; CCTO off | **PASS** |
+| CCTO | 70/70 | 0 | 2,835 natural Hannoki; `WoodLog` 24; CCTO Extension 1 / `coldDormancy=true` / minimum growth 5℃ | **PASS** |
+| MO | 70/70 | 2 | 2,717 natural Hannoki; MO `DankPyon_RawWood` 24 | **FAIL** (2 Unity FMOD sound errors before Quickstart) |
+| MO+CCTO | 72/72 | 2 | 2,716 natural Hannoki; `DankPyon_RawWood` 24; CCTO Extension 1 / dormancy true | **FAIL** (same 2 prelaunch Unity FMOD errors) |
+
+The real game generated a wetland map, checked loaded production Def,
+all four graphics as **non-BadTex**, natural wild plants, loaded wood choice,
+conditional CCTO extension and ran a colonist `CutPlant` to destruction;
+all four produced the expected quantity, with no unexpected item. The
+Quickstarts reports declare `captureLive=true`, `logTruncated=false`,
+`failed=0`. **The MO reports' `passed=true` does not clear the strict
+gate when `preLaunchErrors=2`; do not promote those profiles to PASS.**
+
+The large natural counts are observed `Map.listerThings` totals for
+one fixed test map, **not** ecological balance acceptance. ColdBog,
+other Quickstarts, alternate seeds, MO WoodChain **OFF**, native seasonal
+render comparison at noon/Clear, snow depths and saved-world migration
+remain OPEN. The two FMOD errors remain an independent blocker of
+strict MO startup. The user-facing Workshop release remains untouched.
