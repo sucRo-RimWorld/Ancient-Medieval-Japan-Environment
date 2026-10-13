@@ -11,6 +11,9 @@ if ($RimWorldRoot -match '["%\r\n]') {
 }
 
 $rimWorldExe = Join-Path $RimWorldRoot 'RimWorldWin64.exe'
+if (Test-Path -LiteralPath (Join-Path $RimWorldRoot 'UnityStubs.dll')) {
+    $rimWorldExe = Join-Path $RimWorldRoot 'RimWorld.exe'
+}
 if (-not (Test-Path -LiteralPath $rimWorldExe)) {
     throw "RimWorld executable was not found: $rimWorldExe"
 }
@@ -234,7 +237,7 @@ finally {
     }
 
     try {
-        & py -3 $quicktestManager cleanup --game $RimWorldRoot
+        & python $quicktestManager cleanup --game $RimWorldRoot
         if ($LASTEXITCODE -ne 0) {
             Write-Warning "Environment Quicktests fixture cleanup returned exit code $LASTEXITCODE."
         }

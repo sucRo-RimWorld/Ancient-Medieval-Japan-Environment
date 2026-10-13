@@ -30,8 +30,8 @@ def next_output() -> Path:
 
 
 def run(root: Path, output: Path, game: Path):
-    if not (game / "RimWorldWin64.exe").is_file():
-        raise ValueError("RimWorld executable not found: " + str(game / "RimWorldWin64.exe"))
+    if not common.game_exe(game).is_file():
+        raise ValueError("RimWorld executable not found: " + str(common.game_exe(game)))
     if not (root / "About/About.xml").is_file() or not (root / "Assemblies/AncientMedievalJapanEnvironment.dll").is_file():
         raise ValueError("Environment root must be built before RimTest: " + str(root))
     if output.exists():
@@ -50,9 +50,9 @@ def run(root: Path, output: Path, game: Path):
         raise ValueError("Unsupported Environment source identity: " + environment_id)
 
     workshop = game.parents[1] / "workshop/content/294100"
-    game_version = common.test_version_from_user_config()
-    rimtest_dll = common.find_dll(workshop / "3762405308", "RimTestRedux.dll", game_version)
-    harmony_dll = common.find_dll(workshop / "2009463077", "0Harmony.dll", game_version)
+    version = '1.7' if common.game_exe(game).name == 'RimWorld.exe' else '1.6'
+    rimtest_dll = common.find_dll(workshop / "3762405308", "RimTestRedux.dll", version)
+    harmony_dll = common.find_dll(workshop / "2009463077", "0Harmony.dll", version)
     if not (workshop / "3296362231/About/About.xml").is_file():
         raise ValueError("RimTest Redux dependency ilyvion's Laboratory is not installed")
 
@@ -111,11 +111,11 @@ def run(root: Path, output: Path, game: Path):
         errors = output / "Unity-RimTest"
         runner_log = output / "RimTest-Runner.log"
         batch = output / "RimTest.cmd"
-        command = (
-            '"' + str(game / "RimWorldWin64.exe") + '"'
+        arguments = (
             ' -savedatafolder="' + str(save_data) + '"'
             ' -logFile "' + str(log_path) + '"'
         )
+        command = common.runtime_command(game, arguments, log_path)
         batch.write_text("@echo off\n" + command + "\nexit /b %ERRORLEVEL%\n", encoding="ascii")
         env = os.environ.copy()
         env["AMJE_RIMTEST_RESULT"] = str(result_path)

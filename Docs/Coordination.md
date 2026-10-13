@@ -298,31 +298,23 @@ a completed fruit feature or runtime PASS.
 
 ### TEST-ENV-UNIFIED-20261008 — unified AMJE native test and wetland handoff
 
-**Owner:** Environment runtime testing and wetland development  
-**Status:** OPEN — author-side static/build PASS, RimTest Redux 10/10 and development Pickle 20/20 PASS across 4 profiles; latest uploaded non-visible Quickstarts console log **18/18 PASS, 18 owned-ERROR gates PASS**, including MO wetland native aggregate plants. Independent four-profile release/cutting, individual Unity logs, saves and Steam subscriber audit remain OPEN.
+**Owner:** Environment / existing native test suite
+**Status:** LOCAL STANDARD ENTRY PASS ON 1.7; INDEPENDENT RELEASE/CUTTING, OLD SAVES AND STEAM SUBSCRIBER GATES OPEN
 
-**Current path:** `run-tests.bat` runs static/build, then non-visible rendered Quickstarts, then RimTest Redux and four-profile development Pickle; `Docs/GoldenPaths/RenderedRuntimeTests.md` owns the matrix/evidence and `Docs/GoldenPaths/PlantSowingTests.md` owns sowing assertions. Do not equate the standard Quickstart runtime profiles with the separate full four-profile release gate; isolated MO map startup is not automatically enabled for every map profile.
+The current `run-tests.bat` passed static validation, all 18 hidden rendered
+Quickstarts, RimTest 10/10 and the four development Pickle profiles at 5/5 each
+on 1.7.4976 rev1043. Native captures and report completeness passed; no runtime
+ERROR. Exact evidence and tooling scope are in ENV-RIMWORLD-17-20261013 and
+`Docs/GoldenPaths/RimWorld17Tests.md`.
 
-**2026-10-11 author-requested test cleanup:** Removed source-substring gates
-from Python tests and `Validate-Environment.ps1`, document phrase/status locks,
-and duplicate hardcoded production PNG hashes. Removed the dedicated art-rule
-wording workflow. Retained executable fixture/Harmony/payload tests, XML
-contracts, decoded PNG corruption tests, artwork acceptance ledger and fixed
-master/mask/composite validation. RimTest, Pickle and rendered Quickstarts are
-unchanged; this maintenance supplies no new native-game or release PASS.
-
-**2026-10-10 resolved development framework blockers:** PR #80–83 corrected Windows args, Harmony DLL, C# compiler compatibility and ephemeral Pickle test content. Subsequent RimTest 10/10 and Pickle 20/20 supersede the earlier runner failures; see Git history.
-
-**2026-10-10 author-reported Windows development Pickle PASS:** Following the #83 fixture repair, the author's direct `Scripts/Run-DevelopmentPickle.py` output reports `PICKLE PASS Vanilla 5`, `PICKLE PASS MO 5`, `PICKLE PASS CCTO 5`, `PICKLE PASS MO-CCTO 5` — **four profiles, five loaded-Def scenarios per profile, 20/20 PASS**. Each PASS line is emitted in `Run-DevelopmentPickle.py` only after expected scenario counts, `exitReason == "passed"` and the existing `validate_runtime_logs` Player.log/independent Unity capture/ERROR gates have passed for that profile. Therefore development Pickle loaded-Def assertions, including MO-added wetland herb commonalities in MO/MO-CCTO, have **author-reported runtime PASS**. The raw `summary.json`, Player.log, Unity capture and aggregate `DevelopmentPickleSummary.json` were not attached for independent evidence audit, and the final script exit code was not separately shown. This is **not** rendered map/natural-spawn Quickstart PASS, the native four-profile release/cutting suite, old-save E2E, or Steam-subscriber PASS; those remain OPEN.
-
-**2026-10-10 uploaded rendered-runtime console log audit:** Author attached `EnvironmentIsolatedRuntime(3).log` (687 lines), corresponding to the successful isolated `TestResults/EnvironmentIsolatedRuntime.log` run. All **16/16 actual Quickstart invocations PASS** and each records `[OK] No owned AMJ runtime ERROR entries were found.`: **9/9** Environment-only (warm/cool/subalpine/alpine 4 + TemperateSwamp/ColdBog 2 + natural-world wetland distribution 1 + river/coast 2); **1/1** installed CCTO optional focused warm-temperate loaded-Def compatibility; **6/6** enabled Grains/Core + MO integration (4 AMJE biomes + river/coast), including six accepted cold-season climate-gradient reports. The run prints `[OK] Environment runtime gate passed.` and removes the temporary `AMJE.EnvironmentQuicktests` Mod; outer `[EXIT] 0` and `fixture already absent` confirm normal second cleanup. The mixed profile explicitly loads `DankPyon.Medieval.Overhaul` and `sucro.ancientmedievaljapan.core`. **That core packageId is also retained by current `Grains:About/About.xml`**, so the ID cannot distinguish old Core from today's Grains installation; exact physical loaded source/DLL SHA was not captured. Do not overclaim a pinned Grains build. The `MO` standalone rendered Quickstart suite is still explicitly disabled in this runner. This log verifies invoked scenarios and their owned ERROR checks only: individual scenario report JSON, full Player.log/Unity capture, natural MO wetland herb spawning, current source commit and full four-profile native cutting/release checks were not attached. The base natural-wetland *world distribution* PASS is not proof of MO herbs spawning. The three independent framework/static/rendered successes are not one combined `run-tests.bat` execution. No repeat run required solely for this log summary.
-
-**2026-10-10 isolation correction:** In the standard `run-tests.bat`, the already-proven **hidden rendered Quickstarts now precede** RimTest/Pickle. The full standard command still requires **static + native Quickstarts + RimTest + all four Pickle profiles** to pass; a failing later framework gate continues to return nonzero, but no longer prevents collecting independent native-game evidence. `Docs/GoldenPaths/RenderedRuntimeTests.md` owns exact order and the targeted framework-only entry. Do not use extra ad hoc Python assertions as a substitute for RimTest/Pickle; local human execution outside Work is still necessary for the native loaded-game checks.
-
-**Earlier evidence (historical, not latest-source release PASS):** Old `AMJWarmTemperateTerrainQuickstart(4).log`, `EnvironmentIsolatedRuntime(2).log` and the 2026-10-08 pinned 32-file candidate PASS apply only to their specific runs/artifacts. The newer 16-scenario loaded runtime console evidence and four-profile development Pickle PASS are recorded above. Old report details remain in `Docs/GoldenPaths/RenderedRuntimeTests.md` and Git history.
-
-**Remaining:** inspect individual scenario JSON, Player.log/Unity captures and source/provider SHA for release-level provenance; verify per-species MO herbs only if that stricter sampling is desired, other bilingual labels, the independent full four-profile rendered/cutting release gate, old saves and actual Steam package. Pickle raw summary/log attachments remain absent. Keep `ENV-TREE-SOWING-RUNTIME-002` and `ENV-WETLAND-BIOME-001` OPEN where applicable; `ENV-RETEX-012` and Steam distribution HOLD remain independent. Do not claim gameplay or Workshop publication from static/CI results.
-
+This normal suite includes fixed-biome, natural-world, CCTO-focused and installed
+MO + Core/Grains scenarios. It is not the independent four-profile subscriber
+release/cutting contract, old-save E2E, or actual Steam-download verification.
+Those remain OPEN, along with any specifically required unforced per-species
+sampling not covered by the existing assertions. Older author-reported and
+console-only result chains are preserved in Git history and the owning
+`Docs/GoldenPaths/RenderedRuntimeTests.md`; they do not substitute for a fresh
+revision-specific gate. Do not reopen unrelated feature/art work to clear tests.
 ### ENV-TREE-SOWING-001 — Regional growing-zone tree regression (2026-10-08 JST)
 
 **Requested by:** author
@@ -398,4 +390,23 @@ The prior ENV-010 rule requiring rewritten descriptions for AMJE-retextured plan
 Descriptions should contain supported historical facts and meaningful modern differences where supportable, with Japanese drafted and author-approved before English translation. Retexture work still carries a mandatory description review as a minimum art-pass requirement.
 
 **Result / references:** shared policy in Core `Docs/HistoricalDescriptionGuidelines.md` commit `ca17b37eb3cca5266d1f62a2d73f527a503d76e5`; AMJE AGENTS `0e1b74173eca79dde09dffa2287fc5f72a583c27`; ArtDirection alignment `3b8b7c753b79951b315c2ffe31822416a31595c8`.
+### ENV-RIMWORLD-17-20261013 — supported metadata and standard runner
 
+**Owner:** Environment runtime/testing
+**Status:** LOCAL FULL STANDARD ENTRY PASS; PR INTEGRATION / STEAM UPDATE PENDING
+
+1.7.4976 rev1043 `run-tests.bat` passed static validation, all 18 actual
+rendered Quickstart invocations (9 base, 1 CCTO, 8 installed MO + Core/Grains
+integration), RimTest 10/10 including loaded production provider, and all four
+development Pickle profiles at 5/5 each. Every invoked gate had complete
+reports/captures and zero runtime ERROR. Evidence:
+`TestResults/Standard17-Runner.log`, `TestResults/EnvironmentIsolatedRuntime.log`,
+`TestResults/VegetationRuntime/`, and the runner's timestamped AMJE-RimTest /
+AMJE-Development-Pickle temporary result directories.
+
+`Docs/GoldenPaths/RimWorld17Tests.md` owns native executable/reference/log
+selection and the serial log/PID collision guard. The production DLL is
+preserved and loadFolders remains root-only for 1.6 and 1.7. This port changes
+metadata/tooling, not gameplay or accepted art. Concurrent Hannoki image edits
+are excluded. It does not clear unrelated old-save, species/art or actual
+Steam-distribution HOLDs. CI/main and author-manual Steam update remain separate.

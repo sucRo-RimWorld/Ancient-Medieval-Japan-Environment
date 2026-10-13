@@ -5,6 +5,7 @@
   <packageId>sucro.ancientmedievaljapan.environment</packageId>
   <supportedVersions>
     <li>1.6</li>
+    <li>1.7</li>
   </supportedVersions>
   <modVersion>0.1.1</modVersion>
 

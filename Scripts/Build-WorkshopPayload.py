@@ -13,7 +13,7 @@ PACKAGE = 'sucro.ancientmedievaljapan.environment'
 WORKSHOP = '3814638060'
 FOLDERS = ('About', 'Defs', 'Languages', 'Patches', 'Textures', 'Sounds')
 EXCLUDED = ('Art', 'TestResults', 'Tests', 'Scripts', 'Source', 'DevQuickstarts', '.git', '.github')
-LOAD = b'<?xml version="1.0" encoding="utf-8"?>\n<loadFolders><v1.6><li>/</li></v1.6></loadFolders>\n'
+LOAD = b'<?xml version="1.0" encoding="utf-8"?>\n<loadFolders><v1.6><li>/</li></v1.6><v1.7><li>/</li></v1.7></loadFolders>\n'
 _spec = importlib.util.spec_from_file_location('subscriber', ROOT / 'Tests/validate_workshop_payload.py')
 subscriber = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(subscriber)

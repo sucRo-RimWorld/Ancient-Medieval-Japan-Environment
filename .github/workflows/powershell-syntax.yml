@@ -60,6 +60,9 @@ jobs:
       - name: Run repository PowerShell syntax preflight
         shell: pwsh
         run: ./Scripts/Validate-PowerShellSyntax.ps1
+      - name: Reject incomplete or wrong-process native logs
+        shell: pwsh
+        run: ./Tests/Test-RimWorldRuntime.ps1
 
       - name: Validate decoded production PNGs and corruption regression
         shell: pwsh
@@ -96,6 +99,9 @@ jobs:
       - name: Run repository PowerShell syntax preflight
         shell: powershell
         run: ./Scripts/Validate-PowerShellSyntax.ps1
+      - name: Reject incomplete or wrong-process native logs
+        shell: powershell
+        run: ./Tests/Test-RimWorldRuntime.ps1
 
       - name: Validate decoded production PNGs and corruption regression
         shell: powershell

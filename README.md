@@ -1,6 +1,6 @@
 # Ancient & Medieval Japan - Environment（中世日本 - 環境）
 
-**RimWorld 1.6 — Beta**
+**RimWorld 1.6 / 1.7 (unstable) — Beta**
 
 A standalone environment overhaul that replaces and reconfigures Vanilla terrain, vegetation, and biome composition for a Japanese-archipelago-inspired landscape. It changes world climate, mountains, rivers, coastlines, natural soil distribution, and the placement and vegetation of biomes to create a **pre-Edo Japan-like natural environment**.
 

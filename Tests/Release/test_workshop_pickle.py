@@ -78,7 +78,7 @@ class WorkshopPickleTests(unittest.TestCase):
                 (steam / "About/PublishedFileId.txt").write_bytes(
                     runner.payload_tool.WORKSHOP.encode())
                 (steam / "loadFolders.xml").write_text(
-                    '<loadFolders>\n <v1.6> <li>/</li> </v1.6>\n</loadFolders>\n',
+                    '<loadFolders>\n <v1.6> <li>/</li> </v1.6>\n <v1.7> <li>/</li> </v1.7>\n</loadFolders>\n',
                     encoding="utf-8")
                 formatted = runner.verify_downloaded_for_pickle(steam, manifest)
                 self.assertFalse(formatted["byte_identical"])
@@ -90,13 +90,14 @@ class WorkshopPickleTests(unittest.TestCase):
                     '<loadFolders><v1.5><li>/</li></v1.5></loadFolders>',
                     '<loadFolders><v1.6><li>Other</li></v1.6></loadFolders>',
                     '<loadFolders><v1.6><li>/</li><li>Other</li></v1.6></loadFolders>',
+                    '<loadFolders><v1.6><li>/</li></v1.6><v1.7><li>Other</li></v1.7></loadFolders>',
                 ):
                     (steam / "loadFolders.xml").write_text(invalid, encoding="utf-8")
                     with self.subTest(xml=invalid), self.assertRaisesRegex(
                             ValueError, "changes active Mod load paths"):
                         runner.verify_downloaded_for_pickle(steam, manifest)
                 (steam / "loadFolders.xml").write_text(
-                    '<loadFolders><v1.6><li>/</li></v1.6></loadFolders>',
+                    '<loadFolders><v1.6><li>/</li></v1.6><v1.7><li>/</li></v1.7></loadFolders>',
                     encoding="utf-8")
                 (steam / "About/PublishedFileId.txt").write_text("999",
                     encoding="utf-8")
