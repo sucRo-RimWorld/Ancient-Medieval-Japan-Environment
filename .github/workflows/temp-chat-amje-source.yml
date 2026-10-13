@@ -1,0 +1,32 @@
+name: Temporary Chat dev source snapshot
+on:
+  push:
+    branches: [tooling/temporary-chat-dev-source-build-20261013]
+    paths:
+      - .github/workflows/temp-chat-amje-source.yml
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 52c6530b2d78bcc6800b80d3d69d36048c0142d5
+          persist-credentials: false
+      - name: Verify exact source and archive it
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = 52c6530b2d78bcc6800b80d3d69d36048c0142d5
+          mkdir -p /tmp/amje-dev-source
+          git archive --format=tar --prefix=AncientMedievalJapanEnvironment/ HEAD | gzip -9 > /tmp/amje-dev-source/AMJE-main-52c6530b2d78.tar.gz
+          sha256sum /tmp/amje-dev-source/AMJE-main-52c6530b2d78.tar.gz > /tmp/amje-dev-source/SHA256SUMS
+          tar -tzf /tmp/amje-dev-source/AMJE-main-52c6530b2d78.tar.gz | head -15 || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: amje-pinned-dev-source
+          path: /tmp/amje-dev-source/
+          if-no-files-found: error
+          retention-days: 1
