@@ -1,0 +1,29 @@
+name: Temporary public Quickstarts release transfer
+on:
+  push:
+    branches:
+      - tooling/temporary-public-quickstarts-fetch-20261013
+    paths:
+      - .github/workflows/temp-quickstarts-public-fetch.yml
+permissions:
+  contents: read
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - name: Download publicly published Quickstarts 4.1.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --show-error --location --retry 3 \
+            --output Quickstarts-4.1.0.zip \
+            https://github.com/RimWorks/Rimworld-Quickstarts/releases/download/v4.1.0/Quickstarts-4.1.0.zip
+          echo '3e0abe1511e3bfff18c3639efdcb6e9d68d4fc05272e6de9fec12791ee8b0ce9  Quickstarts-4.1.0.zip' | sha256sum -c -
+          unzip -t Quickstarts-4.1.0.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Quickstarts-4.1.0-verified-public
+          path: Quickstarts-4.1.0.zip
+          if-no-files-found: error
+          retention-days: 1
