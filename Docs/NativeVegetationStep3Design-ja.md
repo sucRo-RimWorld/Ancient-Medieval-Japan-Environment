@@ -8,8 +8,8 @@
 - **作者確定方針（2026-10-09）：Environment一つで中世日本の自然環境を再現する。** ヨシ・スゲ・ハンノキ・ミズゴケは既存Modに類似植物が存在してもEnvironment自身で実装する。外部植生Mod／Odyssey DLCを必須にしない。他Modは二重出現・分布・Patch競合を扱う**任意互換候補のみ**。調査・日本語説明・画像・テストの開始条件は維持する。
 - 正本のロードマップは `Docs/Design.md` 11.5.7、既存種残存とHealroot除外条件は `Docs/VanillaPlantRetentionAudit-ja.md`、湿地の現行配分は `Patches/VanillaWetlandVegetation.xml`、4独自Biomeの現行配分は `Defs/BiomeDefs/AMJ_Biomes.xml`。
 - Step 1 湿地生態・Step 2 既存Vanilla樹木説明は作者報告のゲートを経て完了。**既存樹木リテクスチャは作者の指示どおり保留**。新規植物の表示状態確認は別の新規アート工程。
-- **2026-10-09一次採取の検討範囲拡張：** 植物を追加するだけでなく、素材を採れるようにするかをVanilla／MO／他AMJの3構成で比較する。提案元資料は`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`。植物と一次採取はEnvironmentが担い得るが、採取品・収量は**未承認**。屋根葺材・笠・蓑の製品化、加工設備、別分野のRecipe／Job等の大きなループは、Environmentで勝手に実装せず、用途側Modの任意連携とする。未実装機能の存在を説明文で先取りしない。
-- **2026-10-10に4種の日本語説明本文を作者承認済み**。確定日本語§4を正本に、英訳§4.1を意味対応させる。画像や未確定数値の承認を経るまで、本番Def・DefInjectedへの配置は禁止。
+- **2026-10-09一次採取の検討範囲拡張：** 植物を追加するだけでなく、素材を採れるようにするかをVanilla／MO／他AMJの3構成で比較する。提案元資料は`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`。植物と一次採取はEnvironmentが担う。**2026-10-13にハンノキWoodLog 24、10-12にスゲHay 1を個別承認済み**。ヨシの採取品・収量など残る種の値は未承認。屋根葺材・笠・蓑の製品化、加工設備、別分野のRecipe／Job等の大きなループは、Environmentで勝手に実装せず、用途側Modの任意連携とする。未実装機能の存在を説明文で先取りしない。
+- **2026-10-10に4種の日本語説明本文を作者承認済み**。確定日本語§4を正本に、英訳§4.1を意味対応させる。各種について画像と未決数値の承認を経るまで、本番Def・DefInjectedへの配置は禁止。**ハンノキは2026-10-13の承認を受け実装中**、他種のゲートは不変。
 
 ## 2. 現在の不足と先行Mod監査
 
@@ -33,7 +33,7 @@
 - 提供されたMedieval Overhaul 1.6ソースアーカイブの `1.6/Defs/Biomes/Biomes_DarkForest.xml` には、`Plant_Reeds`（commonality 1）と`Plant_Bulrush`（0.2）がどちらも `MayRequire="Ludeon.RimWorld.Odyssey"` 付きで定義されている。**DLCなしではロードされない条件付きエントリであり、MO単独でReeds/Bulrushが利用できる根拠にはならない。** これは手元アーカイブのXML静的調査のみで、MO＋Odyssey実機テストではない。
 - 作者の検証環境にOdyssey DLCがなく、当面はDLC有効状態でのロード済みDef・生育地形・出現分布・テクスチャ・パッチ競合を実機検証できない。**DLCを必須化しない**。DLC未導入のVanilla基準（任意MO/CCTO共存を含む）を主たる実装・回帰ゲートとする。DLC専用Def・画像・参照を通常の配布ファイルへ無条件に追加しない。
 - 将来Odyssey互換に着手する際は、実際の`Plants_Water.xml`等の版固定したDef、`wildPlants`再配分経路、Odysseyの水域植物生成経路、同種景観の重複量を確認する。特にAMJEの`Patches/VanillaWetlandVegetation.xml`は湿地の`wildPlants`全体を置換するため、Odyssey由来エントリを保持しているとは**未確認**。DLC向け調整は`Ludeon.RimWorld.Odyssey`条件の任意パッチとして独立させ、実機証拠がない間は互換済み・PASSと表示しない。
-- 上記は公開情報を使った**部分的な重複・任意互換監査**であり、互換済みを証明するものではない。**4種のEnvironment実装範囲は作者判断で確定しており、他Modの有無では省略しない。** VE／非VEの実XML・コード、ライセンスと依存の比較は実施済みで、Project `Docs/Research/ExistingModAudit.md` の形式的決定JSONも記録済み。ProjectのPython CLIによる正式な構造／根拠照合は固定Environmentコミット `41db6dc` に対してPASS（証跡は `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md`）。**しかし**ゲーム内の採取・描画と未決数値は未承認／未検証で、新PlantDef着手は引き続き保留する。**日本語説明本文は2026-10-10に作者承認済み、英訳も§4.1に作成済み**。必要な承認済み実画像・動作確認が揃うまで本番Def配置・出荷はしない。
+- 上記は公開情報を使った**部分的な重複・任意互換監査**であり、互換済みを証明するものではない。**4種のEnvironment実装範囲は作者判断で確定しており、他Modの有無では省略しない。** VE／非VEの実XML・コード、ライセンスと依存の比較は実施済みで、Project `Docs/Research/ExistingModAudit.md` の形式的決定JSONも記録済み。ProjectのPython CLIによる正式な構造／根拠照合は固定Environmentコミット `41db6dc` に対してPASS（証跡は `Docs/ValidationEvidence/WetlandEntryProjectValidator-20261009.md`）。**当時の保留は後日の種別承認で更新される**。2026-10-13にハンノキの収量・分布・画像接続を承認し本番XMLへ適用したが、自然発生・描画・伐採の実機結果は未検証。他種の未決値には承認を拡張しない。**日本語説明本文は2026-10-10に作者承認済み、英訳も§4.1に作成済み**。必要な承認済み実画像・動作確認が揃うまで本番Def配置・出荷はしない。
 
 公開参照：[Reeds](https://rimworldwiki.com/wiki/Reeds)、[Bulrush](https://rimworldwiki.com/wiki/Bulrush)、[Odyssey DLC公式発売案内](https://ludeon.com/blog/2025/07/the-rimworld-odyssey-expansion-is-out-now/)、[任意DLC条件 `MayRequire`](https://www.rimworldwiki.com/wiki/Modding_Tutorials/MayRequire)。
 
@@ -51,7 +51,7 @@
 
 **4種はすべてEnvironmentの実装対象だが、優先度は一括実装・出荷の承認ではない。** 3Aの最初の小さい実装単位はヨシ1種を想定し、専用テクスチャ・日本語本文承認・Def継承・地形適性・単独自然発生を確認してから拡張する。ヨシとスゲの違い、ハンノキの湿潤立地、ミズゴケの冷涼な泥炭地という区別を検証できなければ、機能を実装せず設計を再検討する。
 
-**配置commonalityの次工程（2026-10-09、設計草案・未承認）：** `Docs/Research/WetlandPlantDistributionDraft.json` に、現行`Patches/VanillaWetlandVegetation.xml`からヨシ・スゲ・ハンノキ・ミズゴケへ重みを移す数値案を記録した。これは**ゲーム本体に読み込まれない設計用JSON**である。**2026-10-12にスゲの出現重み（温帯湿地0.80／冷涼湿原1.10）は作者承認済み。** 他3種と植物重み移行案全体は未承認であり、一括確定扱いしない。温帯湿地7.30／木本3.00、冷涼湿原8.22／木本1.80、Berry・Healroot等の採集供給を保持する。この草案の数値を固定する専用テストは撤去済み。本番XMLの配分・木本総量・既存種保護は、実装時に本番Defを対象とする検査で確認する。実生育地形・密度・地域差のゲーム内確認を経てから、最終値を承認・採用する。
+**配置commonalityの次工程（2026-10-09、設計草案・未承認）：** `Docs/Research/WetlandPlantDistributionDraft.json` に、現行`Patches/VanillaWetlandVegetation.xml`からヨシ・スゲ・ハンノキ・ミズゴケへ重みを移す数値案を記録した。これは**ゲーム本体に読み込まれない設計用JSON**である。**2026-10-12にスゲの出現重み（温帯湿地0.80／冷涼湿原1.10）は作者承認済み。** ハンノキ重み（0.70／0.45）も2026-10-13に個別承認済み。他2種（ヨシ・ミズゴケ）の出現重みと移行案全体は未承認であり、一括確定扱いしない。温帯湿地7.30／木本3.00、冷涼湿原8.22／木本1.80、Berry・Healroot等の採集供給を保持する。この草案の数値を固定する専用テストは撤去済み。本番XMLの配分・木本総量・既存種保護は、実装時に本番Defを対象とする検査で確認する。実生育地形・密度・地域差のゲーム内確認を経てから、最終値を承認・採用する。
 
 ### 3.1 Biome構成比・木本総量の保持
 
@@ -104,11 +104,42 @@ wildPlants総量と木本総量を維持する。
 
 **2026-10-12 実装工程の簡素化（作者指示）：** スゲ・ハンノキ・ミズゴケについて、実験専用PlantDefを追加して自然発生の詳細株数を先に測る工程は必須としない。未マージのPR #102は実機実験を行わず終了し、その仮Def・仮Patch・計測処理を本番に取り込まない。既存の地形タグ／肥沃度調査とヨシの自然発生観測を引き続き利用する。以後は、**種ごとに残る未承認事項と必要画像の実物確認・作者承認を満たした時点で、本番PlantDefとBiome配分を同じ実装単位で作成し、その本番Defの自然発生・適地・採取／除去・冬季・既存セーブ・4構成互換を検証する**。新たな仮Def実験を前提条件としない一方、未承認数値を「仮」のまま配布可能な本番値へ昇格させず、未承認画像の代用品も使わない。`Soil`タグで湿原内の微地形を厳密に区別できない制約とMO植物保護、野生植物・木本の基準総量は維持する。
 
+### 3.1.2 ハンノキの本番数値（2026-10-13 作者承認）
+
+作者は、既存AMJE樹木・Vanilla木材と現実の湿地植生との比較を経た
+`ｙ` により次を採用した。本節がハンノキ値の正本である。
+旧分布JSONに並ぶ他3種の草案と混同しない。
+
+| 項目 | 採用値 | 本番正本 |
+|---|---|---|
+| 識別子・継承 | `AMJ_Tree_Hannoki`、`DeciduousTreeBase` | `Defs/ThingDefs_Plants/AMJ_WildPlants.xml` |
+| 生育期間 | `growDays=20` | 同上。提案の18～20日から、カバノキ寄りの20日を選択 |
+| 木材・採取 | `WoodLog` 24、`harvestWork=800`、`harvestTag=Wood` | 同上 |
+| 美観 | `Beauty=2` | 同上 |
+| 自然分布・温帯湿地 | `0.70`、ヤナギ `2.00→1.30` | `Patches/VanillaWetlandVegetation.xml` |
+| 自然分布・冷涼湿原 | `0.45`、ヤナギ・カバノキ・カエデ `0.60→0.45` | 同上 |
+| 木本重み・全植物重み | 温帯湿地 `3.00/7.30`、冷涼湿原 `1.80/8.22` を維持 | 同上 |
+| Vanilla最低生育温度 | `0℃` | `AMJ_WildPlants.xml` |
+| CCTO併用 | `5℃`・`coldDormancy=true`、CCTO無しで成立 | `Patches/Compatibility/CCTO.xml` |
+| 画像 | 通常・落葉・通常積雪・落葉積雪の保存済み画像に接続。未熟専用画像なし | `ArtDirection.md` と本番Def |
+
+- 本番用の秋色は既存 `PlantFallColors` 系の色変換を再利用する。
+  葉の代表色から採取した試験キー `(0.423529412, 0.447058824, 0.262745098)` と
+  ブナ用LUTの再利用は暫定接続であり、**ハンノキの最終発色・紅葉の採用ではない**。
+  正午Clear停止・同条件のネイティブ画素を別検証し、不適切なら種別補正する。
+- 既存 `DeciduousTreeBase` と共通の標準成長時縮小を使い、未熟専用PNGを追加しない。
+  木材・生育地形・樹高と植林研究メニューの実際の継承結果はロード済みDef/実機で検証する。
+- 木本を単純追加せず同じ重みを移管したため、列挙した生態的な分布比は
+  **実際に生成された本数比ではない**。水面に生える野生木を増やさないこと、春秋冬の切替、
+  Cut/Harvest、MO WoodChain ON/OFF、既存セーブ、4構成の誤参照・ERRORを検証する。
+- `Docs/PlantVisualCoverage.json` に7状態を `pending` として登録する。
+  静的CIは実機の美観・季節切替・自然発生・セーブ回帰の承認に代わらない。
+
 ### 3.2 湿地資材と3構成の接続（未承認）
 
-`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/Production/test_wetland_material_plant_contract.py`。**実際の新Defは未実装**であり、テストの仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** **2026-10-12作者承認：スゲの成熟株1株の基本収穫量は `Hay` 1（`harvestYield=1`）。** 他種の収量・収穫物の承認とは区別する。ヨシのHay採用、ヨシ・ハンノキの収量と製品Recipeは未承認。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
+`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/Production/test_wetland_material_plant_contract.py`。**ハンノキのみ実Defを実装**。スゲ・ミズゴケ等の実Defは未実装であり、既存のテスト仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** **2026-10-12作者承認：スゲの成熟株1株の基本収穫量は `Hay` 1（`harvestYield=1`）。** 他種の収量・収穫物の承認とは区別する。ヨシのHay採用、ヨシの収量と製品Recipeは未承認。ハンノキは2026-10-13に木材24（Vanilla WoodLog）を承認済み。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
 
-**実装前のDef参照テスト（2026-10-10）：** `Tests/Production/test_wetland_production_refs.py`は本番`Patches/VanillaWetlandVegetation.xml`の2湿地を読み、追加予定4種のDef名について「自然発生プールで参照した種に対応する実PlantDefが1件存在する」「実PlantDefが存在する種は対象プールから参照される」「ミズゴケは現在の設計ではColdBog限定」を検査する。未実装中は形状・誤参照のモックテストを実行し、本番種がなければ本番参照検査だけをSKIPする。**分布値は未承認であり、草案JSONをゲーム適用したり、ロード済みの適地・自然発生・画像・採取を検証済みと主張したりしない。**
+**実装前のDef参照テスト（2026-10-10）：** `Tests/Production/test_wetland_production_refs.py`は本番`Patches/VanillaWetlandVegetation.xml`の2湿地を読み、追加予定4種のDef名について「自然発生プールで参照した種に対応する実PlantDefが1件存在する」「実PlantDefが存在する種は対象プールから参照される」「ミズゴケは現在の設計ではColdBog限定」を検査する。未実装中は形状・誤参照のモックテストを実行し、本番種がなければ本番参照検査だけをSKIPする。**ハンノキの0.70／0.45のみ種別承認済み**。残る分布草案をゲーム適用したり、ロード済みの適地・自然発生・画像・採取を検証済みと主張したりしない。
 
 ### 3.3 医療供給の維持
 
@@ -131,7 +162,7 @@ EnvironmentはCCTOを必須依存とせず、4種の基礎PlantDefにはVanilla�
 
 **冬季の検証条件：** 気温が最低生育温度より上下したときの成長停止・休眠・回復、ColdBogの冬季残存と再生、ミズゴケの−35℃境界、休眠中のHarvest可否・通常CutPlant時の除去とドロップ、春季の実際の再成長、積雪・落葉描画を区別して確認する。冬季アシ刈りはCCTO休眠中のHarvest停止と競合するため、通常Harvestで冬季も採取できるとは扱わない。積雪用画像を先に作るのでなく、**低温時に植物が残るか／どの画像が描画されるか**を非表示の実ゲーム試験で先に調べる。
 
-**実行方法：** 4構成（Vanilla／MO／CCTO／MO+CCTO）のPickle/RimTestおよび必要な描画Quickstartsを、既存の`run-tests.bat`・`run-framework-tests.bat`経由で隔離・非表示実行する。Quickstartsは正常なDirect3D描画を保ち、`-nographics`は使わない。画面が見える可能性のある`run-runtime-tests.bat`直接実行は、この自動検証の入口に使わない。既存の通常プレイModsConfig/Prefsおよびセーブを変更せず、全構成のロード済みDef・自然発生・Cut/Harvest・セーブ再読込・エラー無しを記録する。画像や数値の実機PASSは未取得。ヨシ2／ハンノキ24の収量案・生育日数などの未承認値は確定させない。スゲの `harvestYield=1` のみ2026-10-12に別途作者承認済み。
+**実行方法：** 4構成（Vanilla／MO／CCTO／MO+CCTO）のPickle/RimTestおよび必要な描画Quickstartsを、既存の`run-tests.bat`・`run-framework-tests.bat`経由で隔離・非表示実行する。Quickstartsは正常なDirect3D描画を保ち、`-nographics`は使わない。画面が見える可能性のある`run-runtime-tests.bat`直接実行は、この自動検証の入口に使わない。既存の通常プレイModsConfig/Prefsおよびセーブを変更せず、全構成のロード済みDef・自然発生・Cut/Harvest・セーブ再読込・エラー無しを記録する。画像や数値の実機PASSは未取得。ヨシ2など残る未承認値は確定させない。ハンノキ24・成長20日・伐採作業800・Beauty2は2026-10-13に、スゲの `harvestYield=1` は2026-10-12に個別作者承認済み。
 
 ### 3.4 草地植生の不足候補：薄・芒（ススキ）— 優先度A・湿地4種完了後に着手
 
