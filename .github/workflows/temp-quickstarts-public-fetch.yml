@@ -1,46 +1,27 @@
-name: Temporary public Quickstarts release transfer
+name: Temporary public Vanilla Expanded Framework source snapshot transfer
 on:
   push:
-    branches:
-      - tooling/temporary-public-quickstarts-fetch-20261013
-    paths:
-      - .github/workflows/temp-quickstarts-public-fetch.yml
+    branches: [tooling/temporary-public-quickstarts-fetch-20261013]
+    paths: [.github/workflows/temp-quickstarts-public-fetch.yml]
 permissions:
   contents: read
 jobs:
   download:
     runs-on: ubuntu-latest
-    timeout-minutes: 7
+    timeout-minutes: 10
     steps:
-      - name: Download publicly published Quickstarts 4.1.0
+      - name: Fetch immutable official VEF repository snapshot
         shell: bash
         run: |
           set -euo pipefail
           curl --fail --show-error --location --retry 3 \
-            --output Quickstarts-4.1.0.zip \
-            https://github.com/RimWorks/Rimworld-Quickstarts/releases/download/v4.1.0/Quickstarts-4.1.0.zip
-          echo '3e0abe1511e3bfff18c3639efdcb6e9d68d4fc05272e6de9fec12791ee8b0ce9  Quickstarts-4.1.0.zip' | sha256sum -c -
-          unzip -t Quickstarts-4.1.0.zip
-      - name: Download official public Harmony and RimLogging releases
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl --fail --show-error --location --retry 3 \
-            --output HarmonyMod.zip \
-            https://github.com/pardeike/HarmonyRimWorld/releases/download/v3.0.0.0/HarmonyMod.zip
-          echo '2e3ae18a2d7b4f42a516023aac742f97874c00ef265f875267135aea1a834437  HarmonyMod.zip' | sha256sum -c -
-          unzip -t HarmonyMod.zip
-          curl --fail --show-error --location --retry 3 \
-            --output RimLogging-3.1.1.zip \
-            https://github.com/RimWorks/rimworld-logging-framework/releases/download/v3.1.1/RimLogging-3.1.1.zip
-          echo '46547f9564a6576e9f86619e7ec0cf232d7c8c9c683dc497d77575811312ec2e  RimLogging-3.1.1.zip' | sha256sum -c -
-          unzip -t RimLogging-3.1.1.zip
+            --output VanillaExpandedFramework-058d42ce.zip \
+            https://github.com/Vanilla-Expanded/VanillaExpandedFramework/archive/058d42ce56d5b5c744bd9568db763fb20efe2d34.zip
+          unzip -t VanillaExpandedFramework-058d42ce.zip >/dev/null
+          unzip -l VanillaExpandedFramework-058d42ce.zip | grep -E '/About/About.xml|/1.6/Assemblies/VFECore.dll'
       - uses: actions/upload-artifact@v4
         with:
-          name: RimWorld-public-frameworks-verified
-          path: |
-            Quickstarts-4.1.0.zip
-            HarmonyMod.zip
-            RimLogging-3.1.1.zip
+          name: VanillaExpandedFramework-official-080926
+          path: VanillaExpandedFramework-058d42ce.zip
           if-no-files-found: error
           retention-days: 1
