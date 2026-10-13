@@ -54,6 +54,30 @@ for native UI scale1. Existing Vanilla/MO retextures remain post-release work.
   正午・Clear・停止・雪深0/0.5/1.0の実ゲーム表示、自然な季節移行、
   全状態の最終受入、Workshop配布。静的・原画承認を実機のPASSと混同しない。
 
+## 2026-10-13 ハンノキ落葉積雪オーバーレイ暫定採用
+
+作者は落葉状態に対して前回の再描画積雪画像を不採用とし、元の落葉画像を固定した雪専用オーバーレイ方式を指示した。原画像・256px・64px比較と静的監査を提示後、2026-10-13の単独 `ｙ` で直前のレビュー候補を暫定採用・次工程続行と承認した。**承認対象は最後に提示した合成結果と、その実体である雪専用透過オーバーレイのみ**。細雪の64px視認性には既知の改善余地があり、作者の新たな変更指示なしに描き直さない。
+
+- 位置合わせの基準原画: `Art/Sources/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_Source.png`。
+  1254×1254 RGBA、758781 bytes、SHA-256 `dffb281e09a79f4ba6cb031237d658c6f2abcbb403029cfe3cbf7326b76ad428`。
+  2026-10-13に「よさそう」と評された落葉候補の元の画像であり、通常有葉画像との枝分岐差は既知。**この採用は落葉状態自体の最終実機受入を意味しない**。
+- 対応する落葉256pxレビュー基準: `Art/Sources/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png` と
+  `Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png`。両方とも256×256 RGBA、58279 bytes、SHA-256 `dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003`。
+  原画の再生成・上書きではなく、レビュー時に用いた派生物をそのまま保持する。
+- **暫定採用された雪のみの透過原画**:
+  `Art/Sources/Things/Plant/AMJ/Hannoki_Leafless_Snow/Hannoki_Leafless_Snow_A.png` と
+  `Textures/Things/Plant/AMJ/Hannoki_Leafless_Snow/Hannoki_Leafless_Snow_A.png`。
+  両方とも256×256 RGBA、8268 bytes、SHA-256 `41e7548dfc2f93839e1ff4c55d3ddbffffd0c6a8e6f09c45ba09cdd0f35ad640`。
+- 静的合成レビュー `Hannoki_Leafless_Snow_Composite_review.png` は256×256 RGBA、
+  SHA-256 `921830866f3f92824aaa30374b458b94f34d6651e13f203d7773c480ab818d85`。
+  透明雪画素の範囲で元の落葉256pxとのRGBA差分0。
+  Pillowの `Image.alpha_composite(leafless_256,snow_overlay)` と全画素一致。雪の非透明画素1917、そのうち枝シルエット外への微小なオーバーハング375画素・最大2px。キャンバス四辺に雪画素なし。
+  PNG正常復号、RGBA、原画像の保持を確認。デザイン監査で細雪の64px視認性に改善余地あり。
+- この段階は**画像バイナリ保管・原画レビュー承認のみ**。落葉原画の完全な季節連続性、本番 `PlantDef`、`leaflessGraphicPath` /
+  `leaflessSnowOverlayGraphicPath` 接続、自然発生・雪深閾値のRimWorld実機表示、
+  葉あり・落葉・積雪の全状態最終受入、Workshopへの同梱・配布は未完了。
+  `Docs/PlantVisualCoverage.json` の現行対象は実装済み4種のみであり、未実装ハンノキを完了状態で追加しない。
+
 ## Scope
 
 Environment intentionally deferred final art until the functional/balance Alpha loop was stable.
