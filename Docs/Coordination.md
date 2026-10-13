@@ -165,6 +165,39 @@ isolated legitimate game copy when available. Existing Windows
 **2026-10-13 subsequent user-supplied Linux game — previous missing-game blocker superseded:**
 Author supplied `RimWorldLinux_Data.zip` (excludes Steam Workshop's `steamapps` content but includes the complete Linux game root). The installer verified a real ELF `RimWorldLinux`, `UnityPlayer.so`, and 15,767,552-byte `RimWorldLinux_Data/Managed/Assembly-CSharp.dll` and installed them under the Chat-side isolated `Game` root. `Version.txt` reads `1.6.4871 rev598`; running Unity logs `RimWorld 1.6.4871 rev600`. A real Linux process under Xvfb 1280×720 (Mesa llvmpipe OpenGL 4.5) rendered the **Vanilla main menu** after dismissing the expected Steam API unavailable warning. Inspectable 1280×720 screenshot and full isolated Unity log are conversation-local. User's actual Steam login, home configuration, saves and Windows installation were not accessed. This is a **native Vanilla boot/UI smoke PASS only**: no AMJE, CCTO, Harmony, VEF, Processor, RimWorks Quickstarts or precompiled AMJE DLL has been staged, so Hannoki Def-loaded/render, 4-profile, harvest, snow, save and CCTO outcomes remain NOT RUN. Network-disabled Chat container cannot use git/Steam downloads; dependency Mod/payload archives or an independent connected-artifact transfer are still needed. Keep game staging reproducible and do not describe the empty `steamapps` as an incomplete base game. Existing Windows `run-tests.bat` remains the full final acceptance route.
 
+**2026-10-13 later correction — public Mod acquisition from Chat is VERIFIED, earlier network blocker superseded:**
+Although the Chat container itself cannot resolve external DNS, a temporary
+read-only GitHub Actions workflow downloaded officially published GitHub
+Release assets (Harmony v3.0.0.0, Quickstarts v4.1.0, RimLogging v3.1.1)
+with SHA-256 checks. It also retrieved the official VEF 1.6 snapshot at
+commit `058d42ce56d5b5c744bd9568db763fb20efe2d34`. A one-time
+Valve SteamCMD runner used **anonymous access without credentials** to
+download publicly published Processor Framework (3210544395), AMJE
+(3814638060) and CCTO (3812412548), verified real About/package IDs and
+archived exact download payloads. The GitHub connector successfully
+materialized those Actions artifacts into Chat; all seven public Mods were
+installed and linked into its isolated RimWorld 1.6.4871 Linux environment,
+alongside the previously author-supplied MO and Japanese translation.
+No further manual uploads of those seven packages are necessary *in the
+current Chat container*. This one-time source retrieval mechanism is now
+documented in `Docs/GoldenPaths/ChatLinuxPublicModBootstrap.md`; do
+not place the temporary fetch workflow itself on `main`.
+
+Actual game boot/log probe: Harmony+RimLogging+Quickstarts initialized
+with zero `[ERROR]` records; AMJE+CCTO+frameworks loaded the production
+AMJE DLL and patched Harmony with zero `[ERROR]`; MO+VEF+Processor+
+AMJE+CCTO loaded assemblies but emitted **two FMOD Unity [ERROR]**
+audio-clip events (strict ERROR-free startup NOT PASS, cause open).
+The bounded ~95s smoke processes were deliberately terminated by
+timeout, so no Quickstart report, generated wetland map or cutting proof
+was produced. Critically, Workshop AMJE is **older than GitHub main** and
+its `AMJ_WildPlants.xml` does **not** contain `AMJ_Tree_Hannoki`.
+Compiled AMJE custom Quicktests and the pinned newest production DLL
+remain missing; therefore Hannoki nature/harvest/snow/autumn/old-save
+native validation is still OPEN. Do not conflate RimWorks
+`rimworks.quickstarts` with the separate AMJE quicktests package.
+
+
 
 ## Publication and distribution
 
