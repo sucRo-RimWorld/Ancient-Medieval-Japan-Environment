@@ -1,4 +1,4 @@
-name: Temporary public Vanilla Expanded Framework source snapshot transfer
+name: Temporary public Workshop anonymous SteamCMD probe
 on:
   push:
     branches: [tooling/temporary-public-quickstarts-fetch-20261013]
@@ -6,22 +6,45 @@ on:
 permissions:
   contents: read
 jobs:
-  download:
+  probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 9
     steps:
-      - name: Fetch immutable official VEF repository snapshot
+      - name: Probe Workshop 3210544395 without any Steam credentials
         shell: bash
         run: |
-          set -euo pipefail
-          curl --fail --show-error --location --retry 3 \
-            --output VanillaExpandedFramework-058d42ce.zip \
-            https://github.com/Vanilla-Expanded/VanillaExpandedFramework/archive/058d42ce56d5b5c744bd9568db763fb20efe2d34.zip
-          unzip -t VanillaExpandedFramework-058d42ce.zip >/dev/null
-          unzip -l VanillaExpandedFramework-058d42ce.zip | grep -E '/About/About.xml|/1.6/Assemblies/VFECore.dll'
+          set -uo pipefail
+          mkdir -p output steamcmd
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lib32gcc-s1 >/dev/null 2>&1
+          curl --fail --show-error --location --retry 2 \
+            --output steamcmd.tar.gz \
+            https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
+          tar -xzf steamcmd.tar.gz -C steamcmd
+          timeout 210s ./steamcmd/steamcmd.sh \
+            +login anonymous \
+            +workshop_download_item 294100 3210544395 \
+            +quit > output/steamcmd.log 2>&1
+          code=$?
+          echo "steamcmd_exit=${code}" > output/probe.txt
+          find . -path '*/294100/3210544395/About/About.xml' -print >> output/probe.txt
+          if grep -Eq 'Success. Downloaded item 3210544395' output/steamcmd.log; then
+            echo "reported_success=true" >> output/probe.txt
+          fi
+          loc=$(find "$HOME" . -path '*/294100/3210544395/About/About.xml' -print -quit 2>/dev/null)
+          if [ -n "$loc" ]; then
+            base=$(dirname "$(dirname "$loc")")
+            tar -czf output/ProcessorFramework-3210544395.tar.gz -C "$(dirname "$base")" "$(basename "$base")"
+            echo "payload_staged=true" >> output/probe.txt
+          else
+            echo "payload_staged=false" >> output/probe.txt
+          fi
+          tail -45 output/steamcmd.log >> output/probe.txt
+          exit 0
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: VanillaExpandedFramework-official-080926
-          path: VanillaExpandedFramework-058d42ce.zip
-          if-no-files-found: error
+          name: Anonymous-ProcessorFramework-workshop-probe
+          path: output/
+          if-no-files-found: warn
           retention-days: 1
