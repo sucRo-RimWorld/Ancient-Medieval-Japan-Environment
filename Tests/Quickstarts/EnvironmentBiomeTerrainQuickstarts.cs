@@ -802,8 +802,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
         private static void AddHarvestOutputAssertions(QuickstartVerification verification, Map map, string expected)
         {
-            string[] names = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu" };
-            int[] yields = { 42, 40, 30, 8 };
+            string[] names = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu", "AMJ_Tree_Hannoki" };
+            int[] yields = { 42, 40, 30, 8, 24 };
             float originalYieldFactor = Find.Storyteller.difficulty.cropYieldFactor;
             Find.Storyteller.difficulty.cropYieldFactor = 1f;
             try
