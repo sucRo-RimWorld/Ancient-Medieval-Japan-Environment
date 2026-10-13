@@ -64,6 +64,44 @@
     </plant>
   </ThingDef>
 
+  <ThingDef ParentName="DeciduousTreeBase">
+    <!-- Hannoki: damp-land alder; approved wood/biome weights. Frozen sprites.
+         Shared autumn LUT/source sample subject to native color review. -->
+    <defName>AMJ_Tree_Hannoki</defName>
+    <label>Alder (hannoki)</label>
+    <description>Alder (hannoki) is a tall deciduous tree that grows along rivers and in wetlands with a high water table. It forms woods in damp lowlands, shaping wetland landscapes together with reeds and sedges.\n\nStudies of naturally occurring wood recovered from archaeological sites show that wetland forests containing trees of the alder genus existed in valleys of the Kantō region during the Jōmon period. Such forests were one of the forms of natural vegetation found in Japan's river lowlands long ago.</description>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Hannoki</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <!-- Initial Hannoki-specific foliage sample, not beech's color key.
+           The LUT is reused only pending fixed-noon native autumn comparison. -->
+      <shaderParameters Inherit="False">
+        <_FallColorSource>(0.423529412, 0.447058824, 0.262745098)</_FallColorSource>
+        <_FallColorDestination>/Other/AMJE_BeechFallGradient</_FallColorDestination>
+        <_FallTransitionRange>(0.02, 0.10)</_FallTransitionRange>
+        <_FallBehaviorEnabled>1</_FallBehaviorEnabled>
+      </shaderParameters>
+      <shadowData>
+        <volume>(0.16, 0.30, 0.12)</volume>
+        <offset>(0,0,-0.44)</offset>
+      </shadowData>
+    </graphicData>
+    <statBases>
+      <Beauty>2</Beauty>
+    </statBases>
+    <plant>
+      <growDays>20</growDays>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <harvestedThingDef>WoodLog</harvestedThingDef>
+      <harvestTag>Wood</harvestTag>
+      <harvestWork>800</harvestWork>
+      <harvestYield>24</harvestYield>
+      <leaflessGraphicPath>Things/Plant/AMJ/Hannoki_Leafless</leaflessGraphicPath>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Hannoki_Snow</snowOverlayGraphicPath>
+      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/Hannoki_Leafless_Snow</leaflessSnowOverlayGraphicPath>
+    </plant>
+  </ThingDef>
+
   <ThingDef ParentName="TreeBase">
     <defName>AMJ_Tree_Shirabiso</defName>
     <label>Shirabiso</label>

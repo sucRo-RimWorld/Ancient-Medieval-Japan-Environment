@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "status": "proposal_not_approved",
-  "reason": "Suge weights 0.80/1.10 author-approved on 2026-10-12. All other species transfers remain proposed and not approved as a package; distribution is not yet a gameplay Patch.",
+  "reason": "As of 2026-10-13, Hannoki alone is approved and implemented at 0.70/0.45 via scoped woody replacement; Suge 0.80/1.10 approved for its later implementation. Yoshi, Mizugoke and the combined four-species package remain unapproved and are NOT loaded.",
   "source_patch": "Patches/VanillaWetlandVegetation.xml",
   "baselines": {
     "TemperateSwamp": {
@@ -755,11 +755,39 @@
     "decision": "Archive observed one-Def feasibility; retire temporary instrumentation; retain unapproved production habitat and distribution/yield settings, without new tests or runtime files."
   },
   "approvals": {
+    "AMJ_Tree_Hannoki": {
+      "status": "approved_and_in_production_xml",
+      "date": "2026-10-13",
+      "weights": {
+        "TemperateSwamp": "0.70",
+        "ColdBog": "0.45"
+      },
+      "source": "Patches/VanillaWetlandVegetation.xml",
+      "transfers": {
+        "TemperateSwamp": {
+          "Plant_TreeWillow": "2.00 -> 1.30"
+        },
+        "ColdBog": {
+          "Plant_TreeWillow": "0.60 -> 0.45",
+          "Plant_TreeBirch": "0.60 -> 0.45",
+          "Plant_TreeMaple": "0.60 -> 0.45"
+        }
+      },
+      "no_new_woody_weight": true
+    },
     "AMJ_Plant_Suge": {
-      "status": "author_approved_2026-10-12",
-      "TemperateSwamp": "0.80",
-      "ColdBog": "1.10",
-      "basis": "Author replied '続けて' to the explicit two-weight approval question and subsequently clarified this was approval; other species weights remain proposals."
+      "status": "weights_approved_not_implemented",
+      "date": "2026-10-12",
+      "weights": {
+        "TemperateSwamp": "0.80",
+        "ColdBog": "1.10"
+      }
+    },
+    "AMJ_Plant_Yoshi": {
+      "status": "proposal_not_approved"
+    },
+    "AMJ_Plant_Mizugoke": {
+      "status": "proposal_not_approved"
     }
   }
 }

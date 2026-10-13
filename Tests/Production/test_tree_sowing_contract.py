@@ -52,7 +52,7 @@ def validate(biomes, plants):
 
 
 def loaded_wetland_baselines(patch_xml):
-    """Read approved live Vanilla additions, without using draft proposal data."""
+    """Read approved live Vanilla and Hannoki additions, never the draft JSON."""
     root = ET.fromstring(patch_xml)
     result = {}
     for op in root.findall("./Operation/operations/li"):
@@ -134,14 +134,14 @@ class TreeSowingContractTests(unittest.TestCase):
             # The removal is limited to exact Vanilla entries; an absent
             # Cypress cannot abort a patch and MO's herbs are never selected.
             targeted = set(re.findall(r"self::(\w+)", remove.findtext("xpath")))
-            self.assertEqual(targeted, set(baselines[biome]) | excluded)
+            self.assertEqual(targeted, (set(baselines[biome]) - {"AMJ_Tree_Hannoki"}) | excluded)
             self.assertFalse(any(name.startswith("DankPyon_") for name in targeted))
             weights = {k: float(v) for k, v in baselines[biome].items()}
             self.assertEqual(set(), excluded.intersection(weights))
-            self.assertEqual(trees, {k for k in weights if k.startswith("Plant_Tree")})
+            self.assertEqual(trees | {"AMJ_Tree_Hannoki"}, {k for k in weights if k.startswith(("Plant_Tree", "AMJ_Tree_"))})
             self.assertAlmostEqual(total, sum(weights.values()))
             self.assertAlmostEqual(woody, sum(v for k, v in weights.items()
-                                               if k.startswith("Plant_Tree")))
+                                               if k.startswith(("Plant_Tree", "AMJ_Tree_"))))
             self.assertGreater(weights["Plant_HealrootWild"], 0)
             self.assertNotIn("Plant_Reeds", weights)
             self.assertNotIn("Plant_Bulrush", weights)
