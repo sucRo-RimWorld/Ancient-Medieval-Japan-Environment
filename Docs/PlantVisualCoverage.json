@@ -1,6 +1,39 @@
 {
   "schema": 1,
   "plants": {
+    "AMJ_Tree_Hannoki": {
+      "complete": false,
+      "states": {
+        "autumn": {
+          "status": "pending",
+          "reason": "Reuse of beech LUT with Hannoki-specific source sample; no author-approved noon/Clear native color result"
+        },
+        "icon": {
+          "status": "pending",
+          "reason": "Production asset/loaded state not yet reviewed"
+        },
+        "immature": {
+          "status": "pending",
+          "reason": "Uses normal sprite scaled by growth, not a separate immature image; native size not reviewed"
+        },
+        "leafless": {
+          "status": "pending",
+          "reason": "Review candidate is only provisional; in-game form and season transitions not yet accepted"
+        },
+        "normal": {
+          "status": "pending",
+          "reason": "Production asset/loaded state not yet reviewed"
+        },
+        "snow": {
+          "status": "pending",
+          "reason": "Both foliage and leafless snow source overlays approved provisionally; no actual native winter render"
+        },
+        "transition": {
+          "status": "pending",
+          "reason": "Production asset/loaded state not yet reviewed"
+        }
+      }
+    },
     "AMJ_Tree_Shii": {
       "complete": true,
       "states": {
