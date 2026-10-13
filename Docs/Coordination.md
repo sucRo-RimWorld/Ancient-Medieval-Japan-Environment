@@ -192,10 +192,54 @@ The bounded ~95s smoke processes were deliberately terminated by
 timeout, so no Quickstart report, generated wetland map or cutting proof
 was produced. Critically, Workshop AMJE is **older than GitHub main** and
 its `AMJ_WildPlants.xml` does **not** contain `AMJ_Tree_Hannoki`.
-Compiled AMJE custom Quicktests and the pinned newest production DLL
-remain missing; therefore Hannoki nature/harvest/snow/autumn/old-save
-native validation is still OPEN. Do not conflate RimWorks
-`rimworks.quickstarts` with the separate AMJE quicktests package.
+At this *former Workshop-only smoke stage*, compiled AMJE custom
+Quicktests and pinned newest source DLL were still missing. That specific
+blocker was **superseded by the later verified source build below**.
+Do not conflate RimWorks `rimworks.quickstarts` with the separate
+AMJE quicktests package.
+
+**2026-10-13 latest — pinned development source native build COMPLETE, scoped 1.6 runtime evidence:**
+The author asked whether work branches can be cloned/built by Chat.
+Chat DNS blocked direct `git clone`, but short-lived GitHub Actions
+`checkout` pinned to Environment main
+`52c6530b2d78bcc6800b80d3d69d36048c0142d5` successfully transferred
+261 repository files in a checksum-verified Git archive to Chat.
+The same method accepts an explicitly selected development branch commit.
+Offline Debian 13 Mono 6.12 packages were obtained via GitHub Actions;
+compilation against **the author's actual owned Linux RimWorld 1.6.4871
+managed DLLs** succeeded. Production
+`AncientMedievalJapanEnvironment.dll` = 28,672 bytes, SHA-256
+`4d495a5b9ca01ddd3cdffca9cef0b4ae37458b93ca0da566c10832afc8b0d28a`.
+Dedicated `AncientMedievalJapanEnvironment.Quicktests.dll` = 113,664
+bytes, SHA-256
+`a5dcac2c76151f5193322ec51afea238204091fad8d8bcf2cd393c29ecd13d02`.
+A second scripted compile reproduced both byte hashes exactly.
+The permanent repeatable recipe is `Scripts/Build-ChatLinux.sh` and
+`Docs/GoldenPaths/ChatLinuxPublicModBootstrap.md`,
+merged to main via Environment PR #155 commit
+`4dc73bcf4eb608c5959c2d9a3e96ffb605bbb4c3`.
+The temporary source/toolchain transport workflow was deleted from its
+topic branch; it was never placed on `main`. No licensed RimWorld game
+assets were sent to GitHub.
+
+Actual isolated RimWorld Quickstarts from that compiled source, fixed
+`AMJTemperateSwampVegetationQuickstart` seed/biome:
+Vanilla **70/70 strict PASS**, natural Hannoki 2,815, WoodLog24, no
+runtime ERROR; CCTO **70/70 strict PASS**, natural Hannoki 2,835, WoodLog24,
+5℃ min growth + one coldDormancy Extension.
+MO **70/70 native assertions PASS but strict FAIL** due to two FMOD Unity
+errors preceding the Quickstart; native Hannoki 2,717, RawWood24.
+MO+CCTO **72/72 native assertions PASS but strict FAIL** due to the same
+two FMOD prelaunch errors; native Hannoki 2,716, RawWood24,
+dormancy Extension1. The MO results are NOT ERROR-free gate PASS even
+though their report `passed=true`. Full premises and limits are in the
+Golden Path, not duplicated here.
+
+**Remaining:** real ColdBog scenario, all additional seeds, all plant
+seasonal visual states and winter depth comparisons at noon/Clear, old
+saves, MO wood-chain OFF and the two existing FMOD audio errors, and a
+full production/release matrix. Workshop remains the old source payload;
+this chat build is strictly isolated development evidence.
 
 
 
