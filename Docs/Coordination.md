@@ -79,6 +79,26 @@ on 2026-10-12. GitHub integration evidence is separate from the candidate tests.
 Steam subscriber PASS is claimed. Steam upload remains author-manual; actual
 downloaded source/DLL and distributed four-profile correction remain OPEN.
 
+### ENV-HANNOKI-LEAFLESS-SNOW-20261013 — accepted source overlay, native validation pending
+
+**Owner:** Environment / wetland plant art
+**Status:** AUTHOR PROVISIONAL SNOW-SOURCE ACCEPTANCE; LEAFLESS REVIEW REFERENCE AND MATCHED SNOW PNGS STAGED; PRODUCTION DEF / LOADED APPEARANCE OPEN
+
+2026-10-13 author `ｙ` accepts the final reviewed snow-only overlay on the preserved
+Hannoki leafless 256px reference, not the earlier AI-redrawn whole tree.
+Its 1254px reference source, frozen 256px review derivative, and overlay have
+their exact original PNG bytes under `Art/Sources/` and paired `Textures/`
+without changing the existing leafy Hannoki or previous leafy-snow images.
+Pixel audit confirms 256px RGBA, valid PNG, no outside-mask composite RGBA
+difference and exact original-master-to-overlay alpha compositing; 64px snow
+readability remains a known minor weakness. Formal source hashes, actual
+paths and review/approval scope are in `Docs/ArtDirection.md`.
+Leafless branch shape versus leafy art is still provisional, not a newly
+accepted in-game state. Production Hannoki PlantDef and leafless/snow paths,
+seasonal behavior, source/load runtime, old saves and Steam remain OPEN.
+Do not mark the four-existing-species visual coverage ledger complete for
+Hannoki before its real production Def and state-family acceptance.
+
 ## Publication and distribution
 
 ### ENV-BEECH-FALL-CALIBRATION-20261013 — autumn value/saturation source mismatch
