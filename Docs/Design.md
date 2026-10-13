@@ -749,6 +749,15 @@ Do not add a separate 0.40 "very poor soil" during Alpha. The current useful lad
 
 Add another tier only if playtesting demonstrates a distinct gameplay role.
 
+### 10.3.1 Advanced Cultivation - Continued (conditional optional compatibility)
+
+**Author decision (2026-10-13):** consider an **optional compatibility patch only if the third-party Mod gains substantial subscriber adoption**. This is not a present implementation order or a fixed numeric subscriber threshold. Do not make Advanced Cultivation an Environment/AMJ dependency, alter the accepted natural-soil fertility ladder, or start compatibility production just for this candidate.
+
+- External Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=3623069749 (Meme Goddess; RimWorld 1.6 listed, no confirmed 1.7 support as of this check). Workshop snapshot checked 2026-10-13: **829 current subscribers**, 6,071 unique visitors, 291 collections. These are changeable popularity indicators, not an approved adoption cutoff.
+- The Workshop description says its tilling raises fertility by +30% until harvest, adds compost/fertilizers/cultivated soils, and changes Vanilla Soil/Rich Soil/Gravel etc. fertility. It explicitly warns that soil added by other Mods lacks a tillable variant. Therefore **Environment `AMJ_ThinSoil` (base fertility 0.50)** is the main potential integration gap. Actual upstream XML/Defs, tilling transitions, mod-load order, and combined runtime behavior have **not yet been audited or tested**.
+- When popularity justifies reopening, first refresh subscriptions, supported game versions and exact upstream code. Check whether Thin Soil can be tilled, whether tilling/reversion retains its source terrain and approved base fertility, whether supplied fertilizers can coexist with AMJ natural terrain, and whether the resulting soil/terrain transformations persist correctly through harvest, save/load and seasons. Avoid silently changing third-party balance or regenerating saved terrain.
+- **Grains is a separate crop-balance owner:** only then test how increased fertility affects Soba/Barley/other low-fertility crops versus Wheat's current sowability gap, and reconcile with Grains rather than changing its crop Defs from Environment. Test standalone Environment and applicable Environment+Grains/MO profiles before claiming compatibility. No new patch, cross-owner work order, save guarantee or CI/runtime PASS is claimed by this note.
+
 ### 10.4 Accepted Alpha biome distribution thresholds
 
 RimWorld map generation creates a local fertility-noise field and resolves `BiomeDef.terrainsByFertility` against that value. Environment uses this existing XML mechanism; no custom map-generation C# is required for the terrain placement itself.
