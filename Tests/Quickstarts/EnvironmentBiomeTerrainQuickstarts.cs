@@ -1199,6 +1199,141 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
         }
 
+        // Production AMJ_Tree_Hannoki, not the disposable AMJE_Test_Hannoki.
+        // Checks the actual loaded wood-chain choice, loaded seasonal graphics
+        // and a colonist's native CutPlant drop at the approved yield of 24.
+        // Natural plant count is recorded BEFORE the manual cutting specimen.
+        protected static void AddHannokiProductionAssertions(
+            QuickstartVerification verification, Map map, float expectedCommonality)
+        {
+            const string name = "AMJ_Tree_Hannoki";
+            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+            ThingDef shii = DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Shii");
+            bool ccto = CctoIsActive();
+            string expectedWood = shii != null && shii.plant != null &&
+                shii.plant.harvestedThingDef != null
+                ? shii.plant.harvestedThingDef.defName : null;
+            bool knownWood = expectedWood == "WoodLog" ||
+                expectedWood == "DankPyon_RawWood";
+            int natural = map == null || def == null
+                ? 0 : map.listerThings.ThingsOfDef(def).Count;
+            verification.Assert("Hannoki loaded production Def and approved native tree values",
+                delegate {
+                    return def != null && def.plant != null && map != null &&
+                        def.modContentPack != null &&
+                        def.modContentPack.PackageIdPlayerFacing ==
+                            "sucro.ancientmedievaljapan.environment" &&
+                        def.plant.IsTree && def.selectable &&
+                        Math.Abs(def.plant.growDays - 20f) < 0.001f &&
+                        Math.Abs(def.plant.harvestYield - 24f) < 0.001f &&
+                        Math.Abs(def.plant.harvestWork - 800f) < 0.001f &&
+                        def.plant.harvestTag == "Wood" &&
+                        Math.Abs(def.plant.minGrowthTemperature - (ccto ? 5f : 0f)) < 0.001f &&
+                        knownWood && def.plant.harvestedThingDef != null &&
+                        def.plant.harvestedThingDef.defName == expectedWood;
+                });
+            verification.Assert("Hannoki loaded wetland pool has approved weight",
+                delegate { return map != null && def != null &&
+                    Math.Abs(map.Biome.CommonalityOfPlant(def) - expectedCommonality) < 0.001f; });
+            verification.Assert("Hannoki naturally spawns in this actual wetland map",
+                delegate { return natural > 0; });
+            verification.Assert("Hannoki normal and leafless graphics are loaded (not BadTex)",
+                delegate { return def != null && def.graphicData != null &&
+                    def.plant != null && HasLoadedNonBadTexture(def.graphicData.Graphic) &&
+                    HasLoadedNonBadTexture(def.plant.leaflessGraphic); });
+            verification.Assert("Hannoki leafy and leafless snow overlays are loaded (not BadTex)",
+                delegate { return def != null && def.plant != null &&
+                    HasLoadedNonBadTexture(def.plant.snowOverlayGraphic) &&
+                    HasLoadedNonBadTexture(def.plant.leaflessSnowOverlayGraphic); });
+
+            int extensions = 0;
+            bool dormancy = false;
+            if (def != null && def.modExtensions != null)
+                foreach (DefModExtension extension in def.modExtensions)
+                    if (extension.GetType().FullName ==
+                        "CropColdToleranceOverhaul.ColdToleranceExtension")
+                    {
+                        extensions++;
+                        System.Reflection.FieldInfo field =
+                            AccessTools.Field(extension.GetType(), "coldDormancy");
+                        dormancy = field != null &&
+                            field.GetValue(extension) is bool &&
+                            (bool)field.GetValue(extension);
+                    }
+            int extCount = extensions;
+            bool extDormancy = dormancy;
+            verification.Assert("Hannoki optional CCTO extension matches active profile",
+                delegate { return ccto ? extCount == 1 && extDormancy : extCount == 0; });
+
+            Log.Message("[AMJ Environment Hannoki Production Spawn] biome=" +
+                (map == null || map.Biome == null ? "<none>" : map.Biome.defName) +
+                " naturallyGenerated=" + natural + " weight=" + expectedCommonality +
+                " wood=" + expectedWood + " CCTO=" + ccto +
+                " coldExtensions=" + extCount + " dormancy=" + extDormancy);
+            if (map == null || def == null || def.plant == null || !knownWood)
+                return;
+
+            // Isolated test specimen: never include it in the natural count.
+            IntVec3 cell = map.Center + new IntVec3(41, 0, 14);
+            foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 2f, true))
+            {
+                if (!area.InBounds(map)) continue;
+                foreach (Thing thing in area.GetThingList(map).ToArray())
+                    if (!(thing is Pawn)) thing.Destroy(DestroyMode.Vanish);
+                map.terrainGrid.SetTerrain(area, TerrainDefOf.Soil);
+            }
+            float previousYield = Find.Storyteller.difficulty.cropYieldFactor;
+            Find.Storyteller.difficulty.cropYieldFactor = 1f;
+            try
+            {
+                Plant plant = (Plant)GenSpawn.Spawn(def, cell, map);
+                plant.Growth = 1f;
+                plant.HitPoints = plant.MaxHitPoints;
+                Pawn pawn = PawnGenerator.GeneratePawn(
+                    PawnKindDefOf.Colonist, Faction.OfPlayer);
+                pawn.skills.GetSkill(SkillDefOf.Plants).Level = 0;
+                GenSpawn.Spawn(pawn, cell + IntVec3.North, map);
+                map.designationManager.AddDesignation(
+                    new Designation(plant, DesignationDefOf.CutPlant));
+                pawn.jobs.StartJob(JobMaker.MakeJob(JobDefOf.CutPlant, plant),
+                    JobCondition.InterruptForced);
+                int ticks = 0;
+                while (!plant.Destroyed && ticks++ < 15000)
+                {
+                    pawn.pather.PatherTick();
+                    if (pawn.jobs.curDriver == null) break;
+                    pawn.jobs.curDriver.DriverTick();
+                    if (pawn.jobs.curDriver != null)
+                        pawn.jobs.curDriver.DriverTickInterval(1);
+                }
+                int output = 0;
+                bool wrongResource = false;
+                foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 2f, true))
+                {
+                    if (!area.InBounds(map)) continue;
+                    foreach (Thing thing in area.GetThingList(map))
+                    {
+                        if (thing.def.category != ThingCategory.Item) continue;
+                        if (thing.def.defName == expectedWood)
+                            output += thing.stackCount;
+                        else
+                            wrongResource = true;
+                    }
+                }
+                bool removed = plant.Destroyed;
+                int observed = output;
+                bool wrong = wrongResource;
+                verification.Assert("Hannoki production native CutPlant yields exactly 24 loaded wood",
+                    delegate { return removed && observed == 24 && !wrong; });
+                Log.Message("[AMJ Environment Hannoki Production Cut] biome=" +
+                    map.Biome.defName + " expected=" + expectedWood +
+                    " output=" + observed + " destroyed=" + removed +
+                    " wrongItem=" + wrong + " ticks=" + ticks);
+                pawn.Destroy(DestroyMode.Vanish);
+            }
+            finally { Find.Storyteller.difficulty.cropYieldFactor = previousYield; }
+        }
+
         protected static void AddWetlandEcologyAssertions(
             QuickstartVerification verification, Map map, bool cold)
         {
@@ -3785,7 +3920,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 "Plant_Berry",
                 "Plant_HealrootWild"
             };
-            float[] expected = { 3.2f, 0.8f, 0.2f, 2.0f, 1.0f, 0.05f, 0.05f };
+            float[] expected = { 3.2f, 0.8f, 0.2f, 1.30f, 1.0f, 0.05f, 0.05f };
             for (int i = 0; i < names.Length; i++)
             {
                 string name = names[i];
@@ -3800,6 +3935,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             AddWetlandEcologyAssertions(result, Find.CurrentMap, false);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
+            AddHannokiProductionAssertions(result, Find.CurrentMap, 0.70f);
             return result;
         }
     }
@@ -3863,7 +3999,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 "Plant_Berry",
                 "Plant_HealrootWild"
             };
-            float[] expected = { 3.4f, 2.6f, 0.3f, 0.6f, 0.6f, 0.6f, 0.07f, 0.05f };
+            float[] expected = { 3.4f, 2.6f, 0.3f, 0.45f, 0.45f, 0.45f, 0.07f, 0.05f };
             for (int i = 0; i < names.Length; i++)
             {
                 string name = names[i];
@@ -3878,6 +4014,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             AddWetlandEcologyAssertions(result, Find.CurrentMap, true);
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
+            AddHannokiProductionAssertions(result, Find.CurrentMap, 0.45f);
             return result;
         }
     }
