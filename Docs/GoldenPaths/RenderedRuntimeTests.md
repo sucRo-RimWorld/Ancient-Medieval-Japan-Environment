@@ -146,7 +146,35 @@ activation and cleanup, and parses the experimental probe XML. It does not
 establish native runtime PASS. Production loader and payload rejection are
 covered by the XML validator and executable publication tests.
 
-### 2026-10-13 Hannoki production-native acceptance (NOT YET RUN)
+### 2026-10-13 Hannoki production-native acceptance
+
+Windows 1.6 candidate native evidence is now independently inspected:
+Vanilla440/17, MO463/17, CCTO488/17, MO+CCTO511/17 map/five-tree-cutting
+assertions, ten complete ERROR-free reports per profile, RimTest10/10 and
+Pickle5/5 per profile. Exact source, premises, hashes, failed attempts and
+remaining scope: [HannokiWindowsNative-20261013](../ValidationEvidence/HannokiWindowsNative-20261013.md).
+This does not adopt the seven pending Hannoki visual states or clear old-save,
+additional-seed, MO wood-chain OFF, Linux or Steam acceptance.
+
+For an exact clean-source candidate without replacing the player's installed
+Mod, use the existing `Build-WorkshopPayload.py`, then
+`Run-WorkshopPayloadTests.py --payload <candidate> --manifest <Manifest.json>
+--output <fresh-result-directory>` and independently re-audit its saved results
+with `Combine-WorkshopPayloadResults.py`. The stager copies `RimWorldRuntime.ps1`
+alongside its PowerShell runner. It validates the selected production or
+About-only candidate identity; each loaded root and all runtime bytes remain
+subject to the existing source/error/preservation gates. Wetland counts include
+the seven real production Hannoki assertions; the five-tree cutting report has
+17 assertions including six description checks. Per-profile console output is
+retained separately for failures before a Quickstart report exists.
+
+For RimTest/Pickle on the same candidate, stage a fresh owned copy under
+RimWorld/Mods, change only About name/packageId to the established
+`.releasevalidation` identity, and pass its exact path using each runner's
+`--root` and fresh `--output` options. Keep Pickle serial (`--workers 1`).
+Require exact loaded provider and full ERROR captures, retire only the owned
+fixture after exit, and recheck the original manifest and normal config hashes.
+Neither runner accepts an unrelated package as Environment.
 
 The two **existing** `AMJTemperateSwampVegetationQuickstart` and
 `AMJColdBogVegetationQuickstart` scenarios now check the **real**
@@ -165,7 +193,7 @@ new fixture or a second competing runner merely to test the production Def.
 | Normal `CutPlant` job on a separate planted-on-soil mature production tree | Difficulty `cropYieldFactor=1`, Pawn Plants skill 0, source tree actually removed, exactly **24 of actually loaded wood material** dropped with no unexpected items; restore difficulty factor |
 | Existing `Run-PlantHarvestTests.ps1` optional Vanilla/MO matrix | All five production AMJE trees including Hannoki; expect eleven Quickstart assertions and five harvest evidence records per case, do not count fixture tests as production results |
 
-A future native PASS **requires** actual hidden Windows RimWorld execution with
+Any revision-specific native PASS **requires** actual hidden Windows RimWorld execution with
 valid production DLL/Quicktests build and independent log-error capture; GitHub's
 `static-contract`, XML parse, coverage, Windows PowerShell syntax, or CI result
 cannot establish any of the above game assertions. Source-triggered CI cannot

@@ -75,7 +75,7 @@ def combine(payload, manifest_path, results, output, game, steam):
                         rows = [line.lower() for line in log.splitlines() if '[AMJE WorkshopSourceAudit] MOD package=' in line]
                         if not any('package=' + package in line and ' root=' + str(expected_root).lower() + ' ' in line for line in rows):
                             raise ValueError('Dependency is not the real Workshop root: ' + package)
-                    if folder.startswith('Harvest') and log.count('[AMJ Environment Harvest]') != 4:
+                    if folder.startswith('Harvest') and log.count('[AMJ Environment Harvest]') != 5:
                         raise ValueError('Native output evidence missing')
                     evidence.append(str(path))
             errors = list((result / ('Errors-' + mode)).glob('Unity-*.log'))

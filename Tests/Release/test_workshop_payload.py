@@ -59,16 +59,30 @@ class GateTests(unittest.TestCase):
         self.assertEqual(source.count('result.Assert('), release.count('result.Assert('))
         self.assertIn('natural surface has zero ', release)
         self.assertIn('remains available for natural generation', release)
+        self.assertEqual(2, release.count('AddHannokiProductionAssertions(result, Find.CurrentMap,'))
+        candidate = staging.release_quickstarts(source, staging.CANDIDATE_PACKAGE)
+        self.assertIn('"' + staging.CANDIDATE_PACKAGE + '"', candidate)
+        self.assertNotIn('"' + staging.PRODUCTION_PACKAGE + '"', candidate)
+        with self.assertRaises(ValueError):
+            staging.release_quickstarts(source, 'unrelated.package')
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp)
+            staging.stage(output, staging.CANDIDATE_PACKAGE)
+            self.assertEqual((payload.ROOT / 'Scripts/RimWorldRuntime.ps1').read_bytes(),
+                             (output / 'RimWorldRuntime.ps1').read_bytes())
+            self.assertIn('"' + staging.CANDIDATE_PACKAGE + '"',
+                          (output / 'WorkshopHarvestQuickstarts.cs').read_text(encoding='utf-8'))
 
     def test_reject_incorrect_release_reports(self):
         spec = importlib.util.spec_from_file_location(
             'gate', payload.ROOT / 'Scripts/Run-WorkshopPayloadTests.py')
         gate = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(gate)
-        self.assertEqual((85, 78, 75, 74, 52, 55, 24, 3, 3),
+        self.assertEqual((85, 78, 75, 74, 59, 62, 24, 3, 3),
                          gate.expected_map_assertions('MO'))
-        self.assertEqual((97, 90, 87, 86, 52, 55, 24, 3, 3),
+        self.assertEqual((97, 90, 87, 86, 59, 62, 24, 3, 3),
                          gate.expected_map_assertions('MO-CCTO'))
+        self.assertEqual(17, gate.CUTTING_ASSERTIONS)
         name = 'Workshop_AMJAlpineTerrainQuickstart'
         valid = {'quickstart': name, 'total': 70, 'passed': True, 'failed': 0,
                  'timedOut': False, 'preLaunchErrors': 0, 'logErrors': 0,

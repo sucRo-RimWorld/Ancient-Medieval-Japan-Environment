@@ -79,195 +79,59 @@ on 2026-10-12. GitHub integration evidence is separate from the candidate tests.
 Steam subscriber PASS is claimed. Steam upload remains author-manual; actual
 downloaded source/DLL and distributed four-profile correction remain OPEN.
 
-### ENV-HANNOKI-LEAFLESS-SNOW-20261013 — accepted source overlay, native validation pending
+### ENV-HANNOKI-LEAFLESS-SNOW-20261013 — production source and Windows native verification
 
-**Owner:** Environment / wetland plant art
-**Status:** HANNOKI SOURCE MERGED TO MAIN; PR AND POST-MERGE CI 5/5 PASS; NATIVE FOUR-PROFILE / SNOW / SEASON / HARVEST / OLD-SAVE / DISTRIBUTION OPEN
+**Owner:** Environment / wetland plant art and native tests
+**Status:** WINDOWS 1.6 FOUR-PROFILE MAP / NATIVE CUTTING / RIMTEST / PICKLE PASS; SEVEN VISUAL STATES / SEASON / OLD SAVE / MO WOOD-CHAIN OFF / STEAM OPEN; LINUX MIGRATION DEFERRED
 
-2026-10-13 author `ｙ` accepts the final reviewed snow-only overlay on the preserved
-Hannoki leafless 256px reference, not the earlier AI-redrawn whole tree.
-Its 1254px reference source, frozen 256px review derivative, and overlay have
-their exact original PNG bytes under `Art/Sources/` and paired `Textures/`
-without changing the existing leafy Hannoki or previous leafy-snow images.
-Pixel audit confirms 256px RGBA, valid PNG, no outside-mask composite RGBA
-difference and exact original-master-to-overlay alpha compositing; 64px snow
-readability remains a known minor weakness. Formal source hashes, actual
-paths and review/approval scope are in `Docs/ArtDirection.md`.
-Leafless branch shape versus leafy art is still provisional, not a newly
-accepted in-game state. Production Hannoki PlantDef and leafless/snow paths,
-seasonal behavior, source/load runtime, old saves and Steam remain OPEN.
-Do not mark the four-existing-species visual coverage ledger complete for
-Hannoki before its real production Def and state-family acceptance.
+The author accepted the exact Hannoki source/state artwork and numerical
+comparison through PR #145 (`e91f58194b525456ee006e35d751c755b0c376b8`).
+The production-native assertions were integrated through PR #147
+(`fa4fc045fc8ccbc6252d4b3c0bd8ca9f2b500985`).
+Approved artwork/bytes and approval limits remain in `Docs/ArtDirection.md`;
+confirmed values and wood-pool transfers remain in
+`Docs/NativeVegetationStep3Design-ja.md` §3.1.2 and production XML.
+Shared beech fall conversion remains a native visual candidate, not author
+color acceptance. Leafless branch-shape/state acceptance remains provisional.
 
-2026-10-13 subsequent author `ｙ` also adopted the value comparison: tree
-growth 20 days, WoodLog 24, harvestWork 800, Beauty 2; wetland commonality
-0.70/0.45 transferred from Willow and (in ColdBog) Birch/Maple without
-changing total woody or baseline vegetation weight; native growth 0 C,
-CCTO 5 C with dormancy. Environment [PR #145](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/145) merged as
-`e91f58194b525456ee006e35d751c755b0c376b8` with all five triggered
-PR and post-merge checks successful. The merged source
-adds production Hannoki/translation, both wood-pool weight transfers,
-all four existing graphics routes, CCTO optional extension, and the
-seven-state pending ledger. Canonical approved specifications:
-`Docs/NativeVegetationStep3Design-ja.md` §3.1.2 and production XML,
-`Docs/ArtDirection.md` for frozen art. Shared beech fall LUT with
-Hannoki-specific source color sample is **only a test candidate**; author
-native color acceptance is not claimed. Do not mistake an XML/CI PASS for
-actual natural spawning, 4-profile, seasonal screenshot, cut/harvest,
-MO wood processing, sow-menu or save compatibility evidence.
+2026-10-13 latest author instruction: **do not migrate to Linux yet; execute
+available tests**. This explicitly authorizes the available Windows test run.
+It does not authorize shared-host provisioning or renewed per-chat Linux
+installation/builds. The planned persistent-host architecture remains owned by
+Project `Docs/SharedNativeTestHost.md`; deployment/dispatch selection is OPEN.
 
-2026-10-13 user `ｙ` authorizes proceeding with native production verification.
-Environment [PR #147](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/147)
-merged to `main` as `fa4fc045fc8ccbc6252d4b3c0bd8ca9f2b500985`.
-Its five triggered PR checks and the five post-merge checks are PASS;
-these are static/parser/coverage checks only. Both existing wetland
-Quickstarts now test the **real** `AMJ_Tree_Hannoki` in actual maps:
-loaded Def/Yield 24/WoodLog-or-MO-RawWood, non-BadTex normal/leafless/both
-snow graphics, CCTO conditional 0/5 C+one dormancy extension,
-natural positive occurrence at weights 0.70/0.45, and a native
-Pawn CutPlant yield=24 at neutral cropYieldFactor. Preserves the distinct
-disposable AMJE_Test_Hannoki yield=1 mechanics probe.
-The existing optional harvest runner is adjusted from four to five trees.
-Canonical test premises: `Docs/GoldenPaths/RenderedRuntimeTests.md`.
+A fresh isolated Windows 1.6.4871 candidate from
+`094d81f1fc9f32d621f7aaa3dbe97416997fa84b` passed all four existing profiles:
+Vanilla440/17, MO463/17, CCTO488/17, MO+CCTO511/17 map/five-tree native-cutting
+assertions; ten complete ERROR-free reports per profile. Independent re-audit,
+exact source/provider/Direct3D/error captures and payload/normal config
+preservation PASS. The same candidate DLL passed RimTest10/10 and serial
+Pickle5/5 in each profile. Both real wetlands have positive natural Hannoki,
+native yield24, correct WoodLog/MO RawWood and CCTO0/5 C+one dormancy extension.
+Canonical tested premises, source/DLL/archive hashes, raw Windows evidence and
+limitations: `Docs/ValidationEvidence/HannokiWindowsNative-20261013.md`.
+Procedure and reusable observer corrections:
+`Docs/GoldenPaths/RenderedRuntimeTests.md`. No production/gameplay/art edit.
 
-**Blocked runtime execution:** this chat's isolated container is Linux, has
-no Windows RimWorld/Steam game root, and cannot reach the user's running
-Windows desktop. The GitHub-hosted workflows only provide parser/static
-checking; they do not provide licensed Unity RimWorld runtime or its
-managed assemblies. Therefore no four-profile native maps, CutPlant,
-seasons, 0/0.5/1 snow, tree-menu, MO WoodChain ON/OFF, save reload or
-four-profile ERROR-free result may be asserted from this branch or CI.
-Resume actual native run from the Windows desktop/Work execution context
-using isolated `run-tests.bat` (not user-visible `run-runtime-tests.bat`);
-retain per-case JSON/log/Error capture and inspect each assumption
-before accepting visual states. Do not ask the author to convey this
-between workstreams. No background job has been created.
+Earlier Chat-side Linux evidence is retained, not upgraded: the supplied owned
+1.6 game booted, source/Quicktests built reproducibly from pinned main, and
+TemperateSwamp Vanilla/CCTO strict70/70 passed; MO/MO+CCTO72/72 native
+assertions had two FMOD prelaunch ERRORs and therefore strict FAIL.
+Windows did not reproduce those errors; the Linux cause remains unresolved.
+The permanent source-build/bootstrap recipe from PR #155
+(`4dc73bcf4eb608c5959c2d9a3e96ffb605bbb4c3`) remains
+`Scripts/Build-ChatLinux.sh` and
+`Docs/GoldenPaths/ChatLinuxPublicModBootstrap.md`.
+Superseded Chat dependency/provisioning correction chains and their exact
+hashes are retained in main Git history before this queue compaction.
 
-**2026-10-13 Chat-side environment provisioning status (not a native PASS):**
-At the author's explicit request, the current Chat execution container has
-Debian 13 x86-64, Xvfb virtual-display smoke PASS, Mesa/OpenGL libraries,
-and isolated installed copies of the author's provided Medieval Overhaul
-1.6.2.2 and Japanese translation ZIPs. A portable local setup/diagnostic
-and four-profile real-game-launch scaffold was created and passed five
-offline unit tests; no gameplay code or approved art was changed.
-Container file paths and script archives are conversation-local, **not**
-persistent repository assets. The container has NO legitimate Linux
-RimWorld binary, `Assembly-CSharp.dll`, C# compiler, built AMJE/Quicktests,
-CCTO, or MO's Harmony/VEF/Processor dependencies, and DNS prevents direct
-Steam download. Consequently **no game/runtime launch or four-profile
-loaded-Def/cutting/seasonal evidence exists**. Never equate Xvfb or the
-setup self-tests with RimWorld PASS. A legitimately acquired Linux game
-install and missing Mod/test assemblies are the remaining prerequisites.
-Do not request passwords or circumvent ownership checks; resume using an
-isolated legitimate game copy when available. Existing Windows
-`run-tests.bat` remains the canonical full-runtime acceptance gate.
-
-**2026-10-13 subsequent user-supplied Linux game — previous missing-game blocker superseded:**
-Author supplied `RimWorldLinux_Data.zip` (excludes Steam Workshop's `steamapps` content but includes the complete Linux game root). The installer verified a real ELF `RimWorldLinux`, `UnityPlayer.so`, and 15,767,552-byte `RimWorldLinux_Data/Managed/Assembly-CSharp.dll` and installed them under the Chat-side isolated `Game` root. `Version.txt` reads `1.6.4871 rev598`; running Unity logs `RimWorld 1.6.4871 rev600`. A real Linux process under Xvfb 1280×720 (Mesa llvmpipe OpenGL 4.5) rendered the **Vanilla main menu** after dismissing the expected Steam API unavailable warning. Inspectable 1280×720 screenshot and full isolated Unity log are conversation-local. User's actual Steam login, home configuration, saves and Windows installation were not accessed. This is a **native Vanilla boot/UI smoke PASS only**: no AMJE, CCTO, Harmony, VEF, Processor, RimWorks Quickstarts or precompiled AMJE DLL has been staged, so Hannoki Def-loaded/render, 4-profile, harvest, snow, save and CCTO outcomes remain NOT RUN. Network-disabled Chat container cannot use git/Steam downloads; dependency Mod/payload archives or an independent connected-artifact transfer are still needed. Keep game staging reproducible and do not describe the empty `steamapps` as an incomplete base game. Existing Windows `run-tests.bat` remains the full final acceptance route.
-
-**2026-10-13 later correction — public Mod acquisition from Chat is VERIFIED, earlier network blocker superseded:**
-Although the Chat container itself cannot resolve external DNS, a temporary
-read-only GitHub Actions workflow downloaded officially published GitHub
-Release assets (Harmony v3.0.0.0, Quickstarts v4.1.0, RimLogging v3.1.1)
-with SHA-256 checks. It also retrieved the official VEF 1.6 snapshot at
-commit `058d42ce56d5b5c744bd9568db763fb20efe2d34`. A one-time
-Valve SteamCMD runner used **anonymous access without credentials** to
-download publicly published Processor Framework (3210544395), AMJE
-(3814638060) and CCTO (3812412548), verified real About/package IDs and
-archived exact download payloads. The GitHub connector successfully
-materialized those Actions artifacts into Chat; all seven public Mods were
-installed and linked into its isolated RimWorld 1.6.4871 Linux environment,
-alongside the previously author-supplied MO and Japanese translation.
-No further manual uploads of those seven packages are necessary *in the
-current Chat container*. This one-time source retrieval mechanism is now
-documented in `Docs/GoldenPaths/ChatLinuxPublicModBootstrap.md`; do
-not place the temporary fetch workflow itself on `main`.
-
-Actual game boot/log probe: Harmony+RimLogging+Quickstarts initialized
-with zero `[ERROR]` records; AMJE+CCTO+frameworks loaded the production
-AMJE DLL and patched Harmony with zero `[ERROR]`; MO+VEF+Processor+
-AMJE+CCTO loaded assemblies but emitted **two FMOD Unity [ERROR]**
-audio-clip events (strict ERROR-free startup NOT PASS, cause open).
-The bounded ~95s smoke processes were deliberately terminated by
-timeout, so no Quickstart report, generated wetland map or cutting proof
-was produced. Critically, Workshop AMJE is **older than GitHub main** and
-its `AMJ_WildPlants.xml` does **not** contain `AMJ_Tree_Hannoki`.
-At this *former Workshop-only smoke stage*, compiled AMJE custom
-Quicktests and pinned newest source DLL were still missing. That specific
-blocker was **superseded by the later verified source build below**.
-Do not conflate RimWorks `rimworks.quickstarts` with the separate
-AMJE quicktests package.
-
-**2026-10-13 latest — pinned development source native build COMPLETE, scoped 1.6 runtime evidence:**
-The author asked whether work branches can be cloned/built by Chat.
-Chat DNS blocked direct `git clone`, but short-lived GitHub Actions
-`checkout` pinned to Environment main
-`52c6530b2d78bcc6800b80d3d69d36048c0142d5` successfully transferred
-261 repository files in a checksum-verified Git archive to Chat.
-The same method accepts an explicitly selected development branch commit.
-Offline Debian 13 Mono 6.12 packages were obtained via GitHub Actions;
-compilation against **the author's actual owned Linux RimWorld 1.6.4871
-managed DLLs** succeeded. Production
-`AncientMedievalJapanEnvironment.dll` = 28,672 bytes, SHA-256
-`4d495a5b9ca01ddd3cdffca9cef0b4ae37458b93ca0da566c10832afc8b0d28a`.
-Dedicated `AncientMedievalJapanEnvironment.Quicktests.dll` = 113,664
-bytes, SHA-256
-`a5dcac2c76151f5193322ec51afea238204091fad8d8bcf2cd393c29ecd13d02`.
-A second scripted compile reproduced both byte hashes exactly.
-The permanent repeatable recipe is `Scripts/Build-ChatLinux.sh` and
-`Docs/GoldenPaths/ChatLinuxPublicModBootstrap.md`,
-merged to main via Environment PR #155 commit
-`4dc73bcf4eb608c5959c2d9a3e96ffb605bbb4c3`.
-The temporary source/toolchain transport workflow was deleted from its
-topic branch; it was never placed on `main`. No licensed RimWorld game
-assets were sent to GitHub.
-
-Actual isolated RimWorld Quickstarts from that compiled source, fixed
-`AMJTemperateSwampVegetationQuickstart` seed/biome:
-Vanilla **70/70 strict PASS**, natural Hannoki 2,815, WoodLog24, no
-runtime ERROR; CCTO **70/70 strict PASS**, natural Hannoki 2,835, WoodLog24,
-5℃ min growth + one coldDormancy Extension.
-MO **72/72 native assertions PASS but strict FAIL** due to two FMOD Unity
-errors preceding the Quickstart; native Hannoki 2,717, RawWood24.
-MO+CCTO **72/72 native assertions PASS but strict FAIL** due to the same
-two FMOD prelaunch errors; native Hannoki 2,716, RawWood24,
-dormancy Extension1. The MO results are NOT ERROR-free gate PASS even
-though their report `passed=true`. Full premises and limits are in the
-Golden Path, not duplicated here.
-
-**Remaining:** real ColdBog scenario, all additional seeds, all plant
-seasonal visual states and winter depth comparisons at noon/Clear, old
-saves, MO wood-chain OFF and the two existing FMOD audio errors, and a
-full production/release matrix. Workshop remains the old source payload;
-this chat build is strictly isolated development evidence.
-
-
-
-**2026-10-13 author HOLD / execution-host architecture changed — subsequent decision:**
-The author explicitly paused this Chat-side ephemeral Linux source-build,
-Quicktests and further native RimWorld execution while the AMJ project changes
-to **one durable, shared Linux execution host** accessible from all chats
-through GitHub. The project-wide authoritative architecture is
-[Project Docs/SharedNativeTestHost.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/SharedNativeTestHost.md)
-(Project [PR #38](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/pull/38),
-main `ca01c053e607a9d5dd4ff28565e10e5ec324d675`).
-A GitHub Actions self-hosted runner is **one candidate**, not yet selected,
-deployed or verified as a usable ChatGPT test-dispatch route.
-Do **not** continue per-chat installing/rebuilding RimWorld or launching
-further native tests during this hold. No host provisioning or new test run
-is authorized by this status-only record.
-
-The earlier AMJE Linux build and native evidence remains scoped and retained:
-author-owned 1.6 game root, built production and Quicktests DLLs,
-TemperateSwamp Vanilla and CCTO strict PASS, MO/MO+CCTO native assertions
-PASS but full strict gate FAIL due to the two FMOD errors. These
-historical observations are neither erased nor retroactively upgraded.
-Environment [PR #155](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/155)
-has **already merged** as `4dc73bcf4eb608c5959c2d9a3e96ffb605bbb4c3`;
-keep its reusable source-build script, but do not execute it in a newly
-created temporary container. ColdBog, season, save, 1.7, and strict
-four-profile native completion remain OPEN and now ON HOLD pending
-the separately authorized persistent-host work.
+**Remaining:** Hannoki's seven pending human visual states, actual seasonal
+transition and snow depths, immature/icon, CCTO winter recovery, final Hannoki
+sow-menu behavior, additional seeds, MO wood-chain OFF, real legacy save
+load/re-save/add/remove, and actual Steam upload/download verification.
+The installed Workshop is still the old source. Candidate test PASS does not
+clear art/save/distributed-release HOLD or claim one-command standard-suite/
+Core-Grains/developer-probe completion.
 
 ## Publication and distribution
 
@@ -357,16 +221,6 @@ Author's `test-run.bat` blocked on the actual installed Steam Workshop `38146380
 
 **Framework source audit performed:** `RimWorks/Rimworld-Pickle` official `Docs/getting-started.md`, `Docs/authoring.md`, `Docs/autorun.md`, `Docs/running.md`, `Docs/reports.md`, `RimWorks/pickle-template/README.md`, and `ilyvion/rimtest-redux/README.md` were read. Pickle's Gherkin, isolated test Steps in `Pickle/Assemblies`, `-pickle-run`, independent report/exit-code and per-mod-set conventions match the present workflow at a design level. RimTest Redux is a unit-test framework requiring test-only assemblies; it is not a substitute for Steam artifact provenance or Pickle's live loading. **Real Windows Pickle C# compilation/runtime is not yet validated.** Avoid further speculative harness rewrites until the release-source blocker is resolved. The official RimWorld `loadFolders.xml` semantics document confirms `IfModActive` loads an additional path when the target Mod is active.
 
-### ENV-WORKSHOP-CANDIDATE-FOUR-PROFILE-PASS-20261008 — current 32-file candidate
-
-**Owner:** Environment Workshop release  
-**Status:** CANDIDATE RUNTIME PASS (author-supplied structured summary); STEAM PUBLICATION/DOWNLOAD NOT VERIFIED; RELEASE HOLD
-
-The author ran the corrected 9-map + 1-cutting release suite in all four profiles against the **same 32-file candidate** built from source commit `1d46727102f53243099927b59881091d448dba61`; its archive SHA256 is `a6df959f18a1a72153ba5dfbc196806b646194e452fec2e8f8c71d312635b0f6`. The test-only harness was corrected through merge `f39914d5bbd02edb90f7c91fe5faaf6e645d86fd`. Author-supplied `Summary.json`: `passed=true`, `full_four_profile_gate=true`; Vanilla409 map/15 cutting, MO409/15, CCTO457/15, MO+CCTO457/15; ten reports and zero runtime errors per profile. Author-supplied `Preservation.json`: `payload_unchanged=true`, `normal_config_unchanged=true`. The old expected-count and omitted-wetland/Unity-report-count failures were in the test harness; the production payload was **not rebuilt**.
-
-Author's preserved runtime evidence is at `C:/Users/sucRo/AppData/Local/Temp/AMJE-Final-20261008-214525/Runtime-Final-20261008-224132`. The author then executed `Build-WorkshopPayload.py verify`, returning `PASS exact payload: 32 files; source 1d46727102f53243099927b59881091d448dba61`, and `Combine-WorkshopPayloadResults.py` on those saved results, returning `PASS four-profile source/render/cutting/error/preservation gate`. The supplied `FourProfileAudit.json` has `passed=true`, matching pinned source and archive hashes, lists 40 checked scenario reports (ten per profile) and reports `steam_release_cleared=false`. This independent **local tool-based** re-audit checks detailed logs, Unity captures, selected source/DLL/Def roots, genuine dependencies, Direct3D, enabled profiles, four native outputs and original payload/config preservation; the individual raw logs were not separately uploaded to this conversation. The candidate fixture changed only About name/packageId for testing; original upload identity remains intact. The actual Mod folder selected in the game publisher still needs exact-root/subscriber verification before manual upload.
-
-**Steam remains author-manual.** Enable YADA and Add Changenote and select the validated 32-file candidate, never the dirty developer tree. A real downloaded Workshop3814638060 manifest/hash/source/DLL and four-profile runtime check are still required before claiming distributed-release PASS. Stable combined-loop/save-season criteria remain OPEN. Historical 26/28-file candidate records below are not an authorization to upload those obsolete candidates.
 
 ### ENV-WORKSHOP-BILINGUAL-CLOSEOUT-20261008 — single-field English/Japanese Workshop copy
 
