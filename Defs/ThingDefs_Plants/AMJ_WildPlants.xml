@@ -64,10 +64,9 @@
     </plant>
   </ThingDef>
 
-  <!-- Hannoki: damp-land alder. Growth/wood/biome weights approved 2026-10-13.
-       Leafless and both native snow graphics use accepted, preserved PNGs.
-       The shared autumn LUT/source sample remains subject to native color review. -->
   <ThingDef ParentName="DeciduousTreeBase">
+    <!-- Hannoki: damp-land alder; approved wood/biome weights. Frozen sprites.
+         Shared autumn LUT/source sample subject to native color review. -->
     <defName>AMJ_Tree_Hannoki</defName>
     <label>Alder (hannoki)</label>
     <description>Alder (hannoki) is a tall deciduous tree that grows along rivers and in wetlands with a high water table. It forms woods in damp lowlands, shaping wetland landscapes together with reeds and sedges.\n\nStudies of naturally occurring wood recovered from archaeological sites show that wetland forests containing trees of the alder genus existed in valleys of the Kantō region during the Jōmon period. Such forests were one of the forms of natural vegetation found in Japan's river lowlands long ago.</description>
