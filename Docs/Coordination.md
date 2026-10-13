@@ -227,7 +227,7 @@ Actual isolated RimWorld Quickstarts from that compiled source, fixed
 Vanilla **70/70 strict PASS**, natural Hannoki 2,815, WoodLog24, no
 runtime ERROR; CCTO **70/70 strict PASS**, natural Hannoki 2,835, WoodLog24,
 5℃ min growth + one coldDormancy Extension.
-MO **70/70 native assertions PASS but strict FAIL** due to two FMOD Unity
+MO **72/72 native assertions PASS but strict FAIL** due to two FMOD Unity
 errors preceding the Quickstart; native Hannoki 2,717, RawWood24.
 MO+CCTO **72/72 native assertions PASS but strict FAIL** due to the same
 two FMOD prelaunch errors; native Hannoki 2,716, RawWood24,
