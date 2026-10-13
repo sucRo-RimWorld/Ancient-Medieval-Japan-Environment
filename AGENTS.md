@@ -11,6 +11,7 @@ New features cannot enter implementation before the Project [existing-Mod audit 
 ## Local task routes and stops
 
 - Design/implementation: `Docs/Design.md`. Retain the scoped XML-first preference below.
+- **Owner boundary (author-confirmed):** new **food-purpose wild trees/plants, mountain greens, fungi, wild tubers and their edible products**, their graphics and patches placing them in Environment Biomes belong to [Wild Food Foraging](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Wild-Food-Foraging/blob/main/Docs/Design.md). Environment remains independent and owns its existing landscape Shii/Beech and non-food scenery, BiomeDefs/climate and original timber. Foraging requires Environment, never vice versa. Do not schedule new edible-species Defs under Environment merely because they grow in Environment Biomes.
 - Plant/tree art: follow `Docs/GoldenPaths/PlantVisualCoverage.md` and the test-specific guard in `Tests/AGENTS.md` when validating plant visual coverage. Existing-tree retextures remain author-deferred.
 - Color review: fixed actual local time 12:00, Clear weather, paused map, matching zoom and season/shader intensity for comparisons; record actual conditions. Follow the same coverage document. Dawn/dusk/night/weather screenshots cannot establish source colors.
 - Art procedures: `Docs/GoldenPaths/README.md` and the routing below. Accepted masters and fixed regions retain Project protection.
