@@ -82,7 +82,7 @@ downloaded source/DLL and distributed four-profile correction remain OPEN.
 ### ENV-HANNOKI-LEAFLESS-SNOW-20261013 — accepted source overlay, native validation pending
 
 **Owner:** Environment / wetland plant art
-**Status:** AUTHOR PROVISIONAL SNOW-SOURCE ACCEPTANCE; LEAFLESS REVIEW REFERENCE AND MATCHED SNOW PNGS STAGED; PRODUCTION DEF / LOADED APPEARANCE OPEN
+**Status:** HANNOKI PRODUCTION XML + AUTHOR-APPROVED WOOD/WOODY WEIGHTS IN FEATURE PR; STATIC/CI PENDING; NATIVE FOUR-PROFILE, SNOW/SEASON/OLD-SAVE AND DISTRIBUTION OPEN
 
 2026-10-13 author `ｙ` accepts the final reviewed snow-only overlay on the preserved
 Hannoki leafless 256px reference, not the earlier AI-redrawn whole tree.
@@ -98,6 +98,22 @@ accepted in-game state. Production Hannoki PlantDef and leafless/snow paths,
 seasonal behavior, source/load runtime, old saves and Steam remain OPEN.
 Do not mark the four-existing-species visual coverage ledger complete for
 Hannoki before its real production Def and state-family acceptance.
+
+2026-10-13 subsequent author `ｙ` also adopted the value comparison: tree
+growth 20 days, WoodLog 24, harvestWork 800, Beauty 2; wetland commonality
+0.70/0.45 transferred from Willow and (in ColdBog) Birch/Maple without
+changing total woody or baseline vegetation weight; native growth 0 C,
+CCTO 5 C with dormancy. Branch `feature/hannoki-production-20261013`
+adds production Hannoki/translation, both wood-pool weight transfers,
+all four existing graphics routes, CCTO optional extension, and the
+seven-state pending ledger. Canonical approved specifications:
+`Docs/NativeVegetationStep3Design-ja.md` §3.1.2 and production XML,
+`Docs/ArtDirection.md` for frozen art. Shared beech fall LUT with
+Hannoki-specific source color sample is **only a test candidate**; author
+native color acceptance is not claimed. Do not mistake an XML/CI PASS for
+actual natural spawning, 4-profile, seasonal screenshot, cut/harvest,
+MO wood processing, sow-menu or save compatibility evidence.
+
 
 ## Publication and distribution
 
@@ -273,7 +289,7 @@ The author's 2026-10-07 review marked Susuki (Miscanthus sinensis) priority A to
 
 **2026-10-12 author decision / current work:** PR #102 was **closed without merging**, after the author judged the extra Suge/Hannoki/Mizugoke disposable native-spawn sampling unnecessary. Its CI 4/4 does not establish runtime behavior; no Windows experimental run is required and no test-only Def/Patch/Quickstart additions from that branch enter main. Existing terrain-tag/fertility results and PR #99 Yoshi observations remain available in formal research. Resume the direct, species-by-species production implementation path in `Docs/NativeVegetationStep3Design-ja.md` §3.1.1; validate actual production natural spawn and jobs after the required real art/undecided numerical author acceptance. No placeholder textures or unapproved final commonalities/yields. Keep MO herbs, baseline pool totals, CCTO settings and save compatibility intact.
 
-**Remaining:** necessary species graphics / actual art acceptance, final habitat balance and harvesting quantities (Yoshi output, Hannoki timber), production PlantDefs and native four-profile/old-save/winter validation are open. The closed experiment is not a prerequisite. Steam verification was reported complete by the author in chat; no independently inspected new downloaded payload evidence is asserted here.
+**Remaining:** Yoshi/Suge/Mizugoke unfinished species imagery and production, Yoshi output and remaining biome weights; Hannoki timber 24 and 0.70/0.45 approved and production PR opened. Native four-profile/old-save/winter/harvest and Hannoki autumn/leafless appearance remain open. The closed experiment is not a prerequisite. Steam verification was reported complete by the author in chat; no independently inspected new downloaded payload evidence is asserted here.
 
 ### ENV-SAVE-FRIENDLY-VEGETATION-20261008 — staged additions / existing-save gate
 
