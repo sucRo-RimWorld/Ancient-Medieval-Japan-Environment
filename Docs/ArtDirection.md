@@ -27,6 +27,33 @@ for native UI scale1. Existing Vanilla/MO retextures remain post-release work.
 共用カラーマップの色変化は比較専用Defで確認したが、ハンノキ本番Def、描画寸法・収量、落葉・積雪画像、自然な季節移行の採用は別途必要。
 ブナは実XML上 `TreeBase` に季節パラメータと落葉パスを明示している。`DeciduousTreeBase` を継承していると誤記せず、ハンノキでの再利用はこの実装と標準 `PlantFallColors` を参照する。
 
+## 2026-10-13 ハンノキ積雪オーバーレイ暫定採用
+
+作者の「一旦これで採用」は、通常画像から枝・樹冠を再生成した先行不採用案ではなく、
+256pxの既存通常画像と位置を揃えて作成した**雪専用透過オーバーレイ**の
+原画・静的見た目に限定した暫定採用である。現物の完全なPNGバイト列を凍結する。
+雪が斑点状に見える箇所などの改善余地は既知だが、この採用を理由に自動再描画しない。
+
+- 通常画像の参照: `Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png`、256×256 RGBA、
+  SHA-256 `6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1`。
+  原画 `Art/Sources/Things/Plant/AMJ/Hannoki/Hannoki_Mature_Source.png` は不変。
+- 積雪の承認ソース: `Art/Sources/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png`。
+  本番配置用の同一バイト: `Textures/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png`。
+  両ファイルとも **256×256 RGBA、2,986 bytes**、
+  SHA-256 `ecc2c0412e030eb19f3f45ab016aaed94a3b1e7b37f66d6db8375f573651df16`。
+- 合成比較画像（承認時の照合証跡であり本番ソースではない）:
+  `Hannoki_Snow_Composite_candidate.png`、256×256 RGBA、
+  SHA-256 `eb6d5c718e67d2f64abc7b1a3fd33b12c760780de9bac58bbf16b76d09a3d5a0`。
+  これは元画像の雪以外のRGBA値をそのまま残す重ね合わせ確認用。
+- 静的確認: PNGシグネチャ、IHDR/IDAT/IEND、CRC、Pillow復号、RGBA、透過、
+  端のクリッピング無し、雪オーバーレイが不透明な通常画像領域のみに存在すること、
+  オーバーレイの透明画素範囲で合成結果のRGBAが通常画像と一致すること。
+  雪の非透明画素数は2,477。元画像のバイト列は変更しない。
+- **未完了:** 本番Hannoki PlantDefの`snowOverlayGraphicPath`接続、落葉時の
+  `leaflessSnowOverlayGraphicPath`要否・状態画像、未熟/UI、
+  正午・Clear・停止・雪深0/0.5/1.0の実ゲーム表示、自然な季節移行、
+  全状態の最終受入、Workshop配布。静的・原画承認を実機のPASSと混同しない。
+
 ## Scope
 
 Environment intentionally deferred final art until the functional/balance Alpha loop was stable.
