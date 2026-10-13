@@ -1,4 +1,4 @@
-name: Temporary Chat dev source snapshot
+name: Temporary Chat Debian Mono compiler bundle
 on:
   push:
     branches: [tooling/temporary-chat-dev-source-build-20261013]
@@ -7,26 +7,27 @@ on:
 permissions:
   contents: read
 jobs:
-  source:
+  compiler:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: 52c6530b2d78bcc6800b80d3d69d36048c0142d5
-          persist-credentials: false
-      - name: Verify exact source and archive it
+      - name: Prepare matching Debian 13 apt offline Mono compiler
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD)" = 52c6530b2d78bcc6800b80d3d69d36048c0142d5
-          mkdir -p /tmp/amje-dev-source
-          git archive --format=tar --prefix=AncientMedievalJapanEnvironment/ HEAD | gzip -9 > /tmp/amje-dev-source/AMJE-main-52c6530b2d78.tar.gz
-          sha256sum /tmp/amje-dev-source/AMJE-main-52c6530b2d78.tar.gz > /tmp/amje-dev-source/SHA256SUMS
-          tar -tzf /tmp/amje-dev-source/AMJE-main-52c6530b2d78.tar.gz | head -15 || true
+          mkdir -p "$(pwd)/out"
+          docker run --rm -v "$(pwd)/out:/out" debian:trixie-slim bash -ec '
+            apt-get update -qq
+            apt-get install -y -qq --download-only mono-mcs mono-runtime-sgen > /out/apt-download.log 2>&1
+            cp /var/cache/apt/archives/*.deb /out/
+            ls -lh /out/*.deb
+            printf "packages="; find /out -maxdepth 1 -name "*.deb" | wc -l
+          '
+          cd out
+          sha256sum ./*.deb > SHA256SUMS
       - uses: actions/upload-artifact@v4
         with:
-          name: amje-pinned-dev-source
-          path: /tmp/amje-dev-source/
+          name: debian-trixie-mono-compiler-offline
+          path: out/
           if-no-files-found: error
           retention-days: 1
