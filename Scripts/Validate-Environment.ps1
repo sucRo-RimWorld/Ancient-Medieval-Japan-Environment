@@ -686,17 +686,15 @@ catch {
     Fail "loadFolders.xml is not well formed: $($_.Exception.Message)"
 }
 $loadFolderVersions = @($loadFoldersXml.SelectNodes('/loadFolders/*'))
-$loadFolderEntries = @($loadFoldersXml.SelectNodes('/loadFolders/v1.6/*'))
+$loadFolderEntries = @($loadFoldersXml.SelectNodes('/loadFolders/*/*'))
 if ($loadFoldersXml.DocumentElement.Name -ne 'loadFolders' -or
     $loadFoldersXml.DocumentElement.Attributes.Count -ne 0 -or
-    $loadFolderVersions.Count -ne 1 -or
-    $loadFolderVersions[0].Name -ne 'v1.6' -or
-    $loadFolderVersions[0].Attributes.Count -ne 0 -or
-    $loadFolderEntries.Count -ne 1 -or
-    $loadFolderEntries[0].Name -ne 'li' -or
-    $loadFolderEntries[0].Attributes.Count -ne 0 -or
-    $loadFolderEntries[0].InnerText -ne '/') {
-    Fail "loadFolders.xml must load only v1.6 /; developer Quickstarts are staged as a separate test Mod."
+    $loadFolderVersions.Count -ne 2 -or
+    (($loadFolderVersions.Name | Sort-Object) -join ',') -ne 'v1.6,v1.7' -or
+    @($loadFolderVersions | Where-Object {$_.Attributes.Count -ne 0}).Count -ne 0 -or
+    $loadFolderEntries.Count -ne 2 -or
+    @($loadFolderEntries | Where-Object {$_.Name -ne 'li' -or $_.Attributes.Count -ne 0 -or $_.InnerText -ne '/'}).Count -ne 0) {
+    Fail "loadFolders.xml must load only / for v1.6 and v1.7; developer Quickstarts use a separate test Mod."
 }
 Pass "Production loadFolders.xml is root-only; developer Quickstarts use a standalone test fixture"
 

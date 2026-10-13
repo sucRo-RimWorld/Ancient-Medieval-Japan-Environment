@@ -48,8 +48,10 @@ def run(root: Path, output: Path, game: Path, workers: int = 1):
     if workers not in (1, 2, 4):
         raise ValueError('workers must be 1, 2 or 4')
 
-    if not (game / "RimWorldWin64.exe").is_file():
-        raise ValueError("RimWorld executable not found: " + str(game / "RimWorldWin64.exe"))
+    if not common.game_exe(game).is_file():
+        raise ValueError("RimWorld executable not found: " + str(common.game_exe(game)))
+    if common.game_exe(game).name == 'RimWorld.exe' and workers != 1:
+        raise ValueError('1.7 native logging requires serial profiles (--workers 1)')
     if not (root / "About/About.xml").is_file() or not (root / "Assemblies/AncientMedievalJapanEnvironment.dll").is_file():
         raise ValueError("Environment root must be built before Pickle: " + str(root))
     if output.exists():
@@ -65,8 +67,7 @@ def run(root: Path, output: Path, game: Path, workers: int = 1):
     user_config = common.user_config_dir()
     originals = {name: common.digest(user_config / name) for name in ("ModsConfig.xml", "Prefs.xml")}
     workshop = game.parents[1] / "workshop/content/294100"
-    game_version = common.test_version_from_user_config()
-    pickle_dll = common.find_dll(workshop / "3791648678", "RimWorks.Pickle.dll", game_version)
+    pickle_dll = common.find_dll(workshop / "3791648678", "RimWorks.Pickle.dll", '1.7' if common.game_exe(game).name == 'RimWorld.exe' else '1.6')
     if not (workshop / "3733484696/About/About.xml").is_file():
         raise ValueError("Pickle dependency RimLogging is not installed")
 
@@ -142,14 +143,14 @@ def run(root: Path, output: Path, game: Path, workers: int = 1):
             errors = output / ("Unity-" + profile)
             runner_log = output / (profile + "-Runner.log")
             batch = output / (profile + ".cmd")
-            command = (
-                '"' + str(game / "RimWorldWin64.exe") + '"'
+            arguments = (
                 ' -savedatafolder="' + str(save_data) + '"'
                 ' -logFile "' + str(log_path) + '"'
                 ' -pickle-run="' + FEATURE + '" -pickle-mode=fast'
                 ' -pickle-report-dir="' + str(report_dir) + '"'
-                ' -pickle-no-browser -pickle-run-timeout=4'
+                ' -pickle-no-browser -pickle-no-http -pickle-run-timeout=4'
             )
+            command = common.runtime_command(game, arguments, log_path)
             batch.write_text("@echo off\n" + command + "\nexit /b %ERRORLEVEL%\n", encoding="ascii")
             env = os.environ.copy()
             env["AMJE_EXPECTED_PAYLOAD_ROOT"] = str(root)

@@ -20,6 +20,8 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+. (Join-Path $PSScriptRoot 'RimWorldRuntime.ps1')
+$runtime = Get-RimWorldRuntime (Split-Path -Parent $ExePath)
 
 function Fail([string]$Message, [int]$Code = 2) {
     Write-Host "[ERROR] $Message" -ForegroundColor Red
@@ -144,6 +146,22 @@ foreach ($name in $scenarios) {
     $process = New-Object System.Diagnostics.Process
     $process.StartInfo = $psi
 
+    if ($runtime.Modern) {
+        $oldQuickstart = $env:RIMWORLD_QUICKSTART
+        try {
+            $env:RIMWORLD_QUICKSTART = $name
+            Invoke-RimWorldIsolated $runtime.Root $arguments $log $scenarioTimeout
+            $finished = $true
+        }
+        catch [TimeoutException] { $finished = $false }
+        catch {
+            if ($startupAttempt -eq 1 -and -not (Test-Path -LiteralPath $report) -and
+                (Test-KnownQuickstartsLogCaptureRace -LogPath $log)) { $finished = $false }
+            else { Fail $_.Exception.Message 1 }
+        }
+        finally { $env:RIMWORLD_QUICKSTART = $oldQuickstart; $process.Dispose() }
+    }
+    else {
     try {
         if (-not $process.Start()) {
             Fail "Failed to start RimWorld for $name"
@@ -196,6 +214,7 @@ foreach ($name in $scenarios) {
     }
     finally {
         $process.Dispose()
+    }
     }
 
         if (-not $finished) {

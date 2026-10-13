@@ -1,5 +1,8 @@
 # Rendered runtime tests on an isolated Windows desktop
 
+RimWorld 1.7 executable, test compiler and native-log handling:
+[RimWorld17Tests.md](RimWorld17Tests.md).
+
 ## Natural wetland subtype coverage
 
 The natural-world distribution scenario checks actual unforced wetlands,

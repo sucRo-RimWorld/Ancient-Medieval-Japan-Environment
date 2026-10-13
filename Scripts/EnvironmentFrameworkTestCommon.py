@@ -2,7 +2,10 @@
 from __future__ import annotations
 
 import hashlib
+import base64
 import os
+import re
+import struct
 from pathlib import Path
 import subprocess
 import xml.etree.ElementTree as ET
@@ -11,7 +14,39 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def invoke(args, **kwargs):
+    args = [str(x) for x in args]
+    if (Path(args[0]).name.lower() == 'csc.exe' and '/target:library' in args
+            and any('UnityStubs.dll' in x for x in args)):
+        sdks = subprocess.check_output(['dotnet', '--list-sdks'], text=True)
+        candidates = []
+        for line in sdks.splitlines():
+            match = re.match(r'([^ ]+) \[(.+)\]', line)
+            if match:
+                version, folder = match.groups()
+                path = Path(folder) / version / 'Roslyn/bincore/csc.dll'
+                if path.is_file():
+                    candidates.append((tuple(map(int, version.split('-')[0].split('.'))), path))
+        if not candidates:
+            raise ValueError('dotnet SDK with Roslyn is required for 1.7 tests')
+        args = ['dotnet', str(max(candidates)[1]), '/nostdlib+', *args[1:]]
     subprocess.run([str(x) for x in args], check=True, **kwargs)
+
+
+def game_exe(game):
+    version = (game / 'Version.txt').read_text().strip()
+    if not version.startswith(('1.6.', '1.7.')):
+        raise ValueError('Unsupported RimWorld version: ' + version)
+    return game / ('RimWorld.exe' if version.startswith('1.7.') else 'RimWorldWin64.exe')
+
+
+def runtime_command(game, arguments, log_path, timeout=600):
+    if game_exe(game).name == 'RimWorldWin64.exe':
+        return '"' + str(game_exe(game)) + '"' + arguments
+    encoded = base64.b64encode(arguments.encode('utf-8')).decode('ascii')
+    return ('powershell -NoProfile -ExecutionPolicy Bypass -File "' +
+            str(ROOT / 'Scripts/Invoke-RimWorld.ps1') + '" -GameRoot "' + str(game) +
+            '" -ArgumentBase64 ' + encoded + ' -LogPath "' + str(log_path) +
+            '" -TimeoutSeconds ' + str(timeout))
 
 
 SUPPORTED_TEST_VERSIONS = ("1.6", "1.7")
@@ -92,6 +127,9 @@ def ensure_game_closed():
     )
     if "RimWorldWin64.exe" in listing:
         raise ValueError("Close RimWorld normally before automated framework tests")
+    listing = subprocess.check_output(['tasklist', '/FI', 'IMAGENAME eq RimWorld.exe'], text=True)
+    if 'RimWorld.exe' in listing:
+        raise ValueError('Close RimWorld normally before automated framework tests')
 
 
 def user_config_dir() -> Path:
@@ -143,6 +181,21 @@ def compiler(game: Path) -> tuple[Path, list[Path]]:
         csc = Path(os.environ["WINDIR"]) / "Microsoft.NET/Framework/v4.0.30319/csc.exe"
     if not csc.is_file():
         raise ValueError(".NET Framework csc.exe was not found")
+    if game_exe(game).name == 'RimWorld.exe':
+        refs = []
+        for path in game.glob('*.dll'):
+            if path.name == 'RimWorld.dll':
+                continue
+            data = path.read_bytes()
+            if len(data) < 64 or data[:2] != b'MZ':
+                continue
+            pe = struct.unpack_from('<I', data, 0x3c)[0]
+            optional = pe + 24
+            magic = struct.unpack_from('<H', data, optional)[0]
+            directory = optional + (112 if magic == 0x20b else 96) + 14 * 8
+            if len(data) >= directory + 8 and struct.unpack_from('<I', data, directory)[0]:
+                refs.append(path)
+        return csc, refs
     managed = game / "RimWorldWin64_Data/Managed"
     refs = [managed / name for name in (
         "Assembly-CSharp.dll", "UnityEngine.CoreModule.dll", "netstandard.dll"
@@ -179,9 +232,9 @@ def validate_runtime_logs(log_path: Path, error_dir: Path):
     if not log_path.is_file():
         raise ValueError("RimWorld Player.log was not created: " + str(log_path))
     game_log = log_path.read_text(encoding="utf-8-sig", errors="replace")
-    if "Version:  Direct3D 11.0" not in game_log:
-        raise ValueError("RimWorld log did not confirm Direct3D 11")
-    if "[ERROR]" in game_log or "Level: ERROR" in game_log:
+    if "Version:  Direct3D 11.0" not in game_log and not ('RimWorld 1.7.' in game_log and '[Vulkan]' in game_log):
+        raise ValueError("RimWorld log did not confirm the native Direct3D/Vulkan renderer")
+    if "[ERROR]" in game_log or "Level: ERROR" in game_log or re.search(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+\s+ERROR\s', game_log, re.M):
         raise ValueError("RimWorld Player.log contains ERROR")
     captures = list(error_dir.glob("Unity-*.log"))
     if len(captures) != 1:

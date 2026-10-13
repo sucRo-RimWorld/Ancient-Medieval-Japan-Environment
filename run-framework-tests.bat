@@ -13,28 +13,30 @@ if not defined SKIP_STATIC (
     if errorlevel 1 exit /b 1
 )
 
-where py >nul 2>&1
+where python >nul 2>&1
 if errorlevel 1 (
-    echo [ERROR] Python launcher py.exe was not found.
+    echo [ERROR] Python executable python.exe was not found.
     exit /b 2
 )
 
-if not exist "%RIMWORLD_DIR%\RimWorldWin64.exe" (
+set "RIMWORLD_EXE=%RIMWORLD_DIR%\RimWorldWin64.exe"
+if exist "%RIMWORLD_DIR%\UnityStubs.dll" set "RIMWORLD_EXE=%RIMWORLD_DIR%\RimWorld.exe"
+if not exist "%RIMWORLD_EXE%" (
     echo [ERROR] RimWorld executable was not found:
-    echo         %RIMWORLD_DIR%\RimWorldWin64.exe
+    echo         %RIMWORLD_EXE%
     exit /b 2
 )
 
 echo.
 echo Checking framework-test Python syntax and wiring...
-py -3 -m py_compile "%ROOT%Scripts\EnvironmentFrameworkTestCommon.py" "%ROOT%Scripts\Run-EnvironmentRimTest.py" "%ROOT%Scripts\Run-DevelopmentPickle.py"
+python -m py_compile "%ROOT%Scripts\EnvironmentFrameworkTestCommon.py" "%ROOT%Scripts\Run-EnvironmentRimTest.py" "%ROOT%Scripts\Run-DevelopmentPickle.py"
 if errorlevel 1 exit /b 1
-py -3 "%ROOT%Tests\test_framework_automation.py"
+python "%ROOT%Tests\Runtime\test_framework_automation.py"
 if errorlevel 1 exit /b 1
 
 echo.
 echo Running Environment logic/calculation tests through RimTest Redux...
-py -3 "%ROOT%Scripts\Run-EnvironmentRimTest.py" --game "%RIMWORLD_DIR%"
+python "%ROOT%Scripts\Run-EnvironmentRimTest.py" --game "%RIMWORLD_DIR%"
 if errorlevel 1 exit /b 1
 
 echo.
@@ -45,7 +47,7 @@ if not "%PICKLE_WORKERS%"=="1" if not "%PICKLE_WORKERS%"=="2" if not "%PICKLE_WO
     echo [ERROR] AMJE_PICKLE_WORKERS must be 1, 2 or 4.
     exit /b 2
 )
-py -3 "%ROOT%Scripts\Run-DevelopmentPickle.py" --game "%RIMWORLD_DIR%" --workers %PICKLE_WORKERS%
+python "%ROOT%Scripts\Run-DevelopmentPickle.py" --game "%RIMWORLD_DIR%" --workers %PICKLE_WORKERS%
 if errorlevel 1 exit /b 1
 
 echo.

@@ -26,7 +26,7 @@ Repository work ends with preparing and synchronizing the README, Japanese/Engli
 
 ## Release stage
 
-RimWorld 1.6 — Beta
+RimWorld 1.6 / 1.7 (unstable) — Beta
 
 ## Public wording rules
 

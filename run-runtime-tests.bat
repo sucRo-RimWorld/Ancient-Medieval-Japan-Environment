@@ -9,6 +9,7 @@ if /I "%~2"=="--skip-static" set "SKIP_STATIC=1"
 
 set "ROOT=%~dp0"
 set "RIMWORLD_EXE=%RIMWORLD_DIR%\RimWorldWin64.exe"
+if exist "%RIMWORLD_DIR%\UnityStubs.dll" set "RIMWORLD_EXE=%RIMWORLD_DIR%\RimWorld.exe"
 set "RESULT_ROOT=%ROOT%TestResults\VegetationRuntime"
 set "TEST_SAVEDATA=%RESULT_ROOT%\SaveData"
 set "REPORT_DIR=%RESULT_ROOT%\Reports"
@@ -48,9 +49,9 @@ if not exist "%QUICKTEST_MANAGER%" (
     exit /b 2
 )
 
-where py >nul 2>&1
+where python >nul 2>&1
 if errorlevel 1 (
-    echo [ERROR] Python launcher py.exe was not found.
+    echo [ERROR] Python executable python.exe was not found.
     exit /b 2
 )
 
@@ -65,7 +66,7 @@ if errorlevel 1 (
 
 echo.
 echo Staging standalone Environment Quicktests test Mod...
-py -3 "%QUICKTEST_MANAGER%" stage --game "%RIMWORLD_DIR%" --dll "%QUICKTEST_DLL%" --defs "%WETLAND_PROBE_DEFS%"
+python "%QUICKTEST_MANAGER%" stage --game "%RIMWORLD_DIR%" --dll "%QUICKTEST_DLL%" --defs "%WETLAND_PROBE_DEFS%"
 if errorlevel 1 exit /b 2
 set "QUICKTEST_STAGED=1"
 set "RESULT=0"
@@ -78,7 +79,7 @@ if errorlevel 1 (
     set "RESULT=2"
     goto :report
 )
-py -3 "%QUICKTEST_MANAGER%" activate --game "%RIMWORLD_DIR%" --config "%TEST_SAVEDATA%\Config\ModsConfig.xml"
+python "%QUICKTEST_MANAGER%" activate --game "%RIMWORLD_DIR%" --config "%TEST_SAVEDATA%\Config\ModsConfig.xml"
 if errorlevel 1 (
     set "RESULT=2"
     goto :report
@@ -118,7 +119,7 @@ if defined CCTO_INSTALLED (
         set "RESULT=2"
         goto :report
     )
-    py -3 "%QUICKTEST_MANAGER%" activate --game "%RIMWORLD_DIR%" --config "%CCTO_SAVEDATA%\Config\ModsConfig.xml"
+    python "%QUICKTEST_MANAGER%" activate --game "%RIMWORLD_DIR%" --config "%CCTO_SAVEDATA%\Config\ModsConfig.xml"
     if errorlevel 1 (
         set "RESULT=2"
         goto :report
@@ -156,7 +157,7 @@ if defined CORE_INSTALLED (
         set "RESULT=2"
         goto :report
     )
-    py -3 "%QUICKTEST_MANAGER%" activate --game "%RIMWORLD_DIR%" --config "%CORE_SAVEDATA%\Config\ModsConfig.xml"
+    python "%QUICKTEST_MANAGER%" activate --game "%RIMWORLD_DIR%" --config "%CORE_SAVEDATA%\Config\ModsConfig.xml"
     if errorlevel 1 (
         set "RESULT=2"
         goto :report
@@ -207,7 +208,7 @@ if defined CORE_INSTALLED (
 if defined QUICKTEST_STAGED (
     echo.
     echo Removing standalone Environment Quicktests test Mod...
-    py -3 "%QUICKTEST_MANAGER%" cleanup --game "%RIMWORLD_DIR%"
+    python "%QUICKTEST_MANAGER%" cleanup --game "%RIMWORLD_DIR%"
     if errorlevel 1 (
         echo [ERROR] Quicktests fixture cleanup failed; inspect the owned fixture before retrying.
         if "%RESULT%"=="0" set "RESULT=2"
