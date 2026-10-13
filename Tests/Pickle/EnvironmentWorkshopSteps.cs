@@ -13,7 +13,18 @@ namespace AMJE.WorkshopPickle
     [PickleSteps]
     public sealed class SteamEnvironmentSteps
     {
-        private const string Package = "sucro.ancientmedievaljapan.environment";
+        private static string Package
+        {
+            get
+            {
+                const string production = "sucro.ancientmedievaljapan.environment";
+                string expected = Environment.GetEnvironmentVariable("AMJE_EXPECTED_PACKAGE_ID");
+                if (String.IsNullOrEmpty(expected)) return production;
+                if (expected != production && expected != production + ".releasevalidation")
+                    throw new InvalidOperationException("Unsupported Environment package identity");
+                return expected;
+            }
+        }
 
         private static ModContentPack FindSteamMod()
         {

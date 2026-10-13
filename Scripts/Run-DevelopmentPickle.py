@@ -44,6 +44,14 @@ def local_package_present(game: Path, package_id: str) -> bool:
     return False
 
 
+def source_package_id(root: Path) -> str:
+    identity = ET.parse(root / 'About/About.xml').findtext('packageId', '').lower()
+    if identity not in ('sucro.ancientmedievaljapan.environment',
+                        'sucro.ancientmedievaljapan.environment.releasevalidation'):
+        raise ValueError('Unsupported Environment source identity: ' + identity)
+    return identity
+
+
 def run(root: Path, output: Path, game: Path, workers: int = 1):
     if workers not in (1, 2, 4):
         raise ValueError('workers must be 1, 2 or 4')
@@ -63,6 +71,7 @@ def run(root: Path, output: Path, game: Path, workers: int = 1):
     except ValueError as exc:
         raise ValueError("Development Environment root must be under RimWorld/Mods so Pickle loads exact source") from exc
 
+    environment_id = source_package_id(root)
     before = common.snapshot_tree(root)
     user_config = common.user_config_dir()
     originals = {name: common.digest(user_config / name) for name in ("ModsConfig.xml", "Prefs.xml")}
@@ -88,7 +97,7 @@ def run(root: Path, output: Path, game: Path, workers: int = 1):
             fixture,
             "AMJE development Pickle audit (temporary)",
             TEST_ID,
-            ["rimworks.pickle", "sucro.ancientmedievaljapan.environment"],
+            ["rimworks.pickle", environment_id],
         )
         shutil.copy2(ROOT / "Tests/Pickle/Features" / FEATURE, fixture / "Pickle/Features" / FEATURE)
 
@@ -134,7 +143,7 @@ def run(root: Path, output: Path, game: Path, workers: int = 1):
                 ]
             if "CCTO" in profile:
                 ids.append(ccto_id)
-            ids += ["sucro.ancientmedievaljapan.environment", TEST_ID]
+            ids += [environment_id, TEST_ID]
             common.write_isolated_config(user_config, save_data, ids)
 
             report_dir = output / ("Pickle-" + profile)
@@ -154,6 +163,7 @@ def run(root: Path, output: Path, game: Path, workers: int = 1):
             batch.write_text("@echo off\n" + command + "\nexit /b %ERRORLEVEL%\n", encoding="ascii")
             env = os.environ.copy()
             env["AMJE_EXPECTED_PAYLOAD_ROOT"] = str(root)
+            env["AMJE_EXPECTED_PACKAGE_ID"] = environment_id
             env["AMJE_EXPECTED_PROFILE"] = profile
             env["RIMWORLD_AMJE_ERROR_DIRECTORY"] = str(errors)
             common.run_hidden(desktop, batch, env, runner_log)

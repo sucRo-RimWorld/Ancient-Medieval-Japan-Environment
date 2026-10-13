@@ -8,6 +8,30 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class FrameworkAutomationContractTests(unittest.TestCase):
+    def test_pickle_candidate_identity_rejects_unrelated_or_missing_package(self):
+        sys.path.insert(0, str(ROOT / 'Scripts'))
+        try:
+            spec = importlib.util.spec_from_file_location(
+                'pickle_candidate_identity', ROOT / 'Scripts/Run-DevelopmentPickle.py')
+            runner = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(runner)
+            with tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                (root / 'About').mkdir()
+                about = root / 'About/About.xml'
+                for identity in ('sucro.ancientmedievaljapan.environment',
+                                 'sucro.ancientmedievaljapan.environment.releasevalidation'):
+                    about.write_text('<ModMetaData><packageId>' + identity +
+                                     '</packageId></ModMetaData>', encoding='utf-8')
+                    self.assertEqual(identity, runner.source_package_id(root))
+                for content in ('<ModMetaData/>',
+                                '<ModMetaData><packageId>unrelated.mod</packageId></ModMetaData>'):
+                    about.write_text(content, encoding='utf-8')
+                    with self.assertRaisesRegex(ValueError, 'Unsupported Environment source identity'):
+                        runner.source_package_id(root)
+        finally:
+            sys.path.pop(0)
+
     def test_rimtest_rejects_missing_or_wrong_production_provider(self):
         sys.path.insert(0, str(ROOT / "Scripts"))
         try:

@@ -22,9 +22,9 @@ SCENARIOS = (
 
 # Strictly verify all nine map scenarios and the warm native-cutting scenario.
 # Alpine adds two excluded-plant assertions; warm cutting has six descriptions.
-MAP_ASSERTIONS_BASE = (80, 73, 70, 70, 50, 53, 24, 3, 3)
-MAP_ASSERTIONS_CCTO = (92, 85, 82, 82, 50, 53, 24, 3, 3)
-CUTTING_ASSERTIONS = 15
+MAP_ASSERTIONS_BASE = (80, 73, 70, 70, 57, 60, 24, 3, 3)
+MAP_ASSERTIONS_CCTO = (92, 85, 82, 82, 57, 60, 24, 3, 3)
+CUTTING_ASSERTIONS = 17
 REPORTS_PER_PROFILE = len(SCENARIOS) + 1
 
 
@@ -97,7 +97,9 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES, world_biomes_
         (observer / 'About').mkdir(); (observer / 'Assemblies').mkdir()
         (observer / 'About/About.xml').write_text('<ModMetaData><name>AMJE payload gate observer</name><author>AMJ testing</author><packageId>sucro.amje.payloadgateobserver</packageId><supportedVersions><li>1.6</li></supportedVersions></ModMetaData>')
         generated = output / 'Generated'
-        call(['python', ROOT / 'Scripts/Stage-WorkshopRegressionSources.py', generated])
+        observer_package = ET.parse(selected / 'About/About.xml').findtext('packageId')
+        call(['python', ROOT / 'Scripts/Stage-WorkshopRegressionSources.py', generated,
+              '--package-id', observer_package])
         managed = game / 'RimWorldWin64_Data/Managed'
         workshop = game.parents[1] / 'workshop/content/294100'
         csc = Path(os.environ['WINDIR']) / 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
@@ -152,6 +154,10 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES, world_biomes_
             if not world_biomes_only:
                 batch_text += 'set "RIMWORLD_AMJE_HARVEST_EXPECTED=' + ('DankPyon_RawWood' if mode.startswith('MO') else 'WoodLog') + '"\n'
                 batch_text += command + f' -ResultDir "{harvest_dir}" -TreeTextureAuditOnly\nif errorlevel 1 exit /b 1\n'
+            console_log = output / (mode + '-Console.log')
+            batch_text = '\n'.join(
+                line + f' >> "{console_log}" 2>&1' if line.startswith('"') else line
+                for line in batch_text.splitlines()) + '\n'
             batch.write_text(batch_text + 'exit /b 0\n', encoding='ascii')
             with (output / (mode + '-Runner.log')).open('w') as log:
                 call([desktop, batch, ROOT], env=env, stdout=log, stderr=subprocess.STDOUT)
@@ -175,8 +181,8 @@ def run(payload, manifest, output, game, steam, profiles=PROFILES, world_biomes_
                     found = re.findall(r'\[AMJE WorkshopSourceAudit\] MOD package=(\S+) root=', log)
                     if sorted(i.lower().removesuffix('_steam') for i in found) != sorted(i.removesuffix('_steam') for i in ids):
                         raise ValueError('Unexpected active profile: ' + str(found))
-                    if directory == harvest_dir and log.count('[AMJ Environment Harvest]') != 4:
-                        raise ValueError('Four native cutting outputs missing')
+                    if directory == harvest_dir and log.count('[AMJ Environment Harvest]') != 5:
+                        raise ValueError('Five native cutting outputs missing')
                     totals.append(count)
             captures = list(errors.glob('Unity-*.log'))
             if len(captures) != (1 if world_biomes_only else REPORTS_PER_PROFILE) or any('[CAPTURE_READY]' not in p.read_text(encoding='utf-8-sig') or '[ERROR]' in p.read_text(encoding='utf-8-sig') for p in captures):

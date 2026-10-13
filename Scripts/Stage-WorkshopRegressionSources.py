@@ -9,7 +9,13 @@ import re
 import shutil
 
 
-def release_quickstarts(source):
+PRODUCTION_PACKAGE = 'sucro.ancientmedievaljapan.environment'
+CANDIDATE_PACKAGE = PRODUCTION_PACKAGE + '.releasevalidation'
+
+
+def release_quickstarts(source, package_id=PRODUCTION_PACKAGE):
+    if package_id not in (PRODUCTION_PACKAGE, CANDIDATE_PACKAGE):
+        raise ValueError('Unsupported production observer package: ' + str(package_id))
     # Unapproved species probes belong to the disposable DEVELOPMENT fixture,
     # not the subscriber payload. Preserve all production wetland assertions.
     for helper in ('AddWetlandBehaviorProbeAssertions', 'AddHannokiBehaviorProbeAssertions'):
@@ -17,14 +23,18 @@ def release_quickstarts(source):
         if source.count(call) != 2:
             raise ValueError('Review development probe routing before release staging: ' + helper)
         source = source.replace(call, '')
+    ownership = '"' + PRODUCTION_PACKAGE + '"'
+    if source.count(ownership) != 1:
+        raise ValueError('Review production Hannoki ownership assertion before release staging')
+    source = source.replace(ownership, '"' + package_id + '"')
     return source
 
 
-def stage(output):
+def stage(output, package_id=PRODUCTION_PACKAGE):
     repository = pathlib.Path(__file__).resolve().parents[1]
     output.mkdir(parents=True, exist_ok=True)
     source = (repository / 'Tests/Quickstarts/EnvironmentBiomeTerrainQuickstarts.cs').read_text(encoding='utf-8-sig')
-    source = release_quickstarts(source)
+    source = release_quickstarts(source, package_id)
     source = source.replace('AncientMedievalJapan.Environment.Quicktests', 'AncientMedievalJapan.Environment.WorkshopFinaltests')
     source = source.replace('sucro.ancientmedievaljapan.environment.quicktests', 'sucro.ancientmedievaljapan.environment.workshopfinaltests')
     source = re.sub(r'\bAMJ[A-Za-z0-9_]*Quickstart\b', lambda match: 'Workshop_' + match[0], source)
@@ -32,7 +42,7 @@ def stage(output):
     runner = (repository / 'Scripts/Run-EnvironmentVegetationQuickstarts.ps1').read_text(encoding='utf-8-sig')
     runner = re.sub(r'\bAMJ[A-Za-z0-9_]*Quickstart\b', lambda match: 'Workshop_' + match[0], runner)
     (output / 'Run-WorkshopHarvestQuickstarts.ps1').write_text(runner, encoding='utf-8')
-    for name in ['Run-EnvironmentVegetationQuickstarts.ps1', 'Validate-EnvironmentRuntimeLog.ps1']:
+    for name in ['Run-EnvironmentVegetationQuickstarts.ps1', 'Validate-EnvironmentRuntimeLog.ps1', 'RimWorldRuntime.ps1']:
         shutil.copyfile(repository / 'Scripts' / name, output / name)
     for name in ['WorkshopSourceAudit.cs', 'IsolatedDesktopRunner.cs']:
         shutil.copyfile(repository / 'Tests/Release' / name, output / name)
@@ -42,4 +52,6 @@ def stage(output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=pathlib.Path)
-    stage(parser.parse_args().output.resolve())
+    parser.add_argument('--package-id', choices=(PRODUCTION_PACKAGE, CANDIDATE_PACKAGE), default=PRODUCTION_PACKAGE)
+    args = parser.parse_args()
+    stage(args.output.resolve(), args.package_id)
