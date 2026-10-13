@@ -8,8 +8,9 @@
     placeholder; it is not candidate artwork for these wetland species.
     Suge/Yoshi yield=1 and Yoshi's Hay output are experimental mechanics
     ONLY; neither is an approved AMJ_Plant_Yoshi harvest/resource decision.
-    Hannoki's wood output and yield=1 are also provisional mechanics,
-    not approved production settings.
+    AMJE_Test_Hannoki's yield=1 is a disposable *mechanics probe* only.
+    The separate production AMJ_Tree_Hannoki is approved at wood yield 24
+    and is asserted directly by the existing wetland Quickstarts.
     No production wetland PlantDef is provided here.
   -->
   <ThingDef ParentName="PlantBase">
@@ -83,8 +84,8 @@
       <harvestFailable>false</harvestFailable>
     </plant>
   </ThingDef>
-  <!-- Deciduous alder mechanics only: borrowed accepted beech graphics and
-       test yield 1. Neither resource choice, amount nor sowing is approved. -->
+  <!-- Disposable deciduous alder mechanics fixture: borrowed accepted Beech
+       graphics and test yield=1; NOT the approved production Hannoki 24. -->
   <ThingDef ParentName="DeciduousTreeBase">
     <defName>AMJE_Test_Hannoki</defName>
     <label>test-only alder wood cut probe</label>
