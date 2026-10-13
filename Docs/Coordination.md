@@ -243,6 +243,32 @@ this chat build is strictly isolated development evidence.
 
 
 
+**2026-10-13 author HOLD / execution-host architecture changed — subsequent decision:**
+The author explicitly paused this Chat-side ephemeral Linux source-build,
+Quicktests and further native RimWorld execution while the AMJ project changes
+to **one durable, shared Linux execution host** accessible from all chats
+through GitHub. The project-wide authoritative architecture is
+[Project Docs/SharedNativeTestHost.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/SharedNativeTestHost.md)
+(Project [PR #38](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/pull/38),
+main `ca01c053e607a9d5dd4ff28565e10e5ec324d675`).
+A GitHub Actions self-hosted runner is **one candidate**, not yet selected,
+deployed or verified as a usable ChatGPT test-dispatch route.
+Do **not** continue per-chat installing/rebuilding RimWorld or launching
+further native tests during this hold. No host provisioning or new test run
+is authorized by this status-only record.
+
+The earlier AMJE Linux build and native evidence remains scoped and retained:
+author-owned 1.6 game root, built production and Quicktests DLLs,
+TemperateSwamp Vanilla and CCTO strict PASS, MO/MO+CCTO native assertions
+PASS but full strict gate FAIL due to the two FMOD errors. These
+historical observations are neither erased nor retroactively upgraded.
+Environment [PR #155](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/155)
+has **already merged** as `4dc73bcf4eb608c5959c2d9a3e96ffb605bbb4c3`;
+keep its reusable source-build script, but do not execute it in a newly
+created temporary container. ColdBog, season, save, 1.7, and strict
+four-profile native completion remain OPEN and now ON HOLD pending
+the separately authorized persistent-host work.
+
 ## Publication and distribution
 
 ### ENV-BEECH-FALL-CALIBRATION-20261013 — autumn value/saturation source mismatch
