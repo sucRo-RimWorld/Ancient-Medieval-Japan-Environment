@@ -143,6 +143,24 @@ retain per-case JSON/log/Error capture and inspect each assumption
 before accepting visual states. Do not ask the author to convey this
 between workstreams. No background job has been created.
 
+**2026-10-13 Chat-side environment provisioning status (not a native PASS):**
+At the author's explicit request, the current Chat execution container has
+Debian 13 x86-64, Xvfb virtual-display smoke PASS, Mesa/OpenGL libraries,
+and isolated installed copies of the author's provided Medieval Overhaul
+1.6.2.2 and Japanese translation ZIPs. A portable local setup/diagnostic
+and four-profile real-game-launch scaffold was created and passed five
+offline unit tests; no gameplay code or approved art was changed.
+Container file paths and script archives are conversation-local, **not**
+persistent repository assets. The container has NO legitimate Linux
+RimWorld binary, `Assembly-CSharp.dll`, C# compiler, built AMJE/Quicktests,
+CCTO, or MO's Harmony/VEF/Processor dependencies, and DNS prevents direct
+Steam download. Consequently **no game/runtime launch or four-profile
+loaded-Def/cutting/seasonal evidence exists**. Never equate Xvfb or the
+setup self-tests with RimWorld PASS. A legitimately acquired Linux game
+install and missing Mod/test assemblies are the remaining prerequisites.
+Do not request passwords or circumvent ownership checks; resume using an
+isolated legitimate game copy when available. Existing Windows
+`run-tests.bat` remains the canonical full-runtime acceptance gate.
 
 
 ## Publication and distribution
