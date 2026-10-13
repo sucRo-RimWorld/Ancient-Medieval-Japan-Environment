@@ -326,7 +326,7 @@ implementation, installed-game test PASS or Workshop publication is claimed.
 
 ### PRIORITY-FOREST-FOODS-20261008 — native fruit/forest-food feature queue
 
-**2026-10-14 author boundary correction:** The old forest-food queue incorrectly made Environment the owner of **new food-purpose natural species**. The formal [Environment design](Docs/Design.md) now leaves existing Shii/Beech scenery/forestry and general environmental trees here while new food-purpose trees, greens, fungi and tubers, their source art and Environment-biome insertion patches are Foraging-owned. No Environment-owned PlantDef or gameplay was changed. This overrides the superseded ownership statement within this older priority entry.
+**2026-10-14 author boundary correction:** The old forest-food queue incorrectly made Environment the owner of **new food-purpose natural species**. The formal [Environment design](Design.md) now leaves existing Shii/Beech scenery/forestry and general environmental trees here while new food-purpose trees, greens, fungi and tubers, their source art and Environment-biome insertion patches are Foraging-owned. No Environment-owned PlantDef or gameplay was changed. This overrides the superseded ownership statement within this older priority entry.
 
 **Owner:** Environment for **existing scenic vegetation and BiomeDefs**; [Wild Food Foraging](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Wild-Food-Foraging) for **new edible wild species/food content, graphics, biome placement patches, harvesting**  
 **Status:** PROJECT EXECUTION ORDER CONFIRMED; fruit/forest-food feature work NOT IMPLEMENTED
