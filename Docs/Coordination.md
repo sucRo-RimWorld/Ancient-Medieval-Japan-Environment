@@ -99,8 +99,11 @@ the first cold-resistant-individual sampling failure is preserved, with only
 the observer's native individual selection corrected. No seed/climate/Def
 change is made for that failure.
 
-Hannoki's provided accepted master is preserved locally; public source transfer
-needs separate explicit authorization and is not part of this PR. Shared LUT color conversion
+Hannoki's provided master and paired 256px image are authorized for separate
+source transfer by the author's 2026-10-13 instruction 「画像も更新」. Exact paths,
+dimensions and SHA-256 are recorded in `Docs/ArtDirection.md`; this bounded
+transfer preserves both local PNG byte sequences and does not modify Defs.
+It was not part of the beech calibration PR. Shared LUT color conversion
 was observed only in a disposable comparison Def. Its production Def, actual
 state family, draw size/yield and natural seasonal behavior remain OPEN. PR136's
 earlier documentation is still independent; current source uses explicit
