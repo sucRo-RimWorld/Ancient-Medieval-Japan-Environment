@@ -326,7 +326,9 @@ implementation, installed-game test PASS or Workshop publication is claimed.
 
 ### PRIORITY-FOREST-FOODS-20261008 — native fruit/forest-food feature queue
 
-**Owner:** Environment native vegetation; [Wild Food Foraging](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Wild-Food-Foraging) edible-food harvesting consumer  
+**2026-10-14 author boundary correction:** The old forest-food queue incorrectly made Environment the owner of **new food-purpose natural species**. The formal [Environment design](Design.md) now leaves existing Shii/Beech scenery/forestry and general environmental trees here while new food-purpose trees, greens, fungi and tubers, their source art and Environment-biome insertion patches are Foraging-owned. No Environment-owned PlantDef or gameplay was changed. This overrides the superseded ownership statement within this older priority entry.
+
+**Owner:** Environment for **existing scenic vegetation and BiomeDefs**; [Wild Food Foraging](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Wild-Food-Foraging) for **new edible wild species/food content, graphics, biome placement patches, harvesting**  
 **Status:** PROJECT EXECUTION ORDER CONFIRMED; fruit/forest-food feature work NOT IMPLEMENTED
 
 2026-10-08 author priority: complete the current Environment vegetation/runtime
@@ -339,8 +341,8 @@ wetland vegetation work or imply that all future species are now approved.
 Authority: Project `Docs/ImplementationPriorities.md` and `Docs/Roadmap.md`;
 Environment's accepted old-save-friendly design remains `Docs/Design.md`,
 with migration test plan in `Docs/GoldenPaths/PlantSowingTests.md`.
-Environment owns PlantDefs, appearance and regional natural distribution. The
-**2026-10-10 author dependency decision:** Wild Food Foraging now **requires** Environment (`sucro.ancientmedievaljapan.environment`) as the provider of Sudajii and other Japan-native vegetation; Environment has **no** reverse dependency, and regional species pools stay Environment-owned. No forced Sudajii everywhere, no new tree/food Defs or yield approvals. Dedicated Wild Food Foraging owns harvesting gameplay and will add its required `modDependencies` metadata when its playable About is created. Its prior-art implementation entry is still OPEN. Preservation owns downstream fruit processing. Verify cross-owner harvesting with the existing-AMJE-save→new-build natural-spawn/real-harvest/sow/save-load E2E before claiming compatibility. Do not represent this handoff as
+Environment owns its **already implemented landscape PlantDefs** (including Shii/Beech), their original timber/scenic appearance and native distribution. **Foraging owns any newly added edible-purpose PlantDefs** (trees, greens, fungi, wild tubers), graphics, food resources and **Foraging-side `wildPlants` patches** into Environment Biomes. The
+**2026-10-10 author dependency decision:** Wild Food Foraging now **requires** Environment (`sucro.ancientmedievaljapan.environment`) as the provider of Sudajii and other Japan-native vegetation; Environment has **no** reverse dependency. Environment defines the native Biomes and its baseline scenic species pools; Foraging adds **its own edible plants** conditionally to those pools without requiring Environment to ship food species. No forced Sudajii everywhere, no new tree/food Defs or yield approvals. Dedicated Wild Food Foraging owns edible resources **and** harvesting gameplay and will add its required `modDependencies` metadata when its playable About is created. The Shii mechanism source exists but is inactive; **new edible species selection, actual gameplay/old-save/native test and release remain open**. Preservation owns downstream fruit processing. Verify cross-owner harvesting with the existing-AMJE-save→new-build natural-spawn/real-harvest/sow/save-load E2E before claiming compatibility. Do not represent this handoff as
 a completed fruit feature or runtime PASS.
 
 ### TEST-ENV-UNIFIED-20261008 — unified AMJE native test and wetland handoff
