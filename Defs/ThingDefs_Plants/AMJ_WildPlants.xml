@@ -99,7 +99,6 @@
       <leaflessGraphicPath>Things/Plant/AMJ/Hannoki_Leafless</leaflessGraphicPath>
       <snowOverlayGraphicPath>Things/Plant/AMJ/Hannoki_Snow</snowOverlayGraphicPath>
       <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/Hannoki_Leafless_Snow</leaflessSnowOverlayGraphicPath>
-      <wildClusterWeight>38</wildClusterWeight>
     </plant>
   </ThingDef>
 
