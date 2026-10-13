@@ -117,8 +117,11 @@ actual natural spawning, 4-profile, seasonal screenshot, cut/harvest,
 MO wood processing, sow-menu or save compatibility evidence.
 
 2026-10-13 user `ｙ` authorizes proceeding with native production verification.
-Branch `test/hannoki-production-native-20261013` updates both existing wetland
-Quickstarts to test the **real** `AMJ_Tree_Hannoki` in actual maps:
+Environment [PR #147](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/147)
+merged to `main` as `fa4fc045fc8ccbc6252d4b3c0bd8ca9f2b500985`.
+Its five triggered PR checks and the five post-merge checks are PASS;
+these are static/parser/coverage checks only. Both existing wetland
+Quickstarts now test the **real** `AMJ_Tree_Hannoki` in actual maps:
 loaded Def/Yield 24/WoodLog-or-MO-RawWood, non-BadTex normal/leafless/both
 snow graphics, CCTO conditional 0/5 C+one dormancy extension,
 natural positive occurrence at weights 0.70/0.45, and a native
