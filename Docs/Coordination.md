@@ -82,7 +82,7 @@ downloaded source/DLL and distributed four-profile correction remain OPEN.
 ### ENV-HANNOKI-LEAFLESS-SNOW-20261013 — accepted source overlay, native validation pending
 
 **Owner:** Environment / wetland plant art
-**Status:** HANNOKI PRODUCTION XML + AUTHOR-APPROVED WOOD/WOODY WEIGHTS IN FEATURE PR; STATIC/CI PENDING; NATIVE FOUR-PROFILE, SNOW/SEASON/OLD-SAVE AND DISTRIBUTION OPEN
+**Status:** HANNOKI SOURCE MERGED TO MAIN; PR AND POST-MERGE CI 5/5 PASS; NATIVE FOUR-PROFILE / SNOW / SEASON / HARVEST / OLD-SAVE / DISTRIBUTION OPEN
 
 2026-10-13 author `ｙ` accepts the final reviewed snow-only overlay on the preserved
 Hannoki leafless 256px reference, not the earlier AI-redrawn whole tree.
@@ -103,7 +103,9 @@ Hannoki before its real production Def and state-family acceptance.
 growth 20 days, WoodLog 24, harvestWork 800, Beauty 2; wetland commonality
 0.70/0.45 transferred from Willow and (in ColdBog) Birch/Maple without
 changing total woody or baseline vegetation weight; native growth 0 C,
-CCTO 5 C with dormancy. Branch `feature/hannoki-production-20261013`
+CCTO 5 C with dormancy. Environment [PR #145](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/145) merged as
+`e91f58194b525456ee006e35d751c755b0c376b8` with all five triggered
+PR and post-merge checks successful. The merged source
 adds production Hannoki/translation, both wood-pool weight transfers,
 all four existing graphics routes, CCTO optional extension, and the
 seven-state pending ledger. Canonical approved specifications:
