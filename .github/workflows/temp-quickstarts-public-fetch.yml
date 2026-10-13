@@ -1,4 +1,4 @@
-name: Temporary public Workshop anonymous SteamCMD probe
+name: Temporary public AMJE and CCTO Workshop fetch
 on:
   push:
     branches: [tooling/temporary-public-quickstarts-fetch-20261013]
@@ -6,11 +6,11 @@ on:
 permissions:
   contents: read
 jobs:
-  probe:
+  fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 9
+    timeout-minutes: 10
     steps:
-      - name: Probe Workshop 3210544395 without any Steam credentials
+      - name: Fetch official public CCTO and AMJE Workshop assets anonymously
         shell: bash
         run: |
           set -uo pipefail
@@ -21,30 +21,28 @@ jobs:
             --output steamcmd.tar.gz \
             https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
           tar -xzf steamcmd.tar.gz -C steamcmd
-          timeout 210s ./steamcmd/steamcmd.sh \
+          timeout 280s ./steamcmd/steamcmd.sh \
             +login anonymous \
-            +workshop_download_item 294100 3210544395 \
+            +workshop_download_item 294100 3814638060 \
+            +workshop_download_item 294100 3812412548 \
             +quit > output/steamcmd.log 2>&1
-          code=$?
-          echo "steamcmd_exit=${code}" > output/probe.txt
-          find . -path '*/294100/3210544395/About/About.xml' -print >> output/probe.txt
-          if grep -Eq 'Success. Downloaded item 3210544395' output/steamcmd.log; then
-            echo "reported_success=true" >> output/probe.txt
-          fi
-          loc=$(find "$HOME" . -path '*/294100/3210544395/About/About.xml' -print -quit 2>/dev/null)
-          if [ -n "$loc" ]; then
-            base=$(dirname "$(dirname "$loc")")
-            tar -czf output/ProcessorFramework-3210544395.tar.gz -C "$(dirname "$base")" "$(basename "$base")"
-            echo "payload_staged=true" >> output/probe.txt
-          else
-            echo "payload_staged=false" >> output/probe.txt
-          fi
-          tail -45 output/steamcmd.log >> output/probe.txt
+          echo "steamcmd_exit=$?" > output/manifest.txt
+          for id in 3814638060 3812412548; do
+            folder=$(find "$HOME" . -type d -path "*/294100/$id" -print -quit 2>/dev/null)
+            if [ -n "$folder" ] && [ -f "$folder/About/About.xml" ]; then
+              tar -czf "output/Workshop-$id.tar.gz" -C "$(dirname "$folder")" "$id"
+              echo "$id staged=yes" >> output/manifest.txt
+              sha256sum "output/Workshop-$id.tar.gz" >> output/manifest.txt
+            else
+              echo "$id staged=no" >> output/manifest.txt
+            fi
+          done
+          tail -60 output/steamcmd.log >> output/manifest.txt
           exit 0
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Anonymous-ProcessorFramework-workshop-probe
+          name: Anonymous-AMJE-CCTO-workshop
           path: output/
           if-no-files-found: warn
           retention-days: 1
