@@ -75,14 +75,14 @@ try {
         $errorLog = Join-Path $result ($mode + '-Errors.log')
         if (-not (Test-Path -LiteralPath $errorLog) -or -not (Select-String -LiteralPath $errorLog -SimpleMatch '[CAPTURE_READY]')) { throw 'Independent runtime error capture missing.' }
         if (Select-String -LiteralPath $errorLog -SimpleMatch '[ERROR]') { throw "Runtime ERROR: $errorLog" }
-        if (-not $data.passed -or $data.total -ne 9 -or $data.failed -ne 0 -or $data.preLaunchErrors -ne 0 -or -not $data.captureLive -or $data.logTruncated) { throw "Incomplete harvest report: $report" }
+        if (-not $data.passed -or $data.total -ne 11 -or $data.failed -ne 0 -or $data.preLaunchErrors -ne 0 -or -not $data.captureLive -or $data.logTruncated) { throw "Incomplete harvest report: $report" }
         if (Select-String -LiteralPath $log -Pattern '\[ERROR\]|Level:\s*ERROR') { throw "Runtime ERROR: $log" }
-        if (@(Select-String -LiteralPath $log -Pattern '\[AMJ Environment Harvest\]').Count -ne 4) { throw "Harvest output evidence missing: $log" }
+        if (@(Select-String -LiteralPath $log -Pattern '\[AMJ Environment Harvest\]').Count -ne 5) { throw "Harvest output evidence missing: $log" }
     }
     foreach ($file in $payload) {
         if ((Get-FileHash -LiteralPath (Join-Path $fixture $file.path) -Algorithm SHA256).Hash -ne $file.sha256) { throw 'Test payload changed during runtime.' }
     }
-    Write-Host "[OK] Four native pawn-cutting outputs passed ($($modes -join '+')): $result"
+    Write-Host "[OK] Five native pawn-cutting outputs passed ($($modes -join '+')): $result"
 }
 finally {
     foreach ($retireTarget in @($fixture, $observer)) {

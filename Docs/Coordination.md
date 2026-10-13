@@ -116,6 +116,31 @@ native color acceptance is not claimed. Do not mistake an XML/CI PASS for
 actual natural spawning, 4-profile, seasonal screenshot, cut/harvest,
 MO wood processing, sow-menu or save compatibility evidence.
 
+2026-10-13 user `ｙ` authorizes proceeding with native production verification.
+Branch `test/hannoki-production-native-20261013` updates both existing wetland
+Quickstarts to test the **real** `AMJ_Tree_Hannoki` in actual maps:
+loaded Def/Yield 24/WoodLog-or-MO-RawWood, non-BadTex normal/leafless/both
+snow graphics, CCTO conditional 0/5 C+one dormancy extension,
+natural positive occurrence at weights 0.70/0.45, and a native
+Pawn CutPlant yield=24 at neutral cropYieldFactor. Preserves the distinct
+disposable AMJE_Test_Hannoki yield=1 mechanics probe.
+The existing optional harvest runner is adjusted from four to five trees.
+Canonical test premises: `Docs/GoldenPaths/RenderedRuntimeTests.md`.
+
+**Blocked runtime execution:** this chat's isolated container is Linux, has
+no Windows RimWorld/Steam game root, and cannot reach the user's running
+Windows desktop. The GitHub-hosted workflows only provide parser/static
+checking; they do not provide licensed Unity RimWorld runtime or its
+managed assemblies. Therefore no four-profile native maps, CutPlant,
+seasons, 0/0.5/1 snow, tree-menu, MO WoodChain ON/OFF, save reload or
+four-profile ERROR-free result may be asserted from this branch or CI.
+Resume actual native run from the Windows desktop/Work execution context
+using isolated `run-tests.bat` (not user-visible `run-runtime-tests.bat`);
+retain per-case JSON/log/Error capture and inspect each assumption
+before accepting visual states. Do not ask the author to convey this
+between workstreams. No background job has been created.
+
+
 
 ## Publication and distribution
 

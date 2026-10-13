@@ -129,9 +129,10 @@ actual loaded baseline and must produce only the expected item. The
 scenario logs inherited `sowTags` and `mustBeWildToSow` but does not
 approve or assert final Hannoki sowability, and **does not toggle MO
 woodChain**: it tests only the profile's currently loaded state.
-MO woodChain ON/OFF as a two-state matrix, real Hannoki-specific
-winter leaflessness/snow images, terrain placement, source yield,
-natural spawn, old saves, and real production Def remain OPEN.
+MO woodChain ON/OFF as a two-state matrix, winter leaflessness and actual snow rendering,
+old saves and four-profile loaded-game evidence remain OPEN.
+The actual AMJ_Tree_Hannoki PlantDef now exists, and the production-specific
+Quickstart assertions below are independent of this historic yield=1 fixture.
 
 Use the existing hidden `run-tests.bat` as usual. The native wetland
 result must include the probe assertions and the complete per-scenario
@@ -144,6 +145,40 @@ release and editorial/art approval gates remain separate.
 activation and cleanup, and parses the experimental probe XML. It does not
 establish native runtime PASS. Production loader and payload rejection are
 covered by the XML validator and executable publication tests.
+
+### 2026-10-13 Hannoki production-native acceptance (NOT YET RUN)
+
+The two **existing** `AMJTemperateSwampVegetationQuickstart` and
+`AMJColdBogVegetationQuickstart` scenarios now check the **real**
+`AMJ_Tree_Hannoki`, separately from disposable `AMJE_Test_Hannoki`.
+They are part of the unchanged hidden `run-tests.bat` flow; do not add a
+new fixture or a second competing runner merely to test the production Def.
+
+| Native Quickstart assertion | Author-approved assumption and observation |
+|---|---|
+| `AMJ_Tree_Hannoki` actually loaded from AMJE, normal tree + 20-day growth + 800 harvest work | Resolve production ThingDef, not the disposable test name |
+| Loaded `harvestYield=24`, `harvestTag=Wood`, WoodLog or MO-selected RawWood | Reference the actual loaded Shii wood-chain material; respect MO's current setting |
+| Biome `CommonalityOfPlant` | TemperateSwamp `0.70`, ColdBog `0.45`; retained baseline 7.30/8.22 and woody 3.00/1.80 are covered by existing static gate |
+| `map.listerThings.ThingsOfDef(Hannoki)` before any test spawn | **Strictly positive in each separately generated native wetland**; log real count, report failure if terrain constraints prevent spawn |
+| Loaded original `graphicData.Graphic`, `leaflessGraphic`, `snowOverlayGraphic`, `leaflessSnowOverlayGraphic` | Each resolves non-BadTex; this proves actual loaded graphics, **not visually accepted appearance** |
+| Without CCTO min-growth 0 C/no CCTO extension; with CCTO min-growth 5 C/one coldDormancy extension | Case derived from actual active Mod profile, not a source-only flag |
+| Normal `CutPlant` job on a separate planted-on-soil mature production tree | Difficulty `cropYieldFactor=1`, Pawn Plants skill 0, source tree actually removed, exactly **24 of actually loaded wood material** dropped with no unexpected items; restore difficulty factor |
+| Existing `Run-PlantHarvestTests.ps1` optional Vanilla/MO matrix | All five production AMJE trees including Hannoki; expect eleven Quickstart assertions and five harvest evidence records per case, do not count fixture tests as production results |
+
+A future native PASS **requires** actual hidden Windows RimWorld execution with
+valid production DLL/Quicktests build and independent log-error capture; GitHub's
+`static-contract`, XML parse, coverage, Windows PowerShell syntax, or CI result
+cannot establish any of the above game assertions. Source-triggered CI cannot
+compile C# against missing local Steam game assemblies.
+
+The author still needs native noon/Clear/paused comparison for immature, UI,
+autumn and both snow/leafless states; true seasonal transition, MO woodChain
+**both ON and OFF**, CCTO cold dormancy recovery, persistent saved-game readback,
+and the four-profile ERROR/capture gate. Do not accept the source-art-approved
+overlay as a full visual state until inspected. Native rendering is not to run
+in the normal visible desktop. The canonical profile command is `run-tests.bat`
+on the isolated Windows desktop; prior successful base-biome results cannot
+be treated as Hannoki's new production evidence.
 
 ### Quickstarts startup log-capture race (isolated runtime)
 
