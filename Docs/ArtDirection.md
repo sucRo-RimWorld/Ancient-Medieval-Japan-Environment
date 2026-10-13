@@ -78,6 +78,32 @@ for native UI scale1. Existing Vanilla/MO retextures remain post-release work.
   葉あり・落葉・積雪の全状態最終受入、Workshopへの同梱・配布は未完了。
   `Docs/PlantVisualCoverage.json` の現行対象は実装済み4種のみであり、未実装ハンノキを完了状態で追加しない。
 
+## 2026-10-13 ハンノキ本番画像接続（ゲーム実機は未検証）
+
+2026-10-13の作者による既存樹木・現実植生との数値比較承認に基づき、
+`Defs/ThingDefs_Plants/AMJ_WildPlants.xml`に `AMJ_Tree_Hannoki` を実装し、
+保存済みの既存画像に**再描画せず**次の4状態を接続した。
+本節は上の採用時点の古い「本番Def未作成」という進捗記述を更新する。
+
+| 描画状態 | 本番パス | 承認区分 |
+|---|---|---|
+| 成熟／成長縮小／標準UI | `Things/Plant/AMJ/Hannoki` | 成熟画像の暫定採用、ゲームUI・未熟状態は未検証 |
+| 落葉 | `Things/Plant/AMJ/Hannoki_Leafless` | レビュー元画像保持。枝分岐の通常形との不一致は既知、最終実機承認待ち |
+| 通常積雪 | `Things/Plant/AMJ/Hannoki_Snow` | 雪専用オーバーレイ原画暫定採用 |
+| 落葉積雪 | `Things/Plant/AMJ/Hannoki_Leafless_Snow` | 雪専用オーバーレイ原画暫定採用。64px可読性に既知の弱点 |
+
+- ハンノキの落葉機構は実際のブナ同様 `DeciduousTreeBase`。
+  暖湿地の木本構成を増やさない出現数値・実材24・成長20日・収穫作業800は
+  `Docs/NativeVegetationStep3Design-ja.md` §3.1.2 が正本。
+- 秋色は既存 `PlantFallColors` 機構・ブナLUT `/Other/AMJE_BeechFallGradient` を
+  **検証候補として再利用**。ハンノキ葉の256px画像で緑葉画素を抽出して
+  得た代表的なRGB(108,114,67)/255 = `(0.423529412, 0.447058824, 0.262745098)`
+  を `_FallColorSource` に設定した。既存原画像やブナカラーマップは変更しない。
+  **このキーと共用LUTの最終的な紅葉発色は作者未確認**。
+- `Docs/PlantVisualCoverage.json` は7状態 `pending`。
+  本番Defの参照先・PNGハッシュ・CCTO XMLの静的監査と、
+  実RimWorldでの落葉切替・雪深・秋色・UI・成長スケール・旧セーブを区別する。
+
 ## Scope
 
 Environment intentionally deferred final art until the functional/balance Alpha loop was stable.
