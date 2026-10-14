@@ -68,6 +68,18 @@ Do not copy a long frozen prompt into this file. That previously created a secon
 
 If the target-specific request would contradict Project ArtStyle or ArtDirection, stop and resolve the specification first instead of compensating with ad-hoc prompt text.
 
+## Mandatory audit after every generated image
+
+Every individual output (including revisions and retries) must be visually compared with the **actual current author-accepted reference images** from the same asset class before it is presented as a viable candidate or followed by another generation. Do not rely only on a prompt, an old chat description or the target image itself.
+
+1. Open the generated output and actual accepted reference PNGs; use the accepted deciduous tree reference for a new deciduous tree and any additional accepted wetland/plant image relevant to the target.
+2. Compare outline thickness, internal line weight, simplified silhouette and major color masses, palette/color count, gradients/shading, leaf and branch detail density, proportions and overall readability at RimWorld sprite size; additionally inspect species-specific shape and PNG transparency/background.
+3. State the audit result explicitly for **each generated output**, noting concrete mismatches against accepted art and whether the image is candidate-ready, requires correction or must be rejected. A mismatch cannot be marked adopted merely because the broad style prompt was followed.
+4. If corrections are possible, carry the accepted baseline into the next revision and repeat the same inspection after that output. Never silently skip the audit between iterations.
+5. If accepted reference pixels cannot be fetched and viewed, identify that blocker rather than claiming the comparison passed.
+
+This is a generation QA requirement, not an automatic author acceptance or approval to install sprites.
+
 ## Candidate review and production handoff
 
 Before presenting a generated candidate, compare it against the current user request, any already-approved target design, and the viewed references:
