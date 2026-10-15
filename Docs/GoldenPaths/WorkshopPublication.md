@@ -1,5 +1,31 @@
 # Pinned Workshop publication
 
+## Current publication operating rule (2026-10-15; supersedes legacy uploader steps below)
+
+The author has replaced **YADA/manual RimWorld upload** with **GitHub Actions**
+for future updates. Earlier YADA/Add Changenote/Windows desktop steps in
+this document are retained only as historical provenance of prior uploads;
+they are **not** the current execution instructions. Environment's approved
+upload mode remains **creator-private only**; public visibility is a separate
+author decision. Until an Environment-owned, guarded GitHub Actions Steam
+publisher and its independently authenticated, isolated host state have been
+reviewed and verified, **do not perform or claim a live upload**. Do not
+reuse CCTO for VPE's SteamCMD host credentials/state, publication ID or service
+labels implicitly. Use the pinned subscriber ZIP and exact external manifest
+already generated, not a development Mod root; verify original packageId,
+item ID `3814638060`, root-only loadFolders, approved preview bytes,
+then the actual downloaded Workshop files and independent loaded-game smoke.
+
+For native release verification, apply `Docs/ReleaseReadiness.md`: keep
+unmodified global strict ERROR0 statuses, but the author has explicitly made
+the previously proven, unchanged MO/SYR blank-clip FMOD errors non-blocking
+**only for the scoped Environment functional private-release decision**.
+No sound or error-log suppression is permitted. The producer/reporter must
+retain both scoped-function and strict-error statuses. This does **not** waive
+new runtime errors, crash, failed native game jobs, source provenance,
+subscriber identity or Steam private visibility.
+
+
 The author performs Steam upload manually. A GitHub commit, locally built
 candidate, or passing developer suite is not evidence of updated distribution.
 
