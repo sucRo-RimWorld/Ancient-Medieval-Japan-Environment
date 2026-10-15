@@ -1,5 +1,7 @@
 # Rendered runtime tests on an isolated Windows desktop
 
+**Environment-only external audio gate (2026-10-15):** The exact independently established MO/SYR blank-clip FMOD error pair is separately non-blocking only for an Environment functional private-release decision when the same-source actual original Quickstart assertions pass, game exit is zero, all report/capture checks complete and no other Unity errors or crashes occur. Keep original strict ERROR0 tests as FAIL, all raw errors preserved, and never alter sounds or ignore new error types. Full requirements: `Docs/ReleaseReadiness.md`.
+
 RimWorld 1.7 executable, test compiler and native-log handling:
 [RimWorld17Tests.md](RimWorld17Tests.md).
 
