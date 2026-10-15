@@ -4,20 +4,12 @@ Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs
 
 ## Immediate execution priority
 
-**2026-10-15 latest build-only checkpoint:** Latest owner main
-`4dacbcf0fbe3399ee44795f3097b8cbe498d0ae3` has an **actual native-host
-source build and 59-file exact subscriber payload/ZIP static PASS** in
-[Project Actions #38681874743](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38681874743).
-This was executed via Project PR #260/main `bcb46071ed1eb6eefaabee0b50590898309f8913`,
-without modifying old staged game Mods. Exact DLL and archive hashes plus
-unresolved preview, native four-profile, save/season and Steam gates are in
-`Docs/ValidationEvidence/EnvironmentCandidateLinux16-20261015.md`.
-**2026-10-15 subsequent native candidate evidence:** exact source/ZIP/DLL validated under disposable full-copy Linux 1.6 Vanilla profile. [Base four native maps #38686699729](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686699729) **293/293 PASS**, [remaining five maps #38686772083](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686772083) **173/173 PASS**: **9/9, 466/466, native ERROR0 and each game exit0**. Project PR #274 was merged as `cd957c65139f7a2e178cd69b5a668304bf933c20`; original pinned host Mod unchanged. Exact evidence in `Docs/ValidationEvidence/EnvironmentCandidateLinux16-20261015.md`. **MO/CCTO/MO+CCTO, same-candidate real cutting, save/season, preview approval and actual Steam subscriber remain OPEN;**\n
-neither older source-scoped PASS nor current build-only PASS clears release HOLD.
-The newer author GitHub-Actions publication direction supersedes YADA-only
-operational assumptions; reconcile publication implementation separately
-before a live private Steam upload.
+**2026-10-15 current-main 59-file candidate source `4dacbcf0fbe3399ee44795f3097b8cbe498d0ae3`:** Linux 1.6 production DLL / exact ZIP / source-static validation **PASS**, [Project Actions #38681874743](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38681874743).
+Exact-candidate native Vanilla nine map/world/river/coast Quickstarts **466/466 PASS, ERROR0** ([base #38686699729](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686699729), [remaining #38686772083](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686772083)). Actual source-verified five-tree pawn CutPlant resource/yield tests **17/17 PASS in Vanilla and CCTO, ERROR0**, [run #38689421756](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38689421756). The earlier harness count-11 false FAIL [#38689111207](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38689111207) remains preserved.
 
+Real MO and MO+CCTO five-tree RawWood drops match all five expected yields, but each full native run has **FMOD audio Unity ERROR2 → strict FAIL** ([MO #38689626203](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38689626203), [MO+CCTO #38690112481](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38690112481)). Initial MO+CCTO launch [#38689992750](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38689992750) aborted exit139 and is recorded separately. **No full 4-profile ERROR0 native, actual Workshop upload/download or distributed-source PASS.** Exact tested premises, hashes and HOLD scope: `Docs/ValidationEvidence/EnvironmentCandidateLinux16-20261015.md` and `Docs/ReleaseReadiness.md`.
+
+The repaired biome selection applies to newly generated worlds; no comprehensive legacy-world migration test is needed for unchanged Def identities. Older-world load smoke only if a future Def-breaking change is introduced; normal new-save stable continuity is a separate gate. Before any private Workshop update, reconcile the owner publication procedure with the author's GitHub Actions (not YADA) direction and independently verify exact downloaded runtime bytes. The Project native FMOD workstream owns upstream audio diagnosis; do not suppress ERRORs locally.
 
 ### ENV-BIOME-REPLACEMENT-20261012 — inappropriate Vanilla biomes
 
