@@ -4,6 +4,21 @@ Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs
 
 ## Immediate execution priority
 
+**2026-10-15 latest build-only checkpoint:** Latest owner main
+`4dacbcf0fbe3399ee44795f3097b8cbe498d0ae3` has an **actual native-host
+source build and 59-file exact subscriber payload/ZIP static PASS** in
+[Project Actions #38681874743](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38681874743).
+This was executed via Project PR #260/main `bcb46071ed1eb6eefaabee0b50590898309f8913`,
+without modifying old staged game Mods. Exact DLL and archive hashes plus
+unresolved preview, native four-profile, save/season and Steam gates are in
+`Docs/ValidationEvidence/EnvironmentCandidateLinux16-20261015.md`.
+**Candidate native test and actual Workshop correction remain OPEN**;
+neither older source-scoped PASS nor current build-only PASS clears release HOLD.
+The newer author GitHub-Actions publication direction supersedes YADA-only
+operational assumptions; reconcile publication implementation separately
+before a live private Steam upload.
+
+
 ### ENV-BIOME-REPLACEMENT-20261012 — inappropriate Vanilla biomes
 
 **Owner:** Environment world generation / existing native test gates
