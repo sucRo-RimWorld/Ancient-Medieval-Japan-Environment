@@ -106,9 +106,10 @@ class HannokiProductionContract(unittest.TestCase):
 
     def test_approved_display_text_and_review_not_yet_closed(self):
         ja = ET.parse(JA).getroot()
-        self.assertEqual(ja.findtext(DEF_NAME + ".label"), "榛の木")
+        self.assertEqual(ja.findtext(DEF_NAME + ".label"), "ハンノキ")
         self.assertEqual(len(ja.findall(DEF_NAME + ".description")), 1)
         description = ja.findtext(DEF_NAME + ".description")
+        self.assertTrue(description.startswith("榛の木（ハンノキ）は"))
         self.assertIn("縄文時代の関東地方の谷にはハンノキ属", description)
         self.assertEqual(description.count(chr(92) + "n" + chr(92) + "n"), 1)
         self.assertEqual(self.tree.findtext("description").count(chr(92) + "n" + chr(92) + "n"), 1)

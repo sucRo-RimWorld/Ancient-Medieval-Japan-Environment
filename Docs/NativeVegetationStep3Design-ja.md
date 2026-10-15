@@ -115,6 +115,7 @@ wildPlants総量と木本総量を維持する。
 | 項目 | 採用値 | 本番正本 |
 |---|---|---|
 | 識別子・継承 | `AMJ_Tree_Hannoki`、`DeciduousTreeBase` | `Defs/ThingDefs_Plants/AMJ_WildPlants.xml` |
+| 日本語表示名 | `ハンノキ`。漢字表記「榛の木」は既存の承認済み説明文冒頭に記載する | `Languages/Japanese/DefInjected/ThingDef/AMJ_WildPlants.xml` |
 | 生育期間 | `growDays=20` | 同上。提案の18～20日から、カバノキ寄りの20日を選択 |
 | 木材・採取 | `WoodLog` 24、`harvestWork=800`、`harvestTag=Wood` | 同上 |
 | 美観 | `Beauty=2` | 同上 |
