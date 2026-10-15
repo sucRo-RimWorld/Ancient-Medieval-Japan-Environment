@@ -85,59 +85,44 @@ on 2026-10-12. GitHub integration evidence is separate from the candidate tests.
 Steam subscriber PASS is claimed. Steam upload remains author-manual; actual
 downloaded source/DLL and distributed four-profile correction remain OPEN.
 
-### ENV-HANNOKI-LEAFLESS-SNOW-20261013 — production source and Windows native verification
+### ENV-HANNOKI-APPEARANCE-20261015 — accepted static art; season playcheck open
 
-**Owner:** Environment / wetland plant art and native tests
-**Status:** WINDOWS 1.6 FOUR-PROFILE MAP / NATIVE CUTTING / RIMTEST / PICKLE PASS; SEVEN VISUAL STATES / SEASON / OLD SAVE / MO WOOD-CHAIN OFF / STEAM OPEN; LINUX MIGRATION DEFERRED
+**Owner:** Environment plant visuals / normal gameplay follow-up
+**Status:** SIX CURRENT PRODUCTION VISUAL STATES AUTHOR-ACCEPTED; NATURAL SEASON TRANSITION PENDING IN-GAME PLAYCHECK; STEAM DISTRIBUTION STILL OPEN
 
-The author accepted the exact Hannoki source/state artwork and numerical
-comparison through PR #145 (`e91f58194b525456ee006e35d751c755b0c376b8`).
-The production-native assertions were integrated through PR #147
-(`fa4fc045fc8ccbc6252d4b3c0bd8ca9f2b500985`).
-Approved artwork/bytes and approval limits remain in `Docs/ArtDirection.md`;
-confirmed values and wood-pool transfers remain in
-`Docs/NativeVegetationStep3Design-ja.md` §3.1.2 and production XML.
-Shared beech fall conversion remains a native visual candidate, not author
-color acceptance. Leafless branch-shape/state acceptance remains provisional.
+The author reviewed five real Linux RimWorld 1.6 screenshots from the exact
+59-file current candidate and explicitly said **「まあ採用で」** despite
+the small/hard-to-review presentation; **「どうせ後で実ゲーム確認するし」**
+assigns natural seasonal change to later normal gameplay. The original
+sprites/overlays, as opposed to the poor display presentation, are accepted;
+do not schedule image re-generation, unrequested enlargement or replacement.
 
-2026-10-13 latest author instruction: **do not migrate to Linux yet; execute
-available tests**. This explicitly authorizes the available Windows test run.
-It does not authorize shared-host provisioning or renewed per-chat Linux
-installation/builds. The planned persistent-host architecture remains owned by
-Project `Docs/SharedNativeTestHost.md`; deployment/dispatch selection is OPEN.
+**Six accepted ledger states**: normal mature, immature growth scaling,
+real UI DefIcon, forced full autumn-color material, forced cold leafless
+material, and native leafy/leafless snow display at depths 0/0.5/1.
+Original actual game captures: [Project Actions #38701213882](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38701213882);
+all 5 screenshots with game exit0/Unity ERROR0 and
+[stable review snapshot](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/tree/ea7e480a8191f774c31fdb386fc5e2e7c7641b6a/ReviewScreenshots/Hannoki/38701213882).
+Owning detailed evidence/fingerprints in
+`Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`,
+authoritative six acceptances in `Docs/PlantVisualCoverage.json`,
+current art acceptance in `Docs/ArtDirection.md`. Image binaries/Defs unchanged.
 
-A fresh isolated Windows 1.6.4871 candidate from
-`094d81f1fc9f32d621f7aaa3dbe97416997fa84b` passed all four existing profiles:
-Vanilla440/17, MO463/17, CCTO488/17, MO+CCTO511/17 map/five-tree native-cutting
-assertions; ten complete ERROR-free reports per profile. Independent re-audit,
-exact source/provider/Direct3D/error captures and payload/normal config
-preservation PASS. The same candidate DLL passed RimTest10/10 and serial
-Pickle5/5 in each profile. Both real wetlands have positive natural Hannoki,
-native yield24, correct WoodLog/MO RawWood and CCTO0/5 C+one dormancy extension.
-Canonical tested premises, source/DLL/archive hashes, raw Windows evidence and
-limitations: `Docs/ValidationEvidence/HannokiWindowsNative-20261013.md`.
-Procedure and reusable observer corrections:
-`Docs/GoldenPaths/RenderedRuntimeTests.md`. No production/gameplay/art edit.
+**One remaining visual-mechanics check**:
+`AMJ_Tree_Hannoki/transition` stays `pending`, with no claim of
+natural calendar-triggered autumn → leafless → recovery from forced scenes.
+This is **not unfinished image generation** and should be checked during
+the already planned private Workshop real-play period. The full
+`--require-complete` visual audit cannot PASS until the transition is
+actually verified. Existing Windows real-native vegetation/cutting
+evidence remains in `Docs/ValidationEvidence/HannokiWindowsNative-20261013.md`;
+its previous seven-pending status has been superseded.
 
-Earlier Chat-side Linux evidence is retained, not upgraded: the supplied owned
-1.6 game booted, source/Quicktests built reproducibly from pinned main, and
-TemperateSwamp Vanilla/CCTO strict70/70 passed; MO/MO+CCTO72/72 native
-assertions had two FMOD prelaunch ERRORs and therefore strict FAIL.
-Windows did not reproduce those errors; the Linux cause remains unresolved.
-The permanent source-build/bootstrap recipe from PR #155
-(`4dc73bcf4eb608c5959c2d9a3e96ffb605bbb4c3`) remains
-`Scripts/Build-ChatLinux.sh` and
-`Docs/GoldenPaths/ChatLinuxPublicModBootstrap.md`.
-Superseded Chat dependency/provisioning correction chains and their exact
-hashes are retained in main Git history before this queue compaction.
+**Publication remains separate**: author-scoped GitHub Actions publisher,
+private Steam credentials, exact downloaded subscriber and native smoke
+still require their own verification. Earlier Windows/Linux FMOD test
+records stay distinct from the visual decision.
 
-**Remaining:** Hannoki's seven pending human visual states, actual seasonal
-transition and snow depths, immature/icon, CCTO winter recovery, final Hannoki
-sow-menu behavior, additional seeds, MO wood-chain OFF, real legacy save
-load/re-save/add/remove, and actual Steam upload/download verification.
-The installed Workshop is still the old source. Candidate test PASS does not
-clear art/save/distributed-release HOLD or claim one-command standard-suite/
-Core-Grains/developer-probe completion.
 
 ## Publication and distribution
 
