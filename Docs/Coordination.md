@@ -298,7 +298,13 @@ This normal suite includes fixed-biome, natural-world, CCTO-focused and installe
 MO + Core/Grains scenarios. It is not the independent four-profile subscriber
 release/cutting contract, old-save E2E, or actual Steam-download verification.
 Those remain OPEN, along with any specifically required unforced per-species
-sampling not covered by the existing assertions. Older author-reported and
+sampling not covered by the existing assertions. The distinct Linux Waylith
+1.7 pinned-source **single-map loaded-Def smoke** on 2026-10-15 passed real
+Pickle 1/1, ERROR0, exit0 using an isolated .NET10 source build and genuine
+Waylith UnityStubs; see `Docs/GoldenPaths/RimWorld17Tests.md` and
+[Project Actions #38748267869](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38748267869).
+It does **not** certify the separately shipped shared net472 production DLL
+or full 1.7 Environment world/profile acceptance. Older author-reported and
 console-only result chains are preserved in Git history and the owning
 `Docs/GoldenPaths/RenderedRuntimeTests.md`; they do not substitute for a fresh
 revision-specific gate. Do not reopen unrelated feature/art work to clear tests.
