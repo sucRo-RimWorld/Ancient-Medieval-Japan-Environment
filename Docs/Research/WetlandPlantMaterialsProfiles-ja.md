@@ -2,6 +2,8 @@
 
 **日付:** 2026-10-09
 **Owner:** AMJ Environment（自然植物・自然発生・一次採取）。加工品・装備・建物は利用Modが所有。
+**後続方針（2026-10-16、Japanization全AMJ必須化）：** スゲの一次採取は承認済みどおり **Vanilla `Hay` 1を直接取得**する。MO単独／MO＋Environmentで現行MO乾燥ラックから `Hay → DankPyon_Straw` を得られる上流動作は残るが、**Japanization＋AMJ全構成**ではGrainsの穀物脱穀がStrawの供給源となり、Japanizationが乾燥ラック二種から`DankPyon_StrawProcess`の工程参照を除外する。『MOありなら必ずHayをStrawへ加工できる』という従来の一般説明はこの統合構成に当てはまらない。EnvironmentのPlantDef、Hay1収穫、既存生態・テスト、Grainsの藁Recipeは変更しない。MO上流以外の実ロード済み加工／旧セーブは未検証。日本化側パッチと設計の正本は[Japanization](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Medieval-Overhaul-Japanization/blob/main/Docs/Design.md)。
+
 **状態:** 作者指示の3プロファイル（Vanilla / MO / 他AMJ）に対する**実装前設計**。**作者確定（2026-10-09）：スゲはVanilla `Hay`／MO既存 `Hay→DankPyon_Straw` に統合し専用原料を作らない。ミズゴケは選択・情報確認・刈り取り除去可能だが、収穫・素材ドロップ・栽培は不可。** ヨシの`Hay`採用は未承認。ハンノキの木材`WoodLog`24は2026-10-13に承認され、同日の本番Def/XMLに反映した。スゲの基本収量 `Hay` 1 は2026-10-12作者承認済み。他AMJ製品Recipeも未承認。ハンノキ本番PlantDefのみ新規作成、専用採取ThingDef・Recipe・Steamは変更していない。実機の伐採・MO加工は未検証。
 
 ## 前提と改訂対象
