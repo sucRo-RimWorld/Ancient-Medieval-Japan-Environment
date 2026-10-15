@@ -2,6 +2,47 @@
 
 # 2026-10-15 current-main Linux 1.6 candidate — build and Vanilla native PASS
 
+
+## Author-approved release classification — external MO/SYR FMOD (2026-10-15)
+
+Environment does **not** add or alter sounds, sound Defs or FMOD assets.
+The exact repeated `Cannot create FMOD::Sound instance for clip ""`
+unsupported-format errors in the genuine MO/SYR provider stack occur in
+control tests *without* Environment. They are owned by the Project native/FMOD
+workstream, not an Environment crop/vegetation/world-generation defect.
+
+For an **Environment-only, private Workshop candidate** decision, an unchanged,
+independently established pair of these external FMOD errors in MO/MO+CCTO
+may be **classified as non-blocking for this Mod's functional release**
+only when all of these conditions are demonstrated on the **same exact
+candidate**:
+
+1. Actual game process exit 0, non-truncated/complete native observer
+   reports, source/ZIP/DLL identity, and original assertions for the feature
+   being tested all pass; no timeout, early crash, missing report or hidden
+   failed assertion.
+2. Every recorded Unity ERROR in the scoped MO run is exactly the established
+   blank-clip unsupported-format FMOD message; no changed error text,
+   unexpected third-party error, new runtime error or other startup fault.
+   Retain **every** raw Unity ERROR and count. Do not suppress logs, patch
+   MO/SYR sounds or relabel such a run global **ERROR0 PASS**.
+3. Vanilla and CCTO remain ERROR0; MO and MO+CCTO keep their independent
+   actual functional/biome/harvest evidence, with both **scoped functional**
+   and **strict ERROR0** statuses recorded separately.
+4. This exception does **not** waive verified physical Workshop upload
+   source, current reviewed preview, downloaded subscriber byte identity,
+   new Environment-caused exceptions or user-private visibility requirements.
+   Any new Def-breaking change gets its own targeted compatibility check.
+
+Thus the original global strict four-profile zero-ERROR suite continues to
+report **FAIL** while known MO/SYR FMOD persists, but this specific external
+audio issue alone no longer keeps an otherwise complete **Environment-only**
+private candidate on HOLD. The Project FMOD owner still investigates it.
+This is **not** a project-wide error waiver or a statement of compatibility
+with untested combinations. Stable new-save play-loop/season/save-reload
+criteria remain separately tracked, not silently satisfied.
+
+
 **Actual build and exact payload validation PASS:** Project isolated runner
 [Actions #38681874743](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38681874743)
 compiled pinned Environment `4dacbcf0fbe3399ee44795f3097b8cbe498d0ae3`
@@ -13,8 +54,8 @@ The canonical root-only `loadFolders.xml` and source/static checks PASS.
 
 **Additional same-candidate Vanilla native PASS:** 9 original map Quickstarts, **466/466**, nine game exits 0, Unity ERROR 0, split over [base #38686699729](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686699729) and [remaining #38686772083](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686772083). Source/ZIP/DLL identity verified; see exact evidence linked above.\n\n**Subsequent exact-candidate actual cutting evidence (2026-10-15):** [Vanilla and CCTO five-tree native CutPlant #38689421756](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38689421756) both **17/17, ERROR0, PASS**, with source-matched WoodLog yields 42/40/30/8/24. MO and MO+CCTO five-tree RawWood yields also match, but [MO #38689626203](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38689626203) and [MO+CCTO #38690112481](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38690112481) each log two original-MO FMOD ERRORs, so **strict FAIL**. The earlier MO+CCTO attempt [#38689992750](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38689992750) exited 139 before testing and remains separate FAIL. [Detailed tested premises and evidence](ValidationEvidence/EnvironmentCandidateLinux16-20261015.md).
 
-**Still HOLD:** full error-free MO/MO+CCTO and cross-profile native map/biome release gate, source-tracked preview acceptance, season checks, actual private upload, downloaded Workshop provenance and real subscriber smoke.
-Do not promote Vanilla-only native evidence into a complete four-profile 1.6/1.7 or Steam PASS.
+**Still HOLD:** real current-candidate CCTO/MO/MO+CCTO natural-world biome functional checks, source-tracked preview acceptance, necessary season/state checks, actual authenticated private Workshop upload, downloaded subscriber provenance and runtime smoke. **Known external MO FMOD2 alone is no longer an Environment-specific private-release blocker under the scoped contract above.**
+Do not promote Vanilla-only native evidence into a complete four-profile functional 1.6/1.7 or Steam PASS.
 The Linux test host's staged Environment game Mod is older, not this candidate.
 
 
@@ -29,9 +70,9 @@ Source now filters ten replaced Vanilla identities before scoring and the
 existing unforced world test has 24 assertions, including zero excluded tiles,
 four AMJ bands, both retained wetlands and real MO coexistence. Build a fresh
 production DLL/candidate and obtain the same-source Vanilla/MO/CCTO/MO+CCTO
-natural-world/ERROR-0 evidence before clearing this repair. Native build/runtime
+natural-world functional evidence with native ERROR audit and the scoped external-FMOD classification above before clearing this repair. Native build/runtime
 and corrected Steam upload/download are still OPEN. Prioritize this before
-wetland species/art additions; Steam remains author-manual.
+wetland species/art additions; Future upload must follow the author-approved GitHub Actions direction (not historical YADA), with owner-scoped private-only publisher credentials and exact downloaded-subscriber validation; no working Environment publisher has yet been demonstrated.
 
 ## Current candidate status (2026-10-08 JST)
 
