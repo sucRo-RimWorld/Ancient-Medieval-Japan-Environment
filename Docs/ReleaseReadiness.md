@@ -11,8 +11,9 @@ archive SHA256 `4b7707284f1b5a9d404962d21869e5914ea70aeb842951d0d45c395678e4b7c3
 The canonical root-only `loadFolders.xml` and source/static checks PASS.
 [Exact evidence and unfulfilled gates](ValidationEvidence/EnvironmentCandidateLinux16-20261015.md).
 
-**Additional same-candidate Vanilla native PASS:** 9 original map Quickstarts, **466/466**, nine game exits 0, Unity ERROR 0, split over [base #38686699729](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686699729) and [remaining #38686772083](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686772083). Source/ZIP/DLL identity verified; see exact evidence linked above.\n\n**Still HOLD:** source-tracked preview acceptance, current-candidate MO/CCTO/MO+CCTO and native cutting, season/save checks, actual
-private upload, downloaded Workshop provenance and real subscriber smoke.
+**Additional same-candidate Vanilla native PASS:** 9 original map Quickstarts, **466/466**, nine game exits 0, Unity ERROR 0, split over [base #38686699729](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686699729) and [remaining #38686772083](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686772083). Source/ZIP/DLL identity verified; see exact evidence linked above.\n\n**Subsequent exact-candidate actual cutting evidence (2026-10-15):** [Vanilla and CCTO five-tree native CutPlant #38689421756](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38689421756) both **17/17, ERROR0, PASS**, with source-matched WoodLog yields 42/40/30/8/24. MO and MO+CCTO five-tree RawWood yields also match, but [MO #38689626203](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38689626203) and [MO+CCTO #38690112481](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38690112481) each log two original-MO FMOD ERRORs, so **strict FAIL**. The earlier MO+CCTO attempt [#38689992750](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38689992750) exited 139 before testing and remains separate FAIL. [Detailed tested premises and evidence](ValidationEvidence/EnvironmentCandidateLinux16-20261015.md).
+
+**Still HOLD:** full error-free MO/MO+CCTO and cross-profile native map/biome release gate, source-tracked preview acceptance, season checks, actual private upload, downloaded Workshop provenance and real subscriber smoke.
 Do not promote Vanilla-only native evidence into a complete four-profile 1.6/1.7 or Steam PASS.
 The Linux test host's staged Environment game Mod is older, not this candidate.
 
@@ -47,6 +48,8 @@ The supplied `FourProfileAudit.json` has `passed=true` and
 source provenance and runtime checks remain unverified, as do Stable
 combined-loop/season/save criteria. Older evidence is historical.
 
+
+This specific forward-only biome-generation repair does not require comprehensive **legacy save migration** testing: existing worlds are not rewritten, and this candidate does not remove or rename Defs. Check an old-save load smoke only if a future change may break referenced Def identity. This does not waive the separate new-save save/reload continuity in the stable combined-loop criterion.
 
 Stable release additionally requires the AMJ combined basic-loop gate defined in
 Core `Docs/ReleaseCriteria.md` (author decision, 2026-10-06 JST). Actual pawn work
