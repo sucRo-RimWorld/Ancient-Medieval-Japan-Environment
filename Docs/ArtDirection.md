@@ -1,15 +1,53 @@
 # AMJ Environment — Final Art Direction
 
-## Current accepted production (2026-10-06 JST)
+## Current accepted production (2026-10-15 JST)
 
-All four AMJE species have accepted normal, immature, UI and snow appearances.
-Beech leafless/autumn appearances are also accepted; seasonal mechanics are
-verified by bounded native calendar sampling. Docs/PlantVisualCoverage.json is
-the current state record, and --require-complete passes with zero pending rows.
-Historical trial/review entries below do not override these final approvals.
-Haimatsu retains drawSize2.60, visualSizeRange0.45..0.75 and an explicit UI path
-for native UI scale1. Existing Vanilla/MO retextures remain post-release work.
+The four original AMJE species (Shii, Beech, Shirabiso, Haimatsu) retain
+accepted normal, immature, UI and snow appearances. Beech leafless/autumn
+appearance is accepted and its seasonal mechanics were verified by bounded
+native calendar sampling. **Hannoki's six rendered static appearance states**
+(normal, immature scaling, UI, autumn, leafless, snowy leafy/leafless) have
+now also been **author-accepted** in the current production candidate.
+**Hannoki's naturally occurring seasonal transition alone remains pending**
+for later in-game play, not for new art creation. The authoritative ledger
+`Docs/PlantVisualCoverage.json` therefore correctly keeps
+`AMJ_Tree_Hannoki.complete: false` and global `--require-complete` is not
+yet satisfied; do not misstate seven-of-seven completion.
+The author noted the supplied crops/zoom were hard to inspect but explicitly
+chose to adopt the existing art anyway. Do not redraw/re-scale accepted source
+to compensate for the inadequate review presentation.
+See `Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`.
+Historical trial/review sections below describe **their earlier dates only**
+and do not revoke the 2026-10-15 image acceptance.
+Haimatsu retains drawSize2.60, visualSizeRange0.45..0.75 and an explicit
+UI path for native UI scale1. Existing Vanilla/MO retextures remain deferred.
 
+
+## 2026-10-15 ハンノキ実機画像の採用
+
+作者が提示画像を見づらいと指摘した上で「まあ採用で」と回答したため、
+**本番画像を変更せず現状採用**とする。
+RimWorld 1.6の同一59ファイル配布候補を用いた実画面5セット
+（通常・未熟、UI、強制紅葉、強制落葉、葉あり／落葉積雪）を対象とする。
+画像や植物Defの再作成を要求しない。
+`Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md` に
+撮影経路・固定コミット・画像SHA-256・テストの前提を保存済み。
+
+| 本番表示状態 | 採否 | 対象・限界 |
+| --- | --- | --- |
+| 通常・成熟 | 採用 | 通常本番PNG、昼12時・Clear・停止 |
+| 未熟株 | 採用 | 同じPNGの成長率0.1/0.5/1.0による縮小 |
+| UIアイコン | 採用 | 実DefIcon 32px / 64px |
+| 紅葉 | 採用 | 本番LUT・色基準、秋色強度1の強制表示 |
+| 落葉 | 採用 | 本番落葉パス、MakeLeaflessの強制表示 |
+| 葉あり／落葉積雪 | 採用 | 両本番雪パス、積雪深0/0.5/1 |
+| 自然な紅葉→落葉→回復 | **未検証** | 強制状態の静止画から推定しない。今後の実ゲーム確認 |
+
+上記の6状態は `Docs/PlantVisualCoverage.json` の
+個別 `accepted` 行で固定する。自然季節遷移は `pending` に留める。
+作者が「どうせ後で実ゲーム確認するし」と明示した通り、
+確認は通常プレイで行い、将来問題が発見された場合のみ対応する。
+既存原画・採用済PNG・DDS・XMLの内容は変更しない。
 
 ## 2026-10-13 ブナ紅葉の基準色校正・カラーマップ採用候補
 

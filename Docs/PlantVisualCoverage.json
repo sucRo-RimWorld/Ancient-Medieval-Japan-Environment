@@ -5,32 +5,117 @@
       "complete": false,
       "states": {
         "autumn": {
-          "status": "pending",
-          "reason": "Reuse of beech LUT with Hannoki-specific source sample; no author-approved noon/Clear native color result"
+          "status": "accepted",
+          "date": "2026-10-15",
+          "author_statement": "「まあ採用で」「どうせ後で実ゲーム確認するし」（実RimWorld撮影5画面、拡大提示の見づらさは指摘）",
+          "evidence": "Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md",
+          "fingerprint": {
+            "definition": "933b89f1882041a445fd9c7f1d02868f7f64bccd7bedb568e0d7516d3a998013",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
+              "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
+            }
+          },
+          "review_kind": "color",
+          "color_conditions": {
+            "local_hour": 12,
+            "weather": "Clear",
+            "paused": true,
+            "weather_transition_complete": true,
+            "season": "isolate Quickstart generated world; forced autumn shader (not natural seasonal timing)",
+            "shader_intensity": 1,
+            "zoom": 18,
+            "evidence": "Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md",
+            "verified": true
+          }
         },
         "icon": {
-          "status": "pending",
-          "reason": "Production asset/loaded state not yet reviewed"
+          "status": "accepted",
+          "date": "2026-10-15",
+          "author_statement": "「まあ採用で」「どうせ後で実ゲーム確認するし」（実RimWorld撮影5画面、拡大提示の見づらさは指摘）",
+          "evidence": "Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md",
+          "fingerprint": {
+            "definition": "933b89f1882041a445fd9c7f1d02868f7f64bccd7bedb568e0d7516d3a998013",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
+              "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
+            }
+          }
         },
         "immature": {
-          "status": "pending",
-          "reason": "Uses normal sprite scaled by growth, not a separate immature image; native size not reviewed"
+          "status": "accepted",
+          "date": "2026-10-15",
+          "author_statement": "「まあ採用で」「どうせ後で実ゲーム確認するし」（実RimWorld撮影5画面、拡大提示の見づらさは指摘）",
+          "evidence": "Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md",
+          "fingerprint": {
+            "definition": "933b89f1882041a445fd9c7f1d02868f7f64bccd7bedb568e0d7516d3a998013",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
+              "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
+            }
+          },
+          "note": "Normal sprite scaled with live Growth 0.1/0.5/1.0; no separate immature source asset"
         },
         "leafless": {
-          "status": "pending",
-          "reason": "Review candidate is only provisional; in-game form and season transitions not yet accepted"
+          "status": "accepted",
+          "date": "2026-10-15",
+          "author_statement": "「まあ採用で」「どうせ後で実ゲーム確認するし」（実RimWorld撮影5画面、拡大提示の見づらさは指摘）",
+          "evidence": "Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md",
+          "fingerprint": {
+            "definition": "72555caf277b83bbe0d3bd4a6e1705e8f58d1ee9b828e75ff51a8cf81a4d4f2b",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
+              "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003"
+            }
+          },
+          "note": "Forced Plant.MakeLeafless(COLD,false) temporary review setup; not proof of natural seasonal timing"
         },
         "normal": {
-          "status": "pending",
-          "reason": "Production asset/loaded state not yet reviewed"
+          "status": "accepted",
+          "date": "2026-10-15",
+          "author_statement": "「まあ採用で」「どうせ後で実ゲーム確認するし」（実RimWorld撮影5画面、拡大提示の見づらさは指摘）",
+          "evidence": "Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md",
+          "fingerprint": {
+            "definition": "933b89f1882041a445fd9c7f1d02868f7f64bccd7bedb568e0d7516d3a998013",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
+              "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
+            }
+          }
         },
         "snow": {
-          "status": "pending",
-          "reason": "Both foliage and leafless snow source overlays approved provisionally; no actual native winter render"
+          "status": "accepted",
+          "date": "2026-10-15",
+          "author_statement": "「まあ採用で」「どうせ後で実ゲーム確認するし」（実RimWorld撮影5画面、拡大提示の見づらさは指摘）",
+          "evidence": "Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md",
+          "fingerprint": {
+            "definition": "c098ed76ac0726c6647d18114048a6a31dc62446fbf96609dac0b81cc0e55281",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
+              "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2",
+              "Textures/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png": "ecc2c0412e030eb19f3f45ab016aaed94a3b1e7b37f66d6db8375f573651df16",
+              "Textures/Things/Plant/AMJ/Hannoki_Leafless_Snow/Hannoki_Leafless_Snow_A.png": "41e7548dfc2f93839e1ff4c55d3ddbffffd0c6a8e6f09c45ba09cdd0f35ad640"
+            }
+          },
+          "reviewed_variants": [
+            "leafy",
+            "leafless"
+          ],
+          "snow_depths": [
+            0,
+            0.5,
+            1
+          ]
         },
         "transition": {
           "status": "pending",
-          "reason": "Production asset/loaded state not yet reviewed"
+          "reason": "Author accepted current static Hannoki image states on 2026-10-15 and will check actual natural autumn/leafless/recovery timing in later real gameplay. No native real-season transition evidence exists from the forced screenshots.",
+          "scope": "natural transition mechanics only; no additional art generation requested"
         }
       }
     },

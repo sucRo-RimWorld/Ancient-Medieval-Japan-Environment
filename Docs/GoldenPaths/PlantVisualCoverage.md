@@ -7,7 +7,7 @@ are different evidence types. Never use one to satisfy another.
 
 Before resuming plant art, choosing the next target, reporting completion or
 handing off, run `python Tests/validate_plant_visual_coverage.py` and read every
-pending row. Before claiming that all four AMJE plants are complete, run it with
+pending row. Before claiming that all five implemented AMJE plants are complete, run it with
 `--require-complete`; pending rows make that command fail. Ordinary PR/CI validation
 runs without `--require-complete`: pending image reviews are expected during
 incremental development and cannot by themselves block merging an unrelated or
@@ -49,6 +49,21 @@ Log the selected plant's count, position and growth where possible.
 After an author accepts a state, update only the corresponding ledger rows,
 ArtDirection and main Coordination. Report completed states and remaining states
 explicitly. Do not label the whole plant or ENV-010 DONE from one accepted state.
+
+**2026-10-15 Hannoki acceptance scope:** the author explicitly adopted the
+six presented *static native appearance* states despite the small screenshots
+(normal, immature scaling, UI, forced autumn, forced leafless, native snow).
+Do not treat the screenshot's forced autumn/leafless scenes as a naturally
+occurring calendar transition. Record the six per-state production fingerprints
+as accepted; retain **transition pending** for the author's later normal play
+review. The image production work itself does not need a new art pass.
+`--require-complete` must still reject any assertion that all seven states
+are fully verified until natural transition evidence is obtained. A clearly
+labeled **private author playtest upload**, if independently authorized and
+otherwise release-ready, may be used to obtain that later gameplay evidence;
+it is not a public all-state acceptance or a reason to fake the strict check.
+See `Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`.
+
 
 ## Controlled color review
 

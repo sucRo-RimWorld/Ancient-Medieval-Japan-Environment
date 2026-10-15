@@ -10,134 +10,66 @@ Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs
 
 **Immediate remaining priority:** existing author-owned GitHub Actions private-only Workshop uploader, verified isolated publisher credentials and original item `3814638060` state; review current tracked preview/source identity, stage **exact candidate** (not development root), then compare **actual downloaded** Workshop bytes/loader/DLL and run downloaded native smoke. No working Environment publisher/authenticated state has been demonstrated; do **not** borrow CCTO-for-VPE Steam auth/runner, do not revert to YADA and do not claim upload. Separate stable play-loop/season/new-save criteria remain; comprehensive legacy-world migration is not required for unchanged Def identities.
 
-### ENV-BIOME-REPLACEMENT-20261012 — inappropriate Vanilla biomes
+### ENV-BIOME-REPLACEMENT-20261012 — solved in source; Steam distribution open
 
-**Owner:** Environment world generation / existing native test gates
-**Status:** SOURCE REPAIR IMPLEMENTED; WINDOWS BUILD / FOUR-PROFILE NATURAL-WORLD / CANDIDATE MAP-CUTTING / LOADED RIMTEST PASS; HARNESS CORRECTIONS AUTHORIZED FOR PR INTEGRATION; STEAM CORRECTION OPEN
+**Owner:** Environment world generation / Workshop publication  
+**Status:** SOURCE REPAIR + PINNED CANDIDATE FOUR-PROFILE BIOME FUNCTIONAL PASS; DISTRIBUTED WORKSHOP NOT YET UPDATED
 
-The author reports TropicalRainforest/TropicalSwamp in the installed Workshop
-build and explicitly made this repair the highest execution priority. This
-supersedes the earlier instruction to continue wetland Step 3 first: pause
-wetland species/art and other feature expansion until the biome repair has
-fresh natural-world evidence. Project priority/roadmap/handoff are reflected
-in Project main `9156770a7f857db033e847f08c952ddc75166d26` (PR #19).
+The source `Docs/Design.md` §9.2.1 excludes ten inappropriate base Vanilla
+world biomes (including tropical rainforest/swamp) and retains audited wetland
+and MO compatibility. Actual four-provider native 24/24 natural-world
+functional checks against the current 59-file pinned candidate and native
+Vanilla nine-map 466/466 evidence are summarized above and retained in
+`Docs/ValidationEvidence/EnvironmentCandidateLinux16-20261015.md`
+and `Docs/ReleaseReadiness.md`; strict MO-only FMOD ERROR2 is separately
+classified under the owner-scoped private release policy. Do not reuse
+the historical October 12 32-file candidate/source evidence to certify
+the newer 59-file candidate. Existing saved worlds are not rewritten.
 
-Canonical corrected scope/inventory: `Docs/Design.md` §9.2.1. The production
-root-surface selector excludes ten original Vanilla identities before Worker
-scoring, retains the two audited wetlands and water, and leaves MO scoring /
-Def ownership intact. Existing saved worlds are not rewritten. The former
-residual-Vanilla acceptance is revoked; old distribution/fixed-map PASS cannot
-certify this repair.
+**Only outstanding correction publication:** actual private Steam item
+`3814638060` still needs an owner-authorized GitHub Actions publisher,
+exact physical candidate upload, independent downloaded subscriber
+identity and runtime smoke. Historic failed launches/source-gate
+observations remain in their formal evidence and main Git history.
 
-The existing unforced WorldWetlandDistribution Quickstart now has 24
-assertions including each excluded biome == 0 over ALL surface tiles, four
-AMJ bands, actual wetlands, natural-generation availability of both adopted
-wetland Defs and DarkForest when MO is loaded. Each seed need not contain
-both wetland types; native Workers still select the subtype. The
-existing ten-test RimTest replaces its threshold-only test with 128 real
-loaded-Worker production-selector combinations plus ocean handling. The
-existing four-profile hidden payload runner accepts `--world-biomes-only` for
-this same natural-world scenario and reports scoped biome evidence separately
-from full map/native-cutting release acceptance. Procedure:
-`Docs/GoldenPaths/RenderedRuntimeTests.md`; release remains gated by
-`Docs/ReleaseReadiness.md` and publication provenance.
+### ENV-HANNOKI-APPEARANCE-20261015 — accepted static art; season playcheck open
 
-2026-10-12 Windows closeout: built the source and corrected test observer
-against the installed RimWorld DLL. The exact 32-file candidate from
-`50c1c9286e3f48260dc96cbfd828aa4967a10801` remains unchanged. Inspected native
-natural-world reports pass 24/24 in Vanilla, MO, CCTO and MO+CCTO with complete
-live capture, no prelaunch/runtime ERROR, verified loaded source, Direct3D
-rendering and preserved normal ModsConfig/Prefs. Evidence roots:
-`C:/Users/sucRo/AppData/Local/Temp/AMJE-WetlandContract-20261012` (Vanilla)
-and `AMJE-WetlandContract-Remaining-20261012` (MO/CCTO/MO+CCTO).
-The initial MO startup-race attempt remains recorded as failed; only the
-subsequent fresh ERROR-zero MO run is accepted. These are scoped natural-world
-results across two runs, not a full release/cutting PASS. ColdBog count zero
-on this seed is not a defect: the diagnostic found all 903 wetland candidates
-at 13.12–19.97 C and native TemperateSwamp scores higher on every candidate.
-Both wetland Defs remain naturally available; existing fixed-biome ColdBog
-regressions remain required. No climate, wetland candidate, native Worker,
-vegetation or production DLL change was made for this test correction.
-Static publication/ecology/tree/visual checks pass; unimplemented plant
-acceptance remains SKIP. The independent full candidate audit now passes:
-Vanilla426/15, MO449/15, CCTO474/15, MO+CCTO497/15 map/native-cutting
-assertions, ten reports and zero runtime ERROR per profile. Exact 32-file
-payload and normal config are preserved. Canonical audit:
-`C:/Users/sucRo/AppData/Local/Temp/AMJE-FullRelease-Remaining-20261012/FourProfileAudit.json`;
-raw results at `AMJE-FullRelease-Fixed-20261012` and
-`AMJE-FullRelease-Remaining-20261012`. The first full run mistakenly included
-unapproved development plant probes without their disposable Defs; release
-staging now excludes only those probe calls, leaving developer probes and
-all production assertions intact. The original MO runner later rejected its
-complete 10 native reports against stale non-MO counts; the independent
-auditor rechecks every actual report/source/render/error/preservation gate
-using the corrected MO count table and records MO as independently recovered.
-Original failed outcomes remain preserved; they are not relabelled PASS.
-Loaded RimTest10/10 also passes, including 128 real Worker/production-selector
-conditions and ocean handling, at `AMJE-CandidateRimTest-20261012`.
-Its production assembly path and candidate bytes were checked through an
-About-only temporary candidate; the normal development installation was not
-replaced. The signed research evidence retains canonical LF bytes via a
-single-path Git attribute; its approved SHA256/content are unchanged.
-The author authorized the local harness/doc corrections for topic-branch
-commit/push, PR, exact-head CI verification and protected main integration
-on 2026-10-12. GitHub integration evidence is separate from the candidate tests. No new-main, full `run-tests.bat`, stable/save-season or
-Steam subscriber PASS is claimed. Steam upload remains author-manual; actual
-downloaded source/DLL and distributed four-profile correction remain OPEN.
+**Owner:** Environment plant visuals / normal gameplay follow-up
+**Status:** SIX CURRENT PRODUCTION VISUAL STATES AUTHOR-ACCEPTED; NATURAL SEASON TRANSITION PENDING IN-GAME PLAYCHECK; STEAM DISTRIBUTION STILL OPEN
 
-### ENV-HANNOKI-LEAFLESS-SNOW-20261013 — production source and Windows native verification
+The author reviewed five real Linux RimWorld 1.6 screenshots from the exact
+59-file current candidate and explicitly said **「まあ採用で」** despite
+the small/hard-to-review presentation; **「どうせ後で実ゲーム確認するし」**
+assigns natural seasonal change to later normal gameplay. The original
+sprites/overlays, as opposed to the poor display presentation, are accepted;
+do not schedule image re-generation, unrequested enlargement or replacement.
 
-**Owner:** Environment / wetland plant art and native tests
-**Status:** WINDOWS 1.6 FOUR-PROFILE MAP / NATIVE CUTTING / RIMTEST / PICKLE PASS; SEVEN VISUAL STATES / SEASON / OLD SAVE / MO WOOD-CHAIN OFF / STEAM OPEN; LINUX MIGRATION DEFERRED
+**Six accepted ledger states**: normal mature, immature growth scaling,
+real UI DefIcon, forced full autumn-color material, forced cold leafless
+material, and native leafy/leafless snow display at depths 0/0.5/1.
+Original actual game captures: [Project Actions #38701213882](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38701213882);
+all 5 screenshots with game exit0/Unity ERROR0 and
+[stable review snapshot](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/tree/ea7e480a8191f774c31fdb386fc5e2e7c7641b6a/ReviewScreenshots/Hannoki/38701213882).
+Owning detailed evidence/fingerprints in
+`Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`,
+authoritative six acceptances in `Docs/PlantVisualCoverage.json`,
+current art acceptance in `Docs/ArtDirection.md`. Image binaries/Defs unchanged.
 
-The author accepted the exact Hannoki source/state artwork and numerical
-comparison through PR #145 (`e91f58194b525456ee006e35d751c755b0c376b8`).
-The production-native assertions were integrated through PR #147
-(`fa4fc045fc8ccbc6252d4b3c0bd8ca9f2b500985`).
-Approved artwork/bytes and approval limits remain in `Docs/ArtDirection.md`;
-confirmed values and wood-pool transfers remain in
-`Docs/NativeVegetationStep3Design-ja.md` §3.1.2 and production XML.
-Shared beech fall conversion remains a native visual candidate, not author
-color acceptance. Leafless branch-shape/state acceptance remains provisional.
+**One remaining visual-mechanics check**:
+`AMJ_Tree_Hannoki/transition` stays `pending`, with no claim of
+natural calendar-triggered autumn → leafless → recovery from forced scenes.
+This is **not unfinished image generation** and should be checked during
+the already planned private Workshop real-play period. The full
+`--require-complete` visual audit cannot PASS until the transition is
+actually verified. Existing Windows real-native vegetation/cutting
+evidence remains in `Docs/ValidationEvidence/HannokiWindowsNative-20261013.md`;
+its previous seven-pending status has been superseded.
 
-2026-10-13 latest author instruction: **do not migrate to Linux yet; execute
-available tests**. This explicitly authorizes the available Windows test run.
-It does not authorize shared-host provisioning or renewed per-chat Linux
-installation/builds. The planned persistent-host architecture remains owned by
-Project `Docs/SharedNativeTestHost.md`; deployment/dispatch selection is OPEN.
+**Publication remains separate**: author-scoped GitHub Actions publisher,
+private Steam credentials, exact downloaded subscriber and native smoke
+still require their own verification. Earlier Windows/Linux FMOD test
+records stay distinct from the visual decision.
 
-A fresh isolated Windows 1.6.4871 candidate from
-`094d81f1fc9f32d621f7aaa3dbe97416997fa84b` passed all four existing profiles:
-Vanilla440/17, MO463/17, CCTO488/17, MO+CCTO511/17 map/five-tree native-cutting
-assertions; ten complete ERROR-free reports per profile. Independent re-audit,
-exact source/provider/Direct3D/error captures and payload/normal config
-preservation PASS. The same candidate DLL passed RimTest10/10 and serial
-Pickle5/5 in each profile. Both real wetlands have positive natural Hannoki,
-native yield24, correct WoodLog/MO RawWood and CCTO0/5 C+one dormancy extension.
-Canonical tested premises, source/DLL/archive hashes, raw Windows evidence and
-limitations: `Docs/ValidationEvidence/HannokiWindowsNative-20261013.md`.
-Procedure and reusable observer corrections:
-`Docs/GoldenPaths/RenderedRuntimeTests.md`. No production/gameplay/art edit.
-
-Earlier Chat-side Linux evidence is retained, not upgraded: the supplied owned
-1.6 game booted, source/Quicktests built reproducibly from pinned main, and
-TemperateSwamp Vanilla/CCTO strict70/70 passed; MO/MO+CCTO72/72 native
-assertions had two FMOD prelaunch ERRORs and therefore strict FAIL.
-Windows did not reproduce those errors; the Linux cause remains unresolved.
-The permanent source-build/bootstrap recipe from PR #155
-(`4dc73bcf4eb608c5959c2d9a3e96ffb605bbb4c3`) remains
-`Scripts/Build-ChatLinux.sh` and
-`Docs/GoldenPaths/ChatLinuxPublicModBootstrap.md`.
-Superseded Chat dependency/provisioning correction chains and their exact
-hashes are retained in main Git history before this queue compaction.
-
-**Remaining:** Hannoki's seven pending human visual states, actual seasonal
-transition and snow depths, immature/icon, CCTO winter recovery, final Hannoki
-sow-menu behavior, additional seeds, MO wood-chain OFF, real legacy save
-load/re-save/add/remove, and actual Steam upload/download verification.
-The installed Workshop is still the old source. Candidate test PASS does not
-clear art/save/distributed-release HOLD or claim one-command standard-suite/
-Core-Grains/developer-probe completion.
 
 ## Publication and distribution
 
