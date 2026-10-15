@@ -1,5 +1,23 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+# 2026-10-15 current-main Linux 1.6 candidate evidence (build/static only)
+
+**Actual build and exact payload validation PASS:** Project isolated runner
+[Actions #38681874743](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38681874743)
+compiled pinned Environment `4dacbcf0fbe3399ee44795f3097b8cbe498d0ae3`
+against real Linux 1.6 managed assemblies, then validated a **59-file** payload
+and ZIP. DLL SHA256 `29c41ebf8998db993ac496d7d5800b9ae39fec613490dee8da6a721cad702996`,
+archive SHA256 `4b7707284f1b5a9d404962d21869e5914ea70aeb842951d0d45c395678e4b7c3`.
+The canonical root-only `loadFolders.xml` and source/static checks PASS.
+[Exact evidence and unfulfilled gates](ValidationEvidence/EnvironmentCandidateLinux16-20261015.md).
+
+**Still HOLD:** source-tracked preview acceptance, current-candidate loaded RimWorld
+four-profile natural-world/native-cutting/ERROR-zero, season/save checks, actual
+private upload, downloaded Workshop provenance and real subscriber smoke.
+Do not promote this build-only evidence into a native 1.6/1.7 or Steam PASS.
+The Linux test host's staged Environment game Mod is older, not this candidate.
+
+
 ## Highest-priority biome replacement repair — 2026-10-12 JST
 
 The author reports tropical rainforest/swamp in the installed Workshop build.
