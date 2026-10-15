@@ -10,80 +10,27 @@ Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs
 
 **Immediate remaining priority:** existing author-owned GitHub Actions private-only Workshop uploader, verified isolated publisher credentials and original item `3814638060` state; review current tracked preview/source identity, stage **exact candidate** (not development root), then compare **actual downloaded** Workshop bytes/loader/DLL and run downloaded native smoke. No working Environment publisher/authenticated state has been demonstrated; do **not** borrow CCTO-for-VPE Steam auth/runner, do not revert to YADA and do not claim upload. Separate stable play-loop/season/new-save criteria remain; comprehensive legacy-world migration is not required for unchanged Def identities.
 
-### ENV-BIOME-REPLACEMENT-20261012 — inappropriate Vanilla biomes
+### ENV-BIOME-REPLACEMENT-20261012 — solved in source; Steam distribution open
 
-**Owner:** Environment world generation / existing native test gates
-**Status:** SOURCE REPAIR IMPLEMENTED; WINDOWS BUILD / FOUR-PROFILE NATURAL-WORLD / CANDIDATE MAP-CUTTING / LOADED RIMTEST PASS; HARNESS CORRECTIONS AUTHORIZED FOR PR INTEGRATION; STEAM CORRECTION OPEN
+**Owner:** Environment world generation / Workshop publication  
+**Status:** SOURCE REPAIR + PINNED CANDIDATE FOUR-PROFILE BIOME FUNCTIONAL PASS; DISTRIBUTED WORKSHOP NOT YET UPDATED
 
-The author reports TropicalRainforest/TropicalSwamp in the installed Workshop
-build and explicitly made this repair the highest execution priority. This
-supersedes the earlier instruction to continue wetland Step 3 first: pause
-wetland species/art and other feature expansion until the biome repair has
-fresh natural-world evidence. Project priority/roadmap/handoff are reflected
-in Project main `9156770a7f857db033e847f08c952ddc75166d26` (PR #19).
+The source `Docs/Design.md` §9.2.1 excludes ten inappropriate base Vanilla
+world biomes (including tropical rainforest/swamp) and retains audited wetland
+and MO compatibility. Actual four-provider native 24/24 natural-world
+functional checks against the current 59-file pinned candidate and native
+Vanilla nine-map 466/466 evidence are summarized above and retained in
+`Docs/ValidationEvidence/EnvironmentCandidateLinux16-20261015.md`
+and `Docs/ReleaseReadiness.md`; strict MO-only FMOD ERROR2 is separately
+classified under the owner-scoped private release policy. Do not reuse
+the historical October 12 32-file candidate/source evidence to certify
+the newer 59-file candidate. Existing saved worlds are not rewritten.
 
-Canonical corrected scope/inventory: `Docs/Design.md` §9.2.1. The production
-root-surface selector excludes ten original Vanilla identities before Worker
-scoring, retains the two audited wetlands and water, and leaves MO scoring /
-Def ownership intact. Existing saved worlds are not rewritten. The former
-residual-Vanilla acceptance is revoked; old distribution/fixed-map PASS cannot
-certify this repair.
-
-The existing unforced WorldWetlandDistribution Quickstart now has 24
-assertions including each excluded biome == 0 over ALL surface tiles, four
-AMJ bands, actual wetlands, natural-generation availability of both adopted
-wetland Defs and DarkForest when MO is loaded. Each seed need not contain
-both wetland types; native Workers still select the subtype. The
-existing ten-test RimTest replaces its threshold-only test with 128 real
-loaded-Worker production-selector combinations plus ocean handling. The
-existing four-profile hidden payload runner accepts `--world-biomes-only` for
-this same natural-world scenario and reports scoped biome evidence separately
-from full map/native-cutting release acceptance. Procedure:
-`Docs/GoldenPaths/RenderedRuntimeTests.md`; release remains gated by
-`Docs/ReleaseReadiness.md` and publication provenance.
-
-2026-10-12 Windows closeout: built the source and corrected test observer
-against the installed RimWorld DLL. The exact 32-file candidate from
-`50c1c9286e3f48260dc96cbfd828aa4967a10801` remains unchanged. Inspected native
-natural-world reports pass 24/24 in Vanilla, MO, CCTO and MO+CCTO with complete
-live capture, no prelaunch/runtime ERROR, verified loaded source, Direct3D
-rendering and preserved normal ModsConfig/Prefs. Evidence roots:
-`C:/Users/sucRo/AppData/Local/Temp/AMJE-WetlandContract-20261012` (Vanilla)
-and `AMJE-WetlandContract-Remaining-20261012` (MO/CCTO/MO+CCTO).
-The initial MO startup-race attempt remains recorded as failed; only the
-subsequent fresh ERROR-zero MO run is accepted. These are scoped natural-world
-results across two runs, not a full release/cutting PASS. ColdBog count zero
-on this seed is not a defect: the diagnostic found all 903 wetland candidates
-at 13.12–19.97 C and native TemperateSwamp scores higher on every candidate.
-Both wetland Defs remain naturally available; existing fixed-biome ColdBog
-regressions remain required. No climate, wetland candidate, native Worker,
-vegetation or production DLL change was made for this test correction.
-Static publication/ecology/tree/visual checks pass; unimplemented plant
-acceptance remains SKIP. The independent full candidate audit now passes:
-Vanilla426/15, MO449/15, CCTO474/15, MO+CCTO497/15 map/native-cutting
-assertions, ten reports and zero runtime ERROR per profile. Exact 32-file
-payload and normal config are preserved. Canonical audit:
-`C:/Users/sucRo/AppData/Local/Temp/AMJE-FullRelease-Remaining-20261012/FourProfileAudit.json`;
-raw results at `AMJE-FullRelease-Fixed-20261012` and
-`AMJE-FullRelease-Remaining-20261012`. The first full run mistakenly included
-unapproved development plant probes without their disposable Defs; release
-staging now excludes only those probe calls, leaving developer probes and
-all production assertions intact. The original MO runner later rejected its
-complete 10 native reports against stale non-MO counts; the independent
-auditor rechecks every actual report/source/render/error/preservation gate
-using the corrected MO count table and records MO as independently recovered.
-Original failed outcomes remain preserved; they are not relabelled PASS.
-Loaded RimTest10/10 also passes, including 128 real Worker/production-selector
-conditions and ocean handling, at `AMJE-CandidateRimTest-20261012`.
-Its production assembly path and candidate bytes were checked through an
-About-only temporary candidate; the normal development installation was not
-replaced. The signed research evidence retains canonical LF bytes via a
-single-path Git attribute; its approved SHA256/content are unchanged.
-The author authorized the local harness/doc corrections for topic-branch
-commit/push, PR, exact-head CI verification and protected main integration
-on 2026-10-12. GitHub integration evidence is separate from the candidate tests. No new-main, full `run-tests.bat`, stable/save-season or
-Steam subscriber PASS is claimed. Steam upload remains author-manual; actual
-downloaded source/DLL and distributed four-profile correction remain OPEN.
+**Only outstanding correction publication:** actual private Steam item
+`3814638060` still needs an owner-authorized GitHub Actions publisher,
+exact physical candidate upload, independent downloaded subscriber
+identity and runtime smoke. Historic failed launches/source-gate
+observations remain in their formal evidence and main Git history.
 
 ### ENV-HANNOKI-APPEARANCE-20261015 — accepted static art; season playcheck open
 
