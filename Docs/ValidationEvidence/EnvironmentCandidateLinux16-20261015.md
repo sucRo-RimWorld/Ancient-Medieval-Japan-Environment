@@ -1,8 +1,8 @@
 # AMJ Environment — isolated Linux 1.6 current-main candidate build
 
 **Date:** 2026-10-15 JST  
-**Scope:** source build, exact payload audit, and native Linux 1.6 Vanilla nine-map Quickstarts.
-**NOT a native four-profile, subscriber, native-cutting, Steam upload, save/season or visual acceptance.**
+**Scope:** source build, exact payload, real 1.6 Vanilla nine-map Quickstarts, four-provider natural-world biome checks and four-provider native cutting checks.
+**NOT** a complete four-provider strict ERROR0 full-map matrix, Steam subscriber, private publication, save/season or preview-visual approval.
 
 ## Authoritative evidence
 
@@ -22,7 +22,9 @@
 | Canonical subscriber root loader, missing state checks | PASS |
 | ZIP CRC, file-by-file byte identity and external manifest | PASS |
 | Native RimWorld 1.6 Vanilla original nine map Quickstarts | **PASS 466/466, 9/9 scenarios, ERROR 0** |
-| Native MO/CCTO/MO+CCTO, cutting, save and season | **NOT RUN on this candidate** |
+| Four-provider unforced natural-world biome assertions | **24/24 each; scoped functional PASS x4**, Vanilla/CCTO ERROR0, MO/MO+CCTO each FMOD2 strict FAIL |
+| Five-tree actual pawn cutting | **17/17 each in Vanilla/CCTO**, MO/MO+CCTO output correct but FMOD2 strict FAIL |
+| Old-save migration/season or stable full play loop | **NOT RUN**, not required for forward-only biome correction; separate stable criteria remain |
 | Downloaded Steam Workshop `3814638060` | **NOT UPDATED OR VERIFIED** |
 | Preview image author acceptance | **NOT VERIFIED** |
 
@@ -103,10 +105,12 @@ The focused single MO+CCTO command avoids rerunning already failed MO.
 merged as `d9f7d9cbe54bd11b465e991cdd148be7502058fc`.
 No upstream sounds or logs were changed/suppressed. The identified FMOD
 startup errors also occur in other real-MO owner tests; audio remediation
-belongs to the Project shared native/FM0D workstream and is a release
-blocker rather than a missing AMJE plant yield. No actual full four-profile
+belongs to the Project shared native/FMOD workstream. The author has explicitly
+classified this exact independently reproduced external error pair as non-blocking
+for Environment's private functional-release decision under `Docs/ReleaseReadiness.md`;
+it still strictly fails the original global ERROR0 suite. No actual full four-profile
 ERROR0 release PASS is claimed. Remaining release gates:
-CCTO/MO map/biome matrices, accepted preview, seasonal checks,
+accepted preview, appropriate season/state checks,
 source-specific Workshop upload/download and subscriber runtime verification.
 
 **Legacy save scope:** This biome-selection correction is forward-looking
@@ -117,3 +121,56 @@ candidate. Extensive old-save compatibility tests are not required for
 this specific change; a narrowly scoped load smoke is warranted only if
 future changes remove/rename referenced Defs. The separate future stable
 new-save save/reload continuity requirement is not hereby proven.
+
+## 2026-10-15 exact 59-file candidate — four real loaded-provider natural-world checks
+
+This is the **same pinned implementation source, ZIP and production DLL** as the
+above Vanilla nine-map and native cutting tests. The original Environment
+`AMJWorldWetlandDistributionQuickstart` is run on the **unforced 30%-coverage
+world** in real RimWorld Linux 1.6, using actual installed providers, with no
+replacement of the isolated host game and no Steam upload.
+
+Each profile checks the *independent* 24-label inventory:
+7 natural world / wetland conditions (land >=2000, all assigned,
+wetland candidates and naturally selected wetland exist, all wetland tiles
+are valid candidates, wetland share <=20%);
+all 10 prohibited base Vanilla biome identities are absent on **all**
+surface tiles, including SeaIce; all 4 AMJ climate bands are present;
+TemperateSwamp/ColdBog remain naturally placeable; and the MO DarkForest
+coexists when loaded. Both wetland subtypes **need not simultaneously occur**
+in the selected seed. Original native reports had 24 assertion PASS and
+0 failed per profile; native game exit0 and complete live capture.
+
+| Profile | Exact candidate native report | Unity errors | Gate classification |
+| --- | --- | ---: | --- |
+| Vanilla | [earlier full 9 Quickstarts #38686772083](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686772083), unforced natural world **24/24** | 0 | strict ERROR0 + scoped functional **PASS** |
+| CCTO | [#38693096172](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38693096172), **24/24** | 0 | strict ERROR0 + scoped functional **PASS** |
+| MO | [#38693109757](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38693109757), **24/24** | 2 exact known FMOD | scoped functional **PASS**; strict ERROR0 **FAIL** |
+| MO+CCTO | [#38693122496](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38693122496), **24/24** | 2 exact known FMOD | scoped functional **PASS**; strict ERROR0 **FAIL** |
+
+The initial CCTO [#38692321756](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38692321756),
+MO [#38692329465](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38692329465)
+and MO+CCTO [#38692339487](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38692339487)
+reports each contained all **24 original assertion PASS, exit0**, but a
+separate wrapper incorrectly read `version_seen` only from launcher stdout
+rather than RimWorld's actual Unity `-logFile`, giving a wrapper false
+FAIL. Project [PR #297](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/pull/297)
+merged as `2b0033e6be81b90cb238b68617690839db4922c8`;
+the corrected observer reads native Unity and retains independent launcher
+supplemental errors. It has eight offline regression guards for new ERRORs,
+wrong profiles, early crash, failed original assertions and missing version.
+**None of the first failures has been relabelled PASS.**
+
+The two exact audio messages retained in each later MO run are
+`Cannot create FMOD::Sound instance for clip ""` /
+`FMOD error: Unsupported file or audio format.`, already observed in
+controlled tests without Environment. Raw Unity ERROR count is **2**, never
+reinterpreted as zero. The governing owner exception is narrowly limited
+to the **Environment-only private functional release gate**.
+No sound fixes, test assertion removals or producer-asset edits were made.
+
+**Release status:** Environment four-provider biome replacement **functional
+PASS**, original global ERROR0 four-profile strict **FAIL** due known external
+audio. The actual GitHub Actions private Steam publisher/verified owner state,
+accepted preview/source match, downloaded subscriber provenance and
+post-update smoke remain OPEN. No Workshop bytes or visibility were changed.
