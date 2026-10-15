@@ -12,7 +12,7 @@ This was executed via Project PR #260/main `bcb46071ed1eb6eefaabee0b50590898309f
 without modifying old staged game Mods. Exact DLL and archive hashes plus
 unresolved preview, native four-profile, save/season and Steam gates are in
 `Docs/ValidationEvidence/EnvironmentCandidateLinux16-20261015.md`.
-**Candidate native test and actual Workshop correction remain OPEN**;
+**2026-10-15 subsequent native candidate evidence:** exact source/ZIP/DLL validated under disposable full-copy Linux 1.6 Vanilla profile. [Base four native maps #38686699729](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686699729) **293/293 PASS**, [remaining five maps #38686772083](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686772083) **173/173 PASS**: **9/9, 466/466, native ERROR0 and each game exit0**. Project PR #274 was merged as `cd957c65139f7a2e178cd69b5a668304bf933c20`; original pinned host Mod unchanged. Exact evidence in `Docs/ValidationEvidence/EnvironmentCandidateLinux16-20261015.md`. **MO/CCTO/MO+CCTO, same-candidate real cutting, save/season, preview approval and actual Steam subscriber remain OPEN;**\n
 neither older source-scoped PASS nor current build-only PASS clears release HOLD.
 The newer author GitHub-Actions publication direction supersedes YADA-only
 operational assumptions; reconcile publication implementation separately
