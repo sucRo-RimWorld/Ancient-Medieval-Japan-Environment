@@ -1,5 +1,7 @@
 # Release candidate packaging
 
+**Current owner exception (2026-10-15):** Native Unity ERRORs are still counted and the strict global ERROR0 criterion remains unchanged. The independently reproduced, identical MO/SYR blank-clip FMOD startup errors alone may be non-blocking for Environment's private functional-release decision, but only with full original assertions, clean game exit, original source identity, and no other errors or crash. Formal conditions: `Docs/ReleaseReadiness.md`. Future publication uses an owner-authorized GitHub Actions private-only pipeline rather than historical YADA upload.
+
 For any Workshop publication/update, use [WorkshopPublication.md](WorkshopPublication.md)
 and `Scripts/Build-WorkshopPayload.py`. The historical workspace ZIP procedure
 below is retained as local art-review evidence; it does not prove a pinned
