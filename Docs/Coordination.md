@@ -2,6 +2,12 @@
 
 Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs and procedures remain in `Docs/Design.md`, `Docs/GoldenPaths/`, and production source/tests. Historical DONE/superseded details have been condensed; the pre-compaction Git history plus canonical owner docs retain original evidence. This is a status queue, not a second specification.
 
+### ENV-WETLAND-MAJOR-RELEASE-20261017 — owner-authorized version and Workshop gallery scope
+
+**Owner:** Environment wetland-plant implementation/art and Workshop publication. **Status:** RELEASE PLAN ACCEPTED; FOUR-SPECIES COMPLETION, IMAGES, DESCRIPTION SYNCHRONIZATION AND STEAM PUBLICATION STILL OPEN.
+
+Author directs that the next release including Ashi/Yoshi, Suge, Hannoki and Mizugoke be treated as a **major update** (target `1.0.0` from tracked `0.1.1`), not a minor bug-fix release. For that release, append each species' real image and short bilingual description **inside the already existing representative-plant gallery** of `Docs/SteamWorkshopDescription.txt`, retaining the previous four images; update README and English/Japanese lists and remove finished wetland species from the unfinished list. Use verified accepted assets (Mizugoke currently shares Vanilla Plant_Moss graphics; an actual public image must be verified), approved history-based prose and the current 8,000-byte Workshop budget. Canonical release copy / caption brief: `Docs/WorkshopDescription.md`; gameplay/spec and author text: `Docs/NativeVegetationStep3Design-ja.md` and `Docs/Design.md`. Do not advance About/Manifest/Changelog to the next version, misstate plant completion or claim a Steam update before the production and distribution gates pass. The 1.6/1.7 release/testing distinctions remain in `Docs/ReleaseReadiness.md`.
+
 ## Immediate execution priority
 
 **2026-10-15 — biome replacement candidate functional CLOSEOUT (source `4dacbcf0fbe3399ee44795f3097b8cbe498d0ae3`):** isolated licensed Linux 1.6 genuine production DLL + exact **59-file** subscriber package STATIC/ZIP PASS, [Project Actions #38681874743](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38681874743). Same-source Vanilla nine map/wetland/world/river/coast native **466/466 PASS, ERROR0**. Original five-tree actual pawn CutPlant: Vanilla/CCTO **17/17 each and ERROR0**, MO/MO+CCTO five RawWood yields correct but strict ERROR0 FAIL from independent upstream audio error.
