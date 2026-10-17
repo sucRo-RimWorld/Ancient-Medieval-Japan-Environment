@@ -50,19 +50,23 @@ After an author accepts a state, update only the corresponding ledger rows,
 ArtDirection and main Coordination. Report completed states and remaining states
 explicitly. Do not label the whole plant or ENV-010 DONE from one accepted state.
 
-**2026-10-15 Hannoki acceptance scope:** the author explicitly adopted the
-six presented *static native appearance* states despite the small screenshots
-(normal, immature scaling, UI, forced autumn, forced leafless, native snow).
-Do not treat the screenshot's forced autumn/leafless scenes as a naturally
-occurring calendar transition. Record the six per-state production fingerprints
-as accepted; retain **transition pending** for the author's later normal play
-review. The image production work itself does not need a new art pass.
-`--require-complete` must still reject any assertion that all seven states
-are fully verified until natural transition evidence is obtained. A clearly
-labeled **private author playtest upload**, if independently authorized and
-otherwise release-ready, may be used to obtain that later gameplay evidence;
-it is not a public all-state acceptance or a reason to fake the strict check.
-See `Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`.
+**2026-10-17 Hannoki completion scope:** the author accepted the six
+static native appearance states on 2026-10-15 (normal, immature scaling,
+UI, forced autumn, forced leafless, leafy/leafless snow). The forced autumn
+and leafless screenshots alone did not prove temporal mechanics. A separate
+isolated real RimWorld 1.6 native run now proves the same test-placed production
+Hannoki's original calendar-driven fall-factor change, natural leaf loss,
+leaf recovery and non-BadTex materials without forcing color, temperature or
+leaflessness: [Actions #39016607046](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39016607046).
+Retain the initial failed fixture evidence and the accepted static fingerprints.
+The `transition` entry is now `automated_native_calendar_sampling` / verified
+with its own source fingerprint; seven-of-seven **defined visual coverage
+states** are now satisfied, without demanding new art or author review of
+already accepted sprites. This accelerated hourly observer does not validate
+a full-world season-long game simulation, real wetland spawn or distributed
+Workshop binaries. Read the precise independent evidence in
+`Docs/ValidationEvidence/HannokiSeasonalNative-20261017.md` and original
+static acceptance in `Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`.
 
 
 ## Controlled color review

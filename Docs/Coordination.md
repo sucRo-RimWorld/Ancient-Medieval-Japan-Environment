@@ -32,44 +32,38 @@ exact physical candidate upload, independent downloaded subscriber
 identity and runtime smoke. Historic failed launches/source-gate
 observations remain in their formal evidence and main Git history.
 
-### ENV-HANNOKI-APPEARANCE-20261015 — accepted static art; season playcheck open
+### ENV-HANNOKI-APPEARANCE-20261017 — all accepted static states + natural mechanics closed
 
-**Owner:** Environment plant visuals / normal gameplay follow-up
-**Status:** SIX CURRENT PRODUCTION VISUAL STATES AUTHOR-ACCEPTED; NATURAL SEASON TRANSITION PENDING IN-GAME PLAYCHECK; STEAM DISTRIBUTION STILL OPEN
+**Owner:** Environment plant visuals and native validation
+**Status:** SIX AUTHOR-ACCEPTED STATIC STATES + REAL 1.6 NATIVE AUTOMATED TRANSITION VERIFIED; STEAM DISTRIBUTION OPEN
 
-The author reviewed five real Linux RimWorld 1.6 screenshots from the exact
-59-file current candidate and explicitly said **「まあ採用で」** despite
-the small/hard-to-review presentation; **「どうせ後で実ゲーム確認するし」**
-assigns natural seasonal change to later normal gameplay. The original
-sprites/overlays, as opposed to the poor display presentation, are accepted;
-do not schedule image re-generation, unrequested enlargement or replacement.
+Author accepted all six current in-game static artwork states on 2026-10-15.
+Accepted graphics, screenshot pointers and fingerprints remain in
+`Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`.
+No image rerendering, enlargement or new human approval was requested.
 
-**Six accepted ledger states**: normal mature, immature growth scaling,
-real UI DefIcon, forced full autumn-color material, forced cold leafless
-material, and native leafy/leafless snow display at depths 0/0.5/1.
-Original actual game captures: [Project Actions #38701213882](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38701213882);
-all 5 screenshots with game exit0/Unity ERROR0 and
-[stable review snapshot](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/tree/ea7e480a8191f774c31fdb386fc5e2e7c7641b6a/ReviewScreenshots/Hannoki/38701213882).
-Owning detailed evidence/fingerprints in
-`Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`,
-authoritative six acceptances in `Docs/PlantVisualCoverage.json`,
-current art acceptance in `Docs/ArtDirection.md`. Image binaries/Defs unchanged.
+**2026-10-17 independent actual native result:** The original 59-file release
+candidate was tested on isolated real Linux RimWorld 1.6.4871 rev600 with a
+test-placed production Hannoki at a naturally cold CoolTemperate site.
+[Project Actions #39016607046](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39016607046)
+reports Quickstart **73/73 PASS**, Unity ERROR0, exit0; natural
+fall factor 0..1, same-tree leafless/recovered both true, native textures
+valid, minimum ambient −13.5862°C below native leafless threshold −10.27121°C.
+No climate/threshold/leafless override; only hourly accelerated standard
+calendar and Plant.TickLong, not full-world 60-day gameplay.
+The first warm/forced-wetland fixture [#39016256642](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39016256642)
+**FAILED** and is preserved as failed; the source-only test fixture was
+corrected in Project PR #600 and rerun once. Formal method, hashes,
+test assumptions and original evidence:
+`Docs/ValidationEvidence/HannokiSeasonalNative-20261017.md`.
 
-**One remaining visual-mechanics check**:
-`AMJ_Tree_Hannoki/transition` stays `pending`, with no claim of
-natural calendar-triggered autumn → leafless → recovery from forced scenes.
-This is **not unfinished image generation** and should be checked during
-the already planned private Workshop real-play period. The full
-`--require-complete` visual audit cannot PASS until the transition is
-actually verified. Existing Windows real-native vegetation/cutting
-evidence remains in `Docs/ValidationEvidence/HannokiWindowsNative-20261013.md`;
-its previous seven-pending status has been superseded.
-
-**Publication remains separate**: author-scoped GitHub Actions publisher,
-private Steam credentials, exact downloaded subscriber and native smoke
-still require their own verification. Earlier Windows/Linux FMOD test
-records stay distinct from the visual decision.
-
+`Docs/PlantVisualCoverage.json` now marks Hannoki `transition`
+`verified` (automated_native_calendar_sampling), `complete=true`.
+Existing user play/save, naturally distributed wetland specimens, full-year
+world simulation, Linux Waylith 1.7 and Steam subscriber remain outside
+this specific check. **Current blocker remains Environment-owned private
+GitHub Actions publisher/authenticated host and exact Steam downloaded
+payload verification, not Hannoki's mechanics.**
 
 ## Publication and distribution
 

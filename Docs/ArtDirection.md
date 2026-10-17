@@ -8,11 +8,15 @@ appearance is accepted and its seasonal mechanics were verified by bounded
 native calendar sampling. **Hannoki's six rendered static appearance states**
 (normal, immature scaling, UI, autumn, leafless, snowy leafy/leafless) have
 now also been **author-accepted** in the current production candidate.
-**Hannoki's naturally occurring seasonal transition alone remains pending**
-for later in-game play, not for new art creation. The authoritative ledger
-`Docs/PlantVisualCoverage.json` therefore correctly keeps
-`AMJ_Tree_Hannoki.complete: false` and global `--require-complete` is not
-yet satisfied; do not misstate seven-of-seven completion.
+**Hannoki's natural temperature-driven seasonal mechanics are now independently
+verified** by the scoped real RimWorld 1.6 calendar sampling on 2026-10-17:
+native fall intensity changes, the same test-placed production Hannoki loses
+leaves and then regains them without a forced state. Its six static appearance
+states remain author-accepted and the seventh `transition` is technically
+verified; `Docs/PlantVisualCoverage.json` now records
+`AMJ_Tree_Hannoki.complete: true`. This is not a 60-day full-world simulation,
+natural wetland spawn test, 1.7 acceptance or Steam distribution proof.
+Evidence: `Docs/ValidationEvidence/HannokiSeasonalNative-20261017.md`.
 The author noted the supplied crops/zoom were hard to inspect but explicitly
 chose to adopt the existing art anyway. Do not redraw/re-scale accepted source
 to compensate for the inadequate review presentation.
