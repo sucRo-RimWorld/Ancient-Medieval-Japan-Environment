@@ -1,5 +1,10 @@
 # AMJ Environment Coordination
 
+### ENV-WETLAND-020-REAL-NATIVE16-PASS-20261017
+
+**Production source `ea22a4fcb0454630d85eb48c9e88604cedc97497`**, Project [Actions #39034867997](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39034867997): genuine RimWorld 1.6 Vanilla/CCTO TemperateSwamp+ColdBog, four cases **310/310 assertions, early ERROR0, runtime ERROR0, exits0, all PASS**. Actual Yoshi/Suge Hay and Mizugoke no-drop native CutPlant verified; previous harvest-zero stochastic confound and nonfood config Def errors addressed without changing approved base yields or harvest-failure game rules. Exact archive/DLL hashes, case-level natural species counts and previously failed attempts: `Docs/ValidationEvidence/WetlandFourProductionNative16-20261017.md`. **Still OPEN:** actual 1.6 MO/MO+CCTO of current source, 1.7, season/save, public copy/gallery and authenticated owner-isolated private Steam upload/download. Do not relabel older failed actions or full-release gate as PASS.
+
+
 ### ENV-WETLAND-020-REAL-CUT-20261017
 
 Project Actions #39034206328 (Environment source c0fbeb23b2d877f11f232cb709425bc9c4348829): real RimWorld 1.6 TemperateSwamp Vanilla and CCTO, all 82/82 Quickstart assertions passed in each profile; actual skill-20 pawn CutPlant yielded Yoshi Hay2/Suge Hay1 in Vanilla and Yoshi Hay3/Suge Hay1 in CCTO (normal skill bonus, unchanged base yields). Whole run FAIL because 4 prelaunch errors per profile: Yoshi and Suge each logged twice as zero nutrition with inherited RawBad ingestible preferability. The narrow production correction is to set NeverForNutrition on both plants, as already used by Mizugoke and test-only fixtures. No other gameplay/harvest/graphics/weights changed. Retest the corrected exact source and keep all prelaunch ERROR gates. ColdBog, MO, 1.7 and Steam remain open.
