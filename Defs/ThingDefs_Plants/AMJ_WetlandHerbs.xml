@@ -12,6 +12,10 @@
       <texPath>Things/Plant/AMJ/Suge</texPath>
       <graphicClass>Graphic_Random</graphicClass>
     </graphicData>
+    <!-- Non-nutritive wild herb; PlantBase otherwise inherits RawBad. -->
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <fertilityMin>0.05</fertilityMin>
       <growDays>3</growDays>
@@ -35,6 +39,10 @@
       <graphicClass>Graphic_Random</graphicClass>
       <drawSize>(1.5, 1.5)</drawSize>
     </graphicData>
+    <!-- Non-nutritive wild herb; PlantBase otherwise inherits RawBad. -->
+    <ingestible>
+      <preferability>NeverForNutrition</preferability>
+    </ingestible>
     <plant>
       <immatureGraphicPath>Things/Plant/AMJ/Yoshi_Immature</immatureGraphicPath>
       <minGrowthTemperature>0</minGrowthTemperature>
