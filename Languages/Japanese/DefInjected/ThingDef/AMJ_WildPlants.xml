@@ -6,6 +6,11 @@
   <AMJ_Tree_Beech.label>ブナ</AMJ_Tree_Beech.label>
   <AMJ_Tree_Beech.description>山毛欅（ブナ。別名：シロブナ、ホンブナ。橅・椈とも書く）は、日本の冷温帯を代表する大型の落葉高木で、山地に広いブナ林をつくる。\n\n縄文時代の本州北部でもブナ属を含む冷温帯林が確認され、平安後期から中世の木製品ではブナ属材が漆器などの挽物に選択的に使われた例がある。\n\n現代でも家具・内装材、きのこ栽培の原木や薪などに利用される。</AMJ_Tree_Beech.description>
 
+  <AMJ_Plant_Yoshi.label>アシ</AMJ_Plant_Yoshi.label>
+  <AMJ_Plant_Yoshi.description>葦（アシ、ヨシとも呼ぶ）は、河川や湖沼の岸辺、水の多い低地に群生する背の高い草本。周囲から流れ込む水に潤される低層湿原では、スゲ類とともに葦原をつくる。\n\n葦は古くから屋根を葺く茅の材料に用いられた。茅にはススキや稲藁・麦藁なども含まれ、地域や建物によって材料が使い分けられてきた。</AMJ_Plant_Yoshi.description>
+  <AMJ_Plant_Mizugoke.label>ミズゴケ</AMJ_Plant_Mizugoke.label>
+  <AMJ_Plant_Mizugoke.description>水苔（ミズゴケ）は、湿原の地表を覆うように群落をつくるコケ類。冷涼で雨水に潤される高層湿原ではミズゴケ類が広がり、枯れた部分が分解されにくい状態で堆積し、泥炭の形成に関わる。\n\n河川や地下水の影響を受けるアシ・スゲの低層湿原とは、水の供給や植生が異なる。日本の冷涼な地域に発達する泥炭湿原を特徴づける植物の一つである。</AMJ_Plant_Mizugoke.description>
+
   <AMJ_Plant_Suge.label>スゲ</AMJ_Plant_Suge.label>
   <AMJ_Plant_Suge.description>菅（スゲ、スガとも呼ぶ）は、湿った草地や低層湿原に生えるスゲ類の総称。細長い葉を株状に茂らせ、葦原やハンノキ林の近くにも群落をつくる。\n\n『万葉集』には菅や菅笠を詠んだ歌が残り、その葉は古くから笠や蓑の材料として用いられてきた。</AMJ_Plant_Suge.description>
 
