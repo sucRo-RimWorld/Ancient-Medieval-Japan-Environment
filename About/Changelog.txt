@@ -2,8 +2,8 @@
 # The current version block is used by Add Changenote when publishing to Steam Workshop.
 
 # 0.2.0 planned — NOT RELEASED; excluded from current-version Steam changenote
-# Planned wetland vegetation: Ashi/Yoshi, Suge, Hannoki and Mizugoke; completion, images and acceptance still open.
-# 0.2.0予定（未公開）：葦・菅・ハンノキ・ミズゴケの湿地植物4種。実装・画像・検証が揃った時点で正式な更新履歴へ反映する。
+# Wetland vegetation Ashi/Yoshi, Suge, Hannoki and Mizugoke is implemented in source; the seven-image gallery is sufficient (Mizugoke temporarily uses Vanilla Moss art). Seasonal/save and exact release/distribution acceptance remain open.
+# 0.2.0予定（未公開）：葦・菅・ハンノキ・ミズゴケの湿地植物4種は実装済み。掲載画像は7枚で確定（水苔はバニラ苔画像を暫定流用）。季節・セーブおよび配布物の検証が残る。
 
 0.1.1 - Corrected natural biome generation and production loading
 - Distinguished warm-temperate and cool-temperate forest world-map textures using existing Vanilla art; biome generation and vegetation are unchanged.
