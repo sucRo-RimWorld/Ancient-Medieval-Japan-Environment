@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HarmonyLib;
 using RimWorks.Quickstarts;
 using RimWorks.Quickstarts.Verification;
@@ -4631,6 +4632,174 @@ namespace AncientMedievalJapan.Environment.Quicktests
         protected override string TargetBiomeDefName
         {
             get { return "DankPyon_DarkForest"; }
+        }
+    }
+
+    // 0.2.0 test-only: one real ColdBog map, accelerated calendar and a
+    // genuine RimWorld save. Reload is a separate process, not inferred from
+    // the presence of a saved .rws file.
+    public sealed class AMJWetlandSeasonSaveQuickstart : BiomeTerrainQuickstartBase
+    {
+        public const string SaveName = "AMJE_020_Wetland_SeasonSave";
+        protected override string TargetBiomeDefName { get { return "ColdBog"; } }
+        protected override string TargetPlantDefName { get { return "Plant_Moss"; } }
+        private bool speciesPlaced;
+        private bool seasonalRange;
+        private bool saved;
+        private bool validGraphics = true;
+
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            Map map = Find.CurrentMap;
+            if (map == null) return;
+            string[] names = { "AMJ_Plant_Yoshi", "AMJ_Plant_Suge",
+                               "AMJ_Plant_Mizugoke", "AMJ_Tree_Hannoki" };
+            var plants = new List<Plant>();
+            for (int i = 0; i < names.Length; i++)
+            {
+                ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(names[i]);
+                if (def == null) break;
+                IntVec3 cell = map.Center + new IntVec3((i-2)*8, 0, -8);
+                foreach (IntVec3 area in GenRadial.RadialCellsAround(cell, 3f, true))
+                {
+                    if (!area.InBounds(map)) continue;
+                    foreach (Thing thing in area.GetThingList(map).ToArray())
+                        if (!(thing is Pawn)) thing.Destroy(DestroyMode.Vanish);
+                    map.terrainGrid.SetTerrain(area, TerrainDefOf.Soil);
+                }
+                Plant plant = ThingMaker.MakeThing(def) as Plant;
+                if (plant == null) break;
+                plant.Growth = 1f;
+                GenSpawn.Spawn(plant, cell, map, WipeMode.Vanish);
+                plants.Add(plant);
+            }
+            speciesPlaced = plants.Count == names.Length;
+            if (!speciesPlaced) return;
+            int initialTicks = Find.TickManager.TicksGame;
+            float minTemp = float.MaxValue, maxTemp = float.MinValue;
+            try
+            {
+                for (int hour = 0; hour <= 1440; hour += 6)
+                {
+                    Find.TickManager.DebugSetTicksGame(initialTicks + hour * GenDate.TicksPerHour);
+                    Find.World.tileTemperatures.WorldComponentTick();
+                    object cached = AccessTools.Method(typeof(TileTemperaturesComp),
+                        "RetrieveCachedData").Invoke(Find.World.tileTemperatures, new object[] { map.Tile });
+                    AccessTools.Method(cached.GetType(), "CheckCache").Invoke(cached, null);
+                    map.mapTemperature.TemperatureUpdate();
+                    map.skyManager.SkyManagerUpdate();
+                    float temp = map.mapTemperature.OutdoorTemp;
+                    minTemp = Math.Min(minTemp, temp);
+                    maxTemp = Math.Max(maxTemp, temp);
+                    foreach (Plant plant in plants)
+                    {
+                        if (plant.Destroyed) continue;
+                        plant.TickLong();
+                        UnityEngine.Material material =
+                            plant.Graphic.MatAt(plant.Rotation, plant);
+                        validGraphics &= material != null &&
+                            material.mainTexture != null &&
+                            material.mainTexture != BaseContent.BadTex;
+                    }
+                }
+                seasonalRange = maxTemp - minTemp > 8f;
+            }
+            finally
+            {
+                Find.TickManager.DebugSetTicksGame(initialTicks);
+            }
+            Log.Message("AMJE_020_SEASON observed=True minC=" + minTemp.ToString("F2") +
+                " maxC=" + maxTemp.ToString("F2") +
+                " graphics=" + validGraphics +
+                " outcome=calendar_sample_not_full_60_day_tick_simulation");
+            // Natural low-temperature death is a valid seasonal outcome.
+            // Restore any such specimens to full-grown state for an independent
+            // save/reload identity test; never change the production PlantDefs.
+            int winterDeaths = 0;
+            for (int i = 0; i < plants.Count; i++)
+            {
+                if (!plants[i].Destroyed) continue;
+                winterDeaths++;
+                IntVec3 cell = map.Center + new IntVec3((i-2)*8, 0, -8);
+                Plant replacement = ThingMaker.MakeThing(plants[i].def) as Plant;
+                replacement.Growth = 1f;
+                GenSpawn.Spawn(replacement, cell, map, WipeMode.Vanish);
+            }
+            Log.Message("AMJE_020_SEASON winterDeaths=" + winterDeaths);
+            // Genuine game serialization; the independent reload process must
+            // observe the corresponding exact species after Scribe completes.
+            GameDataSaveLoader.SaveGame(SaveName);
+            var saves = typeof(GenFilePaths).GetMethod("FilePathForSavedGame",
+                System.Reflection.BindingFlags.Static |
+                System.Reflection.BindingFlags.Public |
+                System.Reflection.BindingFlags.NonPublic);
+            string name = saves == null ? null :
+                saves.Invoke(null, new object[] { SaveName }) as string;
+            saved = !string.IsNullOrEmpty(name) && System.IO.File.Exists(name);
+            Log.Message("AMJE_020_SAVED complete=" + saved + " name=" + SaveName);
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            result.Assert("four production wetland plant instances placed", delegate
+                { return speciesPlaced; });
+            result.Assert("real cold bog calendar changes outdoor temperature", delegate
+                { return seasonalRange; });
+            result.Assert("real seasonal native plant graphics not BadTex", delegate
+                { return validGraphics; });
+            result.Assert("native game save exists on isolated disk", delegate
+                { return saved; });
+            return result;
+        }
+    }
+
+    [StaticConstructorOnStartup]
+    public static class AMJWetlandSaveReloadBoot
+    {
+        static AMJWetlandSaveReloadBoot()
+        {
+            if (System.Environment.GetEnvironmentVariable("AMJ_WETLAND_020_RELOAD") != "1")
+                return;
+            LongEventHandler.ExecuteWhenFinished(delegate
+            {
+                Log.Message("AMJE_020_RELOAD_START name=" +
+                    AMJWetlandSeasonSaveQuickstart.SaveName);
+                AccessTools.Method(typeof(SavedGameLoader), "LoadGameFromSaveFile")
+                    .Invoke(null, new object[] { AMJWetlandSeasonSaveQuickstart.SaveName });
+            });
+        }
+    }
+
+    [HarmonyPatch(typeof(Game), "LoadGame")]
+    public static class AMJWetlandSaveReloadObserver
+    {
+        [HarmonyPostfix]
+        public static void Postfix()
+        {
+            if (System.Environment.GetEnvironmentVariable("AMJ_WETLAND_020_RELOAD") != "1")
+                return;
+            LongEventHandler.ExecuteWhenFinished(delegate
+            {
+                Map map = Find.CurrentMap;
+                string[] names = { "AMJ_Plant_Yoshi", "AMJ_Plant_Suge",
+                                   "AMJ_Plant_Mizugoke", "AMJ_Tree_Hannoki" };
+                bool ok = map != null;
+                foreach (string name in names)
+                {
+                    ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                    ok &= def != null && map != null &&
+                        map.listerThings.ThingsOfDef(def).Count > 0;
+                }
+                Log.Message("AMJE_020_RELOAD_RESULT passed=" + ok +
+                    " loadedColdBog=" + (map != null &&
+                        map.Biome.defName == "ColdBog") +
+                    " species=Yoshi,Suge,Mizugoke,Hannoki");
+                if (!ok || map.Biome.defName != "ColdBog")
+                    Log.Error("AMJE_020_RELOAD_FAILED native save/load invalid");
+                UnityEngine.Application.Quit();
+            });
         }
     }
 }
