@@ -1,5 +1,12 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+## New wetland 1.6 MO and MO+CCTO native checks — 2026-10-17
+
+Project [MO/MO+CCTO both wetland scenarios #39038178612](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39038178612) actually ran 4 maps. Their loaded-game function counts were MO warm 83/84 (one genuine Yoshi Hay0 on a failable harvest), MO cold 75/75, MO+CCTO warm 84/84, MO+CCTO cold 75/75. All cases had exactly two previously independently established blank-clip MO/SYR FMOD prelaunch errors; **raw strict ERROR0 remains FAIL**. Test-only bounded independent natural harvest attempts fixed stochastic one-roll acceptance, and [focused MO warm #39039584212](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39039584212) passed **68/68** original loaded-game checks including real Yoshi Hay2 and Suge Hay1 after an independently recorded stochastic Hay0. Normal game harvest failure and approved base yields unchanged. See `Docs/ValidationEvidence/WetlandFourProductionNativeMO16-20261017.md`.
+
+**Still not a full release PASS:** These independent 60-file builds do NOT share byte-identical ZIP/DLL digests; four-profile exact-candidate publication gate remains OPEN, as do genuine 1.7 wetland behavior, seasons/save, owner-isolated publisher and actual downloaded subscriber bytes. The published private-release MO/SYR error classification only applies within its exact stated bounds. No new Environment-origin runtime error was observed in the scoped MO logs.
+
+
 
 ## New wetland four-species 1.6 Vanilla/CCTO native PASS — 2026-10-17
 
