@@ -1199,6 +1199,114 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
         }
 
+        // Live loaded-Def, natural density and actual work: no disposable Defs used.
+        protected static void AddWetlandProductionHerbAssertions(
+            QuickstartVerification v, Map map, bool cold)
+        {
+            string[] names = cold
+                ? new[] {"AMJ_Plant_Yoshi","AMJ_Plant_Suge","AMJ_Plant_Mizugoke"}
+                : new[] {"AMJ_Plant_Yoshi","AMJ_Plant_Suge"};
+            float[] expected = cold ? new[] {0.60f,1.10f,1.20f}
+                                    : new[] {1.00f,0.80f};
+            float originalYield = Find.Storyteller.difficulty.cropYieldFactor;
+            Find.Storyteller.difficulty.cropYieldFactor = 1f;
+            try
+            {
+                for (int i = 0; i < names.Length; i++)
+                {
+                    string name = names[i];
+                    float approvedWeight = expected[i];
+                    bool moss = name == "AMJ_Plant_Mizugoke";
+                    bool reed = name == "AMJ_Plant_Yoshi";
+                    int expectedBaseYield = reed ? 2 : 1;
+                    ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(name);
+                    int natural = map == null || def == null ? 0 :
+                        map.listerThings.ThingsOfDef(def).Count;
+                    int shallow = 0;
+                    if (map != null && def != null)
+                        foreach (Thing plant in map.listerThings.ThingsOfDef(def))
+                        {
+                            TerrainDef t = map.terrainGrid.TerrainAt(plant.Position);
+                            if (t != null && t.defName == "WaterShallow") shallow++;
+                        }
+                    v.Assert(name + " production Def and approved harvest data",
+                        delegate { return def != null && def.plant != null &&
+                            def.modContentPack != null &&
+                            def.modContentPack.PackageIdPlayerFacing ==
+                                "sucro.ancientmedievaljapan.environment" &&
+                            def.selectable &&
+                            (def.plant.sowTags == null || def.plant.sowTags.Count == 0) &&
+                            Math.Abs(def.plant.minGrowthTemperature -
+                                (CctoIsActive() && reed ? 5f : 0f)) < 0.001f &&
+                            (moss ? def.plant.harvestedThingDef == null :
+                                def.plant.harvestedThingDef != null &&
+                                def.plant.harvestedThingDef.defName == "Hay" &&
+                                def.plant.harvestTag == "Standard" &&
+                                Math.Abs(def.plant.harvestYield - expectedBaseYield) < 0.001f); });
+                    v.Assert(name + " loaded biome weight",
+                        delegate { return map != null && def != null &&
+                            Math.Abs(map.Biome.CommonalityOfPlant(def) - approvedWeight) < 0.001f; });
+                    v.Assert(name + " naturally generated",
+                        delegate { return natural > 0; });
+                    v.Assert(name + " texture loaded without BadTex",
+                        delegate { return def != null && def.graphicData != null &&
+                            HasLoadedNonBadTexture(def.graphicData.Graphic); });
+                    Log.Message("[AMJ Wetland Production Spawn] biome=" +
+                        (map == null || map.Biome == null ? "none" : map.Biome.defName) +
+                        " def=" + name + " natural=" + natural + " shallow=" +
+                        shallow + " other=" + (natural-shallow) + " weight=" + approvedWeight);
+                    if (map == null || def == null || def.plant == null) continue;
+                    IntVec3 cell = map.Center + new IntVec3(35+i*8,0,-18);
+                    foreach (IntVec3 area in GenRadial.RadialCellsAround(cell,2f,true))
+                    {
+                        if (!area.InBounds(map)) continue;
+                        foreach (Thing thing in area.GetThingList(map).ToArray())
+                            if (!(thing is Pawn)) thing.Destroy(DestroyMode.Vanish);
+                        map.terrainGrid.SetTerrain(area,TerrainDefOf.Soil);
+                    }
+                    Plant specimen=(Plant)GenSpawn.Spawn(def,cell,map);
+                    specimen.Growth=1f; specimen.HitPoints=specimen.MaxHitPoints;
+                    Pawn pawn=PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist,Faction.OfPlayer);
+                    pawn.skills.GetSkill(SkillDefOf.Plants).Level=0;
+                    GenSpawn.Spawn(pawn,cell+IntVec3.North,map);
+                    map.designationManager.AddDesignation(
+                        new Designation(specimen,DesignationDefOf.CutPlant));
+                    pawn.jobs.StartJob(JobMaker.MakeJob(JobDefOf.CutPlant,specimen),
+                        JobCondition.InterruptForced);
+                    int ticks=0;
+                    while (!specimen.Destroyed && ticks++<15000)
+                    {
+                        pawn.pather.PatherTick();
+                        if (pawn.jobs.curDriver==null) break;
+                        pawn.jobs.curDriver.DriverTick();
+                        if (pawn.jobs.curDriver!=null)
+                            pawn.jobs.curDriver.DriverTickInterval(1);
+                    }
+                    int hay=0; bool otherDrop=false;
+                    foreach (IntVec3 area in GenRadial.RadialCellsAround(cell,2f,true))
+                    {
+                        if (!area.InBounds(map)) continue;
+                        foreach (Thing thing in area.GetThingList(map))
+                        {
+                            if (thing.def.category!=ThingCategory.Item) continue;
+                            if (thing.def.defName=="Hay") hay+=thing.stackCount;
+                            else otherDrop=true;
+                        }
+                    }
+                    bool removed=specimen.Destroyed;
+                    int observedHay=hay; bool invalidItem=otherDrop;
+                    v.Assert(name + " native CutPlant output type and removal",
+                        delegate { return removed && !invalidItem &&
+                            (moss ? observedHay==0 : observedHay>0); });
+                    Log.Message("[AMJ Wetland Production Cut] def="+name+
+                        " removed="+removed+" Hay="+hay+" other="+otherDrop+
+                        " ticks="+ticks);
+                    pawn.Destroy(DestroyMode.Vanish);
+                }
+            }
+            finally {Find.Storyteller.difficulty.cropYieldFactor=originalYield;}
+        }
+
         // Production AMJ_Tree_Hannoki, not the disposable AMJE_Test_Hannoki.
         // Checks the actual loaded wood-chain choice, loaded seasonal graphics
         // and a colonist's native CutPlant drop at the approved yield of 24.
@@ -3913,6 +4021,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
             string[] names =
             {
                 "Plant_TallGrass",
+                "AMJ_Plant_Yoshi",
+                "AMJ_Plant_Suge",
                 "Plant_Brambles",
                 "Plant_Bush",
                 "Plant_TreeWillow",
@@ -3920,7 +4030,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 "Plant_Berry",
                 "Plant_HealrootWild"
             };
-            float[] expected = { 3.2f, 0.8f, 0.2f, 1.30f, 1.0f, 0.05f, 0.05f };
+            float[] expected = { 1.40f, 1.00f, 0.80f, 0.8f, 0.2f, 1.30f, 1.0f, 0.05f, 0.05f };
             for (int i = 0; i < names.Length; i++)
             {
                 string name = names[i];
@@ -3936,6 +4046,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiProductionAssertions(result, Find.CurrentMap, 0.70f);
+            AddWetlandProductionHerbAssertions(result, Find.CurrentMap, false);
             return result;
         }
     }
@@ -3991,7 +4102,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
             string[] names =
             {
                 "Plant_TallGrass",
+                "AMJ_Plant_Yoshi",
+                "AMJ_Plant_Suge",
                 "Plant_Moss",
+                "AMJ_Plant_Mizugoke",
                 "Plant_Bush",
                 "Plant_TreeWillow",
                 "Plant_TreeBirch",
@@ -3999,7 +4113,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 "Plant_Berry",
                 "Plant_HealrootWild"
             };
-            float[] expected = { 3.4f, 2.6f, 0.3f, 0.45f, 0.45f, 0.45f, 0.07f, 0.05f };
+            float[] expected = { 1.70f, 0.60f, 1.10f, 1.40f, 1.20f, 0.3f, 0.45f, 0.45f, 0.45f, 0.07f, 0.05f };
             for (int i = 0; i < names.Length; i++)
             {
                 string name = names[i];
@@ -4015,6 +4129,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             AddWetlandBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiBehaviorProbeAssertions(result, Find.CurrentMap);
             AddHannokiProductionAssertions(result, Find.CurrentMap, 0.45f);
+            AddWetlandProductionHerbAssertions(result, Find.CurrentMap, true);
             return result;
         }
     }
