@@ -4756,28 +4756,36 @@ namespace AncientMedievalJapan.Environment.Quicktests
         }
     }
 
-    [StaticConstructorOnStartup]
+    // Loading a save during PlayDataLoader's startup completion callback runs
+    // before the entry-root's world audio manager is ready. Begin loading only
+    // after the real entry UI has rendered, like the ordinary Load Game action.
+    [HarmonyPatch(typeof(Root_Entry), "Update")]
     public static class AMJWetlandSaveReloadBoot
     {
-        static AMJWetlandSaveReloadBoot()
+        private static int entryFrames;
+        private static bool invoked;
+
+        [HarmonyPostfix]
+        public static void AfterEntryUpdate()
         {
-            if (System.Environment.GetEnvironmentVariable("AMJ_WETLAND_020_RELOAD") != "1")
+            if (invoked ||
+                System.Environment.GetEnvironmentVariable("AMJ_WETLAND_020_RELOAD") != "1")
                 return;
-            LongEventHandler.ExecuteWhenFinished(delegate
-            {
-                Log.Message("AMJE_020_RELOAD_START name=" +
-                    AMJWetlandSeasonSaveQuickstart.SaveName);
-                Type loader = AccessTools.TypeByName("Verse.SavedGameLoaderNow") ??
-                    AccessTools.TypeByName("Verse.SavedGameLoader") ??
-                    typeof(GameDataSaveLoader);
-                System.Reflection.MethodInfo load =
-                    AccessTools.Method(loader, "LoadGameFromSaveFileNow") ??
-                    AccessTools.Method(loader, "LoadGameFromSaveFile") ??
-                    AccessTools.Method(typeof(GameDataSaveLoader), "LoadGame");
-                if (load == null)
-                    throw new InvalidOperationException("No genuine RimWorld save loader");
-                load.Invoke(null, new object[] { AMJWetlandSeasonSaveQuickstart.SaveName });
-            });
+            if (++entryFrames < 180) return;
+            invoked = true;
+            Log.Message("AMJE_020_RELOAD_START name=" +
+                AMJWetlandSeasonSaveQuickstart.SaveName +
+                " entryFrames=" + entryFrames);
+            Type loader = AccessTools.TypeByName("Verse.SavedGameLoaderNow") ??
+                AccessTools.TypeByName("Verse.SavedGameLoader") ??
+                typeof(GameDataSaveLoader);
+            System.Reflection.MethodInfo load =
+                AccessTools.Method(loader, "LoadGameFromSaveFileNow") ??
+                AccessTools.Method(loader, "LoadGameFromSaveFile") ??
+                AccessTools.Method(typeof(GameDataSaveLoader), "LoadGame");
+            if (load == null)
+                throw new InvalidOperationException("No genuine RimWorld save loader");
+            load.Invoke(null, new object[] { AMJWetlandSeasonSaveQuickstart.SaveName });
         }
     }
 
