@@ -24,8 +24,10 @@ def release_quickstarts(source, package_id=PRODUCTION_PACKAGE):
             raise ValueError('Review development probe routing before release staging: ' + helper)
         source = source.replace(call, '')
     ownership = '"' + PRODUCTION_PACKAGE + '"'
-    if source.count(ownership) != 1:
-        raise ValueError('Review production Hannoki ownership assertion before release staging')
+    # The wetland herb production assertion now checks the same owner as Hannoki.
+    # Both literal source checks must be re-targeted together in the release observer.
+    if source.count(ownership) != 2:
+        raise ValueError('Review production Hannoki and wetland ownership assertions before release staging')
     source = source.replace(ownership, '"' + package_id + '"')
     return source
 
