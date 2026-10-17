@@ -1,5 +1,10 @@
 # AMJ Environment Coordination
 
+### ENV-020-STAGED-COPY-20261018 — no Steam version/publication
+
+The GitHub README reflects source-complete wetland species as **unreleased**; current Workshop 0.1.1 BBCode, About/Manifest/Changelog and 2game paste-ready files remain untouched. In `Docs/ReleaseDrafts/` are explicitly non-publishable bilingual Workshop and 2game 0.2.0 drafts. Existing 4 gallery images retained; 3 accepted owner-produced plant sprite URLs for Yoshi/Suge/Hannoki added; the 8th real, author-accepted publicly reachable Mizugoke screenshot is still MISSING (its temporary Vanilla Moss in-game texture is not standalone artwork approval). Final BBCode/gallery and UTF-8 validation, season/save and private publisher/subscriber identity are OPEN. Do not advance release state merely from source docs.
+
+
 ### ENV-WETLAND-020-NATIVE17-20261017 — actual scoped 1.7 PASS
 
 **Observed native:** [Project Actions #39041272179](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39041272179), exact Environment gameplay source `ea22a4fcb0454630d85eb48c9e88604cedc97497`; real Linux RimWorld 1.7.4977 Waylith native **Pickle 1/1 PASS, native ERROR0, FMOD0, exit0**. Actual loaded Yoshi/Suge/Mizugoke owner Defs, wetland biome commonality, nonfood and wild-only, and real CutPlant **Hay2 / Hay1 / no-drop** confirmed. Formal evidence: `Docs/ValidationEvidence/WetlandFourProductionNative17-20261017.md`. **This is a 50×50 normal-map test, not 1.7 wild wetland natural spawning or full season/save, all provider combinations or Steam release.** Existing 1.6 Vanilla/CCTO and MO functional evidence remains; original MO strict FMOD errors unchanged. 0.2.0 gallery/description/version, author-isolated private upload and subscriber byte verification still OPEN. Do not rerun accepted 1.7 smoke without changed production behavior.
