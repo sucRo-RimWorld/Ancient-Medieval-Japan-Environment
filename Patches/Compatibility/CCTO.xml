@@ -40,6 +40,16 @@
         </value>
       </li>
 
+      <!-- Suge / native 0 C; CCTO retains 0 C and enables cold dormancy. -->
+      <li Class="PatchOperationAddModExtension" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Plant_Suge"]</xpath>
+        <value>
+          <li Class="CropColdToleranceOverhaul.ColdToleranceExtension">
+            <coldDormancy>true</coldDormancy>
+          </li>
+        </value>
+      </li>
+
       <!-- Hannoki / wetland deciduous alder: native 0 C, CCTO 5 C dormant. -->
       <li Class="PatchOperationReplace" MayRequire="sucro.cropcoldtoleranceoverhaul">
         <xpath>/Defs/ThingDef[defName="AMJ_Tree_Hannoki"]/plant/minGrowthTemperature</xpath>
