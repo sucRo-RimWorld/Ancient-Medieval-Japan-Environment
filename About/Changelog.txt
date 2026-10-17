@@ -1,6 +1,10 @@
 # Changelog for Ancient & Medieval Japan - Environment
 # The current version block is used by Add Changenote when publishing to Steam Workshop.
 
+# 0.2.0 planned — NOT RELEASED; excluded from current-version Steam changenote
+# Planned wetland vegetation: Ashi/Yoshi, Suge, Hannoki and Mizugoke; completion, images and acceptance still open.
+# 0.2.0予定（未公開）：葦・菅・ハンノキ・ミズゴケの湿地植物4種。実装・画像・検証が揃った時点で正式な更新履歴へ反映する。
+
 0.1.1 - Corrected natural biome generation and production loading
 - Distinguished warm-temperate and cool-temperate forest world-map textures using existing Vanilla art; biome generation and vegetation are unchanged.
 - Fixed new-world surface biome selection so ten excluded Vanilla biome identities, including TropicalRainforest and TropicalSwamp, cannot enter native Worker scoring.

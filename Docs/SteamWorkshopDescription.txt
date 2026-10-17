@@ -30,7 +30,7 @@ Existing Healroot and herbal medicine remain available. Medicinal plants are out
 [h2]Save compatibility[/h2]
 [b]New game recommended[/b] because world generation changes. Adding to existing saves is unverified and does not rebuild existing worlds. Runtime temperature changes may affect existing saves. [b]Do not remove AMJE[/b] from saves using its custom biomes, terrain or plants.
 
-[h2]Future candidates[/h2]
+[h2]Future candidates — 0.2.0 target (not yet released)[/h2]
 [list]
 [*]Additional wetland plants（未実装）
 [list]
@@ -78,7 +78,7 @@ CCTO併用時は代表植物に種類別の寒冷耐性を適用。
 [h2]セーブ互換性[/h2]
 ワールド生成を変更しているため[b]新規ゲームを推奨[/b]。既存セーブへの追加は未検証で、生成済みワールドは変わらない。温度などの実行時処理は既存セーブにも影響する可能性がある。独自バイオーム・地形・植物を使うセーブからの[b]途中削除は非推奨[/b]。
 
-[h2]今後の予定[/h2]
+[h2]今後の予定 — 0.2.0予定（未公開）[/h2]
 [list]
 [*]湿地植物の追加（未実装）
 [list]
