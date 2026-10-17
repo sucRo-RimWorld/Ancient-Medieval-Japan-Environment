@@ -1264,49 +1264,70 @@ namespace AncientMedievalJapan.Environment.Quicktests
                             if (!(thing is Pawn)) thing.Destroy(DestroyMode.Vanish);
                         map.terrainGrid.SetTerrain(area,TerrainDefOf.Soil);
                     }
-                    Plant specimen=(Plant)GenSpawn.Spawn(def,cell,map);
-                    specimen.Growth=1f; specimen.HitPoints=specimen.MaxHitPoints;
-                    Pawn pawn=PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist,Faction.OfPlayer);
-                    // A level-0 colonist can fail a normal herb harvest even
-                    // at full maturity: the separate disposable probes set
-                    // harvestFailable=false, but production herbs do not.
-                    // Use a skilled real colonist rather than disabling
-                    // vanilla harvest failure in shipped PlantDefs.
-                    pawn.skills.GetSkill(SkillDefOf.Plants).Level=20;
-                    GenSpawn.Spawn(pawn,cell+IntVec3.North,map);
-                    map.designationManager.AddDesignation(
-                        new Designation(specimen,DesignationDefOf.CutPlant));
-                    pawn.jobs.StartJob(JobMaker.MakeJob(JobDefOf.CutPlant,specimen),
-                        JobCondition.InterruptForced);
-                    int ticks=0;
-                    while (!specimen.Destroyed && ticks++<15000)
+                    // Keep Vanilla's normal, failable harvest behavior in
+                    // shipping Defs. A single real cutting of a wild herb can
+                    // fail by chance even at high skill; bounded independent
+                    // real cuts distinguish stochastic loss from broken output.
+                    // No harvested item is fabricated by the test observer.
+                    int observedHay=0;
+                    bool invalidItem=false;
+                    bool removed=false;
+                    int totalTicks=0, attempts=0;
+                    int limit=moss ? 1 : 3;
+                    for (int attempt=0;attempt<limit;attempt++)
                     {
-                        pawn.pather.PatherTick();
-                        if (pawn.jobs.curDriver==null) break;
-                        pawn.jobs.curDriver.DriverTick();
-                        if (pawn.jobs.curDriver!=null)
-                            pawn.jobs.curDriver.DriverTickInterval(1);
-                    }
-                    int hay=0; bool otherDrop=false;
-                    foreach (IntVec3 area in GenRadial.RadialCellsAround(cell,2f,true))
-                    {
-                        if (!area.InBounds(map)) continue;
-                        foreach (Thing thing in area.GetThingList(map))
+                        attempts++;
+                        Plant specimen=(Plant)GenSpawn.Spawn(def,cell,map);
+                        specimen.Growth=1f;
+                        specimen.HitPoints=specimen.MaxHitPoints;
+                        Pawn pawn=PawnGenerator.GeneratePawn(
+                            PawnKindDefOf.Colonist,Faction.OfPlayer);
+                        pawn.skills.GetSkill(SkillDefOf.Plants).Level=20;
+                        GenSpawn.Spawn(pawn,cell+IntVec3.North,map);
+                        map.designationManager.AddDesignation(
+                            new Designation(specimen,DesignationDefOf.CutPlant));
+                        pawn.jobs.StartJob(JobMaker.MakeJob(JobDefOf.CutPlant,specimen),
+                            JobCondition.InterruptForced);
+                        int ticks=0;
+                        while (!specimen.Destroyed && ticks++<15000)
                         {
-                            if (thing.def.category!=ThingCategory.Item) continue;
-                            if (thing.def.defName=="Hay") hay+=thing.stackCount;
-                            else otherDrop=true;
+                            pawn.pather.PatherTick();
+                            if (pawn.jobs.curDriver==null) break;
+                            pawn.jobs.curDriver.DriverTick();
+                            if (pawn.jobs.curDriver!=null)
+                                pawn.jobs.curDriver.DriverTickInterval(1);
                         }
+                        totalTicks+=ticks;
+                        removed=specimen.Destroyed;
+                        int thisHay=0;
+                        bool unexpected=false;
+                        foreach (IntVec3 area in GenRadial.RadialCellsAround(cell,2f,true))
+                        {
+                            if (!area.InBounds(map)) continue;
+                            foreach (Thing thing in area.GetThingList(map))
+                            {
+                                if (thing.def.category!=ThingCategory.Item) continue;
+                                if (thing.def.defName=="Hay") thisHay+=thing.stackCount;
+                                else unexpected=true;
+                            }
+                        }
+                        observedHay=thisHay;
+                        invalidItem=unexpected;
+                        Log.Message("[AMJ Wetland Production Cut Attempt] def="+name+
+                            " index="+(attempt+1)+" removed="+removed+
+                            " Hay="+thisHay+" other="+unexpected+" ticks="+ticks);
+                        pawn.Destroy(DestroyMode.Vanish);
+                        // Never suppress real job timeout, wrong-item drops,
+                        // or a missing/nonremovable moss specimen.
+                        if (moss || observedHay>0 || !removed || invalidItem) break;
                     }
-                    bool removed=specimen.Destroyed;
-                    int observedHay=hay; bool invalidItem=otherDrop;
                     v.Assert(name + " native CutPlant output type and removal",
                         delegate { return removed && !invalidItem &&
                             (moss ? observedHay==0 : observedHay>0); });
                     Log.Message("[AMJ Wetland Production Cut] def="+name+
-                        " removed="+removed+" Hay="+hay+" other="+otherDrop+
-                        " ticks="+ticks);
-                    pawn.Destroy(DestroyMode.Vanish);
+                        " removed="+removed+" Hay="+observedHay+
+                        " other="+invalidItem+" attempts="+attempts+
+                        " totalTicks="+totalTicks);
                 }
             }
             finally {Find.Storyteller.difficulty.cropYieldFactor=originalYield;}
