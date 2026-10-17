@@ -9,7 +9,7 @@
     <label>thin soil</label>
     <description>Natural soil with a shallow soil layer, many stones, and poor nutrients. It can be cultivated, but crops tolerant of poor soil can use it more efficiently.</description>
     <texturePath>Terrain/Surfaces/Gravel</texturePath>
-    <color>(0.78, 0.70, 0.58)</color>
+    <color>(1.00, 0.93, 0.80)</color>
     <edgeType>FadeRough</edgeType>
     <categoryType>Soil</categoryType>
     <renderPrecedence>322</renderPrecedence>
