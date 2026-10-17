@@ -17,6 +17,10 @@ Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs
 ### ENV-SUGE-PRODUCTION-20261017 — scoped approved species
 **Status:** PRODUCTION SOURCE IMPLEMENTED / NATIVE GAME TEST DEFERRED UNTIL IMPLEMENTATION SLICE READY. The approved Suge images, two biome weights, Vanilla Hay 1, bilingual descriptions and optional CCTO dormancy are connected. No new graphics, unapproved Yoshi/Mizugoke numbers, Steam changes or native run. Actual loaded-game spawn, harvest, save and MO conversion remain unverified. Canonical implementation is the owned PlantDef, wetland and CCTO patches, Japanese DefInjected and Step3 design. Continue Yoshi/Mizugoke authorized scope before consolidated native tests.
 
+### ENV-WETLAND-020-NATIVE-PREFLIGHT-20261017 — source packaging defect before game start
+
+**Project native attempt:** [Actions #39029542278](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39029542278), source `cbd29ace55d3130b68227d7bc85216dbfea67519`. **FAIL before any RimWorld gameplay:** exact-source candidate static preflight `Tests/validate_workshop_payload.py` correctly rejected unexcluded `Publishing/SteamWorkshop.json` as subscriber-unnecessary. Not a plant/temperature native FAIL and not a game PASS. Owner fix: exclude the `Publishing` development folder using canonical `.rimignore` (no changes to actual Yoshi/Suge/Hannoki/Mizugoke gameplay or publisher configuration). Verify new exact source and then carry out a single targeted real game run. Do not reclassify the earlier test as PASS.
+
 ### ENV-WETLAND-020-RELEASE-20261017 — author-corrected version and Workshop gallery scope
 
 **Owner:** Environment wetland-plant implementation/art and Workshop publication. **Status:** RELEASE PLAN ACCEPTED; FOUR-SPECIES COMPLETION, IMAGES, DESCRIPTION SYNCHRONIZATION AND STEAM PUBLICATION STILL OPEN.
