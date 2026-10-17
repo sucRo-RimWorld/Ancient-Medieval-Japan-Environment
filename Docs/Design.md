@@ -2,7 +2,7 @@
 
 **Target:** RimWorld 1.6  
 **Repository:** `sucRo-RimWorld/Ancient-Medieval-Japan-Environment`  
-**Role:** standalone sister mod for Japan-oriented climate, terrain, rivers, biomes, vegetation, weather and seasonal scenery.
+**Role:** standalone sister mod for Japan-oriented climate, terrain, rivers, biomes, vegetation, weather, seasonal scenery **and regionally constrained wild food foraging** (latter is accepted future scope, not shipped functionality).
 
 ## 1. Responsibility boundary
 
@@ -17,13 +17,13 @@ Environment owns:
 - coastline shape and coastal-tile frequency;
 - world rivers and their size/frequency;
 - biome definitions and placement;
-- **Environment-owned landscape vegetation composition** (existing Shii/Beech and non-food native scenery), its original tree forestry and regional distribution;
-- regional tree distribution and ordinary growing-zone tree species **for Environment-owned trees**;
+- **Environment-owned landscape vegetation composition**, including the existing Shii/Beech and all new native non-food and **wild-edible** scenery, its original tree forestry and regional distribution;
+- regional tree distribution, ordinary native-tree sowing contracts, and natural wild-edible resources (the twelve approved foods, food Things, ecological spawn, gathering and minimum safe-preparation rules; see [Foraging Integration](ForagingIntegrationDesign-ja.md));
 - weather/environmental regional differences;
 - seasonal scenery where it affects the environment.
 
 Environment does not own:
-- **new edible-resource wild species** (food-purpose nut/fruit trees, edible mountain greens, fungi, wild tubers), their own ThingDefs/visuals, harvested products or Foraging-owned patches inserting them into Environment Biomes; these belong to Wild Food Foraging;
+- cultivated field-food/crop gameplay owned by Grains/Rice/Crop Growth Balance; long-term food preservation, brewing, broader cooking chains and unrelated hunting/fishing/coastal gathering. The *minimum processing required to avoid treating unsafe raw wild food as edible* is within Environment's wild-food acquisition contract (not a wholesale transfer of cooking/preservation systems);
 - cultivated crop Defs;
 - crop yield, growDays, fertility sensitivity or sowing skill;
 - rice paddies or agricultural production buildings;
@@ -36,19 +36,19 @@ Environment does not own:
 
 AMJEでは、作者の既存セーブで繰り返しニューゲームが必要になる変更を減らす。**ワールド／Biomeの配置・地形・海岸・河川など、生成済みワールドやマップへ遡及しない変更を優先して固める**。独自Biomeの追加や全体の再配置は既存ワールドへの完全反映を前提にせず、意図した環境を評価する場合はニューゲームを必要とする変更として扱う。既存マップ上の初期植生は、新規定義／自然発生プールを変更しても即時に再生成されない。
 
-その後に追加できる**Environment所有の日本在来景観樹木・非食用植生**および既存植物のリテクスチャは、**AMJE導入済みの既存セーブへ後から適用できる設計を優先する**。採食を目的に新規追加する果樹・山菜・菌類・自然薯等のPlantDef/食材/画像とAMJE Biomeへの自然分布PatchはWild Food Foragingが所有する。既存のスダジイ・ブナはEnvironmentの景観樹木のまま、Foragingが食用採集を追加する。
+その後に追加できる**Environment所有の日本在来景観樹木・野生食料植物**および既存植物のリテクスチャは、**AMJE導入済みの既存セーブへ後から適用できる設計を優先する**。2026-10-17作者決定により、別Mod案のWild Food ForagingはEnvironment大型更新へ統合する。新規果樹・山菜・菌類・自然薯等のPlantDef/食材/画像/自然分布/採集処理はEnvironmentが所有する。既存のスダジイ・ブナはDefを維持し、スダジイの種実採集を同一Mod内の独立動作で付与する。詳細は[山野採集統合設計](ForagingIntegrationDesign-ja.md)。
 
-- **Environment所有の新規景観樹木**はEnvironmentが既存Biomeの `wildPlants` と新規 `ThingDef` を使って自然発生・成長を扱う。**食用資源として新規導入する樹木／山菜／菌類／野生根菜はForagingにThingDefと分布Patchを実装し、Environment側に同種の食品用PlantDefを作らない。** 植生の自然発生には時間・気候・地形・密度などの条件があり、即時出現や古い植生の一括置換を保証しない。
+- **Environment所有の新規景観樹木・食用自然植物**は同じBiomeの `wildPlants` と必要な新規 `ThingDef` を使用し、分布・成長・採集をEnvironment内で整合させる。旧Foragingから独立した重複Defや、既存スダジイを食材専用に置き換えるDefを作らない。植生の自然発生には時間・気候・地形・密度などの条件があり、即時出現や古い植生の一括置換を保証しない。
 - 通常植林できる樹木は上記の **Regional tree sowing contract**（地域内の自然分布、Vanilla樹木栽培研究、`mustBeWildToSow`等）を維持する。全樹木・全果樹を一律に植林可能にする方針ではない。
 - 既存Defの画像だけを差し替えるリテクスチャは、DefName・アイテム挙動・保存データ構造を変えずに途中導入可能な形を原則とする。ゲームロジック・保存形式を変える場合は「画像のみ」と見なさず個別監査する。
 - **AMJE未導入セーブへの初回導入**と、**AMJE導入済みセーブへの植物追加アップデート**は別の互換性問題である。前者は未検証で、ワールドを再生成しない。AMJEそのものの途中削除を安全と宣言しない。
 - この方針は設計目標であり、将来の新規植物がすべてセーブ互換と実証済みという意味ではない。特に自然発生・実際の収穫・植林Jobが成立するかはリリース前の既存セーブ移行E2Eで確認し、未検証項目を明示する。
 
-**回帰ゲート:** Environment所有の新規植生・木材等の更新時には、AMJE旧版で作成したセーブを新版でロードする前後比較を自動化する。Foraging側の新規食用種や採集処理はForagingの実ゲーム試験で検証し、Environmentの景観Mod側に機能を逆流させない。ロード済みDef／Biomeプール、既存マップの保持、経時の自然発生、成熟後の果実・木の実の取得、研究前後の植林候補と実際の植林、セーブ・再ロード、所有ERRORゼロを確認する。静的なDef／メニュー判定だけで「既存セーブへ途中導入可能」と判定しない。基本／MO／CCTO／MO+CCTOの互換プロファイルを区別し、ゲーム起動テストは既存の非対話ランナー・ログゲートを使う。テスト仕様・実装状況は `Docs/GoldenPaths/PlantSowingTests.md` に置く。**現時点で移行E2Eは未実装・未通過**。
+**回帰ゲート:** Environment所有の新規植生・木材等の更新時には、AMJE旧版で作成したセーブを新版でロードする前後比較を自動化する。統合する新規食用種・採集処理はEnvironmentの最終生産ソースに対して検証し、従来のForaging診断実験を本番PASSとして流用しない。ロード済みDef／Biomeプール、既存マップの保持、経時の自然発生、成熟後の果実・木の実の取得、研究前後の植林候補と実際の植林、セーブ・再ロード、所有ERRORゼロを確認する。静的なDef／メニュー判定だけで「既存セーブへ途中導入可能」と判定しない。基本／MO／CCTO／MO+CCTOの互換プロファイルを区別し、ゲーム起動テストは既存の非対話ランナー・ログゲートを使う。テスト仕様・実装状況は `Docs/GoldenPaths/PlantSowingTests.md` に置く。**現時点で移行E2Eは未実装・未通過**。
 
 ### Regional tree sowing contract
 
-**Environmentが所有する既存景観樹木・新規非食用景観樹木**の地域分布と、それに連動する通常の植林可能樹種はEnvironmentの責務とする。Foragingが所有する新規食用樹木の自然分布/植林条件はForaging側でEnvironment Biomeに条件付きで追加し、Environmentの植林候補表を暗黙に変更しない。作物栽培の所有とは分け、AMJE樹木もVanillaの樹木栽培研究後に、その樹種が自然分布する地域で植林できるものとする。
+**Environmentが所有する既存景観樹木・新規景観樹木・新規野生食用樹木**の地域分布と、それに連動する通常の植林可能樹種はEnvironmentの責務とする。新規食用クリ・オニグルミ系・カヤも既存樹木のTreeSowing研究と自然分布地域限定の植林条件を踏襲し、承認前の栽培範囲の全国拡張や既存候補への暗黙の変更をしない。作物栽培の所有とは分け、AMJE樹木もVanillaの樹木栽培研究後に、その樹種が自然分布する地域で植林できるものとする。
 
 `TreeBase` / `DeciduousTreeBase` 由来の `sowTags=Ground`、`sowResearchPrerequisites=TreeSowing`、`mustBeWildToSow=true` を保持する。AMJE管理Biomeでは、自然植生から除外した通常樹木を植林候補にも残さない。Vanilla Def自体の削除や、他Mod所有Biomeでの植林制限は行わない。
 
@@ -1021,7 +1021,7 @@ Environmentの植生整備は、以下の順序を正本とする。
 
 1. **不要なVanilla樹木・植生と、そこから再流入する不適切なBiome bundleを整理する。** 古代～中世日本の植生として残す根拠が弱いものを除外し、必要に応じて木本・総植生commonalityを妥当な日本側植物へ再配分する。AMJE-owned 4植生帯の主要植物監査は2026-10-08時点で完了したが、`TemperateSwamp` / `ColdBog` は植物だけでなく野生動物・病気・天候・説明を含むBiome全体の採用監査を完了してからStep 1を閉じる。
 2. **残すVanilla/MO樹木・植物の日本向け表示名と説明文を監査してからリテクスチャする。** 日本語名・地域／樹種対応・Historical Description Guidelinesを確認し、英語ラベルも日本向けの意味に揃える。承認済み本文は維持し、未承認の本文変更は公表しない。実物に一致する範囲で `retention → Japanese label + description → retexture` とする。
-3. **不足している日本の自然植生を追加する。** 湿地・森林・草地の**景観／生態基盤の植物**をEnvironmentが対象とする。薬系用途の追加は薬系Mod、**新規の食用自然物全体（果樹・種実樹木・山菜・きのこ・自然薯等のPlantDef、食材、画像、Environment Biomeへの出現Patch、採集機能）は独立[Wild Food Foraging](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Wild-Food-Foraging/blob/main/Docs/Design.md)が所有する。** 既にEnvironmentにあるスダジイ・ブナのPlantDef／伐採木材／自然分布はそのまま維持し、食用機能のみForagingが重複DefなしでPatchする。**2026-10-10作者決定：Wild Food ForagingはEnvironment（`sucro.ancientmedievaljapan.environment`）を必須依存とする。** スダジイ（`AMJ_Tree_Shii`）などEnvironmentが提供する日本在来植生が前提となり、山野採集側に代替樹木・代替Biomeを重複定義しない。**依存方向はForaging→Environmentのみ**で、Environmentは採集Modを必須依存化せず単独で成立する。スダジイの分布は地域生態の現行ルールを維持し、全Biomeへの強制出現を意味しない。木の実の採集機能・収量・追加種・旧セーブ互換は未承認／未検証。
+3. **不足している日本の自然植生と野生食料を追加する。** 湿地・森林・草地の景観／生態基盤と、[採用済み12資源の山野採集](ForagingIntegrationDesign-ja.md)をEnvironmentが一体的に所有する（2026-10-17作者決定、従来のWFF別Mod方針を撤回）。新規食用樹木・山菜・野生根菜・菌類のDef/食材/画像/分布/採集/必要最小限の食用前処理はEnvironment内に実装する。薬材・治療は独立薬系、農業はGrains等、保存・発酵・複雑な料理は別の食料加工側、狩猟・漁業・海岸採集は対象外。既存の`AMJ_Tree_Shii`、`AMJ_Tree_Beech`、伐採木材、植林、自然分布のDefを重複・置換せず、スダジイへの種実採集を独立付加する。新規採集種/数量/画像/旧セーブ互換は未実装・未承認の部分を残す。
 4. **既存の医療供給を維持する。** Wild Healrootの最終撤去工程は撤回。薬系Modの導入をEnvironmentの成立条件にしない。
 
 植生・アート整備は既存医療供給を維持したまま進める。
