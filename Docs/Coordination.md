@@ -35,7 +35,7 @@ observations remain in their formal evidence and main Git history.
 ### ENV-HANNOKI-APPEARANCE-20261017 — all accepted static states + natural mechanics closed
 
 **Owner:** Environment plant visuals and native validation
-**Status:** SIX AUTHOR-ACCEPTED STATIC STATES + REAL 1.6 NATIVE AUTOMATED TRANSITION VERIFIED; STEAM DISTRIBUTION OPEN
+**Status:** SIX AUTHOR-ACCEPTED STATIC STATES + REAL 1.6 AND 1.7 NATIVE CALENDAR TRANSITIONS VERIFIED; STEAM DISTRIBUTION OPEN
 
 Author accepted all six current in-game static artwork states on 2026-10-15.
 Accepted graphics, screenshot pointers and fingerprints remain in
@@ -59,11 +59,25 @@ test assumptions and original evidence:
 
 `Docs/PlantVisualCoverage.json` now marks Hannoki `transition`
 `verified` (automated_native_calendar_sampling), `complete=true`.
+**2026-10-17 native 1.7 follow-up:** [Project Actions #39018400784](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39018400784)
+with genuine Linux 1.7.4977 rev1248, same Environment main production C#
+source recompiled for Waylith test-only .NET10, naturally cold generated map
+and test-placed mature Hannoki: fall 0..1, leafless/recovered true,
+4 same-tree state transitions, observed minimum −13.49252°C below
+native leafless threshold −11.37465°C. Pickle1/1, Unity ERROR0, exit0.
+The previous test-only 1.7 map-temperature-cache omission caused a genuine
+FAIL [#39018171464](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39018171464)
+(+2.306426°C minimum, leafless false). Fail evidence retained; test-only
+cache refresh corrected without production climate/plant edit.
+Canonical exact two-version acceptance/method limitations:
+`Docs/ValidationEvidence/HannokiSeasonalNative-20261017.md`.
+
 Existing user play/save, naturally distributed wetland specimens, full-year
-world simulation, Linux Waylith 1.7 and Steam subscriber remain outside
-this specific check. **Current blocker remains Environment-owned private
-GitHub Actions publisher/authenticated host and exact Steam downloaded
-payload verification, not Hannoki's mechanics.**
+world simulation, 1.7 rendered sprite/snow appearance, Linux1.7 shared
+shipping net472 DLL and Steam subscriber remain outside **these season
+checks**. **Current blocker remains Environment-owned private GitHub Actions
+publisher/authenticated host and exact Steam downloaded payload verification,
+not Hannoki's mechanics.**
 
 ## Publication and distribution
 
