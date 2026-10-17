@@ -8,13 +8,13 @@ Workshop descriptions are written **Japanese first**.
 
 1. Update README with the detailed public content first, using Design as the internal factual/rationale source.
 2. Draft and polish a concise Japanese Workshop summary from that README.
-3. Treat the finalized Japanese Workshop text as the wording/content source for Workshop localization.
+3. Treat the finalized Japanese section of the combined Workshop text as the wording/content source for English translation.
 4. Translate that Japanese text into English without adding or removing substantive claims.
 5. Keep both Workshop language versions synchronized with each other and substantively contained within README.
 
 Source files:
 - **Single paste-ready bilingual Workshop description:** `Docs/SteamWorkshopDescription.txt` (English body → one `[hr][/hr]` separator → Japanese body → **second `[hr][/hr]` separator** → shared gallery with bilingual captions). Paste this complete file **only in Steam's English description field**; do not duplicate it in the Japanese description field.
-- Japanese wording source: `Docs/SteamWorkshopDescription-ja.txt`. Its text must match the Japanese section in the combined file; it is not an additional Steam upload.
+- Maintain Japanese wording in the Japanese section of `Docs/SteamWorkshopDescription.txt`; no separate Japanese-only text file is needed.
 
 ## Publication responsibility
 
@@ -36,7 +36,7 @@ For the 0.2.0 Workshop copy:
 
 1. First update README to reflect the *completed* four-species PlantDefs, approved descriptions/graphics and real gameplay. Move those species from "Future candidates（未実装）" to implemented features only after they are production-complete, and keep later Sugi/Susuki and deferred retextures separately marked as future work.
 2. Add **one actual, approved and reachable image per wetland species**, with a short **English / Japanese bilingual caption for each**, to the **existing last gallery** `[h2]Representative Plants / 各環境帯の代表植物[/h2]` in `Docs/SteamWorkshopDescription.txt`. Append them **after the current four structural-plant entries** within that *same* gallery; do not create a new gallery, duplicate images in the separate English/Japanese body blocks, remove older plant images, or use placeholder/broken URLs. For Mizugoke, which temporarily shares Vanilla `Plant_Moss` art, use a real verified public image (e.g. an accepted in-game screenshot), never invent an AMJE production PNG URL. Explicitly disclose the temporary image reuse **only in the Workshop caption**, not in the in-game plant description or other public surfaces.
-3. Summarize the newly implemented four wetland plants in both language feature lists and their wetland subsection, and remove the corresponding obsolete planned-items parent/children. Update `Docs/SteamWorkshopDescription-ja.txt` from Japanese-first wording and synchronize English, 2game and About only from verified finished gameplay. Keep the bilingual combined BBCode below Steam's 8,000-byte limit and pass `Tests/validate_workshop_description.py`.
+3. Summarize the newly implemented four wetland plants in both language feature lists and their wetland subsection, and remove the corresponding obsolete planned-items parent/children. Edit the Japanese section of `Docs/SteamWorkshopDescription.txt` first, then synchronize English, 2game and About only from verified finished gameplay. Keep the bilingual combined BBCode below Steam's 8,000-byte limit and pass `Tests/validate_workshop_description.py`.
 4. The image/description captions should use the existing concise educational style. Draft content grounded in the already author-approved Japanese descriptions at `Docs/NativeVegetationStep3Design-ja.md` §4 (English alignment in §4.1), without claiming new usable crafting recipes:
    - **Ashi / Yoshi — 葦（アシ、ヨシ）:** Reedbeds along rivers and shallow wetlands; reeds have long supplied thatching material. / 川辺や水の多い低地に群生する草本。古くから茅葺き屋根の材料に利用されました。
    - **Suge — 菅（スゲ）:** Sedges of wet grassland and fens; their leaves were used for traditional hats and rain capes. / 湿地や低層湿原に生える草本。葉は古くから笠や蓑の材料に利用されました。
