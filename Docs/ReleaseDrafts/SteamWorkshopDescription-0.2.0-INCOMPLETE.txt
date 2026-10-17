@@ -102,17 +102,17 @@ Low creeping pine above the treeline. / 森林限界より高所で地面を這�
 
 [img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Yoshi/Yoshi_A.png[/img]
 [b]Wetland — Reed (ashi/yoshi) / 湿地 — 葦（アシ・ヨシ）[/b]
-Reeds form stands in wet lowlands and have long supplied thatch for roofs. / 水の多い低地に群生し、古くから茅葺き屋根の材料になった。
+Traditional reed thatch from wetlands. / 湿地の葦。古くから茅葺き材に用いた。
 
 [img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Suge/Suge_A.png[/img]
 [b]Wetland — Sedge (suge) / 湿地 — 菅（スゲ）[/b]
-Sedges grow in wet grassland; their leaves were used in hats and rain capes. / 湿地の草本で、葉は笠や蓑に利用された。
+Wetland sedge used in hats and rain capes. / 湿地の菅。笠や蓑の材料に用いた。
 
 [img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png[/img]
 [b]Wetland forest — Alder (hannoki) / 湿地林 — 榛の木（ハンノキ）[/b]
-This deciduous tree grows in moist lowlands and forms wetland woodland. / 湿った低地に育ち、古くから湿地林を形づくる落葉樹。
+Deciduous wetland alder. / 湿地林を形づくる落葉樹。
 
 [b]Cool bog — Sphagnum (mizugoke) / 冷涼湿原 — 水苔（ミズゴケ）[/b]
-Sphagnum helps form peat in cool bogs. The in-game artwork temporarily reuses Vanilla moss graphics. / 冷涼湿原で泥炭形成に関わるコケ。ゲーム内画像は暫定的にバニラのコケと共用。
+Sphagnum contributes to peat formation. Vanilla moss art is reused in-game. / 泥炭形成に関わる水苔。ゲーム内ではバニラのコケ画像を流用。
 
 [MIZUGOKE_REAL_SCREENSHOT_AND_AUTHOR_ACCEPTANCE_REQUIRED]
