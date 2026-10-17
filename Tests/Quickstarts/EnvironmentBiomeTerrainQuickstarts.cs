@@ -1267,7 +1267,12 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     Plant specimen=(Plant)GenSpawn.Spawn(def,cell,map);
                     specimen.Growth=1f; specimen.HitPoints=specimen.MaxHitPoints;
                     Pawn pawn=PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist,Faction.OfPlayer);
-                    pawn.skills.GetSkill(SkillDefOf.Plants).Level=0;
+                    // A level-0 colonist can fail a normal herb harvest even
+                    // at full maturity: the separate disposable probes set
+                    // harvestFailable=false, but production herbs do not.
+                    // Use a skilled real colonist rather than disabling
+                    // vanilla harvest failure in shipped PlantDefs.
+                    pawn.skills.GetSkill(SkillDefOf.Plants).Level=20;
                     GenSpawn.Spawn(pawn,cell+IntVec3.North,map);
                     map.designationManager.AddDesignation(
                         new Designation(specimen,DesignationDefOf.CutPlant));

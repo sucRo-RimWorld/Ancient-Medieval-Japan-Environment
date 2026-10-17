@@ -1,5 +1,10 @@
 # AMJ Environment Coordination
 
+### ENV-WETLAND-020-HARVEST-NATIVE-20261017 — observed runtime failure and isolated test repair
+
+**Exact real-game run:** [Project Actions #39030166022](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39030166022), Environment source `3d3be3830b1b11fcc212c9602e2bc0dd6d24df08`: genuine RimWorld 1.6, candidate 60 files + DLL built and validated. TemperateSwamp has naturally generated Yoshi/Suge in Vanilla and CCTO, loaded Def/weights/graphics PASS, Unity logErrors0; Vanilla Yoshi and CCTO Yoshi/Suge **failed actual cut output** due to Hay0. The production test generated **Plants skill 0** colonists. The prior disposable fixtures explicitly set `harvestFailable=false` and thus their success does not prove 0-skill normal harvests succeed. This is a test design confound, not sufficient evidence of broken approved Hay output. **Next bounded action:** set only the actual-production cut probe's spawned colonist Plants skill 20, preserve normal game plant `harvestFailable` behavior and the approved `harvestYield` 2/1, then rerun one focused native test. The earlier run remains FAIL, and ColdBog/MO/1.7 remain UNTESTED. If mature high-skill production plants still yield Hay0, investigate real runtime before changing Defs. Do not add repeated test fixtures or broaden scope.
+
+
 Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs and procedures remain in `Docs/Design.md`, `Docs/GoldenPaths/`, and production source/tests. Historical DONE/superseded details have been condensed; the pre-compaction Git history plus canonical owner docs retain original evidence. This is a status queue, not a second specification.
 
 ### ENV-WORLDMAP-UNPAUSE-20261017 — author-corrected active mountain mapping handoff
