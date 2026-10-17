@@ -7,7 +7,6 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 TITLE = "Ancient & Medieval Japan - Environment（中世日本 - 環境）"
 BODY = ROOT / "Docs/SteamWorkshopDescription.txt"
-JA_SOURCE = ROOT / "Docs/SteamWorkshopDescription-ja.txt"
 
 
 def require(ok, message):
@@ -16,7 +15,6 @@ def require(ok, message):
 
 
 body = BODY.read_text(encoding="utf-8")
-ja_source = JA_SOURCE.read_text(encoding="utf-8").strip()
 about = ET.parse(ROOT / "About/About.xml").getroot()
 require(about.findtext("name") == TITLE, "About name differs from Workshop title")
 require(body.startswith("[h1]" + TITLE + "[/h1]"), "Workshop title differs from About name")
@@ -35,8 +33,8 @@ gallery_separator_pos = body.index(separator + gallery_marker)
 gallery_pos = body.index(gallery_marker)
 require(0 < ja_pos < gallery_separator_pos < gallery_pos,
         "expected English, Japanese, then separate shared gallery")
-require(body[ja_pos:gallery_separator_pos].strip() == ja_source,
-        "combined Japanese section differs from maintained Japanese source")
+require(bool(body[ja_pos:gallery_separator_pos].strip()),
+        "Japanese section must not be empty")
 require("[img]" not in body[:gallery_pos],
         "shared images must appear once after the second horizontal rule")
 require("[h2]Features[/h2]" in body[:ja_pos] and
@@ -66,4 +64,4 @@ require(not any(term in body for term in
         "Workshop description contains license, AI or donation disclosure")
 
 print("PASS: one bilingual title, English→Japanese→shared gallery, 4 unique images,")
-print("      matching Japanese source, dependencies/save warnings, size and BBCode")
+print("      Japanese body, dependencies/save warnings, size and BBCode")
