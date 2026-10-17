@@ -2,6 +2,10 @@
 
 Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs and procedures remain in `Docs/Design.md`, `Docs/GoldenPaths/`, and production source/tests. Historical DONE/superseded details have been condensed; the pre-compaction Git history plus canonical owner docs retain original evidence. This is a status queue, not a second specification.
 
+### ENV-WORLDMAP-HIGHLANDS-20261017 — next forest-zone interface for WorldMap
+
+**Owner:** Environment forest/biome ecology, **consumer:** [WorldMap](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-WorldMap/blob/main/Docs/Design.md). **Status:** REQUEST RECORDED / ECOLOGICAL DESIGN OPEN; **NO ENVIRONMENT GAMEPLAY CHANGE**. Author's actual WorldMap 1.6 gameplay approved Japan coastline, but showed very scarce subalpine (1,268/50,810 ≈2.5%) and alpine (33/50,810 ≈0.1%) settlement regions. Some alpine mountains were uninhabitable because fixed WorldMap's own `>2400m` hilliness rule, not an Environment-wide Alpine BiomeDef setting. WorldMap [PR #2](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-WorldMap/pull/2), main `e3dc6ef3087ae0c585f52b6a1e17fada3d3926d7`, implements a **source-only** bounded fix for highland hilliness and three sacred summit cells (Fuji/Tateyama/Hakusan) while its larger temperate/subalpine/alpine distribution expansion remains HOLD. **Environment decision needed later:** represent Japan intermediate temperate forest, subalpine timberline, natural alpine non-forest habitat and region/species without arbitrary target percentages or changing established stand-alone random-world contracts; coordinate approved BiomeDef identities for WorldMap to apply. Existing Environment 0.2.0 four wetland plants remain prior release scope. No RimWorld restart, producer run, fresh 1.6 acceptance or 1.7 proof should be inferred from this handoff.
+
 ### ENV-WETLAND-020-RELEASE-20261017 — author-corrected version and Workshop gallery scope
 
 **Owner:** Environment wetland-plant implementation/art and Workshop publication. **Status:** RELEASE PLAN ACCEPTED; FOUR-SPECIES COMPLETION, IMAGES, DESCRIPTION SYNCHRONIZATION AND STEAM PUBLICATION STILL OPEN.
