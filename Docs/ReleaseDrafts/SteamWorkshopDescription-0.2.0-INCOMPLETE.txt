@@ -1,5 +1,5 @@
 DRAFT FOR 0.2.0 ONLY — NOT WORKSHOP-READY OR CURRENT 0.1.1 DESCRIPTION.
-A real publicly reachable and author-accepted Mizugoke screenshot is missing.
+Seven accepted gallery images are complete for 0.2.0; Mizugoke has a bilingual text-only caption because it temporarily reuses Vanilla Moss graphics.
 Do not paste this into Steam or 2game. Keep Docs/SteamWorkshopDescription.txt unchanged until publication approval.
 
 [h1]Ancient & Medieval Japan - Environment（中世日本 - 環境）[/h1]
@@ -115,4 +115,3 @@ Deciduous wetland alder. / 湿地林を形づくる落葉樹。
 [b]Cool bog — Sphagnum (mizugoke) / 冷涼湿原 — 水苔（ミズゴケ）[/b]
 Sphagnum contributes to peat formation. Its graphics temporarily reuse Vanilla moss artwork. / 泥炭形成に関わる水苔。画像は暫定的にバニラの苔と同じものを使用しています。
 
-[MIZUGOKE_REAL_SCREENSHOT_AND_AUTHOR_ACCEPTANCE_REQUIRED]
