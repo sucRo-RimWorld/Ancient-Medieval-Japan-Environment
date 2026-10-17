@@ -2,7 +2,7 @@
   "schema": 1,
   "plants": {
     "AMJ_Tree_Hannoki": {
-      "complete": false,
+      "complete": true,
       "states": {
         "autumn": {
           "status": "accepted",
@@ -113,9 +113,19 @@
           ]
         },
         "transition": {
-          "status": "pending",
-          "reason": "Author accepted current static Hannoki image states on 2026-10-15 and will check actual natural autumn/leafless/recovery timing in later real gameplay. No native real-season transition evidence exists from the forced screenshots.",
-          "scope": "natural transition mechanics only; no additional art generation requested"
+          "status": "verified",
+          "verification_kind": "automated_native_calendar_sampling",
+          "date": "2026-10-17",
+          "evidence": "Docs/ValidationEvidence/HannokiSeasonalNative-20261017.md",
+          "scope": "Single actual native Linux 1.6 cold CoolTemperate map, test-placed fresh mature production Hannoki; hourly native calendar+TickLong with original ambient temperature/leaflessness controls. Same tree falls and recovers; not natural wetland spawn, full-world 60-day simulation, 1.7 or Workshop downloaded product.",
+          "fingerprint": {
+            "definition": "933b89f1882041a445fd9c7f1d02868f7f64bccd7bedb568e0d7516d3a998013",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
+              "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
+            }
+          }
         }
       }
     },
