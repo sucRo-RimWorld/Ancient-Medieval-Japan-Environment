@@ -104,6 +104,8 @@ TerrainDef共通タグ・C#・生態配分を先行変更せず、
 既存の種名／採取・CCTO承認／MO薬草保護／
 wildPlants総量と木本総量を維持する。
 
+**2026-10-17 スゲ本番実装：** 承認済み成熟／未熟画像、0℃、Hay 1、湿地分布（TemperateSwamp 0.80／ColdBog 1.10）を本番PlantDef・言語・Biome Patch・CCTO任意パッチへ組み込んだ。TallGrassから同量だけ移し、7.30／8.22と木本総量を維持する。成長日数・採取作業量等の未承認数値は新設せず、基底PlantBaseの挙動を利用する。これは**実装済み／実ゲーム未検証**であり、他3種を含む0.2.0の公開準備完了ではない。
+
 **2026-10-12 実装工程の簡素化（作者指示）：** スゲ・ハンノキ・ミズゴケについて、実験専用PlantDefを追加して自然発生の詳細株数を先に測る工程は必須としない。未マージのPR #102は実機実験を行わず終了し、その仮Def・仮Patch・計測処理を本番に取り込まない。既存の地形タグ／肥沃度調査とヨシの自然発生観測を引き続き利用する。以後は、**種ごとに残る未承認事項と必要画像の実物確認・作者承認を満たした時点で、本番PlantDefとBiome配分を同じ実装単位で作成し、その本番Defの自然発生・適地・採取／除去・冬季・既存セーブ・4構成互換を検証する**。新たな仮Def実験を前提条件としない一方、未承認数値を「仮」のまま配布可能な本番値へ昇格させず、未承認画像の代用品も使わない。`Soil`タグで湿原内の微地形を厳密に区別できない制約とMO植物保護、野生植物・木本の基準総量は維持する。
 
 ### 3.1.2 ハンノキの本番数値（2026-10-13 作者承認）
@@ -142,9 +144,9 @@ wildPlants総量と木本総量を維持する。
 
 **2026-10-16 Japanization一式統合による供給補足：** スゲの直接収穫 `Hay` 1は変更しない。Japanizationを入れずMOだけで遊ぶ場合の `Hay → Straw` はMO元の工程。**Japanization＋AMJ全構成**ではGrainsの穀物脱穀が`DankPyon_Straw`を供給し、Japanizationは乾燥ラックでのHay→Strawだけを停止する。Environmentは両系統で同じHay採取PlantDefを維持し、乾燥ProcessDefや穀物Straw Recipeを所有しない。実ゲーム統合検証は未完了。
 
-`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/Production/test_wetland_material_plant_contract.py`。**ハンノキのみ実Defを実装**。スゲ・ミズゴケ等の実Defは未実装であり、既存のテスト仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** **2026-10-12作者承認：スゲの成熟株1株の基本収穫量は `Hay` 1（`harvestYield=1`）。** 他種の収量・収穫物の承認とは区別する。ヨシのHay採用、ヨシの収量と製品Recipeは未承認。ハンノキは2026-10-13に木材24（Vanilla WoodLog）を承認済み。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
+`Docs/Research/WetlandPlantMaterialsProfiles-ja.md`を一次採取・利用の作業正本とする。**Def構造とMO 1.6実ソース確認：** `Docs/Research/WetlandPlantMaterialDefAudit-ja.md`、実装前回帰 `Tests/Production/test_wetland_material_plant_contract.py`。**ハンノキとスゲは実Defを実装**（スゲは2026-10-17本番XMLを追加、実ゲーム未検証）。ヨシ・ミズゴケの実Defは未実装であり、既存のテスト仮XMLを本番・画面動作の証明に流用しない。**作者確定（2026-10-09）：スゲの一次採取物はVanillaの`Hay`に統合し、MO併用時は既存乾燥棚の`Hay→DankPyon_Straw`経路を使う。専用スゲ原料は作らず、将来の菅笠・蓑・敷物も汎用Hay／MO Strawを利用してよい。** **2026-10-12作者承認：スゲの成熟株1株の基本収穫量は `Hay` 1（`harvestYield=1`）。** 他種の収量・収穫物の承認とは区別する。ヨシのHay採用、ヨシの収量と製品Recipeは未承認。ハンノキは2026-10-13に木材24（Vanilla WoodLog）を承認済み。ハンノキは`WoodLog`が候補であり、MO時のWoodChain設定も別検証。**ミズゴケはクリック選択・名前／説明／成長状態表示が可能で、収穫不可、通常の刈り取りで除去可能、アイテムドロップなし、栽培不可（作者承認済み）。** `selectable=true`相当の設定を維持し、収穫物のDefを持たせず、通常CutPlantでアイテムが出ないこと・播種メニュー非表示を実機確認する。新PlantDef・英訳・画像・実機互換は未実装／未検証。
 
-**実装前のDef参照テスト（2026-10-10）：** `Tests/Production/test_wetland_production_refs.py`は本番`Patches/VanillaWetlandVegetation.xml`の2湿地を読み、追加予定4種のDef名について「自然発生プールで参照した種に対応する実PlantDefが1件存在する」「実PlantDefが存在する種は対象プールから参照される」「ミズゴケは現在の設計ではColdBog限定」を検査する。未実装中は形状・誤参照のモックテストを実行し、本番種がなければ本番参照検査だけをSKIPする。**ハンノキの0.70／0.45のみ種別承認済み**。残る分布草案をゲーム適用したり、ロード済みの適地・自然発生・画像・採取を検証済みと主張したりしない。
+**実装前のDef参照テスト（2026-10-10）：** `Tests/Production/test_wetland_production_refs.py`は本番`Patches/VanillaWetlandVegetation.xml`の2湿地を読み、追加予定4種のDef名について「自然発生プールで参照した種に対応する実PlantDefが1件存在する」「実PlantDefが存在する種は対象プールから参照される」「ミズゴケは現在の設計ではColdBog限定」を検査する。未実装中は形状・誤参照のモックテストを実行し、本番種がなければ本番参照検査だけをSKIPする。**ハンノキの0.70／0.45とスゲの0.80／1.10は種別承認・本番適用済み**。ヨシ・ミズゴケの残る分布草案をゲーム適用したり、ロード済みの適地・自然発生・画像・採取を検証済みと主張したりしない。
 
 ### 3.3 医療供給の維持
 
