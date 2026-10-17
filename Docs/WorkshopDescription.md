@@ -90,7 +90,7 @@ Emphasize:
 - Medieval Overhaul coexistence;
 - save-compatibility limitations;
 - completed wetland vegetation, wildlife, pack-animal, disease, weather and descriptions; retained-tree descriptions, sowing and cutting outcomes;
-- unimplemented native wetland plant candidates grouped under a single `（未実装）` parent with four named child items, plus deferred Vanilla/MO retextures as a separate `（未実装）` parent;
+- for the **currently published 0.1.1 description only**, the formerly unimplemented wetland candidate group remains unchanged; in the **unreleased 0.2.0 draft**, four source-completed plants move into the feature list and only deferred tree retextures remain unimplemented;
 - Beta status and continued Healroot supply, with medicinal plants outside Environment.
 
 For the representative-plant section, keep the Workshop summaries shorter than the in-game historical descriptions. The Workshop should explain the vegetation-band design and provide a short educational note for each plant; the in-game descriptions retain the fuller kanji/alias/historical detail.
