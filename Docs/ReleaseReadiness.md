@@ -1,5 +1,11 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+
+## New wetland four-species 1.6 Vanilla/CCTO native PASS — 2026-10-17
+
+The new Ashi/Yoshi, Suge, Hannoki and Mizugoke production source `ea22a4fcb0454630d85eb48c9e88604cedc97497` passes actual Linux RimWorld 1.6 Vanilla and CCTO both TemperateSwamp and ColdBog native tests: **310/310 assertions; 0 prelaunch errors, 0 runtime errors, game exits 0**. Base Yoshi Hay2/Suge Hay1 and actual CutPlant work; Mizugoke produces no drop. Detailed [same-source log evidence](ValidationEvidence/WetlandFourProductionNative16-20261017.md); [Project Actions #39034867997](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39034867997). This does **not** verify MO/MO+CCTO or 1.7 with the new species, four-profile release, seasonal/save behavior, user-accepted gallery images or Steam upload/subscriber bytes. Preserve old failed build/game attempts as failures and retain private-publication HOLD.
+
+
 # 2026-10-15 current-main Linux 1.6 candidate — build and Vanilla native PASS
 
 
