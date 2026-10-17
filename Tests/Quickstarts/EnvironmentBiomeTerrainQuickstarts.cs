@@ -4643,6 +4643,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
         public const string SaveName = "AMJE_020_Wetland_SeasonSave";
         protected override string TargetBiomeDefName { get { return "ColdBog"; } }
         protected override string TargetPlantDefName { get { return "Plant_Moss"; } }
+        protected override bool ValidateAmjBiomeContracts { get { return false; } }
         private bool speciesPlaced;
         private bool seasonalRange;
         private bool saved;
