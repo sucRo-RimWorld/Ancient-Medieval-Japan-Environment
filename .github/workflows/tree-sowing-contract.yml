@@ -1,54 +1,6 @@
 name: Regional tree sowing contract
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'Defs/BiomeDefs/**'
-      - 'Defs/ThingDefs_Plants/**'
-      - 'Patches/**'
-      - 'Languages/Japanese/DefInjected/BiomeDef/**'
-      - 'Languages/Japanese/DefInjected/ThingDef/**'
-      - 'Tests/Production/test_vanilla_bamboo_description.py'
-      - 'Docs/VanillaPlantStep2DescriptionReview-ja.md'
-      - 'Tests/Quickstarts/**'
-      - 'Tests/Production/test_tree_sowing_contract.py'
-      - 'Tests/Production/test_hannoki_production_contract.py'
-      - 'Tests/Production/test_structural_plant_commonality.py'
-      - 'Tests/Production/test_wetland_ecology_contract.py'
-      - 'Docs/Research/WetlandPlantExistingModAudit-ja.md'
-      - 'Docs/Research/WetlandPlantImplementationDecision.json'
-      - 'Docs/NativeVegetationStep3Design-ja.md'
-      - 'Tests/Production/test_wetland_implementation_decision.py'
-      - 'Docs/Research/WetlandPlantDistributionDraft.json'
-      - 'Tests/Production/test_wetland_production_refs.py'
-      - 'Docs/Research/WetlandPlantMaterialDefAudit-ja.md'
-      - 'Docs/Research/WetlandPlantMaterialsProfiles-ja.md'
-      - 'Tests/Production/test_wetland_material_plant_contract.py'
-      - '.github/workflows/tree-sowing-contract.yml'
-  pull_request:
-    paths:
-      - 'Defs/BiomeDefs/**'
-      - 'Defs/ThingDefs_Plants/**'
-      - 'Patches/**'
-      - 'Languages/Japanese/DefInjected/BiomeDef/**'
-      - 'Languages/Japanese/DefInjected/ThingDef/**'
-      - 'Tests/Production/test_vanilla_bamboo_description.py'
-      - 'Docs/VanillaPlantStep2DescriptionReview-ja.md'
-      - 'Tests/Quickstarts/**'
-      - 'Tests/Production/test_tree_sowing_contract.py'
-      - 'Tests/Production/test_hannoki_production_contract.py'
-      - 'Tests/Production/test_structural_plant_commonality.py'
-      - 'Tests/Production/test_wetland_ecology_contract.py'
-      - 'Docs/Research/WetlandPlantExistingModAudit-ja.md'
-      - 'Docs/Research/WetlandPlantImplementationDecision.json'
-      - 'Docs/NativeVegetationStep3Design-ja.md'
-      - 'Tests/Production/test_wetland_implementation_decision.py'
-      - 'Docs/Research/WetlandPlantDistributionDraft.json'
-      - 'Tests/Production/test_wetland_production_refs.py'
-      - 'Docs/Research/WetlandPlantMaterialDefAudit-ja.md'
-      - 'Docs/Research/WetlandPlantMaterialsProfiles-ja.md'
-      - 'Tests/Production/test_wetland_material_plant_contract.py'
-      - '.github/workflows/tree-sowing-contract.yml'
+  workflow_dispatch:
 concurrency:
   group: tree-sowing-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
