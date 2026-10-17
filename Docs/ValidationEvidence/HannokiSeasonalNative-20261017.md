@@ -1,4 +1,4 @@
-# ハンノキ自然季節遷移 — 実RimWorld 1.6自動テスト（2026-10-17）
+# ハンノキ自然季節遷移 — RimWorld 1.6・1.7実ゲーム自動テスト（2026-10-17）
 
 ## 判定と対象
 
@@ -60,7 +60,68 @@ exit 0、タイムアウトなし**。原本ログ・Quickstart JSON・source SH
 **自然季節遷移のゲーム機構の検証**である。ハンノキの季節機構について
 `Docs/PlantVisualCoverage.json` の `transition` を
 `automated_native_calendar_sampling` として verified にする根拠となる。
-長期間の通常プレイ、毎日全ワールドの完全Tick、1.7での同一試験、
+長期間の通常プレイ、毎日全ワールドの完全Tick、
 Steamからダウンロードした配布実物やWorkshop非公開更新を証明するものではない。
+下記の独立1.7実ゲームテストが1.7の季節機構のみを補完する。
 
 ハンノキの画像バイナリ・生産XML・バランス・元ゲーム・ユーザーのセーブは変更していない。
+
+## Linux RimWorld 1.7 — 独立実ゲーム検証（2026-10-17）
+
+**[Project Actions #39018400784](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39018400784) は PASS。**
+本物の Linux **RimWorld 1.7.4977 rev1248** を元のインストールから隔離コピーし、
+正式 Environment source `88f054abd75f7955f6597d53ffc2bc22f1556a87` の
+C# 8ファイルを未改変のまま **1.7 UnityStubs / .NET 10 に対しテスト専用ビルド**。
+このビルドをロードして実マップを生成し、ハンノキ個体の季節変化を観察した。
+**配布用の共有 net472 DLLを実際にLinux 1.7でテストした結果ではない。**
+
+### テスト仕様と結果
+
+- **自然生成した** `AMJ_CoolTemperateForest` の最寒定住可能な地点（年平均 **8.004106℃**）を使用。
+  ランダムな年間気候を人為的に寒くせず、適用Biomeを変更しない。
+- テスト専用マップに、正式な `AMJ_Tree_Hannoki` Defで新規生成した
+  **成熟個体12本を配置**。内部の落葉閾値が最も高い個体を1本追跡。
+  自然スポーン率のテストとは異なる。
+- 年間60日を実ゲームの時間を毎時進める加速サンプリングと
+  `WorldComponentTick`／`RetrieveCachedData`／`CheckCache`／
+  `MapTemperature.TemperatureUpdate`／`Plant.TickLong` で検証。
+  **全マップを60日間の通常Tickで進めるものではない。**
+  `MakeLeafless`、気温値、閾値、紅葉係数を強制的に操作しない。
+- 実測 **`fallMin=0`／`fallMax=1`**。
+  最低気温 **−13.49252℃**、追跡木の標準落葉閾値 **−11.37465℃**。
+- **同一個体で落葉・再展葉を計4回観察**。原本ログの切替点：
+  step957/day45/−11.52738℃ → 落葉、
+  step1031/day48/−9.251407℃ → 葉あり、
+  step1076/day50/−11.58789℃ → 落葉、
+  step1198/day55/−9.555622℃ → 葉あり。
+  木の内部 `LeaflessNow` 変化を検証した。
+- 本物のPickle **1/1 PASS**、failed0、skipped0、flaky0、
+  Unity ERROR0、FMOD ERROR0、ゲーム exit0、timeoutなし。
+  実際のランナーが原本 `launcher.log`、`summary.json`、
+  `result.json`、ビルドログをAction artifactに保存。
+- テストのtest-only実装は Project PR [#604](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/pull/604) から始まり、
+  最終的に **Project main `7f123d6d279cb67bb9f4db1a656223cf668b3f50`** に入った
+  1.7気温キャッシュ再評価を含む。テスト専用の温度更新のみ変更し、
+  Environmentの生産XML・テクスチャ・植物コードには変更なし。
+
+### FAIL履歴と検証境界
+
+最初のゲームまで到達した
+[Actions #39018171464](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39018171464) は
+**厳密にはFAIL**（Pickle0/1、Unity ERROR2、ゲームexit1）。
+`fallMin=0`／`fallMax=1` は確認したが、
+温度キャッシュを適切に再評価しないテスト用実装では
+観測最低気温が **+2.306426℃** に留まり、落葉閾値 **−11.37465℃** に到達しなかった。
+テスト専用fixtureのキャッシュ処理を1.6で実績のある方法に修正したのであり、
+気候の本番実装・落葉閾値・紅葉色を変更してFAILをPASSに置き換えたわけではない。
+それ以前のビルドエラーもゲーム起動前のtest-only fixture欠陥として保持。
+
+**1.7で証明したのは植物の季節係数・落葉フラグ・再展葉と実マップ上の実行である。**
+1.6と異なり、今回の1.7シナリオはマテリアルの
+`Hannoki_A / Hannoki_Leafless_A` 実画面切替、
+画像の美観、雪オーバーレイを検証していない。
+また Linux1.7の共有配布DLL、Vanilla+MO+CCTOの全構成、
+Steamからダウンロードした物理パッケージ、実セーブ長期進行を保証しない。
+
+既存1.6の同一59ファイル配布候補に対する季節／グラフィックの証拠は
+本書冒頭に残し、二つのゲームバージョンの独立したテスト結果を混同しない。
