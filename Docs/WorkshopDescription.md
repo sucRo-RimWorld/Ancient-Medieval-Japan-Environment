@@ -28,6 +28,23 @@ Repository work ends with preparing and synchronizing the README, Japanese/Engli
 
 RimWorld 1.6 / 1.7 (unstable) — Beta
 
+## Next major update — wetland vegetation (author decision 2026-10-17)
+
+The author classifies the **four new wetland plants** (Ashi/Yoshi, Suge, Hannoki and Mizugoke) as a **major feature update**, rather than a small 0.1.x fix. The intended next major version is **1.0.0** after the four-species production/release criteria are met; the current tracked **0.1.1** About/Manifest/Changelog metadata is *not* advanced in anticipation of unfinished content. Version number and Beta/stable maturity are independent release decisions. When actually releasing, synchronize `About/About.xml`, `About/Manifest.xml` and `About/Changelog.txt` at the same version, then prepare accurate bilingual change notes; do not publish or imply a Workshop update merely because this policy exists.
+
+For the major-update Workshop copy:
+
+1. First update README to reflect the *completed* four-species PlantDefs, approved descriptions/graphics and real gameplay. Move those species from "Future candidates（未実装）" to implemented features only after they are production-complete, and keep later Sugi/Susuki and deferred retextures separately marked as future work.
+2. Add **one actual, approved and reachable image per wetland species**, with a short **English / Japanese bilingual caption for each**, to the **existing last gallery** `[h2]Representative Plants / 各環境帯の代表植物[/h2]` in `Docs/SteamWorkshopDescription.txt`. Append them **after the current four structural-plant entries** within that *same* gallery; do not create a new gallery, duplicate images in the separate English/Japanese body blocks, remove older plant images, or use placeholder/broken URLs. For a plant sharing a Vanilla texture (Mizugoke), use a verified committed screenshot/illustrative asset rather than inventing an AMJE production PNG URL.
+3. Summarize the newly implemented four wetland plants in both language feature lists and their wetland subsection, and remove the corresponding obsolete planned-items parent/children. Update `Docs/SteamWorkshopDescription-ja.txt` from Japanese-first wording and synchronize English, 2game and About only from verified finished gameplay. Keep the bilingual combined BBCode below Steam's 8,000-byte limit and pass `Tests/validate_workshop_description.py`.
+4. The image/description captions should use the existing concise educational style. Draft content grounded in the already author-approved Japanese descriptions at `Docs/NativeVegetationStep3Design-ja.md` §4 (English alignment in §4.1), without claiming new usable crafting recipes:
+   - **Ashi / Yoshi — 葦（アシ、ヨシ）:** Reedbeds along rivers and shallow wetlands; reeds have long supplied thatching material. / 川辺や水の多い低地に群生する草本。古くから茅葺き屋根の材料に利用されました。
+   - **Suge — 菅（スゲ）:** Sedges of wet grassland and fens; their leaves were used for traditional hats and rain capes. / 湿地や低層湿原に生える草本。葉は古くから笠や蓑の材料に利用されました。
+   - **Hannoki — 榛の木（ハンノキ）:** A deciduous tree of wet river lowlands; alder-genus wetland woods existed in prehistoric Japan. / 河川沿いの湿った低地に生える落葉高木。古い時代から日本の湿地林を形づくってきました。
+   - **Mizugoke — 水苔（ミズゴケ類）:** Sphagnum of cool bogs, helping form peat as dead plant matter accumulates. / 冷涼な湿原に広がるコケ類。枯れた部分の堆積を通して泥炭形成に関わります。
+
+Until all publication prerequisites are real and verifiable, the existing paste-ready Workshop description remains a description of the present release: **do not pre-advertise unimplemented species or use unapproved images**. The Steam Workshop item remains private unless the author makes a separate visibility decision.
+
 ## Public wording rules
 
 - Japanese Workshop copy uses established Japanese terms for general concepts. Prefer `バニラ`, `バイオーム`, `世界生成`, and `実行時` instead of mixing `Vanilla`, `Biome`, `WorldGen`, or `runtime` into Japanese prose.
