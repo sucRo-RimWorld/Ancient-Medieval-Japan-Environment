@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HarmonyLib;
 using RimWorks.Quickstarts;
 using RimWorks.Quickstarts.Verification;
@@ -4712,6 +4713,20 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " maxC=" + maxTemp.ToString("F2") +
                 " graphics=" + validGraphics +
                 " outcome=calendar_sample_not_full_60_day_tick_simulation");
+            // Natural low-temperature death is a valid seasonal outcome.
+            // Restore any such specimens to full-grown state for an independent
+            // save/reload identity test; never change the production PlantDefs.
+            int winterDeaths = 0;
+            for (int i = 0; i < plants.Count; i++)
+            {
+                if (!plants[i].Destroyed) continue;
+                winterDeaths++;
+                IntVec3 cell = map.Center + new IntVec3((i-2)*8, 0, -8);
+                Plant replacement = ThingMaker.MakeThing(plants[i].def) as Plant;
+                replacement.Growth = 1f;
+                GenSpawn.Spawn(replacement, cell, map, WipeMode.Vanish);
+            }
+            Log.Message("AMJE_020_SEASON winterDeaths=" + winterDeaths);
             // Genuine game serialization; the independent reload process must
             // observe the corresponding exact species after Scribe completes.
             GameDataSaveLoader.SaveGame(SaveName);
