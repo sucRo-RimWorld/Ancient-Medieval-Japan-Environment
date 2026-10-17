@@ -4766,8 +4766,16 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 Log.Message("AMJE_020_RELOAD_START name=" +
                     AMJWetlandSeasonSaveQuickstart.SaveName);
-                AccessTools.Method(typeof(SavedGameLoader), "LoadGameFromSaveFile")
-                    .Invoke(null, new object[] { AMJWetlandSeasonSaveQuickstart.SaveName });
+                Type loader = AccessTools.TypeByName("Verse.SavedGameLoaderNow") ??
+                    AccessTools.TypeByName("Verse.SavedGameLoader") ??
+                    typeof(GameDataSaveLoader);
+                System.Reflection.MethodInfo load =
+                    AccessTools.Method(loader, "LoadGameFromSaveFileNow") ??
+                    AccessTools.Method(loader, "LoadGameFromSaveFile") ??
+                    AccessTools.Method(typeof(GameDataSaveLoader), "LoadGame");
+                if (load == null)
+                    throw new InvalidOperationException("No genuine RimWorld save loader");
+                load.Invoke(null, new object[] { AMJWetlandSeasonSaveQuickstart.SaveName });
             });
         }
     }
