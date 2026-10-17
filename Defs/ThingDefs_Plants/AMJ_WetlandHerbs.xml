@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!-- Approved Suge sprites, species-specific wetland weights and native Hay harvest.
+       Keep wild-only; do not grant sowTags or require Medieval Overhaul. -->
+  <ThingDef ParentName="PlantBase">
+    <defName>AMJ_Plant_Suge</defName>
+    <label>sedge (suge)</label>
+    <description>Sedge (suge, also called suga) is a collective name for sedges that grow in wet grasslands and fens. Their long, narrow leaves grow in dense clumps, forming stands near reedbeds and alder woods.\n\nThe Man'yōshū includes poems about suge and hats made from it. Its leaves have long been used to make hats and traditional rain capes.</description>
+    <selectable>true</selectable>
+    <uiIconPath>Things/Plant/AMJ/Suge/Suge_A</uiIconPath>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Suge</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <plant>
+      <immatureGraphicPath>Things/Plant/AMJ/Suge_Immature</immatureGraphicPath>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>Hay</harvestedThingDef>
+      <harvestYield>1</harvestYield>
+    </plant>
+  </ThingDef>
+</Defs>
