@@ -113,6 +113,6 @@ Wetland sedge used in hats and rain capes. / 湿地の菅。笠や蓑の材料�
 Deciduous wetland alder. / 湿地林を形づくる落葉樹。
 
 [b]Cool bog — Sphagnum (mizugoke) / 冷涼湿原 — 水苔（ミズゴケ）[/b]
-Sphagnum contributes to peat formation. Vanilla moss art is reused in-game. / 泥炭形成に関わる水苔。ゲーム内ではバニラのコケ画像を流用。
+Sphagnum contributes to peat formation. Its graphics temporarily reuse Vanilla moss artwork. / 泥炭形成に関わる水苔。画像は暫定的にバニラの苔と同じものを使用しています。
 
 [MIZUGOKE_REAL_SCREENSHOT_AND_AUTHOR_ACCEPTANCE_REQUIRED]
