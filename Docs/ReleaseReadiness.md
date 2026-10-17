@@ -1,5 +1,10 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+## 2026-10-17 wetland four plants — native RimWorld 1.7 smoke PASS (scoped)
+
+Actual [Project Actions #39041272179](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39041272179) tested immutable Environment gameplay source `ea22a4fcb0454630d85eb48c9e88604cedc97497` on genuine Linux **RimWorld 1.7.4977**. **Pickle 1/1 PASS, native ERROR0, FMOD ERROR0, game exit0;** actual Plants20 CutPlant gave Yoshi Hay2, Suge Hay1 and zero-drop Mizugoke. Owner PlantDefs, both biome weight sets and nonfood/wild-only inheritance were checked as loaded real 1.7 data. See `Docs/ValidationEvidence/WetlandFourProductionNative17-20261017.md` for precise marker/hashes/limitations. This does not verify 1.7 natural wetland spawning, winter/saves, all 1.7 provider combinations, exact release candidate or Steam subscriber upload/download. **0.2.0 private release HOLD unchanged.**
+
+
 ## New wetland 1.6 MO and MO+CCTO native checks — 2026-10-17
 
 Project [MO/MO+CCTO both wetland scenarios #39038178612](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39038178612) actually ran 4 maps. Their loaded-game function counts were MO warm 83/84 (one genuine Yoshi Hay0 on a failable harvest), MO cold 75/75, MO+CCTO warm 84/84, MO+CCTO cold 75/75. All cases had exactly two previously independently established blank-clip MO/SYR FMOD prelaunch errors; **raw strict ERROR0 remains FAIL**. Test-only bounded independent natural harvest attempts fixed stochastic one-roll acceptance, and [focused MO warm #39039584212](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39039584212) passed **68/68** original loaded-game checks including real Yoshi Hay2 and Suge Hay1 after an independently recorded stochastic Hay0. Normal game harvest failure and approved base yields unchanged. See `Docs/ValidationEvidence/WetlandFourProductionNativeMO16-20261017.md`.
