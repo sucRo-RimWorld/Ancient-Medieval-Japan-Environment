@@ -155,6 +155,7 @@ These are gameplay proxies, not literal historical-species claims. Japan-specifi
 AMJE retains Vanilla's Temperate Swamp and Cold Bog workers, labels, marsh/mud/shallow-water terrain, movement difficulty and basic densities. The following changes are implemented:
 
 - Replace unsuitable wild-plant pools while preserving total and woody commonality.
+- In the **unreleased 0.2.0 GitHub source**, provide four additional natural wetland plants: **Ashi/Yoshi reed**, **Suge sedges**, **Hannoki alder** in both retained wetlands, and **Mizugoke sphagnum** in ColdBog only. They are not sowable. Mature Ashi and Suge yield base **Hay ×2** and **Hay ×1**; Hannoki yields base **WoodLog ×24**; Mizugoke is removable but drops nothing. The previously accepted overall wetland vegetation and tree totals are maintained.
 - Rebalance wetland wildlife and exclude unsuitable pack-animal candidates.
 - Change wetland disease types, weights and average intervals, removing mechanite diseases and retaining reduced malaria only in warmer wetlands.
 - Reweight wetland rain, fog, storms and snow by wetland climate.
@@ -162,7 +163,7 @@ AMJE retains Vanilla's Temperate Swamp and Cold Bog workers, labels, marsh/mud/s
 - Restrict regional tree-sowing choices to the natural distribution; alpine Haimatsu remains wild-only.
 - Provide the four representative plants' native cutting wood outputs.
 
-Candidate additions of Yoshi reed, Suge sedges, Hannoki alder and Mizugoke sphagnum moss are not implemented. Existing-tree Vanilla/MO retextures also remain deferred.
+The four new wetland species are implemented **in this repository**, not yet shipped to subscribers in the published **0.1.1** Workshop version. Ashi/Suge use approved new sprites; Hannoki includes its approved seasonal states; Mizugoke temporarily reuses Vanilla moss art. Existing-tree Vanilla/MO retextures remain deferred.
 
 ## CCTO integration
 
@@ -170,7 +171,7 @@ Candidate additions of Yoshi reed, Suge sedges, Hannoki alder and Mizugoke sphag
 
 Without CCTO, AMJ Environment plants keep an explicit Vanilla-style minimum growth temperature baseline.
 
-When CCTO is present, AMJ Environment conditionally applies CCTO's public cold-tolerance extension to its own four structural plants:
+When CCTO is present, AMJ Environment conditionally applies CCTO's public cold-tolerance extension to its own structural and wetland plants:
 
 | Plant | AMJE only | AMJE + CCTO |
 |---|---|---|
@@ -178,6 +179,10 @@ When CCTO is present, AMJ Environment conditionally applies CCTO's public cold-t
 | Japanese beech | 0°C minimum growth | 5°C minimum growth; cold dormancy |
 | Shirabiso | 0°C minimum growth | 0°C minimum growth; death below -35°C |
 | Haimatsu | 0°C minimum growth | 0°C minimum growth; death below -35°C |
+| Ashi/Yoshi | 0°C minimum growth | 5°C minimum growth; cold dormancy |
+| Suge | 0°C minimum growth | 0°C minimum growth; cold dormancy |
+| Hannoki | 0°C minimum growth | 5°C minimum growth; cold dormancy |
+| Mizugoke | 0°C minimum growth | 0°C minimum growth; death below -35°C |
 
 This keeps the mods loosely coupled:
 
@@ -237,16 +242,17 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 
 The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
 
-The four structural plants, retained-tree descriptions, and wetland vegetation/wildlife/disease/weather/description adjustments are implemented. New wetland-plant candidates and retained-tree retextures remain unimplemented; normal-play balance still needs evaluation.
+The four structural plants, retained-tree descriptions, wetland ecology adjustments, and the four additional wetland plants are implemented in source. The new plants have real RimWorld 1.6 Vanilla/CCTO and 1.6 MO functional evidence and a focused 1.7 native cutting PASS. Hannoki's natural leaf loss/recovery has been tested on both game versions. The **0.2.0 Workshop update is still unreleased**: herb cold-season persistence and save/reload, a fourth accepted gallery image for Mizugoke, final release notes, and exact subscriber verification remain open.
 
 ## Planned follow-up
 
-These candidates are not implemented:
+The following content is **not** included in the current published release:
 
-- Yoshi reed, Suge sedges, Hannoki alder and Mizugoke sphagnum moss, subject to habitat, existing-Mod, historical wording and art approval.
+- The four source-implemented wetland plants described above (planned Workshop version 0.2.0).
 - Selected retained Vanilla/Medieval Overhaul tree retextures (deferred).
+- Later forest/wild-food improvements documented in the separate owning design (not part of 0.2.0).
 
-New vegetation must pass older-save migration and actual natural-generation tests. Existing Healroot and medicine supply will remain. Medicinal species and remedies belong to a separate future medicine Mod.
+New games are recommended because existing worlds are not regenerated by an update. Seasonal and saved-game continuity still require final validation. Existing Healroot and medicine supply remain; medicinal species and remedies belong to a separate future medicine Mod.
 
 ## Research and detailed design
 

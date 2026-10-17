@@ -1,6 +1,14 @@
 # Steam Workshop Presentation — Ancient & Medieval Japan - Environment（中世日本 - 環境）
 
-`README.md` is the detailed public-content source of truth. Workshop follows the author's finalized 2game organization: order the features by function (climate/weather → rivers/coasts → biomes → soil → vegetation → wildlife → wetland disease → descriptions), combine overlapping bullets, and preserve coverage of **all implemented player-visible change categories** even when one bullet covers several. Keep additional Workshop-only details such as wetland terrain retention and plant cutting yield when needed for complete coverage. Do not repeat a 'balance' section that merely duplicates features or compatibility. Structure the body as features → scope → compatibility → save compatibility → future candidates. The four unimplemented wetland-plant candidates are child bullets of one parent marked `（未実装）`; deferred retexturing is another marked parent. Retain the literal Japanese suffix in both language blocks. Distinguish candidates from approved work and never repeat withdrawn plans. No new feature claim may be introduced beyond README.
+## 0.2.0 author-approved wetland copy — SOURCE IMPLEMENTED, PUBLICATION HELD (2026-10-18)
+
+The four species are now in the Environment source, with the 1.6 Vanilla/CCTO, 1.6 MO functional and focused 1.7 native behavior evidence recorded in `Docs/ValidationEvidence`. **This does not mean the 0.2.0 Steam/2game update has been published.** Keep currently published 0.1.1 copy unchanged until final checks.
+
+Japanese-first bilingual working copy: `Docs/ReleaseDrafts/SteamWorkshopDescription-0.2.0-INCOMPLETE.txt`; shorter 2game candidate: `Docs/ReleaseDrafts/2GameDescription-ja-0.2.0-INCOMPLETE.txt`. They are **NOT paste-ready**. The three newly appended published-source picture URLs for accepted Yoshi, Suge and Hannoki production sprites refer to existing repository PNGs; all four preceding gallery images are retained. Sphagnum has no accepted reachable, in-game screenshot for the fourth appended image. Its actual PlantDef uses Vanilla Moss graphics, which is not by itself a public-image acceptance. Do not invent an AMJE Mizugoke PNG or use a placeholder URL.
+
+The combined Steam draft has **7 real images** and is below 8,000 UTF-8 bytes with LF and CRLF; it leaves room for a final eighth real image. The Workshop ready gate additionally requires seasonal/save behavior, the actual final byte-size/tag/link validator, complete author-approved eight-image gallery, a single version 0.2.0 About/Manifest/Changelog update **only at release promotion**, exact private upload provenance and downloaded subscriber byte check. No Steam upload authorized by drafting.
+
+`README.md` is the detailed public-content source of truth. Workshop follows the author's finalized 2game organization: order the features by function (climate/weather → rivers/coasts → biomes → soil → vegetation → wildlife → wetland disease → descriptions), combine overlapping bullets, and preserve coverage of **all implemented player-visible change categories** even when one bullet covers several. Keep additional Workshop-only details such as wetland terrain retention and plant cutting yield when needed for complete coverage. Do not repeat a 'balance' section that merely duplicates features or compatibility. Structure the body as features → scope → compatibility → save compatibility → future candidates. For current public 0.1.1 text only, its old wetland-candidate parent remains until the promotion gate. The separate 0.2.0 draft lists those four as source-implemented; deferred retexturing remains unimplemented. Retain the literal Japanese suffix in both language blocks. Distinguish candidates from approved work and never repeat withdrawn plans. No new feature claim may be introduced beyond README.
 
 ## Authoring order
 
@@ -82,7 +90,7 @@ Emphasize:
 - Medieval Overhaul coexistence;
 - save-compatibility limitations;
 - completed wetland vegetation, wildlife, pack-animal, disease, weather and descriptions; retained-tree descriptions, sowing and cutting outcomes;
-- unimplemented native wetland plant candidates grouped under a single `（未実装）` parent with four named child items, plus deferred Vanilla/MO retextures as a separate `（未実装）` parent;
+- for the **currently published 0.1.1 description only**, the formerly unimplemented wetland candidate group remains unchanged; in the **unreleased 0.2.0 draft**, four source-completed plants move into the feature list and only deferred tree retextures remain unimplemented;
 - Beta status and continued Healroot supply, with medicinal plants outside Environment.
 
 For the representative-plant section, keep the Workshop summaries shorter than the in-game historical descriptions. The Workshop should explain the vegetation-band design and provide a short educational note for each plant; the in-game descriptions retain the fuller kanji/alias/historical detail.

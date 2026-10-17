@@ -1,8 +1,12 @@
 # RimWorld Mod データベース（2game）掲載方針 — AMJE
 
+## 0.2.0用原稿の保留状態（2026-10-18）
+
+湿地植物4種の本番実装・1.6主要検証・1.7基本挙動PASSを受け、`Docs/ReleaseDrafts/2GameDescription-ja-0.2.0-INCOMPLETE.txt` に候補を作成。これは**未公開0.2.0の原稿**であり、`Docs/2GameDescription-ja.txt` の現行0.1.1掲載用文章を上書きしない。公開前にミズゴケの実画像、季節・セーブ確認、0.2.0更新履歴および配布物確認を確定する。以下の未実装4種への言及は現行掲載文章の履歴として維持する。
+
 共通正本はProjectの[ModDescriptionGuidelines.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/ModDescriptionGuidelines.md)。形式の基準はCCTOの[2GamePresentation.md](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/main/Docs/2GamePresentation.md)と[日本語説明](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/main/Docs/2GameDescription-ja.txt)。
 
-貼り付け用の管理元は `Docs/2GameDescription-ja.txt`。READMEを詳細な公開内容の正本とし、Workshopより短く説明する。2026-10-09に作者が正式確定した本文の構成・文言（末尾の「生成物はAI製」を含む）を保つ。重複する実装項目は機能別にまとめ、湿地植物4候補は親項目「湿地植物の追加（未実装）」の下に字下げする。候補は実装確約としない。新しい機能・互換性の主張を追加しない。
+貼り付け用の管理元は `Docs/2GameDescription-ja.txt`。READMEを詳細な公開内容の正本とし、Workshopより短く説明する。2026-10-09に作者が正式確定した本文の構成・文言（末尾の「生成物はAI製」を含む）を保つ。重複する実装項目は機能別にまとめ、現行掲載版0.1.1のみ、当時の湿地植物4候補を「湿地植物の追加（未実装）」の下に残す。0.2.0未公開原稿では完成した4種を特徴へ移し、未公開の事実を明記する。新しい機能・互換性の主張を追加しない。
 
 常体・短い箇条書きを使う。見出しは `▼ `（半角スペース付き）とし、短い要約 → 特徴 → 対応範囲 → 対応・互換性 → セーブ互換性 → 今後の予定、の順に揃える。バランス方針はこのModでは独立した章にしない。BBCodeやMarkdownの装飾は使わない。
 

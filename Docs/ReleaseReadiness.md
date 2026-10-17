@@ -1,5 +1,10 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+## 2026-10-18 — 0.2.0 public copy prepared, release HOLD
+
+Four wetland plants exist in development source. README now distinguishes it from Workshop 0.1.1. The author-accepted three new production PNGs (Ashi/Suge/Hannoki) and existing four images are referenced in the staged bilingual 0.2.0 draft, which stays NOT PASTE READY until a real approved and reachable Mizugoke game image completes eight images. Exact final BBCode size/tags, seasonal and save/reload acceptance, 0.2.0 About/Manifest/Changelog, owner-isolated private Steam upload and downloaded subscriber verification are still OPEN. Current `Docs/SteamWorkshopDescription.txt` remains the correct live 0.1.1 text, unchanged by this draft.
+
+
 ## 2026-10-17 wetland four plants — native RimWorld 1.7 smoke PASS (scoped)
 
 Actual [Project Actions #39041272179](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39041272179) tested immutable Environment gameplay source `ea22a4fcb0454630d85eb48c9e88604cedc97497` on genuine Linux **RimWorld 1.7.4977**. **Pickle 1/1 PASS, native ERROR0, FMOD ERROR0, game exit0;** actual Plants20 CutPlant gave Yoshi Hay2, Suge Hay1 and zero-drop Mizugoke. Owner PlantDefs, both biome weight sets and nonfood/wild-only inheritance were checked as loaded real 1.7 data. See `Docs/ValidationEvidence/WetlandFourProductionNative17-20261017.md` for precise marker/hashes/limitations. This does not verify 1.7 natural wetland spawning, winter/saves, all 1.7 provider combinations, exact release candidate or Steam subscriber upload/download. **0.2.0 private release HOLD unchanged.**
