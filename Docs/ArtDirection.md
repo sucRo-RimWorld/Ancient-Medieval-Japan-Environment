@@ -594,7 +594,7 @@ Key references:
 
 ## Thin Soil technical direction
 
-`AMJ_ThinSoil` currently reuses/tints Vanilla Gravel.
+`AMJ_ThinSoil` reuses Vanilla `Terrain/Surfaces/Gravel` without adding a separate texture. Its provisional tint is `(1.00, 0.93, 0.80)`: light, low-saturation warm grey-beige, intended to look drier and visibly different from unmodified grey Gravel instead of suggesting fertile dark soil. This is a Def color-only change; the established fertility 0.50, generated terrain rules, edge behavior, and save identity remain unchanged. Final color judgment requires a controlled in-game daylight comparison; no visual acceptance is claimed from the numeric tint alone.
 
 Final texture should:
 - tile seamlessly;
