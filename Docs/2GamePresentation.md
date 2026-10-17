@@ -2,7 +2,7 @@
 
 ## 0.2.0用原稿の保留状態（2026-10-18）
 
-湿地植物4種の本番実装・1.6主要検証・1.7基本挙動PASSを受け、`Docs/ReleaseDrafts/2GameDescription-ja-0.2.0-INCOMPLETE.txt` に候補を作成。これは**未公開0.2.0の原稿**であり、`Docs/2GameDescription-ja.txt` の現行0.1.1掲載用文章を上書きしない。公開前にミズゴケの実画像、季節・セーブ確認、0.2.0更新履歴および配布物確認を確定する。以下の未実装4種への言及は現行掲載文章の履歴として維持する。
+湿地植物4種の本番実装・1.6主要検証・1.7基本挙動PASSを受け、`Docs/ReleaseDrafts/2GameDescription-ja-0.2.0-INCOMPLETE.txt` に候補を作成。これは**未公開0.2.0の原稿**であり、`Docs/2GameDescription-ja.txt` の現行0.1.1掲載用文章を上書きしない。ミズゴケの専用掲載画像は、バニラ苔画像の暫定流用中につき作者判断で不要。公開前に季節・セーブ確認、0.2.0更新履歴および配布物確認を確定する。以下の未実装4種への言及は現行掲載文章の履歴として維持する。
 
 共通正本はProjectの[ModDescriptionGuidelines.md](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/ModDescriptionGuidelines.md)。形式の基準はCCTOの[2GamePresentation.md](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/main/Docs/2GamePresentation.md)と[日本語説明](https://github.com/sucRo-RimWorld/RimWorld-Crop-Cold-Tolerance-Overhaul/blob/main/Docs/2GameDescription-ja.txt)。
 
