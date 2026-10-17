@@ -1,33 +1,6 @@
 name: Plant visual coverage ledger
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
-    paths:
-      - 'Docs/PlantVisualCoverage.json'
-      - 'Docs/ArtDirection.md'
-      - 'Docs/PlantSnowOverlayPlan.md'
-      - 'Docs/ValidationEvidence/**'
-      - 'Art/**'
-      - 'Textures/**'
-      - 'Defs/ThingDefs_Plants/**'
-      - 'Tests/**'
-      - 'Scripts/Art/**'
-      - '.github/workflows/plant-visual-coverage.yml'
-  pull_request:
-    branches: [ main ]
-    types: [ opened, synchronize, reopened, ready_for_review, converted_to_draft ]
-    paths:
-      - 'Docs/PlantVisualCoverage.json'
-      - 'Docs/ArtDirection.md'
-      - 'Docs/PlantSnowOverlayPlan.md'
-      - 'Docs/ValidationEvidence/**'
-      - 'Art/**'
-      - 'Textures/**'
-      - 'Defs/ThingDefs_Plants/**'
-      - 'Tests/**'
-      - 'Scripts/Art/**'
-      - '.github/workflows/plant-visual-coverage.yml'
 concurrency:
   group: plant-visual-coverage-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
