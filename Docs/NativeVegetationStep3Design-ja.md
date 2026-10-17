@@ -1,5 +1,12 @@
 # Step 3：日本の不足植生（薬系をProjectへ移管）
 
+## 2026-10-17 作者確定（これ以前の未承認草案記述を上書き）
+
+ヨシ：温帯湿地1.00／冷涼湿原0.60、収穫Vanilla Hay 2。ミズゴケ：冷涼湿原1.20、収穫なし／刈り取り除去・無ドロップ／非栽培。従来承認のスゲ0.80／1.10・Hay 1、ハンノキ0.70／0.45・WoodLog 24は維持する。TallGrassは温帯湿地1.40・冷涼湿原1.70、ColdBog Mossは1.40とし、植生総量7.30／8.22、木本3.00／1.80、Berry/Healrootと任意MO薬草は維持。
+
+本番ソースは `Defs/ThingDefs_Plants/AMJ_WetlandHerbs.xml`、`Patches/VanillaWetlandVegetation.xml`、`Patches/Compatibility/CCTO.xml`。ヨシの水／陸共通Defは過去の隔離実験で自然発生した浅水 `WaterFreshShallowStill` と `Soil` のOR方式を採用。淡水浅水への集中（以前の仮重み0.05で97–99%）は既知の未検証リスクであり、今回の本番重み1.00／0.60で岸辺の陸上群落が再現されたとは主張しない。ミズゴケはVanillaのMoss画像を利用し独立PlantDefに限定分布する。スゲとヨシの growDays=3／harvestWork=60、ミズゴケの growDays=4 は近いVanilla植物に揃えた実装パラメータであり、作者承認の独立数値ではない。実ゲームテストは4種の本番実装後に一括して行う。旧節に残る「未承認」は上記作者確定以前の歴史的記録。
+
+
 **2026-10-08最新作者決定：Environmentはヒールルートと既存薬草供給を維持する。薬用植物・葛根・生薬・加工薬は独立薬系Modへ分離。研究・承認文正本：[Project薬系企画](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/Docs/Research/MedicinalPlantsAndRemedies.md)。本書の旧薬草候補・Harvest案・Healroot撤去条件は失効。湿地植生の設計・承認ゲートは維持する。**
 
 ## 1. 所有範囲・先行工程

@@ -1,5 +1,9 @@
 # Step 3 湿地4種の一次採取と素材利用（3プロファイル設計）
 
+## 2026-10-17 作者確定（旧未承認記述より優先）
+ヨシの採取物＝Vanilla Hay、成熟株の基本収量2を正式採用。スゲHay1、ハンノキWoodLog24、ミズゴケは非収穫・無ドロップを維持。既存のMO乾燥棚Hay→StrawはMO構成の機能であり、Environment自体がStrawを生産するわけではない。以下のヨシ未承認記述は承認以前の比較記録として保持する。実ロード収穫Jobは本番4種実装後の統合ゲーム受入で判定する。
+
+
 **日付:** 2026-10-09
 **Owner:** AMJ Environment（自然植物・自然発生・一次採取）。加工品・装備・建物は利用Modが所有。
 **後続方針（2026-10-16、Japanization全AMJ必須化）：** スゲの一次採取は承認済みどおり **Vanilla `Hay` 1を直接取得**する。MO単独／MO＋Environmentで現行MO乾燥ラックから `Hay → DankPyon_Straw` を得られる上流動作は残るが、**Japanization＋AMJ全構成**ではGrainsの穀物脱穀がStrawの供給源となり、Japanizationが乾燥ラック二種から`DankPyon_StrawProcess`の工程参照を除外する。『MOありなら必ずHayをStrawへ加工できる』という従来の一般説明はこの統合構成に当てはまらない。EnvironmentのPlantDef、Hay1収穫、既存生態・テスト、Grainsの藁Recipeは変更しない。MO上流以外の実ロード済み加工／旧セーブは未検証。日本化側パッチと設計の正本は[Japanization](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Medieval-Overhaul-Japanization/blob/main/Docs/Design.md)。

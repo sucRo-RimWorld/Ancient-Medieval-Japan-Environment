@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "proposal_not_approved",
+  "status": "approved_2026_10_17_production_xml_runtime_not_yet_verified",
   "reason": "As of 2026-10-13, Hannoki alone is approved and implemented at 0.70/0.45 via scoped woody replacement; Suge 0.80/1.10 approved for its later implementation. Yoshi, Mizugoke and the combined four-species package remain unapproved and are NOT loaded.",
   "source_patch": "Patches/VanillaWetlandVegetation.xml",
   "baselines": {
@@ -776,7 +776,7 @@
       "no_new_woody_weight": true
     },
     "AMJ_Plant_Suge": {
-      "status": "weights_approved_not_implemented",
+      "status": "approved_and_in_production_xml",
       "date": "2026-10-12",
       "weights": {
         "TemperateSwamp": "0.80",
@@ -784,10 +784,26 @@
       }
     },
     "AMJ_Plant_Yoshi": {
-      "status": "proposal_not_approved"
+      "status": "approved_and_in_production_xml",
+      "date": "2026-10-17",
+      "weights": {
+        "TemperateSwamp": "1.00",
+        "ColdBog": "0.60"
+      },
+      "harvestedThingDef": "Hay",
+      "harvestYield": 2,
+      "terrain": "WaterFreshShallowStill OR Soil; native density unverified"
     },
     "AMJ_Plant_Mizugoke": {
-      "status": "proposal_not_approved"
+      "status": "approved_and_in_production_xml",
+      "date": "2026-10-17",
+      "weights": {
+        "ColdBog": "1.20"
+      },
+      "harvestedThingDef": null,
+      "harvestYield": 0,
+      "graphic": "Vanilla Plant_Moss",
+      "terrain": "ColdBog fertile substrate; exact peat microhabitat not selectable by current Vanilla BiomeDef"
     }
   }
 }

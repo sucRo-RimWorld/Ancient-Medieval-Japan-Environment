@@ -13,11 +13,67 @@
       <graphicClass>Graphic_Random</graphicClass>
     </graphicData>
     <plant>
+      <fertilityMin>0.05</fertilityMin>
+      <growDays>3</growDays>
+      <harvestWork>60</harvestWork>
       <immatureGraphicPath>Things/Plant/AMJ/Suge_Immature</immatureGraphicPath>
       <minGrowthTemperature>0</minGrowthTemperature>
       <harvestTag>Standard</harvestTag>
       <harvestedThingDef>Hay</harvestedThingDef>
       <harvestYield>1</harvestYield>
+    </plant>
+  </ThingDef>
+  <ThingDef ParentName="PlantBase">
+    <!-- Mature/immature PNGs already author accepted. Tested shallow+Soil terrain shape; final commonality density still requires loaded-game assessment. -->
+    <defName>AMJ_Plant_Yoshi</defName>
+    <label>reed (ashi)</label>
+    <description>Reed (ashi, also called yoshi) is a tall herbaceous plant that grows in dense stands along rivers and lakes and in wet lowlands. In low-lying fens supplied with water from their surroundings, it forms reedbeds alongside sedges.\n\nReeds have long been used as thatching material for roofs. Thatch also includes Japanese silver grass and rice or barley straw, and the materials used have varied by region and building.</description>
+    <selectable>true</selectable>
+    <uiIconPath>Things/Plant/AMJ/Yoshi/Yoshi_A</uiIconPath>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Yoshi</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <drawSize>(1.5, 1.5)</drawSize>
+    </graphicData>
+    <plant>
+      <immatureGraphicPath>Things/Plant/AMJ/Yoshi_Immature</immatureGraphicPath>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <fertilityMin>0.05</fertilityMin>
+      <completelyIgnoreFertility>true</completelyIgnoreFertility>
+      <wildTerrainTags>
+        <li>WaterFreshShallowStill</li>
+        <li>Soil</li>
+      </wildTerrainTags>
+      <wildPlantUseDistanceToShore>true</wildPlantUseDistanceToShore>
+      <wildOrder>1</wildOrder>
+      <growDays>3</growDays>
+      <harvestWork>60</harvestWork>
+      <harvestMinGrowth>0.80</harvestMinGrowth>
+      <harvestTag>Standard</harvestTag>
+      <harvestedThingDef>Hay</harvestedThingDef>
+      <harvestYield>2</harvestYield>
+      <visualSizeRange Inherit="False"><min>1</min><max>1</max></visualSizeRange>
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="PlantBase">
+    <!-- Independent cold bog species; reuse Vanilla Moss graphics without introducing materials. -->
+    <defName>AMJ_Plant_Mizugoke</defName>
+    <label>sphagnum moss (mizugoke)</label>
+    <description>Sphagnum moss (mizugoke) is a group of mosses that forms mats over wetland ground. In cool, rain-fed raised bogs, sphagnum spreads, and its dead parts accumulate where they decompose slowly, contributing to the formation of peat.\n\nLowland fens supporting reeds and sedges receive water from rivers and groundwater, unlike these rain-fed bogs. Sphagnum is one of the plants characteristic of peat bogs in Japan's cooler regions.</description>
+    <selectable>true</selectable>
+    <graphicData>
+      <texPath>Things/Plant/Moss</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+    <ingestible><preferability>NeverForNutrition</preferability></ingestible>
+    <plant>
+      <fertilityMin>0.05</fertilityMin>
+      <fertilitySensitivity>0</fertilitySensitivity>
+      <growDays>4</growDays>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <wildOrder>1</wildOrder>
+      <visualSizeRange Inherit="False"><min>0.4</min><max>0.6</max></visualSizeRange>
     </plant>
   </ThingDef>
 </Defs>

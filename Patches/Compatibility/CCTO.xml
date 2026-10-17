@@ -40,6 +40,25 @@
         </value>
       </li>
 
+      <!-- Ashi: native 0 C, CCTO 5 C with cold dormancy. -->
+      <li Class="PatchOperationReplace" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Plant_Yoshi"]/plant/minGrowthTemperature</xpath>
+        <value><minGrowthTemperature>5</minGrowthTemperature></value>
+      </li>
+      <li Class="PatchOperationAddModExtension" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Plant_Yoshi"]</xpath>
+        <value>
+          <li Class="CropColdToleranceOverhaul.ColdToleranceExtension"><coldDormancy>true</coldDormancy></li>
+        </value>
+      </li>
+      <!-- Mizugoke: native 0 C; CCTO cold death at -35 C. -->
+      <li Class="PatchOperationAddModExtension" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Plant_Mizugoke"]</xpath>
+        <value>
+          <li Class="CropColdToleranceOverhaul.ColdToleranceExtension"><coldDeathTemperature>-35</coldDeathTemperature></li>
+        </value>
+      </li>
+
       <!-- Suge / native 0 C; CCTO retains 0 C and enables cold dormancy. -->
       <li Class="PatchOperationAddModExtension" MayRequire="sucro.cropcoldtoleranceoverhaul">
         <xpath>/Defs/ThingDef[defName="AMJ_Plant_Suge"]</xpath>
