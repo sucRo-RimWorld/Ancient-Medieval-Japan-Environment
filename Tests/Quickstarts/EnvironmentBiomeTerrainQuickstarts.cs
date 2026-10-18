@@ -4785,6 +4785,20 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 AccessTools.Method(typeof(GameDataSaveLoader), "LoadGame");
             if (load == null)
                 throw new InvalidOperationException("No genuine RimWorld save loader");
+            // A direct SavedGameLoaderNow call while Root_Entry is active makes
+            // Game.set_CurrentMap cast Root_Entry to Root_Play (InvalidCastException).
+            // Install the real play root before entering the synchronous loader.
+            // This is test-only startup plumbing; the loaded save is unmodified.
+            var play = new Root_Play();
+            System.Reflection.FieldInfo rootField = AccessTools.Field(typeof(Current), "root");
+            System.Reflection.PropertyInfo rootProperty = AccessTools.Property(typeof(Current), "Root");
+            if (rootField != null)
+                rootField.SetValue(null, play);
+            else if (rootProperty != null && rootProperty.CanWrite)
+                rootProperty.SetValue(null, play, null);
+            else
+                throw new InvalidOperationException("Cannot install RimWorld play root for native reload");
+            Log.Message("AMJE_020_RELOAD_PLAY_ROOT ready=True");
             load.Invoke(null, new object[] { AMJWetlandSeasonSaveQuickstart.SaveName });
         }
     }
