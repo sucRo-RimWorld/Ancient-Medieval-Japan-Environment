@@ -8,5 +8,10 @@
   "preview_sha256": "25b61be8c04f866603e99d56270d177f15159aaf6f0fa7e4e24504821947e6ef",
   "workshop_id": "3814638060",
   "package_id": "sucro.ancientmedievaljapan.environment",
-  "release_version": "0.2.0"
+  "release_version": "0.2.0",
+  "transfer_method": "verified_public_git_commit",
+  "transfer_repository": "sucRo-RimWorld/Ancient-Medieval-Japan-Environment",
+  "transfer_commit": "5dac3140230402b3b2aa96cbc117b98a23745dde",
+  "transfer_blob_sha": "b8e3766d5ba1dde28e1bbb9e746ffcb7e7d390a8",
+  "transfer_provenance_run": 39258628883
 }
