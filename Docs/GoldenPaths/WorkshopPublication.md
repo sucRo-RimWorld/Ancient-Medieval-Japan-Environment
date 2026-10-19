@@ -1,5 +1,39 @@
 # Pinned Workshop publication
 
+## 2026-10-20 — current publication method: central private AMJ Project
+
+**Superseding author decision:** All newly migrated Mods use the **single
+private Project-controlled** [central publisher](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/blob/main/.github/workflows/steam-central.yml),
+not owner-specific public-repository runner-group workflows. This Environment
+0.2.0 candidate is the first registered owner
+(`Project:Publishing/ModRegistry.json`); it retains its own source, XML,
+workshop identity, changelog, images, tags, pinned native DLL and tested
+subscriber-only builder. Only the public owner-repository **publisher
+orchestration jobs** have been retired in this release PR; Project-owned
+trusted code alone may execute on privileged publisher hosts.
+
+The Organization runner-group selected Workflow access now requires only
+`sucRo-RimWorld/Ancient-Medieval-Japan-Project/.github/workflows/steam-central.yml@refs/heads/main`
+for newly centralized publishers. Registering additional Mods requires a
+reviewed registry entry, not repeated Workflow access strings. The old
+`.github/workflows/steam-approved.yml` and
+`.github/workflows/steam-readiness.yml` have been **removed from this
+unmerged 0.2.0 release branch** and must never be dispatched as production
+publisher routes. Historical older sections of this document below describe
+the pre-migration publisher architecture and are not current instructions.
+
+**Live release still HOLD:** the central private Project
+`steam-workshop-private` deployment Environment needs real author approval;
+Linux SteamCMD and Windows Steamworks publishers, runner-group membership and
+per-Mod host state/owner identity need independent verification; the existing
+item `3814638060` and its intended private visibility must be checked.
+The central host-only enablement flag must not be provisioned prematurely.
+No Project author publish issue or Steam update is authorized by this
+migration. Prior Environment 1.6 Thin Soil manual PASS and functional native
+results remain unchanged. Before the final release, Project registry must
+point to the **exact immutable Environment 0.2.0 source commit** with all
+approved metadata and bytes, not an outdated release PR head.
+
 ## Current publication operating rule (2026-10-15; supersedes legacy uploader steps below)
 
 The author has replaced **YADA/manual RimWorld upload** with **GitHub Actions**
