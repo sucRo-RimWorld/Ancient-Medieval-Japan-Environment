@@ -1,0 +1,55 @@
+name: AMJE 0.2.0 test branch materialize verified DLL
+
+# Disposable read-only artifact transfer; no RimWorld process, tests, or Steam.
+on:
+  push:
+    branches:
+      - 'test/environment-020-playable-20261019'
+    paths:
+      - 'Tools/TestBranch/source-url.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: test/environment-020-playable-20261019
+          persist-credentials: true
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download only the original byte-pinned Project artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f Tools/TestBranch/source-url.txt || exit 0
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          url = Path("Tools/TestBranch/source-url.txt").read_text().strip()
+          if not url.startswith("https://sdmntprjapaneast.oaiusercontent.com/files/"):
+              raise SystemExit("Unexpected artifact transport origin")
+          with urlopen(Request(url, headers={"User-Agent": "AMJE-TestBranch-DLL-Importer"}), timeout=90) as src, open("amje-original-test.zip", "wb") as out:
+              while piece := src.read(1048576):
+                  out.write(piece)
+          PY
+          python Tools/TestBranch/import_original_dll.py --artifact amje-original-test.zip --install
+      - name: Commit only source-verified runtime DLL to this test branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f Assemblies/AncientMedievalJapanEnvironment.dll
+          git rm -f Tools/TestBranch/source-url.txt
+          git add -f Assemblies/AncientMedievalJapanEnvironment.dll
+          git diff --cached --name-only
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Materialize pinned 1.6 native DLL on testing-only branch"
+          git push origin HEAD:refs/heads/test/environment-020-playable-20261019
