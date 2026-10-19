@@ -55,6 +55,35 @@ runner group is not proof of Environment access. A queued/failed check is not
 a PASS, and even successful readiness cannot establish actual Steam
 ownership, item visibility or downloaded subscriber files.
 
+## 2026-10-19 — superseding 0.2.0 source/DLL pin after Thin Soil patch (unreleased)
+
+Release candidate PR #217 now stages `Publishing/VerifiedAssembly.json` with exact source
+`fe6861ac490bbd43ec73dce8efc1c2a5e5140479`, Project run `39247372678`,
+artifact `amje-wetland16-39247372678` (ID `12184871110`), native ZIP SHA-256
+`86c433992e21366d026c468b8a7a73142abeb2c44c1f51f74afaafa8977341fe`,
+DLL SHA-256 `b2ddbf7888322ba9b207c20296dba31175b846c05492902b900ec225da9fcffe`
+and the unchanged author-approved preview hash. These build/source bytes include
+the 2026-10-19 Thin Soil Growing Zone Harmony code; the older `5050e572`
+DLL and artifact are historical, not valid for the current source.
+
+Exact native game evidence and continuing gate limitations are in
+`Docs/ReleaseReadiness.md`: original run FAIL (one unrelated-process Mono
+SIGSEGV and known upstream MO/SYR FMOD 8 errors), a separate **exact original
+archive** Vanilla two-wetland 82/82+73/73 PASS in Project run `39250184421`,
+and an independent original 1.7 Waylith one-map PASS run `39249306881`.
+The result does not test actual Thin Soil zone drawing/Grains sowing or all
+release map cases. Preserve the earlier raw failures.
+
+Both `.github/workflows/steam-approved.yml` and
+`.github/workflows/steam-readiness.yml` must use the exact new artifact
+run/name, and importer must reject any future gameplay source changes.
+Provision the **separate private Project Actions read-only token**, actual
+GitHub recorded author environment review and independently verified
+publisher host state before any private SteamCMD operation. Do not dispatch
+release while these prerequisites or actual subscriber/download identity
+remain OPEN. This release-candidate pin does not change published 0.1.1
+or authorize public visibility.
+
 ## 2026-10-19 pinned 0.2.0 production DLL transport (prepared, not publisher-verified)
 
 The exact 60-file **native-tested** source `5050e57250c6913c2210be47723fee68d318e59e`, built and run in [Project Actions #39200796636](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39200796636), contains the genuine net472 assembly SHA256 `3601246eb6429789a32ee25253740f1e587358cd6e09699d7e1bfbbfe4016520`. All 628 wetland gameplay assertions passed across Vanilla/CCTO/MO/MO+CCTO; the four MO wetland map jobs still each have two independent *prelaunch* MO/SYR FMOD ERRORs. Overall raw ERROR0/action status stays **FAIL**; only the Environment-only scoped private functional exception in `Docs/ReleaseReadiness.md` applies. This does **not** replace the distinct complete final-candidate native map/cutting gate.

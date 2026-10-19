@@ -62,8 +62,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           repository: sucRo-RimWorld/Ancient-Medieval-Japan-Project
-          run-id: 39200796636
-          name: amje-wetland16-39200796636
+          run-id: 39247372678
+          name: amje-wetland16-39247372678
           github-token: ${{ secrets.AMJ_PROJECT_ARTIFACT_TOKEN }}
           path: Dist/VerifiedNative
       - name: Prove binary provenance and stage only the verified DLL
