@@ -95,12 +95,27 @@ def inspect_source(checkout: Path, cfg: dict) -> dict:
     require(manifest.tag == "Manifest" and (manifest.findtext("version") or "").strip() == version,
             "About/Manifest.xml version mismatch")
     note = changenote((checkout / "About/Changelog.txt").read_text(encoding="utf-8"), version)
+    pinned_file = checkout / "Publishing/VerifiedAssembly.json"
+    if pinned_file.exists():
+        pinned = json.loads(pinned_file.read_text(encoding="utf-8"))
+        require(version == pinned["release_version"],
+                "This pinned verified DLL may publish only after 0.2.0 release promotion")
     desc_file = checkout / "Docs/SteamWorkshopDescription.txt"
     if desc_file.exists():
         description = desc_file.read_text(encoding="utf-8")
     else:
         description = (about.findtext("description") or "").strip()
     require(0 < len(description.encode("utf-8")) <= 8000, "Missing/oversized Workshop description")
+    if pinned_file.exists():
+        for name in ("Yoshi", "Suge", "Hannoki", "Mizugoke", "葦", "菅", "榛の木", "水苔"):
+            require(name in description, "0.2.0 bilingual wetland description missing " + name)
+        require("Additional wetland plants（未実装）" not in description and
+                "湿地植物の追加（未実装）" not in description,
+                "Cannot publish with unreleased 0.1.1 wetland-candidate copy")
+        two_game = (checkout / "Docs/2GameDescription-ja.txt").read_text(encoding="utf-8")
+        require("湿地植物の追加（未実装）" not in two_game and
+                all(name in two_game for name in ("アシ", "スゲ", "ハンノキ", "ミズゴケ")),
+                "0.2.0 2game source is still the unreleased 0.1.1 copy")
     current_id = checkout / "About/PublishedFileId.txt"
     if current_id.exists():
         require(current_id.read_text(encoding="ascii").strip() == cfg["workshop_id"],
@@ -134,6 +149,12 @@ def candidate_files(checkout: Path) -> list[Path]:
     require((checkout / "loadFolders.xml").read_bytes() == REQUIRED_LOADER,
             "Subscriber loader must use only the root for both RimWorld versions")
     require(REQUIRED_DLL in result, "Compiled Environment production DLL missing")
+    pinned_path = checkout / "Publishing/VerifiedAssembly.json"
+    if pinned_path.exists():
+        pinned = json.loads(pinned_path.read_text(encoding="utf-8"))
+        require(hashlib.sha256((checkout / REQUIRED_DLL).read_bytes()).hexdigest() ==
+                pinned["assembly_sha256"],
+                "Production DLL is not the verified source-pinned build")
     require((checkout / REQUIRED_DLL).read_bytes()[:2] == b"MZ",
             "Compiled Environment production DLL is not a PE assembly")
     require(sum(p in result for p in PREVIEW_CHOICES) == 1,
