@@ -4,6 +4,12 @@ on:
   pull_request:
     paths:
       - 'Tools/SteamPublisher/**'
+      - 'About/About.xml'
+      - 'About/Manifest.xml'
+      - 'About/Changelog.txt'
+      - 'Docs/SteamWorkshopDescription.txt'
+      - 'Docs/2GameDescription-ja.txt'
+      - 'Tests/validate_workshop_description.py'
       - 'Publishing/VerifiedAssembly.json'
       - '.github/workflows/steam-approved.yml'
       - '.github/workflows/steam-release-static.yml'
@@ -26,6 +32,8 @@ jobs:
           python-version: '3.11'
       - name: Compile source without private game, token or Steam
         run: python -m py_compile Tools/SteamPublisher/publisher.py Tools/SteamPublisher/tags.py Tools/SteamPublisher/import_verified_assembly.py
+      - name: Test bilingual Workshop BBCode, gallery and version agreement
+        run: python Tests/validate_workshop_description.py
       - name: Test exact source-only and binary import guards
         run: |
           python Tests/Release/test_steam_publisher.py
