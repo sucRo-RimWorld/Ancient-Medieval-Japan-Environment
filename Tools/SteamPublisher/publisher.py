@@ -26,7 +26,11 @@ ALLOWED_DIRS = frozenset({
     "Compatibility", "Sounds", "Resources", "LoadFolders", "BaseWithoutMO",
     "1.6", "1.7", "Royalty", "Ideology", "Biotech", "Anomaly", "Odyssey",
 })
-ALLOWED_FILES = frozenset({"loadFolders.xml", "LoadFolders.xml"})
+ALLOWED_FILES = frozenset({"loadFolders.xml", "LoadFolders.xml", "LICENSE"})
+REQUIRED_DLL = Path("Assemblies/AncientMedievalJapanEnvironment.dll")
+REQUIRED_LOADER = (b'<?xml version="1.0" encoding="utf-8"?>\n'
+                   b'<loadFolders><v1.6><li>/</li></v1.6><v1.7><li>/</li></v1.7></loadFolders>\n')
+PREVIEW_CHOICES = (Path("About/Preview.png"), Path("About/preview.png"))
 NAME_PATTERN = re.compile(r"^sucRo-RimWorld/[A-Za-z0-9._-]+$")
 VERSION_PATTERN = re.compile(r"^\d+(?:\.\d+){1,3}(?:-[A-Za-z0-9.-]+)?$")
 CHANGE_PATTERN = re.compile(r"^(\d+(?:\.\d+){1,3}(?:-[A-Za-z0-9.-]+)?)\s+-\s+\S")
@@ -125,6 +129,15 @@ def candidate_files(checkout: Path) -> list[Path]:
     require(not any(p.suffix.lower() in (".pdb", ".cs", ".py", ".ps1", ".bat", ".log", ".md")
                     for p in result), "Development-only file in subscriber payload")
     require(any(p.parts[0] != "About" for p in result), "No playable payload in selected release roots")
+    require(Path("LICENSE") in result, "Subscriber license must be in the archive")
+    require(Path("loadFolders.xml") in result, "Subscriber loadFolders.xml missing")
+    require((checkout / "loadFolders.xml").read_bytes() == REQUIRED_LOADER,
+            "Subscriber loader must use only the root for both RimWorld versions")
+    require(REQUIRED_DLL in result, "Compiled Environment production DLL missing")
+    require((checkout / REQUIRED_DLL).read_bytes()[:2] == b"MZ",
+            "Compiled Environment production DLL is not a PE assembly")
+    require(sum(p in result for p in PREVIEW_CHOICES) == 1,
+            "Exactly one accepted Environment preview path is required")
     require(len(result) <= 15000, "Unexpected file count in distribution")
     return sorted(set(result))
 
@@ -133,9 +146,10 @@ def build(checkout: Path, output: Path, cfg: dict, operation: str) -> None:
     validate_mode(cfg, operation)
     meta = inspect_source(checkout, cfg)
     files = candidate_files(checkout)
-    if operation == "create_private":
-        require(Path("About/Preview.png") in files,
-                "Private first item requires accepted About/Preview.png in source")
+    # The approved Environment source uses lowercase preview.png. The Steam
+    # preview VDF must reference the real case-sensitive file on Linux.
+    require(any(path in files for path in PREVIEW_CHOICES),
+            "Accepted Environment preview not found")
     root = "mod/"
     output.parent.mkdir(parents=True, exist_ok=True)
     manifest = {"schema": 1, "repository": cfg["repository"], "package_id": cfg["package_id"],
@@ -246,16 +260,15 @@ def upload(checkout: Path, candidate: Path, cfg: dict, operation: str) -> None:
                 path = folder / rel
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_bytes(blob)
-        preview = folder / "About/Preview.png"
-        if operation == "create_private":
-            require(preview.is_file(), "First private upload needs an approved Preview.png")
+        preview = next((folder / path for path in PREVIEW_CHOICES
+                        if (folder / path).is_file()), None)
+        require(preview is not None, "Approved preview missing from extracted payload")
         item_id = cfg["workshop_id"] or "0"
         fields = [("appid", APPID), ("publishedfileid", item_id),
                   ("contentfolder", str(folder.resolve())),
                   ("title", meta["title"]), ("description", meta["description"]),
                   ("changenote", meta["changenote"])]
-        if preview.is_file():
-            fields.append(("previewfile", str(preview.resolve())))
+        fields.append(("previewfile", str(preview.resolve())))
         if operation == "create_private":
             fields.append(("visibility", "2"))
         vdf = Path(temp) / "upload.vdf"
