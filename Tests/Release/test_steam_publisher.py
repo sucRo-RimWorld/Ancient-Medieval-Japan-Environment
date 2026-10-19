@@ -15,7 +15,7 @@ def fixture(root: Path) -> None:
     content = {
         "About/About.xml": ('<ModMetaData><name>Ancient &amp; Medieval Japan - Environment'
                             '（中世日本 - 環境）</name><packageId>sucro.ancientmedievaljapan.environment'
-                            '</packageId><modVersion>0.2.0</modVersion></ModMetaData>'),
+                            '</packageId><modVersion>0.2.0</modVersion><description>Publisher fixture description.</description></ModMetaData>'),
         "About/Manifest.xml": "<Manifest><version>0.2.0</version></Manifest>",
         "About/Changelog.txt": "0.2.0 - Wetland vegetation\n- Four plants\n",
         "About/preview.png": "accepted preview bytes",
