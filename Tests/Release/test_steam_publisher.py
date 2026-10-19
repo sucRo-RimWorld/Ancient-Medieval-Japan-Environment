@@ -74,7 +74,8 @@ class PublisherPayloadTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             fixture(root)
-            config = {"source_commit": "a" * 40, "archive_sha256": "b" * 64}
+            config = {"source_commit": "a" * 40, "archive_sha256": "b" * 64,
+                      "assembly_sha256": hashlib.sha256((root / publisher.REQUIRED_DLL).read_bytes()).hexdigest()}
             pin = root / "Publishing/VerifiedAssembly.json"
             pin.parent.mkdir(parents=True)
             pin.write_text(json.dumps(config), encoding="utf-8")
