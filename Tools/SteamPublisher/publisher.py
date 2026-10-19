@@ -107,8 +107,12 @@ def inspect_source(checkout: Path, cfg: dict) -> dict:
         description = (about.findtext("description") or "").strip()
     require(0 < len(description.encode("utf-8")) <= 8000, "Missing/oversized Workshop description")
     if pinned_file.exists():
-        for name in ("Yoshi", "Suge", "Hannoki", "Mizugoke", "葦", "菅", "榛の木", "水苔"):
-            require(name in description, "0.2.0 bilingual wetland description missing " + name)
+        for name in ("yoshi", "suge", "hannoki", "mizugoke"):
+            require(name in description.casefold(),
+                    "0.2.0 English wetland description missing " + name)
+        for name in ("葦", "菅", "榛の木", "水苔"):
+            require(name in description,
+                    "0.2.0 Japanese wetland description missing " + name)
         require("Additional wetland plants（未実装）" not in description and
                 "湿地植物の追加（未実装）" not in description,
                 "Cannot publish with unreleased 0.1.1 wetland-candidate copy")
