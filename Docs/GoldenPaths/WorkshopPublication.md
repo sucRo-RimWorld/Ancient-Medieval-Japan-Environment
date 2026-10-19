@@ -28,6 +28,65 @@ subscriber identity or Steam private visibility.
 
 Future Environment Steam upload is an **author-requested, GitHub Actions gated operation**, not a manual YADA/RimWorld publication. The separate author approval and isolated authenticated Steam publisher remain mandatory. A GitHub commit, locally built candidate, or passing developer suite is not evidence of updated distribution.
 
+## 2026-10-20 — public immutable native DLL transport (supersedes Project-token prerequisite)
+
+**Current unmerged release PR #217 authoring path** uses a permanent SHA-pinned
+**public owner-repository Git commit** rather than a secret-protected download
+of the private Project artifact. The original genuine Project [Actions
+#39247372678](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39247372678)
+produced the original 60-file ZIP with source
+`fe6861ac490bbd43ec73dce8efc1c2a5e5140479`, archive SHA-256
+`86c433992e21366d026c468b8a7a73142abeb2c44c1f51f74afaafa8977341fe`,
+and production DLL SHA-256
+`b2ddbf7888322ba9b207c20296dba31175b846c05492902b900ec225da9fcffe`.
+The original Project Action status is still **FAIL** (original Vanilla
+SIGSEGV and the known MO/SYR FMOD baseline). Byte-identical
+[Vanilla rerun #39250184421](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39250184421)
+supplies the successful 1.6 warm/cold follow-up. Neither error history
+nor tested source provenance is rewritten.
+
+[Owner Actions #39258628883](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/actions/runs/39258628883)
+**first downloaded the original private Project artifact and verified its
+ZIP, original manifest, production DLL, tested source and preview**. Only
+then it committed the identical genuine DLL to the public **test-only**
+repository Git commit `5dac3140230402b3b2aa96cbc117b98a23745dde`;
+DLL Git blob is `b8e3766d5ba1dde28e1bbb9e746ffcb7e7d390a8`.
+It does **not** imply that the original private Project ZIP itself has
+become public, or that its failed workflow is retroactively successful.
+
+Both `.github/workflows/steam-readiness.yml` and
+`.github/workflows/steam-approved.yml` now retrieve that exact immutable
+Git commit on a **GitHub-hosted** checkout, never an untrusted moving test
+branch head. `Tools/SteamPublisher/import_verified_assembly.py` requires
+the full commit, Git blob, original Project run+archive pin, DLL SHA-256,
+unchanged owner gameplay source and accepted preview. The release builder
+independently requires the exact tested original **58-file source inventory
+and content bytes**, plus the pinned DLL and generated item ID. Only
+already-approved release metadata may differ. This protects the complete
+60-file subscriber inventory without requiring a new private Actions token
+or a re-run of RimWorld. The original Project artifact may expire without
+invalidating the **immutable public DLL + source Git hashes**.
+
+The staged 0.2.0 [offline CI](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/actions/runs/39276858703)
+successfully imported the immutable binary and built the actual release
+subscriber ZIP **without** Steam, native game launches, private Project
+credentials, or a publisher runner. A future gameplay source/DLL/preview
+change MUST invalidate the immutable pin and require a newly justified
+genuine build/acceptance; do not silently use a changed branch tip.
+
+**Security rules unchanged:** owner-authored exact-main release issue;
+actual separately recorded author approval on
+`steam-workshop-private`; independently provisioned/verified Environment-
+specific Linux SteamCMD + Windows Steamworks hosts, state and ownership;
+existing Workshop item 3814638060 and **private-only** visibility; and
+actual uploaded/downloaded subscriber acceptance. None are supplied by
+a successful offline build. In particular, no workflow may reach a Steam
+host merely because the private Project artifact token has been eliminated.
+The older dated sections below describing a mandatory
+`AMJ_PROJECT_ARTIFACT_TOKEN` are historical, **not current instructions**.
+Do not merge the release PR or invoke a `[publish:...]` issue without
+separate publication authorization.
+
 ## 2026-10-19 — Read-only Steam publisher readiness command
 
 Environment also provides a separate main-branch issue-triggered readiness
