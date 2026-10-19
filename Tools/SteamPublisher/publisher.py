@@ -261,6 +261,11 @@ def upload(checkout: Path, candidate: Path, cfg: dict, operation: str) -> None:
     require(hashlib.sha256(candidate.read_bytes()).hexdigest()
             == candidate.with_suffix(".sha256").read_text(encoding="ascii").strip(),
             "Candidate ZIP checksum mismatch")
+    pinned_path = checkout / "Publishing/VerifiedAssembly.json"
+    if pinned_path.exists():
+        pinned = json.loads(pinned_path.read_text(encoding="utf-8"))
+        require(saved["files"].get(REQUIRED_DLL.as_posix()) == pinned["assembly_sha256"],
+                "Uploaded ZIP manifest is not pinned to the exact tested DLL")
     state = state_file(cfg)
     require(checkout.resolve() not in state.resolve().parents, "State must be outside checkout")
     state_load(state, cfg, operation)
