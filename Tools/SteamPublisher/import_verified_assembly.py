@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import io
 import json
 from pathlib import Path
 import subprocess
@@ -45,11 +46,18 @@ def verify(evidence: Path, root: Path, config: dict) -> bytes:
     require(changes.returncode == 0,
             "Gameplay C#/Defs/graphics differ from the tested binary source; new native build required")
     require(not (root / ASSEMBLY).exists(), "Do not overwrite an existing assembly")
-    with zipfile.ZipFile(evidence) as uploaded:
-        require(uploaded.testzip() is None, "Damaged original Actions artifact")
-        manifest = json.loads(uploaded.read("candidate/Manifest.json"))
-        candidate_bytes = uploaded.read("candidate/" + CANDIDATE + ".zip")
-        original_dll = uploaded.read("candidate/" + CANDIDATE + "/" + ASSEMBLY)
+    if evidence.is_dir():
+        # actions/download-artifact extracts its outer ZIP into this directory.
+        manifest = json.loads((evidence / "candidate/Manifest.json").read_text(encoding="utf-8"))
+        candidate_bytes = (evidence / ("candidate/" + CANDIDATE + ".zip")).read_bytes()
+        original_dll = (evidence / ("candidate/" + CANDIDATE) / ASSEMBLY).read_bytes()
+    else:
+        # Local regression can inspect the original GitHub artifact ZIP itself.
+        with zipfile.ZipFile(evidence) as uploaded:
+            require(uploaded.testzip() is None, "Damaged original Actions artifact")
+            manifest = json.loads(uploaded.read("candidate/Manifest.json"))
+            candidate_bytes = uploaded.read("candidate/" + CANDIDATE + ".zip")
+            original_dll = uploaded.read("candidate/" + CANDIDATE + "/" + ASSEMBLY)
     require(manifest["source_commit"] == config["source_commit"] and
             manifest["production_assembly_sha256"] == config["assembly_sha256"] and
             manifest["archive_sha256"] == config["archive_sha256"] and
@@ -63,7 +71,7 @@ def verify(evidence: Path, root: Path, config: dict) -> bytes:
             manifest["files"][ASSEMBLY] == config["assembly_sha256"] and
             original_dll.startswith(b"MZ") and len(original_dll) >= 8192,
             "Production assembly bytes differ from verified native source")
-    with zipfile.ZipFile(__import__("io").BytesIO(candidate_bytes)) as candidate:
+    with zipfile.ZipFile(io.BytesIO(candidate_bytes)) as candidate:
         require(candidate.testzip() is None, "Damaged original native candidate ZIP")
         expected_names = {CANDIDATE + "/" + name for name in manifest["files"]}
         require(set(candidate.namelist()) == expected_names,
