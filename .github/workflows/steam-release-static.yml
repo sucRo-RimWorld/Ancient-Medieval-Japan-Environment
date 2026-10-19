@@ -50,6 +50,25 @@ jobs:
           assert meta["description"].count("[img]") == 7
           print("PASS 0.2.0 real publishing metadata, bilingual changenote, 7-image source")
           PY
+      - name: Retrieve exact immutable public native build for offline-only staging
+        uses: actions/checkout@v4
+        with:
+          repository: sucRo-RimWorld/Ancient-Medieval-Japan-Environment
+          ref: 5dac3140230402b3b2aa96cbc117b98a23745dde
+          path: Dist/PinnedNativeGit
+          persist-credentials: false
+          sparse-checkout: Assemblies
+          fetch-depth: 1
+      - name: Prove original source/pin and build the exact 0.2.0 subscriber package
+        shell: bash
+        run: |
+          set -euo pipefail
+          python Tools/SteamPublisher/import_verified_assembly.py \
+            --pinned-git-checkout Dist/PinnedNativeGit --checkout . --install
+          python Tools/SteamPublisher/publisher.py build --checkout . \
+            --output Dist/offline-020.zip --repo "$GITHUB_REPOSITORY" --operation update_existing
+          test "$(sha256sum Dist/offline-020.zip | cut -d' ' -f1)" = "$(cat Dist/offline-020.sha256)"
+          echo "OFFLINE_020_SUBSCRIBER_CANDIDATE_PASS (no game/Steam/credentials)"
       - name: Test exact source-only and binary import guards
         run: |
           python Tests/Release/test_steam_publisher.py
