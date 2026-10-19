@@ -1,5 +1,38 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+## 2026-10-20 — immutable public native transport: offline package verification PASS, Steam HOLD
+
+The private Project Actions artifact reader secret is **no longer a prerequisite
+on unmerged release PR #217**. The original pinned Project build artifact
+`39247372678` (60 native subscriber files, `fe6861ac...` gameplay source,
+DLL SHA-256 `b2ddbf7888322ba9b207c20296dba31175b846c05492902b900ec225da9fcffe`)
+was previously downloaded and ZIP/manifest/DLL/preview-verified in
+[owner test-branch Actions #39258628883](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/actions/runs/39258628883).
+The exact DLL is now retrievable by immutable public test-branch **commit**
+`5dac3140230402b3b2aa96cbc117b98a23745dde` and Git **blob**
+`b8e3766d5ba1dde28e1bbb9e746ffcb7e7d390a8`; the SHA-256,
+unchanged source and entire original 58 source files are independently
+checked in the new publication preflight. Only the three release metadata
+files and generated PublishedFileId can legitimately differ.
+
+Full source-verified 0.2.0 subscriber package was built **offline** in
+[Environment Actions #39276858703](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/actions/runs/39276858703)
+without a Project read secret, game launch or Steam upload. The original
+Project run FAIL and exact FMOD raw errors remain intact, with the user-
+approved unchanged baseline non-blocking only for Environment private
+functional acceptance. The author's 1.6 Thin Soil/Nice Plant Menu check
+remains scoped manual PASS; no user retest needed for this same change.
+
+**Still mandatory:** actual GitHub environment approval from `sucRo0629`,
+the Environment-specific Linux/Windows Steam host accounts/state/runner
+allowlist, privately owned existing item ID and visibility check, then a
+separately authorized private Steam update and downloaded-subscriber smoke.
+No evidence proves these gates yet. **PR #217 OPEN; no live upload.**
+Old sections below identifying `AMJ_PROJECT_ARTIFACT_TOKEN` as blocking
+reflect the superseded 2026-10-19 transport, not the current PR design.
+See `Docs/GoldenPaths/WorkshopPublication.md` for the full operational
+provenance/security contract.
+
 ## 2026-10-19 — author direct 1.6 Thin Soil gameplay acceptance: scoped PASS
 
 The author pulled the **actual playable test branch** [`test/environment-020-playable-20261019`](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/tree/test/environment-020-playable-20261019) (commit `5dac3140230402b3b2aa96cbc117b98a23745dde`), which carries the genuine production **RimWorld 1.6** DLL SHA256 `b2ddbf7888322ba9b207c20296dba31175b846c05492902b900ec225da9fcffe`; the import action [#39258628883](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/actions/runs/39258628883) recorded hash verification and successful commit. The author checked the previously requested three in-game behaviors (Thin Soil 0.50 Growing Zone paint, compatible crop sowing versus 0.70 rice/wheat, and inappropriate/occupied placement rejection) and reported **“問題なし”**. Separately, the optional **Nice Plant Menu** correctly displayed an **insufficient-fertility warning**. Mark **author-reported manual RimWorld 1.6 scope PASS**; no screenshot or independent per-cell diagnostics were submitted. Do not infer a full growth/harvest lifecycle, RimWorld 1.7 zone interaction, or Steam subscriber delivery.
