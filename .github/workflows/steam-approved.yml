@@ -45,16 +45,40 @@ jobs:
         with:
           ref: ${{ steps.guard.outputs.source_sha }}
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Confirm independent private Project artifact access
+        shell: bash
+        env:
+          PROJECT_ARTIFACT_TOKEN: ${{ secrets.AMJ_PROJECT_ARTIFACT_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$PROJECT_ARTIFACT_TOKEN" || {
+            echo "BLOCKED: Project Actions artifact read token not configured"; exit 2;
+          }
+      - name: Retrieve exact genuine native candidate (not a fresh game run)
+        uses: actions/download-artifact@v4
+        with:
+          repository: sucRo-RimWorld/Ancient-Medieval-Japan-Project
+          run-id: 39200796636
+          name: amje-wetland16-39200796636
+          github-token: ${{ secrets.AMJ_PROJECT_ARTIFACT_TOKEN }}
+          path: Dist/VerifiedNative
+      - name: Prove binary provenance and stage only the verified DLL
+        shell: bash
+        run: |
+          set -euo pipefail
+          python Tools/SteamPublisher/import_verified_assembly.py \
+            --evidence Dist/VerifiedNative --checkout . --install
       - name: Assemble and verify subscriber-only package; do not start RimWorld
         shell: bash
         env:
           MODE: ${{ steps.guard.outputs.operation }}
         run: |
           set -euo pipefail
-          python -m py_compile Tools/SteamPublisher/publisher.py Tools/SteamPublisher/tags.py
+          python -m py_compile Tools/SteamPublisher/publisher.py Tools/SteamPublisher/tags.py Tools/SteamPublisher/import_verified_assembly.py
           python Tools/SteamPublisher/publisher.py build --checkout . \
             --output Dist/amj-workshop.zip --repo "$GITHUB_REPOSITORY" --operation "$MODE"
           test "$(sha256sum Dist/amj-workshop.zip | cut -d' ' -f1)" = "$(cat Dist/amj-workshop.sha256)"
