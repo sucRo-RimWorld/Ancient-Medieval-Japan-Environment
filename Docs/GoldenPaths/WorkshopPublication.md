@@ -28,6 +28,33 @@ subscriber identity or Steam private visibility.
 
 Future Environment Steam upload is an **author-requested, GitHub Actions gated operation**, not a manual YADA/RimWorld publication. The separate author approval and isolated authenticated Steam publisher remain mandatory. A GitHub commit, locally built candidate, or passing developer suite is not evidence of updated distribution.
 
+## 2026-10-19 — Read-only Steam publisher readiness command
+
+Environment also provides a separate main-branch issue-triggered readiness
+workflow: .github/workflows/steam-readiness.yml. Only an issue created by
+sucRo0629 titled [check:amj-publisher-readiness] and containing the single
+line source_sha=<exact current main SHA> is accepted. This route does not
+upload or alter Workshop content, visibility or tags.
+
+The GitHub-hosted job independently downloads the exact Project native
+artifact using the repository's own AMJ_PROJECT_ARTIFACT_TOKEN and verifies
+the original tested ZIP, DLL and preview. This is separate from the
+author-approved self-hosted checks: a recorded approval for
+steam-workshop-private is required before either runner is reached.
+
+The Linux check only reads the Environment-specific protected host state
+and verifies Workshop ID 3814638060, identity approval, SteamCMD executable
+and account configuration. The Windows check uses only the read-only
+steam-session-probe and checks its separate receipt directory. Neither
+host check invokes upload or tags modification, and both run only the exact
+trusted main revision.
+
+Runner allowlisting, reviewer settings and the independent publisher
+credentials require real host/Actions evidence. The existing restricted Linux
+runner group is not proof of Environment access. A queued/failed check is not
+a PASS, and even successful readiness cannot establish actual Steam
+ownership, item visibility or downloaded subscriber files.
+
 ## 2026-10-19 pinned 0.2.0 production DLL transport (prepared, not publisher-verified)
 
 The exact 60-file **native-tested** source `5050e57250c6913c2210be47723fee68d318e59e`, built and run in [Project Actions #39200796636](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39200796636), contains the genuine net472 assembly SHA256 `3601246eb6429789a32ee25253740f1e587358cd6e09699d7e1bfbbfe4016520`. All 628 wetland gameplay assertions passed across Vanilla/CCTO/MO/MO+CCTO; the four MO wetland map jobs still each have two independent *prelaunch* MO/SYR FMOD ERRORs. Overall raw ERROR0/action status stays **FAIL**; only the Environment-only scoped private functional exception in `Docs/ReleaseReadiness.md` applies. This does **not** replace the distinct complete final-candidate native map/cutting gate.
