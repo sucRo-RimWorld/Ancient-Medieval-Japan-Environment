@@ -81,6 +81,7 @@ assert "issues:" in workflow and "steam-workshop-private" in workflow
 assert "github.event.issue.user.login == 'sucRo0629'" in workflow
 assert "source_sha=" in workflow and "refs/heads/main" in workflow
 assert "READINESS_AUTHOR_APPROVAL_PASS" in workflow
+assert '[[ "$GITHUB_SHA" == "${BASH_REMATCH[1]}" ]]' in workflow
 for forbidden in ("publisher.py upload", "tags.py sync",
                   "[publish:amj-update]", "[publish:amj-create-private]",
                   "workshop_build_item"):
