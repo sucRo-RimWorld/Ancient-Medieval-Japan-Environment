@@ -752,7 +752,7 @@ Do not add a separate 0.40 "very poor soil" during Alpha. The current useful lad
 
 Add another tier only if playtesting demonstrates a distinct gameplay role.
 
-### 10.3.1 Thin Soil growing-zone designation (2026-10-19 defect correction)
+### 10.3a Thin Soil growing-zone designation (2026-10-19 defect correction)
 
 **Player-reported issue:** Although `AMJ_ThinSoil` is defined with `GrowSoil` and fertility 0.50, Vanilla growing-zone drawing can reject the tile before a player has selected an AMJ crop. This defeats the accepted purpose of the poor-soil cultivation tier. Terrain affordance and an individual plant's `fertilityMin` are not sufficient proof that the **zone designator itself** accepts the tile.
 
@@ -762,7 +762,7 @@ Add another tier only if playtesting demonstrates a distinct gameplay role.
 
 **Acceptance not yet proven:** Build the current Environment production DLL for the actual game version and check in a loaded map that the native Growing Zone designator accepts Thin Soil and ordinary Soil/Gravel, while rejecting Sand, water, rocks, occupied cells and fog. Check the loaded zone's selectable AMJ crops and one actual sow/harvest on Thin Soil, with Grains enabled. This source-only change is *not* an installed-game or packaged-DLL PASS.
 
-### 10.3.2 Advanced Cultivation - Continued (conditional optional compatibility)
+### 10.3.1 Advanced Cultivation - Continued (conditional optional compatibility)
 
 **Author decision (2026-10-13):** consider an **optional compatibility patch only if the third-party Mod gains substantial subscriber adoption**. This is not a present implementation order or a fixed numeric subscriber threshold. Do not make Advanced Cultivation an Environment/AMJ dependency, alter the accepted natural-soil fertility ladder, or start compatibility production just for this candidate.
 
