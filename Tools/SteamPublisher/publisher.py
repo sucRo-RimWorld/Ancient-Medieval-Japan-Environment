@@ -284,6 +284,12 @@ def state_save(path: Path, cfg: dict, item_id: str) -> None:
             os.unlink(temp)
 
 
+def steamcmd_commit_acknowledged(output: str) -> bool:
+    """The input VDF and exit code alone cannot prove an actual Steam commit."""
+    return (re.search(r"Committ?ing\s+update\s*\.\s*\.\s*\.\s*Success\.",
+                      output, re.IGNORECASE) is not None)
+
+
 def upload(checkout: Path, candidate: Path, cfg: dict, operation: str) -> None:
     validate_mode(cfg, operation)
     meta = inspect_source(checkout, cfg)
@@ -346,8 +352,7 @@ def upload(checkout: Path, candidate: Path, cfg: dict, operation: str) -> None:
         # rereading the unchanged VDF proves nothing about upload success.
         # Require SteamCMD's own explicit commit acknowledgement as well.
         steam_output = log_file.read_text(encoding="utf-8", errors="replace")
-        committed = re.search(r"Committ?ing\s+update\s*\.\s*\.\s*\.\s*Success\.",
-                              steam_output, re.IGNORECASE) is not None
+        committed = steamcmd_commit_acknowledged(steam_output)
         match = re.search(r'^\s*"publishedfileid"\s+"([0-9]+)"',
                           vdf.read_text(encoding="utf-8"), re.MULTILINE)
         after = match.group(1) if match else ""
