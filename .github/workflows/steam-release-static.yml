@@ -6,6 +6,8 @@ on:
       - 'Tools/SteamPublisher/**'
       - 'Publishing/VerifiedAssembly.json'
       - '.github/workflows/steam-approved.yml'
+      - '.github/workflows/steam-readiness.yml'
+      - 'Tests/Release/test_steam_readiness.py'
       - '.github/workflows/steam-release-static.yml'
       - 'Tests/Release/test_steam_publisher.py'
       - 'Tests/Release/test_verified_assembly.py'
@@ -25,8 +27,9 @@ jobs:
         with:
           python-version: '3.11'
       - name: Compile source without private game, token or Steam
-        run: python -m py_compile Tools/SteamPublisher/publisher.py Tools/SteamPublisher/tags.py Tools/SteamPublisher/import_verified_assembly.py
+        run: python -m py_compile Tools/SteamPublisher/publisher.py Tools/SteamPublisher/tags.py Tools/SteamPublisher/import_verified_assembly.py Tools/SteamPublisher/readiness.py
       - name: Test exact source-only and binary import guards
         run: |
           python Tests/Release/test_steam_publisher.py
           python Tests/Release/test_verified_assembly.py
+          python Tests/Release/test_steam_readiness.py
