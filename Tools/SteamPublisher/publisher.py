@@ -167,10 +167,60 @@ def candidate_files(checkout: Path) -> list[Path]:
     return sorted(set(result))
 
 
+def verify_pinned_git_native_payload(checkout: Path, files: list[Path], cfg: dict) -> None:
+    """Compare all subscriber paths and immutable contents to tested owner Git source.
+
+    Test-branch import independently checks original Project DLL SHA-256 and
+    exact Git object. Owner source commit provides independent immutable
+    canonical hashes for all 58 other subscriber source files; release About
+    metadata is the only authorized difference.
+    """
+    source = cfg["source_commit"]
+    require(len(source) == 40 and all(c in "0123456789abcdef" for c in source),
+            "Invalid native subscriber source commit")
+    git = ["git", "-C", str(checkout)]
+    proc = subprocess.run(git + ["ls-tree", "-r", "--name-only", source],
+                          check=True, capture_output=True, text=True)
+    source_names = {name for name in proc.stdout.splitlines()
+                    if name in ALLOWED_FILES or name.split("/", 1)[0] in ALLOWED_DIRS}
+    require(len(source_names) == 58,
+            "Original native subscriber source inventory no longer matches 58 files")
+    # Candidate contains one original compiled native DLL and a generated item ID.
+    source_names.update({REQUIRED_DLL.as_posix(), "About/PublishedFileId.txt"})
+    actual = {rel.as_posix() for rel in files}
+    actual.add("About/PublishedFileId.txt")
+    require(actual == source_names,
+            "Payload differs from original exact native source inventory: " +
+            "missing=" + repr(sorted(source_names - actual)) +
+            " extra=" + repr(sorted(actual - source_names)))
+    mutable = {"About/About.xml", "About/Manifest.xml",
+               "About/Changelog.txt", "About/PublishedFileId.txt"}
+    for rel in files:
+        name = rel.as_posix()
+        if name in mutable or rel == REQUIRED_DLL:
+            continue
+        original = subprocess.run(git + ["show", source + ":" + name],
+                                  capture_output=True, check=True).stdout
+        require(hashlib.sha256((checkout / rel).read_bytes()).digest() ==
+                hashlib.sha256(original).digest(),
+                "Runtime subscriber bytes differ from tested pinned source: " + name)
+    require(hashlib.sha256((checkout / REQUIRED_DLL).read_bytes()).hexdigest()
+            == cfg["assembly_sha256"],
+            "Staged DLL differs from exact native run")
+    require(cfg["archive_sha256"] ==
+            "86c433992e21366d026c468b8a7a73142abeb2c44c1f51f74afaafa8977341fe",
+            "Original Project native archive identity changed")
+    print("PINNED_GIT_NATIVE_INVENTORY_PASS: original 58 source files + DLL + item ID")
+
+
 def verify_native_payload(checkout: Path, files: list[Path]) -> None:
     """Require the actual subscriber inventory and immutable tested runtime bytes."""
     pinned = checkout / "Publishing/VerifiedAssembly.json"
     if not pinned.exists():
+        return
+    cfg = json.loads(pinned.read_text(encoding="utf-8"))
+    if cfg.get("transfer_method") == "verified_public_git_commit":
+        verify_pinned_git_native_payload(checkout, files, cfg)
         return
     original = checkout / "Dist/VerifiedNative/candidate/Manifest.json"
     require(original.is_file(), "Verified native subscriber manifest was not downloaded")
