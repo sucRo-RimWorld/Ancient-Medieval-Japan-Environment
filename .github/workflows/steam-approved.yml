@@ -49,29 +49,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Confirm independent private Project artifact access
-        shell: bash
-        env:
-          PROJECT_ARTIFACT_TOKEN: ${{ secrets.AMJ_PROJECT_ARTIFACT_TOKEN }}
-        run: |
-          set -euo pipefail
-          test -n "$PROJECT_ARTIFACT_TOKEN" || {
-            echo "BLOCKED: Project Actions artifact read token not configured"; exit 2;
-          }
-      - name: Retrieve exact genuine native candidate (not a fresh game run)
-        uses: actions/download-artifact@v4
+      - name: Retrieve exact public immutable test-branch Git object (no private token)
+        uses: actions/checkout@v4
         with:
-          repository: sucRo-RimWorld/Ancient-Medieval-Japan-Project
-          run-id: 39247372678
-          name: amje-wetland16-39247372678
-          github-token: ${{ secrets.AMJ_PROJECT_ARTIFACT_TOKEN }}
-          path: Dist/VerifiedNative
+          repository: sucRo-RimWorld/Ancient-Medieval-Japan-Environment
+          ref: 5dac3140230402b3b2aa96cbc117b98a23745dde
+          path: Dist/PinnedNativeGit
+          persist-credentials: false
+          sparse-checkout: Assemblies
+          fetch-depth: 1
       - name: Prove binary provenance and stage only the verified DLL
         shell: bash
         run: |
           set -euo pipefail
           python Tools/SteamPublisher/import_verified_assembly.py \
-            --evidence Dist/VerifiedNative --checkout . --install
+            --pinned-git-checkout Dist/PinnedNativeGit --checkout . --install
       - name: Assemble and verify subscriber-only package; do not start RimWorld
         shell: bash
         env:
