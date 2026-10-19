@@ -4,11 +4,11 @@
 
 The four species are now in the Environment source, with the 1.6 Vanilla/CCTO, 1.6 MO functional and focused 1.7 native behavior evidence recorded in `Docs/ValidationEvidence`. **This does not mean the 0.2.0 Steam/2game update has been published.** Keep currently published 0.1.1 copy unchanged until final checks.
 
-Japanese-first bilingual working copy: `Docs/ReleaseDrafts/SteamWorkshopDescription-0.2.0-INCOMPLETE.txt`; shorter 2game candidate: `Docs/ReleaseDrafts/2GameDescription-ja-0.2.0-INCOMPLETE.txt`. They are **NOT paste-ready**. The three newly appended published-source picture URLs for accepted Yoshi, Suge and Hannoki production sprites refer to existing repository PNGs; all four preceding gallery images are retained. Mizugoke temporarily reuses Vanilla Moss graphics, so the author waived a separate gallery image for 0.2.0. Keep its bilingual text-only caption after the seven existing and accepted image entries; do not invent an AMJE Mizugoke PNG or placeholder URL.
+The working 0.2.0 release-candidate sources are `Docs/SteamWorkshopDescription.txt` and `Docs/2GameDescription-ja.txt` in the unmerged PR #217 branch. Earlier files under `Docs/ReleaseDrafts/` are superseded non-publishable drafts. These branch copies are **not evidence of a live Steam or 2game update**. The three newly appended published-source picture URLs for accepted Yoshi, Suge and Hannoki production sprites refer to existing repository PNGs; all four preceding gallery images are retained. Mizugoke temporarily reuses Vanilla Moss graphics, so the author waived a separate gallery image for 0.2.0. Keep its bilingual text-only caption after the seven existing and accepted image entries; do not invent an AMJE Mizugoke PNG or placeholder URL.
 
-The combined Steam draft has **7 real images** and is below 8,000 UTF-8 bytes with LF and CRLF; seven accepted images are the complete 0.2.0 gallery. The Workshop ready gate additionally requires seasonal/save behavior, the actual final byte-size/tag/link validator, a single version 0.2.0 About/Manifest/Changelog update **only at release promotion**, exact private upload provenance and downloaded subscriber byte check. No Steam upload authorized by drafting.
+The 0.2.0 release candidate has **7 real images** and is below 8,000 UTF-8 bytes with LF and CRLF; seven accepted images are the complete 0.2.0 gallery. Scoped season/save behavior is already evidenced separately. The final publication gate still requires a byte-verified 0.2.0 About/Manifest/Changelog candidate, exact private upload provenance and downloaded subscriber byte checks. No Steam upload authorized by drafting.
 
-`README.md` is the detailed public-content source of truth. Workshop follows the author's finalized 2game organization: order the features by function (climate/weather → rivers/coasts → biomes → soil → vegetation → wildlife → wetland disease → descriptions), combine overlapping bullets, and preserve coverage of **all implemented player-visible change categories** even when one bullet covers several. Keep additional Workshop-only details such as wetland terrain retention and plant cutting yield when needed for complete coverage. Do not repeat a 'balance' section that merely duplicates features or compatibility. Structure the body as features → scope → compatibility → save compatibility → future candidates. For current public 0.1.1 text only, its old wetland-candidate parent remains until the promotion gate. The separate 0.2.0 draft lists those four as source-implemented; deferred retexturing remains unimplemented. Retain the literal Japanese suffix in both language blocks. Distinguish candidates from approved work and never repeat withdrawn plans. No new feature claim may be introduced beyond README.
+`README.md` is the detailed public-content source of truth. Workshop follows the author's finalized 2game organization: order the features by function (climate/weather → rivers/coasts → biomes → soil → vegetation → wildlife → wetland disease → descriptions), combine overlapping bullets, and preserve coverage of **all implemented player-visible change categories** even when one bullet covers several. Keep implementation-relevant details such as plant cutting yields when needed; do not repeat unchanged Vanilla wetland terrain or generic compatibility facts as a 0.2.0 change. Do not repeat a 'balance' section that merely duplicates features or compatibility. Structure the body as features → scope → compatibility → save compatibility → future candidates. For current public 0.1.1 text only, its old wetland-candidate parent remains until the promotion gate. The unmerged 0.2.0 candidate lists those four as implemented; Sugi/Susuki, wild foraging plants and deferred retexturing remain future unimplemented work. Retain the literal Japanese suffix in both language blocks. Distinguish candidates from approved work and never repeat withdrawn plans. No new feature claim may be introduced beyond README.
 
 ## Authoring order
 
@@ -34,7 +34,7 @@ Repository work ends with preparing and synchronizing the README, Japanese/Engli
 
 ## Release stage
 
-RimWorld 1.6 / 1.7 (unstable) — Beta
+RimWorld 1.6 / 1.7 — Beta
 
 ## Next feature release — wetland vegetation, target 0.2.0 (author correction 2026-10-17)
 
@@ -90,7 +90,7 @@ Emphasize:
 - Medieval Overhaul coexistence;
 - save-compatibility limitations;
 - completed wetland vegetation, wildlife, pack-animal, disease, weather and descriptions; retained-tree descriptions, sowing and cutting outcomes;
-- for the **currently published 0.1.1 description only**, the formerly unimplemented wetland candidate group remains unchanged; in the **unreleased 0.2.0 draft**, four source-completed plants move into the feature list and only deferred tree retextures remain unimplemented;
+- for the **currently published 0.1.1 description only**, the wetland candidate group remains unchanged; in the **unreleased 0.2.0 release candidate**, four completed wetland plants move into the feature list, while Sugi, Susuki, later wild foraging and deferred tree retextures stay marked as future work;
 - Beta status and continued Healroot supply, with medicinal plants outside Environment.
 
 For the representative-plant section, keep the Workshop summaries shorter than the in-game historical descriptions. The Workshop should explain the vegetation-band design and provide a short educational note for each plant; the in-game descriptions retain the fuller kanji/alias/historical detail.
@@ -99,7 +99,7 @@ The four current Workshop images reference production PNGs directly through `raw
 
 When the Workshop body names another mod, provide a direct link at least at its first or dependency-list mention. Prefer its Steam Workshop page when published; use the owning GitHub repository for an AMJ mod that has no public Workshop item yet. Keep the **combined English + Japanese + image gallery** below Steam's 8,000-byte limit rather than repeating the same long URL on every occurrence. Omit license, AI-production descriptions and donation requests from the Steam copy; preserve legally required repository/distribution notices.
 
-The future-candidates section must keep unfinished wetland plants and deferred Vanilla / Medieval Overhaul tree retextures visibly distinct from implemented features, without listing every plant as a separate promised development. README remains the detailed source for scope, prior vegetation audits and technical compatibility policy.
+The 0.2.0 future-candidates section must name the already-planned Sugi/Susuki additions and wild foraging improvements alongside deferred Vanilla / Medieval Overhaul tree retextures, clearly distinct from the four implemented wetland plants. Do not portray unimplemented species as shipped or promise unapproved mechanics. README remains the detailed source for scope, prior vegetation audits and technical compatibility policy.
 
 Keep detailed world-generation numbers, full test results, exact plant cold-tolerance values, implementation details, and research rationale in README / Design rather than the Workshop body.
 

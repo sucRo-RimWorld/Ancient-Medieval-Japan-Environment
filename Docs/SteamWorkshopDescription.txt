@@ -10,7 +10,7 @@
 [*]Add Thin Soil (50% fertility), with more stony/poor natural soil at high elevation
 [*]Add four plants: Sudajii, Japanese beech, Shirabiso and Haimatsu; correct their cut-wood yields
 [*]Remove unsuitable plants, adjust vegetation and region-based tree sowing; Haimatsu cannot be sown
-[*]Keep TemperateSwamp and ColdBog, add reed, sedges and alder to both and sphagnum to the cool bog; preserve Vanilla mud, marsh, shallow water and movement difficulty
+[*]Keep TemperateSwamp and ColdBog, add reed, sedges and alder to both and sphagnum to the cool bog
 [*]Rebalance wildlife proxies and remove unsuitable wetland pack animals
 [*]Reed and sedges yield Hay (base 2 and 1), alder yields 24 wood, and sphagnum yields no item
 [*]Adjust wetland disease types and intervals; exclude mechanites
@@ -18,7 +18,7 @@
 [/list]
 
 [h2]Scope[/h2]
-RimWorld 1.6 / 1.7 (unstable), Beta. English / Japanese.
+RimWorld 1.6 / 1.7, Beta. English / Japanese.
 
 [h2]Compatibility[/h2]
 [b]Required:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]
@@ -32,6 +32,8 @@ Healroot remains; medicinal plants belong to a future separate Mod.
 [b]New game recommended.[/b] Existing worlds are not regenerated; adding to existing saves remains untested. [b]Do not remove AMJE[/b] from saves containing its biomes, terrain or plants.
 
 [h2]Future candidates[/h2]
+Add Japanese cedar (sugi), silvergrass (susuki) and other native vegetation (not implemented)
+Add wild greens, nuts and other foraging plants (not implemented)
 Retexture Vanilla/MO trees（未実装）
 
 [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]Details / GitHub[/url]
@@ -50,7 +52,7 @@ Retexture Vanilla/MO trees（未実装）
 [*]痩せた土壌（肥沃度50%）を追加し、高地ほど礫地・痩せた土が増えるよう調整
 [*]スダジイ・ブナ・シラビソ・ハイマツの4植物を追加し、伐採時の木材取得を調整
 [*]不適切な植生を除外し、植生分布と植林候補を調整。ハイマツは植林不可
-[*]温帯湿地・冷涼湿原にアシ・スゲ・ハンノキを追加し、冷涼湿原にはミズゴケを追加。泥・沼・浅瀬・移動困難度はバニラを維持
+[*]温帯湿地・冷涼湿原にアシ・スゲ・ハンノキを追加し、冷涼湿原にはミズゴケを追加
 [*]野生動物の分布を調整し、湿地から不自然な荷役動物を除外
 [*]アシは干し草2、スゲは干し草1、ハンノキは木材24を基本収量とし、ミズゴケは採取物なし
 [*]湿地の病気の種類・発生間隔を調整し、機械虫病を除外
@@ -58,7 +60,7 @@ Retexture Vanilla/MO trees（未実装）
 [/list]
 
 [h2]対応範囲[/h2]
-RimWorld 1.6 / 1.7（不安定版）、β版。日英対応。
+RimWorld 1.6 / 1.7、β版。日英対応。
 
 [h2]対応・互換性[/h2]
 [b]必須MOD:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]
@@ -72,6 +74,8 @@ RimWorld 1.6 / 1.7（不安定版）、β版。日英対応。
 [b]新規ゲームを推奨[/b]。既存ワールドは再生成されず、途中追加は未検証。独自バイオーム・地形・植物を使うセーブからの[b]途中削除は非推奨[/b]。
 
 [h2]今後の予定[/h2]
+スギ・ススキなど日本在来の植生の追加（未実装）
+山菜・木の実などの野生食料植物の追加（未実装）
 バニラ・MO樹木のリテクスチャ（未実装）
 
 [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]仕様 / GitHub[/url]
