@@ -1,5 +1,30 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+## 2026-10-20 — publisher method moved to the private Project; Steam HOLD
+
+The author selected **centralization before uploading**. Private
+`sucRo-RimWorld/Ancient-Medieval-Japan-Project` now owns the single
+`main:.github/workflows/steam-central.yml` workflow, protected
+`steam-workshop-private` reviewer and trusted SteamCMD/Steamworks
+orchestration; the Environment owner retains only exact native/release
+content, verified source and its package assembly code. Per-Mod
+`steam-approved.yml` and `steam-readiness.yml` are **retired in this
+unmerged Environment candidate**, not on Environment main until promotion.
+The fixed source and originally successful [offline release CI
+#39277376438](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/actions/runs/39277376438)
+are existing evidence, not Steam publication or central publisher E2E proof.
+
+The Project registry needs the new **final Environment release candidate
+SHA** when this branch's cleanup is complete (metadata change only; same
+tested DLL/source). Do not launch a central Project author publish issue
+before that pin is consistent. Independent remaining actual blockers are
+Project required reviewer configuration and recorded author approval,
+group4 permission to **Project private repo and its one exact main workflow**,
+Linux/Windows host accounts and item state, verified private Workshop
+ownership and real post-upload subscriber acceptance. Existing author
+RimWorld 1.6 Thin Soil manual PASS, initial native-run errors and MO/SYR
+FMOD baseline remain independently recorded. **0.2.0 publication HOLD.**
+
 ## 2026-10-20 — immutable public native transport: offline package verification PASS, Steam HOLD
 
 The private Project Actions artifact reader secret is **no longer a prerequisite
