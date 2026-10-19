@@ -1,5 +1,12 @@
 # AMJ Environment Coordination
 
+### ENV-THINSOIL-GROWING-ZONE-20261019 — source correction MERGED; native DLL/placement verification OPEN
+
+**Owner:** Environment terrain/zone compatibility. **Implemented source:** [Environment PR #218](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/218), main commit `8ebe4d5dcbffabcd7e68198d6fd9a2a8bb1393ae`. Player found that custom `AMJ_ThinSoil` (fertility 0.50, GrowSoil) cannot be painted as a Vanilla Growing Zone, blocking the intended poor-soil farming tier even when crop `fertilityMin=0.5`. New limited Harmony postfix in `Source/AncientMedievalJapanEnvironment/ThinSoilGrowingZonePatch.cs` permits only otherwise-free, unfogged, unroofed Thin Soil cells with current fertility >=0.50; it preserves other terrain and game restrictions and does not change grain/rice/MO growth or harvest values. Canonical design and acceptance contract in `Docs/Design.md §10.3a`.
+
+**OPEN:** recompile the actual Environment DLL with the 1.6 and applicable 1.7 game assemblies and execute one consolidated in-game check on an Environment+Grains map: paint on Thin Soil and compare Gravel/Soil; reject sand, water, existing zone and occupied/roofed cells; select and really sow one 0.50-minimum crop, and reject rice/wheat 0.70 on Thin Soil. Prior Environment+Grains tests only counted theoretical sowability, not actual native zone-designator acceptance. The present commit has source/static-scope review only; published DLL and Steam remain unchanged and no runtime PASS or source-built release is claimed. **Do not auto-launch RimWorld/Steam publishing** without an authorized bounded run.
+
+
 ### ENV-020-SEASON-SAVE-NATIVE16-PASS-20261019 — scoped accepted, release HOLD
 
 **Latest:** Project [Actions #39194825692](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39194825692), exact Environment source `03c743376a34ef9256acfed147da74adf5e75c51`, real Linux 1.6 Vanilla ColdBog: **26/26 seasonal/graphics checks PASS**, saved-game file 12,594,839 bytes, second native process reloaded ColdBog and Yoshi/Suge/Mizugoke/Hannoki, raw ERROR0 and both game exits 0. Original harness failures remain historical FAIL; test-only root setup fixed via genuine Play scene load. Canonical evidence: `Docs/ValidationEvidence/WetlandSeasonSaveNative16-20261019.md` and `Docs/ReleaseReadiness.md`. This accepts scoped calendar sampling + new-save reload, **not full 60-day simulation, 1.7 save, or final exact four-profile Steam subscriber delivery**. Independent private publisher, subscriber checks and final release copy/version are still OPEN.
@@ -108,55 +115,6 @@ the newer 59-file candidate. Existing saved worlds are not rewritten.
 exact physical candidate upload, independent downloaded subscriber
 identity and runtime smoke. Historic failed launches/source-gate
 observations remain in their formal evidence and main Git history.
-
-### ENV-HANNOKI-APPEARANCE-20261017 — all accepted static states + natural mechanics closed
-
-**Owner:** Environment plant visuals and native validation
-**Status:** SIX AUTHOR-ACCEPTED STATIC STATES + REAL 1.6 AND 1.7 NATIVE CALENDAR TRANSITIONS VERIFIED; STEAM DISTRIBUTION OPEN
-
-Author accepted all six current in-game static artwork states on 2026-10-15.
-Accepted graphics, screenshot pointers and fingerprints remain in
-`Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`.
-No image rerendering, enlargement or new human approval was requested.
-
-**2026-10-17 independent actual native result:** The original 59-file release
-candidate was tested on isolated real Linux RimWorld 1.6.4871 rev600 with a
-test-placed production Hannoki at a naturally cold CoolTemperate site.
-[Project Actions #39016607046](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39016607046)
-reports Quickstart **73/73 PASS**, Unity ERROR0, exit0; natural
-fall factor 0..1, same-tree leafless/recovered both true, native textures
-valid, minimum ambient −13.5862°C below native leafless threshold −10.27121°C.
-No climate/threshold/leafless override; only hourly accelerated standard
-calendar and Plant.TickLong, not full-world 60-day gameplay.
-The first warm/forced-wetland fixture [#39016256642](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39016256642)
-**FAILED** and is preserved as failed; the source-only test fixture was
-corrected in Project PR #600 and rerun once. Formal method, hashes,
-test assumptions and original evidence:
-`Docs/ValidationEvidence/HannokiSeasonalNative-20261017.md`.
-
-`Docs/PlantVisualCoverage.json` now marks Hannoki `transition`
-`verified` (automated_native_calendar_sampling), `complete=true`.
-**2026-10-17 native 1.7 follow-up:** [Project Actions #39018400784](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39018400784)
-with genuine Linux 1.7.4977 rev1248, same Environment main production C#
-source recompiled for Waylith test-only .NET10, naturally cold generated map
-and test-placed mature Hannoki: fall 0..1, leafless/recovered true,
-4 same-tree state transitions, observed minimum −13.49252°C below
-native leafless threshold −11.37465°C. Pickle1/1, Unity ERROR0, exit0.
-The previous test-only 1.7 map-temperature-cache omission caused a genuine
-FAIL [#39018171464](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39018171464)
-(+2.306426°C minimum, leafless false). Fail evidence retained; test-only
-cache refresh corrected without production climate/plant edit.
-Canonical exact two-version acceptance/method limitations:
-`Docs/ValidationEvidence/HannokiSeasonalNative-20261017.md`.
-
-Existing user play/save, naturally distributed wetland specimens, full-year
-world simulation, 1.7 rendered sprite/snow appearance, Linux1.7 shared
-shipping net472 DLL and Steam subscriber remain outside **these season
-checks**. **Current blocker remains Environment-owned private GitHub Actions
-publisher/authenticated host and exact Steam downloaded payload verification,
-not Hannoki's mechanics.**
-
-## Publication and distribution
 
 ### ENV-BEECH-FALL-CALIBRATION-20261013 — autumn value/saturation source mismatch
 
