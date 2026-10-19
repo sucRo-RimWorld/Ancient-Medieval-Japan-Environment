@@ -50,29 +50,21 @@ jobs:
           ref: ${{ needs.guard.outputs.source_sha }}
           persist-credentials: false
           fetch-depth: 0
-      - name: Require private Project read token without printing it
-        env:
-          PROJECT_ARTIFACT_TOKEN: ${{ secrets.AMJ_PROJECT_ARTIFACT_TOKEN }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -n "$PROJECT_ARTIFACT_TOKEN" || {
-            echo "BLOCKED: private Project artifact reader not configured"; exit 2;
-          }
-      - name: Download pinned native Project artifact with publisher token
-        uses: actions/download-artifact@v4
+      - name: Retrieve exact public immutable test-branch Git object (no private token)
+        uses: actions/checkout@v4
         with:
-          repository: sucRo-RimWorld/Ancient-Medieval-Japan-Project
-          run-id: 39247372678
-          name: amje-wetland16-39247372678
-          github-token: ${{ secrets.AMJ_PROJECT_ARTIFACT_TOKEN }}
-          path: Dist/ReadOnlyNative
+          repository: sucRo-RimWorld/Ancient-Medieval-Japan-Environment
+          ref: 5dac3140230402b3b2aa96cbc117b98a23745dde
+          path: Dist/PinnedNativeGit
+          persist-credentials: false
+          sparse-checkout: Assemblies
+          fetch-depth: 1
       - name: Verify original ZIP and genuine DLL without installing it
         shell: bash
         run: |
           set -euo pipefail
           python Tools/SteamPublisher/import_verified_assembly.py \
-            --evidence Dist/ReadOnlyNative --checkout .
+            --pinned-git-checkout Dist/PinnedNativeGit --checkout .
           echo 'READINESS_PROJECT_ARTIFACT_PASS (no game, no upload)'
 
   author_approval:
