@@ -85,5 +85,43 @@ class VerifiedAssemblyTests(unittest.TestCase):
                     transfer.verify(evidence, root, config)
 
 
+    def test_public_pinned_git_transfer_rejects_wrong_commit_blob_and_dll(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            genuine = b"MZ" + b"\\0" * 8192
+            original, cfg = fixture(root, genuine)
+            evidence = root / "pinned-public-git"
+            (evidence / ".git").mkdir(parents=True)
+            binary = evidence / transfer.ASSEMBLY
+            binary.parent.mkdir(parents=True)
+            binary.write_bytes(genuine)
+            commit = "c" * 40
+            blob = "b" * 40
+            cfg.update({
+                "transfer_method": "verified_public_git_commit",
+                "transfer_repository": "sucRo-RimWorld/Ancient-Medieval-Japan-Environment",
+                "transfer_commit": commit,
+                "transfer_blob_sha": blob,
+                "project_run_id": 39247372678,
+                "archive_sha256": "86c433992e21366d026c468b8a7a73142abeb2c44c1f51f74afaafa8977341fe",
+            })
+            def check(revision, entry, passed=0):
+                with mock.patch.object(transfer.subprocess, "check_output",
+                                       side_effect=[revision + "\\n", entry + "\\n"]), \\
+                     mock.patch.object(transfer.subprocess, "run",
+                                       return_value=mock.Mock(returncode=passed)):
+                    return transfer.verify_public_pinned_assembly(evidence, root, cfg)
+            self.assertEqual(check(commit, blob), genuine)
+            with self.assertRaisesRegex(ValueError, "commit mismatch"):
+                check("a" * 40, blob)
+            with self.assertRaisesRegex(ValueError, "Git blob differs"):
+                check(commit, "a" * 40)
+            with self.assertRaisesRegex(ValueError, "modified"):
+                check(commit, blob, passed=1)
+            binary.write_bytes(b"MZ" + b"other content" * 1100)
+            with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
+                check(commit, blob)
+
+
 if __name__ == "__main__":
     unittest.main()
