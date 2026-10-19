@@ -34,6 +34,20 @@ jobs:
         run: python -m py_compile Tools/SteamPublisher/publisher.py Tools/SteamPublisher/tags.py Tools/SteamPublisher/import_verified_assembly.py
       - name: Test bilingual Workshop BBCode, gallery and version agreement
         run: python Tests/validate_workshop_description.py
+      - name: Test actual candidate text and changenote through the Steam publisher
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from Tools.SteamPublisher import publisher
+          source = Path(".")
+          cfg = publisher.config_from(source, "sucRo-RimWorld/Ancient-Medieval-Japan-Environment")
+          meta = publisher.inspect_source(source, cfg)
+          assert meta["version"] == "0.2.0"
+          assert meta["changenote"].startswith("0.2.0 - ")
+          assert meta["description"].count("[img]") == 7
+          print("PASS 0.2.0 real publishing metadata, bilingual changenote, 7-image source")
+          PY
       - name: Test exact source-only and binary import guards
         run: |
           python Tests/Release/test_steam_publisher.py
