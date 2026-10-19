@@ -7,7 +7,7 @@
 [*]Adjust temperature, rainfall, elevation and hilliness; reweight rain, fog, thunderstorms and snow by climate zone and wetland
 [*]Increase small and medium rivers while suppressing natural huge rivers; make coasts more irregular with bays, peninsulas and islands
 [*]Add four biomes: warm-temperate forest, cool-temperate forest, subalpine forest and alpine zone
-[*]Add Thin Soil (50% fertility), with more stony/poor natural soil at high elevation
+[*]Add Thin Soil (50% fertility) and support Growing Zones for suitable crops; higher elevations retain more stony/poor soil
 [*]Add four plants: Sudajii, Japanese beech, Shirabiso and Haimatsu; correct their cut-wood yields
 [*]Remove unsuitable plants, adjust vegetation and region-based tree sowing; Haimatsu cannot be sown
 [*]Keep TemperateSwamp and ColdBog, add reed, sedges and alder to both and sphagnum to the cool bog
@@ -49,7 +49,7 @@ Retexture Vanilla/MO trees（未実装）
 [*]気温・降水量・標高・丘陵・山地の分布と、気候帯・湿地ごとの天候（雨・霧・雷雨・積雪）を調整
 [*]小～中規模の河川を増やし、巨大河川の自然発生を抑制。湾・半島・島が多い複雑な海岸線へ変更
 [*]暖温帯林・冷温帯林・亜高山帯林・高山帯の4バイオームを追加
-[*]痩せた土壌（肥沃度50%）を追加し、高地ほど礫地・痩せた土が増えるよう調整
+[*]痩せた土壌（肥沃度50%）を追加。対応作物の農業ゾーンも設置可能にし、高地ほど礫地・痩せた土が増えるよう調整
 [*]スダジイ・ブナ・シラビソ・ハイマツの4植物を追加し、伐採時の木材取得を調整
 [*]不適切な植生を除外し、植生分布と植林候補を調整。ハイマツは植林不可
 [*]温帯湿地・冷涼湿原にアシ・スゲ・ハンノキを追加し、冷涼湿原にはミズゴケを追加
