@@ -1,5 +1,9 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+## 2026-10-19 — source-pinned DLL publisher transport integrated, operational acceptance OPEN
+
+Environment [PR #213](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/213) integrates pinned original 1.6 native DLL artifact import into the author-only Steam Actions preflight; [publisher transport procedure](GoldenPaths/WorkshopPublication.md#2026-10-19-pinned-020-production-dll-transport-prepared-not-publisher-verified) specifies exact pin/source/fingerprint. **This is source implementation only**. No publisher workflow run, successful private-Project artifact-token authentication, final 0.2.0 stage, live Steam upload, or subscriber download is established. The pinned artifact is temporary and expires 2026-10-26 UTC. Steam readiness remains **HOLD** while these concrete dependent gates and final 0.2.0 version/copy promotion are incomplete. Preserve the separate original 1.6 628/628 functional PASS and strict MO FMOD ERROR0 FAIL below.
+
 ## 2026-10-19 — one pinned 1.6 wetland candidate, four profiles: function PASS, strict ERROR0 FAIL
 
 [Project Actions #39200796636](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39200796636) finished **FAIL**, and that original workflow status must remain FAIL. The uploaded original artifact `amje-wetland16-39200796636` (ID `12164466198`) was inspected case by case, including all eight `quickstart.json`, `result.json` and full `unity.log` captures. The **same 60-file candidate** from Environment source `5050e57250c6913c2210be47723fee68d318e59e` was used throughout (ZIP SHA256 `fbe3bddc7c1cbf0502b43fdf09cc7710874cdda07caf76c3811ff1128a42c7c3`; production DLL SHA256 `3601246eb6429789a32ee25253740f1e587358cd6e09699d7e1bfbbfe4016520`).
