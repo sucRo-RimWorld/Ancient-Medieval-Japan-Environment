@@ -1,44 +1,26 @@
 # AMJ Environment Coordination
 
+### ENV-020-PUBLISHER-READINESS-20261019 — actual operational blockers, release HOLD
+
+**Author-triggered read-only Actions:** [#39243327351](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/actions/runs/39243327351), exact main `3c8a47ceaed98d7d4e9250642f46bbcbcdea106e`, source [PR #220](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/220), guard fix [PR #222](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/222). **Guard PASS, Project private artifact token BLOCKED (absent), recorded author environment approval BLOCKED (none), Linux/Windows host jobs SKIPPED**. Read-only command did not trigger Steam publication; the protected upload workflow was SKIPPED. Environment-specific runner allowlisting, credentials, SteamCMD owner state, Steamworks Windows agent and reviewer configuration remain UNVERIFIED. The author cannot be used as an inter-agent messenger; Environment publishing/administration owner must provision and separately verify them. Details: `Docs/ReleaseReadiness.md` and `Docs/GoldenPaths/WorkshopPublication.md`.
+
+**Separate source identity blocker:** Since genuine Project artifact pin source `5050e57250c6913c2210be47723fee68d318e59e`, Environment main merged Thin Soil growing-zone Harmony patch (source [PR #218](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/218)). Original 60-file artifact/DLL is **not** a valid build for current gameplay source; importer would correctly reject it after resolving artifact token. Current-version copy PR [#217](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/217) is OPEN, unmerged; previously reconstructed local 0.2.0 ZIP is outdated as an exact-main build. Rebuild/pin new genuine source DLL and perform bounded affected native checks before separate author-approved private upload/download acceptance. The old 628/628 gameplay functional evidence stays distinct from strict MO/SYR FMOD ERROR0 FAIL. **No main-release merge, Steam upload, tag change or visibility change authorized by this status.**
+
+### ENV-THINSOIL-GROWING-ZONE-20261019 — source correction MERGED; native DLL/placement verification OPEN
+
+**Owner:** Environment terrain/zone compatibility. **Implemented source:** [Environment PR #218](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/218), main commit `8ebe4d5dcbffabcd7e68198d6fd9a2a8bb1393ae`. Player found that custom `AMJ_ThinSoil` (fertility 0.50, GrowSoil) cannot be painted as a Vanilla Growing Zone, blocking the intended poor-soil farming tier even when crop `fertilityMin=0.5`. New limited Harmony postfix in `Source/AncientMedievalJapanEnvironment/ThinSoilGrowingZonePatch.cs` permits only otherwise-free, unfogged, unroofed Thin Soil cells with current fertility >=0.50; it preserves other terrain and game restrictions and does not change grain/rice/MO growth or harvest values. Canonical design and acceptance contract in `Docs/Design.md §10.3a`.
+
+**OPEN:** recompile the actual Environment DLL with the 1.6 and applicable 1.7 game assemblies and execute one consolidated in-game check on an Environment+Grains map: paint on Thin Soil and compare Gravel/Soil; reject sand, water, existing zone and occupied/roofed cells; select and really sow one 0.50-minimum crop, and reject rice/wheat 0.70 on Thin Soil. Prior Environment+Grains tests only counted theoretical sowability, not actual native zone-designator acceptance. The present commit has source/static-scope review only; published DLL and Steam remain unchanged and no runtime PASS or source-built release is claimed. **Do not auto-launch RimWorld/Steam publishing** without an authorized bounded run.
+
+
 ### ENV-020-SEASON-SAVE-NATIVE16-PASS-20261019 — scoped accepted, release HOLD
 
 **Latest:** Project [Actions #39194825692](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39194825692), exact Environment source `03c743376a34ef9256acfed147da74adf5e75c51`, real Linux 1.6 Vanilla ColdBog: **26/26 seasonal/graphics checks PASS**, saved-game file 12,594,839 bytes, second native process reloaded ColdBog and Yoshi/Suge/Mizugoke/Hannoki, raw ERROR0 and both game exits 0. Original harness failures remain historical FAIL; test-only root setup fixed via genuine Play scene load. Canonical evidence: `Docs/ValidationEvidence/WetlandSeasonSaveNative16-20261019.md` and `Docs/ReleaseReadiness.md`. This accepts scoped calendar sampling + new-save reload, **not full 60-day simulation, 1.7 save, or final exact four-profile Steam subscriber delivery**. Independent private publisher, subscriber checks and final release copy/version are still OPEN.
-
-### ENV-020-STAGED-COPY-20261018 — no Steam version/publication
-
-The GitHub README reflects source-complete wetland species as **unreleased**; current Workshop 0.1.1 BBCode, About/Manifest/Changelog and 2game paste-ready files remain untouched. In `Docs/ReleaseDrafts/` are explicitly non-publishable bilingual Workshop and 2game 0.2.0 drafts. Existing 4 gallery images retained; 3 accepted owner-produced plant sprite URLs for Yoshi/Suge/Hannoki added; author waived the eighth Mizugoke image because its temporary Vanilla Moss graphic is already represented in-game; the seven accepted images plus text-only Mizugoke caption are sufficient. Final BBCode and UTF-8 validation plus private publisher/subscriber identity are OPEN; scoped 1.6 ColdBog season/save is PASS per latest entry above. Do not advance release state merely from source docs.
-
 
 ### ENV-WETLAND-020-NATIVE17-20261017 — actual scoped 1.7 PASS
 
 **Observed native:** [Project Actions #39041272179](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39041272179), exact Environment gameplay source `ea22a4fcb0454630d85eb48c9e88604cedc97497`; real Linux RimWorld 1.7.4977 Waylith native **Pickle 1/1 PASS, native ERROR0, FMOD0, exit0**. Actual loaded Yoshi/Suge/Mizugoke owner Defs, wetland biome commonality, nonfood and wild-only, and real CutPlant **Hay2 / Hay1 / no-drop** confirmed. Formal evidence: `Docs/ValidationEvidence/WetlandFourProductionNative17-20261017.md`. **This is a 50×50 normal-map test, not 1.7 wild wetland natural spawning or full season/save, all provider combinations or Steam release.** Existing 1.6 Vanilla/CCTO and MO functional evidence remains; original MO strict FMOD errors unchanged. 0.2.0 gallery/description/version, author-isolated private upload and subscriber byte verification still OPEN. Do not rerun accepted 1.7 smoke without changed production behavior.
 
-
-### ENV-WETLAND-020-MO16-FUNCTIONAL-20261017
-
-**Observed native evidence:** [MO/MO+CCTO #39038178612](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39038178612) ran both wetland maps with actual provider stacks: MO warm 83/84 due a normal failable production Yoshi cut yielding Hay0; other three maps 75/75, 84/84, 75/75 gameplay assertions. [Focused MO warm #39039584212](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39039584212) after owner test-only bounded native retry passed 68/68, Yoshi Hay2, Suge first Hay0 then Hay1 on a distinct actual native cut. **Original previous MO warm FAIL stays FAIL**; each MO map still has the two independently known FMOD blank-clip errors; strict ERROR0 FAIL is preserved. Formal full logs and distinct bundle/DLL SHA comparisons: `Docs/ValidationEvidence/WetlandFourProductionNativeMO16-20261017.md`. Production XML, yields and harvest chance unchanged. Because the successful runs do not use byte-identical compiled DLL/ZIPs, do NOT infer one exact-candidate four-provider Steam release PASS. Separate current author-approved 1.7 test job is queued under the shared host; seasons/save and public Workshop conditions remain open.
-
-
-### ENV-WETLAND-020-MO16-20261017 — observed MO-only reed cut stochastic failure
-
-Current accepted 1.6 Vanilla/CCTO remains PASS. [Project Actions #39038178612](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39038178612) tested the same gameplay source in genuine MO/MO+CCTO on both wetlands: MO warm 83/84 (Yoshi removed but Hay0 at Plants20; 601 ticks), MO cold 75/75, MO+CCTO warm 84/84, MO+CCTO cold 75/75. All four profiles logged exactly the previously isolated **two blank-clip MO/SYR FMOD** prelaunch errors each, so strict ERROR0 remains FAIL for all; MO warm has its own additional **actual harvest FAIL**, not covered by FMOD classification. The successful disposable probe disables normal harvest failure; production Yoshi/Suge intentionally do not. Bounded response: production Def/approved Hay 2/1, natural plant weights and normal harvest failure rules remain untouched. Only existing production-herb native Quickstart may perform up to three separate real Plants20 CutPlant jobs after stochastic no-Hay removal, recording each attempt, stopping if a job stalls or unexpected item appears. Mizugoke still uses exactly one no-drop removal. Next real check should rerun **MO warm only** once on this exact corrected test source, retaining strict error logs and earlier evidence. Do not claim previous MO warm as functional PASS.
-
-### ENV-WETLAND-020-REAL-NATIVE16-PASS-20261017
-
-**Production source `ea22a4fcb0454630d85eb48c9e88604cedc97497`**, Project [Actions #39034867997](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39034867997): genuine RimWorld 1.6 Vanilla/CCTO TemperateSwamp+ColdBog, four cases **310/310 assertions, early ERROR0, runtime ERROR0, exits0, all PASS**. Actual Yoshi/Suge Hay and Mizugoke no-drop native CutPlant verified; previous harvest-zero stochastic confound and nonfood config Def errors addressed without changing approved base yields or harvest-failure game rules. Exact archive/DLL hashes, case-level natural species counts and previously failed attempts: `Docs/ValidationEvidence/WetlandFourProductionNative16-20261017.md`. **Still OPEN:** actual 1.6 MO/MO+CCTO of current source, 1.7, season/save, public copy/gallery and authenticated owner-isolated private Steam upload/download. Do not relabel older failed actions or full-release gate as PASS.
-
-
-### ENV-WETLAND-020-REAL-CUT-20261017
-
-Project Actions #39034206328 (Environment source c0fbeb23b2d877f11f232cb709425bc9c4348829): real RimWorld 1.6 TemperateSwamp Vanilla and CCTO, all 82/82 Quickstart assertions passed in each profile; actual skill-20 pawn CutPlant yielded Yoshi Hay2/Suge Hay1 in Vanilla and Yoshi Hay3/Suge Hay1 in CCTO (normal skill bonus, unchanged base yields). Whole run FAIL because 4 prelaunch errors per profile: Yoshi and Suge each logged twice as zero nutrition with inherited RawBad ingestible preferability. The narrow production correction is to set NeverForNutrition on both plants, as already used by Mizugoke and test-only fixtures. No other gameplay/harvest/graphics/weights changed. Retest the corrected exact source and keep all prelaunch ERROR gates. ColdBog, MO, 1.7 and Steam remain open.
-
-
-### ENV-WETLAND-020-HARVEST-NATIVE-20261017 — observed runtime failure and isolated test repair
-
-**Exact real-game run:** [Project Actions #39030166022](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39030166022), Environment source `3d3be3830b1b11fcc212c9602e2bc0dd6d24df08`: genuine RimWorld 1.6, candidate 60 files + DLL built and validated. TemperateSwamp has naturally generated Yoshi/Suge in Vanilla and CCTO, loaded Def/weights/graphics PASS, Unity logErrors0; Vanilla Yoshi and CCTO Yoshi/Suge **failed actual cut output** due to Hay0. The production test generated **Plants skill 0** colonists. The prior disposable fixtures explicitly set `harvestFailable=false` and thus their success does not prove 0-skill normal harvests succeed. This is a test design confound, not sufficient evidence of broken approved Hay output. **Next bounded action:** set only the actual-production cut probe's spawned colonist Plants skill 20, preserve normal game plant `harvestFailable` behavior and the approved `harvestYield` 2/1, then rerun one focused native test. The earlier run remains FAIL, and ColdBog/MO/1.7 remain UNTESTED. If mature high-skill production plants still yield Hay0, investigate real runtime before changing Defs. Do not add repeated test fixtures or broaden scope.
-
-
-Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs and procedures remain in `Docs/Design.md`, `Docs/GoldenPaths/`, and production source/tests. Historical DONE/superseded details have been condensed; the pre-compaction Git history plus canonical owner docs retain original evidence. This is a status queue, not a second specification.
 
 ### ENV-WORLDMAP-UNPAUSE-20261017 — author-corrected active mountain mapping handoff
 
@@ -47,33 +29,6 @@ Current OPEN / IN PROGRESS / BLOCKED handoffs are retained below. Formal designs
 ### ENV-WORLDMAP-HIGHLANDS-20261018 — latest author-owned design transfer
 
 **Owner:** WorldMap for its own fixed-Japan intermediate-temperate forest BiomeDef, optional north/south regional forest subdivisions and map tile allocations. **Environment owner:** its existing four standard biome definitions, natural-world generation, common tree/plant/foraging ThingDefs and graphics. **Status: OWNERSHIP DECIDED / WORLDMAP IMPLEMENTATION NOT YET COMPLETE / NO ENVIRONMENT GAMEPLAY CHANGE.** This supersedes the prior request that Environment define the intermediate-temperate forest before WorldMap could assign it. WorldMap highland biome redistribution is deferred until **WorldMap** adds the intermediate forest and validates its regional ecology; 10°C/2°C trial thresholds remain unapproved. No new Environment Def, worker, planting or natural-world change is authorized. Confirmed owner design: WorldMap `Docs/Design.md` and Environment `Docs/Design.md`; any need for genuinely new shared species/PlantDefs is a separate Environment-owned specification. Preserve the prior coastline and released Environment behavior.
-
-### ENV-WETLAND-020-FINAL-VALUES-20261017 — author approval and production XML implementation
-
-**Owner:** Environment wetland production. **Status:** Yoshi and Mizugoke numeric/harvest values now AUTHOR APPROVED, production XML added; consolidated real RimWorld run and Steam/publication remain separate OPEN gates. Yoshi weights TemperateSwamp1.00/ColdBog0.60, Hay2; Mizugoke ColdBog1.20, no harvest. Suge/Hannoki unchanged. Preserve baseline wildPlant totals and woody totals, Healroot and optional MO medicinal herbs. Existing test-only Yoshi OR habitat is reused provisionally but prior native sampling was extremely shallow-water-heavy; must examine actual production spawn density/land shoreline in end-stage game test, not claim success now. `Docs/Design.md`, Step3 and production XML are the authority; earlier draft-unapproved handoffs are superseded.
-
-### ENV-SUGE-PRODUCTION-20261017 — scoped approved species
-**Status:** PRODUCTION SOURCE IMPLEMENTED / NATIVE GAME TEST DEFERRED UNTIL IMPLEMENTATION SLICE READY. The approved Suge images, two biome weights, Vanilla Hay 1, bilingual descriptions and optional CCTO dormancy are connected. No new graphics, unapproved Yoshi/Mizugoke numbers, Steam changes or native run. Actual loaded-game spawn, harvest, save and MO conversion remain unverified. Canonical implementation is the owned PlantDef, wetland and CCTO patches, Japanese DefInjected and Step3 design. Continue Yoshi/Mizugoke authorized scope before consolidated native tests.
-
-### ENV-WETLAND-020-PRODUCTION-CS-BUILD-20261017 — third pre-game failure
-
-[Project Actions #39029984696](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39029984696) passed exact-source Workshop static gates but stopped **before game launch** on C# compilation: PlantFacingPatches.cs references RimWorld Plant without `using RimWorld;`, causing CS0246/CS0103. The standalone staged code from earlier PR #71 had not been compiled against this actual 1.6 source. Owning source correction adds only this missing namespace import; no logic, species, image, distribution, harvesting or CCTO adjustment. The failed build cannot be claimed as native gameplay FAIL/PASS. Rebuild the corrected pinned source before using live wetland tests.
-
-### ENV-WETLAND-020-RELEASE-OBSERVER-FIX-20261017 — second pre-game gate
-
-**Second source-pinned attempt** [Project Actions #39029762011](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39029762011) also **stopped before RimWorld launch**. Packaging exclusions now PASS; remaining failure is `Tests/Release/test_workshop_payload.py` because `Scripts/Stage-WorkshopRegressionSources.py` expected exactly one literal Environment package ownership assertion. The new wetland production Quickstart legitimately adds a second beside Hannoki. Fix the release observer source transformer to explicitly require exactly **two** owner assertions and retarget **both** for candidate-package observer; preserve the existing development fixture exclusion and production assertions. Source-level retargeting checked without starting the game. Native gameplay status remains **NOT TESTED** until a new exact-source run.
-
-### ENV-WETLAND-020-NATIVE-PREFLIGHT-20261017 — source packaging defect before game start
-
-**Project native attempt:** [Actions #39029542278](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39029542278), source `cbd29ace55d3130b68227d7bc85216dbfea67519`. **FAIL before any RimWorld gameplay:** exact-source candidate static preflight `Tests/validate_workshop_payload.py` correctly rejected unexcluded `Publishing/SteamWorkshop.json` as subscriber-unnecessary. Not a plant/temperature native FAIL and not a game PASS. Owner fix: exclude the `Publishing` development folder using canonical `.rimignore` (no changes to actual Yoshi/Suge/Hannoki/Mizugoke gameplay or publisher configuration). Verify new exact source and then carry out a single targeted real game run. Do not reclassify the earlier test as PASS.
-
-### ENV-WETLAND-020-RELEASE-20261017 — author-corrected version and Workshop gallery scope
-
-**Owner:** Environment wetland-plant implementation/art and Workshop publication. **Status:** RELEASE PLAN ACCEPTED; FOUR-SPECIES COMPLETION, IMAGES, DESCRIPTION SYNCHRONIZATION AND STEAM PUBLICATION STILL OPEN.
-
-2026-10-17 copy-source correction: `Docs/SteamWorkshopDescription.txt` is the only bilingual Workshop text. The Japanese-only text draft is retired with its validator dependency. 0.2.0 notices and changelog comments are pending-release information, not release acceptance.
-
-Author correction (2026-10-17): the next feature release including Ashi/Yoshi, Suge, Hannoki and Mizugoke is targeted at **`0.2.0` (from tracked `0.1.1`)**, **not `1.0.0`**. The original use of “major update” described the size of the feature addition, not a semantic-version major increment. For that release, append the three accepted Yoshi/Suge/Hannoki real images and bilingual captions, plus a text-only Mizugoke caption (no separate image required by 2026-10-18 author decision), **inside the existing representative-plant gallery** of `Docs/SteamWorkshopDescription.txt`, retaining the previous four images; update README and English/Japanese lists and remove finished wetland species from the unfinished list. Use verified accepted assets (Mizugoke currently shares Vanilla Plant_Moss graphics; no eighth image is required), approved history-based prose and the current 8,000-byte Workshop budget. Canonical release copy / caption brief: `Docs/WorkshopDescription.md`; gameplay/spec and author text: `Docs/NativeVegetationStep3Design-ja.md` and `Docs/Design.md`. Do not advance About/Manifest/Changelog to the next version, misstate plant completion or claim a Steam update before the production and distribution gates pass. The 1.6/1.7 release/testing distinctions remain in `Docs/ReleaseReadiness.md`.
 
 ### ENV-WILD-FOOD-MERGE-20261017 — author-selected owner consolidation
 
@@ -86,77 +41,6 @@ Author correction (2026-10-17): the next feature release including Ashi/Yoshi, S
 **Unforced world biome functional 4/4 COMPLETE** (all original 24 assertions per profile, exit0): Vanilla [#38686772083](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38686772083), CCTO [#38693096172](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38693096172), MO [#38693109757](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38693109757), MO+CCTO [#38693122496](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/38693122496). CCTO/Vanilla strict ERROR0; real MO and MO+CCTO raw Unity ERROR2 **exact previously independently reproduced** blank-clip FMOD, global strict FAIL. **Author's Environment-only private release classification treats unchanged external FMOD as non-blocking**, if assertions/exit/source pass with no new errors. Exact premises/raw failures/hashes: `Docs/ValidationEvidence/EnvironmentCandidateLinux16-20261015.md`; governing contract `Docs/ReleaseReadiness.md`. Earlier harness source/version false FAIL and first MO+CCTO exit139 are retained and not relabelled PASS. Original host game, source assets, Steam and saves unchanged.
 
 **Immediate remaining priority:** existing author-owned GitHub Actions private-only Workshop uploader, verified isolated publisher credentials and original item `3814638060` state; review current tracked preview/source identity, stage **exact candidate** (not development root), then compare **actual downloaded** Workshop bytes/loader/DLL and run downloaded native smoke. No working Environment publisher/authenticated state has been demonstrated; do **not** borrow CCTO-for-VPE Steam auth/runner, do not revert to YADA and do not claim upload. Separate stable play-loop/season/new-save criteria remain; comprehensive legacy-world migration is not required for unchanged Def identities.
-
-### ENV-BIOME-REPLACEMENT-20261012 — solved in source; Steam distribution open
-
-**Owner:** Environment world generation / Workshop publication  
-**Status:** SOURCE REPAIR + PINNED CANDIDATE FOUR-PROFILE BIOME FUNCTIONAL PASS; DISTRIBUTED WORKSHOP NOT YET UPDATED
-
-The source `Docs/Design.md` §9.2.1 excludes ten inappropriate base Vanilla
-world biomes (including tropical rainforest/swamp) and retains audited wetland
-and MO compatibility. Actual four-provider native 24/24 natural-world
-functional checks against the current 59-file pinned candidate and native
-Vanilla nine-map 466/466 evidence are summarized above and retained in
-`Docs/ValidationEvidence/EnvironmentCandidateLinux16-20261015.md`
-and `Docs/ReleaseReadiness.md`; strict MO-only FMOD ERROR2 is separately
-classified under the owner-scoped private release policy. Do not reuse
-the historical October 12 32-file candidate/source evidence to certify
-the newer 59-file candidate. Existing saved worlds are not rewritten.
-
-**Only outstanding correction publication:** actual private Steam item
-`3814638060` still needs an owner-authorized GitHub Actions publisher,
-exact physical candidate upload, independent downloaded subscriber
-identity and runtime smoke. Historic failed launches/source-gate
-observations remain in their formal evidence and main Git history.
-
-### ENV-HANNOKI-APPEARANCE-20261017 — all accepted static states + natural mechanics closed
-
-**Owner:** Environment plant visuals and native validation
-**Status:** SIX AUTHOR-ACCEPTED STATIC STATES + REAL 1.6 AND 1.7 NATIVE CALENDAR TRANSITIONS VERIFIED; STEAM DISTRIBUTION OPEN
-
-Author accepted all six current in-game static artwork states on 2026-10-15.
-Accepted graphics, screenshot pointers and fingerprints remain in
-`Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`.
-No image rerendering, enlargement or new human approval was requested.
-
-**2026-10-17 independent actual native result:** The original 59-file release
-candidate was tested on isolated real Linux RimWorld 1.6.4871 rev600 with a
-test-placed production Hannoki at a naturally cold CoolTemperate site.
-[Project Actions #39016607046](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39016607046)
-reports Quickstart **73/73 PASS**, Unity ERROR0, exit0; natural
-fall factor 0..1, same-tree leafless/recovered both true, native textures
-valid, minimum ambient −13.5862°C below native leafless threshold −10.27121°C.
-No climate/threshold/leafless override; only hourly accelerated standard
-calendar and Plant.TickLong, not full-world 60-day gameplay.
-The first warm/forced-wetland fixture [#39016256642](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39016256642)
-**FAILED** and is preserved as failed; the source-only test fixture was
-corrected in Project PR #600 and rerun once. Formal method, hashes,
-test assumptions and original evidence:
-`Docs/ValidationEvidence/HannokiSeasonalNative-20261017.md`.
-
-`Docs/PlantVisualCoverage.json` now marks Hannoki `transition`
-`verified` (automated_native_calendar_sampling), `complete=true`.
-**2026-10-17 native 1.7 follow-up:** [Project Actions #39018400784](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39018400784)
-with genuine Linux 1.7.4977 rev1248, same Environment main production C#
-source recompiled for Waylith test-only .NET10, naturally cold generated map
-and test-placed mature Hannoki: fall 0..1, leafless/recovered true,
-4 same-tree state transitions, observed minimum −13.49252°C below
-native leafless threshold −11.37465°C. Pickle1/1, Unity ERROR0, exit0.
-The previous test-only 1.7 map-temperature-cache omission caused a genuine
-FAIL [#39018171464](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39018171464)
-(+2.306426°C minimum, leafless false). Fail evidence retained; test-only
-cache refresh corrected without production climate/plant edit.
-Canonical exact two-version acceptance/method limitations:
-`Docs/ValidationEvidence/HannokiSeasonalNative-20261017.md`.
-
-Existing user play/save, naturally distributed wetland specimens, full-year
-world simulation, 1.7 rendered sprite/snow appearance, Linux1.7 shared
-shipping net472 DLL and Steam subscriber remain outside **these season
-checks**. **Current blocker remains Environment-owned private GitHub Actions
-publisher/authenticated host and exact Steam downloaded payload verification,
-not Hannoki's mechanics.**
-
-## Publication and distribution
 
 ### ENV-BEECH-FALL-CALIBRATION-20261013 — autumn value/saturation source mismatch
 
@@ -188,51 +72,6 @@ TreeBase seasonal parameters, not a DeciduousTreeBase inheritance claim.
 GitHub integration and Steam/old-save/four-profile release results are separate;
 this item does not claim an upload or distributed correction.
 
-### ENV-LOADFOLDERS-SOURCE-REPAIR-20261009 — root-only source contract and isolated Quicktests
-
-**Owner:** Environment publication provenance / developer runtime-test plumbing
-**Status:** SOURCE REPAIR IMPLEMENTED; STATIC/CI/RUNTIME EVIDENCE SEPARATE; STEAM DISTRIBUTION HOLD REMAINS
-
-The tracked production `loadFolders.xml` is now byte-identical to the approved
-root-only subscriber contract; the former executable
-`IfModActive="rimworks.quickstarts"` → `DevQuickstarts` entry is removed.
-`Scripts/Build-WorkshopPayload.py` now requires the tracked loader bytes to
-match its root-only `LOAD` contract and fails closed on drift instead of
-silently replacing a mismatching source loader during staging.
-
-Developer fixed-biome Quickstarts remain test-only. `build.bat` still compiles
-their DLL under excluded `DevQuickstarts`, while `run-runtime-tests.bat`
-stages that DLL as a standalone temporary Mod
-(`sucro.ancientmedievaljapan.environment.quicktests`), adds it only to each
-isolated test ModsConfig after the production Environment Mod, and removes the
-owned fixture on exit. The fixture manager refuses to overwrite a pre-existing
-same-named directory and refuses deletion unless its ownership marker,
-packageId and DLL are intact. The outer isolated-desktop launcher also attempts
-the same guarded cleanup after abnormal runner termination. Normal user
-ModsConfig/Prefs are not edited by this path.
-
-**2026-10-10 follow-up, runtime test blocker:** On the author's local
-`run-tests.bat`, `Scripts/Validate-Environment.ps1` still required the retired
-`<li IfModActive="rimworks.quickstarts">DevQuickstarts</li>` loader entry,
-contradicting the already-correct production root-only `loadFolders.xml`.
-The validator is corrected to parse XML and require only one `v1.6/li` entry
-with `/` and no attributes, preserving fail-closed detection of extra folders.
-Executable payload rejection tests cover invalid production load paths.
-Do not reintroduce `DevQuickstarts` in the production
-loader or use visible runtime execution; rerun the same isolated `run-tests.bat`
-on the Windows machine after the corrected source is present. No latest native
-RimWorld test result is claimed by this source-only fix.
-
-This repair changes publication/test plumbing, not Environment gameplay Defs,
-production C# behavior or art. The root-only loader bytes are the same bytes
-already present in the previously validated 32-file candidate. It reduces the
-specific risk that selecting the development root through YADA leaks
-`DevQuickstarts` load semantics, but **does not authorize the development root
-as an upload source** and does not replace the exact selected-root manifest
-gate. No new RimWorld runtime PASS or Steam upload/download is claimed here.
-Actual Workshop correction remains author-manual using the verified extracted
-candidate, followed by a fresh Steam download and distribution/runtime checks.
-
 ### ENV-STEAM-DEVQUICKSTARTS-LOADFOLDERS-20261009 — published root mismatch confirmed
 
 **Owner:** Environment Workshop publication and downloaded-Pickle runtime
@@ -244,21 +83,6 @@ Author's `test-run.bat` blocked on the actual installed Steam Workshop `38146380
 
 **Framework source audit performed:** `RimWorks/Rimworld-Pickle` official `Docs/getting-started.md`, `Docs/authoring.md`, `Docs/autorun.md`, `Docs/running.md`, `Docs/reports.md`, `RimWorks/pickle-template/README.md`, and `ilyvion/rimtest-redux/README.md` were read. Pickle's Gherkin, isolated test Steps in `Pickle/Assemblies`, `-pickle-run`, independent report/exit-code and per-mod-set conventions match the present workflow at a design level. RimTest Redux is a unit-test framework requiring test-only assemblies; it is not a substitute for Steam artifact provenance or Pickle's live loading. **Real Windows Pickle C# compilation/runtime is not yet validated.** Avoid further speculative harness rewrites until the release-source blocker is resolved. The official RimWorld `loadFolders.xml` semantics document confirms `IfModActive` loads an additional path when the target Mod is active.
 
-
-### ENV-WORKSHOP-BILINGUAL-CLOSEOUT-20261008 — single-field English/Japanese Workshop copy
-
-**Owner:** Environment public copy and release  
-**Status:** GITHUB COPY PREPARED; STEAM POSTING AUTHOR-MANUAL; OCTOBER 9 DESCRIPTION REORGANIZATION MERGED
-
-The owner source `Docs/SteamWorkshopDescription.txt` now contains one complete English-then-Japanese description followed by one common plant-image gallery with four distinct images and EN/JA captions; A Japanese-only draft was maintained historically, but is now retired in favor of the single bilingual Workshop file. The full combined body fits the 8,000-byte budget and omits license/AI/donation statements. `Docs/WorkshopDescription.md` defines the paste workflow. `Tests/validate_workshop_description.py` is integrated into the Workshop payload CI to prevent regressions. About title, packageId, gameplay code/defs, image assets and Steam live posting are unchanged by this description correction. Confirm CI separately; final Steam posting remains author-managed.
-
-Current Workshop organization follows the author-final 2game grouping (climate/weather, rivers/coasts, biomes, soil, vegetation, wildlife, wetland disease, descriptions): `087fb8e7b6a965d793cab07a58fc85dc4a310808`. Live Steam posting remains unverified.
-
-### ENV-PICKLE-TERMINAL-RESULT-GATE-20261009 — terminal success guard implemented
-
-**Status:** SOURCE/CI DONE; WINDOWS RUNTIME NOT YET VERIFIED
-
-PR #46 squash-merged as `35a16e889847cbf11ea15bd1ac7c088f8bb5202b`. Both development Pickle and downloaded-Workshop Pickle runners require `summary.json.exitReason == "passed"` alongside complete passed scenario counts. Static regression checks and both triggered GitHub workflows passed on PR head and main. No author-side Windows/Pickle runtime PASS is claimed. This does not clear actual Steam source mismatch or rendered/native cutting release HOLD.
 
 ### Current release evidence boundary
 
