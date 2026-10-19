@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <!-- Staged for the Plant_Berry kiichigo retexture; do not merge independently.
+       The Vanilla ThingDef is shared beyond AMJE biomes. Only its English label changes. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/ThingDef[defName="Plant_Berry"]/label</xpath>
+    <value>
+      <label>Wild raspberry (kiichigo)</label>
+    </value>
+  </Operation>
+</Patch>
