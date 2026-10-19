@@ -1,8 +1,12 @@
 # AMJ Environment Coordination
 
+### ENV-020-SEASON-SAVE-NATIVE16-PASS-20261019 — scoped accepted, release HOLD
+
+**Latest:** Project [Actions #39194825692](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39194825692), exact Environment source `03c743376a34ef9256acfed147da74adf5e75c51`, real Linux 1.6 Vanilla ColdBog: **26/26 seasonal/graphics checks PASS**, saved-game file 12,594,839 bytes, second native process reloaded ColdBog and Yoshi/Suge/Mizugoke/Hannoki, raw ERROR0 and both game exits 0. Original harness failures remain historical FAIL; test-only root setup fixed via genuine Play scene load. Canonical evidence: `Docs/ValidationEvidence/WetlandSeasonSaveNative16-20261019.md` and `Docs/ReleaseReadiness.md`. This accepts scoped calendar sampling + new-save reload, **not full 60-day simulation, 1.7 save, or final exact four-profile Steam subscriber delivery**. Independent private publisher, subscriber checks and final release copy/version are still OPEN.
+
 ### ENV-020-STAGED-COPY-20261018 — no Steam version/publication
 
-The GitHub README reflects source-complete wetland species as **unreleased**; current Workshop 0.1.1 BBCode, About/Manifest/Changelog and 2game paste-ready files remain untouched. In `Docs/ReleaseDrafts/` are explicitly non-publishable bilingual Workshop and 2game 0.2.0 drafts. Existing 4 gallery images retained; 3 accepted owner-produced plant sprite URLs for Yoshi/Suge/Hannoki added; author waived the eighth Mizugoke image because its temporary Vanilla Moss graphic is already represented in-game; the seven accepted images plus text-only Mizugoke caption are sufficient. Final BBCode and UTF-8 validation, season/save and private publisher/subscriber identity are OPEN. Do not advance release state merely from source docs.
+The GitHub README reflects source-complete wetland species as **unreleased**; current Workshop 0.1.1 BBCode, About/Manifest/Changelog and 2game paste-ready files remain untouched. In `Docs/ReleaseDrafts/` are explicitly non-publishable bilingual Workshop and 2game 0.2.0 drafts. Existing 4 gallery images retained; 3 accepted owner-produced plant sprite URLs for Yoshi/Suge/Hannoki added; author waived the eighth Mizugoke image because its temporary Vanilla Moss graphic is already represented in-game; the seven accepted images plus text-only Mizugoke caption are sufficient. Final BBCode and UTF-8 validation plus private publisher/subscriber identity are OPEN; scoped 1.6 ColdBog season/save is PASS per latest entry above. Do not advance release state merely from source docs.
 
 
 ### ENV-WETLAND-020-NATIVE17-20261017 — actual scoped 1.7 PASS
