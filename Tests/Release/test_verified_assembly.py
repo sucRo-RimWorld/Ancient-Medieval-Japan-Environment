@@ -88,7 +88,7 @@ class VerifiedAssemblyTests(unittest.TestCase):
     def test_public_pinned_git_transfer_rejects_wrong_commit_blob_and_dll(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
-            genuine = b"MZ" + b"\\0" * 8192
+            genuine = b"MZ" + b"\0" * 8192
             original, cfg = fixture(root, genuine)
             evidence = root / "pinned-public-git"
             (evidence / ".git").mkdir(parents=True)
@@ -107,7 +107,7 @@ class VerifiedAssemblyTests(unittest.TestCase):
             })
             def check(revision, entry, passed=0):
                 with mock.patch.object(transfer.subprocess, "check_output",
-                                       side_effect=[revision + "\\n", entry + "\\n"]), \\
+                                       side_effect=[revision + "\n", entry + "\n"]), \
                      mock.patch.object(transfer.subprocess, "run",
                                        return_value=mock.Mock(returncode=passed)):
                     return transfer.verify_public_pinned_assembly(evidence, root, cfg)
