@@ -89,15 +89,87 @@ def verify(evidence: Path, root: Path, config: dict) -> bytes:
     return original_dll
 
 
+
+def verify_public_pinned_assembly(evidence_checkout: Path, root: Path, config: dict) -> bytes:
+    """Import an immutable Git DLL copied after original Project artifact verification.
+
+    The transfer commit was created by a successful Actions run that verified
+    the complete original Project ZIP and provenance. This independently checks
+    the Git object identity, SHA-256, original run pin and owner source.
+    """
+    require(config.get("transfer_method") == "verified_public_git_commit",
+            "Unapproved native transfer mode")
+    require(config.get("transfer_repository") ==
+            "sucRo-RimWorld/Ancient-Medieval-Japan-Environment",
+            "Native transfer repository identity mismatch")
+    commit = config.get("transfer_commit", "")
+    blob = config.get("transfer_blob_sha", "")
+    require(len(commit) == 40 and all(c in "0123456789abcdef" for c in commit)
+            and len(blob) == 40 and all(c in "0123456789abcdef" for c in blob),
+            "Invalid pinned native Git commit/blob")
+    require(config.get("project_run_id") == 39247372678
+            and config.get("archive_sha256") ==
+            "86c433992e21366d026c468b8a7a73142abeb2c44c1f51f74afaafa8977341fe",
+            "Original native Project run/archive pin differs")
+    require(evidence_checkout.resolve() != root.resolve()
+            and (evidence_checkout / ".git").exists(),
+            "Separate pinned native Git checkout required")
+    git = ["git", "-C", str(evidence_checkout)]
+    actual = subprocess.check_output(git + ["rev-parse", "HEAD"], text=True).strip()
+    require(actual == commit, "Native transfer checkout commit mismatch")
+    git_blob = subprocess.check_output(
+        git + ["rev-parse", "HEAD:" + ASSEMBLY], text=True).strip()
+    require(git_blob == blob, "Native assembly Git blob differs")
+    dirty = subprocess.run(git + ["diff", "--quiet", "HEAD", "--", ASSEMBLY],
+                           capture_output=True, check=False)
+    require(dirty.returncode == 0, "Native Git checkout assembly is modified")
+    binary = evidence_checkout / ASSEMBLY
+    require(binary.is_file() and not binary.is_symlink(),
+            "Native DLL missing from pinned Git commit")
+    data = binary.read_bytes()
+    require(len(data) >= 8192 and data.startswith(b"MZ")
+            and sha(data) == config["assembly_sha256"],
+            "Pinned native Git DLL SHA-256 mismatch")
+    preview = root / "About/preview.png"
+    require(preview.is_file() and sha(preview.read_bytes()) == config["preview_sha256"],
+            "Approved preview differs from tested source")
+    print("VERIFIED_PUBLIC_NATIVE_DLL: project_run=" + str(config["project_run_id"])
+          + " git_commit=" + commit + " sha256=" + sha(data)
+          + " bytes=" + str(len(data)))
+    return data
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--evidence", required=True, type=Path)
+    evidence = parser.add_mutually_exclusive_group(required=True)
+    evidence.add_argument("--evidence", type=Path,
+                          help="Original private Project Actions artifact")
+    evidence.add_argument("--pinned-git-checkout", type=Path,
+                          help="Immutable Git commit containing the verified original DLL")
     parser.add_argument("--checkout", type=Path, default=ROOT)
     parser.add_argument("--install", action="store_true",
                         help="Write only the exact verified production DLL to the CI checkout")
     args = parser.parse_args()
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
-    data = verify(args.evidence, args.checkout.resolve(), config)
+    if args.pinned_git_checkout is None:
+        data = verify(args.evidence, args.checkout.resolve(), config)
+    else:
+        require(config["schema"] == 1 and len(config["source_commit"]) == 40,
+                "Invalid source pin")
+        git_prefix = ["git", "-C", str(args.checkout.resolve())]
+        ancestor = subprocess.run(git_prefix + ["merge-base", "--is-ancestor",
+                                               config["source_commit"], "HEAD"],
+                                  capture_output=True, check=False)
+        require(ancestor.returncode == 0, "Pinned source is not an ancestor")
+        changes = subprocess.run(git_prefix + ["diff", "--quiet",
+                                              config["source_commit"], "HEAD", "--",
+                                              *GAMEPLAY_PATHS], capture_output=True,
+                                 check=False)
+        require(changes.returncode == 0, "Gameplay source differs from native DLL")
+        require(not (args.checkout.resolve() / ASSEMBLY).exists(),
+                "Do not overwrite an existing assembly")
+        data = verify_public_pinned_assembly(
+            args.pinned_git_checkout.resolve(), args.checkout.resolve(), config)
     if args.install:
         target = args.checkout.resolve() / ASSEMBLY
         target.parent.mkdir(exist_ok=True, parents=True)
