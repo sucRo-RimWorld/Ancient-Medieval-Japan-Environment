@@ -22,8 +22,16 @@ unmerged 0.2.0 release branch** and must never be dispatched as production
 publisher routes. Historical older sections of this document below describe
 the pre-migration publisher architecture and are not current instructions.
 
-**Live release still HOLD:** the central private Project
-`steam-workshop-private` deployment Environment needs real author approval;
+**Live release still HOLD:** Private Project GitHub plans may not support
+deployment Environment Required Reviewers. The **current central workflow**
+uses a separate GitHub `issue_comment: created` approval instead: the real
+author `sucRo0629` creates the exact-main source-pinned Project release
+Issue and **later** writes `/approve-steam-private` on that Issue. Only that
+later independently recorded author comment triggers the central publisher;
+the source, issue creator and comment author IDs are reverified before the
+privileged jobs. An issue alone or a ChatGPT message cannot authorize upload.
+Historical `steam-workshop-private` references below are from superseded
+per-Mod GitHub Environment procedures;
 Linux SteamCMD and Windows Steamworks publishers, runner-group membership and
 per-Mod host state/owner identity need independent verification; the existing
 item `3814638060` and its intended private visibility must be checked.
