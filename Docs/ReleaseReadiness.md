@@ -4,8 +4,8 @@
 
 The author selected **centralization before uploading**. Private
 `sucRo-RimWorld/Ancient-Medieval-Japan-Project` now owns the single
-`main:.github/workflows/steam-central.yml` workflow, protected
-`steam-workshop-private` reviewer and trusted SteamCMD/Steamworks
+`main:.github/workflows/steam-central.yml` workflow, separately recorded
+GitHub author Issue approval comment and trusted SteamCMD/Steamworks
 orchestration; the Environment owner retains only exact native/release
 content, verified source and its package assembly code. Per-Mod
 `steam-approved.yml` and `steam-readiness.yml` are **retired in this
@@ -18,8 +18,9 @@ The Project registry needs the new **final Environment release candidate
 SHA** when this branch's cleanup is complete (metadata change only; same
 tested DLL/source). Do not launch a central Project author publish issue
 before that pin is consistent. Independent remaining actual blockers are
-Project required reviewer configuration and recorded author approval,
-group4 permission to **Project private repo and its one exact main workflow**,
+the separately posted real author `/approve-steam-private` approval comment
+on the exact-main Project release Issue, plus group4 permission to
+**Project private repo and its one exact main workflow**,
 Linux/Windows host accounts and item state, verified private Workshop
 ownership and real post-upload subscriber acceptance. Existing author
 RimWorld 1.6 Thin Soil manual PASS, initial native-run errors and MO/SYR
@@ -48,7 +49,8 @@ approved unchanged baseline non-blocking only for Environment private
 functional acceptance. The author's 1.6 Thin Soil/Nice Plant Menu check
 remains scoped manual PASS; no user retest needed for this same change.
 
-**Still mandatory:** actual GitHub environment approval from `sucRo0629`,
+**Still mandatory:** separate real GitHub author issue-comment approval
+from `sucRo0629` (`/approve-steam-private` on the original author Issue),
 the Environment-specific Linux/Windows Steam host accounts/state/runner
 allowlist, privately owned existing item ID and visibility check, then a
 separately authorized private Steam update and downloaded-subscriber smoke.
