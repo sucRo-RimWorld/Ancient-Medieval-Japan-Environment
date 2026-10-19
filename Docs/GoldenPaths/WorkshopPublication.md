@@ -26,8 +26,17 @@ new runtime errors, crash, failed native game jobs, source provenance,
 subscriber identity or Steam private visibility.
 
 
-The author performs Steam upload manually. A GitHub commit, locally built
-candidate, or passing developer suite is not evidence of updated distribution.
+Future Environment Steam upload is an **author-requested, GitHub Actions gated operation**, not a manual YADA/RimWorld publication. The separate author approval and isolated authenticated Steam publisher remain mandatory. A GitHub commit, locally built candidate, or passing developer suite is not evidence of updated distribution.
+
+## 2026-10-19 pinned 0.2.0 production DLL transport (prepared, not publisher-verified)
+
+The exact 60-file **native-tested** source `5050e57250c6913c2210be47723fee68d318e59e`, built and run in [Project Actions #39200796636](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39200796636), contains the genuine net472 assembly SHA256 `3601246eb6429789a32ee25253740f1e587358cd6e09699d7e1bfbbfe4016520`. All 628 wetland gameplay assertions passed across Vanilla/CCTO/MO/MO+CCTO; the four MO wetland map jobs still each have two independent *prelaunch* MO/SYR FMOD ERRORs. Overall raw ERROR0/action status stays **FAIL**; only the Environment-only scoped private functional exception in `Docs/ReleaseReadiness.md` applies. This does **not** replace the distinct complete final-candidate native map/cutting gate.
+
+The Environment author-only `.github/workflows/steam-approved.yml` now downloads the exact candidate artifact `amje-wetland16-39200796636` (ID `12164466198`) from the **private** Project repository, under immutable pin `Publishing/VerifiedAssembly.json`, and runs `Tools/SteamPublisher/import_verified_assembly.py`. The importer requires unmodified source/Defs/Patches/Languages/Textures/loadFolders relative to the tested commit and rechecks the original ZIP digest, every individual candidate hash, the DLL, and the exact approved preview. It installs only that DLL into the temporary GitHub-hosted preflight checkout. The Environment publisher then assembles an isolated ZIP from the reviewed current repository version, and rechecks the pinned DLL hash again before any Steam mutation. Nothing writes to the player's local Mods.
+
+**Unverified prerequisite:** Environment GitHub Actions must have a separately provisioned `AMJ_PROJECT_ARTIFACT_TOKEN` secret with *read-only Actions permission on the private Project repository* (no publish/repo-write privilege). The runner, host credentials, Steam item `3814638060` identity/visibility, GitHub required-reviewer environment, download and real release candidate still require independent verification. Source changes to gameplay or assembly pin MUST trigger a fresh genuine original-game build and appropriate native acceptance. The pinned source artifact expires **2026-10-26 UTC**; if expired, produce a freshly authorized build/evidence and update the exact pin rather than silently falling back to stale or synthetic DLL bytes.
+
+The importer **intentionally blocks** the present `0.1.1` About/Manifest/Changelog and old 2game/Workshop paste-ready copy. The approved wetland 0.2.0 drafts, full bilingual description, metadata and version must be promoted together at the actual release-promotion gate. Premature issue creation cannot ship the staged wetland feature as `0.1.1`. Steam content upload itself must still be separately initiated with the author-only GitHub issue, exact reviewed main SHA, protected environment approval and verified private publication state. Preserve the subscriber downloaded-content audit as an independent terminal gate.
 
 ## 2026-10-07 publication-path audit
 
