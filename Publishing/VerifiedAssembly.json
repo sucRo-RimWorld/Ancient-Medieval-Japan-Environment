@@ -7,5 +7,6 @@
   "archive_sha256": "fbe3bddc7c1cbf0502b43fdf09cc7710874cdda07caf76c3811ff1128a42c7c3",
   "preview_sha256": "25b61be8c04f866603e99d56270d177f15159aaf6f0fa7e4e24504821947e6ef",
   "workshop_id": "3814638060",
-  "package_id": "sucro.ancientmedievaljapan.environment"
+  "package_id": "sucro.ancientmedievaljapan.environment",
+  "release_version": "0.2.0"
 }
