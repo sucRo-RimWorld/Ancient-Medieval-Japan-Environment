@@ -1,5 +1,20 @@
 # Current four-plant release readiness — 2026-10-06 JST
 
+## 2026-10-20 — existing Workshop 3814638060: public update accepted
+
+Author explicitly accepts the risk that **0.2.0 changes become public**
+when updating the existing Workshop item `3814638060`. Keep the item
+and its current visibility unchanged; **do not create a second private
+item** or forcibly switch visibility. The release candidate's
+`Publishing/SteamWorkshop.json` uses `preserve_public`,
+rather than superseded `private_only`. Project registry and
+central approval command `/approve-steam-existing-update`
+must match this policy. Owner/Steam account identity, Linux/Windows
+host settings and the final explicitly authorized Steam update remain
+unverified and blocked. Existing 1.6 native DLL, accepted 60-file
+subscriber contents and gameplay acceptance are unchanged. Neither
+the release PR nor Steam update is authorized merely by this decision.
+
 ## 2026-10-20 — publisher method moved to the private Project; Steam HOLD
 
 The author selected **centralization before uploading**. Private
