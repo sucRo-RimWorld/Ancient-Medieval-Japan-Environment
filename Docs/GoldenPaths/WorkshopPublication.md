@@ -1,5 +1,34 @@
 # Pinned Workshop publication
 
+## 2026-10-20 — author decision: update existing Workshop item, preserve visibility
+
+**Current source of truth for 0.2.0:** Keep the original Workshop
+publishedfileid `3814638060` and update the existing item. The author
+explicitly accepts that the updated contents can remain **publicly visible**.
+`Publishing/SteamWorkshop.json` uses
+`"visibility_policy": "preserve_public"`, never
+`"private_only"` for this existing-item update. Neither create a
+second staging Workshop item nor change the existing item's visibility.
+The SteamCMD update VDF omits `visibility`: this preserves whatever the
+existing item's actual visibility is. The name `preserve_public`
+means an *existing item* may remain public; it does not independently
+prove the Steam status.
+
+**Still mandatory:** verify the authenticated SteamCMD account
+actually controls the exact existing Workshop item; maintain isolated
+Environment host state/Steamworks session, genuine pinned subscriber
+payload and separately recorded author release approval. Project's
+per-Mod `publication_enabled=false` and missing host
+`AMJ_CENTRAL_PUBLISHER_READY` remain until those gates are cleared.
+The next actual GitHub approval comment is
+`/approve-steam-existing-update`, never the old misleading
+`/approve-steam-private`. This decision changes visibility policy
+only; no upload, tags, or live visibility change is authorized now.
+
+Historical `creator-private only` instructions below describe
+the superseded *first-time private upload* direction, not the
+current existing-item 0.2.0 update.
+
 ## 2026-10-20 — current publication method: central private AMJ Project
 
 **Superseding author decision:** All newly migrated Mods use the **single
