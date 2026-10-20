@@ -24,7 +24,7 @@ assert "steam-workshop-private" in doc
 cfg = json.loads((ROOT / "Publishing/SteamWorkshop.json").read_text("utf-8"))
 assert cfg["repository"] == "sucRo-RimWorld/Ancient-Medieval-Japan-Environment"
 assert cfg["workshop_id"] == "3814638060"
-assert cfg["visibility_policy"] == "private_only"
+assert cfg["visibility_policy"] == "preserve_public"
 about = ET.parse(ROOT / "About/About.xml").getroot()
 assert about.findtext("packageId") == cfg["package_id"]
 assert about.findtext("modVersion") == "0.2.0"
