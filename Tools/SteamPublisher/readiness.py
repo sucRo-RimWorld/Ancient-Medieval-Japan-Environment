@@ -13,8 +13,8 @@ from publisher import config_from, require, state_file, state_load, validate_mod
 def linux_probe(checkout: Path, repository: str) -> None:
     cfg = config_from(checkout, repository)
     validate_mode(cfg, "update_existing")
-    require(cfg["visibility_policy"] == "private_only",
-            "Environment publisher must be private-only")
+    require(cfg["visibility_policy"] == "preserve_public",
+            "Environment update must preserve existing Workshop visibility")
     state = state_file(cfg)
     require(not state.resolve().is_relative_to(checkout.resolve()),
             "Host state is inside checkout")
@@ -32,8 +32,8 @@ def windows_probe(checkout: Path, repository: str) -> None:
 
     cfg = config_from(checkout, repository)
     validate_mode(cfg, "update_existing")
-    require(cfg["visibility_policy"] == "private_only",
-            "Environment publisher must be private-only")
+    require(cfg["visibility_policy"] == "preserve_public",
+            "Environment update must preserve existing Workshop visibility")
     raw = os.environ.get("AMJ_STEAMWORKS_AGENT_BIN", "")
     require(bool(raw), "Windows Steamworks session-probe agent not provisioned")
     agent = Path(raw).resolve()
