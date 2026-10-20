@@ -1,12 +1,17 @@
 {
   "schema": 1,
-  "source_commit": "5050e57250c6913c2210be47723fee68d318e59e",
-  "project_run_id": 39200796636,
-  "artifact_name": "amje-wetland16-39200796636",
-  "assembly_sha256": "3601246eb6429789a32ee25253740f1e587358cd6e09699d7e1bfbbfe4016520",
-  "archive_sha256": "fbe3bddc7c1cbf0502b43fdf09cc7710874cdda07caf76c3811ff1128a42c7c3",
+  "source_commit": "fe6861ac490bbd43ec73dce8efc1c2a5e5140479",
+  "project_run_id": 39247372678,
+  "artifact_name": "amje-wetland16-39247372678",
+  "assembly_sha256": "b2ddbf7888322ba9b207c20296dba31175b846c05492902b900ec225da9fcffe",
+  "archive_sha256": "86c433992e21366d026c468b8a7a73142abeb2c44c1f51f74afaafa8977341fe",
   "preview_sha256": "25b61be8c04f866603e99d56270d177f15159aaf6f0fa7e4e24504821947e6ef",
   "workshop_id": "3814638060",
   "package_id": "sucro.ancientmedievaljapan.environment",
-  "release_version": "0.2.0"
+  "release_version": "0.2.0",
+  "transfer_method": "verified_public_git_commit",
+  "transfer_repository": "sucRo-RimWorld/Ancient-Medieval-Japan-Environment",
+  "transfer_commit": "5dac3140230402b3b2aa96cbc117b98a23745dde",
+  "transfer_blob_sha": "b8e3766d5ba1dde28e1bbb9e746ffcb7e7d390a8",
+  "transfer_provenance_run": 39258628883
 }
