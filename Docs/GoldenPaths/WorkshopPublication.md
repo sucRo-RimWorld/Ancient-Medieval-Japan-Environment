@@ -1,3 +1,14 @@
+## Current procedure — YADA + Add Changenote restored (author decision 2026-10-20)
+
+This section **supersedes all earlier GitHub Actions-only upload instructions** in this file and their private-only visibility assumption. The author restored the proven **RimWorld YADA + Add Changenote** manual publishing workflow. GitHub Actions is restricted to build, tests and preparation of an immutable/sealed subscriber release candidate; never trigger central `steam-central.yml`, legacy SteamCMD publisher, readiness or Steamworks-tag mutation for this Environment upload. Central registry `publication_enabled=false` and host-only publisher activation must remain disabled. Other Mod upload routes are unchanged.
+
+1. Promote only the author-approved synchronized 0.2.0 metadata (About/Manifest/Changelog, bilingual Workshop copy, seven existing gallery images) together, once the already-open release PR #217 is reconciled against current main and approved. Do not mistake the unmerged candidate for an uploaded release.
+2. Produce an isolated **exact release root** from the pinned, verified 60-file subscriber candidate; verify the runtime-file manifest, genuine tested DLL/hash, packageId, existing PublishedFileId `3814638060`, correct `loadFolders`, preview and no development or test debris. Never upload a dirty developer Mod root, nor rely on YADA's ignore rules to correct the wrong source folder. The staging folder must itself be the intended installable Mod root with an About directory.
+3. Ensure YADA and Add Changenote are installed/enabled in RimWorld; use `About/Changelog.txt` (case-sensitive on some platforms) for the release version, keeping past entries. Upload the staged root through YADA to **the existing item**, not a new Workshop entry. Explicitly inspect item ID, preview, update/change-note UI and current visibility; **preserve its existing public visibility** rather than making it private or creating a staging item. Do not click Upload without separate author publication approval.
+4. After the actual upload, independently download the subscribed Workshop item and compare its real files with the sealed manifest, then perform the scoped loaded-game acceptance. Do not infer published contents from a successful YADA screen or GitHub CI. Keep raw strict error results and the documented unchanged MO/SYR FMOD baseline distinction.
+
+The previously built GitHub Actions Steam publication machinery is **retired for Environment**, not evidence of an upload. Keep historical details below as audit history only, including old private-only and SteamCMD instructions, which are not operative after this decision. Existing 0.2.0 Workshop upload remains **HOLD** until candidate promotion and explicit final authorization. No Steam change was performed by this procedure update.
+
 # Pinned Workshop publication
 
 ## Current publication operating rule (2026-10-15; supersedes legacy uploader steps below)
