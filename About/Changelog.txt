@@ -1,9 +1,19 @@
 # Changelog for Ancient & Medieval Japan - Environment
-# The current version block is used by Add Changenote when publishing to Steam Workshop.
+# Current version notes are submitted through Add Changenote when the author uploads the sealed release root using YADA.
 
-# 0.2.0 planned — NOT RELEASED; excluded from current-version Steam changenote
-# Wetland vegetation Ashi/Yoshi, Suge, Hannoki and Mizugoke is implemented in source; the seven-image gallery is sufficient (Mizugoke temporarily uses Vanilla Moss art). Seasonal/save and exact release/distribution acceptance remain open.
-# 0.2.0予定（未公開）：葦・菅・ハンノキ・ミズゴケの湿地植物4種は実装済み。掲載画像は7枚で確定（水苔はバニラ苔画像を暫定流用）。季節・セーブおよび配布物の検証が残る。
+0.2.0 - Add four wetland plants to natural Japan-oriented biomes
+- Add native reed (Ashi/Yoshi), sedges (Suge) and Japanese alder (Hannoki) to temperate swamps and cool bogs, and sphagnum moss (Mizugoke) to cool bogs.
+- Reed and sedges yield base Hay 2 and 1; alder yields base wood 24; sphagnum produces no harvest item.
+- Fix Growing Zone placement on Thin Soil (50% fertility) without changing crop minimum fertility.
+- Add the accepted wetland-plant artwork for reeds, sedges and alder. Sphagnum temporarily uses the Vanilla moss graphic.
+- Continue to recommend a new game for world-generation changes. Adding to existing saves remains unverified; do not remove from saves using added terrain, biomes or plants.
+
+日本語
+- 温帯湿地・冷涼湿原に葦（アシ・ヨシ）、菅（スゲ）、ハンノキを追加。冷涼湿原には水苔（ミズゴケ）も追加。
+- 葦は干し草2、菅は干し草1、ハンノキは木材24を基本収量とし、水苔は採取物なし。
+- 痩せた土壌（肥沃度50%）に農業ゾーンを設置できない問題を修正。作物ごとの必要肥沃度は変更しない。
+- 葦・菅・ハンノキには採用済みの植物画像を追加。水苔は暫定的にバニラの苔画像を使用。
+- 世界生成の変更があるため新規ゲームを推奨。既存セーブへの途中追加は未検証で、追加バイオーム・地形・植物を使うセーブからの途中削除は非推奨。
 
 0.1.1 - Corrected natural biome generation and production loading
 - Distinguished warm-temperate and cool-temperate forest world-map textures using existing Vanilla art; biome generation and vegetation are unchanged.
