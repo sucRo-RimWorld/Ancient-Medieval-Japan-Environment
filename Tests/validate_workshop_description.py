@@ -48,12 +48,33 @@ require(len(body.replace("\n", "\r\n").encode("utf-8")) <= 8000,
         "CRLF copy exceeds 8000 UTF-8 bytes")
 
 images = re.findall(r"\[img\](.*?)\[/img\]", body)
-require(len(images) == 4 and len(set(images)) == 4,
-        "exactly four unique representative-plant images are required")
-for plant in ("Shii/Shii_A.png", "Beech/Beech_A.png",
-              "Shirabiso/Shirabiso_A.png", "Haimatsu/Haimatsu_A.png"):
+version = (about.findtext("modVersion") or "").strip()
+require(bool(re.fullmatch(r"\d+\.\d+\.\d+", version)),
+        "About version is not a semantic release number")
+wetland_release = tuple(map(int, version.split("."))) >= (0, 2, 0)
+expected_plants = ("Shii/Shii_A.png", "Beech/Beech_A.png",
+                   "Shirabiso/Shirabiso_A.png", "Haimatsu/Haimatsu_A.png")
+if wetland_release:
+    expected_plants += ("Yoshi/Yoshi_A.png", "Suge/Suge_A.png",
+                        "Hannoki/Hannoki_A.png")
+require(len(images) == len(expected_plants) and len(set(images)) == len(expected_plants),
+        "representative plant gallery must contain the approved unique image set")
+for plant in expected_plants:
     require(sum(path.endswith(plant) for path in images) == 1,
             "missing or repeated image: " + plant)
+if wetland_release:
+    require(not any("Mizugoke" in path or "Moss" in path for path in images),
+            "temporary Vanilla-moss reuse does not authorize a sphagnum gallery image")
+    require("[b]Cool bog — Sphagnum (mizugoke) / 冷涼湿原 — 水苔（ミズゴケ）[/b]"
+            in body and "Its graphics temporarily reuse Vanilla moss artwork."
+            in body and "画像は暫定的にバニラの苔と同じものを使用しています。" in body,
+            "missing separately approved text-only sphagnum and temporary-art caption")
+    require(not any(phrase in body for phrase in
+                    ("湿地植物の追加（未実装）", "Additional wetland plants（未実装）")),
+            "implemented wetland plants are still listed as unreleased candidates")
+    for name in ("葦", "菅", "榛の木", "水苔", "Yoshi", "Suge", "Hannoki", "mizugoke"):
+        require(name.casefold() in body.casefold(),
+                "missing wetland-plant wording: " + name)
 for tag in ("h1", "h2", "b", "list", "img", "url"):
     opening = re.findall(r"\[" + tag + r"(?:=[^\]]+)?\]", body)
     closing = re.findall(r"\[/" + tag + r"\]", body)
@@ -63,5 +84,5 @@ require(not any(term in body for term in
                  "img.shields.io", "ライセンス")),
         "Workshop description contains license, AI or donation disclosure")
 
-print("PASS: one bilingual title, English→Japanese→shared gallery, 4 unique images,")
+print(f"PASS: one bilingual title, English→Japanese→shared gallery, {len(images)} unique images,")
 print("      Japanese body, dependencies/save warnings, size and BBCode")

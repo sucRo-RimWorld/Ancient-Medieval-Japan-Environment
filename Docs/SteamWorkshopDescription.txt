@@ -1,96 +1,84 @@
 [h1]Ancient & Medieval Japan - Environment（中世日本 - 環境）[/h1]
 
-[b]Reconfigures Vanilla terrain, climate, vegetation, wildlife and biomes for a medieval Japan-inspired landscape.[/b]
+[b]Reconfigures RimWorld's natural landscape for medieval Japan.[/b]
 
 [h2]Features[/h2]
 [list]
 [*]Adjust temperature, rainfall, elevation and hilliness; reweight rain, fog, thunderstorms and snow by climate zone and wetland
 [*]Increase small and medium rivers while suppressing natural huge rivers; make coasts more irregular with bays, peninsulas and islands
 [*]Add four biomes: warm-temperate forest, cool-temperate forest, subalpine forest and alpine zone
-[*]Add Thin Soil (50% fertility), with more stony/poor natural soil at high elevation
+[*]Add Thin Soil (50% fertility) and support Growing Zones for suitable crops; higher elevations retain more stony/poor soil
 [*]Add four plants: Sudajii, Japanese beech, Shirabiso and Haimatsu; correct their cut-wood yields
-[*]Exclude Vanilla vegetation absent from medieval Japan, redistribute trees/grasses and limit tree-sowing choices by region; Haimatsu is unsowable
-[*]Retain TemperateSwamp and ColdBog while adjusting their wild-plant pools; keep Vanilla wetland mud, marsh, shallow water and movement difficulty
-[*]Rebalance wildlife with selected Vanilla animal proxies; exclude unsuitable wetland pack animals
+[*]Remove unsuitable plants, adjust vegetation and region-based tree sowing; Haimatsu cannot be sown
+[*]Keep TemperateSwamp and ColdBog, add reed, sedges and alder to both and sphagnum to the cool bog
+[*]Rebalance wildlife proxies and remove unsuitable wetland pack animals
+[*]Reed and sedges yield Hay (base 2 and 1), alder yields 24 wood, and sphagnum yields no item
 [*]Adjust wetland disease types and intervals; exclude mechanites
 [*]Revise descriptions of both wetlands and six retained Vanilla trees with medieval-Japan information
 [/list]
 
 [h2]Scope[/h2]
-RimWorld 1.6, Beta. Terrain, climate, rivers, coasts, soil, plants, wildlife, weather and diseases. English / Japanese.
+RimWorld 1.6 / 1.7, Beta. English / Japanese.
 
 [h2]Compatibility[/h2]
 [b]Required:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]
 [b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul (CCTO)[/url]
-Species-specific cold tolerances for representative plants when CCTO is enabled.
+Plant-specific cold tolerance.
 [b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
-Coexists with its Dark Forest and other specialized biomes.
-Existing Healroot and herbal medicine remain available. Medicinal plants are outside Environment.
+Specialized biomes coexist.
+Healroot remains; medicinal plants belong to a future separate Mod.
 
 [h2]Save compatibility[/h2]
-[b]New game recommended[/b] because world generation changes. Adding to existing saves is unverified and does not rebuild existing worlds. Runtime temperature changes may affect existing saves. [b]Do not remove AMJE[/b] from saves using its custom biomes, terrain or plants.
+[b]New game recommended.[/b] Existing worlds are not regenerated; adding to existing saves remains untested. [b]Do not remove AMJE[/b] from saves containing its biomes, terrain or plants.
 
-[h2]Future candidates — 0.2.0 target (not yet released)[/h2]
-[list]
-[*]Additional wetland plants（未実装）
-[list]
-[*]Yoshi (Japanese reed)
-[*]Suge (sedges)
-[*]Hannoki (Japanese alder)
-[*]Mizugoke (sphagnum moss)
-[/list]
-[*]Retexture retained Vanilla/MO trees (deferred)（未実装）
-[/list]
+[h2]Future candidates[/h2]
+Add Japanese cedar (sugi), silvergrass (susuki) and other native vegetation (not implemented)
+Add wild greens, nuts and other foraging plants (not implemented)
+Retexture Vanilla/MO trees（未実装）
 
-Details: [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README / Design[/url]
+[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]Details / GitHub[/url]
 
 [hr][/hr]
 
 [h2]日本語 / Japanese[/h2]
 
-[b]バニラの地形・気候・植生・動物・バイオーム構成を中世の日本列島向けに再構成する環境MOD。[/b]
+[b]地形・気候・植生・動物・バイオームを中世日本風に再構成。[/b]
 
 [h2]主な特徴[/h2]
 [list]
 [*]気温・降水量・標高・丘陵・山地の分布と、気候帯・湿地ごとの天候（雨・霧・雷雨・積雪）を調整
 [*]小～中規模の河川を増やし、巨大河川の自然発生を抑制。湾・半島・島が多い複雑な海岸線へ変更
 [*]暖温帯林・冷温帯林・亜高山帯林・高山帯の4バイオームを追加
-[*]痩せた土壌（肥沃度50%）を追加し、高地ほど礫地・痩せた土が増えるよう調整
+[*]痩せた土壌（肥沃度50%）を追加。対応作物の農業ゾーンも設置可能にし、高地ほど礫地・痩せた土が増えるよう調整
 [*]スダジイ・ブナ・シラビソ・ハイマツの4植物を追加し、伐採時の木材取得を調整
-[*]中世日本に存在しないバニラ植生を除外し、樹木・草本の出現比率と地域別の植林候補を調整。ハイマツは植林不可
-[*]温帯湿地・冷涼湿原を維持し、自然植生を調整。泥・沼・浅瀬・移動困難度はバニラを維持
-[*]野生動物の出現構成を調整し、湿地では中世日本に存在しない荷役動物候補を除外
+[*]不適切な植生を除外し、植生分布と植林候補を調整。ハイマツは植林不可
+[*]温帯湿地・冷涼湿原にアシ・スゲ・ハンノキを追加し、冷涼湿原にはミズゴケを追加
+[*]野生動物の分布を調整し、湿地から不自然な荷役動物を除外
+[*]アシは干し草2、スゲは干し草1、ハンノキは木材24を基本収量とし、ミズゴケは採取物なし
 [*]湿地の病気の種類・発生間隔を調整し、機械虫病を除外
 [*]既存バニラ樹木6種と湿地2種の説明文を、中世日本に関する情報を含めて修正
 [/list]
 
 [h2]対応範囲[/h2]
-RimWorld 1.6対応、β版。地形・気候・河川・海岸・土壌・植物・動物・天候・疾病が対象。日本語 / 英語。
+RimWorld 1.6 / 1.7、β版。日英対応。
 
 [h2]対応・互換性[/h2]
 [b]必須MOD:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077]Harmony[/url]
 [b]任意MOD:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]CCTO[/url]
-CCTO併用時は代表植物に種類別の寒冷耐性を適用。
+種類別の寒冷耐性を適用。
 [b]任意MOD:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
-冥い森などの特殊バイオームとは共存。
-既存Healrootと医薬品供給は維持。薬用植物はEnvironmentの対象外。
+冥い森などと共存。
+既存ヒールルートは維持。薬用植物は別Mod。
 
 [h2]セーブ互換性[/h2]
-ワールド生成を変更しているため[b]新規ゲームを推奨[/b]。既存セーブへの追加は未検証で、生成済みワールドは変わらない。温度などの実行時処理は既存セーブにも影響する可能性がある。独自バイオーム・地形・植物を使うセーブからの[b]途中削除は非推奨[/b]。
+[b]新規ゲームを推奨[/b]。既存ワールドは再生成されず、途中追加は未検証。独自バイオーム・地形・植物を使うセーブからの[b]途中削除は非推奨[/b]。
 
-[h2]今後の予定 — 0.2.0予定（未公開）[/h2]
-[list]
-[*]湿地植物の追加（未実装）
-[list]
-[*]ヨシ
-[*]スゲ類
-[*]ハンノキ
-[*]ミズゴケ類
-[/list]
-[*]残存バニラ・MO樹木のリテクスチャ（保留中）（未実装）
-[/list]
+[h2]今後の予定[/h2]
+スギ・ススキなど日本在来の植生の追加（未実装）
+山菜・木の実などの野生食料植物の追加（未実装）
+バニラ・MO樹木のリテクスチャ（未実装）
 
-詳しい仕様・数値：[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]GitHub README / Design[/url]
+[url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]仕様 / GitHub[/url]
 
 [hr][/hr]
 
@@ -111,3 +99,18 @@ An evergreen conifer of Honshu's high mountains. / 本州の高山域に見ら�
 [img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png[/img]
 [b]Alpine — Haimatsu / 高山帯 — ハイマツ[/b]
 Low creeping pine above the treeline. / 森林限界より高所で地面を這うように育つ低木性のマツです。
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Yoshi/Yoshi_A.png[/img]
+[b]Wetland — Reed (ashi/yoshi) / 湿地 — 葦（アシ・ヨシ）[/b]
+Traditional reed thatch from wetlands. / 湿地の葦。古くから茅葺き材に用いた。
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Suge/Suge_A.png[/img]
+[b]Wetland — Sedge (suge) / 湿地 — 菅（スゲ）[/b]
+Wetland sedge used in hats and rain capes. / 湿地の菅。笠や蓑の材料に用いた。
+
+[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png[/img]
+[b]Wetland forest — Alder (hannoki) / 湿地林 — 榛の木（ハンノキ）[/b]
+Deciduous wetland alder. / 湿地林を形づくる落葉樹。
+
+[b]Cool bog — Sphagnum (mizugoke) / 冷涼湿原 — 水苔（ミズゴケ）[/b]
+Sphagnum contributes to peat formation. Its graphics temporarily reuse Vanilla moss artwork. / 泥炭形成に関わる水苔。画像は暫定的にバニラの苔と同じものを使用しています。
