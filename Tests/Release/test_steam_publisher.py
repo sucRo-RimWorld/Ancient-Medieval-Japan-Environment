@@ -110,7 +110,7 @@ class PublisherPayloadTests(unittest.TestCase):
             fixture(root)
             cfg = {"repository": "sucRo-RimWorld/Ancient-Medieval-Japan-Environment",
                    "package_id": "sucro.ancientmedievaljapan.environment",
-                   "workshop_id": "3814638060", "visibility_policy": "private_only"}
+                   "workshop_id": "3814638060", "visibility_policy": "preserve_public"}
             zip_path = root / "output/release.zip"
             publisher.build(root, zip_path, cfg, "update_existing")
             import json
