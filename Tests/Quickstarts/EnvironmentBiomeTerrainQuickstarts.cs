@@ -4648,12 +4648,102 @@ namespace AncientMedievalJapan.Environment.Quicktests
         private bool seasonalRange;
         private bool saved;
         private bool validGraphics = true;
+        private bool weatherWindowWeightsCorrect;
+
+        // One loaded-native selector probe, not an actual 60-day run or a
+        // meteorological calibration. Keep random state and absolute ticks
+        // unchanged after probing, before the existing saved-game acceptance.
+        private static bool SampleWeatherWindows(Map map)
+        {
+            WeatherDef rain = DefDatabase<WeatherDef>.GetNamedSilentFail("Rain");
+            WeatherDef clear = DefDatabase<WeatherDef>.GetNamedSilentFail("Clear");
+            var currentWeight = AccessTools.Method(typeof(WeatherDecider),
+                "CurrentWeatherCommonality");
+            var choose = AccessTools.Method(typeof(WeatherDecider),
+                "ChooseNextWeather");
+            if (map == null || rain == null || clear == null ||
+                map.weatherDecider == null || currentWeight == null || choose == null)
+                return false;
+
+            var patchInfo = Harmony.GetPatchInfo(currentWeight);
+            bool patched = patchInfo != null && patchInfo.Postfixes.Any(
+                item => item.owner == "sucro.ancientmedievaljapan.environment");
+            var longLat = Find.WorldGrid.LongLatOf(map.Tile);
+            int initial = Find.TickManager.TicksGame;
+            int originalDay = GenDate.DayOfYear(Find.TickManager.TicksAbs, longLat.x);
+            int[] days = { 12, 18, 26, 33, 45 };
+            float[] rainFactors = { 1f, 1.65f, 1f, 1.40f, 1f };
+            float[] clearFactors = { 1f, 0.75f, 1f, 0.85f, 1f };
+            bool exactWeights = patched;
+            try
+            {
+                for (int i = 0; i < days.Length; i++)
+                {
+                    // Match the production hook's phase adjustment on real
+                    // Southern Hemisphere tiles without editing native seasons.
+                    int target = longLat.y < 0f ?
+                        (days[i] + 30) % GenDate.DaysPerYear : days[i];
+                    int delta = (target - originalDay +
+                        GenDate.DaysPerYear) % GenDate.DaysPerYear;
+                    Find.TickManager.DebugSetTicksGame(
+                        initial + delta * GenDate.TicksPerDay);
+                    int observed = GenDate.DayOfYear(
+                        Find.TickManager.TicksAbs, longLat.x);
+                    float testRain = 10f, testClear = 10f;
+                    SeasonalRainWeatherPatch.Postfix(map, rain, ref testRain);
+                    SeasonalRainWeatherPatch.Postfix(map, clear, ref testClear);
+                    exactWeights &= observed == target &&
+                        Math.Abs(testRain - 10f * rainFactors[i]) < 0.01f &&
+                        Math.Abs(testClear - 10f * clearFactors[i]) < 0.01f;
+
+                    // Invoke the actual Harmony-patched Vanilla weighted
+                    // chooser on the loaded game, with fixed random seed. This
+                    // samples selection *tendency*, not weather-day duration.
+                    int rainDraws = 0;
+                    int draws = 240;
+                    float actualRainWeight = (float)currentWeight.Invoke(
+                        map.weatherDecider, new object[] { rain });
+                    Rand.PushState(16781);
+                    try
+                    {
+                        for (int j = 0; j < draws; j++)
+                        {
+                            WeatherDef result = (WeatherDef)choose.Invoke(
+                                map.weatherDecider, null);
+                            if (result != null &&
+                                (result.defName == "Rain" ||
+                                 result.defName == "FoggyRain" ||
+                                 result.defName == "RainyThunderstorm"))
+                                rainDraws++;
+                        }
+                    }
+                    finally
+                    {
+                        Rand.PopState();
+                    }
+                    Log.Message("AMJE_WEATHER_WINDOW native=True biome=" +
+                        map.Biome.defName + " latitude=" + longLat.y.ToString("F1") +
+                        " targetDay=" + days[i] +
+                        " effectiveDay=" + observed +
+                        " rainWeight=" + actualRainWeight.ToString("F3") +
+                        " wetSelections=" + rainDraws + "/" + draws +
+                        " directWeights=" + (exactWeights ? "PASS" : "FAIL") +
+                        " harmonyPostfix=" + patched);
+                }
+            }
+            finally
+            {
+                Find.TickManager.DebugSetTicksGame(initial);
+            }
+            return exactWeights;
+        }
 
         public override void PostLoaded()
         {
             base.PostLoaded();
             Map map = Find.CurrentMap;
             if (map == null) return;
+            weatherWindowWeightsCorrect = SampleWeatherWindows(map);
             string[] names = { "AMJ_Plant_Yoshi", "AMJ_Plant_Suge",
                                "AMJ_Plant_Mizugoke", "AMJ_Tree_Hannoki" };
             var plants = new List<Plant>();
@@ -4752,6 +4842,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 { return validGraphics; });
             result.Assert("native game save exists on isolated disk", delegate
                 { return saved; });
+            result.Assert("native weather chooser Tsuyu/Akisame weight windows and Harmony hook", delegate
+                { return weatherWindowWeightsCorrect; });
             return result;
         }
     }
