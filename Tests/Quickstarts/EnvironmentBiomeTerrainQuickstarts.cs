@@ -4649,6 +4649,60 @@ namespace AncientMedievalJapan.Environment.Quicktests
         private bool saved;
         private bool validGraphics = true;
         private bool weatherWindowWeightsCorrect;
+        private bool weatherLightCorrect;
+
+        private static bool SampleRainLight(Map map)
+        {
+            WeatherDef clear = DefDatabase<WeatherDef>.GetNamedSilentFail("Clear");
+            WeatherDef rain = DefDatabase<WeatherDef>.GetNamedSilentFail("Rain");
+            WeatherDef rainFog = DefDatabase<WeatherDef>.GetNamedSilentFail("FoggyRain");
+            WeatherDef thunder = DefDatabase<WeatherDef>.GetNamedSilentFail("RainyThunderstorm");
+            WeatherDef fog = DefDatabase<WeatherDef>.GetNamedSilentFail("Fog");
+            var targetMethod = AccessTools.Method(typeof(WeatherWorker), "CurSkyTarget");
+            if (clear == null || rain == null || rainFog == null ||
+                thunder == null || fog == null || targetMethod == null)
+                return false;
+            var patchInfo = Harmony.GetPatchInfo(targetMethod);
+            bool patched = patchInfo != null && patchInfo.Postfixes.Any(
+                item => item.PatchMethod != null &&
+                    item.PatchMethod.DeclaringType == typeof(RainWeatherDaylightPatch));
+
+            int initial = Find.TickManager.TicksGame;
+            bool checkedDaylight = false;
+            bool ratiosOk = patched;
+            try
+            {
+                for (int h = 0; h < 24; h++)
+                {
+                    Find.TickManager.DebugSetTicksGame(initial + h * GenDate.TicksPerHour);
+                    float clearGlow = clear.Worker.CurSkyTarget(map).glow;
+                    if (clearGlow <= 0.7f) continue;
+                    checkedDaylight = true;
+                    WeatherDef[] defs = { rain, rainFog, thunder, fog };
+                    float[] expected = {
+                        RainWeatherDaylightPatch.RainGlowFactor,
+                        RainWeatherDaylightPatch.RainGlowFactor,
+                        RainWeatherDaylightPatch.ThunderstormGlowFactor,
+                        RainWeatherDaylightPatch.FogGlowFactor
+                    };
+                    for (int i = 0; i < defs.Length; i++)
+                    {
+                        float actual = defs[i].Worker.CurSkyTarget(map).glow;
+                        ratiosOk &= Math.Abs(actual / clearGlow - expected[i]) < 0.001f;
+                        Log.Message("AMJE_RAIN_LIGHT native=True weather=" +
+                            defs[i].defName + " clearGlow=" + clearGlow.ToString("F3") +
+                            " rainGlow=" + actual.ToString("F3") +
+                            " expectedFactor=" + expected[i].ToString("F2"));
+                    }
+                    break;
+                }
+            }
+            finally
+            {
+                Find.TickManager.DebugSetTicksGame(initial);
+            }
+            return checkedDaylight && ratiosOk;
+        }
 
         // One loaded-native selector probe, not an actual 60-day run or a
         // meteorological calibration. Keep random state and absolute ticks
@@ -4745,6 +4799,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             Map map = Find.CurrentMap;
             if (map == null) return;
             weatherWindowWeightsCorrect = SampleWeatherWindows(map);
+            weatherLightCorrect = SampleRainLight(map);
             string[] names = { "AMJ_Plant_Yoshi", "AMJ_Plant_Suge",
                                "AMJ_Plant_Mizugoke", "AMJ_Tree_Hannoki" };
             var plants = new List<Plant>();
@@ -4845,6 +4900,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 { return saved; });
             result.Assert("native weather chooser Tsuyu/Akisame weight windows and Harmony hook", delegate
                 { return weatherWindowWeightsCorrect; });
+            result.Assert("native rain sky sunlight attenuation and Harmony patch", delegate
+                { return weatherLightCorrect; });
             return result;
         }
     }
