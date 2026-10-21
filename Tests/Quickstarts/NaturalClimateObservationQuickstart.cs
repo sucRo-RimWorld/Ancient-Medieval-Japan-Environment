@@ -64,6 +64,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 }
 
                 float latitude = Find.WorldGrid.LongLatOf(tile).y;
+                // Seasonal window comparison is calibrated for northern Japan.
+                if (latitude <= 0f) continue;
                 bool inGeographicBand = latitude >= 32f && latitude <= 38f;
                 // Give a real 32-38 N site priority only among otherwise
                 // climate-eligible sites; never enforce the latitude by mutation.
