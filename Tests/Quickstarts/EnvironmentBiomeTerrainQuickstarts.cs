@@ -4650,6 +4650,98 @@ namespace AncientMedievalJapan.Environment.Quicktests
         private bool validGraphics = true;
         private bool weatherWindowWeightsCorrect;
         private bool weatherLightCorrect;
+        private bool plantAndSolarRainResponseCorrect;
+
+        // Probe actual Vanilla consumer paths, not a second copy of the
+        // daylight-factor formula. Restore map weather/time and destroy the
+        // temporary crop/panel before the existing season-save Quickstart.
+        private static bool SamplePlantAndSolarRainResponse(Map map)
+        {
+            ThingDef cropDef = DefDatabase<ThingDef>.GetNamedSilentFail("Plant_Potato");
+            ThingDef panelDef = DefDatabase<ThingDef>.GetNamedSilentFail("SolarGenerator");
+            WeatherDef clear = DefDatabase<WeatherDef>.GetNamedSilentFail("Clear");
+            WeatherDef rain = DefDatabase<WeatherDef>.GetNamedSilentFail("Rain");
+            var outputProp = AccessTools.Property(typeof(CompPowerPlantSolar),
+                "DesiredPowerOutput");
+            if (cropDef == null || panelDef == null || clear == null ||
+                rain == null || outputProp == null || map == null)
+                return false;
+
+            int originalTicks = Find.TickManager.TicksGame;
+            WeatherDef originalWeather = map.weatherManager.curWeather;
+            WeatherDef originalPrevious = map.weatherManager.lastWeather;
+            Plant crop = null;
+            ThingWithComps panel = null;
+            try
+            {
+                IntVec3 cropCell = map.Center + new IntVec3(10, 0, 10);
+                IntVec3 panelCell = map.Center + new IntVec3(-10, 0, 10);
+                if (!cropCell.InBounds(map) || !panelCell.InBounds(map) ||
+                    map.roofGrid.Roofed(cropCell) || map.roofGrid.Roofed(panelCell))
+                    return false;
+
+                crop = GenSpawn.Spawn(ThingMaker.MakeThing(cropDef), cropCell,
+                    map, WipeMode.Vanish) as Plant;
+                panel = GenSpawn.Spawn(ThingMaker.MakeThing(panelDef), panelCell,
+                    map, WipeMode.Vanish) as ThingWithComps;
+                CompPowerPlantSolar solar = panel == null ? null :
+                    panel.TryGetComp<CompPowerPlantSolar>();
+                if (crop == null || solar == null)
+                    return false;
+
+                for (int hour = 0; hour < 24; hour++)
+                {
+                    Find.TickManager.DebugSetTicksGame(
+                        originalTicks + hour * GenDate.TicksPerHour);
+                    if (clear.Worker.CurSkyTarget(map).glow < 0.8f)
+                        continue;
+
+                    map.weatherManager.curWeather = clear;
+                    map.weatherManager.lastWeather = clear;
+                    map.skyManager.SkyManagerUpdate();
+                    float clearGlow = map.glowGrid.GameGlowAt(cropCell);
+                    float clearGrowth = crop.GrowthRateFactor_Light;
+                    float clearSolar = (float)outputProp.GetValue(solar, null);
+
+                    map.weatherManager.curWeather = rain;
+                    map.weatherManager.lastWeather = rain;
+                    map.skyManager.SkyManagerUpdate();
+                    float rainGlow = map.glowGrid.GameGlowAt(cropCell);
+                    float rainGrowth = crop.GrowthRateFactor_Light;
+                    float rainSolar = (float)outputProp.GetValue(solar, null);
+
+                    bool success = clearGlow >= 0.8f && clearGrowth > 0.01f &&
+                        clearSolar > 0f && rainGlow < clearGlow &&
+                        rainGrowth < clearGrowth && rainSolar < clearSolar &&
+                        Math.Abs(rainGlow / clearGlow - 0.8f) < 0.015f &&
+                        Math.Abs(rainSolar / clearSolar - 0.8f) < 0.015f;
+                    Log.Message("AMJE_RAIN_CONSUMERS native=True" +
+                        " crop=" + crop.def.defName +
+                        " minGlow=" + crop.def.plant.growMinGlow.ToString("F3") +
+                        " optGlow=" + crop.def.plant.growOptimalGlow.ToString("F3") +
+                        " clearGlow=" + clearGlow.ToString("F3") +
+                        " rainGlow=" + rainGlow.ToString("F3") +
+                        " clearGrowthFactor=" + clearGrowth.ToString("F3") +
+                        " rainGrowthFactor=" + rainGrowth.ToString("F3") +
+                        " clearSolarW=" + clearSolar.ToString("F1") +
+                        " rainSolarW=" + rainSolar.ToString("F1") +
+                        " passed=" + success);
+                    return success;
+                }
+                return false;
+            }
+            finally
+            {
+                Find.TickManager.DebugSetTicksGame(originalTicks);
+                map.weatherManager.curWeather = originalWeather;
+                map.weatherManager.lastWeather = originalPrevious;
+                map.skyManager.SkyManagerUpdate();
+                if (panel != null && panel.Spawned)
+                    panel.Destroy(DestroyMode.Vanish);
+                if (crop != null && crop.Spawned)
+                    crop.Destroy(DestroyMode.Vanish);
+            }
+        }
 
         private static bool SampleRainLight(Map map)
         {
@@ -4800,6 +4892,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             if (map == null) return;
             weatherWindowWeightsCorrect = SampleWeatherWindows(map);
             weatherLightCorrect = SampleRainLight(map);
+            plantAndSolarRainResponseCorrect = SamplePlantAndSolarRainResponse(map);
             string[] names = { "AMJ_Plant_Yoshi", "AMJ_Plant_Suge",
                                "AMJ_Plant_Mizugoke", "AMJ_Tree_Hannoki" };
             var plants = new List<Plant>();
@@ -4902,6 +4995,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 { return weatherWindowWeightsCorrect; });
             result.Assert("native rain sky sunlight attenuation and Harmony patch", delegate
                 { return weatherLightCorrect; });
+            result.Assert("native potato light-growth factor and solar desired power fall in rain", delegate
+                { return plantAndSolarRainResponseCorrect; });
             return result;
         }
     }
