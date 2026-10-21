@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "feature": "AMJE intra-year Tsuyu and Akisame weather commonality modulation",
+  "owner": "sucRo-RimWorld/Ancient-Medieval-Japan-Environment",
+  "scope": "Minimum standalone AMJ biomes and retained wetland surface weather-selection weights; exclude WorldMap geography, humidity stat, crop growth and shaders.",
+  "status": "ready",
+  "search": {
+    "date": "2026-10-21",
+    "queries": [
+      "RimWorld Vanilla WeatherDecider rainfall commonality implementation",
+      "RimWorld seasonal weather continued Source SeasonalWeatherExtension",
+      "Vanilla Events Expanded weather rainfall drought",
+      "RimWorld WeatherControl configurable weather duration",
+      "RimWorld Planetsmith climate monsoon",
+      "RimWorld Dynamic Atmosphere weather profile"
+    ],
+    "ecosystems": [
+      "vanilla_mo",
+      "amj",
+      "ve",
+      "non_ve"
+    ],
+    "limitations": "Only public source where available; current installed RimWorld 1.6/1.7 assemblies, latest Seasonal Weather DLL, VE binaries, WeatherControl and Planetsmith distributed code, Dynamic Atmosphere in-game co-load behavior not observed. Assumed date windows and weights are provisional pending climate-gameplay calibration."
+  },
+  "candidates": [
+    {
+      "name": "Vanilla RimWorld 1.6 + Medieval Overhaul baseline",
+      "ecosystem": "vanilla_mo",
+      "version": "RimWorld 1.6 / MO optional current production scope",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Native weather duration, biome weighted selection and temperature/rain bans, no intra-season Japanese calendar.",
+        "historical_fit": "Generic seasons; no June-July rainy interval or Sep-Oct autumn interval.",
+        "dependencies": "No added hard dependencies.",
+        "retention": "Keep all weather, MO biome and game-condition functionality.",
+        "progression_balance": "No new growth modifier or disaster.",
+        "reuse": "Reuse weather chooser selection pipeline.",
+        "maintenance_license": "Game source used for API analysis; no external source bundled."
+      },
+      "outcome": "not_applicable"
+    },
+    {
+      "name": "Existing AMJ Environment rainfall/biome model",
+      "ecosystem": "amj",
+      "version": "Environment main 2026-10-21",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Annual rainfall transforms and fixed AMJ biome weather commonalities.",
+        "historical_fit": "Japan-oriented broad climate, not intra-year rainy episodes.",
+        "dependencies": "Existing Harmony only.",
+        "retention": "Retain existing rainfall and river contract.",
+        "progression_balance": "Avoid moving annual-rainfall mean and weather disaster balance.",
+        "reuse": "Reuse current BiomeDefs.",
+        "maintenance_license": "First-party owner code; existing worldgen unaffected."
+      },
+      "outcome": "not_applicable"
+    },
+    {
+      "name": "Vanilla Events Expanded",
+      "ecosystem": "ve",
+      "version": "Workshop public release observed 2026-10-21",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Events including weather-related disasters and drought.",
+        "historical_fit": "Not a confirmed Japan-specific seasonal weather chooser.",
+        "dependencies": "Large content mod and other events.",
+        "retention": "Required event content largely unrelated to Japan weather intervals.",
+        "progression_balance": "Adds incidents/progression not requested.",
+        "reuse": "Prior art only, no VE content dependency.",
+        "maintenance_license": "Workshop audited; current assembly not inspected; upstream maintenance external."
+      },
+      "outcome": "prior_art_only"
+    },
+    {
+      "name": "Seasonal Weather (Continued)",
+      "ecosystem": "non_ve",
+      "version": "Workshop 2045114229, source main inspected 2026-10-21",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Season-specific weather tables through mutation of shared BiomeDef.",
+        "historical_fit": "Only spring/summer/fall/winter, not Japanese rainy season narrower than quadrum.",
+        "dependencies": "Extra weather disasters, moods, growth bonus and types.",
+        "retention": "Most extra mechanics not desired for Environment.",
+        "progression_balance": "20 percent rain growth boost clashes with unresolved sun-dimming concerns.",
+        "reuse": "Use feature/architecture as prior art; independent scoped postfix.",
+        "maintenance_license": "Source MIT; none copied, runtime version not verified."
+      },
+      "outcome": "prior_art_only"
+    },
+    {
+      "name": "WeatherControl / Planetsmith",
+      "ecosystem": "non_ve",
+      "version": "Workshop 3047040031 / 3773634615, observed 2026-10-21",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Weather weight customization / worldgen atmospheric circulation respectively.",
+        "historical_fit": "Neither establishes tested native Japanese rainy-season date windows.",
+        "dependencies": "Additional user controls or global worldgen replacement.",
+        "retention": "High unrelated content or reconfiguration for narrow target.",
+        "progression_balance": "May alter existing climate/progression unrelated to recurring rain.",
+        "reuse": "Conceptual reference only.",
+        "maintenance_license": "Public Workshop descriptions; detailed deployed code not inspected."
+      },
+      "outcome": "prior_art_only"
+    },
+    {
+      "name": "Dynamic Atmosphere",
+      "ecosystem": "non_ve",
+      "version": "Workshop 3808191148, read 2026-10-21",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Planet clouds and colony weather graphics, actual hurricane/lightning systems.",
+        "historical_fit": "Atmospheric visualization not calendar-driven Japanese weather control.",
+        "dependencies": "Optional Harmony-based visual mod; never required.",
+        "retention": "Retains useful visual functionality.",
+        "progression_balance": "Own special weather conditions remain upstream-owned.",
+        "reuse": "Use Vanilla weather identities for independent co-existence.",
+        "maintenance_license": "No DLL co-load proof; optional compatibility and conditional future XML appearance adapter."
+      },
+      "outcome": "optional_compatibility"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "audit",
+      "path": "Docs/Research/SeasonalWeatherExistingModAudit-2026-10-21.md",
+      "sha256": "626e8d14f4beb784eae776b9e225ef6861ff0440da583504ae76af4231f3e8fb"
+    }
+  ],
+  "decision": {
+    "kind": "independent",
+    "rationale": "Standalone sub-quadrum Japanese rainy season gameplay on four AMJ biomes cannot be achieved by vanilla, broad-season mutating mod, optional visuals or large content framework without substantial unrelated replacement; use positive-weight postfix preserving engine restrictions and common weather identity.",
+    "specification": "Docs/Design.md",
+    "independent_gap": "Japan-specific June/July Tsuyu and September/October Akisame recurring weather tendencies at calendar-day resolution, restricted to AMJE biome scope without rewriting other mod biomes or forcing extra events."
+  },
+  "unresolved": []
+}
