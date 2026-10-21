@@ -4667,7 +4667,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
             var patchInfo = Harmony.GetPatchInfo(currentWeight);
             bool patched = patchInfo != null && patchInfo.Postfixes.Any(
-                item => item.owner == "sucro.ancientmedievaljapan.environment");
+                item => item.PatchMethod != null &&
+                    item.PatchMethod.DeclaringType == typeof(SeasonalRainWeatherPatch));
             var longLat = Find.WorldGrid.LongLatOf(map.Tile);
             int initial = Find.TickManager.TicksGame;
             int originalDay = GenDate.DayOfYear(Find.TickManager.TicksAbs, longLat.x);
