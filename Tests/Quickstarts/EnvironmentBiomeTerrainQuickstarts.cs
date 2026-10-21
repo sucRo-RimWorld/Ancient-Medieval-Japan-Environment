@@ -3926,25 +3926,26 @@ namespace AncientMedievalJapan.Environment.Quicktests
         public override void PostApplyConfiguration()
         {
             base.PostApplyConfiguration();
+            // Isolated test-only Tokyo normal proxy: grid geometry is selected
+            // first; Vanilla/AMJE procedural tile climate is NOT assumed
+            // identical to that station's annual normal.
             PlanetTile best = PlanetTile.Invalid;
             float bestScore = float.MaxValue;
             for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
             {
                 SurfaceTile tile = Find.WorldGrid[i] as SurfaceTile;
                 if (tile == null || tile.WaterCovered ||
-                    (tile.hilliness != Hilliness.Flat &&
-                     tile.hilliness != Hilliness.SmallHills) ||
-                    Find.WorldObjects.AnyWorldObjectAt(tile.tile) ||
-                    !TileFinder.IsValidTileForNewSettlement(tile.tile))
+                    tile.hilliness == Hilliness.Impassable ||
+                    Find.WorldObjects.AnyWorldObjectAt(tile.tile))
                     continue;
                 var coords = Find.WorldGrid.LongLatOf(tile.tile);
-                if (coords.y < 32f || coords.y > 38f ||
-                    tile.temperature < 12f || tile.temperature > 20f ||
-                    tile.rainfall < 1000f || tile.rainfall > 2200f)
+                if (coords.y < 32f || coords.y > 38f)
                     continue;
-                float score = Math.Abs(coords.y - 35.7f) * 6f +
-                    Math.Abs(tile.temperature - 16.5f) * 3f +
-                    Math.Abs(tile.rainfall - 1528f) / 140f;
+                float score = Math.Abs(coords.y - 35.7f) * 10f;
+                if (tile.hilliness == Hilliness.Flat)
+                    score -= 2f;
+                if (TileFinder.IsValidTileForNewSettlement(tile.tile))
+                    score -= 1f;
                 if (score < bestScore)
                 {
                     bestScore = score;
@@ -3953,24 +3954,34 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
             if (!best.Valid)
             {
-                Log.Warning("AMJE_WARM_RAIN_PROXY no suitable Japan-latitude world tile");
+                Log.Warning("AMJE_WARM_RAIN_PROXY no non-ocean 32–38N tile on generated 5%-coverage world");
                 return;
             }
             var selected = Find.WorldGrid[best] as SurfaceTile;
             string previousBiome = selected.PrimaryBiome == null ?
                 "null" : selected.PrimaryBiome.defName;
+            float originalRainfall = selected.rainfall;
+            float originalTemperature = selected.temperature;
             selected.PrimaryBiome = DefDatabase<BiomeDef>.GetNamed("AMJ_WarmTemperateForest");
+            selected.rainfall = 1598.2f;
+            selected.temperature = 15.8f;
+            if (selected.swampiness >= 0.5f)
+                selected.swampiness = 0f;
             Find.GameInitData.startingTile = best;
             japanLatitudeProxyChosen = true;
             var ll = Find.WorldGrid.LongLatOf(best);
             Log.Message("AMJE_WARM_RAIN_PROXY" +
                 " lat=" + ll.y.ToString("F2") +
                 " lon=" + ll.x.ToString("F2") +
-                " rainfall=" + selected.rainfall.ToString("F0") +
+                " rainfall=" + selected.rainfall.ToString("F1") +
                 " annualTemp=" + selected.temperature.ToString("F1") +
+                " originalRainfall=" + originalRainfall.ToString("F0") +
+                " originalTemp=" + originalTemperature.ToString("F1") +
                 " originalBiome=" + previousBiome +
                 " biomeForcedForIsolatedObservation=True" +
-                " targetLatitude=35.7 rainfallReference=1528 tempReference=16.5");
+                " annualClimateForcedForIsolatedObservation=True" +
+                " station=Tokyo_JMA_1991_2020" +
+                " targetLatitude=35.7 rainfallReference=1598.2 tempReference=15.8");
         }
         // This is a bounded NATIVE EVENT-DURATION-STEPPED model, NOT 60 days of
         // actual map ticks. Real 1.6 WeatherDecider chooses weather and samples
