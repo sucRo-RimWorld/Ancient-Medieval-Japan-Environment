@@ -44,7 +44,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 SurfaceTile surface = Find.WorldGrid[i] as SurfaceTile;
                 if (surface == null || surface.WaterCovered ||
                     surface.PrimaryBiome == null ||
-                    !SeasonalRainWeatherPatch.IsJapanEnvironmentBiome(surface.PrimaryBiome))
+                    !IsClimateBiome(surface.PrimaryBiome))
                 {
                     continue;
                 }
@@ -94,6 +94,22 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " biome=" + actual.PrimaryBiome.defName +
                 " geographic32to38=" + geographicMatch +
                 " forcedClimate=False forcedBiome=False");
+        }
+
+        private static bool IsClimateBiome(BiomeDef biome)
+        {
+            switch (biome.defName)
+            {
+                case "AMJ_WarmTemperateForest":
+                case "AMJ_CoolTemperateForest":
+                case "AMJ_SubalpineForest":
+                case "AMJ_AlpineZone":
+                case "TemperateSwamp":
+                case "ColdBog":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         public override QuickstartVerification Verify()
