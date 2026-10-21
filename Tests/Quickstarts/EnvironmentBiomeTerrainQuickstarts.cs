@@ -4699,14 +4699,14 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     map.weatherManager.curWeather = clear;
                     map.weatherManager.lastWeather = clear;
                     map.skyManager.SkyManagerUpdate();
-                    float clearGlow = map.glowGrid.GameGlowAt(cropCell);
+                    float clearGlow = map.skyManager.CurSkyGlow;
                     float clearGrowth = crop.GrowthRateFactor_Light;
                     float clearSolar = (float)outputProp.GetValue(solar, null);
 
                     map.weatherManager.curWeather = rain;
                     map.weatherManager.lastWeather = rain;
                     map.skyManager.SkyManagerUpdate();
-                    float rainGlow = map.glowGrid.GameGlowAt(cropCell);
+                    float rainGlow = map.skyManager.CurSkyGlow;
                     float rainGrowth = crop.GrowthRateFactor_Light;
                     float rainSolar = (float)outputProp.GetValue(solar, null);
 
