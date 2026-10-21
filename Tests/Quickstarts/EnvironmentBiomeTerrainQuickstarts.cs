@@ -3917,6 +3917,61 @@ namespace AncientMedievalJapan.Environment.Quicktests
             get { return "AMJ_Tree_Shii"; }
         }
         private bool observationCompleted;
+
+        // The accepted WarmTemperate terrain Quickstart may select a
+        // forced-climate biome above 40°N. This *one-time observation* instead
+        // anchors the weather test near Kanto's latitude and annual climate.
+        // It never modifies production worldgen or the real installed game.
+        private bool japanLatitudeProxyChosen;
+        public override void PostApplyConfiguration()
+        {
+            base.PostApplyConfiguration();
+            PlanetTile best = PlanetTile.Invalid;
+            float bestScore = float.MaxValue;
+            for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+            {
+                SurfaceTile tile = Find.WorldGrid[i] as SurfaceTile;
+                if (tile == null || tile.WaterCovered ||
+                    (tile.hilliness != Hilliness.Flat &&
+                     tile.hilliness != Hilliness.SmallHills) ||
+                    Find.WorldObjects.AnyWorldObjectAt(tile.tile) ||
+                    !TileFinder.IsValidTileForNewSettlement(tile.tile))
+                    continue;
+                var coords = Find.WorldGrid.LongLatOf(tile.tile);
+                if (coords.y < 32f || coords.y > 38f ||
+                    tile.temperature < 12f || tile.temperature > 20f ||
+                    tile.rainfall < 1000f || tile.rainfall > 2200f)
+                    continue;
+                float score = Math.Abs(coords.y - 35.7f) * 6f +
+                    Math.Abs(tile.temperature - 16.5f) * 3f +
+                    Math.Abs(tile.rainfall - 1528f) / 140f;
+                if (score < bestScore)
+                {
+                    bestScore = score;
+                    best = tile.tile;
+                }
+            }
+            if (!best.Valid)
+            {
+                Log.Warning("AMJE_WARM_RAIN_PROXY no suitable Japan-latitude world tile");
+                return;
+            }
+            var selected = Find.WorldGrid[best] as SurfaceTile;
+            string previousBiome = selected.PrimaryBiome == null ?
+                "null" : selected.PrimaryBiome.defName;
+            selected.PrimaryBiome = DefDatabase<BiomeDef>.GetNamed("AMJ_WarmTemperateForest");
+            Find.GameInitData.startingTile = best;
+            japanLatitudeProxyChosen = true;
+            var ll = Find.WorldGrid.LongLatOf(best);
+            Log.Message("AMJE_WARM_RAIN_PROXY" +
+                " lat=" + ll.y.ToString("F2") +
+                " lon=" + ll.x.ToString("F2") +
+                " rainfall=" + selected.rainfall.ToString("F0") +
+                " annualTemp=" + selected.temperature.ToString("F1") +
+                " originalBiome=" + previousBiome +
+                " biomeForcedForIsolatedObservation=True" +
+                " targetLatitude=35.7 rainfallReference=1528 tempReference=16.5");
+        }
         // This is a bounded NATIVE EVENT-DURATION-STEPPED model, NOT 60 days of
         // actual map ticks. Real 1.6 WeatherDecider chooses weather and samples
         // its live durationRange at every transition; we advance the game clock
@@ -4106,7 +4161,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 " annualTempC=" + tile.temperature.ToString("F1") +
                 " KantoLatitudeProxy=" + (coordinate.y >= 30f && coordinate.y <= 40f) +
                 " weatherSampling=native_event_duration_stepped_not_full_map_ticks");
-            observationCompleted = map.Biome.defName == "AMJ_WarmTemperateForest" &&
+            observationCompleted = japanLatitudeProxyChosen &&
+                map.Biome.defName == "AMJ_WarmTemperateForest" &&
                 SampleNativeElapsedWeatherEvents(map);
         }
         public override QuickstartVerification Verify()
