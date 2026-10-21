@@ -82,7 +82,7 @@ namespace AncientMedievalJapan.Environment
             }
         }
 
-        private static bool IsJapanEnvironmentBiome(BiomeDef biome)
+        internal static bool IsJapanEnvironmentBiome(BiomeDef biome)
         {
             if (biome == null)
             {
