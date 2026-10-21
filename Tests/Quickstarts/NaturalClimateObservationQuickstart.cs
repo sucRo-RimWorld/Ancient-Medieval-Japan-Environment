@@ -87,7 +87,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             SurfaceTile actual = Find.WorldGrid[selected] as SurfaceTile;
             float actualLatitude = Find.WorldGrid.LongLatOf(selected).y;
             Log.Message(
-                "[AMJE_NATURAL_CLIMATE_SITE] tile=" + selected.tileId +
+                "[AMJE_NATURAL_CLIMATE_SITE] tile=" + selected +
                 " lat=" + actualLatitude.ToString("F2") +
                 " annualTempC=" + actual.temperature.ToString("F2") +
                 " annualRainMm=" + actual.rainfall.ToString("F1") +
