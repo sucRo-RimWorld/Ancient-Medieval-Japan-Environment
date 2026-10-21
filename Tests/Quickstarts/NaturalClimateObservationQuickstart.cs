@@ -1,4 +1,5 @@
 using System;
+using HarmonyLib;
 using RimWorks.Quickstarts;
 using RimWorks.Quickstarts.Verification;
 using RimWorld;
@@ -112,12 +113,101 @@ namespace AncientMedievalJapan.Environment.Quicktests
             }
         }
 
+        private bool weatherObserved;
+
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            if (Find.CurrentMap == null || !selected.Valid ||
+                Find.CurrentMap.Tile != selected) return;
+            weatherObserved = ObserveWeather(Find.CurrentMap);
+        }
+
+        // Event-duration sampling, not 60 days of world ticks or crop growth.
+        private static bool ObserveWeather(Map map)
+        {
+            var duration = AccessTools.Field(typeof(WeatherDecider), "curWeatherDuration");
+            var cooldown = AccessTools.Field(typeof(WeatherDecider), "ticksWhenRainAllowedAgain");
+            var advance = AccessTools.Method(typeof(WeatherDecider), "StartNextWeather");
+            if (duration == null || cooldown == null || advance == null) return false;
+
+            int tick = Find.TickManager.TicksGame;
+            int oldDuration = (int)duration.GetValue(map.weatherDecider);
+            int oldCooldown = (int)cooldown.GetValue(map.weatherDecider);
+            WeatherDef oldCurrent = map.weatherManager.curWeather;
+            WeatherDef oldPrevious = map.weatherManager.lastWeather;
+            int oldAge = map.weatherManager.curWeatherAge;
+            double[] wet = new double[3];
+            double[] span = new double[3];
+            int events = 0;
+            int elapsed = 0;
+            const int limit = GenDate.DaysPerYear * GenDate.TicksPerDay;
+            const int step = 2 * GenDate.TicksPerHour;
+            float longitude = Find.WorldGrid.LongLatOf(map.Tile).x;
+            Rand.PushState(32197);
+            try
+            {
+                while (elapsed < limit && events < 512)
+                {
+                    Find.TickManager.DebugSetTicksGame(tick + elapsed);
+                    Find.World.tileTemperatures.WorldComponentTick();
+                    object cached = AccessTools.Method(
+                        typeof(TileTemperaturesComp), "RetrieveCachedData")
+                        .Invoke(Find.World.tileTemperatures, new object[] { map.Tile });
+                    AccessTools.Method(cached.GetType(), "CheckCache").Invoke(cached, null);
+                    map.mapTemperature.TemperatureUpdate();
+                    advance.Invoke(map.weatherDecider, null);
+                    events++;
+                    int length = (int)duration.GetValue(map.weatherDecider);
+                    if (length <= 0) return false;
+                    int used = Math.Min(length, limit - elapsed);
+                    for (int offset = 0; offset < used; offset += step)
+                    {
+                        int count = Math.Min(step, used - offset);
+                        Find.TickManager.DebugSetTicksGame(tick + elapsed + offset + count / 2);
+                        int day = GenDate.DayOfYear(Find.TickManager.TicksAbs, longitude);
+                        int band = day >= 15 && day <= 23 ? 0 :
+                            day >= 30 && day <= 38 ? 1 : 2;
+                        span[band] += count;
+                        if (map.weatherManager.RainRate > 0.1f) wet[band] += count;
+                    }
+                    elapsed += used;
+                    map.weatherManager.curWeatherAge = length + 1;
+                }
+                Log.Message("AMJE_NATURAL_RAIN_OBSERVATION" +
+                    " method=event_duration_not_full_ticks" +
+                    " events=" + events +
+                    " tsuyuWetHours=" + (wet[0] / GenDate.TicksPerHour).ToString("F1") +
+                    " akisameWetHours=" + (wet[1] / GenDate.TicksPerHour).ToString("F1") +
+                    " otherWetHours=" + (wet[2] / GenDate.TicksPerHour).ToString("F1") +
+                    " tsuyuTotalHours=" + (span[0] / GenDate.TicksPerHour).ToString("F1") +
+                    " akisameTotalHours=" + (span[1] / GenDate.TicksPerHour).ToString("F1") +
+                    " otherTotalHours=" + (span[2] / GenDate.TicksPerHour).ToString("F1"));
+                return elapsed == limit && events < 512 &&
+                    span[0] > 0 && span[1] > 0 && span[2] > 0;
+            }
+            finally
+            {
+                Rand.PopState();
+                Find.TickManager.DebugSetTicksGame(tick);
+                duration.SetValue(map.weatherDecider, oldDuration);
+                cooldown.SetValue(map.weatherDecider, oldCooldown);
+                map.weatherManager.curWeather = oldCurrent;
+                map.weatherManager.lastWeather = oldPrevious;
+                map.weatherManager.curWeatherAge = oldAge;
+                Find.World.tileTemperatures.WorldComponentTick();
+                map.mapTemperature.TemperatureUpdate();
+                map.skyManager.SkyManagerUpdate();
+            }
+        }
+
         public override QuickstartVerification Verify()
         {
             QuickstartVerification checks = new QuickstartVerification();
             checks.Assert("natural climate site remains loaded", () =>
                 selected.Valid && Find.CurrentMap != null &&
                 Find.CurrentMap.Tile == selected);
+            checks.Assert("native weather observation completed", () => weatherObserved);
             return checks;
         }
     }
