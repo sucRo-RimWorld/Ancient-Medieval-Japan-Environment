@@ -139,6 +139,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
             int oldAge = map.weatherManager.curWeatherAge;
             double[] wet = new double[3];
             double[] span = new double[3];
+            double[] realGlow = new double[3];
+            double[] clearGlow = new double[3];
+            WeatherDef clear = DefDatabase<WeatherDef>.GetNamedSilentFail("Clear");
+            if (clear == null) return false;
             int events = 0;
             int elapsed = 0;
             const int limit = GenDate.DaysPerYear * GenDate.TicksPerDay;
@@ -165,11 +169,19 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     {
                         int count = Math.Min(step, used - offset);
                         Find.TickManager.DebugSetTicksGame(tick + elapsed + offset + count / 2);
+                        map.weatherManager.curWeatherAge = offset + count / 2;
+                        map.skyManager.SkyManagerUpdate();
                         int day = GenDate.DayOfYear(Find.TickManager.TicksAbs, longitude);
                         int band = day >= 15 && day <= 23 ? 0 :
                             day >= 30 && day <= 38 ? 1 : 2;
                         span[band] += count;
                         if (map.weatherManager.RainRate > 0.1f) wet[band] += count;
+                        float baselineGlow = clear.Worker.CurSkyTarget(map).glow;
+                        if (baselineGlow > 0.05f)
+                        {
+                            realGlow[band] += map.skyManager.CurSkyGlow * count;
+                            clearGlow[band] += baselineGlow * count;
+                        }
                     }
                     elapsed += used;
                     map.weatherManager.curWeatherAge = length + 1;
@@ -182,7 +194,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     " otherWetHours=" + (wet[2] / GenDate.TicksPerHour).ToString("F1") +
                     " tsuyuTotalHours=" + (span[0] / GenDate.TicksPerHour).ToString("F1") +
                     " akisameTotalHours=" + (span[1] / GenDate.TicksPerHour).ToString("F1") +
-                    " otherTotalHours=" + (span[2] / GenDate.TicksPerHour).ToString("F1"));
+                    " otherTotalHours=" + (span[2] / GenDate.TicksPerHour).ToString("F1") +
+                    " tsuyuDaylightRatio=" + (realGlow[0] / Math.Max(1, clearGlow[0])).ToString("F3") +
+                    " akisameDaylightRatio=" + (realGlow[1] / Math.Max(1, clearGlow[1])).ToString("F3") +
+                    " otherDaylightRatio=" + (realGlow[2] / Math.Max(1, clearGlow[2])).ToString("F3"));
                 return elapsed == limit && events < 512 &&
                     span[0] > 0 && span[1] > 0 && span[2] > 0;
             }
