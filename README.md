@@ -236,6 +236,10 @@ This mod does **not** use CCTO's "safe to add/remove" statement.
 - English
 - Japanese
 
+Community translators: [source strings, version-specific key changes, and maintenance guidance](Docs/TranslationMaintenance.md).
+
+Independent [Chinese translation add-on (Workshop ID 3823797121)](https://steamcommunity.com/sharedfiles/filedetails/?id=3823797121) is maintained by a third party, not bundled with AMJ Environment; its current compatibility is not independently verified here.
+
 ## Current status
 
 **Beta**
