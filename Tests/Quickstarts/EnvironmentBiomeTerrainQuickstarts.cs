@@ -4680,10 +4680,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     checkedDaylight = true;
                     WeatherDef[] defs = { rain, rainFog, thunder, fog };
                     float[] expected = {
-                        RainWeatherDaylightPatch.RainGlowFactor,
-                        RainWeatherDaylightPatch.RainGlowFactor,
-                        RainWeatherDaylightPatch.ThunderstormGlowFactor,
-                        RainWeatherDaylightPatch.FogGlowFactor
+                        0.80f,
+                        0.80f,
+                        0.70f,
+                        0.90f
                     };
                     for (int i = 0; i < defs.Length; i++)
                     {
