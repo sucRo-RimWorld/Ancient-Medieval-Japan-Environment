@@ -243,6 +243,25 @@ Rainfall design must be tuned together with river flow because RimWorld 1.6 rive
 
 Detailed regional rainfall/monsoon/snow-country differences are a later detailed-design section and should not be hard-coded before generated-world sampling.
 
+### 4.1 Provisional Tsuyu/Akisame seasonal weather selection (2026-10-21)
+
+**Ownership:** Environment's existing Japan-oriented root-surface biomes, including its four owned forests/altitude bands and the retained Vanilla `TemperateSwamp` / `ColdBog`. This is a first playable weather-frequency slice, not a final historical quantitative calibration or a new humidity statistic. Japan Sea/Pacific side or WorldMap projection corrections remain WorldMap future work. Non-AMJ biomes and non-root layers retain Vanilla/third-party weather.
+
+**Decision and evidence:** [Seasonal Weather prior-art audit](Research/SeasonalWeatherExistingModAudit-2026-10-21.md) and [VE/non-VE implementation decision](Research/SeasonalWeatherImplementationDecision.json). Seasonal Weather (Continued) replaces shared biome commonality lists at broad season changes; Environment instead chooses a small `WeatherDecider.CurrentWeatherCommonality` Harmony postfix so it only changes positive per-selection weights for known Vanilla `WeatherDef` names, with no shared Def mutation, new weather/event Def, external content dependency or Dynamic Atmosphere graphic override.
+
+| Local 60-day year | Approximate Japanese phenomenon | Provisional weather multipliers |
+|---|---|---|
+| Days 15–23 inclusive (9 days) | Tsuyu / early-summer rainy period, compressed June to July | `Rain`, `FoggyRain` x1.65; `RainyThunderstorm` x1.08; `Fog` x1.15; `Clear` x0.75 |
+| Days 30–38 inclusive (9 days) | Akisame / early-autumn rain, compressed September to October | `Rain`, `FoggyRain` x1.40; `RainyThunderstorm` x1.12; `Fog` x1.15; `Clear` x0.85 |
+| All other days | Baseline weather | No change |
+
+- If the currently running weather is wet (`rainRate > 0.1`), a subsequent `Rain` or `FoggyRain` candidate within either window receives a further **x1.15** bonus. This makes wet-to-wet transitions more likely without forcing weather, modifying duration or bypassing native repeatability restrictions. All numbers are **provisional gameplay parameters**, not meteorological measurements or author-final balance.
+- Map-local `GenDate.DayOfYear` determines the window. On tiles south of the engine's equator, shift the day phase by 30 game-days so the rainy interval follows the local warm season. This is intentionally **not a fix for the optional WorldMap's inflated virtual latitude**.
+- The postfix returns unchanged if native commonality is zero/negative, no matching existing `WeatherDef`, nonselected biome, invalid/non-root tile, or outside the two windows. Other mods' custom weather identities and all AMJ weather base lists are left untouched. Existing temperature, rainfall, drought prevention, tutorial and fire behavior stays native.
+- **Annual tile rainfall (800–3000mm), biome selection and river layout remain unchanged.** This only redistributes in-game *weather choice tendency* for a part of the 60-day year. It does **not** enforce conservation of simulated annual precipitation, guarantee continuous rain or claim calibrated cloud/rain amounts.
+- Sunlight/crop-growth modeling remains an explicit **unimplemented separate slice**: common Vanilla daytime `WeatherWorker.CurSkyTarget` sources celestial sky glow independently of visible weather color; confirm actual `GlowGrid.GameGlowAt`, plant and solar effects on RimWorld 1.6 and 1.7 before considering any shader or growth patch. Do not double-penalize rain or implement humidity by rainfall proxy.
+- **Native acceptance HOLD:** On the final source run a single consolidated weather-choice observation including two windows and dry intervals for both hemispheres, current/previous weather commonalities, representative owned forests and wetlands, save-reload and MO/CCTO co-loading, plus optional Dynamic Atmosphere weather imagery/lightning and log/performance only when available. Exact day fractions and cloud/shadow/growth impacts are **not verified**; neither documentation nor static analysis is a gameplay PASS.
+
 ## 5. Implementation boundary: XML vs C#
 
 ### XML/Def/Patch work
