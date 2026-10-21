@@ -3903,6 +3903,221 @@ namespace AncientMedievalJapan.Environment.Quicktests
         }
     }
 
+
+    // One-off Japan-oriented warm-forest rain-duration/sky observation.
+    // Intentionally separate from the accepted vegetation/terrain Quickstart.
+    public sealed class AMJWarmRainObservationQuickstart : BiomeTerrainQuickstartBase
+    {
+        protected override string TargetBiomeDefName
+        {
+            get { return "AMJ_WarmTemperateForest"; }
+        }
+        protected override string TargetPlantDefName
+        {
+            get { return "AMJ_Tree_Shii"; }
+        }
+        private bool observationCompleted;
+        // This is a bounded NATIVE EVENT-DURATION-STEPPED model, NOT 60 days of
+        // actual map ticks. Real 1.6 WeatherDecider chooses weather and samples
+        // its live durationRange at every transition; we advance the game clock
+        // to the next native weather event boundary and sample live sky glow.
+        // Production weather/game-condition ticks, rainfall volume and plant
+        // growth over time are deliberately NOT emulated or claimed.
+        private static bool SampleNativeElapsedWeatherEvents(Map map)
+        {
+            if (map == null || map.weatherDecider == null ||
+                map.weatherManager == null || Find.TickManager == null)
+                return false;
+            var durationField = AccessTools.Field(
+                typeof(WeatherDecider), "curWeatherDuration");
+            var rainBanField = AccessTools.Field(
+                typeof(WeatherDecider), "ticksWhenRainAllowedAgain");
+            var nextWeather = AccessTools.Method(
+                typeof(WeatherDecider), "StartNextWeather");
+            WeatherDef clear = DefDatabase<WeatherDef>.GetNamedSilentFail("Clear");
+            if (durationField == null || rainBanField == null ||
+                nextWeather == null || clear == null)
+            {
+                Log.Warning("AMJE_WARM_RAIN_ELAPSED unavailable native WeatherDecider reflection");
+                return false;
+            }
+
+            int initialTicks = Find.TickManager.TicksGame;
+            int originalDuration = (int)durationField.GetValue(map.weatherDecider);
+            int originalRainBan = (int)rainBanField.GetValue(map.weatherDecider);
+            WeatherDef current = map.weatherManager.curWeather;
+            WeatherDef previous = map.weatherManager.lastWeather;
+            int weatherAge = map.weatherManager.curWeatherAge;
+            var longLat = Find.WorldGrid.LongLatOf(map.Tile);
+            const int totalTicks = GenDate.DaysPerYear * GenDate.TicksPerDay;
+            const int sampleTickStep = GenDate.TicksPerHour * 2;
+            bool completed = true;
+            try
+            {
+                for (int seedIndex = 0; seedIndex < 3; seedIndex++)
+                {
+                    map.weatherManager.curWeather = current;
+                    map.weatherManager.lastWeather = previous;
+                    map.weatherManager.curWeatherAge = weatherAge;
+                    durationField.SetValue(map.weatherDecider, originalDuration);
+                    rainBanField.SetValue(map.weatherDecider, originalRainBan);
+                    int elapsed = 0;
+                    int events = 0;
+                    int maxWetRun = 0;
+                    int consecutiveWet = 0;
+                    double[] wet = new double[3];
+                    double[] whole = new double[3];
+                    double[] actualSun = new double[3];
+                    double[] referenceSun = new double[3];
+                    double[] wetByDay = new double[GenDate.DaysPerYear];
+                    Rand.PushState(32197 + seedIndex * 7741);
+                    try
+                    {
+                        while (elapsed < totalTicks && events < 512)
+                        {
+                            Find.TickManager.DebugSetTicksGame(initialTicks + elapsed);
+                            // Reuse the established native calendar temperature
+                            // refresh; no map-wide or weather game ticks run.
+                            Find.World.tileTemperatures.WorldComponentTick();
+                            object cached = AccessTools.Method(
+                                typeof(TileTemperaturesComp), "RetrieveCachedData")
+                                .Invoke(Find.World.tileTemperatures,
+                                    new object[] { map.Tile });
+                            AccessTools.Method(cached.GetType(), "CheckCache")
+                                .Invoke(cached, null);
+                            map.mapTemperature.TemperatureUpdate();
+                            nextWeather.Invoke(map.weatherDecider, null);
+                            events++;
+                            int duration = (int)durationField.GetValue(
+                                map.weatherDecider);
+                            if (duration <= 0)
+                            {
+                                completed = false;
+                                break;
+                            }
+                            int remaining = Math.Min(duration, totalTicks - elapsed);
+                            for (int offset = 0; offset < remaining;
+                                 offset += sampleTickStep)
+                            {
+                                int span = Math.Min(sampleTickStep,
+                                    remaining - offset);
+                                int midpoint = offset + span / 2;
+                                Find.TickManager.DebugSetTicksGame(
+                                    initialTicks + elapsed + midpoint);
+                                map.weatherManager.curWeatherAge = midpoint;
+                                map.skyManager.SkyManagerUpdate();
+                                int localDay = GenDate.DayOfYear(
+                                    Find.TickManager.TicksAbs, longLat.x);
+                                int band = localDay >= 15 && localDay <= 23 ? 0 :
+                                    localDay >= 30 && localDay <= 38 ? 1 : 2;
+                                bool raining = map.weatherManager.RainRate > 0.1f;
+                                whole[band] += span;
+                                if (raining)
+                                {
+                                    wet[band] += span;
+                                    wetByDay[localDay] += span;
+                                    consecutiveWet += span;
+                                    maxWetRun = Math.Max(maxWetRun, consecutiveWet);
+                                }
+                                else
+                                {
+                                    consecutiveWet = 0;
+                                }
+                                float clearGlow = clear.Worker.CurSkyTarget(map).glow;
+                                if (clearGlow > 0.05f)
+                                {
+                                    actualSun[band] += map.skyManager.CurSkyGlow * span;
+                                    referenceSun[band] += clearGlow * span;
+                                }
+                            }
+                            elapsed += remaining;
+                            map.weatherManager.curWeatherAge = duration + 1;
+                        }
+                    }
+                    finally
+                    {
+                        Rand.PopState();
+                    }
+                    completed &= elapsed == totalTicks &&
+                        events > 2 && events < 512 &&
+                        whole[0] > 0 && whole[1] > 0 && whole[2] > 0 &&
+                        referenceSun[0] > 0 && referenceSun[1] > 0;
+                    int[] rainDays = new int[3];
+                    for (int day = 0; day < GenDate.DaysPerYear; day++)
+                    {
+                        int band = day >= 15 && day <= 23 ? 0 :
+                            day >= 30 && day <= 38 ? 1 : 2;
+                        // >=6 hours of weather rain is a game-only comparison
+                        // threshold, NOT JMA >=1mm precipitation per day.
+                        if (wetByDay[day] >= 6 * GenDate.TicksPerHour)
+                            rainDays[band]++;
+                    }
+                    Log.Message("AMJE_WARM_RAIN_ELAPSED" +
+                        " method=native_event_duration_stepped_not_full_map_ticks" +
+                        " seed=" + seedIndex + " biome=" + map.Biome.defName +
+                        " lat=" + longLat.y.ToString("F1") +
+                        " events=" + events +
+                        " elapsedDays=" + (elapsed / (float)GenDate.TicksPerDay).ToString("F2") +
+                        " tsuyuWetHours=" + (wet[0] / GenDate.TicksPerHour).ToString("F1") +
+                        " tsuyuWetDays6h=" + rainDays[0] + "/9" +
+                        " tsuyuDaylightRatio=" + (actualSun[0] / Math.Max(1, referenceSun[0])).ToString("F3") +
+                        " akisameWetHours=" + (wet[1] / GenDate.TicksPerHour).ToString("F1") +
+                        " akisameWetDays6h=" + rainDays[1] + "/9" +
+                        " akisameDaylightRatio=" + (actualSun[1] / Math.Max(1, referenceSun[1])).ToString("F3") +
+                        " otherWetHours=" + (wet[2] / GenDate.TicksPerHour).ToString("F1") +
+                        " otherWetDays6h=" + rainDays[2] + "/42" +
+                        " otherDaylightRatio=" + (actualSun[2] / Math.Max(1, referenceSun[2])).ToString("F3") +
+                        " longestWetHoursApprox=" +
+                        (maxWetRun / (float)GenDate.TicksPerHour).ToString("F1"));
+                    Log.Message("AMJE_WARM_RAIN_ELAPSED_DAYS seed=" + seedIndex +
+                        " wetHoursByLocalDay=" +
+                        string.Join(",", wetByDay.Select(v =>
+                            (v / GenDate.TicksPerHour).ToString("F1")).ToArray()));
+                }
+            }
+            finally
+            {
+                Find.TickManager.DebugSetTicksGame(initialTicks);
+                map.weatherManager.curWeather = current;
+                map.weatherManager.lastWeather = previous;
+                map.weatherManager.curWeatherAge = weatherAge;
+                durationField.SetValue(map.weatherDecider, originalDuration);
+                rainBanField.SetValue(map.weatherDecider, originalRainBan);
+                Find.World.tileTemperatures.WorldComponentTick();
+                map.mapTemperature.TemperatureUpdate();
+                map.skyManager.SkyManagerUpdate();
+            }
+            return completed;
+        }
+
+
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            Map map = Find.CurrentMap;
+            if (map == null) return;
+            var coordinate = Find.WorldGrid.LongLatOf(map.Tile);
+            var tile = map.TileInfo;
+            Log.Message("AMJE_WARM_RAIN_TARGET" +
+                " biome=" + map.Biome.defName +
+                " lat=" + coordinate.y.ToString("F2") +
+                " lon=" + coordinate.x.ToString("F2") +
+                " annualRainfallMm=" + tile.rainfall.ToString("F0") +
+                " annualTempC=" + tile.temperature.ToString("F1") +
+                " KantoLatitudeProxy=" + (coordinate.y >= 30f && coordinate.y <= 40f) +
+                " weatherSampling=native_event_duration_stepped_not_full_map_ticks");
+            observationCompleted = map.Biome.defName == "AMJ_WarmTemperateForest" &&
+                SampleNativeElapsedWeatherEvents(map);
+        }
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = new QuickstartVerification();
+            result.Assert("warm temperate weather duration observation completed",
+                delegate { return observationCompleted; });
+            return result;
+        }
+    }
+
     public sealed class AMJWarmTemperateTerrainQuickstart : BiomeTerrainQuickstartBase
     {
         protected override string TargetBiomeDefName
