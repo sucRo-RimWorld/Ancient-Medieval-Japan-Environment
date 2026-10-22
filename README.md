@@ -1,10 +1,12 @@
 # Ancient & Medieval Japan - Environment（中世日本 - 環境）
 
-**RimWorld 1.6 / 1.7 (unstable) — Beta**
+**RimWorld 1.6 / 1.7 — Beta**
+
+**Workshop release: 0.2.0 · GitHub development version: 0.3.0 (not yet published)**
 
 A standalone environment overhaul that replaces and reconfigures Vanilla terrain, vegetation, and biome composition for a Japanese-archipelago-inspired landscape. It changes world climate, mountains, rivers, coastlines, natural soil distribution, and the placement and vegetation of biomes to create a **pre-Edo Japan-like natural environment**.
 
-AMJ Environment is designed to work on its own for players who mainly want a medieval-Japan-like natural setting. **[Ancient & Medieval Japan Core](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Core) is not required.**
+AMJ Environment works independently of other AMJ modules. Harmony is its only required mod; Crop Cold Tolerance Overhaul and Medieval Overhaul are optional.
 
 For a stricter realism-focused plant climate model, it can optionally be combined with **[Crop Cold Tolerance Overhaul (CCTO)](https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548)**. AMJ Environment remains fully functional without CCTO.
 
@@ -41,7 +43,7 @@ Current Beta targets include:
 - elevation cooling: approximately **6.25°C per 1000 m**;
 - elevation up to roughly **3800 m**, with most land below 1500 m;
 - Hilliness distribution target: **25% Flat / 20% Small Hills / 25% Large Hills / 25% Mountainous / 5% Impassable**;
-- rainfall broadly around **800–3000**;
+- annual world-map rainfall broadly around **800–3000**. The current world-generation transform has **no separate biome-specific annual-rainfall targets**; a biome-level precipitation rebalance has not been implemented;
 - coastal land frequency around **1.5× the same-seed Vanilla baseline** through more complex coastlines rather than simply flooding land.
 
 ### Japan-style rivers
@@ -104,7 +106,7 @@ Shirabiso is a major evergreen conifer of Honshu's subalpine forests. On mountai
 
 Haimatsu is a creeping evergreen dwarf pine of alpine areas from Hokkaido to the high mountains of central and northern Honshu. It forms dense scrub above the treeline and is one of the clearest visual markers of Japanese alpine vegetation. Its distribution also reflects the history of northern cold-climate flora persisting at high elevation after postglacial warming.
 
-Some generic grasses, mosses, shrubs, secondary trees, and other filler vegetation still reuse Vanilla PlantDefs where the current audit has not rejected them. This reuse is not a permanent retention promise: unsuitable plants are removed or replaced as they are confirmed. The goal is to keep the vegetation bands structurally legible without turning Environment into a large plant-content mod or implying that each biome is a monoculture.
+Some generic grasses, mosses, shrubs, secondary trees, and other filler vegetation still reuse Vanilla PlantDefs where the current audit has not rejected them. This reuse is not a permanent retention promise: unsuitable plants are removed or replaced as they are confirmed. The initial vegetation bands remain structurally legible rather than monocultures. Later Japan-native wild-edible plants and regional foraging behavior are Environment-owned future work, described in [Foraging Integration](Docs/ForagingIntegrationDesign-ja.md), not part of the published 0.2.0.
 
 Detailed research rationale and sources for the representative plants are retained in [Docs/Design.md](Docs/Design.md) and [Docs/ArtDirection.md](Docs/ArtDirection.md).
 
@@ -126,11 +128,17 @@ Player-created agricultural improvements, including Medieval Overhaul's plowed s
 
 ### Regional weather
 
-AMJ Environment reuses RimWorld's existing weather types rather than adding a parallel weather system.
+The published 0.2.0 version uses RimWorld's existing weather types and climate-dependent rain, fog, thunderstorms and snow; it does not add a parallel weather system.
 
-Warm/cool forests favor more liquid precipitation and fog, while subalpine/alpine regions shift progressively toward snow. Dry thunderstorms are deliberately rare relative to rainy thunderstorms.
+**Implemented in GitHub's 0.3.0 development source; not yet published to Workshop:**
 
-Calendar-specific Baiu, Akisame, and typhoon-season weighting is not part of Beta. Sea-of-Japan-side versus Pacific-side winter exposure is also deferred until there is a proper geographic basis for it.
+- **Tsuyu (early-summer rains):** on RimWorld calendar days 15–23, the chance weights of ordinary rain and foggy rain increase by a provisional **×1.65** in Environment's supported biomes.
+- **Akisame (autumn rains):** on days 30–38, those rain weights increase by a provisional **×1.40**. Both periods also adjust thunderstorm, fog and clear-weather selection weights without forcing rainy weather.
+- **Reduced daylight during rainy/foggy weather:** gameplay sky glow is provisionally multiplied by **×0.80** for Rain/FoggyRain, **×0.70** for RainyThunderstorm and **×0.90** for Fog. Plant light-based growth and solar output are affected through RimWorld's existing light calculations; no direct crop growth penalty is added.
+
+These source changes act on the four AMJ biomes and the two retained wetlands. Weather rendering and annual world-map rainfall remain unchanged. All weights/daylight factors are **tentative**, and real-season crop balance plus optional Dynamic Atmosphere co-loading are not yet verified. The tracked production DLL and published 0.2.0 package do not yet contain this 0.3.0 source behavior.
+
+Sea-of-Japan-side versus Pacific-side winter exposure is not part of Environment's current implementation; geographically differentiated winter climate is a possible WorldMap integration, not an existing Environment feature.
 
 ### Seasonal scenery
 
@@ -140,7 +148,7 @@ Seasonal presentation uses Vanilla systems:
 - Sudajii, Shirabiso, and Haimatsu remain evergreen;
 - Vanilla SnowGentle / SnowHard and SnowGrid provide winter snow scenery.
 
-No custom seasonal controller is added in Beta.
+Plant scenery still uses RimWorld's native seasonal systems. The separate 0.3.0 seasonal weather-weighting code does not add a custom plant-season renderer.
 
 ### Functional wildlife proxies
 
@@ -155,7 +163,7 @@ These are gameplay proxies, not literal historical-species claims. Japan-specifi
 AMJE retains Vanilla's Temperate Swamp and Cold Bog workers, labels, marsh/mud/shallow-water terrain, movement difficulty and basic densities. The following changes are implemented:
 
 - Replace unsuitable wild-plant pools while preserving total and woody commonality.
-- In the **unreleased 0.2.0 GitHub source**, provide four additional natural wetland plants: **Ashi/Yoshi reed**, **Suge sedges**, **Hannoki alder** in both retained wetlands, and **Mizugoke sphagnum** in ColdBog only. They are not sowable. Mature Ashi and Suge yield base **Hay ×2** and **Hay ×1**; Hannoki yields base **WoodLog ×24**; Mizugoke is removable but drops nothing. The previously accepted overall wetland vegetation and tree totals are maintained.
+- From **0.2.0**, provide four additional natural wetland plants: **Ashi/Yoshi reed**, **Suge sedges**, **Hannoki alder** in both retained wetlands, and **Mizugoke sphagnum** in ColdBog only. They are not sowable. Mature Ashi and Suge yield base **Hay ×2** and **Hay ×1**; Hannoki yields base **WoodLog ×24**; Mizugoke is removable but drops nothing. The previously accepted overall wetland vegetation and tree totals are maintained.
 - Rebalance wetland wildlife and exclude unsuitable pack-animal candidates.
 - Change wetland disease types, weights and average intervals, removing mechanite diseases and retaining reduced malaria only in warmer wetlands.
 - Reweight wetland rain, fog, storms and snow by wetland climate.
@@ -163,7 +171,7 @@ AMJE retains Vanilla's Temperate Swamp and Cold Bog workers, labels, marsh/mud/s
 - Restrict regional tree-sowing choices to the natural distribution; alpine Haimatsu remains wild-only.
 - Provide the four representative plants' native cutting wood outputs.
 
-The four new wetland species are implemented **in this repository**, not yet shipped to subscribers in the published **0.1.1** Workshop version. Ashi/Suge use approved new sprites; Hannoki includes its approved seasonal states; Mizugoke temporarily reuses Vanilla moss art. Existing-tree Vanilla/MO retextures remain deferred.
+The four new wetland species are part of the **0.2.0** release. Ashi/Suge use approved sprites; Hannoki includes its approved seasonal states; Mizugoke temporarily reuses Vanilla moss art. Existing-tree Vanilla/MO retextures remain deferred.
 
 ## CCTO integration
 
@@ -214,7 +222,6 @@ Required:
 
 Not required:
 
-- Ancient & Medieval Japan Core;
 - Crop Cold Tolerance Overhaul;
 - Medieval Overhaul.
 
@@ -242,21 +249,21 @@ Independent [Chinese translation add-on (Workshop ID 3823797121)](https://steamc
 
 ## Current status
 
-**Beta**
+**Beta · Workshop 0.2.0 · GitHub development 0.3.0 (unreleased)**
 
-The core environment systems are implemented and automated runtime gates cover world/climate assumptions, biome vegetation, natural terrain, weather, seasonal-state wiring, optional CCTO integration, and river/coast world-to-map handoff.
+The published 0.2.0 feature set includes world/terrain/river/biome changes, four structural plants, retained-tree descriptions, wetland ecology changes, four additional wetland species and Thin Soil growing-zone support. Existing real-game tests cover important Vanilla, CCTO and Medieval Overhaul scenarios, but do not prove every combination or save-upgrade path.
 
-The four structural plants, retained-tree descriptions, wetland ecology adjustments, and the four additional wetland plants are implemented in source. The new plants have real RimWorld 1.6 Vanilla/CCTO and 1.6 MO functional evidence and a focused 1.7 native cutting PASS. Hannoki's natural leaf loss/recovery has been tested on both game versions. The **0.2.0 Workshop update is still unreleased**: herb cold-season persistence and save/reload, a fourth accepted gallery image for Mizugoke, final release notes, and exact subscriber verification remain open.
+The GitHub 0.3.0 source adds provisional Tsuyu/Akisame weather selection and gameplay daylight reduction. Original-game bounded checks exist, but seasonal balance, complete compatibility and a matching production DLL/Workshop upload remain outstanding. **The 0.3.0 source and About/Manifest version do not mean 0.3.0 has been released to subscribers.**
 
 ## Planned follow-up
 
-The following content is **not** included in the current published release:
+The following are **not part of the published 0.2.0**:
 
-- The four source-implemented wetland plants described above (planned Workshop version 0.2.0).
+- Release and balance review of the source-implemented **0.3.0 Tsuyu/Akisame and weather daylight adjustments**, including compatibility with other weather mods.
+- Additional Japan-native vegetation such as Sugi and Susuki, and Environment-owned regional wild-food foraging ([design](Docs/ForagingIntegrationDesign-ja.md)); these are future features, not published gameplay.
 - Selected retained Vanilla/Medieval Overhaul tree retextures (deferred).
-- Later forest/wild-food improvements documented in the separate owning design (not part of 0.2.0).
 
-New games are recommended because existing worlds are not regenerated by an update. Seasonal and saved-game continuity still require final validation. Existing Healroot and medicine supply remain; medicinal species and remedies belong to a separate future medicine Mod.
+New games are recommended for changes to world generation; existing worlds are not regenerated by updating. Existing Healroot and medicine supply remain. Medicinal treatments belong outside Environment.
 
 ## Research and detailed design
 
