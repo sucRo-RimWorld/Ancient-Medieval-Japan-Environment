@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
   <!--
-    MO is the standard AMJ coexistence target. Keep Dark Forest as an MO-owned
-    biome and only align its ordinary natural-soil ladder with Environment.
-    MayRequire is placed on a child operation inside a sequence so the patch
-    is skipped cleanly when Medieval Overhaul is not active.
+    MO is an optional compatibility target, not a source of mandatory
+    Japanese biomes. Dark Forest is excluded from NEW world generation
+    while its BiomeDef and terrain contract remain intact for old worlds,
+    saves and references. The remaining soil patch is legacy-compatible.
+    Each child operation is conditional on MO being installed.
   -->
   <Operation Class="PatchOperationSequence">
     <operations>
+      <!-- A defined biome may still be referenced by saved worlds/other Mods:
+           suppress natural selection, do not delete or rename the MO Def.
+           The upstream 1.6 MO XML omits this property (default true).
+           Conditional replacement also handles future upstream values. -->
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]/generatesNaturally</xpath>
+        <match Class="PatchOperationReplace">
+          <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]/generatesNaturally</xpath>
+          <value>
+            <generatesNaturally>false</generatesNaturally>
+          </value>
+        </match>
+        <nomatch Class="PatchOperationAdd">
+          <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]</xpath>
+          <value>
+            <generatesNaturally>false</generatesNaturally>
+          </value>
+        </nomatch>
+      </li>
       <li Class="PatchOperationReplace" MayRequire="DankPyon.Medieval.Overhaul">
         <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]/terrainsByFertility</xpath>
         <value>
