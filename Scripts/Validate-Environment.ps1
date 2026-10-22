@@ -673,6 +673,27 @@ foreach ($expected in @(
 }
 Pass "MO Dark Forest natural world exclusion and legacy soil compatibility are present"
 
+# MO adds fantasy/non-Japanese large animals into selected Vanilla biome pools.
+# Verify both the optional load-order edge and the exact wildlife records removed
+# by Environment's conditional compatibility patch.
+foreach ($required in @(
+    'DankPyon_Direwolf',
+    'DankPyon_DireBoar',
+    'DankPyon_NorthernBoar',
+    'DankPyon_Rox',
+    'PatchOperationRemove'
+)) {
+    if (-not $moTerrainPatch.Contains($required)) {
+        Fail "MO fauna exclusion patch is missing: $required"
+    }
+}
+$aboutXmlPath = Join-Path $RepoRoot 'About\About.xml'
+$aboutXmlRaw = Get-Content -LiteralPath $aboutXmlPath -Raw
+if (-not $aboutXmlRaw.Contains('<li>DankPyon.Medieval.Overhaul</li>')) {
+    Fail "Optional MO loadAfter is required for the AMJE fauna exclusion to run after MO adds animals."
+}
+Pass "MO fauna exclusion and optional upstream patch ordering are present"
+
 $mapTerrainDiagnosticsPath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\MapTerrainDiagnostics.cs"
 if (-not (Test-Path $mapTerrainDiagnosticsPath)) {
     Fail "MapTerrainDiagnostics.cs was not found."

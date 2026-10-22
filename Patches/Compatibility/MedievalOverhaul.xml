@@ -56,6 +56,20 @@
         </value>
       </li>
       <!--
+        Optional MO's four non-Japanese wildlife additions in the non-AMJ
+        Vanilla natural biome pools are removed, including ColdBog retained
+        by AMJE. This targets only MO-added records, never PawnKindDefs:
+        current saves and other MO recipes remain reference-safe. loadAfter
+        on MO ensures our patch runs after Add_Animals_To_Biomes.xml.
+        Don't remove vanilla WildBoar: it is the accepted Japanese proxy.
+      -->
+      <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
+        <xpath>/Defs/BiomeDef[defName="TemperateForest" or defName="BorealForest" or defName="Tundra" or defName="ColdBog" or defName="IceSheet" or defName="SeaIce"]/wildAnimals/*[self::DankPyon_DireBoar or self::DankPyon_NorthernBoar or self::DankPyon_Rox or self::DankPyon_Direwolf]</xpath>
+        <match Class="PatchOperationRemove">
+          <xpath>/Defs/BiomeDef[defName="TemperateForest" or defName="BorealForest" or defName="Tundra" or defName="ColdBog" or defName="IceSheet" or defName="SeaIce"]/wildAnimals/*[self::DankPyon_DireBoar or self::DankPyon_NorthernBoar or self::DankPyon_Rox or self::DankPyon_Direwolf]</xpath>
+        </match>
+      </li>
+      <!--
         MO adds four herbal wild plants to Vanilla TemperateForest (0.05),
         BorealForest (0.16), and Tundra (0.05). AMJE's four distinct
         climate-band BiomeDefs replace most of those tiles, not their XML

@@ -3870,6 +3870,38 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         (!mo || (darkForest != null && darkForest.implemented &&
                                  !darkForest.generatesNaturally));
                 });
+            result.Assert("MO large-animal additions excluded from retained wetlands",
+                delegate
+                {
+                    if (ModLister.GetActiveModWithIdentifier(
+                        "DankPyon.Medieval.Overhaul", true) == null)
+                    {
+                        return true;
+                    }
+                    string[] excluded =
+                    {
+                        "DankPyon_DireBoar", "DankPyon_NorthernBoar",
+                        "DankPyon_Rox", "DankPyon_Direwolf"
+                    };
+                    foreach (string biomeName in new[] { "TemperateSwamp", "ColdBog" })
+                    {
+                        BiomeDef wetland = DefDatabase<BiomeDef>.GetNamedSilentFail(biomeName);
+                        if (wetland == null)
+                        {
+                            return false;
+                        }
+                        foreach (string animalName in excluded)
+                        {
+                            PawnKindDef animal =
+                                DefDatabase<PawnKindDef>.GetNamedSilentFail(animalName);
+                            if (animal != null && wetland.CommonalityOfAnimal(animal) > 0f)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    return true;
+                });
 
             return result;
         }
