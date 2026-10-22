@@ -67,6 +67,7 @@ namespace AncientMedievalJapan.Environment
             float sumRainfall = 0f;
 
             Dictionary<string, int> biomeCounts = new Dictionary<string, int>();
+            Dictionary<string, List<float>> biomeRain = new Dictionary<string, List<float>>();
             List<PlanetTile> neighbors = new List<PlanetTile>();
 
             for (int i = 0; i < layer.TilesCount; i++)
@@ -115,6 +116,13 @@ namespace AncientMedievalJapan.Environment
                 int biomeCount;
                 biomeCounts.TryGetValue(biomeName, out biomeCount);
                 biomeCounts[biomeName] = biomeCount + 1;
+                List<float> biomeValues;
+                if (!biomeRain.TryGetValue(biomeName, out biomeValues))
+                {
+                    biomeValues = new List<float>();
+                    biomeRain[biomeName] = biomeValues;
+                }
+                biomeValues.Add(tile.rainfall);
 
                 if (tile.temperature < minTemperature) minTemperature = tile.temperature;
                 if (tile.temperature > maxTemperature) maxTemperature = tile.temperature;
@@ -214,6 +222,26 @@ namespace AncientMedievalJapan.Environment
                 ".." + maxRainfall.ToString("F0") +
                 " avg=" + averageRainfall.ToString("F0") +
                 " | " + biomeBreakdown);
+
+            List<string> rainBiomes = new List<string>(biomeRain.Keys);
+            rainBiomes.Sort(System.StringComparer.Ordinal);
+            foreach (string biome in rainBiomes)
+            {
+                List<float> values = biomeRain[biome];
+                values.Sort();
+                int n = values.Count;
+                double sum = 0;
+                for (int i = 0; i < n; i++) sum += values[i];
+                float median = values[(n - 1) / 2];
+                float p90 = values[(int)System.Math.Ceiling(n * 0.9) - 1];
+                Log.Message("[AMJ Environment] Biome rainfall distribution" +
+                    " | biome=" + biome + " count=" + n +
+                    " min=" + values[0].ToString("F1") +
+                    " median=" + median.ToString("F1") +
+                    " p90=" + p90.ToString("F1") +
+                    " max=" + values[n - 1].ToString("F1") +
+                    " mean=" + (sum / n).ToString("F1"));
+            }
 
             Log.Message(
                 "[AMJ Environment] Japan vegetation-band preview" +
