@@ -3860,11 +3860,15 @@ namespace AncientMedievalJapan.Environment.Quicktests
                             def.Worker.CanPlaceOnLayer(def, Find.WorldGrid.Surface);
                     });
             }
-            result.Assert("MO Dark Forest coexists when MO is loaded",
+            result.Assert("MO Dark Forest is not generated naturally",
                 delegate
                 {
-                    return ModLister.GetActiveModWithIdentifier("DankPyon.Medieval.Overhaul", true) == null ||
-                        CountBiome("DankPyon_DarkForest") > 0;
+                    BiomeDef darkForest = DefDatabase<BiomeDef>.GetNamedSilentFail("DankPyon_DarkForest");
+                    bool mo = ModLister.GetActiveModWithIdentifier("DankPyon.Medieval.Overhaul", true) != null;
+                    return surfaceTiles > 0 &&
+                        CountBiome("DankPyon_DarkForest") == 0 &&
+                        (!mo || (darkForest != null && darkForest.implemented &&
+                                 !darkForest.generatesNaturally));
                 });
 
             return result;

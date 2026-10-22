@@ -67,7 +67,7 @@ AMJ Core remains responsible for the minimum Terrain/Defs required for its agric
 
 Environment remains technically standalone: AMJ Core, CCTO and Medieval Overhaul are not hard dependencies.
 
-However, the **normal AMJ play configuration is expected to coexist with Medieval Overhaul (MO)**. MO compatibility is therefore a first-class design requirement rather than an incidental third-party compatibility case. Environment must not unnecessarily suppress, replace or invalidate MO-owned biomes, plants, terrain or other environmental content when both mods are active.
+**2026-10-23 author correction:** AMJ is independent and MO is an **optional compatibility target**, not the content or design authority. An MO-owned biome/plant has no automatic right to remain in an ancient-to-medieval Japan world. Select content for Japanese period/ecological fit and gameplay need, then provide targeted MO integration without preserving unsuitable content. Specifically **MO `DankPyon_DarkForest` is excluded from natural generation**, while retaining the Def for references and preexisting saves. The earlier generic MO biome-retention policy is superseded.
 
 **Harmony is the sole current technical dependency.** It is used for the post-Vanilla terrain transformation and for temperature-runtime hooks that RimWorld 1.6 does not expose cleanly through Def/XML.
 
@@ -357,7 +357,7 @@ Such a feature may combine map generation, rock walls, water terrain, visual eff
 
 ## 7. Compatibility principles
 
-- **Medieval Overhaul (MO): standard AMJ coexistence target.** Environment does not require MO to load, but normal AMJ usage assumes both are present. MO-owned environmental content, including specialized natural biomes such as Dark Forest, should remain available where compatible with Environment climate/worldgen. Conflicts should be solved by targeted compatibility rules rather than by making AMJ biomes globally authoritative.
+- **Medieval Overhaul (MO): optional integration only.** Environment does not require MO, and AMJ is not obligated to retain MO-owned content. Suitable MO mechanics and natural plants can be integrated only on their merits; historical/ecological inconsistency takes precedence over keeping MO data untouched. **`DankPyon_DarkForest` is excluded from new normal-world biome generation** by conditional XML, keeping its Def and its existing saved-world references intact. AMJ-owned biomes remain the Japanese natural-world baseline.
 - AMJ Core: optional technical integration. Environment conditions may influence the context in which AMJ crops are chosen, but crop balance remains owned by Core.
 - CCTO: optional technical integration. CCTO remains responsible for crop cold-death semantics. Environment does not duplicate or override those crop thresholds; it uses the published CCTO/AMJ values as climate-calibration reference points.
 - ReGrowth 2: implementation/reference target, not a dependency.
@@ -855,21 +855,19 @@ Accepted Alpha thresholds:
 
 These are generation-noise thresholds, not terrain fertility values. They intentionally make lower-quality soil more common as the climate/elevation band becomes harsher.
 
-### 10.5 Medieval Overhaul coexistence
+### 10.5 MO compatibility without retaining unsuitable natural biomes (2026-10-23 revision)
 
-Because MO is the standard AMJ coexistence target, `DankPyon_DarkForest` receives a targeted compatibility patch to use the same natural-soil ladder while remaining entirely MO-owned in biome identity, plants, animals, weather and special content.
+`DankPyon_DarkForest` does **not** represent a required ancient-to-medieval Japanese ecosystem. MO 1.6.2.2's actual biome declares distinct fantasy trees/creatures, dark-forest special terrain and its own worker. Its mere presence in MO does not justify retaining it in AMJ's natural world.
 
-Dark Forest initial thresholds:
-- Thin Soil <0.40;
-- Gravel 0.40-0.60;
-- Soil 0.60-0.90;
-- Rich Soil >=0.90.
-
-This compatibility patch does **not** replace the MO biome or its terrain patch makers.
+- **New world:** `Patches/Compatibility/MedievalOverhaul.xml` conditionally sets `generatesNaturally=false` on `DankPyon_DarkForest`. This is the RimWorld 1.6 `WorldGenStep_Terrain` natural-biome selection gate. Expected result: **zero natural Dark Forest tiles**, even when MO is active. The four AMJ climate bands and accepted Vanilla wetlands remain the target distribution; no replacement biome is added here.
+- **Old world/compatibility:** Keep the upstream `BiomeDef` (do not `PatchOperationRemove` it), its worker, animals, map terrain makers and existing legacy soil-ladder patch for already generated worlds, old saves and other MO references. These are compatibility protections, not approval to generate or advertise Dark Forest in AMJ.
+- **Implementation boundary:** This suppresses new natural world selection only. It does **not** erase already saved Dark Forest tiles, prohibit a third-party forced biome, globally delete MO fantasy species, or certify every MO-owned creature/incident/merchant as suitable. Those must be audited at their own spawn/recipe/generation paths rather than misrepresenting this biome flag as global exclusion.
+- **Legacy terrain profile (kept only for existing/forced Dark Forest maps):** Thin Soil <0.40; Gravel 0.40–0.60; Soil 0.60–0.90; Rich Soil >=0.90. No fertility values changed.
+- **Test contract:** The existing natural-world MO Quickstart now requires Dark Forest count **0**, and (with MO present) the Def remains `implemented=true`, `generatesNaturally=false`. The previously required `DarkForest>0` assertion was wrong for the new period-fit policy and is superseded. Real 1.6/1.7 natural-world acceptance for this new patch remains **unverified** until a consolidated targeted run.
 
 ### 10.6 Runtime validation
 
-During Alpha, fresh maps in the four AMJ biomes and MO Dark Forest log:
+During Alpha, fresh maps in the four AMJ biomes log:
 
 `[AMJ Environment] Map terrain summary`
 
@@ -880,7 +878,7 @@ Acceptance intent:
 - Thin Soil is visible but not dominant in ordinary lowland forest;
 - Subalpine shows a clear shift toward Thin Soil + Gravel;
 - Alpine is dominated by poor/stony ground but still has limited growable patches;
-- MO Dark Forest continues to generate correctly with its own special terrain patches;
+- when MO is loaded, `DankPyon_DarkForest` contributes zero newly generated natural-world tiles while remaining a valid referenced Def;
 - thresholds are tuned from map-generation results, not by changing terrain fertility values to force a desired percentage.
 
 Fixed-biome Alpha validation results:
@@ -891,14 +889,14 @@ Fixed-biome Alpha validation results:
 | Cool-temperate | 16.3% | 37.8% | 29.8% | 4.1% | 12.0% |
 | Subalpine | 16.9% | 16.5% | 4.8% | 0.8% | 61.0% |
 | Alpine | 61.6% | 24.4% | 2.6% | 0.0% | 11.4% |
-| MO Dark Forest | 8.9% | 14.0% | 6.4% | 18.1% | 52.6% |
+| MO Dark Forest *(legacy forced-map sample; no longer natural)* | 8.9% | 14.0% | 6.4% | 18.1% | 52.6% |
 
 Interpretation:
 - among the four fertility-ladder terrains only, Subalpine is approximately **43.3% Thin / 42.3% Gravel / 12.4% Soil / 2.0% Rich**;
 - among the four fertility-ladder terrains only, Alpine is approximately **69.6% Thin / 27.5% Gravel / 3.0% Soil / 0% Rich**;
 - Subalpine's large Other share is overwhelmingly natural rough rock: `Limestone_Rough` 34.2% of all cells and `Slate_Rough` 26.1%, together accounting for about 99% of its Other category;
 - Alpine's Other share is likewise mostly rough rock/natural wall terrain, not unexpected fertile ground;
-- MO Dark Forest intentionally retains its own terrain patch makers. Its large `MossyTerrain`, `SoilRich`, rough-rock, mud and shallow-water shares therefore preserve MO biome identity rather than indicate a failed Environment threshold patch.
+- The historical MO Dark Forest forced-map result only checks compatibility for an already selected/forced biome. It is **not** an argument for retaining Dark Forest as a naturally selected Japanese biome.
 
 Result: the Alpha natural-soil thresholds above are accepted without numerical retuning. Further changes require a concrete gameplay or compatibility finding rather than preference from a single terrain percentage.
 
