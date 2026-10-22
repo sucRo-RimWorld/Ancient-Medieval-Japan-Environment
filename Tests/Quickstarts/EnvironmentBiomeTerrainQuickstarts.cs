@@ -4819,9 +4819,9 @@ namespace AncientMedievalJapan.Environment.Quicktests
             var longLat = Find.WorldGrid.LongLatOf(map.Tile);
             int initial = Find.TickManager.TicksGame;
             int originalDay = GenDate.DayOfYear(Find.TickManager.TicksAbs, longLat.x);
-            int[] days = { 12, 18, 26, 33, 45 };
-            float[] rainFactors = { 1f, 1.65f, 1f, 1.40f, 1f };
-            float[] clearFactors = { 1f, 0.75f, 1f, 0.85f, 1f };
+            int[] days = { 15, 16, 22, 23, 29, 30, 38, 39, 44, 45 };
+            float[] rainFactors = { 1f, 1.65f, 1.65f, 1f, 1f, 1.40f, 1.40f, 1f, 1f, 1f };
+            float[] clearFactors = { 1f, 0.75f, 0.75f, 1.25f, 1.25f, 0.85f, 0.85f, 1.25f, 1.25f, 1f };
             bool exactWeights = patched;
             try
             {
