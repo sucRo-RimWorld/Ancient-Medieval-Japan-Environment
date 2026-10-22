@@ -4,6 +4,7 @@
 0.3.0 (planned, not yet published) - Seasonal rainy weather and gameplay daylight
 - Add provisional seasonal weather-selection adjustments for Tsuyu (early-summer rains) and Akisame (autumn rains) in AMJ's supported Japanese biomes. These increase the chance of rain, but do not guarantee rain or alter annual world-map rainfall.
 - Make clear weather modestly more likely after Tsuyu (midsummer) and Akisame (autumn clear spells), without guaranteeing sun or changing winter regional patterns.
+- Calibrate the Tsuyu window to seven 60-day-calendar days using JMA Kanto-Koshin normal dates and keep the autumn clear bonus inside autumn (not winter). Autumn rainy-season window remains provisional.
 - Reduce gameplay daylight during rain, thunderstorms and fog, affecting light-dependent plant growth and solar power through the existing game systems. Weather visuals retain their normal behavior.
 - Seasonal rain and daylight parameters are provisional. Real-game observation is complete for one natural Japan-like climate site, but the final balance and compatibility with other weather mods remain unverified.
 - These changes require a separately rebuilt and released production DLL; documentation alone does not update the published Mod.
@@ -11,6 +12,7 @@
 日本語
 - AMJの対象バイオームで、梅雨と秋雨の時期に雨が降りやすくなる季節補正を追加。降雨を強制するものではなく、ワールドの年間降水量も変更しない。
 - 梅雨明けの盛夏と秋雨後の秋晴れに、晴天がやや発生しやすくなる補正を追加。晴天の強制や冬の地域差の一律補正は行わない。
+- 梅雨期間を気象庁の関東甲信地方の平年値に基づく60日暦の7日間へ調整し、秋晴れの補正が冬にかからないよう修正。秋雨期間は暫定維持。
 - 雨・雷雨・霧の際にゲーム上の日照量が低下するよう調整。既存の光量判定を通じて植物の生育と太陽光発電に影響する。天候の見た目は従来の処理を維持。
 - 降雨頻度と日照補正の数値は暫定値。日本に近い自然生成環境で1回の実機観測を行ったが、最終バランスおよび他の天候Modとの互換性は未確定。
 - 公開済み0.2.0には未収録。反映には製品DLLの再ビルドと別途公開作業が必要。
