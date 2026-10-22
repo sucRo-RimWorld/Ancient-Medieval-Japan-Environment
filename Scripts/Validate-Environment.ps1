@@ -663,13 +663,15 @@ foreach ($expected in @(
     'AMJ_ThinSoil',
     '<max>0.40</max>',
     '<max>0.60</max>',
-    '<max>0.90</max>'
+    '<max>0.90</max>',
+    'PatchOperationConditional',
+    '<generatesNaturally>false</generatesNaturally>'
 )) {
     if (-not $moTerrainPatch.Contains($expected)) {
         Fail "MO natural-soil compatibility patch is missing expected marker: $expected"
     }
 }
-Pass "MO Dark Forest natural-soil compatibility is present"
+Pass "MO Dark Forest natural world exclusion and legacy soil compatibility are present"
 
 $mapTerrainDiagnosticsPath = Join-Path $RepoRoot "Source\AncientMedievalJapanEnvironment\MapTerrainDiagnostics.cs"
 if (-not (Test-Path $mapTerrainDiagnosticsPath)) {
