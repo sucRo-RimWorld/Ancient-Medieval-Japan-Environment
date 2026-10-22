@@ -1,7 +1,7 @@
 # Changelog for Ancient & Medieval Japan - Environment
 # Current version notes are submitted through Add Changenote when the author uploads the sealed release root using YADA.
 
-Unreleased - Seasonal rainy weather and gameplay daylight (not included in the published 0.2.0 package)
+0.3.0 (planned, not yet published) - Seasonal rainy weather and gameplay daylight
 - Add provisional seasonal weather-selection adjustments for Tsuyu (early-summer rains) and Akisame (autumn rains) in AMJ's supported Japanese biomes. These increase the chance of rain, but do not guarantee rain or alter annual world-map rainfall.
 - Reduce gameplay daylight during rain, thunderstorms and fog, affecting light-dependent plant growth and solar power through the existing game systems. Weather visuals retain their normal behavior.
 - Seasonal rain and daylight parameters are provisional. Real-game observation is complete for one natural Japan-like climate site, but the final balance and compatibility with other weather mods remain unverified.
