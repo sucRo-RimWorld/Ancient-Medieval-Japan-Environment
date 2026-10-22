@@ -9,12 +9,14 @@ namespace AncientMedievalJapan.Environment
     /// sunlight. Attenuating each weather worker's glow before Vanilla blends
     /// weather transitions lets plants and solar panels receive the same light
     /// change, without separate crop penalties or visual/cloud replacements.
-    /// Provisional factors; calibrate against weather/plant gameplay.
+    /// Rain/FoggyRain x0.90 is an accepted gameplay-balance compromise to
+    /// avoid disproportionate crop light loss; storm/fog remain provisional.
+    /// These are not measured historical irradiation coefficients.
     /// </summary>
     [HarmonyPatch(typeof(WeatherWorker), "CurSkyTarget")]
     public static class RainWeatherDaylightPatch
     {
-        internal const float RainGlowFactor = 0.80f;
+        internal const float RainGlowFactor = 0.90f;
         internal const float ThunderstormGlowFactor = 0.70f;
         internal const float FogGlowFactor = 0.90f;
 

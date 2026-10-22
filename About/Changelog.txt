@@ -6,7 +6,8 @@
 - Make clear weather modestly more likely after Tsuyu (midsummer) and Akisame (autumn clear spells), without guaranteeing sun or changing winter regional patterns.
 - Calibrate the Tsuyu window to seven 60-day-calendar days using JMA Kanto-Koshin normal dates and keep the autumn clear bonus inside autumn (not winter). Autumn rainy-season window remains provisional.
 - Reduce gameplay daylight during rain, thunderstorms and fog, affecting light-dependent plant growth and solar power through the existing game systems. Weather visuals retain their normal behavior.
-- Seasonal rain and daylight parameters are provisional. Real-game observation is complete for one natural Japan-like climate site, but the final balance and compatibility with other weather mods remain unverified.
+- Balance ordinary Rain/FoggyRain sunlight at x0.90 (previous trial x0.80): a same-weather native comparison supports lower light-based crop difficulty without changing rainy-season frequency, storm/fog parameters or adding watering management. This is a gameplay compromise, not observed historical crop yields.
+- Ordinary-rain x0.90 is an adopted gameplay-balance setting; seasonal weather frequencies and thunder/fog attenuation remain provisional. One-site original-game weather/light sampling is complete, but annual crop yields and other weather-Mod compatibility remain unverified.
 - These changes require a separately rebuilt and released production DLL; documentation alone does not update the published Mod.
 
 日本語
@@ -14,7 +15,8 @@
 - 梅雨明けの盛夏と秋雨後の秋晴れに、晴天がやや発生しやすくなる補正を追加。晴天の強制や冬の地域差の一律補正は行わない。
 - 梅雨期間を気象庁の関東甲信地方の平年値に基づく60日暦の7日間へ調整し、秋晴れの補正が冬にかからないよう修正。秋雨期間は暫定維持。
 - 雨・雷雨・霧の際にゲーム上の日照量が低下するよう調整。既存の光量判定を通じて植物の生育と太陽光発電に影響する。天候の見た目は従来の処理を維持。
-- 降雨頻度と日照補正の数値は暫定値。日本に近い自然生成環境で1回の実機観測を行ったが、最終バランスおよび他の天候Modとの互換性は未確定。
+- 通常の雨・霧雨の日照倍率を×0.80から×0.90へ調整。同一の天候条件による実機比較を踏まえ、梅雨・秋雨の出現頻度や雷雨・霧の倍率を変更せず、作物への過度な日照ペナルティを緩和。水やり管理は追加しない。収穫量の年間比較は未検証。
+- 通常の雨の日照倍率×0.90はゲームバランス上の採用値。降雨頻度・雷雨・霧の倍率は引き続き暫定値。自然生成された日本に近い環境での実機観測は実施済みだが、年間収穫量と他の天候Modとの互換性は未検証。
 - 公開済み0.2.0には未収録。反映には製品DLLの再ビルドと別途公開作業が必要。
 
 0.2.0 - Add four wetland plants to natural Japan-oriented biomes

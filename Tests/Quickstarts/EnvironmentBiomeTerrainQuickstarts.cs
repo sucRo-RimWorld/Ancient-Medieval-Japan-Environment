@@ -4714,8 +4714,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     bool success = clearGlow >= 0.8f && clearGrowth > 0.01f &&
                         clearSolar > 0f && rainGlow < clearGlow &&
                         rainGrowth < clearGrowth && rainSolar < clearSolar &&
-                        Math.Abs(rainGlow / clearGlow - 0.8f) < 0.015f &&
-                        Math.Abs(rainSolar / clearSolar - 0.8f) < 0.015f;
+                        Math.Abs(rainGlow / clearGlow - 0.9f) < 0.015f &&
+                        Math.Abs(rainSolar / clearSolar - 0.9f) < 0.015f;
                     Log.Message("AMJE_RAIN_CONSUMERS native=True" +
                         " crop=" + crop.def.defName +
                         " minGlow=" + crop.def.plant.growMinGlow.ToString("F3") +
@@ -4773,10 +4773,10 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     checkedDaylight = true;
                     WeatherDef[] defs = { rain, rainFog, thunder, fog };
                     float[] expected = {
-                        0.80f,
-                        0.80f,
-                        0.70f,
-                        0.90f
+                        0.90f,  // Rain: adopted light-balance compromise
+                        0.90f,  // FoggyRain: same rain factor
+                        0.70f,  // RainyThunderstorm: unchanged
+                        0.90f   // Fog: unchanged
                     };
                     for (int i = 0; i < defs.Length; i++)
                     {
