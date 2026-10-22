@@ -144,3 +144,34 @@ Using 28 baseline, 9 Tsuyu, 6 midsummer, 9 Akisame, and 8 autumn-clear game-days
 Potato Def thresholds are `growMinGlow=0.510` and `growOptimalGlow=1.000`; the observed nonlinear loss matches Vanilla's interpolation over that interval. With x0.80 attenuation, an otherwise clear-sky glow **below 0.6375** corresponds to rain glow below the crop's 0.510 minimum: the light-dependent component may reach zero at dawn/dusk even though clear weather would allow some growth. The **0.6375 boundary is a threshold calculation**, not an observed duration or annual rainfall result. At the sampled clear glow 0.911, using that same threshold model, **hypothetical x0.90** implies potato light factor about 0.633 (roughly -22.7% vs clear), and **hypothetical x0.95** about 0.725 (roughly -11.3%). These scenarios are **not tested source values or accepted proposed replacements**.
 
 **Balance finding:** The weather-light penalty can be materially larger for crops than its nominal 20% sky-light reduction. Midsummer/autumn `Clear` weight x1.25 does not reverse the per-hour Rain penalty; it can only change how frequently already permitted clear weather is selected. Existing native 1.6/1.7 0.3.0 build/load PASS does not measure actual 60-day crop yield, day-integrated potato growth, grid-delivered solar energy, the frequency/duration shift from the new clear windows, or any weather-Mod co-load. Thus **the annual agriculture difficulty is still quantitatively unaccepted**, and it is unsound to label sunshine bonus x1.25 an offsetting compensation. Preserve all gameplay numbers pending the separately scoped, independent same-site cumulative crop/light/daylight comparison rather than launching a duplicate single-time Rain test.
+
+ 
+## 0.3.0 sunlight attenuation alternatives: annual-exposure screening only (2026-10-22)
+
+**Question:** Would reducing the `Rain`/`FoggyRain` gameplay sunlight loss from x0.80 to x0.90 or x0.95 reduce the potentially disproportionate plant-growth difficulty? All numeric alternatives here are **candidate sensitivity checks, not accepted settings**; shipped/source gameplay remains unchanged.
+
+**Independent inputs already observed in original RimWorld 1.6:**
+
+- Native live Clear/Rain consumer comparison, [run #39576155780](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39576155780), exact rain-light source unchanged in current 0.3: unroofed potato `growMinGlow=0.510`, `growOptimalGlow=1.000`; under the same daytime sky, observed Clear glow **0.911**, `GrowthRateFactor_Light=0.818`, solar desired **1548.5W**; Rain x0.80 glow **0.729**, light-growth **0.446**, solar desired **1238.8W**. This native sample confirms nonlinear potato sensitivity, not a harvest result.
+- Event-duration-stepped one-seed **naturally selected** warm-temperate site at latitude **36.66N**, [run #39596824609](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39596824609), **44 real engine weather events**, produced 89.8h wet in Tsuyu + 43.1h wet in Akisame + 342.8h wet outside (total **475.7** of approximately **1439.9** sampled weather-hours, **33.04%**). Weather event/calendar state advanced by event durations; **not full map time ticks**; 2h midpoint samples. Crucially, that sample was generated **before** 0.3.0 later added summer/autumn `Clear` x1.25 windows, so **do not treat 33.04% as a measured rain-time proportion under current 0.3**.
+
+At a fixed hypothetical unroofed clear-sky glow `G`, RimWorld's potato light response in the tested interval is `L(G)=clamp((G - 0.510)/(1.000 - 0.510),0,1)`. This matches the real Clear/Rain one-point sample within log rounding. Apply `G × rain_factor` for the alternative **rain event only**; solar desired-power ratio is approximately proportional to glow in the same native observation. The **fog/thunderstorm** weights and sky factors remain independent and unchanged.
+
+| Fixed hypothetical daytime Clear glow | Clear potato light factor | Rain x0.80 potato light factor | Rain x0.90 potato light factor | Rain x0.95 potato light factor |
+|---|---:|---:|---:|---:|
+| 0.600 (dim/edge) | 0.184 | 0.000 (-100%) | 0.061 (-66.7%) | 0.122 (-33.3%) |
+| 0.650 (shoulder) | 0.286 | 0.020 (-92.9%) | 0.153 (-46.4%) | 0.219 (-23.2%) |
+| 0.911 (observed one-point Clear) | 0.818 | **0.446 (-45.5%) native** | 0.632 (-22.7%) calculated | 0.725 (-11.4%) calculated |
+| 1.000 (bright) | 1.000 | 0.592 (-40.8%) | 0.796 (-20.4%) | 0.898 (-10.2%) |
+
+**Pure illustrative wet-hour annual model** (not actual weather/time-integrated plant growth): Hold daylight at clear glow **0.911** for every sample, treat **all 33.04%** measured `rainRate > 0.1` hours as plain Rain and all remaining hours as Clear, and assume sampled wet-hours occur in the same proportion during growth-relevant daylight. This artificial two-state model explicitly ignores the real event's fog/thunderstorm mix, season/latitude changing day length, dawn/dusk zero-growth, native sky blending, plant temperature/water/soil factors, actual crop progress, solar connection, 1.25 clear-window source change, and weather rerandomization from changing weights.
+
+| Rain glow multiplier only | Potato light-factor loss per rainy hour at G=0.911 | **Modeled** 60-day light-factor potential loss vs all-clear | **Modeled** 60-day solar-glow potential loss vs all-clear |
+|---|---:|---:|---:|
+| x0.80 current | -45.5% (native one-point) | approximately **-15.0%** | approximately **-6.6%** |
+| x0.90 candidate | -22.7% (calculated) | approximately **-7.5%** | approximately **-3.3%** |
+| x0.95 candidate | -11.4% (calculated) | approximately **-3.8%** | approximately **-1.7%** |
+
+These are **not bounds or forecasts of actual crop yield or solar power**. For example, the 0.600 dim-state row demonstrates that a fixed midday proxy can substantially underrepresent the rain penalty near the `growMinGlow` cutoff; weather that falls at night makes no crop-growth difference. The old event weather path and new clear-season probability changes cannot be combined into a genuine 0.3 annual result by algebra alone.
+
+**Decision gate:** x0.90 is a **reasonable provisional candidate for later game comparison**, because it halves the measured-state loss while preserving an actual rain-light penalty; x0.95 further weakens the penalty. Neither is independently balanced or adopted. **Do not change product glow factors, assert a 60-day crop-yield PASS, or publish a release from this derived model.** The only justified new acceptance would compare gameplay-relevant daytime/light-factor exposure and production at the **same supported warm-site setup** against a baseline and the candidate across the seasonal windows; if such a fixture is unavailable, retain current source values as provisional and record the limitation instead of repeatedly constructing new testing infrastructure.
