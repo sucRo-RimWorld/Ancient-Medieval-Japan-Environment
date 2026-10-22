@@ -1,6 +1,18 @@
 # Changelog for Ancient & Medieval Japan - Environment
 # Current version notes are submitted through Add Changenote when the author uploads the sealed release root using YADA.
 
+Unreleased - Seasonal rainy weather and gameplay daylight (not included in the published 0.2.0 package)
+- Add provisional seasonal weather-selection adjustments for Tsuyu (early-summer rains) and Akisame (autumn rains) in AMJ's supported Japanese biomes. These increase the chance of rain, but do not guarantee rain or alter annual world-map rainfall.
+- Reduce gameplay daylight during rain, thunderstorms and fog, affecting light-dependent plant growth and solar power through the existing game systems. Weather visuals retain their normal behavior.
+- Seasonal rain and daylight parameters are provisional. Real-game observation is complete for one natural Japan-like climate site, but the final balance and compatibility with other weather mods remain unverified.
+- These changes require a separately rebuilt and released production DLL; documentation alone does not update the published Mod.
+
+日本語
+- AMJの対象バイオームで、梅雨と秋雨の時期に雨が降りやすくなる季節補正を追加。降雨を強制するものではなく、ワールドの年間降水量も変更しない。
+- 雨・雷雨・霧の際にゲーム上の日照量が低下するよう調整。既存の光量判定を通じて植物の生育と太陽光発電に影響する。天候の見た目は従来の処理を維持。
+- 降雨頻度と日照補正の数値は暫定値。日本に近い自然生成環境で1回の実機観測を行ったが、最終バランスおよび他の天候Modとの互換性は未確定。
+- 公開済み0.2.0には未収録。反映には製品DLLの再ビルドと別途公開作業が必要。
+
 0.2.0 - Add four wetland plants to natural Japan-oriented biomes
 - Add native reed (Ashi/Yoshi), sedges (Suge) and Japanese alder (Hannoki) to temperate swamps and cool bogs, and sphagnum moss (Mizugoke) to cool bogs.
 - Reed and sedges yield base Hay 2 and 1; alder yields base wood 24; sphagnum produces no harvest item.
