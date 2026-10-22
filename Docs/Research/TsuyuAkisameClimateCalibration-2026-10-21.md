@@ -110,3 +110,21 @@ Real `WeatherDecider` event starts and native weather duration were used, with t
 ## Recommended resolution
 
 **HOLD the provisional per-rain 0.80/0.70/0.90 and seasonal 1.65/1.40/1.15 numbers as provisional, NOT approved final.** They are known to function as implemented; evidence is insufficient to choose a scientifically more realistic alternative number or spell controller. The next implementation slice should produce the missing elapsed-time temporal weather/daylight sample **as a disposable native observation**, after which prefer adjusting the existing source multipliers/short window edges, not inventing rain-front global game conditions, humidity state, or forced infinite rain. Keep the installed subscriber DLL/Steam Workshop unchanged until separately authorized.
+
+## 0.3.0 midsummer/autumn clear-window first-order balance audit (2026-10-22)
+
+This is an **analytical screening calculation**, not a real-game elapsed-time or crop-yield test. Input weights are from the current `AMJ_WarmTemperateForest` `baseWeatherCommonalities` XML (Clear16, Fog1.5, Rain3, DryThunderstorm0.1, RainyThunderstorm1.5, FoggyRain1.5, SnowGentle2, SnowHard1) and the current `SeasonalRainWeatherPatch`. Assume for this calculation *all* candidates remain permitted and ignore the rain-after-wet 1.15 persistence factor, native seasonal/temperature restrictions, non-repeatable weather, duration, transition blending, map longitude, and other mods.
+
+| Selection window | Calendar days | Nominal candidate sum | Clear weight | Clear share of eligible selection weights |
+|---|---:|---:|---:|---:|
+| Baseline | 28 | 26.600 | 16.0 | 60.15% |
+| Tsuyu | 9 | 25.870 | 12.0 | 46.39% |
+| Midsummer | 6 | 30.600 | 20.0 | 65.36% |
+| Akisame | 9 | 26.405 | 13.6 | 51.51% |
+| Autumn clear | 8 | 30.600 | 20.0 | 65.36% |
+
+Using 28 baseline, 9 Tsuyu, 6 midsummer, 9 Akisame, and 8 autumn-clear game-days: arithmetic day-weighted **Clear selection-weight share** ≈ **58.00%**, versus 60.15% for unchanged base weights. This is only a simplified **-2.15 percentage point** comparison in potential weather-selection probabilities, **not** a measured 2.15-point change in annual sunshine hours, sky irradiance, weather-hours or agricultural yield. Some Vanilla weather commonalities are season/temperature-restricted; the cumulative wet-state bonus and variable weather durations mean real event shares may materially differ.
+
+**Difficulty inference:** Rain/FoggyRain glow factors of x0.80 and thunderstorms x0.70 are applied on **all rainy days year-round**, independent of the seasonal selection windows. Making ordinary-period skies slightly clearer is not guaranteed to offset this added penalty relative to pre-0.3 game light behavior. The current x1.25 clear-season weight cannot be interpreted as annual-yield-neutral; no numeric crop/solar recovery has been demonstrated. Avoid adjusting x1.25 or rain glow solely to hit this simple weight-share model. Preserve gameplay factors as provisional and require an actual map light/plant or solar exposure comparison for a quantitative player-difficulty claim. Existing original 1.6/1.7 PASS tests are only compilation/load/limited native weather engine evidence, not whole-season growth acceptance.
+
+**Disposition:** No source or release version parameter change from this screening audit. A single consolidated actual-game comparison should measure light exposure through the selected climate windows (ideally baseline game versus AMJE on a comparable playable map), and separately confirm meaningful effect on plant light factor and solar power before characterizing 0.3 as balanced.
