@@ -668,6 +668,8 @@ First runtime distribution with Medieval Overhaul active:
 
 MO Dark Forest coexistence remains valid: its own score rules may replace part of the suitable AMJ cool/subalpine climate space. Exact AMJ percentages are mod-list dependent and are not balance targets. The residual Vanilla tropical/temperate biomes were incorrectly accepted and do **not** satisfy the corrected contract; this historical distribution is not evidence for the repaired source.
 
+**2026-10-23 作者指示 — MO薬草4種は現状維持・監査保留：** `DankPyon_Plant_MindwortWild`／`DankPyon_Plant_PoppyWild`／`DankPyon_Plant_FleawortWild`／`DankPyon_Plant_FlyAgaricWild` はMO独自の薬品・加工レシピに使われるため、今回の歴史適合性選別・MO不要コンテンツ除外の対象に**含めない**。既存の植物Def、自然分布の割当、採集による素材供給、薬品・レシピ接続、AMJEの4植生帯への任意互換配置を**変更しない**。種別の採否・置換・全面削除の監査は当面開始せず、薬品体系を別途見直す必要が生じた時点で素材供給から完成薬品まで一体で検討する。新たなMO必須依存は設定しない。これは保留・現状維持の確定指示であり、4種の日本史適合性を個別承認した意味ではない。
+
 **2026-10-11 MO野生薬草の独自Biome互換修正：** MO 1.6.2.2の`Patches/Core/Add_Plants_To_Biomes.xml`は野生Mindwort／Poppy／Fleawort／FlyAgaricを`TemperateForest`（各0.05）、`BorealForest`（各0.16）、`Tundra`（各0.05）に追加する。AMJEの4植生帯がそれらVanillaの世界生成枠を置き換えると、MOの元Def・元Biome設定が残っていても実際に薬草が生えるマップの比率が低下する。このため、MOが有効な場合に限り、AMJE所有の`AMJ_WarmTemperateForest`／`AMJ_CoolTemperateForest`（各0.05）、`AMJ_SubalpineForest`（各0.16）、`AMJ_AlpineZone`（各0.05）の各`wildPlants`へ、MO側の4種を欠損分だけ追加する。MO所有の植物ThingDef、元Vanilla5Biome（森林3・湿地2）の値、MO所有DarkForestは変更しない。既に追加されている場合は重複させず上書きもしない。これは既存MOの生息場所をAMJE新Biomeへ継承する**任意互換**であり、AMJE単独の植物・薬草の追加機能ではない。XML/static、実ロード済みPickle、森林実マップQuickstartsで個別に検証し、新規実機結果を得るまではPASS扱いにしない。極寒・積雪の高山帯は実生数ゼロを直ちに配分欠落と判断せず、ロード済み出現設定と実生を区別して記録する。
 
 
