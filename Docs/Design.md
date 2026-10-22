@@ -243,6 +243,8 @@ Rainfall design must be tuned together with river flow because RimWorld 1.6 rive
 
 Detailed regional rainfall/monsoon/snow-country differences are a later detailed-design section and should not be hard-coded before generated-world sampling.
 
+**0.3.0 annual-rainfall source audit (2026-10-22):** [Rainfall distribution audit](Research/RainfallDistributionAudit-0.3.0.md) confirms the existing root-surface world-generation transform uniformly applies `clamp(800 + originalRainfall × 0.55, 800, 3000)` before biome selection; no biome-specific rainfall target is implemented. The four AMJ forest/altitude biome workers require `>=800mm`, which cannot distinguish land after this transform if input rainfall is nonnegative. Regional rain-side differentiation is WorldMap-owned. **Do not assert biome rainfall has been rebalanced in 0.3.0**: distribution and river comparison evidence remain missing, so retain numeric constants and document the gap instead of introducing new arbitrary biome rainfall values.
+
 ### 4.1 Provisional Tsuyu/Akisame seasonal weather selection (2026-10-21)
 
 **Ownership:** Environment's existing Japan-oriented root-surface biomes, including its four owned forests/altitude bands and the retained Vanilla `TemperateSwamp` / `ColdBog`. This is a first playable weather-frequency slice, not a final historical quantitative calibration or a new humidity statistic. Japan Sea/Pacific side or WorldMap projection corrections remain WorldMap future work. Non-AMJ biomes and non-root layers retain Vanilla/third-party weather.
