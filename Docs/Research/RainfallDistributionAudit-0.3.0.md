@@ -23,3 +23,22 @@
 Collect from the **existing original-game native world-generation log**, without a new game/test framework: per-biome count, land annual rainfall min/median/p90/max and distributions by latitude/height; aggregate wetland share and river density/flow measures, alongside the unchanged 0.2.0 baseline where available. Use the same world seed and planet coverage for before/after comparisons and exclude oceans. A single convenient Tokyo-like tile and event-stepped rain hours cannot substitute for this distribution check.
 
 **Audit status:** source-level audit complete; generated-world distributions by biome and comparative river evidence **not yet obtained**; production rainfall parameters **unchanged**, no gameplay acceptance claimed.
+
+## Original 1.6 generated-world evidence (2026-10-22)
+
+[Project native Actions #39762263750](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39762263750), [artifact #12418233930](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39762263750/artifacts/12418233930), Environment exact source `5dd9c8d2b16210aff188899a57079d26120cfcf1`, original RimWorld **1.6.4871 rev600**, Vanilla, `AMJWorldWetlandDistributionQuickstart`: **24/24 native assertions PASS, Unity ERROR0, exit0**, single generated world (119,904 surface tiles, 62,655 land). Values below are observed `tile.rainfall` after existing annual remap, **not native rainy-hour counts**, and do not establish a Japan-specific geographic placement.
+
+| Biome | Land tiles | Minimum mm | Median mm | p90 mm | Maximum mm | Mean mm |
+|---|---:|---:|---:|---:|---:|---:|
+| AMJ_WarmTemperateForest | 15,820 | 832.3 | 1846.5 | 2328.7 | 2837.0 | 1809.3 |
+| AMJ_CoolTemperateForest | 32,586 | 832.3 | 1176.8 | 1969.4 | 2826.2 | 1328.0 |
+| AMJ_SubalpineForest | 12,336 | 832.3 | 1005.7 | 1432.0 | 2450.2 | 1087.8 |
+| AMJ_AlpineZone | 1,010 | 846.5 | 1003.9 | 1346.5 | 1524.1 | 1046.2 |
+| TemperateSwamp | 903 | 1273.6 | 1825.1 | 2047.5 | 2170.4 | 1816.0 |
+
+Entire land min/max **832–2837mm**, average **1405mm**. Wetland output includes **TemperateSwamp 903 (1.4%)**, with no ColdBog tiles observed in this seed. River diagnostics: **5703 river-bearing land tiles (9.1%)**, **6031 river edges**, `Creek=3056`, `River=2975`; water-inclusive river tile count 6167. Tallies are produced on the **same exact generated world**, not a Vanilla baseline comparison. Existing warm forest share 25.2%, cool forest 52.0%, subalpine 19.7%, alpine 1.6%.
+
+**Interpretation:** The present transform yields substantially less rainfall in the higher/cooler biome classes for this seed. This is a valid distribution finding but **not proof the highland rainfall is historically wrong**: no regional elevation/site and no precipitation snow/rain partition analysis. High cool-forest share affects the aggregate climate. The earlier source-level concern about compression and a nonfunctional `>=800` threshold remains. No before/after river control or independent-seed variation is available; a numerical formula replacement is **not accepted from this dataset alone**.
+
+**0.3.0 disposition:** Baseline **measured**, weather frequency and rain/cloud gameplay-daylight unchanged; annual rainfall transform remains `clamp(800 + 0.55 × original, 800, 3000)`. Assess a targeted distribution change only together with source-matched river outcomes and generated-site relevance. No additional production modification, Steam publication, or reported multi-seed acceptance.
+
