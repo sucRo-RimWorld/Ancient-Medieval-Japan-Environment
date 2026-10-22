@@ -19,6 +19,8 @@
   <loadAfter>
     <li>brrainz.harmony</li>
     <li>sucro.cropcoldtoleranceoverhaul</li>
+    <!-- Optional MO co-load: apply Environment's selected Japanese ecology after MO adds fauna. -->
+    <li>DankPyon.Medieval.Overhaul</li>
     <li>rimworks.quickstarts</li>
   </loadAfter>
 
