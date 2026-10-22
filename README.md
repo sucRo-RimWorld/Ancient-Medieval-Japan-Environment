@@ -132,7 +132,7 @@ The published 0.2.0 version uses RimWorld's existing weather types and climate-d
 
 **Implemented in GitHub's 0.3.0 development source; not yet published to Workshop:**
 
-- **Tsuyu (early-summer rains):** on RimWorld calendar days 15–23, the chance weights of ordinary rain and foggy rain increase by a provisional **×1.65** in Environment's supported biomes.
+- **Tsuyu (early-summer rains):** on RimWorld calendar days 16–22 (seven days), the chance weights of ordinary rain and foggy rain increase by a provisional **×1.65** in Environment's supported biomes.
 - **Akisame (autumn rains):** on days 30–38, those rain weights increase by a provisional **×1.40**. Both periods also adjust thunderstorm, fog and clear-weather selection weights without forcing rainy weather.
 - **Reduced daylight during rainy/foggy weather:** gameplay sky glow is provisionally multiplied by **×0.80** for Rain/FoggyRain, **×0.70** for RainyThunderstorm and **×0.90** for Fog. Plant light-based growth and solar output are affected through RimWorld's existing light calculations; no direct crop growth penalty is added.
 
