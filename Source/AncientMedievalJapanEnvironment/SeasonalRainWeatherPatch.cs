@@ -14,12 +14,17 @@ namespace AncientMedievalJapan.Environment
     [HarmonyPatch(typeof(WeatherDecider), "CurrentWeatherCommonality")]
     public static class SeasonalRainWeatherPatch
     {
-        // 60-day RimWorld calendar: roughly June to mid-July and Sep to Oct.
+        // 60-day RimWorld calendar: rainy seasons, post-Tsuyu summer sun and autumn clear spells.
         // Not a claim about every Japanese region or medieval observations.
         internal const int TsuyuStart = 15;
         internal const int TsuyuEnd = 23;
         internal const int AkisameStart = 30;
         internal const int AkisameEnd = 38;
+        internal const int SummerClearStart = 24;
+        internal const int SummerClearEnd = 29;
+        internal const int AutumnClearStart = 39;
+        internal const int AutumnClearEnd = 46;
+        internal const float ClearSeasonFactor = 1.25f;
 
         public static void Postfix(Map ___map, WeatherDef weather, ref float __result)
         {
@@ -51,7 +56,10 @@ namespace AncientMedievalJapan.Environment
 
             bool tsuyu = day >= TsuyuStart && day <= TsuyuEnd;
             bool akisame = day >= AkisameStart && day <= AkisameEnd;
-            if (!tsuyu && !akisame)
+            bool clearSeason =
+                (day >= SummerClearStart && day <= SummerClearEnd) ||
+                (day >= AutumnClearStart && day <= AutumnClearEnd);
+            if (!tsuyu && !akisame && !clearSeason)
             {
                 return;
             }
@@ -60,6 +68,7 @@ namespace AncientMedievalJapan.Environment
             {
                 case "Rain":
                 case "FoggyRain":
+                    if (!tsuyu && !akisame) return;
                     __result *= tsuyu ? 1.65f : 1.40f;
                     // Encourage wet sequences but leave actual duration, 
                     // repeatable flags and all rain prohibitions to Vanilla.
@@ -71,13 +80,15 @@ namespace AncientMedievalJapan.Environment
                     }
                     break;
                 case "RainyThunderstorm":
+                    if (!tsuyu && !akisame) return;
                     __result *= tsuyu ? 1.08f : 1.12f;
                     break;
                 case "Fog":
+                    if (!tsuyu && !akisame) return;
                     __result *= 1.15f;
                     break;
                 case "Clear":
-                    __result *= tsuyu ? 0.75f : 0.85f;
+                    __result *= tsuyu ? 0.75f : akisame ? 0.85f : ClearSeasonFactor;
                     break;
             }
         }
