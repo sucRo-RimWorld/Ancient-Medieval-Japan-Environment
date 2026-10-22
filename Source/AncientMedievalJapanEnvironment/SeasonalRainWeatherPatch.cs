@@ -14,16 +14,17 @@ namespace AncientMedievalJapan.Environment
     [HarmonyPatch(typeof(WeatherDecider), "CurrentWeatherCommonality")]
     public static class SeasonalRainWeatherPatch
     {
-        // 60-day RimWorld calendar: rainy seasons, post-Tsuyu summer sun and autumn clear spells.
+        // 60-day year: ~7-day Tsuyu, autumn rains, post-rain summer/autumn sun.
+        // Keep autumn sunshine within Septober (day 44); winter has no generic bonus.
         // Not a claim about every Japanese region or medieval observations.
-        internal const int TsuyuStart = 15;
-        internal const int TsuyuEnd = 23;
+        internal const int TsuyuStart = 16;
+        internal const int TsuyuEnd = 22;
         internal const int AkisameStart = 30;
         internal const int AkisameEnd = 38;
-        internal const int SummerClearStart = 24;
+        internal const int SummerClearStart = 23;
         internal const int SummerClearEnd = 29;
         internal const int AutumnClearStart = 39;
-        internal const int AutumnClearEnd = 46;
+        internal const int AutumnClearEnd = 44;
         internal const float ClearSeasonFactor = 1.25f;
 
         public static void Postfix(Map ___map, WeatherDef weather, ref float __result)
