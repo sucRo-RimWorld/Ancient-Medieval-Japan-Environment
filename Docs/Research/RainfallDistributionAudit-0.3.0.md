@@ -42,3 +42,19 @@ Entire land min/max **832–2837mm**, average **1405mm**. Wetland output include
 
 **0.3.0 disposition:** Baseline **measured**, weather frequency and rain/cloud gameplay-daylight unchanged; annual rainfall transform remains `clamp(800 + 0.55 × original, 800, 3000)`. Assess a targeted distribution change only together with source-matched river outcomes and generated-site relevance. No additional production modification, Steam publication, or reported multi-seed acceptance.
 
+
+## Inverse-transform diagnosis from the same world (2026-10-22)
+
+The measured land minimum (832.3mm) and maximum (2837.0mm) are **strictly inside** the final clamp bounds (800,3000). Accordingly, on these sampled land tiles neither clamp bound is active; the pre-AMJ source values can be reconstructed exactly up to logged rounding by `original=(final-800)/0.55`. Because this is a positive affine transform, **rank ordering, median and nearest-rank p90 also transform identically**; it cannot itself create the warm/cool/highland rank separation. Note these inferred source rainfall numbers are engine input values, *not historical Japanese station observations*.
+
+| Biome | Approximate source rainfall median mm | Final observed median mm |
+|---|---:|---:|
+| AMJ_WarmTemperateForest | 1902.7 | 1846.5 |
+| AMJ_CoolTemperateForest | 685.1 | 1176.8 |
+| AMJ_SubalpineForest | 374.0 | 1005.7 |
+| AMJ_AlpineZone | 370.7 | 1003.9 |
+| TemperateSwamp | 1863.8 | 1825.1 |
+
+The remap **increases** the values of already dry source sites, whereas it modestly **reduces** the values of naturally rainy source sites (>1777.8mm). On this generated world the low-elevation versus highland rainfall ordering was already present in input climate; it is not evidence that the 800mm clamp alone created a dry-highland pattern. A simple global offset/slope adjustment would continue to preserve spatial ranks (where unclipped); it cannot by itself add windward mountain precipitation or distinguish Sea of Japan/Pacific sides.
+
+**0.3.0 scope decision:** Keep the current `800 + 0.55 × original` transform and the existing river generation unchanged. Evidence supports noting a model limitation, not approving a new arbitrary universal coefficient or biome-specific fixed rain. Geography-dependent orographic precipitation is a separate model change and requires world-projection/geographic inputs and same-seed river acceptance; it is **not silently part of 0.3.0**. If revisited, compare altitude/latitude/coast strata and precipitation representation including snow, with the WorldMap owner responsible for regional Japan-side mapping. No extra native run merely to recompute the invertible transform.
