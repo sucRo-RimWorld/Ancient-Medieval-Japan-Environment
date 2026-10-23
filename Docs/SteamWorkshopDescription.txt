@@ -5,13 +5,14 @@
 [h2]Features[/h2]
 [list]
 [*]Adjust temperature, rainfall, elevation and hilliness; reweight rain, fog, thunderstorms and snow by climate zone and wetland
+[*]In 0.3.0 development: make rain more likely in Tsuyu/Akisame and clear skies more likely afterward; reduce gameplay daylight in rain, storms and fog, affecting plant growth and solar power
 [*]Increase small and medium rivers while suppressing natural huge rivers; make coasts more irregular with bays, peninsulas and islands
 [*]Add four biomes: warm-temperate forest, cool-temperate forest, subalpine forest and alpine zone
 [*]Add Thin Soil (50% fertility) and support Growing Zones for suitable crops; higher elevations retain more stony/poor soil
 [*]Add four plants: Sudajii, Japanese beech, Shirabiso and Haimatsu; correct their cut-wood yields
 [*]Remove unsuitable plants, adjust vegetation and region-based tree sowing; Haimatsu cannot be sown
 [*]Keep TemperateSwamp and ColdBog, add reed, sedges and alder to both and sphagnum to the cool bog
-[*]Rebalance wildlife proxies and remove unsuitable wetland pack animals
+[*]Rebalance wildlife proxies and remove unsuitable wetland pack animals; 0.3.0 development also excludes four unsuitable MO large animals from six Vanilla biome pools
 [*]Reed and sedges yield Hay (base 2 and 1), alder yields 24 wood, and sphagnum yields no item
 [*]Adjust wetland disease types and intervals; exclude mechanites
 [*]Revise descriptions of both wetlands and six retained Vanilla trees with medieval-Japan information
@@ -25,7 +26,7 @@ RimWorld 1.6 / 1.7, Beta. English / Japanese.
 [b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul (CCTO)[/url]
 Plant-specific cold tolerance.
 [b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
-Specialized biomes coexist.
+In 0.3.0 development, MO Dark Forest remains defined for existing worlds but no longer generates naturally; four large MO animals are excluded from six Vanilla biome pools.
 Healroot remains; medicinal plants belong to a future separate Mod.
 
 [h2]Save compatibility[/h2]
@@ -47,13 +48,14 @@ Retexture Vanilla/MO trees（未実装）
 [h2]主な特徴[/h2]
 [list]
 [*]気温・降水量・標高・丘陵・山地の分布と、気候帯・湿地ごとの天候（雨・霧・雷雨・積雪）を調整
+[*]0.3.0開発版では梅雨・秋雨に雨が選ばれやすくなり、その後は晴天が選ばれやすくなる。雨・雷雨・霧の日照低下が植物生育と太陽光発電に影響
 [*]小～中規模の河川を増やし、巨大河川の自然発生を抑制。湾・半島・島が多い複雑な海岸線へ変更
 [*]暖温帯林・冷温帯林・亜高山帯林・高山帯の4バイオームを追加
 [*]痩せた土壌（肥沃度50%）を追加。対応作物の農業ゾーンも設置可能にし、高地ほど礫地・痩せた土が増えるよう調整
 [*]スダジイ・ブナ・シラビソ・ハイマツの4植物を追加し、伐採時の木材取得を調整
 [*]不適切な植生を除外し、植生分布と植林候補を調整。ハイマツは植林不可
 [*]温帯湿地・冷涼湿原にアシ・スゲ・ハンノキを追加し、冷涼湿原にはミズゴケを追加
-[*]野生動物の分布を調整し、湿地から不自然な荷役動物を除外
+[*]野生動物の分布を調整し、湿地から不自然な荷役動物を除外。0.3.0開発版ではMO大型動物4種をバニラ6バイオームから除外
 [*]アシは干し草2、スゲは干し草1、ハンノキは木材24を基本収量とし、ミズゴケは採取物なし
 [*]湿地の病気の種類・発生間隔を調整し、機械虫病を除外
 [*]既存バニラ樹木6種と湿地2種の説明文を、中世日本に関する情報を含めて修正
@@ -67,7 +69,7 @@ RimWorld 1.6 / 1.7、β版。日英対応。
 [b]任意MOD:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]CCTO[/url]
 種類別の寒冷耐性を適用。
 [b]任意MOD:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
-冥い森などと共存。
+0.3.0開発版では冥い森の定義と既存ワールドは維持し、新規ワールドでの自然生成のみ停止。MO大型動物4種をバニラ6バイオームの出現候補から除外。
 既存ヒールルートは維持。薬用植物は別Mod。
 
 [h2]セーブ互換性[/h2]

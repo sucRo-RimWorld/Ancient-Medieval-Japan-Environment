@@ -210,8 +210,8 @@ Medieval Overhaul is **not required**, but normal AMJ play is expected to coexis
 
 Compatibility is therefore treated as a first-class target:
 
-- MO specialized natural biomes are not globally suppressed;
-- MO Dark Forest retains its own special terrain-patch identity;
+- MO's Dark Forest remains defined and usable in existing worlds, but does not spawn naturally in new Environment worlds;
+- MO's Direwolf, Dire Boar, Northern Boar and Rox are excluded from six curated Vanilla natural-biome wildlife pools when MO is installed; this does not delete their Defs or globally remove them;
 - Environment only applies targeted compatibility where needed;
 - MO agricultural improvements remain outside Environment's natural-soil balance.
 
@@ -254,7 +254,7 @@ Independent [Chinese translation add-on (Workshop ID 3823797121)](https://steamc
 
 The published 0.2.0 feature set includes world/terrain/river/biome changes, four structural plants, retained-tree descriptions, wetland ecology changes, four additional wetland species and Thin Soil growing-zone support. Existing real-game tests cover important Vanilla, CCTO and Medieval Overhaul scenarios, but do not prove every combination or save-upgrade path.
 
-The GitHub 0.3.0 source adds provisional Tsuyu/Akisame weather selection and gameplay daylight reduction. Original-game bounded checks exist, but seasonal balance, complete compatibility and a matching production DLL/Workshop upload remain outstanding. **The 0.3.0 source and About/Manifest version do not mean 0.3.0 has been released to subscribers.**
+The GitHub 0.3.0 source adds provisional Tsuyu/Akisame weather selection, gameplay daylight reduction, and optional Medieval Overhaul ecology filtering (no new natural Dark Forest generation and targeted removal of four unsuitable large animals from Vanilla biome pools). Original-game bounded checks exist, but seasonal balance, complete compatibility and a matching production DLL/Workshop upload remain outstanding. **The 0.3.0 source and About/Manifest version do not mean 0.3.0 has been released to subscribers.**
 
 ## Planned follow-up
 
