@@ -1,59 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
-  <!--
-    MO is an optional compatibility target, not a source of mandatory
-    Japanese biomes. Dark Forest is excluded from NEW world generation
-    while its BiomeDef and terrain contract remain intact for old worlds,
-    saves and references. The remaining soil patch is legacy-compatible.
-    Each child operation is conditional on MO being installed.
-  -->
+  <!-- MO is optional. Remove its non-Japanese Dark Forest BiomeDef from AMJ+MO
+       entirely, rather than maintaining a legacy ecology or terrain override.
+       This is a breaking change for old saves that reference that BiomeDef;
+       back up those saves and do not remove the Mod mid-save. -->
   <Operation Class="PatchOperationSequence">
     <operations>
-      <!-- A defined biome may still be referenced by saved worlds/other Mods:
-           suppress natural selection, do not delete or rename the MO Def.
-           The upstream 1.6 MO XML omits this property (default true).
-           Conditional replacement also handles future upstream values. -->
       <li Class="PatchOperationConditional" MayRequire="DankPyon.Medieval.Overhaul">
-        <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]/generatesNaturally</xpath>
-        <match Class="PatchOperationReplace">
-          <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]/generatesNaturally</xpath>
-          <value>
-            <generatesNaturally>false</generatesNaturally>
-          </value>
-        </match>
-        <nomatch Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]</xpath>
+        <match Class="PatchOperationRemove">
           <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]</xpath>
-          <value>
-            <generatesNaturally>false</generatesNaturally>
-          </value>
-        </nomatch>
-      </li>
-      <li Class="PatchOperationReplace" MayRequire="DankPyon.Medieval.Overhaul">
-        <xpath>/Defs/BiomeDef[defName="DankPyon_DarkForest"]/terrainsByFertility</xpath>
-        <value>
-          <terrainsByFertility>
-            <li>
-              <terrain>AMJ_ThinSoil</terrain>
-              <min>-999</min>
-              <max>0.40</max>
-            </li>
-            <li>
-              <terrain>Gravel</terrain>
-              <min>0.40</min>
-              <max>0.60</max>
-            </li>
-            <li>
-              <terrain>Soil</terrain>
-              <min>0.60</min>
-              <max>0.90</max>
-            </li>
-            <li>
-              <terrain>SoilRich</terrain>
-              <min>0.90</min>
-              <max>999</max>
-            </li>
-          </terrainsByFertility>
-        </value>
+        </match>
       </li>
       <!--
         Optional MO's four non-Japanese wildlife additions in the non-AMJ
