@@ -26,7 +26,7 @@ RimWorld 1.6 / 1.7, Beta. English / Japanese.
 [b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]Crop Cold Tolerance Overhaul (CCTO)[/url]
 Plant-specific cold tolerance.
 [b]Optional:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
-In 0.3.0 development, MO Dark Forest remains defined but no longer generates naturally; four large MO animals are excluded from six Vanilla biome pools.
+In 0.3.0 development, MO Dark Forest biome is removed (old saves containing it may break); four large MO animals are excluded from six Vanilla biome pools.
 Healroot remains; medicinal plants belong to a future separate Mod.
 
 [h2]Save compatibility[/h2]
@@ -69,7 +69,7 @@ RimWorld 1.6 / 1.7、β版。日英対応。
 [b]任意MOD:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812412548]CCTO[/url]
 種類別の寒冷耐性を適用。
 [b]任意MOD:[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553700067]Medieval Overhaul[/url]
-0.3.0開発版では冥い森の定義を維持しつつ自然生成を停止。MO大型動物4種をバニラ6バイオームの出現候補から除外。
+0.3.0開発版では冥い森のバイオーム定義を削除（当該バイオームを含む既存セーブは互換性に注意）。MO大型動物4種をバニラ6バイオームの出現候補から除外。
 既存ヒールルートは維持。薬用植物は別Mod。
 
 [h2]セーブ互換性[/h2]
