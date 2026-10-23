@@ -210,7 +210,7 @@ Medieval Overhaul is **not required**, but normal AMJ play is expected to coexis
 
 Compatibility is therefore treated as a first-class target:
 
-- MO's Dark Forest remains defined and usable by explicit placement or existing references, but does not spawn naturally when Environment is active;
+- MO's Dark Forest biome definition is removed when Environment and MO are both loaded; existing saves referring to it are not supported by this change (back up saves);
 - MO's Direwolf, Dire Boar, Northern Boar and Rox are excluded from six curated Vanilla natural-biome wildlife pools when MO is installed; this does not delete their Defs or globally remove them;
 - Environment only applies targeted compatibility where needed;
 - MO agricultural improvements remain outside Environment's natural-soil balance.
