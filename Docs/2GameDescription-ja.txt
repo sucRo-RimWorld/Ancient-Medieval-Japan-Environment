@@ -24,7 +24,7 @@
 ・任意MOD https://rimworld.2game.info/detail.php?id=3812412548
 　CCTO併用時は代表植物に種類別の寒冷耐性を適用
 ・任意MOD https://rimworld.2game.info/detail.php?id=2553700067
-　冥い森のバイオーム定義を削除（0.3.0開発版）。当該バイオームを含む既存セーブは互換性に注意
+　冥い森の定義・既存ワールドを維持し、新規ワールドでの自然生成のみ停止（0.3.0開発版）
 ・既存Healrootと医薬品供給は維持。薬用植物はEnvironmentの対象外
 
 ▼ セーブ互換性
