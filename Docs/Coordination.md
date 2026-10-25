@@ -1,5 +1,9 @@
 # AMJ Environment Coordination
 
+## ENV-FORAGING-VALUE-DEFER-20261026 — seasonal wild food policy agreed, implementation postponed
+
+**Owner:** Environment. Author: 「方針だけ決めて今はAgricultureを整理」. Canonical policy updated in `Docs/ForagingIntegrationDesign-ja.md`: the 12 adopted resources remain deferred for a later Environment forest/wild-food update. Wild foods should provide **seasonal, non-field food / reserve / poor-harvest fallback** without trivial year-round replacement for grain farming. Species-specific region/season, actual collection effort, renewal limits and minimum safe preparation apply; **nutrition, yield, processing work, storage, season timings, spawn densities and adoption of generic acorns/tochi remain UNDECIDED**. Four adopted nuts stay Shii/Kuri/Kurumi/Kaya; generic Konara/Kunugi acorns and Tochi remain HOLD, not added to 12. No new Environment production Def/C#/graphics, no test/release, no separate Foraging runtime. Main work is currently Agriculture owner crop-use/source cleanup. Cross-owner work does not depend on user as messenger.
+
 ### ENV-WARM-RAIN-EVIDENCE-AND-GEOGRAPHIC-STOP-20261021 — warm 43N PASS; Tokyo proxy blocked; cleanup complete
 
 **Exact native owner evidence:** One-off generated `AMJ_WarmTemperateForest` [Actions #39584097363](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/39584097363) on RimWorld 1.6 Vanilla ran **1/1 PASS, raw ERROR0, exit0**. Three fixed-seed original-game native weather chooser/duration **event-stepped** pseudo-years, not full 60-day world ticks: nine-day Tsuyu wet hours **106.9, 75.3, 55.0** and Akisame **43.1, 34.9, 115.0**, sun/clear average ratios in the linked research. Actual selected world tile was **+43.45°N**, annual rain1235mm, forced warm biome and temp17.5°C, i.e. useful bounded warm-weather technical behavior but **NOT Tokyo/central Japan geography**.
