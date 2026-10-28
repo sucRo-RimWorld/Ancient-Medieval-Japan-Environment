@@ -12,9 +12,9 @@ Environment [PR #220](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-E
 - **Linux and Windows hosts: SKIPPED** by the safety dependencies, so Environment's allowlist membership, separate Linux SteamCMD state/owner identity/account and Windows Steamworks session/receipt have **no runtime acceptance**. Previously documented shared Linux publisher group allowed only CCTO-for-VPE and LWM-s-Fuel-Filter-Fix; Environment access remains unverified.
 - **Real publication workflow: SKIPPED** for this read-only issue. No SteamCMD update, new Workshop item, Steamworks tag change or visibility mutation occurred.
 
-**Separate, decisive native binary provenance change:** latest main after [PR #218](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/218) adds production `Source/AncientMedievalJapanEnvironment/ThinSoilGrowingZonePatch.cs` (51 new lines). GitHub compare `5050e57250c6913c2210be47723fee68d318e59e..3c8a47ceaed98d7d4e9250642f46bbcbcdea106e` detects this actual Source difference. Existing `Publishing/VerifiedAssembly.json` and Project run `39200796636` pin the **older** source; the current importer correctly rejects changed gameplay sources once the artifact is downloaded. The previously assembled 60-file local 0.2.0 ZIP is therefore **not** an exact-current-source DLL release candidate. Recompile against genuine game assemblies, create a new immutable native-tested source/DLL/ZIP pin and run bounded affected acceptance before attempting publication; do not waive Thin Soil functionality or reuse the previous DLL silently.
+**Separate, decisive native binary provenance change:** latest main after [PR #218](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/218) adds production `Source/AncientMedievalJapanEnvironment/ThinSoilGrowingZonePatch.cs` (51 new lines). GitHub compare `5050e57250c6913c2210be47723fee68d318e59e..3c8a47ceaed98d7d4e9250642f46bbcbcdea106e` detects this actual Source difference. Existing `Publishing/VerifiedAssembly.json` and Project run `39200796636` pin the **older** source; the current importer correctly rejects changed gameplay sources once the artifact is downloaded. The previously assembled 60-file local 0.2.0 ZIP is therefore **not** an exact-current-source DLL release candidate. For that dated source comparison, a fresh genuine-game build/source pin and bounded affected acceptance were necessary; the historical importer/DLL cannot certify a later candidate. Current release preparation follows `Docs/GoldenPaths/WorkshopPublication.md` and the 0.3 acceptance gates.
 
-The [unmerged copy/version PR #217](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/217) remains prepared only, not current main or Steam. **HOLD** until the token/reviewer/Environment runner ownership, newly pinned DLL and correct candidate, author-confirmed live item identity/visibility and actual downloaded subscriber check are independently established. Original 1.6 wetland 628/628 functional assertions and strict MO/SYR ERROR0 **FAIL** remain unmodified historical evidence.
+At that 2026-10-19 checkpoint, the [unmerged copy/version PR #217](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/217) remains prepared only, not current main or Steam. **HOLD** until the token/reviewer/Environment runner ownership, newly pinned DLL and correct candidate, author-confirmed live item identity/visibility and actual downloaded subscriber check are independently established. Original 1.6 wetland 628/628 functional assertions and strict MO/SYR ERROR0 **FAIL** remain unmodified historical evidence.
 
 ## Historical 2026-10-19 GitHub Actions DLL transport — source integrated, publisher not accepted
 
@@ -119,7 +119,7 @@ Do not promote Vanilla-only native evidence into a complete four-profile functio
 The Linux test host's staged Environment game Mod is older, not this candidate.
 
 
-## Highest-priority biome replacement repair — 2026-10-12 JST
+## Historical 2026-10-12 biome-replacement priority and candidate instructions
 
 The author reports tropical rainforest/swamp in the installed Workshop build.
 Source candidate selection also admitted inappropriate Vanilla biomes, and the
@@ -134,7 +134,7 @@ natural-world functional evidence with native ERROR audit and the scoped externa
 and corrected Steam upload/download are still OPEN. Prioritize this before
 wetland species/art additions; **this 2026-10-12 future-upload instruction is superseded**. The current author-approved YADA + Add Changenote procedure, unchanged Workshop visibility and exact downloaded-subscriber validation are defined in `Docs/GoldenPaths/WorkshopPublication.md`; do not initiate the former GitHub Actions uploader.
 
-## Current candidate status (2026-10-08 JST)
+## Historical candidate status (2026-10-08 JST)
 
 A 32-file pinned candidate from `1d46727102f53243099927b59881091d448dba61`
 passed the author's corrected full nine-map/one-cutting four-profile runtime
