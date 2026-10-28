@@ -119,7 +119,9 @@ Do not promote Vanilla-only native evidence into a complete four-profile functio
 The Linux test host's staged Environment game Mod is older, not this candidate.
 
 
-## Historical 2026-10-12 biome-replacement priority and candidate instructions
+## Historical 2026-10-12 biome-replacement priority and candidate instructions (not operative release steps)
+
+The following work order records the 2026-10-12 source state; it does **not** restart completed biome repairs or authorize a Steam upload. Current 0.3 release decisions remain on HOLD under the current status above and [WorkshopPublication](GoldenPaths/WorkshopPublication.md).
 
 The author reports tropical rainforest/swamp in the installed Workshop build.
 Source candidate selection also admitted inappropriate Vanilla biomes, and the
@@ -152,11 +154,7 @@ combined-loop/season/save criteria. Older evidence is historical.
 
 This specific forward-only biome-generation repair does not require comprehensive **legacy save migration** testing: existing worlds are not rewritten, and this candidate does not remove or rename Defs. Check an old-save load smoke only if a future change may break referenced Def identity. This does not waive the separate new-save save/reload continuity in the stable combined-loop criterion.
 
-Stable release additionally requires the AMJ combined basic-loop gate defined in
-Core `Docs/ReleaseCriteria.md` (author decision, 2026-10-06 JST). Actual pawn work
-with Core + Environment + real MO, recurring food production, a seasonal cycle
-and save/reload continuity remain OPEN. The results below do not satisfy that
-gate. Beta feedback is useful but its absence is not evidence of success.
+**Historical 2026-10-06 stable-suite criterion (not a new Environment dependency):** The earlier Core + Environment + MO combined-loop plan called for actual pawn work, recurring food production, a seasonal cycle and save/reload continuity. Those historical tests were not established by the evidence in this section. **Core is no longer an active runtime prerequisite for Environment**; this old cross-Mod plan cannot be used as the current Environment release procedure or as permission to change its dependencies. The current owner release/candidate gates are [ReleaseCandidate](GoldenPaths/ReleaseCandidate.md), [WorkshopPublication](GoldenPaths/WorkshopPublication.md), and the present 0.3 HOLD at the top of this file.
 
 The subsequent four-species cutting-resource gate passed in standalone and
 actual MO profiles: 9/9 each, all runtime ERROR gates clean, exact outputs
@@ -182,17 +180,4 @@ were loaded from a separate observer Mod; the ZIP excludes development code.
 Normal saves/settings were preserved; temporary source metadata was restored.
 See retained ReleaseRuntime/Report.json and ReleaseMatrix/Report.json.
 
-These results cover the approved local release payload. This source PR also
-preserves subsequent upstream testing/tooling additions; it is not a claim that
-the integrated branch, full MO runtime or long-term gameplay has already passed
-those same runtime gates. Build/static and Python checks are rerun on this branch.
-No Workshop publication or GitHub release upload has been performed.
-
-main:Docs/Coordination.md remains the authoritative handoff. Its current main
-entry predates the local art closeout; update it on main when integrating this PR.
-No branch-specific Coordination update is included.
-
-Integration fix: the static validator now checks the current Owned AMJ runtime
-ERROR marker introduced upstream, preserving the runtime gate itself unchanged.
-The PowerShell change remains in this temporary PR branch and requires CI before
-merge, per AGENTS.
+**Historical integration status for the 2026-10-08 candidate:** The source PR at that time preserved upstream testing/tooling additions without proving newer full-MO runtime, whole-season gameplay, or Workshop publication. Its then-pending branch CI, temporary PowerShell edits and Coordination handoff were local pre-merge status, **not actions to repeat now**. Preserve the original validation/ERROR evidence and Git history. For the current Environment version, read `main:Docs/Coordination.md` and the owner release procedures above; only current PR changes require their own actual checks and review.
