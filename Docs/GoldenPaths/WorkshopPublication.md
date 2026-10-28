@@ -17,62 +17,9 @@ This section **supersedes all earlier GitHub Actions-only upload instructions** 
 
 The previously built GitHub Actions Steam publication machinery is **retired for Environment**, not evidence of an upload. Keep historical details below as audit history only, including old private-only and SteamCMD instructions, which are not operative after this decision. The author reported a completed 0.2.0 YADA upload on 2026-10-20; independent subscriber-byte verification is not established by this historical procedure. The 0.3.0 GitHub development metadata/source is **not** evidence of an uploaded 0.3.0 release. No Steam change was performed by this procedure update.
 
-# Pinned Workshop publication
+## Historical implementation evidence (not operational guidance)
 
-## Current publication operating rule (2026-10-15; supersedes legacy uploader steps below)
-
-The author has replaced **YADA/manual RimWorld upload** with **GitHub Actions**
-for future updates. Earlier YADA/Add Changenote/Windows desktop steps in
-this document are retained only as historical provenance of prior uploads;
-they are **not** the current execution instructions. Environment's approved
-upload mode remains **creator-private only**; public visibility is a separate
-author decision. Until an Environment-owned, guarded GitHub Actions Steam
-publisher and its independently authenticated, isolated host state have been
-reviewed and verified, **do not perform or claim a live upload**. Do not
-reuse CCTO for VPE's SteamCMD host credentials/state, publication ID or service
-labels implicitly. Use the pinned subscriber ZIP and exact external manifest
-already generated, not a development Mod root; verify original packageId,
-item ID `3814638060`, root-only loadFolders, approved preview bytes,
-then the actual downloaded Workshop files and independent loaded-game smoke.
-
-For native release verification, apply `Docs/ReleaseReadiness.md`: keep
-unmodified global strict ERROR0 statuses, but the author has explicitly made
-the previously proven, unchanged MO/SYR blank-clip FMOD errors non-blocking
-**only for the scoped Environment functional private-release decision**.
-No sound or error-log suppression is permitted. The producer/reporter must
-retain both scoped-function and strict-error statuses. This does **not** waive
-new runtime errors, crash, failed native game jobs, source provenance,
-subscriber identity or Steam private visibility.
-
-
-Future Environment Steam upload is an **author-requested, GitHub Actions gated operation**, not a manual YADA/RimWorld publication. The separate author approval and isolated authenticated Steam publisher remain mandatory. A GitHub commit, locally built candidate, or passing developer suite is not evidence of updated distribution.
-
-## 2026-10-19 — Read-only Steam publisher readiness command
-
-Environment also provides a separate main-branch issue-triggered readiness
-workflow: .github/workflows/steam-readiness.yml. Only an issue created by
-sucRo0629 titled [check:amj-publisher-readiness] and containing the single
-line source_sha=<exact current main SHA> is accepted. This route does not
-upload or alter Workshop content, visibility or tags.
-
-The GitHub-hosted job independently downloads the exact Project native
-artifact using the repository's own AMJ_PROJECT_ARTIFACT_TOKEN and verifies
-the original tested ZIP, DLL and preview. This is separate from the
-author-approved self-hosted checks: a recorded approval for
-steam-workshop-private is required before either runner is reached.
-
-The Linux check only reads the Environment-specific protected host state
-and verifies Workshop ID 3814638060, identity approval, SteamCMD executable
-and account configuration. The Windows check uses only the read-only
-steam-session-probe and checks its separate receipt directory. Neither
-host check invokes upload or tags modification, and both run only the exact
-trusted main revision.
-
-Runner allowlisting, reviewer settings and the independent publisher
-credentials require real host/Actions evidence. The existing restricted Linux
-runner group is not proof of Environment access. A queued/failed check is not
-a PASS, and even successful readiness cannot establish actual Steam
-ownership, item visibility or downloaded subscriber files.
+The superseded 2026-10-15 GitHub Actions upload instructions and 2026-10-19 publisher-readiness command are retired. Their exact source and outcomes remain in Git history and `Docs/ReleaseReadiness.md`; they must not be used as current upload steps. The current procedure is the YADA workflow above.
 
 ## 2026-10-19 pinned 0.2.0 production DLL transport (prepared, not publisher-verified)
 
