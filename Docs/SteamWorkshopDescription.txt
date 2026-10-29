@@ -85,3 +85,9 @@ RimWorld 1.6 / 1.7、β版。日英対応。
 [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]仕様 / GitHub[/url]
 
 [hr][/hr]
+
+[h2]Representative Trees / 代表樹木[/h2]
+Sudajii / スダジイ — Evergreen broadleaf of warm-temperate forests; historically used for nuts and wood. / 暖温帯の常緑広葉樹。種子と木材が古くから利用された。
+Japanese beech / ブナ — Deciduous tree of cool-temperate forests; wood used in turned objects. / 冷温帯の落葉高木。木材は挽物などに利用された。
+Shirabiso / シラビソ — Evergreen conifer of subalpine forests in Honshu. / 本州の亜高山帯に生える常緑針葉樹。
+Haimatsu / ハイマツ — Low, creeping pine of the alpine zone above the treeline. / 森林限界より高い場所に生える、地面を這う低木性のマツ。
