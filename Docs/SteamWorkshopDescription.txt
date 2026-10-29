@@ -85,36 +85,3 @@ RimWorld 1.6 / 1.7、β版。日英対応。
 [url=https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment]仕様 / GitHub[/url]
 
 [hr][/hr]
-
-[h2]Representative Plants / 各環境帯の代表植物[/h2]
-
-[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Shii/Shii_A.png[/img]
-[b]Warm-temperate — Sudajii / 暖温帯林 — スダジイ[/b]
-Evergreen broadleaf tree of southwestern Japan; its nuts and wood have long been used. / 西南日本の照葉樹林を代表する常緑高木。種子や木材は古くから利用されてきました。
-
-[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Beech/Beech_A.png[/img]
-[b]Cool-temperate — Japanese beech / 冷温帯林 — ブナ[/b]
-A deciduous tree typical of cool forests; its wood was used in turned objects. / 冷温帯を代表する落葉高木。木材は挽物などに利用されました。
-
-[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Shirabiso/Shirabiso_A.png[/img]
-[b]Subalpine — Shirabiso / 亜高山帯林 — シラビソ[/b]
-An evergreen conifer of Honshu's high mountains. / 本州の高山域に見られる常緑針葉樹です。
-
-[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Haimatsu/Haimatsu_A.png[/img]
-[b]Alpine — Haimatsu / 高山帯 — ハイマツ[/b]
-Low creeping pine above the treeline. / 森林限界より高所で地面を這うように育つ低木性のマツです。
-
-[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Yoshi/Yoshi_A.png[/img]
-[b]Wetland — Reed (ashi/yoshi) / 湿地 — 葦（アシ・ヨシ）[/b]
-Traditional reed thatch from wetlands. / 湿地の葦。古くから茅葺き材に用いた。
-
-[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Suge/Suge_A.png[/img]
-[b]Wetland — Sedge (suge) / 湿地 — 菅（スゲ）[/b]
-Wetland sedge used in hats and rain capes. / 湿地の菅。笠や蓑の材料に用いた。
-
-[img]https://raw.githubusercontent.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/main/Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png[/img]
-[b]Wetland forest — Alder (hannoki) / 湿地林 — 榛の木（ハンノキ）[/b]
-Deciduous wetland alder. / 湿地林を形づくる落葉樹。
-
-[b]Cool bog — Sphagnum (mizugoke) / 冷涼湿原 — 水苔（ミズゴケ）[/b]
-Sphagnum contributes to peat formation. Its graphics temporarily reuse Vanilla moss artwork. / 泥炭形成に関わる水苔。画像は暫定的にバニラの苔と同じものを使用しています。
