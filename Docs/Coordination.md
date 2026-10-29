@@ -7,6 +7,7 @@ This live file contains **open owner handoffs and material release/acceptance bl
 ### Seasonal vegetation update — five-species scope; implementation OPEN
 - **Owner:** [Design — 2026-10-30 seasonal scope](Design.md) and [NativeVegetationStep3Design-ja](NativeVegetationStep3Design-ja.md).
 - **Author-confirmed boundary:** the seasonal-appearance update includes only **Yamazakura, Ume, Kuri, Kaki and Susuki** as newly added plants. Vanilla Willow/Pine/Bamboo retextures form a separate workstream. Sugi and Hinoki remain outside this update without deciding their longer-term inclusion. The older Sugi priority-A record does not expand this scoped batch.
+- **Rainy-season concept:** An additional Tsuyu implementation was considered for the seasonal-appearance update but author-deferred on 2026-10-30 because the perceived gameplay drawbacks outweighed the benefits. This does not repeal the already-developed provisional 0.3 Tsuyu/Akisame weather code or its separate balance HOLD above.
 - **Open:** production Defs, season-state sprites/behavior, species-specific distribution/balance and appropriate acceptance are not completed by this documentation decision.
 
 
