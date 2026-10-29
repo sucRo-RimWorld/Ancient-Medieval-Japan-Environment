@@ -35,8 +35,8 @@
 作者が「採用はこれだったと思う」と直接提示した**ダケカンバの葉あり・通常落葉**の2枚を、そのまま葉なし積雪の参照元として保持する。以前ライブラリから取り出した別構図の `AMJE_Dakekanba_GreyBrown_Candidate_256.png` は今回の採用元ではない。2026-10-30「忘れず追加しろ」の指示で、これまでPRから漏れていた原画と256px確認用派生を同じPRへ追加した。
 
 - **葉あり採用原画:** `Art/Sources/Things/Plant/AMJ/Dakekanba/Dakekanba_Leafy_Source.png`、作者提示の `黒背景に佇む stylized な緑の樹木(1).png` の**PNG生バイトを無変更**で保存。1024×1536 RGBA、1,574,575 bytes、SHA-256 `f0e3e17ed68b2d2b505c2cf4a9fdd436b51cc40c4dc2d4d9de35fa4764ed3a5d`。
-- **通常落葉採用原画:** `Art/Sources/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_Source.png`、作者提示の `葉のないモザイク樹木イラスト(1).png` を無変更で保存。1024×1536 RGBA、1,046,529 bytes、SHA-256 `84ed9ea099745c4db94f5980674e8f243861ed780844a90d6c5823515b26588f`。
-- **256px確認用派生:** `Art/Candidates/Dakekanba/Dakekanba_Leafy_256_Review.png`（SHA-256 `8fdc5c4d394ec990b5ae962f7667b9e906817bfc8c226af524a30f2b51eaf164`）と `Art/Candidates/Dakekanba_Leafless/Dakekanba_Leafless_256_Review.png`（SHA-256 `4b16d403cea9d94119cb562a2125b57814e876c0509bec48afac8ae0e2ddec50`）。各々256×256 RGBA、縦横比維持で最大256pxへLANCZOS縮小し、透明キャンバス中央に配置。元画像とは独立したバイト列であり、原画を置換しない。
+- **通常落葉採用原画（2026-10-30更新）:** `Art/Sources/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_Source.png`。葉あり版と幹・根元の位置を比較し、既存樹木と同じ許容基準で作者が採用した**下方30px位置補正版** `落葉_下30px位置補正.png` のPNGバイト列を保存。1024×1536 RGBA、871,287 bytes、SHA-256 `676c62c6334ae96a9b740c44ca565d94b7535decdbfaa2de0aa6c15862a1de56`。以前の原画SHA `84ed9ea0...` は更新前の履歴であり現行採用物ではない。
+- **256px確認用派生:** `Art/Candidates/Dakekanba/Dakekanba_Leafy_256_Review.png`（SHA-256 `8fdc5c4d394ec990b5ae962f7667b9e906817bfc8c226af524a30f2b51eaf164`）と `Art/Candidates/Dakekanba_Leafless/Dakekanba_Leafless_256_Review.png`（SHA-256 `729498a6610ba1fad90245fc7df9d55d75350d4ec1f71681df15ed13629352ca`）。各々256×256 RGBA、縦横比維持で最大256pxへLANCZOS縮小し、透明キャンバス中央に配置。元画像とは独立したバイト列であり、原画を置換しない。
 - **状態の境界:** 通常の葉あり／落葉／落葉積雪の3状態は原画を個別に保持。落葉積雪は後述の採用原画と対応するが、**枝輪郭の厳密な同一座標・雪だけの独立オーバーレイ**は未完成。通常葉ありの積雪版は未採用。本番の `Textures/` ファイル、Defのグラフィック経路、季節処理と実機表示は今回変更していない。
 
 ## 2026-10-30 ダケカンバ落葉積雪画像の作者採用（原画・視覚のみ）
