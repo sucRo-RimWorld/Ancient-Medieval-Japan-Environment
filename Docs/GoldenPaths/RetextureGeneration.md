@@ -122,3 +122,20 @@ For any explicitly reused visible component, follow the Ancient-Medieval-Japan-P
 ## Snow-only derivative routing
 
 For aligned snow overlays, follow [PlantSnowOverlayPlan.md](../PlantSnowOverlayPlan.md) in addition to this preflight. Inspect the accepted snow reference as well as the immutable base master. The no-snow rule applies to normal base sprites, not the requested separate overlay. Fixed-pixel success does not establish outline, internal-line, support or massing quality. Local painting and deterministic compositing must pass the same visual audit as generated candidates. Follow Core FixedImageTemplates authorization rules before choosing any new image generation.
+
+
+## 葉あり樹木の積雪：樹冠輪郭を先に合わせる（2026-10-30 シラカバ事例）
+
+**目的:** 採用済みの葉あり樹木を基準に、枝・葉塊ごとの**上面に厚みのある雪**を載せ、樹冠の不規則な輪郭へ自然につなげる。雪の量を葉先の細い白線だけにしない。対象は積雪用の**視覚候補と、その後の雪専用オーバーレイ**であり、通常画像の改変ではない。
+
+**今回改善した点と限界:** シラカバの採用葉あり原画（[PR #293](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/293) の `Art/Sources/Things/Plant/AMJ/Shirakaba/Shirakaba_Leafy_Source.png`）を形の基準にし、2026-10-30の「雪化粧の白樺ツリー_sprite.png」候補は雪を葉塊上面に広く置いたことで、以前の薄い葉先だけの積雪や、矩形マスクで切れた積雪より**視覚的に改善**した。ただしこれは**樹木全体を含む画像生成結果**で、元画像のピクセル同一性は成立していない。画像生成のみでは元の幹・枝・葉色・輪郭を完全固定できない。作者による正式な積雪画像採用、雪単体レイヤへの分離、ゲームでの検証はまだ別段階である。「うまく見える」ことを「雪だけのレイヤ完成」と誤記しない。
+
+### 再利用する短い作業順
+
+1. **元画像を固定:** 最新の作者採用済み葉あり原画を実際に開き、原ファイルのバイト列・キャンバス寸法・RGBA/アルファ・SHA-256を保持する。新規生成画像や、過去の不採用積雪候補を元画像の代わりにしない。必要な参照樹種はこの文書の preflight と `Docs/ArtDirection.md` で確認する。
+2. **見た目の見本を1枚作る:** 画像生成・編集が現在の依頼で許可されているときだけ、**採用画像そのものを画像参照**として渡す。指示は「同一の幹・主枝・葉塊配置・全体の高さと幅を保つ」「各葉塊の不規則な**上側の輪郭**に沿う、白・青灰の厚い雪の面」「葉の下半分・樹皮は見せる」「黒い太外枠とAMJの簡略化を維持」「単木、透明背景、発光・地面・矩形クリップなし」を中心に組む。積雪用の参照画像が別にある場合も、その**樹形を取り込まない**。
+3. **見た目を比較監査:** 元画像と候補を**同一大きさで並べ**、樹冠上端・左右端、幹/枝接続、雪の接地、白い量感、輪郭線、透過縁を確認する。特に「雪が葉先のみ」「元の葉塊より内側に矩形で切れる」「宙に浮く」「葉や幹を描き直した」「光輪がある」は修正対象。256pxと64pxでも確認し、各生成ごとに既存採用画風との比較を省略しない。
+4. **雪だけを別レイヤ化:** 視覚候補の雪の**位置・量感だけを参考**に、採用済み原画と**厳密に同サイズ・同座標**の透明RGBAレイヤを作る。承認済み原画に直接上書きしない。雪は元の葉塊上面へ不規則な曲線で接触させ、必要な部分だけ元の葉を前面から覆う。葉塊ごとの矩形クロップをそのまま雪の輪郭/マスクに使わない。画像生成された樹木全体から差分抽出した画像を、検証なしで「雪だけ」と呼ばない。
+5. **合成とチェック:** `元の採用PNG + 雪専用透過PNG` を決定的に合成。雪レイヤ外で原画RGBAが一致すること、背景に矩形境界や発光がないこと、葉塊に積雪が支持されていることを確認する。雪だけの画像と合成プレビューを別々に提示し、作者承認後に [PlantSnowOverlayPlan.md](../PlantSnowOverlayPlan.md)、[TextureAssetPipeline.md](TextureAssetPipeline.md) の本番経路に進む。既存の承認済み雪画像を自動で置換しない。
+
+**失敗を繰り返さないための境界:** 葉の色域だけを機械的に検出して雪を塗ると、葉先だけが白くなる／四角く切れることがある。逆に木全体を画像生成し直すと雪の形は良くても元の幹・枝・葉の画素が変わる。この2つを混同せず、**視覚設計は参照画像を使い、正確な素材化は元原画不変の別レイヤで行う**。
