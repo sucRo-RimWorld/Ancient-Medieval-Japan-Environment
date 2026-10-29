@@ -1,5 +1,25 @@
 # Ancient & Medieval Japan - Environment — Design
 
+## 2026-10-30 作者決定：季節性アップデートの独立範囲
+
+今回の植生追加アップデートは、**古代・中世日本の春・秋・冬の景観変化をゲーム上で明確にすること**を目的とし、次の**新規5種類のみ**を対象とする。
+
+| 対象 | 主な季節表現 |
+|---|---|
+| ヤマザクラ | 春の開花・新緑・秋の紅葉・冬の落葉 |
+| ウメ | 冬末～早春の開花・落葉 |
+| クリ | 秋の結実・落葉 |
+| カキ | 秋の果実・紅葉・落葉 |
+| ススキ | 秋の穂・冬の枯れ姿 |
+
+- この5種類の**新規追加・季節状態表現**を一つの実装単位とする。具体的な自然発生重み、成長・結実・収穫数値、PlantDef/画像の完成および実ゲーム受入をこの範囲決定だけで承認済みとみなさない。
+- **既存樹木のリテクスチャ**（ヤナギ・マツ・タケ）は別工程とし、今回の5種類の完了条件に含めない。
+- **スギ・ヒノキ**は今回の季節性アップデートに含めない。将来の森林植生拡充で検討する対象として保持し、採否そのものを撤回・確定しない。
+- 既存の湿地植生、山野採集、既存Def/セーブ互換等の正式契約を変更しない。2026-10-10のスギ優先度Aや当時のStep 3作業順は**今回の季節性アップデートへのスギの自動編入根拠にならない**。
+- 本節は今回の作業範囲について従来の一般的な植生追加優先順位より優先する。個別植物の正式仕様・採用画像・テスト根拠は、それぞれの正本で確認する。
+
+
+
 **Target:** RimWorld 1.6  
 **Repository:** `sucRo-RimWorld/Ancient-Medieval-Japan-Environment`  
 **Role:** standalone sister mod for Japan-oriented climate, terrain, rivers, biomes, vegetation, weather, seasonal scenery **and regionally constrained wild food foraging** (latter is accepted future scope, not shipped functionality).
