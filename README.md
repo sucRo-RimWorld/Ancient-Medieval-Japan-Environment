@@ -258,6 +258,8 @@ The GitHub 0.3.0 source adds provisional Tsuyu/Akisame weather selection, gamepl
 
 ## Planned follow-up
 
+**Seasonal scenery decision (2026-10-30):** A further rainy-season (Tsuyu) feature was considered for the seasonal-scenery update but deferred because its gameplay drawbacks were judged to outweigh its benefits. The planned seasonal vegetation work instead focuses on Yamazakura, Ume, Kuri, Kaki and Susuki. This does not cancel or remove the separately source-implemented provisional 0.3.0 Tsuyu/Akisame weather changes, which remain under balance review and are not yet published.
+
 The following are **not part of the published 0.2.0**:
 
 - Release and balance review of the source-implemented **0.3.0 Tsuyu/Akisame and weather daylight adjustments**, including compatibility with other weather mods.
