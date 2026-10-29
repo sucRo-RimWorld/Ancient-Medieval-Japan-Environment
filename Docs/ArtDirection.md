@@ -18,8 +18,17 @@
 - **採用原画:** `Art/Sources/Things/Plant/AMJ/Shirakaba/Shirakaba_Leafy_Source.png`。作者承認直前の `白樺の木と豊かな緑の樹冠.png` の**PNG原バイトを保存**。1254×1254 RGBA、1,066,813 bytes、SHA-256 `a15db90bc8dba266b8ceff5edeec4a1e3d7b77a8ae2aa389ec18f58c7e2ad2c4`。
 - **256px確認用:** `Art/Candidates/Shirakaba/Shirakaba_Leafy_256_Review.png`。256×256 RGBA、SHA-256 `1aad44a80942c36926d6a8e2d41b139a493584924693210943582b983de122a2`。原画像からLANCZOS縮小した別バイト列で、原画の置換ではない。
 - 白い幹・黒い横模様・明るい軽い樹冠を維持する。葉量と枝の接続は作者が現行候補で妥協したため、ここでは再生成しない。
-- **未対応:** シラカバ落葉と、最終葉あり画像の形に一致する葉あり積雪、必要な季節・積雪描画状態、本番 `Textures/` のDef接続と実ゲーム確認。過去のシラカバ積雪候補を採用済み画像と取り違えない。
+- **葉あり採用時点の未対応（履歴）:** シラカバ落葉と、最終葉あり画像の形に一致する葉あり積雪、必要な季節・積雪描画状態、本番 `Textures/` のDef接続と実ゲーム確認。落葉については後記の作者承認で更新された。過去のシラカバ積雪候補を採用済み画像と取り違えない。
 - 本PRは**画像原本と256px確認素材の保管**に限定する。現在の汎用 `Plant_TreeBirch` やBiome/植林候補は変更していない。
+
+## 2026-10-30 シラカバ落葉原画の採用（幹・根元の外形比較合格）
+
+作者は採用済みシラカバ葉あり原画と、後に提示された落葉候補 `葉のない白樺の木_sprite.png` の重ね比較（`AMJE_Shirakaba_Leafy_Leafless_Comparison.png` および `AMJE_Shirakaba_Trunk_Silhouette_Overlap.png`）を確認し、**「合格」**と承認した。採用対象はこの落葉候補の**外観と元原画のPNGバイト列**であり、下位の画像処理による別の `AMJE_Shirakaba_Leafless_Simplify_11.png` は今回の採用画像ではない。
+
+- **採用落葉原画:** `Art/Sources/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_Source.png`。1254×1254 RGBA、638,316 bytes、SHA-256 `1fcc03b8467b8ee79ac4a1895587ce1149eca7a0972fb49b076070e63ef58a26`。実際に採用した `葉のない白樺の木_sprite.png` のバイト列を無変更で保存。
+- **256px確認用派生:** `Art/Candidates/Shirakaba_Leafless/Shirakaba_Leafless_256_Review.png`。256×256 RGBA、SHA-256 `61d227e221de5846f2a7a3cf0276514eef8fc507a0fd1ff3c272130f3f1cc01f`。原画の1254×1254の座標を保持したままLANCZOS縮小。原画とは独立した派生画像。
+- **確認範囲:** 葉あり・落葉の1254px正方形画像を根元・幹中心軸で合わせて重ね、幹下部・根元の外形がほぼ維持されていることを確認。ユーザーがこの比較を合格とした。**樹皮色・模様と葉に隠れていた上部の枝はピクセル単位では一致しない**。全枝の一致や既存季節処理の動作を実証したものではない。
+- **未対応:** 葉あり積雪の正式採用、落葉積雪、Def・`Textures/` の本番画像経路、ゲーム上のサイズ／季節遷移・既存セーブ確認。**落葉画像のみのソース採用**を、全描画状態や実機受入に拡張しない。既存の葉あり採用原画は変更しない。
 
 ## 2026-10-30 ダケカンバ葉あり・落葉原画の取り込み（作者提示の採用画像）
 
