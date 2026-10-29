@@ -37,6 +37,8 @@ repository workstreams.
 
 ## Accepted reference assets
 
+For leafless and multi-state trees, consult the [reusable tree-state asset catalog](../TreeArtAssetCatalog.md) for actual approved PNG locations, source-versus-PR status, existing snow builders and the branch/trunk alignment comparison. The catalog is a reference index, not a second source of author approval or a claim that the original image-generation prompts were preserved.
+
 Fetch these paths from the owning repository's current main. The listed blobs
 identify the accepted baseline at this procedure's introduction; a later
 documented author-approved replacement supersedes them.
