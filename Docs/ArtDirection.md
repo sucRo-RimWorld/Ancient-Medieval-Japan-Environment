@@ -769,3 +769,11 @@ When a future Environment asset intentionally reuses a visible component pixel-e
 ### Revision 5 native appearance accepted; leafless snow complete (2026-10-06 JST)
 
 Author: `ブナOKなのでPRマージして`. This explicitly closes the separate native-appearance review for the already frozen revision-5 leafless-beech snow source. Keep exact composite SHA-256 `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`, installed snow overlay SHA-256 `3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b`, and leafless master SHA-256 `24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112`. Template v5 is ACTIVE with the approved filled exemplar. The Beech snow ledger row is accepted for both leafy and leafless variants; all current AMJE structural-plant visual states are complete. This approval authorizes PR #5 merge but does not fabricate a new runtime-test PASS.
+
+## 2026-10-30 ダケカンバ葉あり積雪画像の妥協採用（原画・視覚のみ）
+
+作者は元の葉あり画像の粗い葉塊に近づけた再生成版 `a_clean_high_quality_stylized_illustration_on_a_d.png` を「妥協採用」とした。以前の細かな葉版は採用しない。画像の更なる再生成は現時点では不要だが、積雪量・葉形には改善余地がある。
+
+- **採用原画:** `Art/Sources/Things/Plant/AMJ/Dakekanba_Leafy_Snow/Dakekanba_Leafy_Snow_Source.png`。1024×1536 RGBA、1,918,063 bytes、SHA-256 `734b539452feac76dfa46996ed09b8a391a535a51dd9d79d398fc1ec4360a3f1`。採用されたPNGの原バイトを保持する。
+- **256px確認用派生:** `Art/Candidates/Dakekanba_Leafy_Snow/Dakekanba_Leafy_Snow_256_Review.png`。256×256 RGBA、SHA-256 `38ab287f36603468af153e034d637cf848695959ea478bb6a3905d5398c5d784`。LANCZOS比例縮小と透明余白による別ファイル。
+- **受入範囲:** 外観について妥協採用。元の葉あり樹木とのピクセル一致、季節切替、積雪位置、透過縁の実ゲーム表示、Def/Texturesへの本番接続は未検証・未実施。本追加はレビュー用原本保存であり、Workshop配布ではない。
