@@ -7,12 +7,12 @@
 | PlantDef / state | 原画（バイト列維持） | 256px本番候補 | SHA-256（本番候補） |
 | --- | --- | --- | --- |
 | Plant_TreeMaple / 葉あり | `Art/Sources/Things/Plant/AMJ/Vanilla/Maple/Maple_AcceptedMaster.png` | `Textures/Things/Plant/AMJ/Vanilla/Maple/Maple_A.png` | `05e0d809505e270261b9041c5d8eb351bdc8516a8dc80c12eb5d55102a70b91d` |
-| Plant_TreeOak / 葉あり | `Art/Sources/Things/Plant/AMJ/Vanilla/Oak/Oak_AcceptedSheet.png` | `Textures/Things/Plant/AMJ/Vanilla/Oak/Oak_A.png` | `2e0b1116485d44f5e2f09cd9c46570179fa56b1822c7436ccecc299b903f489f` |
+| Plant_TreeOak / 葉あり | `Art/Sources/Things/Plant/AMJ/Vanilla/Oak/Oak_LeafyAcceptedMaster.png` | `Textures/Things/Plant/AMJ/Vanilla/Oak/Oak_A.png` | `cc70ec15772e50fb18b3c6d95aedc59ddee5947a01b3f9749f8b2cf652b4af59` |
 | Plant_TreeOak / 落葉 | 同上（右上の枝を簡略化した状態） | `Textures/Things/Plant/AMJ/Vanilla/Oak_Leafless/Oak_Leafless_A.png` | `f694c79d5dbfae895551624e42944ef807dc641a573f016f1ed09ba054223d96` |
 
-- 原画SHA-256: カエデ `330eac66e8b85fd4e31005e14ffad86167dd17f94a1332bda6c99a59dad3f802`（1254×1254）、ナラ `c529b089872880d47f3f44105b458048fe3b543f9d2b77d453ce3e6e1c503d26`（1536×1024）。
-- カエデ256px画像は承認時の既存派生候補を採用。ナラの原画は葉あり・落葉と縮小見本の比較用シートで、単体化した256pxの2状態を派生した。**比較シート自体をゲーム用texPathとして使用しない。**
-- ナラは大きな葉塊を維持し、外周に丸い裂片を残す。落葉画像の末端枝は少数にする。カエデは作者が承認した簡略化形状を変更しない。
+- 原画SHA-256: カエデ `330eac66e8b85fd4e31005e14ffad86167dd17f94a1332bda6c99a59dad3f802`（1254×1254）、ナラ新採用葉あり `f8edde7196fc187cffc1776dd7cdc318b377ab5d140c3d420093b247ae0fc0e3`（1254×1254）、旧ナラ比較シート（落葉画像の原画） `c529b089872880d47f3f44105b458048fe3b543f9d2b77d453ce3e6e1c503d26`（1536×1024）。
+- カエデ256px画像は承認時の既存派生候補を採用。**ナラ葉あり**は、作者が「樹冠が密で上部の枝が隠れる」最新版を前版との比較後に採用（2026-10-29）。上記新採用原画のバイト列を保存し、その樹冠と幹を変更せず256px透過画像に縮小。旧比較シートの葉あり部分は採用を置換されたが、**落葉側の原画としてシートを保持**する。比較シート自体をゲーム用texPathとして使用しない。
+- ナラ葉ありは大きな葉塊・外周の丸い裂片を維持しつつ、上部の枝を葉に隠した密な樹冠を採用。落葉画像は旧シート由来の末端枝が少ない独立採用画像を維持するが、**新葉ありとの幹・主枝の連続性は未再確認**。カエデは作者が承認した簡略化形状を変更しない。
 - 既存Defとその描画状態、植林・伐採・分布・季節シェーダーは変更しない。**この素材反映だけでは描画パスは切り替わらない。** カエデの落葉状態、RimWorld 1.6の実際の全描画状態（未熟・汚染・積雪など）の確認、パス差し替え、DDS派生物、静的検証と実ゲーム表示は別途未完了。
 - **紅葉の色調・進行の評価は後日の実ゲーム確認**とし、画像内への紅葉色の焼き込みや未承認パラメータ調整は行わない。
 
