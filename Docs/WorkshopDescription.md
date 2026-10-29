@@ -1,5 +1,11 @@
 # Steam Workshop Presentation — Ancient & Medieval Japan - Environment（中世日本 - 環境）
 
+## 2026-10-30 作者決定：Workshop植物画像ギャラリー廃止
+
+Workshopの英日併記本文から植物の画像7枚を削除し、今後の追加樹木・植物についても画像を個別掲載しない。**画像のみ削除し、追加済み代表樹木4種（スダジイ・ブナ・シラビソ・ハイマツ）の樹種名と簡単な特徴説明はテキストで残す。** 対象の英日説明は `Docs/SteamWorkshopDescription.txt` の `Representative Trees / 代表樹木` 節に置く。説明本文の8,000 UTF-8バイト制限を維持し、画像ファイル本体・ゲーム内画像は削除しない。
+
+本決定が従来のギャラリー追加・維持・画像7枚必須という下記の古い掲載手順に優先する。既存の画像付き過去リリース説明の履歴は履歴として扱い、将来のWorkshop説明の掲載要件にしない。Workshopサイトへの実反映は別途作者の公開操作を必要とする。
+
 ## 0.2.0 author-approved wetland copy — SOURCE IMPLEMENTED, PUBLICATION HELD (2026-10-18)
 
 The four species are now in the Environment source, with the 1.6 Vanilla/CCTO, 1.6 MO functional and focused 1.7 native behavior evidence recorded in `Docs/ValidationEvidence`. **This does not mean the 0.2.0 Steam/2game update has been published.** Keep currently published 0.1.1 copy unchanged until final checks.
