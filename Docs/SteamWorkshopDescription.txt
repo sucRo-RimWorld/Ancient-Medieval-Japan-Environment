@@ -33,6 +33,7 @@ Healroot remains; medicinal plants belong to a future separate Mod.
 [b]New game recommended.[/b] Existing worlds are not regenerated; adding to existing saves remains untested. [b]Do not remove AMJE[/b] from saves containing its biomes, terrain or plants.
 
 [h2]Future candidates[/h2]
+Further Tsuyu features deferred: gameplay drawbacks outweighed benefits; 0.3 weather remains under review.
 Add Japanese cedar (sugi), silvergrass (susuki) and other native vegetation (not implemented)
 Add wild greens, nuts and other foraging plants (not implemented)
 Retexture Vanilla/MO trees（未実装）
@@ -76,6 +77,7 @@ RimWorld 1.6 / 1.7、β版。日英対応。
 [b]新規ゲームを推奨[/b]。既存ワールドは再生成されず、途中追加は未検証。独自バイオーム・地形・植物を使うセーブからの[b]途中削除は非推奨[/b]。
 
 [h2]今後の予定[/h2]
+梅雨の追加実装はデメリットが大きいため保留。既存0.3開発版の天候調整は検証中。
 スギ・ススキなど日本在来の植生の追加（未実装）
 山菜・木の実などの野生食料植物の追加（未実装）
 バニラ・MO樹木のリテクスチャ（未実装）
