@@ -28,7 +28,7 @@
 | **ナラ** | [PR #292](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/292)：`Art/Sources/Things/Plant/AMJ/Vanilla/Oak/Oak_LeafyAcceptedMaster.png`（最新採用葉あり）／`Art/Sources/Things/Plant/AMJ/Vanilla/Oak/Oak_AcceptedSheet.png`（落葉元を含む旧比較シート）／`Textures/Things/Plant/AMJ/Vanilla/Oak_Leafless/Oak_Leafless_A.png`（落葉単体化済み） | 最新の葉あり版と落葉版の幹・主枝の連続性は未再確認。旧シートの**葉あり**は現行採用版ではない。 |
 | **カエデ** | [PR #292](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/292)：`Art/Sources/Things/Plant/AMJ/Vanilla/Maple/Maple_AcceptedMaster.png`（葉あり） | 落葉画像は未採用。ナラの落葉や別のカエデ生成物で補わない。 |
 | **ダケカンバ** | [PR #293](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/293)：`Art/Sources/Things/Plant/AMJ/Dakekanba/Dakekanba_Leafy_Source.png`、`Art/Sources/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_Source.png`、`Art/Sources/Things/Plant/AMJ/Dakekanba_Leafless_Snow/Dakekanba_Leafless_Snow_Source.png`。256px確認画像は各々 `Art/Candidates/` 配下。 | 葉あり・落葉・落葉積雪は原画ごとの見た目が採用されたが、幹・枝座標と寸法の厳密な状態間一致は未確認。積雪原画は**樹木全体**で、雪のみのレイヤではない。 |
-| **シラカバ** | [PR #293](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/293)：`Art/Sources/Things/Plant/AMJ/Shirakaba/Shirakaba_Leafy_Source.png`（採用葉あり）／`Art/Candidates/Shirakaba/Shirakaba_Leafy_256_Review.png` | **落葉版は未採用・PR未収録。** 2026-10-30のローカル画像処理による落葉候補や積雪候補を、採用原画・本番素材に昇格させない。 |
+| **シラカバ** | [PR #293](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/pull/293)：`Art/Sources/Things/Plant/AMJ/Shirakaba/Shirakaba_Leafy_Source.png`（採用葉あり）／`Art/Sources/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_Source.png`（**採用落葉**）／各 `Art/Candidates/Shirakaba*/` に256pxレビュー素材 | 2026-10-30、葉あり版との幹・根元の重ね比較を作者が**「合格」**と承認。上部枝と樹皮模様はピクセル一致ではない。**積雪画像・本番Def接続は未承認・未実施**。 |
 
 **未マージPRの識別（Git blob SHA-1）:** ナラ新葉あり `02fc609ac84be9585fb20ccd35d542ce11da07ad`／落葉256px `9eaca11a748b4e4cba237cc42c524e1a422a307a`、ダケカンバ葉あり `da30bc6a316b6bef0c9391388a43b153bdc2bd93`／落葉 `60582ef66778f7af01bde38084e724a9bbcfec9e`、シラカバ葉あり `d9fa93cdfbeac9bffa85c3ad143e5d8f6db03282`。これらは各PRの当時のheadにおける実在blobであり、mainの採用済み本番画像という意味ではない。
 
@@ -49,7 +49,7 @@
 5. **監査と採用の境界:** 実際の採用済み落葉参照（ブナ、ハンノキ、該当するPR素材）に対して太外枠・細部密度・樹種判別・透過・位置の差を記録する。初回生成・再生成ごとに監査し、候補／不採用／作者採用を明示する。独自の数値許容差を合意なしに「合格基準」として追加しない。
 6. **採用後に保存:** 新たな作者採用があった**その画像実体**だけ `Art/Sources/` に原バイトで保持。別の256px派生、必要な積雪レイヤと本番 `Textures/`、Defの読み込み検証はそれぞれ別工程。採用済み画像を無断生成・上書きしない。
 
-**今回のシラカバ落葉候補の扱い:** 樹冠と細枝を簡略化する過程は試みたが、葉あり採用原画との幹・枝の連続性が未達で、作者はまだ採用していない。候補を過去の「成功例」としてここに登録しない。作業を再開する際は、上記のシラカバ葉あり原画を起点とする。
+**シラカバ落葉の採用更新（2026-10-30）:** 途中の機械的な除葉候補と細枝過多の生成結果は**不採用の履歴**。後に新たに提示された `葉のない白樺の木_sprite.png` を葉あり原画と重ねて幹・根元のシルエットを確認し、作者が「合格」と承認した。採用原画はPR #293の `Art/Sources/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_Source.png`（Git blob `dd13a91b846708703f6e0789694052065a0fc8d4`）。完全な生成操作・途中のマスクが保存されたことを意味せず、画像そのものと重ね比較の成功結果のみを資産として扱う。
 
 ## 更新ルール
 
