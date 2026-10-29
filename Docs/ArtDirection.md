@@ -209,7 +209,7 @@ RimWorld 1.6の同一59ファイル配布候補を用いた実画面5セット
 
 Environment intentionally deferred final art until the functional/balance Alpha loop was stable.
 
-The final-art pass currently tracks **29 primary art targets / baseline states**, but this is **not an exact final PNG count**. The scope was expanded after reviewing the Vanilla and Medieval Overhaul trees that actually appear alongside AMJE vegetation. For any prerequisite tree Def, every additional loaded graphic state that can appear in normal play is part of the same retexture family and must be covered or explicitly documented as an exception.
+The final-art pass currently tracks **27 primary art targets / baseline states**, but this is **not an exact final PNG count**. The scope was expanded after reviewing the Vanilla and Medieval Overhaul trees that actually appear alongside AMJE vegetation. For any prerequisite tree Def, every additional loaded graphic state that can appear in normal play is part of the same retexture family and must be covered or explicitly documented as an exception.
 
 ### AMJE structural plants
 
@@ -221,18 +221,18 @@ The final-art pass currently tracks **29 primary art targets / baseline states**
 
 ### Vanilla tree retextures used by AMJE / normal MO coexistence
 
+`Plant_TreePoplar` is not an AMJE natural-vegetation retexture target: the accepted retained-vegetation audit excludes it from the AMJE biomes. Its Vanilla Def is not deleted or renamed; this only removes the unneeded art plan.
+
 6. `Plant_TreeOak` — leafy
 7. `Plant_TreeOak` — leafless
 8. `Plant_TreeMaple` — leafy
 9. `Plant_TreeMaple` — leafless
-10. `Plant_TreePoplar` — leafy
-11. `Plant_TreePoplar` — leafless
-12. `Plant_TreeBirch` — leafy
-13. `Plant_TreeBirch` — leafless
-14. `Plant_TreeWillow` — leafy
-15. `Plant_TreeWillow` — leafless
-16. `Plant_TreePine` — evergreen
-17. `Plant_TreeBamboo` — evergreen
+10. `Plant_TreeBirch` — leafy
+11. `Plant_TreeBirch` — leafless
+12. `Plant_TreeWillow` — leafy
+13. `Plant_TreeWillow` — leafless
+14. `Plant_TreePine` — evergreen
+15. `Plant_TreeBamboo` — evergreen
 
 These are the baseline mature/leafless targets used to track art direction. They intentionally affect the corresponding Vanilla tree Defs wherever they appear while AMJE is active. Creating duplicate AMJ-only tree Defs solely to change graphics would add unnecessary biome/content duplication and compatibility cost.
 
@@ -240,26 +240,26 @@ These are the baseline mature/leafless targets used to track art direction. They
 
 ### Medieval Overhaul conditional tree retextures
 
-18. `DankPyon_GreatOak` — leafy
-19. `DankPyon_GreatOak` — leafless
-20. `DankPyon_GreatIter` — leafy
-21. `DankPyon_GreatIter` — leafless
-22. `DankPyon_GreatFir` — evergreen
-23. `DankPyon_GreatWillow` — leafy
-24. `DankPyon_GreatWillow` — leafless
+16. `DankPyon_GreatOak` — leafy
+17. `DankPyon_GreatOak` — leafless
+18. `DankPyon_GreatIter` — leafy
+19. `DankPyon_GreatIter` — leafless
+20. `DankPyon_GreatFir` — evergreen
+21. `DankPyon_GreatWillow` — leafy
+22. `DankPyon_GreatWillow` — leafless
 
 These are **style harmonization only**. Great Oak / Great Iter / Great Fir / Great Willow remain Medieval Overhaul species/content with their original mechanics, scale, transparency class, harvest behavior, and fantasy identity. AMJE should only replace their graphic paths when MO is active.
 
 ### Natural terrain
 
-25. `AMJ_ThinSoil` — seamless/tileable thin stony soil
+23. `AMJ_ThinSoil` — seamless/tileable thin stony soil
 
 ### World-biome textures
 
-26. `AMJ_WarmTemperateForest`
-27. `AMJ_CoolTemperateForest`
-28. `AMJ_SubalpineForest`
-29. `AMJ_AlpineZone`
+24. `AMJ_WarmTemperateForest`
+25. `AMJ_CoolTemperateForest`
+26. `AMJ_SubalpineForest`
+27. `AMJ_AlpineZone`
 
 No new weather, snow, river, coast, or seasonal-effect art is required for the Alpha pass because those systems intentionally reuse Vanilla rendering.
 
@@ -705,8 +705,6 @@ Vanilla retexture folders:
 - `Textures/Things/Plant/AMJ/Retexture/TreeOak_Leafless/`
 - `Textures/Things/Plant/AMJ/Retexture/TreeMaple/`
 - `Textures/Things/Plant/AMJ/Retexture/TreeMaple_Leafless/`
-- `Textures/Things/Plant/AMJ/Retexture/TreePoplar/`
-- `Textures/Things/Plant/AMJ/Retexture/TreePoplar_Leafless/`
 - `Textures/Things/Plant/AMJ/Retexture/TreeBirch/`
 - `Textures/Things/Plant/AMJ/Retexture/TreeBirch_Leafless/`
 - `Textures/Things/Plant/AMJ/Retexture/TreeWillow/`
