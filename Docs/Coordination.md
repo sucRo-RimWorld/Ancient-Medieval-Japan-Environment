@@ -4,6 +4,13 @@ This live file contains **open owner handoffs and material release/acceptance bl
 
 ## Current open handoffs and decisions
 
+### Seasonal vegetation update — five-species scope; implementation OPEN
+- **Owner:** [Design — 2026-10-30 seasonal scope](Design.md) and [NativeVegetationStep3Design-ja](NativeVegetationStep3Design-ja.md).
+- **Author-confirmed boundary:** the seasonal-appearance update includes only **Yamazakura, Ume, Kuri, Kaki and Susuki** as newly added plants. Vanilla Willow/Pine/Bamboo retextures form a separate workstream. Sugi and Hinoki remain outside this update without deciding their longer-term inclusion. The older Sugi priority-A record does not expand this scoped batch.
+- **Open:** production Defs, season-state sprites/behavior, species-specific distribution/balance and appropriate acceptance are not completed by this documentation decision.
+
+
+
 ### Rainy season, crop sunlight and Environment 0.3 — balance HOLD
 - **Owner:** [Design §4.1](Design.md), [seasonal rain research](Research/TsuyuAkisameClimateCalibration-2026-10-21.md) and [2026-10-28 native crop-rate evidence](ValidationEvidence/SeasonalCropRateNative16-20261028.md).
 - **Current source:** 0.3.0 development adds separate (a) selected-biome Tsuyu/Akisame weather-selection weights plus post-rain Clear weighting and (b) year-round rainy/foggy-weather sky-glow attenuation. The real 1.6 original-game 60-day *event-stepped* three-seed Potato/Rice `Plant.GrowthRate` comparison isolated **only (b)** under unchanged 0.3 weather schedules: ratios 0.9131 / 0.9067 / 0.9154 (mean 0.9117). **Not** a genuine fully ticked crop harvest or full 0.2-versus-0.3 weather-frequency comparison. Neither season removal nor a gameplay coefficient change is approved by this result.
