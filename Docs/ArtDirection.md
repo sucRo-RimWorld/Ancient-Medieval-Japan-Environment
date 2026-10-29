@@ -1,5 +1,64 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-10-29 カバノキ類2樹種の画風方針（作者承認、状態別画像は制作中）
+
+`Docs/Design.md` の「カバノキ類の2樹種化」に基づき、これまで1つの `Plant_TreeBirch` で代表させた樹木は、今後の画像制作・実装では**シラカバ**と**ダケカンバ**を区別する。
+
+- **シラカバ（冷温帯林）:** 明るい白色系の幹を景観の主要な特徴とする。
+- **ダケカンバ（亜高山帯）:** 灰白色～淡褐色の幹を特徴とし、シラカバと樹形・幹色で区別する。
+- 両者ともAMJ共通の低密度の描写、大きな葉塊、明瞭な外枠・透明背景を守る。既存のブナ・スダジイと比較し、カエデ・ナラの採用済み画像を参考にするが、同じ樹形の単純な色替えにはしない。
+- 葉あり・落葉等の必要状態は実際のロード済みDef確認後に対応する。季節による紅葉表現は後日の実ゲーム確認に回す。
+- **状態別画像は制作中。** この2樹種化は既存 `Plant_TreeBirch` の樹木画像・表示名・ゲーム挙動を変更していない。状態別の採用状況は下記の個別記録で判定し、1枚の承認を全画像・本番Defの承認へ拡大しない。
+
+
+## 2026-10-30 シラカバ葉あり画像の採用（原画・視覚のみ）
+
+作者がシラカバの葉を増やした版を再生成し、枝につながらない葉塊を指摘した後の修正版を「まあ妥協するか」として採用した。ここでの採用は**葉あり通常画像1枚の外観**のみであり、積雪版・落葉版・季節発色・実ゲーム表示まで承認したものではない。
+
+- **採用原画:** `Art/Sources/Things/Plant/AMJ/Shirakaba/Shirakaba_Leafy_Source.png`。作者承認直前の `白樺の木と豊かな緑の樹冠.png` の**PNG原バイトを保存**。1254×1254 RGBA、1,066,813 bytes、SHA-256 `a15db90bc8dba266b8ceff5edeec4a1e3d7b77a8ae2aa389ec18f58c7e2ad2c4`。
+- **256px確認用:** `Art/Candidates/Shirakaba/Shirakaba_Leafy_256_Review.png`。256×256 RGBA、SHA-256 `1aad44a80942c36926d6a8e2d41b139a493584924693210943582b983de122a2`。原画像からLANCZOS縮小した別バイト列で、原画の置換ではない。
+- 白い幹・黒い横模様・明るい軽い樹冠を維持する。葉量と枝の接続は作者が現行候補で妥協したため、ここでは再生成しない。
+- **葉あり採用時点の未対応（履歴）:** シラカバ落葉と、最終葉あり画像の形に一致する葉あり積雪、必要な季節・積雪描画状態、本番 `Textures/` のDef接続と実ゲーム確認。落葉については後記の作者承認で更新された。過去のシラカバ積雪候補を採用済み画像と取り違えない。
+- 本PRは**画像原本と256px確認素材の保管**に限定する。現在の汎用 `Plant_TreeBirch` やBiome/植林候補は変更していない。
+
+## 2026-10-30 シラカバ落葉原画の採用（幹・根元の外形比較合格）
+
+作者は採用済みシラカバ葉あり原画と、後に提示された落葉候補 `葉のない白樺の木_sprite.png` の重ね比較（`AMJE_Shirakaba_Leafy_Leafless_Comparison.png` および `AMJE_Shirakaba_Trunk_Silhouette_Overlap.png`）を確認し、**「合格」**と承認した。採用対象はこの落葉候補の**外観と元原画のPNGバイト列**であり、下位の画像処理による別の `AMJE_Shirakaba_Leafless_Simplify_11.png` は今回の採用画像ではない。
+
+- **採用落葉原画:** `Art/Sources/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_Source.png`。1254×1254 RGBA、638,316 bytes、SHA-256 `1fcc03b8467b8ee79ac4a1895587ce1149eca7a0972fb49b076070e63ef58a26`。実際に採用した `葉のない白樺の木_sprite.png` のバイト列を無変更で保存。
+- **256px確認用派生:** `Art/Candidates/Shirakaba_Leafless/Shirakaba_Leafless_256_Review.png`。256×256 RGBA、SHA-256 `61d227e221de5846f2a7a3cf0276514eef8fc507a0fd1ff3c272130f3f1cc01f`。原画の1254×1254の座標を保持したままLANCZOS縮小。原画とは独立した派生画像。
+- **確認範囲:** 葉あり・落葉の1254px正方形画像を根元・幹中心軸で合わせて重ね、幹下部・根元の外形がほぼ維持されていることを確認。ユーザーがこの比較を合格とした。**樹皮色・模様と葉に隠れていた上部の枝はピクセル単位では一致しない**。全枝の一致や既存季節処理の動作を実証したものではない。
+- **未対応:** 葉あり積雪の正式採用、落葉積雪、Def・`Textures/` の本番画像経路、ゲーム上のサイズ／季節遷移・既存セーブ確認。**落葉画像のみのソース採用**を、全描画状態や実機受入に拡張しない。既存の葉あり採用原画は変更しない。
+
+## 2026-10-30 シラカバ落葉積雪の妥協採用（原画の外観のみ）
+
+作者は2026-10-30の画像制作で積雪の不自然な白線・貼り付け感を複数回指摘した後、**直接再添付した1枚**に対して「これで妥協」と承認した。採用対象は**この添付画像そのもの**であり、同セッションの `AMJE_Shirakaba_LeaflessSnow_v8.png` や `AMJE_Shirakaba_LeaflessSnow_v8_SnowOnly.png` は、同一ファイル・同一画素ではないため採用画像へ読み替えない。以前の候補は不採用履歴として扱う。
+
+- **採用原画（原バイト保持）:** `Art/Sources/Things/Plant/AMJ/Shirakaba_Leafless_Snow/Shirakaba_Leafless_Snow_Source.png`。作者が再添付した1254×1254 RGBA PNG、797,344 bytes、SHA-256 `044ad2fee8a5f0678c9f17cd8429973f246ec11b1e964c34943004e74926386e`（Git blob `d75851c692774f21931df1676f3df8007a87e659`）。
+- **256px確認画像:** `Art/Candidates/Shirakaba_Leafless_Snow/Shirakaba_Leafless_Snow_256_Review.png`、1254px原画からLANCZOS縮小した256×256 RGBA、SHA-256 `459846fd68b9a0bbb995d3cb4a5dc633d4f0cb681739d669a035ba516f5acdad`。原画を上書きしない。
+- **確認・採用の境界:** 添付画像は既存採用落葉原画 `Shirakaba_Leafless_Source.png` と**枝・木本の画素・輪郭が異なる**。二枚のRGBA変更は331,882画素、α16以上での輪郭IoUは全画面約0.742・下部y=930～1253で約0.944（等寸1254px同座標の静的比較）。これらの数値は外形差の説明であり、視覚採用の取消理由ではない。作者は**別の積雪した全木画像の見た目**を妥協承認したのであって、幹の下地固定や雪専用レイヤのピクセル一致を確認したわけではない。
+- **未実装:** 雪だけの透明オーバーレイ化・採用済み通常落葉画像との完全座標整合、本番 `Textures/` への導入、`leaflessSnowOverlayGraphicPath` の設定と実ゲーム表示・季節遷移。**全木を含むPNGを雪だけを要求する`leaflessSnowOverlayGraphicPath`へ直接指定しない。** 将来の技術的調整時も採用原画を無断上書きせず、別の派生として扱う。
+- 葉ありと通常落葉の採用原画、およびダケカンバの各採用画像は変更しない。
+
+## 2026-10-30 ダケカンバ葉あり・落葉原画の取り込み（作者提示の採用画像）
+
+作者が「採用はこれだったと思う」と直接提示した**ダケカンバの葉あり・通常落葉**の2枚を、そのまま葉なし積雪の参照元として保持する。以前ライブラリから取り出した別構図の `AMJE_Dakekanba_GreyBrown_Candidate_256.png` は今回の採用元ではない。2026-10-30「忘れず追加しろ」の指示で、これまでPRから漏れていた原画と256px確認用派生を同じPRへ追加した。
+
+- **葉あり採用原画:** `Art/Sources/Things/Plant/AMJ/Dakekanba/Dakekanba_Leafy_Source.png`、作者提示の `黒背景に佇む stylized な緑の樹木(1).png` の**PNG生バイトを無変更**で保存。1024×1536 RGBA、1,574,575 bytes、SHA-256 `f0e3e17ed68b2d2b505c2cf4a9fdd436b51cc40c4dc2d4d9de35fa4764ed3a5d`。
+- **通常落葉採用原画（2026-10-30更新）:** `Art/Sources/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_Source.png`。葉あり版と幹・根元の位置を比較し、既存樹木と同じ許容基準で作者が採用した**下方30px位置補正版** `落葉_下30px位置補正.png` のPNGバイト列を保存。1024×1536 RGBA、871,287 bytes、SHA-256 `676c62c6334ae96a9b740c44ca565d94b7535decdbfaa2de0aa6c15862a1de56`。以前の原画SHA `84ed9ea0...` は更新前の履歴であり現行採用物ではない。
+- **256px確認用派生:** `Art/Candidates/Dakekanba/Dakekanba_Leafy_256_Review.png`（SHA-256 `8fdc5c4d394ec990b5ae962f7667b9e906817bfc8c226af524a30f2b51eaf164`）と `Art/Candidates/Dakekanba_Leafless/Dakekanba_Leafless_256_Review.png`（SHA-256 `729498a6610ba1fad90245fc7df9d55d75350d4ec1f71681df15ed13629352ca`）。各々256×256 RGBA、縦横比維持で最大256pxへLANCZOS縮小し、透明キャンバス中央に配置。元画像とは独立したバイト列であり、原画を置換しない。
+- **状態の境界:** 通常の葉あり／落葉／落葉積雪の3状態は原画を個別に保持。落葉積雪は後述の採用原画と対応するが、**枝輪郭の厳密な同一座標・雪だけの独立オーバーレイ**は未完成。通常葉ありの積雪版は未採用。本番の `Textures/` ファイル、Defのグラフィック経路、季節処理と実機表示は今回変更していない。
+
+## 2026-10-30 ダケカンバ落葉積雪画像の作者採用（原画・視覚のみ）
+
+作者は会話で提示された葉あり／落葉の2状態を参照したのち、最後に生成された**落葉積雪の単木画像**を「葉っぱなし積雪は採用」と明示承認した。採用対象は画像 `雪をまとった冬の裸木スプライト.png` の**原画像そのもの**であり、それ以前の別樹形の積雪案、葉あり積雪版、シラカバ画像の採用には拡張しない。
+
+- 採用原画: `Art/Sources/Things/Plant/AMJ/Dakekanba_Leafless_Snow/Dakekanba_Leafless_Snow_Source.png`。1254×1254 RGBA、713066 bytes、SHA-256 `5f37cbade023e75aa232523e1dfd5e8810ea4ce0fcad3f44dee609f029908b48`。原画像のバイト列を保持し、無断再生成／描き直ししない。
+- 256px確認用縮小画像: `Art/Candidates/Dakekanba_Leafless_Snow/Dakekanba_Leafless_Snow_256_Review.png`。256×256 RGBA、SHA-256 `1a8ab5a6ebd257bfd75c836f4d59b19d39174e6404fdc8ed39cd9e3e9c7d7e57`。LANCZOS縮小による**別バイト列**。本番 `Textures/` への配置、画像読込・Def接続は未実施。
+- この承認は**樹木全体を含む落葉積雪の見た目**に限定。現行仕様の `leaflessSnowOverlayGraphicPath` は雪だけを含む透過素材を想定するため、この樹木全体の画像をそのまま雪オーバーレイとして登録しない。落葉元画像へのピクセル一致、雪のみの抽出・位置合わせ、最終描画方法・256px表示と実ゲーム内の受入は未完了。
+- 既存の採用済み葉あり／落葉原画は変更しない。他の状態の採用および `Plant_TreeBirch` の機能変更は今回の承認対象外。
+
+
 ## Current accepted production (2026-10-15 JST)
 
 The four original AMJE species (Shii, Beech, Shirabiso, Haimatsu) retain
@@ -720,3 +779,11 @@ When a future Environment asset intentionally reuses a visible component pixel-e
 ### Revision 5 native appearance accepted; leafless snow complete (2026-10-06 JST)
 
 Author: `ブナOKなのでPRマージして`. This explicitly closes the separate native-appearance review for the already frozen revision-5 leafless-beech snow source. Keep exact composite SHA-256 `24a10f6a45ed200170a5dabf49cabd2bacecfa3bfaaa1679300e64204b933126`, installed snow overlay SHA-256 `3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b`, and leafless master SHA-256 `24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112`. Template v5 is ACTIVE with the approved filled exemplar. The Beech snow ledger row is accepted for both leafy and leafless variants; all current AMJE structural-plant visual states are complete. This approval authorizes PR #5 merge but does not fabricate a new runtime-test PASS.
+
+## 2026-10-30 ダケカンバ葉あり積雪画像の妥協採用（原画・視覚のみ）
+
+作者は元の葉あり画像の粗い葉塊に近づけた再生成版 `a_clean_high_quality_stylized_illustration_on_a_d.png` を「妥協採用」とした。以前の細かな葉版は採用しない。画像の更なる再生成は現時点では不要だが、積雪量・葉形には改善余地がある。
+
+- **採用原画:** `Art/Sources/Things/Plant/AMJ/Dakekanba_Leafy_Snow/Dakekanba_Leafy_Snow_Source.png`。1024×1536 RGBA、1,918,063 bytes、SHA-256 `734b539452feac76dfa46996ed09b8a391a535a51dd9d79d398fc1ec4360a3f1`。採用されたPNGの原バイトを保持する。
+- **256px確認用派生:** `Art/Candidates/Dakekanba_Leafy_Snow/Dakekanba_Leafy_Snow_256_Review.png`。256×256 RGBA、SHA-256 `38ab287f36603468af153e034d637cf848695959ea478bb6a3905d5398c5d784`。LANCZOS比例縮小と透明余白による別ファイル。
+- **受入範囲:** 外観について妥協採用。元の葉あり樹木とのピクセル一致、季節切替、積雪位置、透過縁の実ゲーム表示、Def/Texturesへの本番接続は未検証・未実施。本追加はレビュー用原本保存であり、Workshop配布ではない。
