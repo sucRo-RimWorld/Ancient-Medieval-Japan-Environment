@@ -198,6 +198,19 @@ AMJEでは、作者の既存セーブで繰り返しニューゲームが必要�
 | `AMJ_SubalpineForest` | `AMJ_Tree_Shirabiso`, `Plant_TreeBirch` |
 | `AMJ_AlpineZone` | 通常樹木なし |
 
+**季節性追加4樹種の植林候補（2026-10-31作者承認、PlantDef/画像の本番接続待ち）:** 上記の既存表は**現行ロード済み樹種**だけを示す。以下の追加候補は4樹種の新規PlantDefが実装され、実際の自然分布に登録された段階で同じ植林メニューへ追加する。分布重みは上部の候補表にあるが未承認であり、この表はその係数を確定しない。
+
+| 対象樹種 | PlantDef | 暖温帯林 | 冷温帯林 | 亜高山帯 | 高山帯 |
+|---|---|---|---|---|---|
+| ヤマザクラ | `AMJ_Tree_Yamazakura` | 植林可 | 植林可 | 不可 | 不可 |
+| ウメ | `AMJ_Tree_Ume` | 植林可 | 不可 | 不可 | 不可 |
+| クリ | `AMJ_Tree_Kuri` | 植林可 | 植林可 | 不可 | 不可 |
+| カキ | `AMJ_Tree_Kaki` | 植林可 | 不可 | 不可 | 不可 |
+
+- **研究・条件:** 4樹種すべて`DeciduousTreeBase`から標準`sowTags=Ground`、`sowResearchPrerequisites=TreeSowing`、`mustBeWildToSow=true`を継承し、地域内の`BiomeDef.wildPlants`への登録と整合させる。独自研究や新しい植林制御C#は追加しない。研究前にどの地域でも植林不可とする。
+- **非対象:** ススキ`AMJ_Plant_Susuki`は草本として自然発生のみで栽培不可。ハイマツの植林不可、既存樹木候補、他Modの植生・研究は変更しない。
+- **実装完了条件:** 使用する採用済み画像が本番`Textures/`に揃った後、新規PlantDefと2バイオームの自然分布、既存の植林期待集合・静的契約・Native Quickstartsを**同じ実装PRで**同期する。実ゲームでは研究前後、暖／冷／亜高山／高山、実際のGrowing Zoneの選択・植林、既存セーブからの更新を確認する。これらが終わるまで、この4樹種はゲーム内の植林メニューに**未登場**である。
+
 `AMJ_Shrub_Haimatsu` は自然低木・伐採資源として残し、植林候補には含めない。自然生成される木本と農業ゾーンから植林可能な通常樹木は、関連するが**同一集合ではない**。RimWorld 1.6ではハイマツが `plant.IsTree` として数えられるため、高山帯の自然木本期待集合は `{AMJ_Shrub_Haimatsu}`、通常植林候補は空集合とする。実行時Quickstartsは両者を別々に検証し、研究のロック／解除とハイマツの植林不可も確認する。候補変更時はBiome、上表、静的契約テスト、ロード後の両期待値を同じ変更で同期する。
 
 回帰手順と静的／実行時検証の区別は [PlantSowingTests](GoldenPaths/PlantSowingTests.md) を参照。実際のメニュー判定はGround適合だけでなく `PlantUtility.ValidPlantTypesForGrowers` と `Command_SetPlantToGrow.IsPlantAvailable` の両段階を使い、ロード後の継承・研究・野生分布条件を検証する。
