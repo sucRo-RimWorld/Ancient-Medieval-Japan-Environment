@@ -2,7 +2,7 @@
   "schema": 1,
   "plants": {
     "AMJ_Tree_Hannoki": {
-      "complete": true,
+      "complete": false,
       "states": {
         "autumn": {
           "status": "accepted",
@@ -88,29 +88,47 @@
           }
         },
         "snow": {
-          "status": "accepted",
-          "date": "2026-10-15",
-          "author_statement": "「まあ採用で」「どうせ後で実ゲーム確認するし」（実RimWorld撮影5画面、拡大提示の見づらさは指摘）",
-          "evidence": "Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md",
-          "fingerprint": {
-            "definition": "c098ed76ac0726c6647d18114048a6a31dc62446fbf96609dac0b81cc0e55281",
-            "pngs": {
-              "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
-              "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
-              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2",
-              "Textures/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png": "ecc2c0412e030eb19f3f45ab016aaed94a3b1e7b37f66d6db8375f573651df16",
-              "Textures/Things/Plant/AMJ/Hannoki_Leafless_Snow/Hannoki_Leafless_Snow_A.png": "41e7548dfc2f93839e1ff4c55d3ddbffffd0c6a8e6f09c45ba09cdd0f35ad640"
-            }
-          },
+          "status": "pending",
+          "date": "2026-11-01",
+          "author_statement": "2026-11-01「落葉積雪廃止で」— 落葉樹の枝積雪を表示しない。葉あり積雪は従来どおり。",
+          "evidence": "Docs/Design.md",
           "reviewed_variants": [
-            "leafy",
-            "leafless"
+            "leafy"
           ],
           "snow_depths": [
             0,
             0.5,
             1
-          ]
+          ],
+          "prior_acceptance": {
+            "status": "accepted",
+            "date": "2026-10-15",
+            "author_statement": "「まあ採用で」「どうせ後で実ゲーム確認するし」（実RimWorld撮影5画面、拡大提示の見づらさは指摘）",
+            "evidence": "Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md",
+            "fingerprint": {
+              "definition": "c098ed76ac0726c6647d18114048a6a31dc62446fbf96609dac0b81cc0e55281",
+              "pngs": {
+                "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
+                "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
+                "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2",
+                "Textures/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png": "ecc2c0412e030eb19f3f45ab016aaed94a3b1e7b37f66d6db8375f573651df16",
+                "Textures/Things/Plant/AMJ/Hannoki_Leafless_Snow/Hannoki_Leafless_Snow_A.png": "41e7548dfc2f93839e1ff4c55d3ddbffffd0c6a8e6f09c45ba09cdd0f35ad640"
+              }
+            },
+            "reviewed_variants": [
+              "leafy",
+              "leafless"
+            ],
+            "snow_depths": [
+              0,
+              0.5,
+              1
+            ]
+          },
+          "leafy_variant_status": "accepted",
+          "leafless_variant_status": "author_decision_native_pending",
+          "current_spec": "LeaflessNoSnow transparent 256 PNG + DXT5 DDS, 9 mips. Snowless tree branches on ground snow; leafy snow unchanged.",
+          "note": "Existing old leafless-snow source/template production approval superseded by user decision. Native loaded screenshot of transparent overlay is pending; no new wood artwork needed."
         },
         "transition": {
           "status": "verified",
@@ -401,8 +419,8 @@
         "snow": {
           "status": "pending",
           "date": "2026-11-01",
-          "author_statement": "ブナOKなのでPRマージして",
-          "evidence": "Docs/ArtDirection.md",
+          "author_statement": "2026-11-01「落葉積雪廃止で」— 落葉樹の枝積雪を表示しない。葉あり積雪は従来どおり。",
+          "evidence": "Docs/Design.md",
           "reviewed_variants": [
             "leafy"
           ],
@@ -410,27 +428,49 @@
           "source_author_statement": "これで妥協する",
           "native_author_statement": "ブナOKなのでPRマージして",
           "prior_acceptance": {
-            "status": "accepted",
-            "date": "2026-10-06",
+            "status": "pending",
+            "date": "2026-11-01",
             "author_statement": "ブナOKなのでPRマージして",
-            "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md",
-            "fingerprint": {
-              "definition": "55a774a1f2773677b1869db113513dffa3f37130a50dc8cc1b06e9ce750f4a87",
-              "pngs": {
-                "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
-                "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
-                "Textures/Things/Plant/AMJ/Beech_Snow/Beech_Snow_A.png": "221fdf06941864a7a366819042fe325b15ad587d5af9e3bb914a672b2f3d5f51",
-                "Textures/Things/Plant/AMJ/Beech_Leafless_Snow/Beech_Leafless_Snow_A.png": "3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b",
-                "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
-              }
-            },
+            "evidence": "Docs/ArtDirection.md",
             "reviewed_variants": [
-              "leafy",
-              "leafless"
+              "leafy"
             ],
             "source_art_status": "accepted_as_compromise",
             "source_author_statement": "これで妥協する",
-            "native_author_statement": "ブナOKなのでPRマージして"
+            "native_author_statement": "ブナOKなのでPRマージして",
+            "prior_acceptance": {
+              "status": "accepted",
+              "date": "2026-10-06",
+              "author_statement": "ブナOKなのでPRマージして",
+              "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md",
+              "fingerprint": {
+                "definition": "55a774a1f2773677b1869db113513dffa3f37130a50dc8cc1b06e9ce750f4a87",
+                "pngs": {
+                  "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+                  "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+                  "Textures/Things/Plant/AMJ/Beech_Snow/Beech_Snow_A.png": "221fdf06941864a7a366819042fe325b15ad587d5af9e3bb914a672b2f3d5f51",
+                  "Textures/Things/Plant/AMJ/Beech_Leafless_Snow/Beech_Leafless_Snow_A.png": "3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b",
+                  "Textures/Other/AMJE_BeechFallGradient.png": "ea1f01ec5c6472c96b189ec7823dbfa10adfcc9f7cd3ef88e7b7e714d7a68c93"
+                }
+              },
+              "reviewed_variants": [
+                "leafy",
+                "leafless"
+              ],
+              "source_art_status": "accepted_as_compromise",
+              "source_author_statement": "これで妥協する",
+              "native_author_statement": "ブナOKなのでPRマージして"
+            },
+            "technical_revalidation": "Historical 2026-10-13 appearance and snow registration evidence applies to the previous leafless source. Leafy-snow remains unchanged; old leafless template is incompatible with 2026-11-01 replacement until rebuilt and reviewed.",
+            "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
+            "previous_acceptance": {
+              "status": "accepted",
+              "date": "2026-10-06",
+              "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md"
+            },
+            "note": "従来の葉あり積雪は変更なし。落葉積雪は旧枝形に合わせた雪素材のため新落葉と整合未確認。旧承認は現行修正画像には適用しない。",
+            "leafy_variant_status": "accepted",
+            "leafless_variant_status": "pending"
           },
           "technical_revalidation": "Historical 2026-10-13 appearance and snow registration evidence applies to the previous leafless source. Leafy-snow remains unchanged; old leafless template is incompatible with 2026-11-01 replacement until rebuilt and reviewed.",
           "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
@@ -439,9 +479,10 @@
             "date": "2026-10-06",
             "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md"
           },
-          "note": "従来の葉あり積雪は変更なし。落葉積雪は旧枝形に合わせた雪素材のため新落葉と整合未確認。旧承認は現行修正画像には適用しない。",
+          "note": "Existing old leafless-snow source/template production approval superseded by user decision. Native loaded screenshot of transparent overlay is pending; no new wood artwork needed.",
           "leafy_variant_status": "accepted",
-          "leafless_variant_status": "pending"
+          "leafless_variant_status": "author_decision_native_pending",
+          "current_spec": "LeaflessNoSnow transparent 256 PNG + DXT5 DDS, 9 mips. Snowless tree branches on ground snow; leafy snow unchanged."
         },
         "transition": {
           "status": "pending",
