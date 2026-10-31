@@ -68,6 +68,10 @@
               <texPath>Things/Plant/AMJ/Yamazakura_Bloom</texPath>
               <graphicClass>Graphic_Random</graphicClass>
             </graphicData>
+            <fullSnowGraphicData>
+              <texPath>Things/Plant/AMJ/Yamazakura_Bloom_SnowFull</texPath>
+              <graphicClass>Graphic_Random</graphicClass>
+            </fullSnowGraphicData>
           </li>
         </windows>
         <fullSnowGraphicData>

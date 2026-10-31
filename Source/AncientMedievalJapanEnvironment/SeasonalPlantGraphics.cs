@@ -22,6 +22,8 @@ namespace AncientMedievalJapan.Environment
         public int endDay = 1;
         public bool allowWhileLeafless;
         public GraphicData graphicData;
+        // Optional complete-tree sprite for deep snow while this window is active.
+        public GraphicData fullSnowGraphicData;
     }
 
     /// <summary>
@@ -102,6 +104,14 @@ namespace AncientMedievalJapan.Environment
                 return extension.leaflessFullSnowGraphicData != null ? -3 : -1;
             }
 
+            // A season-specific snowy sprite takes precedence over the generic
+            // leafy snow sprite only during its configured visual window.
+            int window = ActiveWindowIndex(plant, extension);
+            if (window >= 0 && extension.windows[window].fullSnowGraphicData != null)
+            {
+                return -4 - window;
+            }
+
             return extension.fullSnowGraphicData != null ? -2 : -1;
         }
 
@@ -113,7 +123,14 @@ namespace AncientMedievalJapan.Environment
 
         internal static Graphic ActiveGraphic(Plant plant, SeasonalPlantAppearanceExtension extension)
         {
-            switch (FullSnowState(plant, extension))
+            int snowState = FullSnowState(plant, extension);
+            if (snowState <= -4)
+            {
+                int snowyWindow = -4 - snowState;
+                return GraphicForVariant(plant, extension.windows[snowyWindow].fullSnowGraphicData);
+            }
+
+            switch (snowState)
             {
                 case -2: return GraphicForVariant(plant, extension.fullSnowGraphicData);
                 case -3: return GraphicForVariant(plant, extension.leaflessFullSnowGraphicData);
