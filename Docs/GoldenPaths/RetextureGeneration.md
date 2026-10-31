@@ -83,6 +83,29 @@ If the target-specific request would contradict Project ArtStyle or ArtDirection
 
 **適用履歴・限界:** 2026-10-31のヤマザクラ制作では、独立生成で主枝・根元の不一致、比較シートの誤生成、ぼかし簡略化、積雪レイヤの不自然さが発生した。作者は採用緑葉版を樹形基準とし、状態の派生を希望している。既に妥協採用された落葉・積雪原画などの**実際の採用範囲を変更・撤回せず**、次の新規状態制作からこの手順を適用する。
 
+## 成功事例ログ：ヤマザクラ開花→開花積雪（2026-11-01、PR #299）
+
+**記録の位置づけ：作者が外観を採用した1例。** 今後の季節画像で同じ方法を試すための「成功候補手順」であり、複数回の再現成功や、元画像の全ピクセル固定・RimWorld実機表示を証明した「最適手順」ではない。採用原本と実装状態は [ArtDirection](../ArtDirection.md) を正本とする。
+
+### 実際にうまくいった条件と順序
+
+1. **元画像を直接指定：** ユーザーが、既に採用したヤマザクラの「開花＋赤褐色の若葉」原画を画像として会話へ再添付した。元画像は Art/Sources/Things/Plant/AMJ/Yamazakura_Bloom/Yamazakura_Bloom_Source.png（1254×1254 RGBA、SHA-256 b2f5e1e880f7f8de0ebbcbe31ae67b860c453fd2fe4c3697ab1a0a1c5d769640）。似た樹種の画像、以前の不採用候補、名称だけの参照で代用しなかった。
+2. **変更点を一つに絞る：** ユーザーの実際の指示は**「これに積雪させて」**。同じ幹・枝・花房・赤褐色若葉を残した**単木の全木積雪版**を生成する編集であり、落葉化・再構図・別樹形・雪だけの透過レイヤの生成を同時に要求しなかった。雪は主枝・葉・花房の**上側に厚みをもって載せ**、下側の花と若葉、幹を見せる仕上がりとなった。淡い花、赤褐色葉、白～薄青色の雪、太い輪郭線が共存した。
+3. **元画像と比較：** 同一寸法で幹・根元・主枝、樹冠の左右と上端、開花・若葉の分布、雪の支持関係、輪郭・透過を確認した。生成された樹木全体の**完全な画素一致は未達／未保証**であり、視覚上の樹形連続性を評価したもの。RimWorldサイズ（256px/64px）の可読性は通常どおり別途確認し、未実施項目をPASSとはしない。
+4. **原画の見た目を作者が採用：** 候補に対して「わりといいのでは？」、続いて**「これ採用で」**と判断。採用原画は Art/Sources/Things/Plant/AMJ/Yamazakura_Bloom_SnowFull/Yamazakura_Bloom_SnowFull_Source.png（1254×1254 RGBA、SHA-256 bd348475785d999ea4a0955b08c5d7e48e4bfb4f9d3e32943b50b7f47eb1e8e4、Git Blob 1891a3bc15399c9ac4738c35e6734539b9149729）。採用画像を別の再生成結果へ置換しなかった。
+5. **採用後に実装へ移す：** 原画を原バイト保持し、別ファイルの256×256派生を Textures/Things/Plant/AMJ/Yamazakura_Bloom_SnowFull/Yamazakura_Bloom_SnowFull_A.png へ設置。[PR #299 コミット 88e741a](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Environment/commit/88e741aa0f3adc8968d0b8c06bf3ce81414c2a86) で、開花期＋積雪深>0.8時の**全木画像切替**へ接続。元の開花画像を変更せず、Vanilla雪専用オーバーレイ経路には全木画像を指定しない。Git Blob/ツリー照合は実施、DLLビルド・DDS・ゲーム内切替は未検証。
+
+### 以前の失敗例との相違（原因と断定しない）
+
+- **基準画像の取り違え・別個体化：** 以前は採用済み開花樹形から逸脱した積雪画像が出た。今回は**その場で添付された実際の開花原画**を起点にした。
+- **雪だけのレイヤ抽出：** 以前は雪が浮く、継ぎ目が見える、矩形に切れる等が発生。今回は**雪を含んだ全木の完成絵**として先に見た目を成立させ、別レイヤ化を要求しなかった。
+- **複数状態同時生成：** 以前は別状態の混入や比較シート化があった。今回は**開花積雪1状態**に限定した。
+- **原因の限界：** これは同一条件の比較実験ではない。短い指示、参照画像の直接添付、全木化、生成の偶然性のうち何が主因かは未確定。**この1回だけで方式を絶対化しない。**
+
+### 後続の成功・失敗ログを記録する最小項目
+
+次の樹木・季節画像でも、**樹種／採用原画の実ファイル・寸法・SHA／変更対象状態／実際の生成指示（言い換えない）／参照画像の渡し方／全木か雪専用レイヤか／生成画像の識別子・寸法・SHA／元画像との具体的差分／作者の採否／実機検証有無**を残す。未取得のモデルパラメータ・seedは推測で補完しない。失敗例も消さず、同じ症状の再発を確認できるようにする。**複数樹種・複数状態で実績が蓄積してから**標準手順を見直す。
+
 ## Mandatory audit after every generated image
 
 Every individual output (including revisions and retries) must be visually compared with the **actual current author-accepted reference images** from the same asset class before it is presented as a viable candidate or followed by another generation. Do not rely only on a prompt, an old chat description or the target image itself.
