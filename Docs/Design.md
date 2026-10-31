@@ -4,12 +4,14 @@
 
 対象は季節性アップデートの新規**樹木4種**（ヤマザクラ、ウメ、クリ、カキ）。草本ススキの低温データは別途決定する。今回の目的はCCTOあり／なしの植物データを先に整理することであり、画像・季節状態の実装ではない。
 
-| 樹木 | 仮DefName | CCTOなし：最低生育温度 | CCTOあり：最低生育温度 | CCTOあり：低温応答 | 判定 |
-|---|---|---:|---:|---|---|
-| ヤマザクラ | `AMJ_Tree_Yamazakura` | 0℃ | 5℃ | `coldDormancy=true` | **暫定** |
-| ウメ | `AMJ_Tree_Ume` | 0℃ | 5℃ | `coldDormancy=true` | **暫定** |
-| クリ | `AMJ_Tree_Kuri` | 0℃ | 5℃ | `coldDormancy=true` | **暫定** |
-| カキ | `AMJ_Tree_Kaki` | 0℃ | 5℃ | `coldDormancy=true` | **暫定** |
+| 樹木 | 仮DefName | CCTOなし：最低生育温度 | CCTOなし：最高生育温度 | CCTOあり：最低生育温度 | CCTOあり：最高生育温度 | CCTOあり：低温応答 | 判定 |
+|---|---|---:|---:|---:|---:|---|---|
+| ヤマザクラ | `AMJ_Tree_Yamazakura` | 0℃ | 58℃ | 5℃ | 58℃ | `coldDormancy=true` | **低温側は暫定** |
+| ウメ | `AMJ_Tree_Ume` | 0℃ | 58℃ | 5℃ | 58℃ | `coldDormancy=true` | **低温側は暫定** |
+| クリ | `AMJ_Tree_Kuri` | 0℃ | 58℃ | 5℃ | 58℃ | `coldDormancy=true` | **低温側は暫定** |
+| カキ | `AMJ_Tree_Kaki` | 0℃ | 58℃ | 5℃ | 58℃ | `coldDormancy=true` | **低温側は暫定** |
+
+**最高生育温度：** 4樹種すべて、CCTOの有無によらずVanilla植物の通常上限`maxGrowthTemperature=58℃`を使う（本追加樹種の既定データ）。通常の生育倍率は約6～42℃で最大、42℃超で減衰して58℃で0となる。これは**生育停止の上限**であり高温枯死温度の指定ではない。CCTO互換Patchでは最高生育温度を変更せず、独自の高温枯死や耐暑能力を加えない。基底Defへの明示値記述か継承かは本番のParentDef構成に合わせる。参照：RimWorld Wiki [Plants](https://rimworldwiki.com/wiki/Plants)、既存`Patches/Compatibility/CCTO.xml`。
 
 **根拠と制約：** 既存のAMJEブナ・ハンノキとCCTO落葉樹（カエデ・カシ・カバノキ等）の共通基準を初期比較対象とした**検討値**であり、4種の同一耐寒性や作者承認を意味しない。特にカキの耐寒性・地域分布、ウメの冬末の開花は、**生育停止・低温死・開花時期を混同せず**別に評価する。Vanillaの最低生育温度0℃は冬季生存を自動保証せず、CCTOの`coldDormancy`は開花・結実の季節切替を実装する機能ではない。低温死の数値を根拠なく追加しない。
 
