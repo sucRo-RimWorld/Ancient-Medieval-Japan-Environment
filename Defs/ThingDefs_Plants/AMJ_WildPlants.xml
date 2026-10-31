@@ -31,6 +31,44 @@
     </plant>
   </ThingDef>
 
+  <!-- Seasonal native Yamazakura. Accepted source images, complete-sprite snow states.
+       Bloom date window is intentionally absent until its calendar is decided. -->
+  <ThingDef ParentName="DeciduousTreeBase">
+    <defName>AMJ_Tree_Yamazakura</defName>
+    <label>yamazakura</label>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Yamazakura</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <shadowData>
+        <volume>(0.16, 0.33, 0.12)</volume>
+        <offset>(0,0,-0.44)</offset>
+      </shadowData>
+    </graphicData>
+    <statBases>
+      <Beauty>2</Beauty>
+    </statBases>
+    <plant>
+      <growDays>30</growDays>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <harvestWork>950</harvestWork>
+      <harvestYield>40</harvestYield>
+      <leaflessGraphicPath>Things/Plant/AMJ/Yamazakura_Leafless</leaflessGraphicPath>
+      <!-- Do not set snowOverlayGraphicPath: the two snow images contain the entire tree. -->
+    </plant>
+    <modExtensions>
+      <li Class="AncientMedievalJapan.Environment.SeasonalPlantAppearanceExtension">
+        <fullSnowGraphicData>
+          <texPath>Things/Plant/AMJ/Yamazakura_SnowFull</texPath>
+          <graphicClass>Graphic_Random</graphicClass>
+        </fullSnowGraphicData>
+        <leaflessFullSnowGraphicData>
+          <texPath>Things/Plant/AMJ/Yamazakura_Leafless_SnowFull</texPath>
+          <graphicClass>Graphic_Random</graphicClass>
+        </leaflessFullSnowGraphicData>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
   <ThingDef ParentName="DeciduousTreeBase">
     <defName>AMJ_Tree_Beech</defName>
     <label>Japanese beech</label>
