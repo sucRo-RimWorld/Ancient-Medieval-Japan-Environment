@@ -1,5 +1,12 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 ヤマザクラ落葉・落葉積雪画像の再採用（2026-10-31記録の画像を置換）
+
+- **作者の現行採用はPR #299の次の2状態**。古い「2026-10-31 落葉（枝のみ）の妥協採用」および初期の落葉積雪画像のSHA・Git Blobは履歴であり、現在の採用画像の参照先ではない。再生成や別画像への置換は行わない。
+- **落葉・無積雪:** 採用原画 `Art/Sources/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_Source.png`（1254×1254 RGBA、SHA-256 `c4918ec8ecec225cadb11d91fd94186e1ab94ffc4516b1fc4f097b2d0e94942e`、Git Blob `da4d93c733c8e4f13e57efc69e275dcc95046cef`）。本番用 `Textures/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_A.png`（256×256 RGBA、SHA-256 `d445f39158f5b175ac4eb1204d28a08b8ca69a72ded21e9ed0d93f78d7a5c841`、Git Blob `b9448376e76baf49d3dbbff2efdd93e9568b4d3f`）。
+- **落葉積雪・全木:** 採用原画 `Art/Sources/Things/Plant/AMJ/Yamazakura_Leafless_SnowFull/Yamazakura_Leafless_SnowFull_Source.png`（1254×1254 RGBA、SHA-256 `448c689a67b4589a99be9c8edea52f5759f40854e711937265272059b2f1cfe6`、Git Blob `2b87e87308836aea83a7c0ac7d3453b3d70e043a`）。本番用 `Textures/Things/Plant/AMJ/Yamazakura_Leafless_SnowFull/Yamazakura_Leafless_SnowFull_A.png`（256×256 RGBA、SHA-256 `a865854d231f2617f072d594058e237cb50ad4cb7f3c114ea911d867ffa1ecb3`、Git Blob `5f78e2aec9b7a0e23848d37137f689c6060f86fb`）。
+- **反映コミット:** 落葉 `4b42483e56609ae07e98d114f17c9fb65ba3e889`、落葉積雪 `ae4a6c44b9a8647d653424436d714cade01ea6e7`。2状態とも画像外観のみ妥協採用。ゲーム内の季節・積雪描画、64px表示、C#ビルド、DDSは別途検証が必要。落葉積雪画像は雪だけのオーバーレイではない。
+
 ## 2026-11-01 ヤマザクラ開花積雪：作者採用（原画・本番候補）
 
 - **採用状態:** 開花中の赤褐色の若葉と淡い桜色の花に雪が載る**全木**1状態。作者は会話で生成画像を見て「これ採用で」と明示。元の開花画像（SHA-256 `b2f5e1e880f7f8de0ebbcbe31ae67b860c453fd2fe4c3697ab1a0a1c5d769640`）を参照した別の採用画像であり、元画像との完全画素一致を保証しない。
