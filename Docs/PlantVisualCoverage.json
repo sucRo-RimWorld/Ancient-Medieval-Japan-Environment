@@ -303,7 +303,7 @@
               }
             }
           },
-          "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
+          "technical_revalidation": "Historical 2026-10-13: the then-current leafy/leafless art had not changed in that calibration. As of 2026-11-01 leafless art has changed, but this icon appearance still uses the unchanged leafy/UI/fall asset; no acceptance of new leafless geometry is implied.",
           "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
           "artwork_20261101_note": "葉あり・UI・紅葉に使用する画像とDefは不変。fingerprintは新しい別状態（落葉）のPNG hashだけ同期し、旧レビューによる新落葉表示の受入は主張しない。"
         },
@@ -334,7 +334,7 @@
               }
             }
           },
-          "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
+          "technical_revalidation": "Historical 2026-10-13: the then-current leafy/leafless art had not changed in that calibration. As of 2026-11-01 leafless art has changed, but this immature appearance still uses the unchanged leafy/UI/fall asset; no acceptance of new leafless geometry is implied.",
           "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
           "artwork_20261101_note": "葉あり・UI・紅葉に使用する画像とDefは不変。fingerprintは新しい別状態（落葉）のPNG hashだけ同期し、旧レビューによる新落葉表示の受入は主張しない。"
         },
@@ -353,12 +353,13 @@
             "after_leafless": true,
             "texture": "Beech_Leafless_A",
             "mod_error_gate": "passed",
-            "human_appearance": "accepted"
+            "human_appearance": "accepted",
+            "previous_sprite_only": true
           },
           "date": "2026-11-01",
-          "author_statement": "問題なし",
+          "author_statement": "2026-11-01「これを採用する」（1254px落葉原画に対する外観採用のみ。実機は未検証）",
           "evidence": "Docs/ArtDirection.md",
-          "technical_revalidation": "Original leafless PNG identical; previous explicit 問題なし retained. Autumn shader and snow/UI additions caused overbroad invalidation; current native LeaflessNow/material verified without art replacement.",
+          "technical_revalidation": "Former 2026-10-05 native/visual review and 2026-10-13 calibration concern the old leafless sprite only; the 2026-11-01 replacement has no native appearance evidence.",
           "previous_acceptance": {
             "status": "accepted",
             "date": "2026-10-05",
@@ -393,7 +394,7 @@
               }
             }
           },
-          "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
+          "technical_revalidation": "Historical 2026-10-13: the then-current leafy/leafless art had not changed in that calibration. As of 2026-11-01 leafless art has changed, but this normal appearance still uses the unchanged leafy/UI/fall asset; no acceptance of new leafless geometry is implied.",
           "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
           "artwork_20261101_note": "葉あり・UI・紅葉に使用する画像とDefは不変。fingerprintは新しい別状態（落葉）のPNG hashだけ同期し、旧レビューによる新落葉表示の受入は主張しない。"
         },
@@ -403,8 +404,7 @@
           "author_statement": "ブナOKなのでPRマージして",
           "evidence": "Docs/ArtDirection.md",
           "reviewed_variants": [
-            "leafy",
-            "leafless"
+            "leafy"
           ],
           "source_art_status": "accepted_as_compromise",
           "source_author_statement": "これで妥協する",
@@ -432,14 +432,16 @@
             "source_author_statement": "これで妥協する",
             "native_author_statement": "ブナOKなのでPRマージして"
           },
-          "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
+          "technical_revalidation": "Historical 2026-10-13 appearance and snow registration evidence applies to the previous leafless source. Leafy-snow remains unchanged; old leafless template is incompatible with 2026-11-01 replacement until rebuilt and reviewed.",
           "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
           "previous_acceptance": {
             "status": "accepted",
             "date": "2026-10-06",
             "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md"
           },
-          "note": "従来の葉あり積雪は変更なし。落葉積雪は旧枝形に合わせた雪素材のため新落葉と整合未確認。旧承認は現行修正画像には適用しない。"
+          "note": "従来の葉あり積雪は変更なし。落葉積雪は旧枝形に合わせた雪素材のため新落葉と整合未確認。旧承認は現行修正画像には適用しない。",
+          "leafy_variant_status": "accepted",
+          "leafless_variant_status": "pending"
         },
         "transition": {
           "status": "pending",
@@ -452,7 +454,8 @@
             "date": "2026-10-13",
             "evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-Season.log"
           },
-          "note": "既存の落葉・回復機構の実ゲーム検証記録は維持。ただし新しい枝形状での落葉→葉あり切替の表示整合は未確認。"
+          "note": "既存の落葉・回復機構の実ゲーム検証記録は維持。ただし新しい枝形状での落葉→葉あり切替の表示整合は未確認。",
+          "technical_revalidation": "The previous 2026-10-13 native state-change mechanics were verified with the old sprite. No new game screenshot or native drawing test demonstrates the 2026-11-01 replacement transitions without a visual jump."
         }
       }
     },
