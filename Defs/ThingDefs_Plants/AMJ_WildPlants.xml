@@ -32,7 +32,7 @@
   </ThingDef>
 
   <!-- Seasonal native Yamazakura. Accepted source images, complete-sprite snow states.
-       Bloom date window is intentionally absent until its calendar is decided. -->
+       Spring days 6..8 bloom (end day 9 exclusive); native leafless state is respected. -->
   <ThingDef ParentName="DeciduousTreeBase">
     <defName>AMJ_Tree_Yamazakura</defName>
     <label>yamazakura</label>
@@ -57,6 +57,19 @@
     </plant>
     <modExtensions>
       <li Class="AncientMedievalJapan.Environment.SeasonalPlantAppearanceExtension">
+        <!-- Three game days in mid spring, approximating the March-April bloom. -->
+        <windows>
+          <li>
+            <startSeason>Spring</startSeason>
+            <startDay>6</startDay>
+            <endSeason>Spring</endSeason>
+            <endDay>9</endDay>
+            <graphicData>
+              <texPath>Things/Plant/AMJ/Yamazakura_Bloom</texPath>
+              <graphicClass>Graphic_Random</graphicClass>
+            </graphicData>
+          </li>
+        </windows>
         <fullSnowGraphicData>
           <texPath>Things/Plant/AMJ/Yamazakura_SnowFull</texPath>
           <graphicClass>Graphic_Random</graphicClass>
