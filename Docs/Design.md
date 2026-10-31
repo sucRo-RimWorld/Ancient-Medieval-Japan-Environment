@@ -10,7 +10,9 @@
 - **既存描画との整合:** 落葉・秋色シェーダー・雪オーバーレイの既存挙動は壊さない。開花画像を描くときも根元・幹・影・画面位置・積雪表現に矛盾が出ないようにする。必要な状態画像が未採用なら通常画像へ安全にフォールバックし、未承認画像・仮texPathを本番配布に入れない。カキの秋の果実・クリの結実・ススキの枯れ穂は別の季節状態として後続実装する。
 - **互換:** Environment + Harmonyのみで成立させる。VEF／Vanilla Plants Expanded - Flowers、CCTO、MOは新規必須依存にしない。CCTOは低温時の生育／休眠処理のみを所有し、開花判定と画像切替はEnvironmentが所有する。
 - **既存実装の参照:** VEFの`Plant_Blooming`は季節・日付に応じて開花画像を選ぶが、`!LeaflessNow`を条件にするため、ウメの**葉より先に開花**する挙動にはそのまま使えない。`Plant_WinterBlooming`の冬用画像切替も先行例。これらはコード構造の参考のみ。非VEの「Cherry Blossom」（2025年時点で1.5向け、花弁採集を主目的）および「Gauranlen - Cherry Blossom Colors」（1.6、Ideology樹木の色変更）も比較候補だが、Environment所有の2樹種について依存なしの冬末・春の開花状態を置換する証拠はない。詳細な既存Mod監査と実装開始ゲートは別途必要。
-- **現状と確認事項:** 本項は**方式の承認**でありC#実装・Def・画像の完成を意味しない。実装時に春／冬末／日付境界／通年夏の季節判定、葉あり・落葉・雪との優先順位、長期マップ描画更新、保存／再読込、VanillaとCCTO併用時の冬季表示を確認する。
+- **実装状況（2026-10-31、PR #299）:** `Source/AncientMedievalJapanEnvironment/SeasonalPlantGraphics.cs` に、`SeasonalPlantAppearanceExtension` と`SeasonalPlantGraphicWindow` を使用する**オプトインの画像状態切替C#**を実装した。Harmonyは成熟Plantの`Graphic` getterで、定義済みの季節ウィンドウに該当すればその`GraphicData`を選び、該当しなければ元の描画を維持する。`Plant.TickLong`では前回選択状態からの変化のみ`MapMeshDirty(..., Things)`を呼ぶ。開花／果実／穂は共通の季節画像ウィンドウとして扱える。日付は四季ごとに1～15日目、`startSeason`/`startDay`を含み`endSeason`/`endDay`を含まない。冬から春への年跨ぎを扱い、恒常的な夏／冬の地域でも年60日を基準に画像暦だけ計算する。成熟前・未設定・画像未接続時は元の表示を維持し、`allowWhileLeafless=true`を設定したウィンドウでは落葉中のウメの開花を許可する。全体の温度・CCTO休眠・収穫は一切変更しない。
+
+**未実装・未検証:** 現段階では新規樹木4種とススキの本番PlantDef、画像、ウィンドウXML、分布・植林・収穫値を**追加していない**。したがって実ゲームで花が咲く機能はまだ有効化されていない。実際の開花・果実表示の日付、グラフィック更新、落葉・積雪シェーダーとの合成、CCTO/Vanilla共存、ロード／保存とゲーム実行は未受入。実装開始前の既存Mod比較と採用理由は`Docs/Research/SeasonalPlantAppearanceExistingModAudit-2026-10-31.md`および`SeasonalPlantAppearanceImplementationDecision.json`を正本とする。未承認画像・暫定数値を埋めるためにProduction Defを作らない。
 
 ## 2026-10-31 季節性追加樹木：CCTO有無のデータ設計（暫定・実装前）
 
