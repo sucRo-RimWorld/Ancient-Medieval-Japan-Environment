@@ -591,6 +591,39 @@
           "reason": "evergreen"
         }
       }
+    },
+    "AMJ_Tree_Yamazakura": {
+      "complete": false,
+      "states": {
+        "normal": {
+          "status": "pending",
+          "note": "Source PNG accepted; production native rendered appearance not yet accepted."
+        },
+        "immature": {
+          "status": "pending",
+          "note": "Scaled mature graphic; in-game growth scale not yet verified."
+        },
+        "icon": {
+          "status": "pending",
+          "note": "Actual info-card and selection UI icon not yet verified."
+        },
+        "snow": {
+          "status": "pending",
+          "note": "Whole-tree leafy and leafless snow graphics; runtime alignment not yet accepted."
+        },
+        "leafless": {
+          "status": "pending",
+          "note": "Leafless PNG accepted as art; runtime transition and scale pending."
+        },
+        "autumn": {
+          "status": "pending",
+          "note": "Fall tint under noon/Clear native renderer not yet reviewed."
+        },
+        "transition": {
+          "status": "pending",
+          "note": "Seasonal bloom dates not yet selected; autumn/leafless/snow transitions untested."
+        }
+      }
     }
   },
   "nonvisual_metadata_update": "2026-10-06: author-approved descriptions and six Haimatsu harvest fields only; normalized remaining Def identical and prior full visual fingerprints verified before migration. No new visual approval claimed.",
