@@ -6,7 +6,7 @@
 
 - **現行採用原画:** `Art/Sources/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_Source.png` — 1254×1254 RGBA、608835 bytes、SHA-256 `7e030c298239428c6f90ee0db3a37b563f40ac37c1f9b1d751927a4102cb21f1`。作者が最終的に再添付したPNGの**原バイトを変更せず**保存。
 - **本番PNG:** `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png` — 原画全体を座標比固定で256×256へLANCZOS縮小、RGBA/透明維持。SHA-256 `e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f`。
-- **本番DDS:** 同じパスの `Beech_Leafless_A.dds` — 256×256、9 mip levels、DXT5/BC3圧縮。元のDDSはBC7であり**DDS圧縮方式が異なる**。PNG原画と区別し、DDS単体のデコード・画素差確認は実施、実ゲーム内のロードと見た目は未検証。
+- **本番DDS（2026-11-01 ゲーム内反転不具合への修正候補）:** 同じパスの `Beech_Leafless_A.dds` — 256×256、9 mip levels、DXT5/BC3圧縮。従来のBC7から形式変更された。原画・本番PNGは根元が下だが、実ゲームスクリーンショット（Project Actions #41232462353）では落葉ブナだけ根元が上になる上下反転を確認。**PNGと原画は無変更のまま**、DDSの全MIPのBC3ブロック行／各ブロック内のα・RGBインデックスを上下反転させた。DDSをPillowで復号した画素は、修正前DDSを上下反転した画素とピクセル単位で完全一致（圧縮再実行なし）。修正後DDS SHA-256 `72a77167f8efef6a356d39ea65e0e9cf4887c6c5783e3a8317bf3e8a25d07461`、Git blob `740bade223ee58998def2ced0fc5ebf20e714cc2`。これは**ランタイム向け向き補正の仮説**であり、修正版をゲームで再撮影して正常表示を確認するまで受入完了としない。
 - **旧版の扱い:** 2026-10-04採用の `Art/Sources/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png` は**旧版の履歴**として保持。本番の葉あり `Beech_A.png` とDefのID／描画パス／生態設定は不変。旧版の採用履歴は新原画への承認に優先しない。
 - **積雪との整合:** 旧落葉状態の形に合わせて作成・承認された `Beech_Leafless_Snow_A.png` は本画像の枝に対し位置ずれする可能性がある。雪専用素材を**未承認のまま自動加工・置換しない**。既存積雪は旧版への承認であり、この修正版への雪の適合・再受入は未完了。
 - **レビュー範囲:** 原画像のPNG CRC／RGBA、256px縮小版の構造・透明背景、およびDDS復号・MIPの静的確認。通常／64px表示と葉あり樹形の視覚比較はソース段階の検討。実ゲームの落葉・積雪・季節切替の受入は別ゲート。
