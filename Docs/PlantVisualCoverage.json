@@ -197,7 +197,7 @@
       }
     },
     "AMJ_Tree_Beech": {
-      "complete": true,
+      "complete": false,
       "states": {
         "autumn": {
           "status": "accepted",
@@ -231,7 +231,7 @@
             "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
-              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f",
               "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
             }
           },
@@ -273,7 +273,8 @@
               }
             },
             "technical_revalidation": "Exact prior whole-Def/assets reconstructed after excluding unrelated UI/snow-only additions; original acceptance retained."
-          }
+          },
+          "artwork_20261101_note": "葉あり・UI・紅葉に使用する画像とDefは不変。fingerprintは新しい別状態（落葉）のPNG hashだけ同期し、旧レビューによる新落葉表示の受入は主張しない。"
         },
         "icon": {
           "status": "accepted",
@@ -284,7 +285,7 @@
             "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
-              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f",
               "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
             }
           },
@@ -303,7 +304,8 @@
             }
           },
           "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
-          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md"
+          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
+          "artwork_20261101_note": "葉あり・UI・紅葉に使用する画像とDefは不変。fingerprintは新しい別状態（落葉）のPNG hashだけ同期し、旧レビューによる新落葉表示の受入は主張しない。"
         },
         "immature": {
           "status": "accepted",
@@ -314,7 +316,7 @@
             "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
-              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f",
               "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
             }
           },
@@ -333,10 +335,11 @@
             }
           },
           "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
-          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md"
+          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
+          "artwork_20261101_note": "葉あり・UI・紅葉に使用する画像とDefは不変。fingerprintは新しい別状態（落葉）のPNG hashだけ同期し、旧レビューによる新落葉表示の受入は主張しない。"
         },
         "leafless": {
-          "status": "accepted",
+          "status": "pending",
           "runtime_observation": {
             "log": "TestResults/BeechLeaflessReview/CoolTemperate.log",
             "mode": "forced via Plant.MakeLeafless(Cold,false); not seasonal timing",
@@ -352,17 +355,16 @@
             "mod_error_gate": "passed",
             "human_appearance": "accepted"
           },
-          "date": "2026-10-05",
+          "date": "2026-11-01",
           "author_statement": "問題なし",
-          "evidence": "Docs/ArtDirection.md#Japanese beech — leafless",
-          "fingerprint": {
-            "definition": "e7b43a6b8675fd8ec8ba941f2d77f8bb9f90d56f47bd4b335a7022a363c49233",
-            "pngs": {
-              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
-              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112"
-            }
+          "evidence": "Docs/ArtDirection.md",
+          "technical_revalidation": "Original leafless PNG identical; previous explicit 問題なし retained. Autumn shader and snow/UI additions caused overbroad invalidation; current native LeaflessNow/material verified without art replacement.",
+          "previous_acceptance": {
+            "status": "accepted",
+            "date": "2026-10-05",
+            "evidence": "Docs/ArtDirection.md#Japanese beech — leafless"
           },
-          "technical_revalidation": "Original leafless PNG identical; previous explicit 問題なし retained. Autumn shader and snow/UI additions caused overbroad invalidation; current native LeaflessNow/material verified without art replacement."
+          "note": "新しいブナ落葉原画は作者が「これを採用する」とソース外観を承認。実ゲームでの256px表示・季節切替／積雪は未検証。"
         },
         "normal": {
           "status": "accepted",
@@ -373,7 +375,7 @@
             "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
             "pngs": {
               "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
-              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f",
               "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
             }
           },
@@ -392,23 +394,14 @@
             }
           },
           "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
-          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md"
+          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
+          "artwork_20261101_note": "葉あり・UI・紅葉に使用する画像とDefは不変。fingerprintは新しい別状態（落葉）のPNG hashだけ同期し、旧レビューによる新落葉表示の受入は主張しない。"
         },
         "snow": {
-          "status": "accepted",
-          "date": "2026-10-06",
+          "status": "pending",
+          "date": "2026-11-01",
           "author_statement": "ブナOKなのでPRマージして",
-          "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md",
-          "fingerprint": {
-            "definition": "ea02ccd7cdf579beb9ba63d4ab2786bb2c05dcf23b8bf9e26ab59f96a3dcfada",
-            "pngs": {
-              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
-              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
-              "Textures/Things/Plant/AMJ/Beech_Snow/Beech_Snow_A.png": "221fdf06941864a7a366819042fe325b15ad587d5af9e3bb914a672b2f3d5f51",
-              "Textures/Things/Plant/AMJ/Beech_Leafless_Snow/Beech_Leafless_Snow_A.png": "3cc4da672499e8bb7f96847623793050ab136b766cd91713a7921eda66dc496b",
-              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
-            }
-          },
+          "evidence": "Docs/ArtDirection.md",
           "reviewed_variants": [
             "leafy",
             "leafless"
@@ -440,22 +433,26 @@
             "native_author_statement": "ブナOKなのでPRマージして"
           },
           "technical_revalidation": "Only fall-key/LUT changed. Normal fall0 GPU identity and native comparison-region zero difference; original master, size, leafless and snow-state artwork unchanged. Retain prior human approval; calibrated autumn reviewed separately.",
-          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md"
+          "revalidation_evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-20261013.md",
+          "previous_acceptance": {
+            "status": "accepted",
+            "date": "2026-10-06",
+            "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md"
+          },
+          "note": "従来の葉あり積雪は変更なし。落葉積雪は旧枝形に合わせた雪素材のため新落葉と整合未確認。旧承認は現行修正画像には適用しない。"
         },
         "transition": {
-          "status": "verified",
-          "date": "2026-10-13",
+          "status": "pending",
+          "date": "2026-11-01",
           "verification_kind": "automated_native_calendar_sampling",
-          "evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-Season.log",
-          "fingerprint": {
-            "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
-            "pngs": {
-              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
-              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "24f8664bdedd3ebd0dee58fe627439b3784b5ecc599aaf49d750832f315be112",
-              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
-            }
+          "evidence": "Docs/ArtDirection.md",
+          "scope": "Hourly native calendar/temperature-cache/Plant.TickLong sampling: fall0..1, same-tree cold leafless and recovery, valid textures. Not continuous full-world yearly simulation; no human visual acceptance claimed.",
+          "previous_acceptance": {
+            "status": "verified",
+            "date": "2026-10-13",
+            "evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-Season.log"
           },
-          "scope": "Hourly native calendar/temperature-cache/Plant.TickLong sampling: fall0..1, same-tree cold leafless and recovery, valid textures. Not continuous full-world yearly simulation; no human visual acceptance claimed."
+          "note": "既存の落葉・回復機構の実ゲーム検証記録は維持。ただし新しい枝形状での落葉→葉あり切替の表示整合は未確認。"
         }
       }
     },

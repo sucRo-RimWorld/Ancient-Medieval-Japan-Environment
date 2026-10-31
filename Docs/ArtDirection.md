@@ -1,5 +1,17 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 ブナ落葉の枝数削減版 — 作者採用（画像原本／本番画像候補）
+
+作者は現行のブナ落葉画像について枝先の過密・不自然な分岐を指摘し、枝先を減らした修正版の1254px透過原画を直接再添付して「これを採用する」と承認した。**この採用は新しい落葉画像の外観と原画に限定**し、落葉積雪・実ゲーム表示・季節遷移の再受入は含まない。
+
+- **現行採用原画:** `Art/Sources/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_Source.png` — 1254×1254 RGBA、608835 bytes、SHA-256 `7e030c298239428c6f90ee0db3a37b563f40ac37c1f9b1d751927a4102cb21f1`。作者が最終的に再添付したPNGの**原バイトを変更せず**保存。
+- **本番PNG:** `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png` — 原画全体を座標比固定で256×256へLANCZOS縮小、RGBA/透明維持。SHA-256 `e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f`。
+- **本番DDS:** 同じパスの `Beech_Leafless_A.dds` — 256×256、9 mip levels、DXT5/BC3圧縮。元のDDSはBC7であり**DDS圧縮方式が異なる**。PNG原画と区別し、DDS単体のデコード・画素差確認は実施、実ゲーム内のロードと見た目は未検証。
+- **旧版の扱い:** 2026-10-04採用の `Art/Sources/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png` は**旧版の履歴**として保持。本番の葉あり `Beech_A.png` とDefのID／描画パス／生態設定は不変。旧版の採用履歴は新原画への承認に優先しない。
+- **積雪との整合:** 旧落葉状態の形に合わせて作成・承認された `Beech_Leafless_Snow_A.png` は本画像の枝に対し位置ずれする可能性がある。雪専用素材を**未承認のまま自動加工・置換しない**。既存積雪は旧版への承認であり、この修正版への雪の適合・再受入は未完了。
+- **レビュー範囲:** 原画像のPNG CRC／RGBA、256px縮小版の構造・透明背景、およびDDS復号・MIPの静的確認。通常／64px表示と葉あり樹形の視覚比較はソース段階の検討。実ゲームの落葉・積雪・季節切替の受入は別ゲート。
+
+
 ## 2026-10-29 カバノキ類2樹種の画風方針（作者承認、状態別画像は制作中）
 
 `Docs/Design.md` の「カバノキ類の2樹種化」に基づき、これまで1つの `Plant_TreeBirch` で代表させた樹木は、今後の画像制作・実装では**シラカバ**と**ダケカンバ**を区別する。
@@ -581,7 +593,7 @@ Accepted source-art direction:
 - preserve the leafy sprite's pale grey-beige trunk identity and overall crown width;
 - expose a broad, irregular branching fan rather than a narrow upright silhouette;
 - keep branch tips simplified and thick enough to remain readable at game zoom;
-- leafless source sprite approved by the author on 2026-10-04 and integrated at `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png`; in-game seasonal-switch validation remains pending.
+- **Historical/superseded:** leafless source sprite approved by the author on 2026-10-04 and integrated at `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png`; in-game seasonal-switch validation remains pending. This earlier sprite is replaced by the 2026-11-01 author-accepted version recorded above; past in-game evidence does not verify the new geometry.
 
 ### Shirabiso fir
 
