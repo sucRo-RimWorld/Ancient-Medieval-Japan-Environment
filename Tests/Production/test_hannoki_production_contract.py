@@ -23,7 +23,7 @@ SNOW_HASHES = {
     "Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
     "Hannoki_Snow/Hannoki_Snow_A.png": "ecc2c0412e030eb19f3f45ab016aaed94a3b1e7b37f66d6db8375f573651df16",
     "Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
-    "Hannoki_Leafless_Snow/Hannoki_Leafless_Snow_A.png": "41e7548dfc2f93839e1ff4c55d3ddbffffd0c6a8e6f09c45ba09cdd0f35ad640",
+    "LeaflessNoSnow/LeaflessNoSnow_A.png": "70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c",
 }
 WOODY = {
     "TemperateSwamp": {"Plant_TreeWillow": 1.30, "Plant_TreeMaple": 1.00, DEF_NAME: 0.70},
@@ -62,7 +62,7 @@ class HannokiProductionContract(unittest.TestCase):
     def test_exact_accepted_seasonal_pngs_and_paths(self):
         paths = dict(leaflessGraphicPath="Hannoki_Leafless",
                      snowOverlayGraphicPath="Hannoki_Snow",
-                     leaflessSnowOverlayGraphicPath="Hannoki_Leafless_Snow")
+                     leaflessSnowOverlayGraphicPath="LeaflessNoSnow")
         for prop, stem in paths.items():
             self.assertEqual(self.tree.findtext("plant/" + prop),
                              "Things/Plant/AMJ/" + stem)
@@ -104,7 +104,7 @@ class HannokiProductionContract(unittest.TestCase):
         self.assertEqual(exts[0].get("Class"), "CropColdToleranceOverhaul.ColdToleranceExtension")
         self.assertEqual(exts[0].findtext("coldDormancy"), "true")
 
-    def test_approved_display_text_and_review_not_yet_closed(self):
+    def test_approved_display_text_and_native_leafless_snow_decision_closed(self):
         ja = ET.parse(JA).getroot()
         self.assertEqual(ja.findtext(DEF_NAME + ".label"), "ハンノキ")
         self.assertEqual(len(ja.findall(DEF_NAME + ".description")), 1)
@@ -114,10 +114,10 @@ class HannokiProductionContract(unittest.TestCase):
         self.assertEqual(description.count(chr(92) + "n" + chr(92) + "n"), 1)
         self.assertEqual(self.tree.findtext("description").count(chr(92) + "n" + chr(92) + "n"), 1)
         data = json.loads(LEDGER.read_text(encoding="utf-8"))["plants"][DEF_NAME]
-        self.assertIs(data["complete"], False)
+        self.assertIs(data["complete"], True)
         self.assertEqual(set(data["states"]),
                          {"normal", "immature", "icon", "snow", "leafless", "autumn", "transition"})
-        self.assertTrue(any(x["status"] == "pending" for x in data["states"].values()))
+        self.assertFalse(any(x["status"] == "pending" for x in data["states"].values()))
 
 
 if __name__ == "__main__":

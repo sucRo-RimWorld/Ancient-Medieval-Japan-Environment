@@ -1,5 +1,26 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 落葉積雪廃止の実ゲーム検証
+
+作者決定どおり、落葉時は裸枝に雪なし、地表は積雪、葉ありの雪は従来維持。ブナ・ハンノキとも隔離RimWorld 1.6実画面・Unity ERROR0で確認（[Actions #41267149034](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034)）。ブナ落葉の原画作者採用と修正済DDSの上下方向についても、既存の実ゲーム証拠を合わせ現行画像に対応。季節切替の旧実機検証は挙動不変の範囲のみ継承し、今回の静止画を新たな1年動作試験とは扱わない。参照: `Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md`。
+
+
+## 2026-11-01 落葉積雪の廃止（現行の優先仕様）
+
+ユーザー指示「落葉積雪廃止で」により、AMJE所有の落葉樹では**裸枝への積雪描画を廃止**する。対象は本番のブナ・ハンノキ、および将来追加する落葉樹の描画方針。地面の積雪・葉あり積雪・通常落葉画像はそのまま。落葉時の `leaflessSnowOverlayGraphicPath` には透明共通画像 `Things/Plant/AMJ/LeaflessNoSnow` を使い、葉あり用の積雪へフォールバックさせない。256×256の透明PNG（SHA-256 `70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c`）とDDS 9 mip DXT5（SHA-256 `b832ea2cc14a1da84be189c4bd5be36b1cc083d800151b24fc047cfd22aaebb5`）の全画素α=0。旧ブナ・ハンノキ落葉積雪の画像と以前の採用記録、シラカバ・ダケカンバで別途採用された**全木積雪原画そのもの**は消さず、制作史料として残すが、**現在以降の本番実装予定の落葉積雪グラフィックとしては使わない**。これより下の「落葉積雪の制作・保留・採用」の記載は、この決定より前の履歴であり、現行の制作必須条件ではない。対応する正本仕様は `Docs/Design.md`。
+
+## 2026-11-01 ブナ落葉の枝数削減版 — 作者採用（画像原本／本番画像候補）
+
+作者は現行のブナ落葉画像について枝先の過密・不自然な分岐を指摘し、枝先を減らした修正版の1254px透過原画を直接再添付して「これを採用する」と承認した。**この採用は新しい落葉画像の外観と原画に限定**し、落葉積雪・実ゲーム表示・季節遷移の再受入は含まない。
+
+- **現行採用原画:** `Art/Sources/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_Source.png` — 1254×1254 RGBA、608835 bytes、SHA-256 `7e030c298239428c6f90ee0db3a37b563f40ac37c1f9b1d751927a4102cb21f1`。作者が最終的に再添付したPNGの**原バイトを変更せず**保存。
+- **本番PNG:** `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png` — 原画全体を座標比固定で256×256へLANCZOS縮小、RGBA/透明維持。SHA-256 `e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f`。
+- **本番DDS（2026-11-01 ゲーム内反転不具合への修正候補）:** 同じパスの `Beech_Leafless_A.dds` — 256×256、9 mip levels、DXT5/BC3圧縮。従来のBC7から形式変更された。原画・本番PNGは根元が下だが、実ゲームスクリーンショット（Project Actions #41232462353）では落葉ブナだけ根元が上になる上下反転を確認。**PNGと原画は無変更のまま**、DDSの全MIPのBC3ブロック行／各ブロック内のα・RGBインデックスを上下反転させた。DDSをPillowで復号した画素は、修正前DDSを上下反転した画素とピクセル単位で完全一致（圧縮再実行なし）。修正後DDS SHA-256 `72a77167f8efef6a356d39ea65e0e9cf4887c6c5783e3a8317bf3e8a25d07461`、Git blob `740bade223ee58998def2ced0fc5ebf20e714cc2`。**実ゲーム内の向き修正確認（限定PASS）:** Projectの隔離RimWorld 1.6.4871実機、Actions [#41236249041](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41236249041) で採用PNGと新DDSを含むPR #301のcommit `b7d0e48fc6c99381edc963418d4c1edf43622886` をロードし、正午・晴天・一時停止の落葉ブナの枝を上・根元を下に正常描画することを実スクリーンショットで確認。修正前 [#41232462353](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41232462353) は逆向き。6株を配置した撮影セットのUnityエラーは0件。**この合格は上下向きに限る。** 葉あり積雪・落葉積雪の枝形状整合、原画像からの見た目、自然な季節切替／実プレイの最終受入は引き続き未完了。ハンノキの本番画像・DDS・Defは一切変更していない。
+- **旧版の扱い:** 2026-10-04採用の `Art/Sources/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png` は**旧版の履歴**として保持。本番の葉あり `Beech_A.png` とDefのID／描画パス／生態設定は不変。旧版の採用履歴は新原画への承認に優先しない。
+- **積雪との整合:** 旧落葉状態の形に合わせて作成・承認された `Beech_Leafless_Snow_A.png` は本画像の枝に対し位置ずれする可能性がある。雪専用素材を**未承認のまま自動加工・置換しない**。既存積雪は旧版への承認であり、この修正版への雪の適合・再受入は未完了。
+- **レビュー範囲:** 原画像のPNG CRC／RGBA、256px縮小版の構造・透明背景、およびDDS復号・MIPの静的確認。通常／64px表示と葉あり樹形の視覚比較はソース段階の検討。実ゲームの落葉・積雪・季節切替の受入は別ゲート。
+
+
 ## 2026-10-29 カバノキ類2樹種の画風方針（作者承認、状態別画像は制作中）
 
 `Docs/Design.md` の「カバノキ類の2樹種化」に基づき、これまで1つの `Plant_TreeBirch` で代表させた樹木は、今後の画像制作・実装では**シラカバ**と**ダケカンバ**を区別する。
@@ -581,7 +602,7 @@ Accepted source-art direction:
 - preserve the leafy sprite's pale grey-beige trunk identity and overall crown width;
 - expose a broad, irregular branching fan rather than a narrow upright silhouette;
 - keep branch tips simplified and thick enough to remain readable at game zoom;
-- leafless source sprite approved by the author on 2026-10-04 and integrated at `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png`; in-game seasonal-switch validation remains pending.
+- **Historical/superseded:** leafless source sprite approved by the author on 2026-10-04 and integrated at `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png`; in-game seasonal-switch validation remains pending. This earlier sprite is replaced by the 2026-11-01 author-accepted version recorded above; past in-game evidence does not verify the new geometry.
 
 ### Shirabiso fir
 
