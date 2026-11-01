@@ -18,7 +18,11 @@ retextures remain deferred by the author's instruction. Finish pending current
 plant states before proposing terrain or unrelated art.
 
 Every plant needs normal mature appearance, immature appearance, UI icon and
-snow-covered appearance review. Deciduous beech additionally needs leafless,
+snow-state review. For AMJE deciduous plants the leafy state retains snow artwork,
+whereas the leafless state intentionally renders **no branch snow** via the
+transparent shared `Things/Plant/AMJ/LeaflessNoSnow` graphic (author decision
+2026-11-01). Check ground snow separately from tree snow and verify no fallback
+to a leafy snow canopy. Deciduous beech additionally needs leafless,
 autumn color and actual leafy/leafless seasonal-transition review. Evergreen
 leafless/seasonal-transition rows are explicitly N/A with the evergreen reason.
 Keep the accepted normal sprites intact. Use the game's snow rendering with
@@ -50,7 +54,11 @@ After an author accepts a state, update only the corresponding ledger rows,
 ArtDirection and main Coordination. Report completed states and remaining states
 explicitly. Do not label the whole plant or ENV-010 DONE from one accepted state.
 
-**2026-10-17 Hannoki completion scope:** the author accepted the six
+**2026-11-01 Hannoki leafy-snow correction:** Native #41267149034 checked `SnowOverlayGraphic` as registered but did not prove a visible snowy crown. The right leafy Hannoki remained yellow-green. The author's direct screenshot objection supersedes the assistant's previous incorrect PASS. Need distinguish source overlay sparseness from DDS orientation/render issues and verify a corrected visual result. This does not reopen the snowless leafless decision or change the existing accepted leafy base sprite.
+
+**2026-11-01 latest native acceptance:** [real 1.6 screenshot and logs](Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md) verify Beech/Hannoki snow-free bare branches over snowy ground, while Beech leafy snow remains visible. **Correction: Hannoki leafy snow is NOT visually discernible in the same frame; the author rejected the previous PASS. Keep Hannoki/snow pending until visually corrected and revalidated.** The author's selected Beech leafless art and 2026-11-01 corrected DDS orientation were separately verified. The 2026-10-13 native Beech cold-transition mechanics are carried forward only because the underlying seasonal logic and temperature fields are unchanged; new screenshots demonstrate loaded endpoint art, not a repeated dynamic full-year simulation. Old branch-snow art is now archival and not an outstanding production task.
+
+**Historical 2026-10-17 Hannoki completion scope (superseded only for leafless snow by 2026-11-01 decision):** the author accepted the six
 static native appearance states on 2026-10-15 (normal, immature scaling,
 UI, forced autumn, forced leafless, leafy/leafless snow). The forced autumn
 and leafless screenshots alone did not prove temporal mechanics. A separate
@@ -68,6 +76,8 @@ Workshop binaries. Read the precise independent evidence in
 `Docs/ValidationEvidence/HannokiSeasonalNative-20261017.md` and original
 static acceptance in `Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`.
 
+
+**2026-11-01 CURRENT ACCEPTED (supersedes later historical pending notes):** the author replied `ｙ` approving the revised Hannoki *leafy* snow overlay shown in the real-before/after game screenshot. [Actual RimWorld 1.6 screenshot](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41270559182) confirms visible snow on the leafy Hannoki crown with ground snow depth 1, with NO snow on leafless wood and Unity ERROR0. Current approved `Art/Sources/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png` exactly matches production PNG; the sparse previously accepted source is archived. Current ledger `AMJ_Tree_Hannoki/snow=accepted`, `complete=true`; old "snow not visible"/"keep pending" instructions in this document are explicitly **historical, no longer operative**. Formal per-state evidence: [Hannoki leafy snow adoption](../ValidationEvidence/HannokiLeafySnowVisibilityFixNative-20261101.md). This is NOT a new RimWorld 1.7 or full-year dynamic test.
 
 ## Controlled color review
 
@@ -193,7 +203,7 @@ Shii shape correction supersedes five geometric crown anchors: the author reject
 
 Publication worktrees must sit below a container without About/About.xml, e.g. Mods/_AMJ_PublishStaging/Environment, rather than directly in Mods. Hidden directory names are still scanned by RimWorld and cause duplicate PackageIds. Use git worktree move to preserve registration.
 
-For beech snow comparisons set RIMWORLD_AMJE_SNOW_REVIEW=1 and RIMWORLD_AMJE_BEECH_SNOW_REVIEW=1. AMJPlantGrowthReviewQuickstart shows leafy beech north row and native cold-leafless beech second row, each at depths 0/0.5/1. Native SnowOverlayGraphic selects leaflessSnowOverlayGraphicPath automatically. Verify logged leafless state and actual snowTexture before asking for appearance review. Run Tests/validate_beech_snow.py for source/registration checks.
+For beech snow comparisons set RIMWORLD_AMJE_SNOW_REVIEW=1 and RIMWORLD_AMJE_BEECH_SNOW_REVIEW=1. AMJPlantGrowthReviewQuickstart shows leafy beech north row and native cold-leafless beech second row, each at depths 0/0.5/1. **Current behavior:** leafy Beech/Hannoki snow overlays remain as approved; the leafless-specific path resolves to fully transparent `LeaflessNoSnow` without fallback. Verify a real native screenshot shows a bare tree without branch snow on snow-covered ground; check the resolved graphic and `Tests/validate_beech_snow.py`. The superseded former `Beech_Leafless_Snow` production texture, mask and old appearance screenshots are archival only. Loaded graphics and static transparent-alpha evidence do not replace checking actual rendered behavior.
 
 For actual UI icon review set RIMWORLD_AMJE_ICON_REVIEW=1 with AMJPlantGrowthReviewQuickstart and leave snow-review variables unset. Dedicated test window draws Widgets.DefIcon at 32/64 pixels using each live ThingDef; logs texture names/BadTex validity. Close the window to inspect north-to-south Shii/Beech/Shirabiso/Haimatsu and west-to-east growth 10/50/100%. The window exists only in DevQuickstarts; source images/production behavior unchanged. Runtime validity is separate from author appearance acceptance.
 

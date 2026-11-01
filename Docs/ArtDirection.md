@@ -63,6 +63,72 @@
 - **透過と画幅:** 原本は高解像度RGBA透明を保持してよいが、本番派生は**256×256px RGBA PNG（透明背景）**。市松模様を実画素に焼き込まない。前候補はα16以上の範囲が横252/256px（98.4%）で両端余白2pxしかなく、64pxでは端に触れたため不採用。**横幅に十分な透明余白を設け、樹冠を不自然に左右へ膨らませない**。新しい開花＋若葉候補ではα16以上の横幅179px／左右余白38・39px、縦幅200px／上下余白28px（256px版）を確認。ただしこの値は本番の全樹種へ一律強制する数値ではなく、配置の改善証拠。
 - **状態:** 2026-10-31の生成画像は**修正候補のみで未採用**。赤い若葉の葉形や幹・主枝が通常葉あり版と一致していない間は本番Texturesに指定しない。既存採用済みブナ／スダジイの画像は変更しない。
 
+## 2026-11-01 シラカバ・ダケカンバ落葉画像の枝分かれ削減版 — 作者採用
+
+**現行の採用原画:** 作者が直接アップロードした **1774×887 RGBA透過の2本組PNG**（左シラカバ、右ダケカンバ）を、描画し直さず左右分離。本人が「ではこの画像を分離してそれぞれの落葉画像として」と指示したため、以前の2026-10-30採用落葉画像に優先する。2本組の**原バイトそのもの**を `Art/Sources/Things/Plant/AMJ/Birch_Leafless_Pair/Birch_Leafless_Pair_Approved_20261101.png` に保存（SHA-256 `19d7479dfb0205c7c9429007971e9f906c9f21efb244c2c694d39aab94a43d11`）。原画像は改変しない。
+
+| 項目 | シラカバ | ダケカンバ |
+|---|---|---|
+| 原画像内の採用対象の実画素外接矩形（alpha>=8） | x=253..645, y=22..835 | x=1113..1528, y=22..834 |
+| 無加工で切り出した大判画像 | 409×830 RGBA、SHA-256 `22870eb264843c4cf3b9e494cf414e9857223a64028b5cd69e142f110f272bad` | 432×829 RGBA、SHA-256 `ef14a9c60dee8f34f09dac549f425f6e4fc17fb1ed383c97aa1b56252ee033e2` |
+| 分離した新しい落葉原本 | `Art/Sources/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_Source.png` | `Art/Sources/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_Source.png` |
+| 256px派生画像 | `Art/Candidates/Shirakaba_Leafless/Shirakaba_Leafless_256_Review.png`（SHA-256 `da293abfc3cc90bbfa015e19ceb49ba6ddb4a91fe65535ebc9e5e952d8d81485`） | `Art/Candidates/Dakekanba_Leafless/Dakekanba_Leafless_256_Review.png`（SHA-256 `91942dc1d6563d26bad48bd26cce7bb1c73088c18fc3a014310e156acf85da04`）|
+| 旧版の原本・256px（履歴保持） | `Art/Archive/Things/Plant/AMJ/Shirakaba_Leafless/` | `Art/Archive/Things/Plant/AMJ/Dakekanba_Leafless/` |
+
+**導出方法・監査:** RGBAの連結画面を左右で分け、有効alphaの最大の木本連結成分を基準に各8px余白を持つ長方形を切り出した。描画内容の枝/幹の色・形・輪郭は加工せず、256px用の派生では**縦横を同じ倍率でLanczos縮小**してRGBA透明256×256へ配置。旧採用256pxの根元に中心を合わせた（シラカバ130px→130px、ダケカンバ138px→139px）。alpha16以上の新外接矩形はシラカバ(x73..189,y13..253)、ダケカンバ(x78..201,y12..252)。新旧比で樹冠幅が狭いのは作者が選んだ新画像の形状差であり、見かけの均等拡大や横方向の不自然な引き伸ばしはしていない。RimWorld縮小画面でも枝数を減らした樹形として判読できる。
+
+**所有境界:** 画像1状態の原画採用・PNG分離のみが完了。葉あり原本、葉あり積雪、落葉時の枝積雪なし、植生分布/DefName/植物系C#は変えない。両樹種の本番ThingDefとTextures接続・DDS書き出し・実RimWorld 1.6/1.7での樹形確認は、該当する樹種実装工程で行う。旧原本および過去の画像受入記録は履歴として残すが、現在の落葉採用画像ではない。
+
+
+## 2026-11-01 ハンノキ葉あり積雪：作者採用・現行正本
+
+- 作者は修正候補の実ゲーム比較提示後に「ｙ」と返答し、ハンノキの**葉あり積雪修正版**を採用した。以前の「積雪してない」は旧画像に対する指摘であり、新画像には適用しない。
+- 採用原本：`Art/Sources/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png`。SHA-256 `5549f3a99c268211af103f4bf6036e61f36ff8034d01ddd45b00498b61724250`。本番`Textures/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png`と**同一バイト列**。対応DDSは256px/9 mip/BC3、SHA-256 `7c99559a18c6f4d48740bca8ef9211da25489f5870bc58a5016b4c5ea35a42bc`。
+- 旧版原画（雪2,477px）は`Art/Archive/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A_20261015.png`へ**原バイトを変えず保存**。従前の受入・不具合指摘を履歴として保持。現在採用した雪オーバーレイは6,771pxであり、採用済みハンノキ本体／葉／幹／輪郭を変更していない。
+- [実RimWorld 1.6.4871、正午・晴れ・一時停止／雪深0と1の同画面比較](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41270559182)で、葉あり樹冠の雪が視認でき、落葉時には枝雪なし、地面積雪あり、Unity ERROR0を確認。元スクリーンショットはActions Artifact、画像比較は`Docs/ValidationEvidence/Images/HannokiLeafySnow_BeforeAfterNative_20261101.png`。静止画は実際の1年間の季節推移を意味しない。
+- 本採用は`AMJ_Tree_Hannoki/snow`に限定し、`Docs/PlantVisualCoverage.json`でacceptedにする。後続の「候補」「未承認」「pending」という記載は**本採用より前の工程履歴**。落葉時の枝積雪は従来の透明オーバーレイ運用を継続。Workshop配布は別承認。
+
+
+## 2026-11-01 ハンノキ葉あり積雪の視認性修正候補（作者レビュー・実機受入待ち）
+**実機による候補の機能的確認（2026-11-01）:** [Project Actions #41270559182](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41270559182) で Environment PR #306 の候補SHA 6fecd5a25ca2279c79f94502bacda7ffcc2a9b9d をロード。RimWorld 1.6.4871／正午・晴れ・一時停止／積雪深1.0。修正前は黄緑色に見えたハンノキ葉あり樹冠に、修正後は白い雪が視認できる。落葉時の枝積雪なしも維持。Unity ERROR0、VisualCoverage台帳整合PASSだがハンノキ雪の作者レビューは引き続きpending。撮影2枚から同一範囲を6倍拡大した比較画像と条件は Docs/ValidationEvidence/HannokiLeafySnowVisibilityFixNative-20261101.md に記録。作者が候補を最終採用するまではマージしない。
+
+
+作者の「修正」に基づく**候補**。作者の採用済み葉あり画像 `Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png` は原バイト不変（SHA-256 `6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1`）。元の `Hannoki_Snow_A.png` は積雪2,477有効画素しかなく、2026-11-01のRimWorld 1.6実機画面では積雪を識別できなかった。
+
+- 比較した3つの本番DDS（ハンノキ葉あり本体、ハンノキ積雪、正常に見えるブナ積雪）はすべてPNGに対して**上下反転したDDS画素配置**だった。これはゲーム向けの既存方式と整合するので、**DDSの行配置を不具合原因と断定しない**。今回もDDS画素をPNG比で上下反転した形で用意した。
+- 採用済みの雪片画素をそのまま保持し、現物の葉画像の緑色領域と元雪片の支持位置を使い、上下各3px／左右各5px以内で既存の雪塊を広げた。雪以外のピクセルや葉あり本体を変更せず、既存の雪3色のみ使用。積雪有効画素2,477→6,771。局所的な拡大を行った**修正候補**であり、勝手に採用済みとしない。
+- **候補PNG:** `Art/Candidates/Hannoki_Snow_VisibilityFix/Hannoki_Snow_Candidate.png`、SHA-256 `5549f3a99c268211af103f4bf6036e61f36ff8034d01ddd45b00498b61724250`。本番試験用 `Textures/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png` にはそのバイト列を置いた。
+- **候補DDS:** 同名 `.dds`（256×256、9 MIP、DXT5/BC3、各MIPで反転配置）、SHA-256 `7c99559a18c6f4d48740bca8ef9211da25489f5870bc58a5016b4c5ea35a42bc`。DDS復号／上下反転PNGの平均絶対画素差0.40、アルファマスクIoU 1.0。元のBC7がDXT5に変更されるため、この差も実ゲームで確認する。
+- **画像比較:** `Art/Candidates/Hannoki_Snow_VisibilityFix/ReviewComposite_256.png` および `ReviewComposite_64px_x8.png`。これらは採用済み本体＋候補雪片の**静的合成プレビューであり、ゲームスクリーンショットではない**。
+- **保持:** 従来の積雪原画 `Art/Sources/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png` は無変更。本体 `Hannoki_A.png`／落葉画像／落葉時透明オーバーレイ／季節Defは無変更。
+- **受入ゲート:** (1) 凍結した実RimWorld 1.6の昼12時・晴れ・一時停止の通常倍率で葉ありハンノキの雪が視認できること、(2) 雪無し通常葉あり画像と幹・樹形が合致し、白い領域が浮かないこと、(3) 落葉時の枝積雪なしを維持、(4) 作者がこの**修正後**の見た目を採用と判断すること。これらが終わるまでは `Docs/PlantVisualCoverage.json` の `AMJ_Tree_Hannoki/snow=pending` を維持する。
+
+## 2026-11-01 ハンノキ葉あり積雪の表示不備（最新の作者指摘）
+
+作者が実ゲーム撮影を見て「いや、積雪してない」と訂正した。右列のハンノキの葉あり樹冠は黄緑色のままで、雪景色における積雪が視認できない。従来の **Hannoki leafy snow visual PASS は撤回**する。`Hannoki_Snow_A.png` は実在しDefも登録されているが、点在する白い小片がゲーム縮尺で十分な雪景色になっていない。DDS描画方向や重なりの問題はまだ排除していない。葉あり積雪画像・DDSのバイト列は作者の新しい採用画像がない限り変更しない。**落葉時の枝積雪廃止は引き続き正常**。検証元は `Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md` とProject Actions #41267149034。台帳ではハンノキのsnow状態だけpendingとする。
+
+
+## 2026-11-01 落葉積雪廃止の実ゲーム検証
+
+作者決定どおり、落葉時は裸枝に雪なし、地表は積雪、葉ありの雪は従来維持。ブナ・ハンノキの落葉時の枝積雪なし、およびブナ葉あり積雪を隔離RimWorld 1.6実画面・Unity ERROR0で確認。**ハンノキ葉あり積雪は画面上で雪が視認できず、従来の表示PASSを撤回して再確認待ち**（[Actions #41267149034](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034)）。ブナ落葉の原画作者採用と修正済DDSの上下方向についても、既存の実ゲーム証拠を合わせ現行画像に対応。季節切替の旧実機検証は挙動不変の範囲のみ継承し、今回の静止画を新たな1年動作試験とは扱わない。参照: `Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md`。
+
+
+## 2026-11-01 落葉積雪の廃止（現行の優先仕様）
+
+ユーザー指示「落葉積雪廃止で」により、AMJE所有の落葉樹では**裸枝への積雪描画を廃止**する。対象は本番のブナ・ハンノキ、および将来追加する落葉樹の描画方針。地面の積雪・葉あり積雪・通常落葉画像はそのまま。落葉時の `leaflessSnowOverlayGraphicPath` には透明共通画像 `Things/Plant/AMJ/LeaflessNoSnow` を使い、葉あり用の積雪へフォールバックさせない。256×256の透明PNG（SHA-256 `70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c`）とDDS 9 mip DXT5（SHA-256 `b832ea2cc14a1da84be189c4bd5be36b1cc083d800151b24fc047cfd22aaebb5`）の全画素α=0。旧ブナ・ハンノキ落葉積雪の画像と以前の採用記録、シラカバ・ダケカンバで別途採用された**全木積雪原画そのもの**は消さず、制作史料として残すが、**現在以降の本番実装予定の落葉積雪グラフィックとしては使わない**。これより下の「落葉積雪の制作・保留・採用」の記載は、この決定より前の履歴であり、現行の制作必須条件ではない。対応する正本仕様は `Docs/Design.md`。
+
+## 2026-11-01 ブナ落葉の枝数削減版 — 作者採用（画像原本／本番画像候補）
+
+作者は現行のブナ落葉画像について枝先の過密・不自然な分岐を指摘し、枝先を減らした修正版の1254px透過原画を直接再添付して「これを採用する」と承認した。**この採用は新しい落葉画像の外観と原画に限定**し、落葉積雪・実ゲーム表示・季節遷移の再受入は含まない。
+
+- **現行採用原画:** `Art/Sources/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_Source.png` — 1254×1254 RGBA、608835 bytes、SHA-256 `7e030c298239428c6f90ee0db3a37b563f40ac37c1f9b1d751927a4102cb21f1`。作者が最終的に再添付したPNGの**原バイトを変更せず**保存。
+- **本番PNG:** `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png` — 原画全体を座標比固定で256×256へLANCZOS縮小、RGBA/透明維持。SHA-256 `e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f`。
+- **本番DDS（2026-11-01 ゲーム内反転不具合への修正候補）:** 同じパスの `Beech_Leafless_A.dds` — 256×256、9 mip levels、DXT5/BC3圧縮。従来のBC7から形式変更された。原画・本番PNGは根元が下だが、実ゲームスクリーンショット（Project Actions #41232462353）では落葉ブナだけ根元が上になる上下反転を確認。**PNGと原画は無変更のまま**、DDSの全MIPのBC3ブロック行／各ブロック内のα・RGBインデックスを上下反転させた。DDSをPillowで復号した画素は、修正前DDSを上下反転した画素とピクセル単位で完全一致（圧縮再実行なし）。修正後DDS SHA-256 `72a77167f8efef6a356d39ea65e0e9cf4887c6c5783e3a8317bf3e8a25d07461`、Git blob `740bade223ee58998def2ced0fc5ebf20e714cc2`。**実ゲーム内の向き修正確認（限定PASS）:** Projectの隔離RimWorld 1.6.4871実機、Actions [#41236249041](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41236249041) で採用PNGと新DDSを含むPR #301のcommit `b7d0e48fc6c99381edc963418d4c1edf43622886` をロードし、正午・晴天・一時停止の落葉ブナの枝を上・根元を下に正常描画することを実スクリーンショットで確認。修正前 [#41232462353](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41232462353) は逆向き。6株を配置した撮影セットのUnityエラーは0件。**この合格は上下向きに限る。** 葉あり積雪・落葉積雪の枝形状整合、原画像からの見た目、自然な季節切替／実プレイの最終受入は引き続き未完了。ハンノキの本番画像・DDS・Defは一切変更していない。
+- **旧版の扱い:** 2026-10-04採用の `Art/Sources/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png` は**旧版の履歴**として保持。本番の葉あり `Beech_A.png` とDefのID／描画パス／生態設定は不変。旧版の採用履歴は新原画への承認に優先しない。
+- **積雪との整合:** 旧落葉状態の形に合わせて作成・承認された `Beech_Leafless_Snow_A.png` は本画像の枝に対し位置ずれする可能性がある。雪専用素材を**未承認のまま自動加工・置換しない**。既存積雪は旧版への承認であり、この修正版への雪の適合・再受入は未完了。
+- **レビュー範囲:** 原画像のPNG CRC／RGBA、256px縮小版の構造・透明背景、およびDDS復号・MIPの静的確認。通常／64px表示と葉あり樹形の視覚比較はソース段階の検討。実ゲームの落葉・積雪・季節切替の受入は別ゲート。
+
+
 ## 2026-10-29 カバノキ類2樹種の画風方針（作者承認、状態別画像は制作中）
 
 `Docs/Design.md` の「カバノキ類の2樹種化」に基づき、これまで1つの `Plant_TreeBirch` で代表させた樹木は、今後の画像制作・実装では**シラカバ**と**ダケカンバ**を区別する。
@@ -644,7 +710,7 @@ Accepted source-art direction:
 - preserve the leafy sprite's pale grey-beige trunk identity and overall crown width;
 - expose a broad, irregular branching fan rather than a narrow upright silhouette;
 - keep branch tips simplified and thick enough to remain readable at game zoom;
-- leafless source sprite approved by the author on 2026-10-04 and integrated at `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png`; in-game seasonal-switch validation remains pending.
+- **Historical/superseded:** leafless source sprite approved by the author on 2026-10-04 and integrated at `Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png`; in-game seasonal-switch validation remains pending. This earlier sprite is replaced by the 2026-11-01 author-accepted version recorded above; past in-game evidence does not verify the new geometry.
 
 ### Shirabiso fir
 

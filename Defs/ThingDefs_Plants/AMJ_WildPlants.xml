@@ -110,7 +110,8 @@
       <minGrowthTemperature>0</minGrowthTemperature>
       <leaflessGraphicPath>Things/Plant/AMJ/Beech_Leafless</leaflessGraphicPath>
       <snowOverlayGraphicPath>Things/Plant/AMJ/Beech_Snow</snowOverlayGraphicPath>
-      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/Beech_Leafless_Snow</leaflessSnowOverlayGraphicPath>
+      <!-- Deliberately transparent. Without a leafless-specific graphic, the native Plant may reuse leafy snow. -->
+      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
       <harvestWork>950</harvestWork>
       <harvestYield>40</harvestYield>
       <wildClusterWeight>38</wildClusterWeight>
@@ -151,7 +152,8 @@
       <harvestYield>24</harvestYield>
       <leaflessGraphicPath>Things/Plant/AMJ/Hannoki_Leafless</leaflessGraphicPath>
       <snowOverlayGraphicPath>Things/Plant/AMJ/Hannoki_Snow</snowOverlayGraphicPath>
-      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/Hannoki_Leafless_Snow</leaflessSnowOverlayGraphicPath>
+      <!-- Deliberately transparent. Without a leafless-specific graphic, the native Plant may reuse leafy snow. -->
+      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
     </plant>
   </ThingDef>
 

@@ -1,5 +1,8 @@
 # Species-aligned snow overlays — proposed design
 
+> **2026-11-01 現行仕様への変更:** ユーザー決定によりAMJE落葉樹の裸枝への積雪画像は**廃止**。ブナ・ハンノキは葉あり用の積雪だけを使用し、落葉時は `LeaflessNoSnow` の完全透明オーバーレイをロードする。地面の雪は従来どおり。この文書の**落葉積雪の制作・修正手順およびv1–v5のレビュー記録は歴史資料**であり、現在の本番ゲート・制作指示ではない。対象原画像やテンプレートは削除せず保持する。正式仕様：`Docs/Design.md`。現行の葉あり積雪は下記の該当する部分を引き続き適用する。
+
+
 Stage: accepted base forms may be reused for local snow-only painting and deterministic composition. New ImageGen calls additionally require explicit generation authorization under Core FixedImageTemplates. Per-variant review is recorded in PlantVisualCoverage.json; this plan itself grants no approval.
 
 Keep accepted normal and leafless masters intact. Native PlantProperties provides
