@@ -6,8 +6,8 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED = {
-    "AMJ_WarmTemperateForest": {"AMJ_Tree_Shii", "Plant_TreeMaple", "Plant_TreeBamboo"},
-    "AMJ_CoolTemperateForest": {"AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch", "Plant_TreePine"},
+    "AMJ_WarmTemperateForest": {"AMJ_Tree_Shii", "AMJ_Tree_Yamazakura", "Plant_TreeMaple", "Plant_TreeBamboo"},
+    "AMJ_CoolTemperateForest": {"AMJ_Tree_Beech", "AMJ_Tree_Yamazakura", "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch", "Plant_TreePine"},
     "AMJ_SubalpineForest": {"AMJ_Tree_Shirabiso", "Plant_TreeBirch"},
     "AMJ_AlpineZone": set(),
 }
@@ -15,6 +15,7 @@ EXPECTED = {
 EXPECTED_WILD_WOODY = {name: set(trees) for name, trees in EXPECTED.items()}
 EXPECTED_WILD_WOODY["AMJ_AlpineZone"] = {"AMJ_Shrub_Haimatsu"}
 PARENTS = {"AMJ_Tree_Shii": "TreeBase", "AMJ_Tree_Beech": "DeciduousTreeBase",
+           "AMJ_Tree_Yamazakura": "DeciduousTreeBase",
            "AMJ_Tree_Shirabiso": "TreeBase", "AMJ_Shrub_Haimatsu": "BushBase"}
 
 

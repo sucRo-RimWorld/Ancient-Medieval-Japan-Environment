@@ -416,6 +416,7 @@ catch {
 $expectedWildPlants = @(
     "AMJ_Tree_Shii",
     "AMJ_Tree_Beech",
+    "AMJ_Tree_Yamazakura",
     "AMJ_Tree_Shirabiso",
     "AMJ_Shrub_Haimatsu"
 )
@@ -424,7 +425,7 @@ foreach ($defName in $expectedWildPlants) {
         Fail "Missing AMJ wild PlantDef: $defName"
     }
 }
-Pass "Four Japan-specific structural wild PlantDefs are present"
+Pass "Five Japan-specific structural wild PlantDefs are present"
 
 foreach ($defName in $expectedWildPlants) {
     $plantDef = $wildPlants.Defs.ThingDef | Where-Object { $_.defName -eq $defName }
@@ -454,6 +455,7 @@ Pass "Custom Shirabiso/Haimatsu visual-size ranges replace inherited FloatRange 
 foreach ($expected in @(
     '<ThingDef ParentName="DeciduousTreeBase">',
     '<defName>AMJ_Tree_Beech</defName>',
+    '<defName>AMJ_Tree_Yamazakura</defName>',
     '<leaflessGraphicPath>Things/Plant/AMJ/Beech_Leafless</leaflessGraphicPath>',
     '<ThingDef ParentName="TreeBase">',
     '<defName>AMJ_Tree_Shii</defName>',
@@ -465,7 +467,7 @@ foreach ($expected in @(
         Fail "AMJ seasonal-scenery plant profile is missing expected marker: $expected"
     }
 }
-Pass "AMJ seasonal plant profiles preserve one deciduous representative and three evergreen structural plants"
+Pass "AMJ seasonal plant profiles preserve two deciduous and three evergreen structural plants"
 
 $shiiTexturePath = Join-Path $RepoRoot "Textures\Things\Plant\AMJ\Shii\Shii_A.png"
 if (-not (Test-Path -LiteralPath $shiiTexturePath)) {
@@ -546,6 +548,7 @@ foreach ($expected in @(
     '<minGrowthTemperature>8</minGrowthTemperature>',
     '<coldDeathTemperature>-8</coldDeathTemperature>',
     'AMJ_Tree_Beech',
+    'AMJ_Tree_Yamazakura',
     '<minGrowthTemperature>5</minGrowthTemperature>',
     '<coldDormancy>true</coldDormancy>',
     'AMJ_Tree_Shirabiso',
@@ -557,14 +560,16 @@ foreach ($expected in @(
         Fail "Optional CCTO compatibility patch is missing expected marker: $expected"
     }
 }
-Pass "AMJE owns a conditional CCTO compatibility layer for its four wild plants"
+Pass "AMJE owns a conditional CCTO compatibility layer for its wild plants"
 
 
 # Pin accepted post-retention-audit commonalities to their owning biomes,
 # rather than searching for old literal XML fragments anywhere in the file.
 $structuralPlantCommonality = @(
-    @{ Biome = 'AMJ_WarmTemperateForest'; Plant = 'AMJ_Tree_Shii'; Commonality = 2.55 },
-    @{ Biome = 'AMJ_CoolTemperateForest'; Plant = 'AMJ_Tree_Beech'; Commonality = 1.8 },
+    @{ Biome = 'AMJ_WarmTemperateForest'; Plant = 'AMJ_Tree_Shii'; Commonality = 2.37 },
+    @{ Biome = 'AMJ_WarmTemperateForest'; Plant = 'AMJ_Tree_Yamazakura'; Commonality = 0.18 },
+    @{ Biome = 'AMJ_CoolTemperateForest'; Plant = 'AMJ_Tree_Beech'; Commonality = 1.68 },
+    @{ Biome = 'AMJ_CoolTemperateForest'; Plant = 'AMJ_Tree_Yamazakura'; Commonality = 0.12 },
     @{ Biome = 'AMJ_SubalpineForest'; Plant = 'AMJ_Tree_Shirabiso'; Commonality = 3.5 },
     @{ Biome = 'AMJ_AlpineZone'; Plant = 'AMJ_Shrub_Haimatsu'; Commonality = 1.34 }
 )

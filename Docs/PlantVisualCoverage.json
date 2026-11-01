@@ -687,6 +687,39 @@
           "reason": "evergreen"
         }
       }
+    },
+    "AMJ_Tree_Yamazakura": {
+      "complete": false,
+      "states": {
+        "normal": {
+          "status": "pending",
+          "note": "Source PNG accepted; production native rendered appearance not yet accepted."
+        },
+        "immature": {
+          "status": "pending",
+          "note": "Scaled mature graphic; in-game growth scale not yet verified."
+        },
+        "icon": {
+          "status": "pending",
+          "note": "Actual info-card and selection UI icon not yet verified."
+        },
+        "snow": {
+          "status": "pending",
+          "note": "Only leafy and bloom-window whole-tree snow is active; leafless branch snow is explicitly suppressed via transparent LeaflessNoSnow overlay. Native rendering and precedence remain pending."
+        },
+        "leafless": {
+          "status": "pending",
+          "note": "Leafless PNG accepted as art; runtime transition and scale pending."
+        },
+        "autumn": {
+          "status": "pending",
+          "note": "Fall tint under noon/Clear native renderer not yet reviewed."
+        },
+        "transition": {
+          "status": "pending",
+          "note": "Bloom source window configured for Spring days 6–8 (end 9 exclusive), using Yamazakura_Bloom and author-accepted Yamazakura_Bloom_SnowFull at snow depth >0.8. Native autumn/leafless/snow/bloom transition and timing remain untested; leafless full-tree snow is retired in favor of a transparent overlay."
+        }
+      }
     }
   },
   "nonvisual_metadata_update": "2026-10-06: author-approved descriptions and six Haimatsu harvest fields only; normalized remaining Def identical and prior full visual fingerprints verified before migration. No new visual approval claimed.",
