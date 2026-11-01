@@ -61,7 +61,8 @@
           <AMJ_Plant_Mizugoke>1.20</AMJ_Plant_Mizugoke>
           <Plant_Bush>0.3</Plant_Bush>
           <Plant_TreeWillow>0.45</Plant_TreeWillow>
-          <Plant_TreeBirch>0.45</Plant_TreeBirch>
+          <AMJ_Tree_Shirakaba>0.40</AMJ_Tree_Shirakaba>
+          <AMJ_Tree_Dakekanba>0.05</AMJ_Tree_Dakekanba>
           <Plant_TreeMaple>0.45</Plant_TreeMaple>
           <AMJ_Tree_Hannoki>0.45</AMJ_Tree_Hannoki>
           <Plant_Berry>0.07</Plant_Berry>
