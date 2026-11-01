@@ -687,6 +687,178 @@
           "reason": "evergreen"
         }
       }
+    },
+    "AMJ_Tree_Shirakaba": {
+      "complete": false,
+      "states": {
+        "normal": {
+          "status": "accepted",
+          "date": "2026-10-30",
+          "author_statement": "「まあ妥協するか」— 2026-10-30の通常葉あり原画採用（画像原本に対する承認）。",
+          "evidence": "Docs/ArtDirection.md",
+          "review_kind": "author_adopted_normal_source_art",
+          "source_acceptance_only": true,
+          "native_review_status": "not separately captured as snow-free normal mature in BirchNative16 screenshot",
+          "fingerprint": {
+            "definition": "827e594196252e2eb94090dbf3311e62b12bdfcd805e8a6ebe345d01e7f2a2d4",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shirakaba/Shirakaba_A.png": "1aad44a80942c36926d6a8e2d41b139a493584924693210943582b983de122a2",
+              "Textures/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_A.png": "da293abfc3cc90bbfa015e19ceb49ba6ddb4a91fe65535ebc9e5e952d8d81485"
+            }
+          }
+        },
+        "immature": {
+          "status": "pending"
+        },
+        "icon": {
+          "status": "pending"
+        },
+        "snow": {
+          "status": "accepted",
+          "date": "2026-11-01",
+          "author_statement": "「画像問題なし」— 直前提示のRimWorld 1.6実ゲーム比較画像でシラカバ・ダケカンバ双方の葉あり積雪を承認（合成候補に対する先行「採用で」も維持）。",
+          "evidence": "Docs/ValidationEvidence/BirchNative16-20261101.md",
+          "reviewed_variants": [
+            "leafy_snow_ground_snow_1",
+            "leafless_no_branch_snow_ground_snow_1",
+            "leafless_no_branch_snow_ground_snow_0"
+          ],
+          "snow_depths": [
+            0,
+            1
+          ],
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41310001562",
+          "review_kind": "loaded_native_1_6_static_snow",
+          "source_art": {
+            "status": "author_accepted",
+            "date": "2026-11-01",
+            "author_statement": "採用で",
+            "evidence": "Docs/ValidationEvidence/BirchLeafySnowOverlayCandidate-20261101.md",
+            "production_png": "Textures/Things/Plant/AMJ/Shirakaba_Snow/Shirakaba_Snow_A.png",
+            "review_scope": "Snow-only overlay appearance in static composite; native RimWorld visual validation not yet completed"
+          },
+          "fingerprint": {
+            "definition": "d7bdcaa758d78849b666e373e64aeec6fd74f1bfeb4705da83bf4f6fa0d9a6dc",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shirakaba/Shirakaba_A.png": "1aad44a80942c36926d6a8e2d41b139a493584924693210943582b983de122a2",
+              "Textures/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_A.png": "da293abfc3cc90bbfa015e19ceb49ba6ddb4a91fe65535ebc9e5e952d8d81485",
+              "Textures/Things/Plant/AMJ/Shirakaba_Snow/Shirakaba_Snow_A.png": "57321a17d8d350df4b3ffd13bac554fb8fea91304b76aed543a681edb1e52e5d",
+              "Textures/Things/Plant/AMJ/LeaflessNoSnow/LeaflessNoSnow_A.png": "70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c"
+            }
+          }
+        },
+        "leafless": {
+          "status": "accepted",
+          "date": "2026-11-01",
+          "author_statement": "「画像問題なし」— RimWorld 1.6の落葉画像（無雪地面／積雪地面）を双方承認。2026-11-01枝数削減画像の先行採用を実機で確認。",
+          "evidence": "Docs/ValidationEvidence/BirchNative16-20261101.md",
+          "reviewed_variants": [
+            "forced_leafless_ground_snow_0",
+            "forced_leafless_ground_snow_1"
+          ],
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41310001562",
+          "review_kind": "loaded_native_1_6_static_leafless",
+          "fingerprint": {
+            "definition": "baeb47081e1dc3eb14d48d5cea31eb89565b3d025810dab534420e51d3449795",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shirakaba/Shirakaba_A.png": "1aad44a80942c36926d6a8e2d41b139a493584924693210943582b983de122a2",
+              "Textures/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_A.png": "da293abfc3cc90bbfa015e19ceb49ba6ddb4a91fe65535ebc9e5e952d8d81485"
+            }
+          }
+        },
+        "autumn": {
+          "status": "pending"
+        },
+        "transition": {
+          "status": "pending"
+        }
+      }
+    },
+    "AMJ_Tree_Dakekanba": {
+      "complete": false,
+      "states": {
+        "normal": {
+          "status": "accepted",
+          "date": "2026-10-30",
+          "author_statement": "「採用はこれだったと思う」および「忘れず追加しろ」— 2026-10-30の通常葉あり原画を本人提示の採用版として確定。",
+          "evidence": "Docs/ArtDirection.md",
+          "review_kind": "author_adopted_normal_source_art",
+          "source_acceptance_only": true,
+          "native_review_status": "not separately captured as snow-free normal mature in BirchNative16 screenshot",
+          "fingerprint": {
+            "definition": "46d730c6d55c6d5b5d03be8c2d4102586f14337383c0fdd67ab8bdee96918007",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Dakekanba/Dakekanba_A.png": "8fdc5c4d394ec990b5ae962f7667b9e906817bfc8c226af524a30f2b51eaf164",
+              "Textures/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_A.png": "91942dc1d6563d26bad48bd26cce7bb1c73088c18fc3a014310e156acf85da04"
+            }
+          }
+        },
+        "immature": {
+          "status": "pending"
+        },
+        "icon": {
+          "status": "pending"
+        },
+        "snow": {
+          "status": "accepted",
+          "date": "2026-11-01",
+          "author_statement": "「画像問題なし」— 直前提示のRimWorld 1.6実ゲーム比較画像でシラカバ・ダケカンバ双方の葉あり積雪を承認（合成候補に対する先行「採用で」も維持）。",
+          "evidence": "Docs/ValidationEvidence/BirchNative16-20261101.md",
+          "reviewed_variants": [
+            "leafy_snow_ground_snow_1",
+            "leafless_no_branch_snow_ground_snow_1",
+            "leafless_no_branch_snow_ground_snow_0"
+          ],
+          "snow_depths": [
+            0,
+            1
+          ],
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41310001562",
+          "review_kind": "loaded_native_1_6_static_snow",
+          "source_art": {
+            "status": "author_accepted",
+            "date": "2026-11-01",
+            "author_statement": "採用で",
+            "evidence": "Docs/ValidationEvidence/BirchLeafySnowOverlayCandidate-20261101.md",
+            "production_png": "Textures/Things/Plant/AMJ/Dakekanba_Snow/Dakekanba_Snow_A.png",
+            "review_scope": "Snow-only overlay appearance in static composite; native RimWorld visual validation not yet completed"
+          },
+          "fingerprint": {
+            "definition": "49cb50cb1db51f3bc940e02aa6e9a1abd6b349301a178f69f627720abe6a6969",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Dakekanba/Dakekanba_A.png": "8fdc5c4d394ec990b5ae962f7667b9e906817bfc8c226af524a30f2b51eaf164",
+              "Textures/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_A.png": "91942dc1d6563d26bad48bd26cce7bb1c73088c18fc3a014310e156acf85da04",
+              "Textures/Things/Plant/AMJ/Dakekanba_Snow/Dakekanba_Snow_A.png": "87aa398f43682b5c74e43469a32e78a02c2c445fba8cfb0a9551e07f14e05961",
+              "Textures/Things/Plant/AMJ/LeaflessNoSnow/LeaflessNoSnow_A.png": "70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c"
+            }
+          }
+        },
+        "leafless": {
+          "status": "accepted",
+          "date": "2026-11-01",
+          "author_statement": "「画像問題なし」— RimWorld 1.6の落葉画像（無雪地面／積雪地面）を双方承認。2026-11-01枝数削減画像の先行採用を実機で確認。",
+          "evidence": "Docs/ValidationEvidence/BirchNative16-20261101.md",
+          "reviewed_variants": [
+            "forced_leafless_ground_snow_0",
+            "forced_leafless_ground_snow_1"
+          ],
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41310001562",
+          "review_kind": "loaded_native_1_6_static_leafless",
+          "fingerprint": {
+            "definition": "7dce2bb81cef2a596f4b731775e7c60d5243fcfa299254750a9fb6ddb911e194",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Dakekanba/Dakekanba_A.png": "8fdc5c4d394ec990b5ae962f7667b9e906817bfc8c226af524a30f2b51eaf164",
+              "Textures/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_A.png": "91942dc1d6563d26bad48bd26cce7bb1c73088c18fc3a014310e156acf85da04"
+            }
+          }
+        },
+        "autumn": {
+          "status": "pending"
+        },
+        "transition": {
+          "status": "pending"
+        }
+      }
     }
   },
   "nonvisual_metadata_update": "2026-10-06: author-approved descriptions and six Haimatsu harvest fields only; normalized remaining Def identical and prior full visual fingerprints verified before migration. No new visual approval claimed.",

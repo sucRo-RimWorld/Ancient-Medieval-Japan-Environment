@@ -77,7 +77,7 @@ AMJEでは、作者の既存セーブで繰り返しニューゲームが必要�
 
 **回帰ゲート:** Environment所有の新規植生・木材等の更新時には、AMJE旧版で作成したセーブを新版でロードする前後比較を自動化する。統合する新規食用種・採集処理はEnvironmentの最終生産ソースに対して検証し、従来のForaging診断実験を本番PASSとして流用しない。ロード済みDef／Biomeプール、既存マップの保持、経時の自然発生、成熟後の果実・木の実の取得、研究前後の植林候補と実際の植林、セーブ・再ロード、所有ERRORゼロを確認する。静的なDef／メニュー判定だけで「既存セーブへ途中導入可能」と判定しない。基本／MO／CCTO／MO+CCTOの互換プロファイルを区別し、ゲーム起動テストは既存の非対話ランナー・ログゲートを使う。テスト仕様・実装状況は `Docs/GoldenPaths/PlantSowingTests.md` に置く。**現時点で移行E2Eは未実装・未通過**。
 
-### カバノキ類の2樹種化（2026-10-30 作者確定、実装未完了）
+### カバノキ類の2樹種化（2026-10-30 作者確定、2026-11-01 実装PR #310）
 
 **目的:** 冷温帯林の白いシラカバと亜高山帯の灰白～淡褐色のダケカンバを、別のThingDef・名前・画像として表示し、植生帯の景観を区別する。単なるVanilla Birchの改名・全Biome共通リテクスチャではない。
 
@@ -96,11 +96,17 @@ AMJEでは、作者の既存セーブで繰り返しニューゲームが必要�
 
 **データ値決定の境界:** 木材の種類・収穫量・伐採作業量・成長日数・美観・生育温度・枯死条件は、新しい樹種差を恣意的に設けない。実装時に現行Vanilla `Plant_TreeBirch` の読み込まれる値を確認し、差異を持たせる必要がないものは同等の挙動を維持する。現行重み0.60／0.50は**木本総量を維持する実装候補**として明記するが、自然発生本数・植林適地・ゲームバランスが検証済みの最終数値とはしない。新しい係数を導入する場合は独立したバランス判断が必要。
 
-**2026-11-01 落葉画像更新（現行採用）：** 両樹種の落葉画像は作者が1枚の二本組画像として直接再添付した枝数削減版を採用し、左右に分離した。元の二本組原バイトは `Art/Sources/Things/Plant/AMJ/Birch_Leafless_Pair/Birch_Leafless_Pair_Approved_20261101.png`、個別の大判分離原本と256×256 RGBA派生は `Art/Sources/Things/Plant/AMJ/{Shirakaba,Dakekanba}_Leafless/` および `Art/Candidates/{Shirakaba,Dakekanba}_Leafless/` に保存した。2026-10-30旧落葉原画・派生画像は `Art/Archive` へ保持し、現在の落葉外観への承認より優先しない。葉あり採用画像は不変。**現時点で本番Defの2樹種実装やDDS描画が完了したことを意味しない。**
+**2026-11-01 元ネイティブログの定量確認：** [BirchNative16の元ログ分析](ValidationEvidence/BirchNative16-20261101.md) により、同一固定seedのVanilla/CCTO初期マップでは冷温帯林にシラカバ854/856本、亜高山帯にダケカンバ155/158本、ColdBogにシラカバ1,141/1,084本とダケカンバ169/155本が自然生成された。ColdBog樺の木の実際の内訳はシラカバ87.1%/87.5%で、作者指定の「ほぼシラカバ」と定性的に一致。ただし**二つの環境は同じseed**であり、多seed・年間動態・植林Jobs/旧セーブへの増殖・経済的影響は検証していない。重み `0.40/0.05` は独立バランス最終受入未了の暫定値。元のQuickstart結果JSONはRimWorld **1.6.4871 rev600** と記録しており、rev598と記した旧記述はこのマトリクスには適用しない。両樹種の通常葉あり原画は2026-10-30採用済みで、台帳の `normal` に原画受入として反映。実機の無雪通常葉あり・未熟・UI・紅葉・季節推移は受入済みとしない。
+
+**2026-11-01 RimWorld 1.6実機・検証根拠（PR #310）：** [樺2樹種の実機証拠](ValidationEvidence/BirchNative16-20261101.md) に原スクリーンショット（元画像のSHA-256固定）と画像切り出し、Vanilla/CCTO 10+10=20の実ゲームQuickstart PASS／Unity ERROR0／正確なソースコミット `56bfd6915935420c6e87872f58041e2d0e60e0ae` を記録。シラカバ・ダケカンバ双方の葉あり積雪・落葉時枝雪なしをRimWorld 1.6.4871 rev598の正午Clear一時停止フレームで実見した。撮影Actionの**ジョブ結論はFAIL**（prefix付きUnityログをsummary抽出できないテスト集計不具合）、実際の6本ログ/PNG/Unity ERROR0とは区別し、Project PR #1171で集計修正済み。**作者の「画像問題なし」による葉あり積雪・落葉の実機静止外観受入は完了**。一方、年間切替、MO系、既存セーブ移行、ColdBogの独立数値受入は未完了。両樹種のPlantVisualCoverageは画像受入範囲ごとに分離し、`normal`（作者承認原画）・`snow`・`leafless` がaccepted、その他4状態はpending。なおWorkshop説明／ギャラリーの既知FAILは別リリースゲートであり今回の機能テストではNOT RUN。
+
+**2026-11-01 本番実装候補（PR #310）：** 新規 `AMJ_Tree_Shirakaba` / `AMJ_Tree_Dakekanba`、採用済み葉あり／枝分かれ削減後の落葉PNG、対応する256px RGBA無圧縮DDS（9 mip、画像上下向きは実機未検証）、自然分布・植林期待値・日英表示を追加。Vanilla Birchの20成長日／伐採800／木材27を引き継ぎ、旧 `Plant_TreeBirch` Defは既存セーブ参照のため残す。Vanilla Birchの紅葉キーとLUTを暫定接続し、Nutrition=2／食性を明示して旧Birchの樹木資源・被食性を維持する。CCTO併用時は追加数値を設定せず休眠を有効にする（実ゲーム確認待ち）。**2026-11-01 作者「採用で」により葉あり積雪の雪専用透過オーバーレイを2樹種とも正式採用し、`Art/Sources` の原本・本番PNG/DDS・各Defの `snowOverlayGraphicPath` に接続済み（PR #310）。** 元の全木積雪画像ではなく、採用された雪のみのPNGを正確に複製。後続のRimWorld 1.6実ゲーム画像（正午12時/Clear/一時停止）についても作者が「画像問題なし」と承認したため、**葉あり積雪と落葉静止状態の実機外観は受入済み**。自然な季節切替・未熟株・アイコン・紅葉・旧セーブ移行・1.7は未検証。落葉時は既存 `LeaflessNoSnow` を使用。ColdBogの0.40/0.05は暫定配分・独立バランス受入待ち。PlantVisualCoverageの2樹種×7状態のうち **normal/snow/leafless がそれぞれaccepted**、他4状態はpending（normalは原画受入であり無雪完成形の実機撮影とは区別）。自然季節推移・実植林・旧セーブ移行などの全機能受入や配布完了は主張しない。
+
+**2026-11-01 落葉画像更新（現行採用）：** 両樹種の落葉画像は作者が1枚の二本組画像として直接再添付した枝数削減版を採用し、左右に分離した。元の二本組原バイトは `Art/Sources/Things/Plant/AMJ/Birch_Leafless_Pair/Birch_Leafless_Pair_Approved_20261101.png`、個別の大判分離原本と256×256 RGBA派生は `Art/Sources/Things/Plant/AMJ/{Shirakaba,Dakekanba}_Leafless/` および `Art/Candidates/{Shirakaba,Dakekanba}_Leafless/` に保存した。2026-10-30旧落葉原画・派生画像は `Art/Archive` へ保持し、現在の落葉外観への承認より優先しない。葉あり採用画像は不変。**原画採用時点では本番Def実装やDDS描画が未完成。後続のPR #310でPNG/DDSとDefを追加し、2026-11-01の実RimWorld 1.6比較画像に対して作者が「画像問題なし」と承認した。受入範囲は葉あり積雪と落葉の静止状態に限定する。**
 
 **画像・描画:** PR #293で承認した各原画を保持する。新種専用葉あり・落葉画像と季節色シェーダーを接続し、葉あり積雪画像が樹木全体である場合はそのまま `snowOverlayGraphicPath` に指定せず、**葉あり用の雪だけの透過オーバーレイを本体と同じ画面位置・寸法で派生生成**して接続する。落葉状態には枝積雪を追加せず、上述の完全透明グラフィックを指定する。未承認の画像状態を仮画像や別樹種画像で代用して配布しない。紅葉・積雪・未熟・UI・実際の状態切替は別途本番Defで検証する。
 
-**既存契約との同期:** 実装時は `Defs/ThingDefs_Plants/` の両新規Def、`Defs/BiomeDefs/AMJ_Biomes.xml` の該当2エントリ、下記植林候補表・植林テスト期待値、英日DefInjected、状態画像および既存セーブのロード・残存・自然発生・植林・再保存を一貫して変更・確認する。ColdBogの旧Birch参照もシラカバ主体・ダケカンバ少数の新樹種配分へ置換する（新Def実装と同時に本番パッチを変更する）。本節は**2026-10-30の確定設計**であり、生産Defが実装済み・ゲームで受入済みという意味ではない。
+**既存契約との同期:** 実装時は `Defs/ThingDefs_Plants/` の両新規Def、`Defs/BiomeDefs/AMJ_Biomes.xml` の該当2エントリ、下記植林候補表・植林テスト期待値、英日DefInjected、状態画像および既存セーブのロード・残存・自然発生・植林・再保存を一貫して変更・確認する。ColdBogの旧Birch参照もシラカバ主体・ダケカンバ少数の新樹種配分へ置換する（新Def実装と同時に本番パッチを変更する）。本節の2026-10-30記述は当時の確定設計である。現在の本番コードへの実装候補は上記PR #310を参照し、実ゲーム受入とは区別する。
 
 ### Regional tree sowing contract
 
@@ -111,8 +117,8 @@ AMJEでは、作者の既存セーブで繰り返しニューゲームが必要�
 | AMJE Biome | 樹木栽培研究後の通常植林候補 |
 |---|---|
 | `AMJ_WarmTemperateForest` | `AMJ_Tree_Shii`, `Plant_TreeMaple`, `Plant_TreeBamboo` |
-| `AMJ_CoolTemperateForest` | `AMJ_Tree_Beech`, `Plant_TreeOak`, `Plant_TreeMaple`, `Plant_TreeBirch`, `Plant_TreePine` |
-| `AMJ_SubalpineForest` | `AMJ_Tree_Shirabiso`, `Plant_TreeBirch` |
+| `AMJ_CoolTemperateForest` | `AMJ_Tree_Beech`, `Plant_TreeOak`, `Plant_TreeMaple`, `AMJ_Tree_Shirakaba`, `Plant_TreePine` |
+| `AMJ_SubalpineForest` | `AMJ_Tree_Shirabiso`, `AMJ_Tree_Dakekanba` |
 | `AMJ_AlpineZone` | 通常樹木なし |
 
 `AMJ_Shrub_Haimatsu` は自然低木・伐採資源として残し、植林候補には含めない。自然生成される木本と農業ゾーンから植林可能な通常樹木は、関連するが**同一集合ではない**。RimWorld 1.6ではハイマツが `plant.IsTree` として数えられるため、高山帯の自然木本期待集合は `{AMJ_Shrub_Haimatsu}`、通常植林候補は空集合とする。実行時Quickstartsは両者を別々に検証し、研究のロック／解除とハイマツの植林不可も確認する。候補変更時はBiome、上表、静的契約テスト、ロード後の両期待値を同じ変更で同期する。

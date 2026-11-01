@@ -17,6 +17,10 @@
   <AMJ_Tree_Hannoki.label>ハンノキ</AMJ_Tree_Hannoki.label>
   <AMJ_Tree_Hannoki.description>榛の木（ハンノキ）は、川沿いや地下水位の高い湿地に生える落葉高木。湿った低地に林をつくり、アシやスゲの草地とともに湿地の景観を形づくる。\n\n縄文時代の関東地方の谷にはハンノキ属などからなる湿地林が成立していたことが、遺跡から出土した自然木の調査で確かめられている。こうした林は、古くから日本の河川低地にみられた自然植生の一つである。</AMJ_Tree_Hannoki.description>
 
+  <AMJ_Tree_Shirakaba.label>シラカバ</AMJ_Tree_Shirakaba.label>
+  <AMJ_Tree_Shirakaba.description>白樺（シラカバ）は白い樹皮と黒い横模様をもつ落葉高木。日本の冷温帯林や冷涼な山地に生え、秋に色づき冬は落葉する。</AMJ_Tree_Shirakaba.description>
+  <AMJ_Tree_Dakekanba.label>ダケカンバ</AMJ_Tree_Dakekanba.label>
+  <AMJ_Tree_Dakekanba.description>岳樺（ダケカンバ）は灰白色から淡褐色の樹皮をもつ落葉高木。日本の冷涼な山地や亜高山帯で、シラカバとは異なる山岳景観を形づくる。</AMJ_Tree_Dakekanba.description>
   <AMJ_Tree_Shirabiso.label>シラビソ</AMJ_Tree_Shirabiso.label>
   <AMJ_Tree_Shirabiso.description>白檜曽（シラビソ、別名：シラベ）は、本州の亜高山帯で極相林を形づくる常緑針葉高木。\n\n中部山岳の木曽御嶽では、シラビソ・オオシラビソ・トウヒなどの亜高山帯針葉樹林が山腹に広がる。\n\n御嶽は中世後期には修験・信仰登山の対象となっており、こうした針葉樹林は人里とは異なる山岳信仰の景観を形づくる森林の一部でもあった。</AMJ_Tree_Shirabiso.description>
 

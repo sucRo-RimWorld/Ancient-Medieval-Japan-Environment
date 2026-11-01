@@ -1,5 +1,37 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 カバノキ類の通常葉あり原画採用を画像状態台帳へ反映
+
+- 2026-10-30の原画採用記録に基づき、**シラカバ**「まあ妥協するか」および**ダケカンバ**「採用はこれだったと思う」「忘れず追加しろ」の現行葉あり原本を `normal` 状態として台帳へ反映した。PR #310が使用する256px PNGが採用済み `Art/Candidates/{Shirakaba,Dakekanba}/...` と同一SHA-256であることを、保存された実機候補ZIPから独立に確認した。
+- `normal` 受入は**原画に対する作者承認**のみ。実RimWorld画像 `BirchSnowNative16_ComparisonCrop_20261101.png` は強制落葉・葉あり積雪の各状態であり、無雪の葉あり完成状態を個別表示確認した証拠ではない。未熟・UI・紅葉・動的季節切替は引き続きpending。
+- 既存の本番PNG/DDS、Def、植生分布および積雪素材を一切変更しない。
+
+
+## 2026-11-01 シラカバ・ダケカンバ 実RimWorld 1.6画像の作者採用（最新）
+
+- 作者は、PR #310の実RimWorld 1.6で撮影した2樹種の画像（落葉・地面積雪0、落葉・地面積雪1、葉あり・地面積雪1）に対し **「画像問題なし」** と回答し、**葉あり積雪および落葉外観を実機画像として承認**した。元画像 [BirchNative16-20261101.md](ValidationEvidence/BirchNative16-20261101.md)、[比較画像](ValidationEvidence/Images/BirchSnowNative16_ComparisonCrop_20261101.png)。
+- 受入条件：RimWorld 1.6.4871、ゲーム内正午12時、Clear、天候遷移完了、一時停止、カメラrootSize=13、各樹種3状態、Unity ERROR0。元のスクリーンショット撮影ジョブはログ集計パーサーにより **FAIL** で終了しているので、緑のAction結果として扱わない。元ログから6個体のマーカーを確認済み。
+- `Docs/PlantVisualCoverage.json` は両樹種の **snow と leafless のみ accepted**。作者採用のPNG／DDS、Def、植生比率や日英表示は無変更。通常葉あり（積雪なし）・未熟・アイコン・紅葉・自然季節遷移は引き続き未受入。
+- この承認はColdBogの0.40/0.05、旧セーブ移行、植林成熟／収穫、1.7、MO併用のバランス／動作を確定しない。PR #310のマージ・配布の可否も別に判定する。
+
+
+## 2026-11-01 樺2樹種のRimWorld 1.6実画面 — 原画像保持、状態別の受入は継続
+
+- [実機証拠](ValidationEvidence/BirchNative16-20261101.md) の固定正午Clear・一時停止撮影により、シラカバ／ダケカンバの落葉（枝雪なし）・葉あり積雪を原ゲーム1.6.4871で表示確認。フルフレーム原本：`Docs/ValidationEvidence/Images/BirchSnowNative16_Original_20261101.png`、見比べ用切り出し：`Docs/ValidationEvidence/Images/BirchSnowNative16_ComparisonCrop_20261101.png`。共にフレーム源とSHA256を証拠文書に記録し、既存採用本体原画は不変。
+- 現物の実画面は葉ありの雪が識別でき、落葉した木に枝積雪がない。一方、**作者がこの実画面を別途明示採用したわけではない**ため、snow/normal/leafless等のVisualCoverage最終受入はpending。未熟・UI・自然な季節切替をこの静止画から認定しない。
+- 撮影Action自体はUnity ERROR0・PNG保存成功だが、テスト集計に存在したログprefix不具合で当時のGitHub job結果はFAIL。Project PR #1171が再実行せずに集計処理だけ修正。詳細は検証証拠を参照。
+
+
+## 2026-11-01 シラカバ／ダケカンバ葉あり積雪オーバーレイ — 作者「採用で」承認
+
+- **採用範囲:** 2026-11-01に実際に提示・比較した2樹種の積雪合成プレビューを作者が「採用で」と明示。採用対象はその合成画像に使用した**雪だけの256×256 RGBA透過オーバーレイ**。合成画像を本番の樹木画像に置き換えたり、採用済み通常樹木を再描画しない。
+- **シラカバ:** 原候補 `Art/Candidates/BirchLeafySnowOverlay_20261101/Shirakaba_SnowOnly_Candidate.png`、Git Blob `43c89b797c2a620466ab0b9bd65e5e1013d150ec`。同じバイト列を `Art/Sources/Things/Plant/AMJ/Shirakaba_Snow/Shirakaba_Snow_A.png` と `Textures/Things/Plant/AMJ/Shirakaba_Snow/Shirakaba_Snow_A.png` に保存。本番DDS同名 `.dds`（9 MIP/非圧縮BGRA、上下反転）を追加。雪有効画素6,618。
+- **ダケカンバ:** 原候補 `Art/Candidates/BirchLeafySnowOverlay_20261101/Dakekanba_SnowOnly_Candidate.png`、Git Blob `a459335df81a748c23bddf034d7fec029f922780`。同じバイト列を `Art/Sources/Things/Plant/AMJ/Dakekanba_Snow/Dakekanba_Snow_A.png` と `Textures/Things/Plant/AMJ/Dakekanba_Snow/Dakekanba_Snow_A.png` に保存。本番DDS同名 `.dds`（9 MIP/非圧縮BGRA、上下反転）を追加。雪有効画素5,066。
+- **Def接続:** `AMJ_Tree_Shirakaba/snowOverlayGraphicPath=Things/Plant/AMJ/Shirakaba_Snow`、`AMJ_Tree_Dakekanba/snowOverlayGraphicPath=Things/Plant/AMJ/Dakekanba_Snow`。両樹種の `leaflessSnowOverlayGraphicPath=Things/Plant/AMJ/LeaflessNoSnow` を保持。生息域・伐採量・通常／落葉原本は不変。
+- **ゲーム受入の境界:** ここでの採用は実RimWorld撮影の受入ではない。ロードされたDDSの方向、正午／晴天／雪深1の葉あり雪の視認性、裸枝の無雪、季節切替、自然発生・植林、セーブ互換は後続の実機検証対象。 `Docs/PlantVisualCoverage.json` の両樹種 `snow` 状態は **pending（source art accepted）** を維持。
+- 合成画像と抽出手順は `Docs/ValidationEvidence/BirchLeafySnowOverlayCandidate-20261101.md` を参照。元の全木雪画像は参照素材として保護し、雪専用overlayの代替にはしない。
+
+
 ## 2026-11-01 シラカバ・ダケカンバ落葉画像の枝分かれ削減版 — 作者採用
 
 **現行の採用原画:** 作者が直接アップロードした **1774×887 RGBA透過の2本組PNG**（左シラカバ、右ダケカンバ）を、描画し直さず左右分離。本人が「ではこの画像を分離してそれぞれの落葉画像として」と指示したため、以前の2026-10-30採用落葉画像に優先する。2本組の**原バイトそのもの**を `Art/Sources/Things/Plant/AMJ/Birch_Leafless_Pair/Birch_Leafless_Pair_Approved_20261101.png` に保存（SHA-256 `19d7479dfb0205c7c9429007971e9f906c9f21efb244c2c694d39aab94a43d11`）。原画像は改変しない。

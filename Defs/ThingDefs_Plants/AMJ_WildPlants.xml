@@ -104,6 +104,70 @@
     </plant>
   </ThingDef>
 
+  <ThingDef ParentName="DeciduousTreeBase">
+    <defName>AMJ_Tree_Shirakaba</defName>
+    <label>Japanese white birch</label>
+    <description>Japanese white birch (shirakaba) is a deciduous white-barked tree of Japan's cool-temperate forests.</description>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Shirakaba</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <!-- Vanilla Birch fall-color baseline. New art color/appearance still awaits native review. -->
+      <shaderParameters Inherit="False">
+        <_FallColorSource>(0.3803, 0.4352, 0.1451)</_FallColorSource>
+        <_FallColorDestination>/Other/TreeFallGradient</_FallColorDestination>
+        <_FallTransitionRange>(0.02, 0.10)</_FallTransitionRange>
+        <_FallBehaviorEnabled>1</_FallBehaviorEnabled>
+      </shaderParameters>
+      <shadowData><volume>(0.15, 0.3, 0.1)</volume><offset>(-0.03,0,-0.35)</offset></shadowData>
+    </graphicData>
+    <statBases><Beauty>2</Beauty><BeautyOutdoors>2</BeautyOutdoors><Nutrition>2</Nutrition></statBases>
+    <ingestible />
+    <plant>
+      <!-- Keep the Vanilla Birch growth and wood economy without adding species bonuses. -->
+      <growDays>20</growDays>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <harvestWork>800</harvestWork>
+      <harvestYield>27</harvestYield>
+      <wildClusterWeight>24</wildClusterWeight>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Shirakaba_Snow</snowOverlayGraphicPath>
+      <leaflessGraphicPath>Things/Plant/AMJ/Shirakaba_Leafless</leaflessGraphicPath>
+      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
+      <!-- Author-approved snow-only source is installed; loaded-game appearance remains unverified. -->
+    </plant>
+  </ThingDef>
+
+  <ThingDef ParentName="DeciduousTreeBase">
+    <defName>AMJ_Tree_Dakekanba</defName>
+    <label>Erman's birch</label>
+    <description>Erman's birch (dakekanba) is a deciduous grey-white to pale-brown-barked tree of Japan's cold mountainous and subalpine forests.</description>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Dakekanba</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <!-- Vanilla Birch fall-color baseline. New art color/appearance still awaits native review. -->
+      <shaderParameters Inherit="False">
+        <_FallColorSource>(0.3803, 0.4352, 0.1451)</_FallColorSource>
+        <_FallColorDestination>/Other/TreeFallGradient</_FallColorDestination>
+        <_FallTransitionRange>(0.02, 0.10)</_FallTransitionRange>
+        <_FallBehaviorEnabled>1</_FallBehaviorEnabled>
+      </shaderParameters>
+      <shadowData><volume>(0.15, 0.3, 0.1)</volume><offset>(-0.03,0,-0.35)</offset></shadowData>
+    </graphicData>
+    <statBases><Beauty>2</Beauty><BeautyOutdoors>2</BeautyOutdoors><Nutrition>2</Nutrition></statBases>
+    <ingestible />
+    <plant>
+      <!-- Keep the Vanilla Birch growth and wood economy without adding species bonuses. -->
+      <growDays>20</growDays>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <harvestWork>800</harvestWork>
+      <harvestYield>27</harvestYield>
+      <wildClusterWeight>24</wildClusterWeight>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Dakekanba_Snow</snowOverlayGraphicPath>
+      <leaflessGraphicPath>Things/Plant/AMJ/Dakekanba_Leafless</leaflessGraphicPath>
+      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
+      <!-- The leafy snow-only overlay is author-approved and connected; native rendering unverified. -->
+    </plant>
+  </ThingDef>
+
   <ThingDef ParentName="TreeBase">
     <defName>AMJ_Tree_Shirabiso</defName>
     <label>Shirabiso</label>

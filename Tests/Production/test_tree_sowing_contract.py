@@ -7,15 +7,16 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED = {
     "AMJ_WarmTemperateForest": {"AMJ_Tree_Shii", "Plant_TreeMaple", "Plant_TreeBamboo"},
-    "AMJ_CoolTemperateForest": {"AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch", "Plant_TreePine"},
-    "AMJ_SubalpineForest": {"AMJ_Tree_Shirabiso", "Plant_TreeBirch"},
+    "AMJ_CoolTemperateForest": {"AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "AMJ_Tree_Shirakaba", "Plant_TreePine"},
+    "AMJ_SubalpineForest": {"AMJ_Tree_Shirabiso", "AMJ_Tree_Dakekanba"},
     "AMJ_AlpineZone": set(),
 }
 # Wild woody distribution and ordinary tree sowing are separate contracts.
 EXPECTED_WILD_WOODY = {name: set(trees) for name, trees in EXPECTED.items()}
 EXPECTED_WILD_WOODY["AMJ_AlpineZone"] = {"AMJ_Shrub_Haimatsu"}
 PARENTS = {"AMJ_Tree_Shii": "TreeBase", "AMJ_Tree_Beech": "DeciduousTreeBase",
-           "AMJ_Tree_Shirabiso": "TreeBase", "AMJ_Shrub_Haimatsu": "BushBase"}
+           "AMJ_Tree_Shirabiso": "TreeBase", "AMJ_Shrub_Haimatsu": "BushBase",
+           "AMJ_Tree_Shirakaba": "DeciduousTreeBase", "AMJ_Tree_Dakekanba": "DeciduousTreeBase"}
 
 
 def validate(biomes, plants):
@@ -80,6 +81,52 @@ class TreeSowingContractTests(unittest.TestCase):
     def test_repository_contract(self):
         self.assertEqual([], validate(self.biomes, self.plants))
 
+    def test_birch_approved_snow_asset_and_def_contract(self):
+        # Author approved the source-composite appearances on 2026-11-01.
+        # Exact source/prod bytes and Def paths are a static contract only:
+        # passing this test does NOT establish actual RimWorld rendering.
+        for species in ("Shirakaba", "Dakekanba"):
+            with self.subTest(species=species):
+                name = "AMJ_Tree_" + species
+                definition = next(
+                    d for d in self.plants.findall("ThingDef")
+                    if d.findtext("defName") == name
+                )
+                self.assertEqual(definition.get("ParentName"), "DeciduousTreeBase")
+                for field, stem in (
+                    ("snowOverlayGraphicPath", species + "_Snow"),
+                    ("leaflessGraphicPath", species + "_Leafless"),
+                    ("leaflessSnowOverlayGraphicPath", "LeaflessNoSnow"),
+                ):
+                    self.assertEqual(
+                        definition.findtext("plant/" + field),
+                        "Things/Plant/AMJ/" + stem,
+                    )
+                source = ROOT / "Art/Sources/Things/Plant/AMJ" / (
+                    species + "_Snow"
+                ) / (species + "_Snow_A.png")
+                production = ROOT / "Textures/Things/Plant/AMJ" / (
+                    species + "_Snow"
+                ) / (species + "_Snow_A.png")
+                dds = production.with_suffix(".dds")
+                approved = ROOT / "Art/Candidates/BirchLeafySnowOverlay_20261101" / (
+                    species + "_SnowOnly_Candidate.png"
+                )
+                for asset in (approved, source, production, dds):
+                    self.assertTrue(asset.is_file(), str(asset))
+                self.assertEqual(approved.read_bytes(), source.read_bytes())
+                self.assertEqual(source.read_bytes(), production.read_bytes())
+                png = production.read_bytes()
+                self.assertEqual(png[:8], b"\x89PNG\r\n\x1a\n")
+                self.assertEqual(int.from_bytes(png[16:20], "big"), 256)
+                self.assertEqual(int.from_bytes(png[20:24], "big"), 256)
+                content = dds.read_bytes()
+                self.assertEqual(content[:4], b"DDS ")
+                self.assertEqual(len(content), 349652)
+                self.assertEqual(int.from_bytes(content[12:16], "little"), 256)
+                self.assertEqual(int.from_bytes(content[16:20], "little"), 256)
+                self.assertEqual(int.from_bytes(content[28:32], "little"), 9)
+
     def test_removed_tree_reintroduced(self):
         ET.SubElement(self.biomes.find("BiomeDef/wildPlants"), "Plant_TreePoplar").text = "0.5"
         self.assertTrue(validate(self.biomes, self.plants))
@@ -117,8 +164,9 @@ class TreeSowingContractTests(unittest.TestCase):
             "TemperateSwamp": (7.30, 3.00, {"Plant_TreeWillow", "Plant_TreeMaple"},
                                {"Plant_Chokevine", "Plant_TreeCypress"}),
             "ColdBog": (8.22, 1.80, {"Plant_TreeWillow", "Plant_TreeMaple",
-                                      "Plant_TreeBirch"},
-                        {"Plant_Chokevine", "Plant_TreeCypress", "Plant_Astragalus"}),
+                                      "AMJ_Tree_Shirakaba", "AMJ_Tree_Dakekanba"},
+                        {"Plant_Chokevine", "Plant_TreeCypress", "Plant_Astragalus",
+                         "Plant_TreeBirch"}),
         }
         baselines = loaded_wetland_baselines(source)
         for i, (biome, (total, woody, trees, excluded)) in enumerate(expected.items()):
@@ -134,7 +182,7 @@ class TreeSowingContractTests(unittest.TestCase):
             # The removal is limited to exact Vanilla entries; an absent
             # Cypress cannot abort a patch and MO's herbs are never selected.
             targeted = set(re.findall(r"self::(\w+)", remove.findtext("xpath")))
-            self.assertEqual(targeted, (set(baselines[biome]) - {"AMJ_Tree_Hannoki"}) | excluded)
+            self.assertEqual(targeted, {k for k in baselines[biome] if not k.startswith("AMJ_")} | excluded)
             self.assertFalse(any(name.startswith("DankPyon_") for name in targeted))
             weights = {k: float(v) for k, v in baselines[biome].items()}
             self.assertEqual(set(), excluded.intersection(weights))
@@ -142,6 +190,10 @@ class TreeSowingContractTests(unittest.TestCase):
             self.assertAlmostEqual(total, sum(weights.values()))
             self.assertAlmostEqual(woody, sum(v for k, v in weights.items()
                                                if k.startswith(("Plant_Tree", "AMJ_Tree_"))))
+            if biome == "ColdBog":
+                self.assertNotIn("Plant_TreeBirch", weights)
+                self.assertAlmostEqual(0.40, weights["AMJ_Tree_Shirakaba"])
+                self.assertAlmostEqual(0.05, weights["AMJ_Tree_Dakekanba"])
             self.assertGreater(weights["Plant_HealrootWild"], 0)
             self.assertNotIn("Plant_Reeds", weights)
             self.assertNotIn("Plant_Bulrush", weights)

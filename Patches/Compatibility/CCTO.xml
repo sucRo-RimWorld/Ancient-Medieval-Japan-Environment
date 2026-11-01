@@ -40,6 +40,16 @@
         </value>
       </li>
 
+      <!-- Shirakaba / Dakekanba: retain Birch growth threshold and add dormancy, no numerical retune. -->
+      <li Class="PatchOperationAddModExtension" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Tree_Shirakaba"]</xpath>
+        <value><li Class="CropColdToleranceOverhaul.ColdToleranceExtension"><coldDormancy>true</coldDormancy></li></value>
+      </li>
+      <li Class="PatchOperationAddModExtension" MayRequire="sucro.cropcoldtoleranceoverhaul">
+        <xpath>/Defs/ThingDef[defName="AMJ_Tree_Dakekanba"]</xpath>
+        <value><li Class="CropColdToleranceOverhaul.ColdToleranceExtension"><coldDormancy>true</coldDormancy></li></value>
+      </li>
+
       <!-- Ashi: native 0 C, CCTO 5 C with cold dormancy. -->
       <li Class="PatchOperationReplace" MayRequire="sucro.cropcoldtoleranceoverhaul">
         <xpath>/Defs/ThingDef[defName="AMJ_Plant_Yoshi"]/plant/minGrowthTemperature</xpath>

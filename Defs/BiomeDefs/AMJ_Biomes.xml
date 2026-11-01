@@ -138,7 +138,7 @@
       <AMJ_Tree_Beech>1.8</AMJ_Tree_Beech>
       <Plant_TreeOak>0.6</Plant_TreeOak>
       <Plant_TreeMaple>0.8</Plant_TreeMaple>
-      <Plant_TreeBirch>0.6</Plant_TreeBirch>
+      <AMJ_Tree_Shirakaba>0.6</AMJ_Tree_Shirakaba>
       <Plant_TreePine>0.35</Plant_TreePine>
       <Plant_Berry>0.08</Plant_Berry>
       <Plant_HealrootWild>0.06</Plant_HealrootWild>
@@ -210,7 +210,7 @@
       <Plant_Brambles>1.5</Plant_Brambles>
       <Plant_Bush>1.5</Plant_Bush>
       <AMJ_Tree_Shirabiso>3.5</AMJ_Tree_Shirabiso>
-      <Plant_TreeBirch>0.5</Plant_TreeBirch>
+      <AMJ_Tree_Dakekanba>0.5</AMJ_Tree_Dakekanba>
       <Plant_Berry>0.08</Plant_Berry>
       <Plant_HealrootWild>0.06</Plant_HealrootWild>
     </wildPlants>
