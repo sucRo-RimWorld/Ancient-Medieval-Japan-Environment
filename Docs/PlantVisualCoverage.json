@@ -701,7 +701,15 @@
           "status": "pending"
         },
         "snow": {
-          "status": "pending"
+          "status": "pending",
+          "source_art": {
+            "status": "author_accepted",
+            "date": "2026-11-01",
+            "author_statement": "採用で",
+            "evidence": "Docs/ValidationEvidence/BirchLeafySnowOverlayCandidate-20261101.md",
+            "production_png": "Textures/Things/Plant/AMJ/Shirakaba_Snow/Shirakaba_Snow_A.png",
+            "review_scope": "Snow-only overlay appearance in static composite; native RimWorld visual validation not yet completed"
+          }
         },
         "leafless": {
           "status": "pending"
@@ -727,7 +735,15 @@
           "status": "pending"
         },
         "snow": {
-          "status": "pending"
+          "status": "pending",
+          "source_art": {
+            "status": "author_accepted",
+            "date": "2026-11-01",
+            "author_statement": "採用で",
+            "evidence": "Docs/ValidationEvidence/BirchLeafySnowOverlayCandidate-20261101.md",
+            "production_png": "Textures/Things/Plant/AMJ/Dakekanba_Snow/Dakekanba_Snow_A.png",
+            "review_scope": "Snow-only overlay appearance in static composite; native RimWorld visual validation not yet completed"
+          }
         },
         "leafless": {
           "status": "pending"

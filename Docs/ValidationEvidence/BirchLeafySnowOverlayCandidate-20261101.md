@@ -1,6 +1,8 @@
 # Birch leafy-snow extraction candidate — 2026-11-01
 
-**Status: CANDIDATE, NOT author-accepted, NOT production, NOT game-validated.**
+**Current status (2026-11-01): author accepted BOTH snow-only candidate images by replying「採用で」to the two actual composite previews. Exact candidate PNG bytes were promoted to `Art/Sources` and production `Textures`, DDS were generated, and both new tree Defs now reference snow-only overlays in PR #310. Native RimWorld visuals and seasonal behavior remain UNVERIFIED.**
+
+The earlier candidate-only qualification below is the historical pre-approval state and does not override this acceptance.
 Source of truth for final tree states remains `Docs/Design.md`, `Docs/ArtDirection.md`, and `Docs/PlantVisualCoverage.json`.
 
 ## Exact sources and review assets
@@ -22,6 +24,15 @@ Both normal sprites below are existing author-approved source derivatives, and t
 
 ## Integration boundary
 
-**Do not set `snowOverlayGraphicPath` to either candidate until explicit author visual adoption.**
-Do not substitute the whole-tree snow images as overlays or mark the `snow` visual-coverage ledger accepted. Only after adoption, copy the accepted snow-only PNG without changing its pixels into the appropriate `Textures/Things/Plant/AMJ/{Shirakaba,Dakekanba}_Snow/…` and create/verify its DDS, then wire the Def and run a bounded native visual acceptance check.
+**Author visual adoption was received on 2026-11-01 (`採用で`). The production snowOverlayGraphicPath is now enabled for both species in PR #310.**
+Do not substitute the whole-tree snow images as overlays or mark the `snow` visual-coverage ledger accepted. The exact snow-only PNG blobs are now copied to `Art/Sources` and `Textures/Things/Plant/AMJ/{Shirakaba,Dakekanba}_Snow/{Shirakaba,Dakekanba}_Snow_A.png`, with same-name DDS, and the Def paths are wired. **A bounded native visual acceptance check is still required**; static source adoption and file integrity do not validate loaded-game snow rendering.
 Leafless no-snow policy is unchanged. ColdBog weights, normal/leafless art and CCTO fields are unchanged by this candidate.
+
+## Promotion and provenance after author acceptance
+
+| Species | PNG Git blob (candidate, source master, production) | DDS Git blob | DDS details |
+|---|---|---|---|
+| Shirakaba | `43c89b797c2a620466ab0b9bd65e5e1013d150ec` | `0fd0db389cacb45118794c07fab384e9a30d8586` | 256×256 BGRA8 uncompressed, mipmaps 9, row order inverted |
+| Dakekanba | `a459335df81a748c23bddf034d7fec029f922780` | `654058ff9cc5d76a310c10b6d8c7bd6140052ba2` | 256×256 BGRA8 uncompressed, mipmaps 9, row order inverted |
+
+The DDS transforms are deterministic derivatives of the approved pixel content: each mip is alpha-weighted average, stored flipped in Y to match existing Environment DDS runtime convention. DDS header and dimensions verified at generation; actual RimWorld 1.6/1.7 rendering not yet tested. Source master PNG bytes are NOT the full-tree snowy illustration. The approved normal and adopted leafless tree sprites are unchanged.

@@ -1,5 +1,15 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 シラカバ／ダケカンバ葉あり積雪オーバーレイ — 作者「採用で」承認
+
+- **採用範囲:** 2026-11-01に実際に提示・比較した2樹種の積雪合成プレビューを作者が「採用で」と明示。採用対象はその合成画像に使用した**雪だけの256×256 RGBA透過オーバーレイ**。合成画像を本番の樹木画像に置き換えたり、採用済み通常樹木を再描画しない。
+- **シラカバ:** 原候補 `Art/Candidates/BirchLeafySnowOverlay_20261101/Shirakaba_SnowOnly_Candidate.png`、Git Blob `43c89b797c2a620466ab0b9bd65e5e1013d150ec`。同じバイト列を `Art/Sources/Things/Plant/AMJ/Shirakaba_Snow/Shirakaba_Snow_A.png` と `Textures/Things/Plant/AMJ/Shirakaba_Snow/Shirakaba_Snow_A.png` に保存。本番DDS同名 `.dds`（9 MIP/非圧縮BGRA、上下反転）を追加。雪有効画素6,618。
+- **ダケカンバ:** 原候補 `Art/Candidates/BirchLeafySnowOverlay_20261101/Dakekanba_SnowOnly_Candidate.png`、Git Blob `a459335df81a748c23bddf034d7fec029f922780`。同じバイト列を `Art/Sources/Things/Plant/AMJ/Dakekanba_Snow/Dakekanba_Snow_A.png` と `Textures/Things/Plant/AMJ/Dakekanba_Snow/Dakekanba_Snow_A.png` に保存。本番DDS同名 `.dds`（9 MIP/非圧縮BGRA、上下反転）を追加。雪有効画素5,066。
+- **Def接続:** `AMJ_Tree_Shirakaba/snowOverlayGraphicPath=Things/Plant/AMJ/Shirakaba_Snow`、`AMJ_Tree_Dakekanba/snowOverlayGraphicPath=Things/Plant/AMJ/Dakekanba_Snow`。両樹種の `leaflessSnowOverlayGraphicPath=Things/Plant/AMJ/LeaflessNoSnow` を保持。生息域・伐採量・通常／落葉原本は不変。
+- **ゲーム受入の境界:** ここでの採用は実RimWorld撮影の受入ではない。ロードされたDDSの方向、正午／晴天／雪深1の葉あり雪の視認性、裸枝の無雪、季節切替、自然発生・植林、セーブ互換は後続の実機検証対象。 `Docs/PlantVisualCoverage.json` の両樹種 `snow` 状態は **pending（source art accepted）** を維持。
+- 合成画像と抽出手順は `Docs/ValidationEvidence/BirchLeafySnowOverlayCandidate-20261101.md` を参照。元の全木雪画像は参照素材として保護し、雪専用overlayの代替にはしない。
+
+
 ## 2026-11-01 シラカバ・ダケカンバ落葉画像の枝分かれ削減版 — 作者採用
 
 **現行の採用原画:** 作者が直接アップロードした **1774×887 RGBA透過の2本組PNG**（左シラカバ、右ダケカンバ）を、描画し直さず左右分離。本人が「ではこの画像を分離してそれぞれの落葉画像として」と指示したため、以前の2026-10-30採用落葉画像に優先する。2本組の**原バイトそのもの**を `Art/Sources/Things/Plant/AMJ/Birch_Leafless_Pair/Birch_Leafless_Pair_Approved_20261101.png` に保存（SHA-256 `19d7479dfb0205c7c9429007971e9f906c9f21efb244c2c694d39aab94a43d11`）。原画像は改変しない。

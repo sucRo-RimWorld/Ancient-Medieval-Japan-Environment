@@ -129,9 +129,10 @@
       <harvestWork>800</harvestWork>
       <harvestYield>27</harvestYield>
       <wildClusterWeight>24</wildClusterWeight>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Shirakaba_Snow</snowOverlayGraphicPath>
       <leaflessGraphicPath>Things/Plant/AMJ/Shirakaba_Leafless</leaflessGraphicPath>
       <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
-      <!-- Snow on the leafy crown awaits a verified, aligned snow-only overlay. -->
+      <!-- Author-approved snow-only source is installed; loaded-game appearance remains unverified. -->
     </plant>
   </ThingDef>
 
@@ -160,6 +161,7 @@
       <harvestWork>800</harvestWork>
       <harvestYield>27</harvestYield>
       <wildClusterWeight>24</wildClusterWeight>
+      <snowOverlayGraphicPath>Things/Plant/AMJ/Dakekanba_Snow</snowOverlayGraphicPath>
       <leaflessGraphicPath>Things/Plant/AMJ/Dakekanba_Leafless</leaflessGraphicPath>
       <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
       <!-- Snow on the leafy crown awaits a verified, aligned snow-only overlay. -->
