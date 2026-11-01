@@ -1,5 +1,22 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 シラカバ・ダケカンバ落葉画像の枝分かれ削減版 — 作者採用
+
+**現行の採用原画:** 作者が直接アップロードした **1774×887 RGBA透過の2本組PNG**（左シラカバ、右ダケカンバ）を、描画し直さず左右分離。本人が「ではこの画像を分離してそれぞれの落葉画像として」と指示したため、以前の2026-10-30採用落葉画像に優先する。2本組の**原バイトそのもの**を `Art/Sources/Things/Plant/AMJ/Birch_Leafless_Pair/Birch_Leafless_Pair_Approved_20261101.png` に保存（SHA-256 `19d7479dfb0205c7c9429007971e9f906c9f21efb244c2c694d39aab94a43d11`）。原画像は改変しない。
+
+| 項目 | シラカバ | ダケカンバ |
+|---|---|---|
+| 原画像内の採用対象の実画素外接矩形（alpha>=8） | x=253..645, y=22..835 | x=1113..1528, y=22..834 |
+| 無加工で切り出した大判画像 | 409×830 RGBA、SHA-256 `22870eb264843c4cf3b9e494cf414e9857223a64028b5cd69e142f110f272bad` | 432×829 RGBA、SHA-256 `ef14a9c60dee8f34f09dac549f425f6e4fc17fb1ed383c97aa1b56252ee033e2` |
+| 分離した新しい落葉原本 | `Art/Sources/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_Source.png` | `Art/Sources/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_Source.png` |
+| 256px派生画像 | `Art/Candidates/Shirakaba_Leafless/Shirakaba_Leafless_256_Review.png`（SHA-256 `da293abfc3cc90bbfa015e19ceb49ba6ddb4a91fe65535ebc9e5e952d8d81485`） | `Art/Candidates/Dakekanba_Leafless/Dakekanba_Leafless_256_Review.png`（SHA-256 `91942dc1d6563d26bad48bd26cce7bb1c73088c18fc3a014310e156acf85da04`）|
+| 旧版の原本・256px（履歴保持） | `Art/Archive/Things/Plant/AMJ/Shirakaba_Leafless/` | `Art/Archive/Things/Plant/AMJ/Dakekanba_Leafless/` |
+
+**導出方法・監査:** RGBAの連結画面を左右で分け、有効alphaの最大の木本連結成分を基準に各8px余白を持つ長方形を切り出した。描画内容の枝/幹の色・形・輪郭は加工せず、256px用の派生では**縦横を同じ倍率でLanczos縮小**してRGBA透明256×256へ配置。旧採用256pxの根元に中心を合わせた（シラカバ130px→130px、ダケカンバ138px→139px）。alpha16以上の新外接矩形はシラカバ(x73..189,y13..253)、ダケカンバ(x78..201,y12..252)。新旧比で樹冠幅が狭いのは作者が選んだ新画像の形状差であり、見かけの均等拡大や横方向の不自然な引き伸ばしはしていない。RimWorld縮小画面でも枝数を減らした樹形として判読できる。
+
+**所有境界:** 画像1状態の原画採用・PNG分離のみが完了。葉あり原本、葉あり積雪、落葉時の枝積雪なし、植生分布/DefName/植物系C#は変えない。両樹種の本番ThingDefとTextures接続・DDS書き出し・実RimWorld 1.6/1.7での樹形確認は、該当する樹種実装工程で行う。旧原本および過去の画像受入記録は履歴として残すが、現在の落葉採用画像ではない。
+
+
 ## 2026-11-01 ハンノキ葉あり積雪：作者採用・現行正本
 
 - 作者は修正候補の実ゲーム比較提示後に「ｙ」と返答し、ハンノキの**葉あり積雪修正版**を採用した。以前の「積雪してない」は旧画像に対する指摘であり、新画像には適用しない。
