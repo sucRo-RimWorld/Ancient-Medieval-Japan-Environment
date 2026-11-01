@@ -7,15 +7,16 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 EXPECTED = {
     "AMJ_WarmTemperateForest": {"AMJ_Tree_Shii", "Plant_TreeMaple", "Plant_TreeBamboo"},
-    "AMJ_CoolTemperateForest": {"AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch", "Plant_TreePine"},
-    "AMJ_SubalpineForest": {"AMJ_Tree_Shirabiso", "Plant_TreeBirch"},
+    "AMJ_CoolTemperateForest": {"AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "AMJ_Tree_Shirakaba", "Plant_TreePine"},
+    "AMJ_SubalpineForest": {"AMJ_Tree_Shirabiso", "AMJ_Tree_Dakekanba"},
     "AMJ_AlpineZone": set(),
 }
 # Wild woody distribution and ordinary tree sowing are separate contracts.
 EXPECTED_WILD_WOODY = {name: set(trees) for name, trees in EXPECTED.items()}
 EXPECTED_WILD_WOODY["AMJ_AlpineZone"] = {"AMJ_Shrub_Haimatsu"}
 PARENTS = {"AMJ_Tree_Shii": "TreeBase", "AMJ_Tree_Beech": "DeciduousTreeBase",
-           "AMJ_Tree_Shirabiso": "TreeBase", "AMJ_Shrub_Haimatsu": "BushBase"}
+           "AMJ_Tree_Shirabiso": "TreeBase", "AMJ_Shrub_Haimatsu": "BushBase",
+           "AMJ_Tree_Shirakaba": "DeciduousTreeBase", "AMJ_Tree_Dakekanba": "DeciduousTreeBase"}
 
 
 def validate(biomes, plants):
@@ -117,7 +118,7 @@ class TreeSowingContractTests(unittest.TestCase):
             "TemperateSwamp": (7.30, 3.00, {"Plant_TreeWillow", "Plant_TreeMaple"},
                                {"Plant_Chokevine", "Plant_TreeCypress"}),
             "ColdBog": (8.22, 1.80, {"Plant_TreeWillow", "Plant_TreeMaple",
-                                      "Plant_TreeBirch"},
+                                      "AMJ_Tree_Shirakaba", "AMJ_Tree_Dakekanba"},
                         {"Plant_Chokevine", "Plant_TreeCypress", "Plant_Astragalus"}),
         }
         baselines = loaded_wetland_baselines(source)
@@ -134,7 +135,8 @@ class TreeSowingContractTests(unittest.TestCase):
             # The removal is limited to exact Vanilla entries; an absent
             # Cypress cannot abort a patch and MO's herbs are never selected.
             targeted = set(re.findall(r"self::(\w+)", remove.findtext("xpath")))
-            self.assertEqual(targeted, (set(baselines[biome]) - {"AMJ_Tree_Hannoki"}) | excluded)
+            self.assertEqual(targeted, (set(baselines[biome]) - {"AMJ_Tree_Hannoki", "AMJ_Tree_Shirakaba",
+                                                                "AMJ_Tree_Dakekanba"}) | excluded)
             self.assertFalse(any(name.startswith("DankPyon_") for name in targeted))
             weights = {k: float(v) for k, v in baselines[biome].items()}
             self.assertEqual(set(), excluded.intersection(weights))

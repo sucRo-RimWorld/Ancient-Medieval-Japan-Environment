@@ -679,9 +679,9 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 case "AMJ_WarmTemperateForest":
                     return new[] { "AMJ_Tree_Shii", "Plant_TreeMaple", "Plant_TreeBamboo" };
                 case "AMJ_CoolTemperateForest":
-                    return new[] { "AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch", "Plant_TreePine" };
+                    return new[] { "AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "AMJ_Tree_Shirakaba", "Plant_TreePine" };
                 case "AMJ_SubalpineForest":
-                    return new[] { "AMJ_Tree_Shirabiso", "Plant_TreeBirch" };
+                    return new[] { "AMJ_Tree_Shirabiso", "AMJ_Tree_Dakekanba" };
                 case "AMJ_AlpineZone":
                     return new string[0];
                 default:
@@ -735,8 +735,9 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         throw new InvalidOperationException("No unpolluted test cell.");
 
                     string[] ordinaryTrees = { "AMJ_Tree_Shii", "AMJ_Tree_Beech",
-                        "AMJ_Tree_Shirabiso", "Plant_TreeOak", "Plant_TreeMaple",
-                        "Plant_TreeBirch", "Plant_TreePine", "Plant_TreeBamboo", "Plant_TreePoplar" };
+                        "AMJ_Tree_Shirabiso", "AMJ_Tree_Shirakaba", "AMJ_Tree_Dakekanba",
+                        "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch",
+                        "Plant_TreePine", "Plant_TreeBamboo", "Plant_TreePoplar" };
                     foreach (string name in ordinaryTrees)
                     {
                         ThingDef tree = DefDatabase<ThingDef>.GetNamed(name);
@@ -803,8 +804,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
         private static void AddHarvestOutputAssertions(QuickstartVerification verification, Map map, string expected)
         {
-            string[] names = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu", "AMJ_Tree_Hannoki" };
-            int[] yields = { 42, 40, 30, 8, 24 };
+            string[] names = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu", "AMJ_Tree_Hannoki", "AMJ_Tree_Shirakaba", "AMJ_Tree_Dakekanba" };
+            int[] yields = { 42, 40, 30, 8, 24, 27, 27 };
             float originalYieldFactor = Find.Storyteller.difficulty.cropYieldFactor;
             Find.Storyteller.difficulty.cropYieldFactor = 1f;
             try
@@ -4135,7 +4136,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 {
                     "Plant_Moss",
                     "Plant_TreeWillow",
-                    "Plant_TreeBirch",
+                    "AMJ_Tree_Shirakaba",
+                    "AMJ_Tree_Dakekanba",
                     "Plant_TreeMaple"
                 };
             }
@@ -4172,12 +4174,13 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 "AMJ_Plant_Mizugoke",
                 "Plant_Bush",
                 "Plant_TreeWillow",
-                "Plant_TreeBirch",
+                "AMJ_Tree_Shirakaba",
+                "AMJ_Tree_Dakekanba",
                 "Plant_TreeMaple",
                 "Plant_Berry",
                 "Plant_HealrootWild"
             };
-            float[] expected = { 1.70f, 0.60f, 1.10f, 1.40f, 1.20f, 0.3f, 0.45f, 0.45f, 0.45f, 0.07f, 0.05f };
+            float[] expected = { 1.70f, 0.60f, 1.10f, 1.40f, 1.20f, 0.3f, 0.45f, 0.40f, 0.05f, 0.45f, 0.07f, 0.05f };
             for (int i = 0; i < names.Length; i++)
             {
                 string name = names[i];
@@ -4556,7 +4559,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 {
                     "Plant_TreeOak",
                     "Plant_TreeMaple",
-                    "Plant_TreeBirch",
+                    "AMJ_Tree_Shirakaba",
                     "Plant_TreePine"
                 };
             }
@@ -4581,7 +4584,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreeBirch"
+                    "AMJ_Tree_Dakekanba"
                 };
             }
         }

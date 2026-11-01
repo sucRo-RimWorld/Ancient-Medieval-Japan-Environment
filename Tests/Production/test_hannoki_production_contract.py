@@ -27,7 +27,7 @@ SNOW_HASHES = {
 }
 WOODY = {
     "TemperateSwamp": {"Plant_TreeWillow": 1.30, "Plant_TreeMaple": 1.00, DEF_NAME: 0.70},
-    "ColdBog": {"Plant_TreeWillow": 0.45, "Plant_TreeBirch": 0.45,
+    "ColdBog": {"Plant_TreeWillow": 0.45, "AMJ_Tree_Shirakaba": 0.40, "AMJ_Tree_Dakekanba": 0.05,
                 "Plant_TreeMaple": 0.45, DEF_NAME: 0.45},
 }
 BASE_TOTAL = {"TemperateSwamp": 7.30, "ColdBog": 8.22}
