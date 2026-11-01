@@ -135,8 +135,7 @@ class TreeSowingContractTests(unittest.TestCase):
             # The removal is limited to exact Vanilla entries; an absent
             # Cypress cannot abort a patch and MO's herbs are never selected.
             targeted = set(re.findall(r"self::(\w+)", remove.findtext("xpath")))
-            self.assertEqual(targeted, (set(baselines[biome]) - {"AMJ_Tree_Hannoki", "AMJ_Tree_Shirakaba",
-                                                                "AMJ_Tree_Dakekanba"}) | excluded)
+            self.assertEqual(targeted, {k for k in baselines[biome] if not k.startswith("AMJ_")} | excluded)
             self.assertFalse(any(name.startswith("DankPyon_") for name in targeted))
             weights = {k: float(v) for k, v in baselines[biome].items()}
             self.assertEqual(set(), excluded.intersection(weights))
@@ -144,6 +143,10 @@ class TreeSowingContractTests(unittest.TestCase):
             self.assertAlmostEqual(total, sum(weights.values()))
             self.assertAlmostEqual(woody, sum(v for k, v in weights.items()
                                                if k.startswith(("Plant_Tree", "AMJ_Tree_"))))
+            if biome == "ColdBog":
+                self.assertNotIn("Plant_TreeBirch", weights)
+                self.assertAlmostEqual(0.40, weights["AMJ_Tree_Shirakaba"])
+                self.assertAlmostEqual(0.05, weights["AMJ_Tree_Dakekanba"])
             self.assertGreater(weights["Plant_HealrootWild"], 0)
             self.assertNotIn("Plant_Reeds", weights)
             self.assertNotIn("Plant_Bulrush", weights)
