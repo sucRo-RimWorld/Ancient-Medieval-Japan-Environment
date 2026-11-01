@@ -21,7 +21,7 @@ JA = ROOT / "Languages/Japanese/DefInjected/ThingDef/AMJ_WildPlants.xml"
 LEDGER = ROOT / "Docs/PlantVisualCoverage.json"
 SNOW_HASHES = {
     "Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
-    "Hannoki_Snow/Hannoki_Snow_A.png": "ecc2c0412e030eb19f3f45ab016aaed94a3b1e7b37f66d6db8375f573651df16",
+    "Hannoki_Snow/Hannoki_Snow_A.png": "5549f3a99c268211af103f4bf6036e61f36ff8034d01ddd45b00498b61724250",
     "Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
     "LeaflessNoSnow/LeaflessNoSnow_A.png": "70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c",
 }

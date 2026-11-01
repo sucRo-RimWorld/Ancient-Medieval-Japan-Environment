@@ -128,13 +128,21 @@
           "leafy_variant_status": "blocked_visually_missing_snow",
           "leafless_variant_status": "author_decision_native_verified",
           "current_spec": "LeaflessNoSnow transparent 256 PNG + DXT5 DDS, 9 mips. Snowless tree branches on ground snow; leafy snow unchanged.",
-          "note": "RimWorld 1.6.4871 run #41267149034 screenshot: rightmost leafy Hannoki remains yellow-green; snow overlay is not discernible at normal zoom. PNG + DDS files and Def path exist but do not prove snow is visibly rendered. Source PNG snow shapes are sparse relative to Beech. Root cause (coverage vs DDS orientation or renderer) is not yet isolated. The snow-free leafless override still PASS. Do not modify approved image before a reviewed correction.",
+          "note": "Previous leafy-snow visual PASS retracted; 2026-11-01 candidate adds capped snow without changing base/leafless. Pending native and author acceptance. Historical previously accepted PNG preserved in Art/Sources.",
           "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034",
           "previous_native_conclusion": {
             "status": "accepted",
             "evidence": "Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md",
             "date": "2026-11-01",
             "note": "Actual isolated RimWorld 1.6 native screenshot in evidence: bare branches clear under snow depth 1.0, leafy snow visible, Unity ERROR0. Old snow art kept only as history."
+          },
+          "candidate": {
+            "date": "2026-11-01",
+            "source_sha256": "5549f3a99c268211af103f4bf6036e61f36ff8034d01ddd45b00498b61724250",
+            "dds_sha256": "7c99559a18c6f4d48740bca8ef9211da25489f5870bc58a5016b4c5ea35a42bc",
+            "image_art_path": "Art/Candidates/Hannoki_Snow_VisibilityFix/Hannoki_Snow_Candidate.png",
+            "unreviewed": true,
+            "notes": "Snow overlay expands actual accepted cap pixels (2477 to 6771), keeps base tree and leafless graphic untouched. Source and real-game appearance require author review."
           }
         },
         "transition": {
