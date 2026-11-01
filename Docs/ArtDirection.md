@@ -1,8 +1,13 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 ハンノキ葉あり積雪の表示不備（最新の作者指摘）
+
+作者が実ゲーム撮影を見て「いや、積雪してない」と訂正した。右列のハンノキの葉あり樹冠は黄緑色のままで、雪景色における積雪が視認できない。従来の **Hannoki leafy snow visual PASS は撤回**する。`Hannoki_Snow_A.png` は実在しDefも登録されているが、点在する白い小片がゲーム縮尺で十分な雪景色になっていない。DDS描画方向や重なりの問題はまだ排除していない。葉あり積雪画像・DDSのバイト列は作者の新しい採用画像がない限り変更しない。**落葉時の枝積雪廃止は引き続き正常**。検証元は `Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md` とProject Actions #41267149034。台帳ではハンノキのsnow状態だけpendingとする。
+
+
 ## 2026-11-01 落葉積雪廃止の実ゲーム検証
 
-作者決定どおり、落葉時は裸枝に雪なし、地表は積雪、葉ありの雪は従来維持。ブナ・ハンノキとも隔離RimWorld 1.6実画面・Unity ERROR0で確認（[Actions #41267149034](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034)）。ブナ落葉の原画作者採用と修正済DDSの上下方向についても、既存の実ゲーム証拠を合わせ現行画像に対応。季節切替の旧実機検証は挙動不変の範囲のみ継承し、今回の静止画を新たな1年動作試験とは扱わない。参照: `Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md`。
+作者決定どおり、落葉時は裸枝に雪なし、地表は積雪、葉ありの雪は従来維持。ブナ・ハンノキの落葉時の枝積雪なし、およびブナ葉あり積雪を隔離RimWorld 1.6実画面・Unity ERROR0で確認。**ハンノキ葉あり積雪は画面上で雪が視認できず、従来の表示PASSを撤回して再確認待ち**（[Actions #41267149034](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034)）。ブナ落葉の原画作者採用と修正済DDSの上下方向についても、既存の実ゲーム証拠を合わせ現行画像に対応。季節切替の旧実機検証は挙動不変の範囲のみ継承し、今回の静止画を新たな1年動作試験とは扱わない。参照: `Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md`。
 
 
 ## 2026-11-01 落葉積雪の廃止（現行の優先仕様）
