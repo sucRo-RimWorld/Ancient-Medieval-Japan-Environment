@@ -104,7 +104,7 @@ class HannokiProductionContract(unittest.TestCase):
         self.assertEqual(exts[0].get("Class"), "CropColdToleranceOverhaul.ColdToleranceExtension")
         self.assertEqual(exts[0].findtext("coldDormancy"), "true")
 
-    def test_approved_display_text_and_snow_visual_review_pending(self):
+    def test_approved_display_text_and_leafy_snow_accepted(self):
         ja = ET.parse(JA).getroot()
         self.assertEqual(ja.findtext(DEF_NAME + ".label"), "ハンノキ")
         self.assertEqual(len(ja.findall(DEF_NAME + ".description")), 1)
@@ -114,10 +114,11 @@ class HannokiProductionContract(unittest.TestCase):
         self.assertEqual(description.count(chr(92) + "n" + chr(92) + "n"), 1)
         self.assertEqual(self.tree.findtext("description").count(chr(92) + "n" + chr(92) + "n"), 1)
         data = json.loads(LEDGER.read_text(encoding="utf-8"))["plants"][DEF_NAME]
-        self.assertIs(data["complete"], False)
+        self.assertIs(data["complete"], True)
         self.assertEqual(set(data["states"]),
                          {"normal", "immature", "icon", "snow", "leafless", "autumn", "transition"})
-        self.assertEqual([name for name, entry in data["states"].items() if entry["status"] == "pending"], ["snow"])
+        self.assertEqual([name for name, entry in data["states"].items() if entry["status"] == "pending"], [])
+        self.assertEqual(data["states"]["snow"]["status"], "accepted")
 
 
 if __name__ == "__main__":

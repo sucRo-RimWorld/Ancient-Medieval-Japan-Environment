@@ -2,7 +2,7 @@
   "schema": 1,
   "plants": {
     "AMJ_Tree_Hannoki": {
-      "complete": false,
+      "complete": true,
       "states": {
         "autumn": {
           "status": "accepted",
@@ -88,16 +88,16 @@
           }
         },
         "snow": {
-          "status": "pending",
+          "status": "accepted",
           "date": "2026-11-01",
-          "author_statement": "「いや、積雪してない」— 実ゲームスクリーンショットのハンノキ葉あり積雪が視認不能。従前の『葉あり積雪表示PASS』を撤回。落葉時の雪なしは承認どおり維持。",
-          "evidence": "Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md",
+          "author_statement": "「ｙ」（直前のハンノキ葉あり積雪修正版の外観採用・PR #306マージを承認）。",
+          "evidence": "Docs/ValidationEvidence/HannokiLeafySnowVisibilityFixNative-20261101.md",
           "reviewed_variants": [
+            "leafy",
             "leafless_no_branch_snow"
           ],
           "snow_depths": [
             0,
-            0.5,
             1
           ],
           "prior_acceptance": {
@@ -125,24 +125,33 @@
               1
             ]
           },
-          "leafy_variant_status": "blocked_visually_missing_snow",
+          "leafy_variant_status": "author_accepted_and_native_verified",
           "leafless_variant_status": "author_decision_native_verified",
           "current_spec": "LeaflessNoSnow transparent 256 PNG + DXT5 DDS, 9 mips. Snowless tree branches on ground snow; leafy snow unchanged.",
-          "note": "Previous leafy-snow visual PASS retracted; 2026-11-01 candidate adds capped snow without changing base/leafless. Pending native and author acceptance. Historical previously accepted PNG preserved in Art/Sources.",
-          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034",
+          "note": "Author explicitly accepted increased leafy Hannoki snow cap overlay after seeing the before/after real native screenshot. 1.6.4871 Clear/noon/snow-depth 1, ERROR0. Original foliage PNG/LeaflessNoSnow/Def unchanged. Prior sparse overlay and its rejected claim kept in archival history.",
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41270559182",
           "previous_native_conclusion": {
             "status": "accepted",
             "evidence": "Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md",
             "date": "2026-11-01",
             "note": "Actual isolated RimWorld 1.6 native screenshot in evidence: bare branches clear under snow depth 1.0, leafy snow visible, Unity ERROR0. Old snow art kept only as history."
           },
-          "candidate": {
-            "date": "2026-11-01",
+          "fingerprint": {
+            "definition": "81f2ca23454ebc960cb123064dea1c7a68f952230c8b9797a0e9f573164db197",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
+              "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2",
+              "Textures/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png": "5549f3a99c268211af103f4bf6036e61f36ff8034d01ddd45b00498b61724250",
+              "Textures/Things/Plant/AMJ/LeaflessNoSnow/LeaflessNoSnow_A.png": "70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c"
+            }
+          },
+          "adopted_asset": {
+            "source_path": "Art/Sources/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png",
             "source_sha256": "5549f3a99c268211af103f4bf6036e61f36ff8034d01ddd45b00498b61724250",
             "dds_sha256": "7c99559a18c6f4d48740bca8ef9211da25489f5870bc58a5016b4c5ea35a42bc",
-            "image_art_path": "Art/Candidates/Hannoki_Snow_VisibilityFix/Hannoki_Snow_Candidate.png",
-            "unreviewed": true,
-            "notes": "Snow overlay expands actual accepted cap pixels (2477 to 6771), keeps base tree and leafless graphic untouched. Source and real-game appearance require author review."
+            "prior_original_path": "Art/Archive/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A_20261015.png",
+            "date": "2026-11-01"
           }
         },
         "transition": {

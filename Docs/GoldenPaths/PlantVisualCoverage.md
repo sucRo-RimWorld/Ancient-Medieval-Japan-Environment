@@ -77,6 +77,8 @@ Workshop binaries. Read the precise independent evidence in
 static acceptance in `Docs/ValidationEvidence/HannokiVisualAcceptance-20261015.md`.
 
 
+**2026-11-01 CURRENT ACCEPTED (supersedes later historical pending notes):** the author replied `ｙ` approving the revised Hannoki *leafy* snow overlay shown in the real-before/after game screenshot. [Actual RimWorld 1.6 screenshot](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41270559182) confirms visible snow on the leafy Hannoki crown with ground snow depth 1, with NO snow on leafless wood and Unity ERROR0. Current approved `Art/Sources/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png` exactly matches production PNG; the sparse previously accepted source is archived. Current ledger `AMJ_Tree_Hannoki/snow=accepted`, `complete=true`; old "snow not visible"/"keep pending" instructions in this document are explicitly **historical, no longer operative**. Formal per-state evidence: [Hannoki leafy snow adoption](../ValidationEvidence/HannokiLeafySnowVisibilityFixNative-20261101.md). This is NOT a new RimWorld 1.7 or full-year dynamic test.
+
 ## Controlled color review
 
 ### Autumn LUT and source-color calibration
