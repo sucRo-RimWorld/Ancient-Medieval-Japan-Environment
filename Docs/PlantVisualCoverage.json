@@ -609,7 +609,7 @@
         },
         "snow": {
           "status": "pending",
-          "note": "Whole-tree leafy, leafless and bloom-window snow graphics are installed as PNG; runtime alignment and precedence not yet accepted."
+          "note": "Only leafy and bloom-window whole-tree snow is active; leafless branch snow is explicitly suppressed via transparent LeaflessNoSnow overlay. Native rendering and precedence remain pending."
         },
         "leafless": {
           "status": "pending",
@@ -621,7 +621,7 @@
         },
         "transition": {
           "status": "pending",
-          "note": "Bloom source window configured for Spring days 6–8 (end 9 exclusive), using Yamazakura_Bloom and author-accepted Yamazakura_Bloom_SnowFull at snow depth >0.8. Native autumn/leafless/snow/bloom transition and timing remain untested; consolidate acceptance after remaining trees."
+          "note": "Bloom source window configured for Spring days 6–8 (end 9 exclusive), using Yamazakura_Bloom and author-accepted Yamazakura_Bloom_SnowFull at snow depth >0.8. Native autumn/leafless/snow/bloom transition and timing remain untested; leafless full-tree snow is retired in favor of a transparent overlay."
         }
       }
     }

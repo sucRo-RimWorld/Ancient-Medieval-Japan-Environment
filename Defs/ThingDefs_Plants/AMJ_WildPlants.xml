@@ -53,7 +53,9 @@
       <harvestWork>950</harvestWork>
       <harvestYield>40</harvestYield>
       <leaflessGraphicPath>Things/Plant/AMJ/Yamazakura_Leafless</leaflessGraphicPath>
-      <!-- Do not set snowOverlayGraphicPath: the two snow images contain the entire tree. -->
+      <!-- Suppress branch snow explicitly; otherwise native Plant may reuse leafy snow. -->
+      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
+      <!-- Leafy snow uses complete-tree graphics; do not specify snowOverlayGraphicPath. -->
     </plant>
     <modExtensions>
       <li Class="AncientMedievalJapan.Environment.SeasonalPlantAppearanceExtension">
@@ -78,10 +80,6 @@
           <texPath>Things/Plant/AMJ/Yamazakura_SnowFull</texPath>
           <graphicClass>Graphic_Random</graphicClass>
         </fullSnowGraphicData>
-        <leaflessFullSnowGraphicData>
-          <texPath>Things/Plant/AMJ/Yamazakura_Leafless_SnowFull</texPath>
-          <graphicClass>Graphic_Random</graphicClass>
-        </leaflessFullSnowGraphicData>
       </li>
     </modExtensions>
   </ThingDef>

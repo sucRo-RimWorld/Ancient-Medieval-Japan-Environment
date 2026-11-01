@@ -1,8 +1,12 @@
 # AMJ Environment — Final Art Direction
 
-## 2026-11-01 ヤマザクラ落葉・落葉積雪画像の再採用（2026-10-31記録の画像を置換）
+## 2026-11-01 最優先：落葉積雪表示を廃止（採用原本は保存）
 
-- **作者の現行採用はPR #299の次の2状態**。古い「2026-10-31 落葉（枝のみ）の妥協採用」および初期の落葉積雪画像のSHA・Git Blobは履歴であり、現在の採用画像の参照先ではない。再生成や別画像への置換は行わない。
+**現行の制作・実装仕様:** AMJE所有の落葉樹は、葉がないときの裸枝・幹に雪を描画しない。積雪した地面・葉あり積雪・開花積雪・採用済み落葉画像はそのまま保持。ヤマザクラPR #299は`leaflessFullSnowGraphicData`を廃止し、完全透明の`LeaflessNoSnow`を`leaflessSnowOverlayGraphicPath`へ設定。ブナ・ハンノキはPR #301で同じ透明画像を使う。旧落葉積雪原画（ヤマザクラ、ブナ、ハンノキ、シラカバ、ダケカンバ等）は削除せず、**過去に外観採用された制作史料**として保存するが、現在の本番グラフィックには使用しない。この見出しより下の「落葉積雪を採用・再生成・接続する」といった記録は履歴であり、現行の制作要件ではない。実ゲーム表示は未検証。
+
+## 履歴：2026-11-01 ヤマザクラ落葉・落葉積雪画像の外観採用（落葉積雪は現在非使用）
+
+- **この時点で作者が外観を採用したのは次の2状態**（現在の本番表示では落葉のみ使用、落葉積雪は保存専用）。古い「2026-10-31 落葉（枝のみ）の妥協採用」および初期の落葉積雪画像のSHA・Git Blobは履歴であり、現在の採用画像の参照先ではない。再生成や別画像への置換は行わない。
 - **落葉・無積雪:** 採用原画 `Art/Sources/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_Source.png`（1254×1254 RGBA、SHA-256 `c4918ec8ecec225cadb11d91fd94186e1ab94ffc4516b1fc4f097b2d0e94942e`、Git Blob `da4d93c733c8e4f13e57efc69e275dcc95046cef`）。本番用 `Textures/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_A.png`（256×256 RGBA、SHA-256 `d445f39158f5b175ac4eb1204d28a08b8ca69a72ded21e9ed0d93f78d7a5c841`、Git Blob `b9448376e76baf49d3dbbff2efdd93e9568b4d3f`）。
 - **落葉積雪・全木:** 採用原画 `Art/Sources/Things/Plant/AMJ/Yamazakura_Leafless_SnowFull/Yamazakura_Leafless_SnowFull_Source.png`（1254×1254 RGBA、SHA-256 `448c689a67b4589a99be9c8edea52f5759f40854e711937265272059b2f1cfe6`、Git Blob `2b87e87308836aea83a7c0ac7d3453b3d70e043a`）。本番用 `Textures/Things/Plant/AMJ/Yamazakura_Leafless_SnowFull/Yamazakura_Leafless_SnowFull_A.png`（256×256 RGBA、SHA-256 `a865854d231f2617f072d594058e237cb50ad4cb7f3c114ea911d867ffa1ecb3`、Git Blob `5f78e2aec9b7a0e23848d37137f689c6060f86fb`）。
 - **反映コミット:** 落葉 `4b42483e56609ae07e98d114f17c9fb65ba3e889`、落葉積雪 `ae4a6c44b9a8647d653424436d714cade01ea6e7`。2状態とも画像外観のみ妥協採用。ゲーム内の季節・積雪描画、64px表示、C#ビルド、DDSは別途検証が必要。落葉積雪画像は雪だけのオーバーレイではない。
@@ -12,7 +16,7 @@
 - **採用状態:** 開花中の赤褐色の若葉と淡い桜色の花に雪が載る**全木**1状態。作者は会話で生成画像を見て「これ採用で」と明示。元の開花画像（SHA-256 `b2f5e1e880f7f8de0ebbcbe31ae67b860c453fd2fe4c3697ab1a0a1c5d769640`）を参照した別の採用画像であり、元画像との完全画素一致を保証しない。
 - **1254×1254 RGBA採用原画:** `Art/Sources/Things/Plant/AMJ/Yamazakura_Bloom_SnowFull/Yamazakura_Bloom_SnowFull_Source.png`。**SHA-256** `bd348475785d999ea4a0955b08c5d7e48e4bfb4f9d3e32943b50b7f47eb1e8e4`、Git Blob `1891a3bc15399c9ac4738c35e6734539b9149729`。採用時の生成PNGを再エンコードせず保存。
 - **256×256 RGBA決定的派生:** `Textures/Things/Plant/AMJ/Yamazakura_Bloom_SnowFull/Yamazakura_Bloom_SnowFull_A.png`。LANCZOS縮小、**SHA-256** `fbc5200baf42ba2e1dc286c66ff7a66aa1bd02322f75ba59266dad016c25cf41`、Git Blob `82aac061ba26900afc779c6c5035dfd2952260f0`。
-- **接続:** PR #299の春6～8日目の開花ウィンドウに`fullSnowGraphicData`を追加。成熟木・`!LeaflessNow`・当該ウィンドウ・積雪深`>0.8`のときのみ開花積雪を選択。該当期間外は既存の葉あり全木積雪、落葉中は既存の落葉全木積雪を維持。Vanilla雪専用オーバーレイに全木PNGを指定しない。
+- **接続:** PR #299の春6～8日目の開花ウィンドウに`fullSnowGraphicData`を追加。成熟木・`!LeaflessNow`・当該ウィンドウ・積雪深`>0.8`のときのみ開花積雪を選択。該当期間外は既存の葉あり全木積雪、落葉中は雪のない落葉画像を維持。Vanilla雪専用オーバーレイに全木PNGを指定しない。
 - **検証境界:** 画像の外観採用であり、実ゲームの読み込み・開花積雪表示・季節/積雪優先順位・DDS生成・他状態との描画位置一致は未受入。元の5状態の原画を変更しない。
 
 ## 2026-10-31 ヤマザクラ残4状態：採用原画と256px本番候補の転送完了

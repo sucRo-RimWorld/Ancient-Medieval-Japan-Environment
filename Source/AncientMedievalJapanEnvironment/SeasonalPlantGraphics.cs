@@ -37,10 +37,10 @@ namespace AncientMedievalJapan.Environment
     {
         public List<SeasonalPlantGraphicWindow> windows;
 
-        // These are complete tree sprites, NOT transparent snow overlays.
-        // New opt-in PlantDefs must leave the native snow overlay paths unset.
+        // These are complete leafy tree sprites, NOT transparent snow overlays.
+        // Leafless trees use the native leafless graphic with an explicit transparent
+        // leafless snow overlay; do not reuse any leafy snow image on bare branches.
         public GraphicData fullSnowGraphicData;
-        public GraphicData leaflessFullSnowGraphicData;
     }
 
     internal static class SeasonalPlantGraphics
@@ -101,7 +101,8 @@ namespace AncientMedievalJapan.Environment
 
             if (plant.LeaflessNow)
             {
-                return extension.leaflessFullSnowGraphicData != null ? -3 : -1;
+                // Bare branches are never replaced by a snow-covered full-tree sprite.
+                return -1;
             }
 
             // A season-specific snowy sprite takes precedence over the generic
@@ -133,7 +134,6 @@ namespace AncientMedievalJapan.Environment
             switch (snowState)
             {
                 case -2: return GraphicForVariant(plant, extension.fullSnowGraphicData);
-                case -3: return GraphicForVariant(plant, extension.leaflessFullSnowGraphicData);
             }
 
             int window = ActiveWindowIndex(plant, extension);
@@ -232,7 +232,7 @@ namespace AncientMedievalJapan.Environment
                 plant.def.GetModExtension<SeasonalPlantAppearanceExtension>();
             if (extension == null ||
                 ((extension.windows == null || extension.windows.Count == 0) &&
-                 extension.fullSnowGraphicData == null && extension.leaflessFullSnowGraphicData == null))
+                 extension.fullSnowGraphicData == null))
             {
                 return;
             }
