@@ -1,5 +1,12 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 樺2樹種のRimWorld 1.6実画面 — 原画像保持、状態別の受入は継続
+
+- [実機証拠](ValidationEvidence/BirchNative16-20261101.md) の固定正午Clear・一時停止撮影により、シラカバ／ダケカンバの落葉（枝雪なし）・葉あり積雪を原ゲーム1.6.4871で表示確認。フルフレーム原本：`Docs/ValidationEvidence/Images/BirchSnowNative16_Original_20261101.png`、見比べ用切り出し：`Docs/ValidationEvidence/Images/BirchSnowNative16_ComparisonCrop_20261101.png`。共にフレーム源とSHA256を証拠文書に記録し、既存採用本体原画は不変。
+- 現物の実画面は葉ありの雪が識別でき、落葉した木に枝積雪がない。一方、**作者がこの実画面を別途明示採用したわけではない**ため、snow/normal/leafless等のVisualCoverage最終受入はpending。未熟・UI・自然な季節切替をこの静止画から認定しない。
+- 撮影Action自体はUnity ERROR0・PNG保存成功だが、テスト集計に存在したログprefix不具合で当時のGitHub job結果はFAIL。Project PR #1171が再実行せずに集計処理だけ修正。詳細は検証証拠を参照。
+
+
 ## 2026-11-01 シラカバ／ダケカンバ葉あり積雪オーバーレイ — 作者「採用で」承認
 
 - **採用範囲:** 2026-11-01に実際に提示・比較した2樹種の積雪合成プレビューを作者が「採用で」と明示。採用対象はその合成画像に使用した**雪だけの256×256 RGBA透過オーバーレイ**。合成画像を本番の樹木画像に置き換えたり、採用済み通常樹木を再描画しない。

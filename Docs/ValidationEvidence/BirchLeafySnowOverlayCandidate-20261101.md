@@ -28,6 +28,8 @@ Both normal sprites below are existing author-approved source derivatives, and t
 Do not substitute the whole-tree snow images as overlays or mark the `snow` visual-coverage ledger accepted. The exact snow-only PNG blobs are now copied to `Art/Sources` and `Textures/Things/Plant/AMJ/{Shirakaba,Dakekanba}_Snow/{Shirakaba,Dakekanba}_Snow_A.png`, with same-name DDS, and the Def paths are wired. **A bounded native visual acceptance check is still required**; static source adoption and file integrity do not validate loaded-game snow rendering.
 Leafless no-snow policy is unchanged. ColdBog weights, normal/leafless art and CCTO fields are unchanged by this candidate.
 
+**2026-11-01後続のRimWorld 1.6ネイティブ確認:** [BirchNative16-20261101.md](BirchNative16-20261101.md) を参照。静的合成での作者採用と、実ゲーム内での強制葉あり／落葉・積雪実装の動作、最終画面の作者受入は別段階。初回撮影のGitHubジョブ結果はログ集計不具合によりFAILであり、原データのUnity ERROR0とは区別する。
+
 ## Promotion and provenance after author acceptance
 
 | Species | PNG Git blob (candidate, source master, production) | DDS Git blob | DDS details |
