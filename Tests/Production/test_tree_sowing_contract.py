@@ -119,7 +119,8 @@ class TreeSowingContractTests(unittest.TestCase):
                                {"Plant_Chokevine", "Plant_TreeCypress"}),
             "ColdBog": (8.22, 1.80, {"Plant_TreeWillow", "Plant_TreeMaple",
                                       "AMJ_Tree_Shirakaba", "AMJ_Tree_Dakekanba"},
-                        {"Plant_Chokevine", "Plant_TreeCypress", "Plant_Astragalus"}),
+                        {"Plant_Chokevine", "Plant_TreeCypress", "Plant_Astragalus",
+                         "Plant_TreeBirch"}),
         }
         baselines = loaded_wetland_baselines(source)
         for i, (biome, (total, woody, trees, excluded)) in enumerate(expected.items()):
