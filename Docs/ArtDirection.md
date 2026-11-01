@@ -1,5 +1,12 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 カバノキ類の通常葉あり原画採用を画像状態台帳へ反映
+
+- 2026-10-30の原画採用記録に基づき、**シラカバ**「まあ妥協するか」および**ダケカンバ**「採用はこれだったと思う」「忘れず追加しろ」の現行葉あり原本を `normal` 状態として台帳へ反映した。PR #310が使用する256px PNGが採用済み `Art/Candidates/{Shirakaba,Dakekanba}/...` と同一SHA-256であることを、保存された実機候補ZIPから独立に確認した。
+- `normal` 受入は**原画に対する作者承認**のみ。実RimWorld画像 `BirchSnowNative16_ComparisonCrop_20261101.png` は強制落葉・葉あり積雪の各状態であり、無雪の葉あり完成状態を個別表示確認した証拠ではない。未熟・UI・紅葉・動的季節切替は引き続きpending。
+- 既存の本番PNG/DDS、Def、植生分布および積雪素材を一切変更しない。
+
+
 ## 2026-11-01 シラカバ・ダケカンバ 実RimWorld 1.6画像の作者採用（最新）
 
 - 作者は、PR #310の実RimWorld 1.6で撮影した2樹種の画像（落葉・地面積雪0、落葉・地面積雪1、葉あり・地面積雪1）に対し **「画像問題なし」** と回答し、**葉あり積雪および落葉外観を実機画像として承認**した。元画像 [BirchNative16-20261101.md](ValidationEvidence/BirchNative16-20261101.md)、[比較画像](ValidationEvidence/Images/BirchSnowNative16_ComparisonCrop_20261101.png)。

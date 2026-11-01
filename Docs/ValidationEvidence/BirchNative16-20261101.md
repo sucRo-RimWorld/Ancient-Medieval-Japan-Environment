@@ -3,9 +3,28 @@
 ## Source and provenance
 
 - **Exact Environment owner source tested:** `56bfd6915935420c6e87872f58041e2d0e60e0ae` (PR #310). The following later documentation/artifact evidence commit does not alter runtime Defs or Textures.
-- **Original Linux game:** RimWorld 1.6.4871 rev598, original licensed ELF/Managed assemblies on isolated AMJRuntime test slots; not a Workshop subscriber or a normal player save.
+- **Original Linux game:** RimWorld 1.6.4871 in isolated AMJRuntime test slots, licensed original ELF/Managed assemblies; not a Workshop subscriber or a normal player save. The **20-case native matrix's saved per-case result.json/summary.json records `rev600`**; the separate screenshot Action's revision suffix is not independently verified by this matrix. The historical `rev598` attribution is not a valid revision label for these 20 matrix cases.
 - **Build:** exact-source candidate generated in Project [manual Actions #41309529648](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41309529648). Source commit, manifest archive SHA-256 `dbdc5659d6cd684068fbeacdf5c88a4bfa16c43315c517da824a174588887d74`, production DLL SHA-256 `904a9a418e5c3b202b4537e08b8832b7e50c9c82830768188d01b67f907de88f` were recorded in the preserved original `matrix-result.json`. No Steam publication.
 - **Native rendered suite:** ten actual Quickstarts per profile, Vanilla **10/10 PASS** and CCTO **10/10 PASS**, each case Unity ERROR 0, total **20/20 PASS**; two profiles only, neither MO nor MO+CCTO was executed. The tenth case repeats WarmTemperate and does not add a distinct tenth biome. Original evidence: `amje-birch310-native16-41309529648` (seven-day Actions artifact). Repo validators run on exact candidate checkout before native: plant visual ledger `--self-test` **PASS** with 14 Birch visual rows pending; TreeSowing/approved-snow-PNG exact identity **11 tests PASS**; Hannoki regression **5 tests PASS**; structural commonality **1 test PASS**. The separate older Workshop/gallery release checker was **NOT RUN in this passing native suite** after its pre-existing failure in [first attempt #41309279791](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41309279791), and no release checker PASS is claimed.
+
+## Saved raw native ecology and sowing observations (after source review, 2026-11-01)
+
+These are **existing saved results**, not a newly started game or an additional seed. Original artifact `amje-birch310-native16-41309529648`, fixed seed `AMJ-Environment-Terrain-Alpha`, tested owner runtime source `56bfd6915935420c6e87872f58041e2d0e60e0ae`. The archive retained in the working environment has `native/profiles/<profile>/<case>/unity.log` and `quickstart.json`; original Actions provenance is above.
+
+| Loaded original 1.6 Quickstart | Vanilla | CCTO |
+|---|---:|---:|
+| CoolTemperate naturally generated Shirakaba | 854 | 856 |
+| Subalpine naturally generated Dakekanba | 155 | 158 |
+| ColdBog naturally generated Shirakaba | 1,141 | 1,084 |
+| ColdBog naturally generated Dakekanba | 169 | 155 |
+| ColdBog share among generated birches: Shirakaba | 87.1% (1,141/1,310) | 87.5% (1,084/1,239) |
+| ColdBog share among generated birches: Dakekanba | 12.9% | 12.5% |
+
+Actual `[AMJ Environment TreeSowing]` log lines report the **research-unlocked growing-zone menu**: CoolTemperate includes Shirakaba and not Dakekanba/legacy Birch; Subalpine includes Dakekanba and not Shirakaba/legacy Birch. The logged 1.6 loaded-Def/grower menu gate passed for both Vanilla and CCTO. This verifies **initial map generation and a calculated sowable menu**, not a pawn-issued sow Job or newly germinated trees on an existing saved map. ColdBog has no altitude partition; a single fixed-seed map per provider is not independent multi-seed or multi-year numerical-balance acceptance. Retain `0.40/0.05` as provisional until separately accepted.
+
+## Original accepted normal source art versus native image scope
+
+Both species' **normal mature leaf art** were explicitly adopted by the author on 2026-10-30 and remain the unchanged source-derived production PNGs in this tested candidate. The exact production XML Git blob from the tested package is `b7bc311871fa88659fcd8045fe55e14d9efafb60`, equal to current PR #310 runtime Def blob (documentation-only commits since the tested SHA). The approved **normal** ledger rows are tagged `source_acceptance_only`, not “snow-free mature visually verified in native screenshot”. The current screen contains only forced leafless (ground snow 0/1) and leafy snow (ground snow 1) test specimens; the normal no-snow display, immature plant and UI icons were **not** distinctly screenshot-accepted here.
 
 ## Actual snow appearance screenshot
 
@@ -19,6 +38,6 @@
 ## Acceptance and exclusions
 
 - **Source-art author approval:** on 2026-11-01 the author said `採用で` after viewing the two synthetic overlays composited against frozen accepted mature trees. Production PNG/DDS were subsequently wired before this native test.
-- **Native technical evidence:** actual fixed-frame sprites, snow states and 20-case two-profile functional tests as specified above. **Author acceptance (2026-11-01, after native screenshot):** the author explicitly replied `画像問題なし` to the real-game comparison screenshot. This approves both species' **static leafy-snow and leafless appearance** at the recorded fixed-noon/Clear/paused visual conditions (including snowless bare branches over snowy ground). Consequently only `snow` and `leafless` are recorded `accepted` in `Docs/PlantVisualCoverage.json`, using the exact-source production fingerprints; `normal` (snow-free mature leafy), `immature`, `icon`, `autumn` and `transition` remain `pending` for each species. **Acceptance does not imply natural calendar transitions, growing/harvest or old-save E2E.**
+- **Native technical evidence:** actual fixed-frame sprites, snow states and 20-case two-profile functional tests as specified above. **Author acceptance (2026-11-01, after native screenshot):** the author explicitly replied `画像問題なし` to the real-game comparison screenshot. This approves both species' **static leafy-snow and leafless appearance** at the recorded fixed-noon/Clear/paused visual conditions (including snowless bare branches over snowy ground). Consequently only `snow` and `leafless` are recorded `accepted` in `Docs/PlantVisualCoverage.json`, using the exact-source production fingerprints; `normal` (adopted source art) is `accepted` on its original 2026-10-30 author evidence, whereas `immature`, `icon`, `autumn` and `transition` remain `pending` for each species. **Acceptance does not imply natural calendar transitions, growing/harvest or old-save E2E.**
 - **Not tested:** actual year-long autumn→leafless→spring recovery; old-save map reload and natural repopulation; real sowing Job→tree maturation→harvest→re-save; additional MO or MO+CCTO profiles; 1.7; ColdBog 0.40/0.05 independent numerical-balance acceptance. Native static wetland/forest Quickstarts are not proof of all those broader outcomes.
 - **Do not interpret a branch-only PR as shipped content.** No merge of Environment PR #310, main update, Workshop upload or published subscriber bytes are evidenced here.
