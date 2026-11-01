@@ -117,7 +117,7 @@ class TreeSowingContractTests(unittest.TestCase):
                 self.assertEqual(approved.read_bytes(), source.read_bytes())
                 self.assertEqual(source.read_bytes(), production.read_bytes())
                 png = production.read_bytes()
-                self.assertEqual(png[:8], b"\\x89PNG\\r\\n\\x1a\\n")
+                self.assertEqual(png[:8], b"\x89PNG\r\n\x1a\n")
                 self.assertEqual(int.from_bytes(png[16:20], "big"), 256)
                 self.assertEqual(int.from_bytes(png[20:24], "big"), 256)
                 content = dds.read_bytes()
