@@ -81,6 +81,52 @@ class TreeSowingContractTests(unittest.TestCase):
     def test_repository_contract(self):
         self.assertEqual([], validate(self.biomes, self.plants))
 
+    def test_birch_approved_snow_asset_and_def_contract(self):
+        # Author approved the source-composite appearances on 2026-11-01.
+        # Exact source/prod bytes and Def paths are a static contract only:
+        # passing this test does NOT establish actual RimWorld rendering.
+        for species in ("Shirakaba", "Dakekanba"):
+            with self.subTest(species=species):
+                name = "AMJ_Tree_" + species
+                definition = next(
+                    d for d in self.plants.findall("ThingDef")
+                    if d.findtext("defName") == name
+                )
+                self.assertEqual(definition.get("ParentName"), "DeciduousTreeBase")
+                for field, stem in (
+                    ("snowOverlayGraphicPath", species + "_Snow"),
+                    ("leaflessGraphicPath", species + "_Leafless"),
+                    ("leaflessSnowOverlayGraphicPath", "LeaflessNoSnow"),
+                ):
+                    self.assertEqual(
+                        definition.findtext("plant/" + field),
+                        "Things/Plant/AMJ/" + stem,
+                    )
+                source = ROOT / "Art/Sources/Things/Plant/AMJ" / (
+                    species + "_Snow"
+                ) / (species + "_Snow_A.png")
+                production = ROOT / "Textures/Things/Plant/AMJ" / (
+                    species + "_Snow"
+                ) / (species + "_Snow_A.png")
+                dds = production.with_suffix(".dds")
+                approved = ROOT / "Art/Candidates/BirchLeafySnowOverlay_20261101" / (
+                    species + "_SnowOnly_Candidate.png"
+                )
+                for asset in (approved, source, production, dds):
+                    self.assertTrue(asset.is_file(), str(asset))
+                self.assertEqual(approved.read_bytes(), source.read_bytes())
+                self.assertEqual(source.read_bytes(), production.read_bytes())
+                png = production.read_bytes()
+                self.assertEqual(png[:8], b"\\x89PNG\\r\\n\\x1a\\n")
+                self.assertEqual(int.from_bytes(png[16:20], "big"), 256)
+                self.assertEqual(int.from_bytes(png[20:24], "big"), 256)
+                content = dds.read_bytes()
+                self.assertEqual(content[:4], b"DDS ")
+                self.assertEqual(len(content), 349652)
+                self.assertEqual(int.from_bytes(content[12:16], "little"), 256)
+                self.assertEqual(int.from_bytes(content[16:20], "little"), 256)
+                self.assertEqual(int.from_bytes(content[28:32], "little"), 9)
+
     def test_removed_tree_reintroduced(self):
         ET.SubElement(self.biomes.find("BiomeDef/wildPlants"), "Plant_TreePoplar").text = "0.5"
         self.assertTrue(validate(self.biomes, self.plants))

@@ -164,7 +164,7 @@
       <snowOverlayGraphicPath>Things/Plant/AMJ/Dakekanba_Snow</snowOverlayGraphicPath>
       <leaflessGraphicPath>Things/Plant/AMJ/Dakekanba_Leafless</leaflessGraphicPath>
       <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
-      <!-- Snow on the leafy crown awaits a verified, aligned snow-only overlay. -->
+      <!-- The leafy snow-only overlay is author-approved and connected; native rendering unverified. -->
     </plant>
   </ThingDef>
 
