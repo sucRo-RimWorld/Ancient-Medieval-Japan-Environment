@@ -111,9 +111,17 @@
     <graphicData>
       <texPath>Things/Plant/AMJ/Shirakaba</texPath>
       <graphicClass>Graphic_Random</graphicClass>
+      <!-- Vanilla Birch fall-color baseline. New art color/appearance still awaits native review. -->
+      <shaderParameters Inherit="False">
+        <_FallColorSource>(0.3803, 0.4352, 0.1451)</_FallColorSource>
+        <_FallColorDestination>/Other/TreeFallGradient</_FallColorDestination>
+        <_FallTransitionRange>(0.02, 0.10)</_FallTransitionRange>
+        <_FallBehaviorEnabled>1</_FallBehaviorEnabled>
+      </shaderParameters>
       <shadowData><volume>(0.15, 0.3, 0.1)</volume><offset>(-0.03,0,-0.35)</offset></shadowData>
     </graphicData>
-    <statBases><Beauty>2</Beauty><BeautyOutdoors>2</BeautyOutdoors></statBases>
+    <statBases><Beauty>2</Beauty><BeautyOutdoors>2</BeautyOutdoors><Nutrition>2</Nutrition></statBases>
+    <ingestible />
     <plant>
       <!-- Keep the Vanilla Birch growth and wood economy without adding species bonuses. -->
       <growDays>20</growDays>
@@ -134,9 +142,17 @@
     <graphicData>
       <texPath>Things/Plant/AMJ/Dakekanba</texPath>
       <graphicClass>Graphic_Random</graphicClass>
+      <!-- Vanilla Birch fall-color baseline. New art color/appearance still awaits native review. -->
+      <shaderParameters Inherit="False">
+        <_FallColorSource>(0.3803, 0.4352, 0.1451)</_FallColorSource>
+        <_FallColorDestination>/Other/TreeFallGradient</_FallColorDestination>
+        <_FallTransitionRange>(0.02, 0.10)</_FallTransitionRange>
+        <_FallBehaviorEnabled>1</_FallBehaviorEnabled>
+      </shaderParameters>
       <shadowData><volume>(0.15, 0.3, 0.1)</volume><offset>(-0.03,0,-0.35)</offset></shadowData>
     </graphicData>
-    <statBases><Beauty>2</Beauty><BeautyOutdoors>2</BeautyOutdoors></statBases>
+    <statBases><Beauty>2</Beauty><BeautyOutdoors>2</BeautyOutdoors><Nutrition>2</Nutrition></statBases>
+    <ingestible />
     <plant>
       <!-- Keep the Vanilla Birch growth and wood economy without adding species bonuses. -->
       <growDays>20</growDays>
