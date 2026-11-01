@@ -1,5 +1,28 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 ハンノキ葉あり積雪：作者採用・現行正本
+
+- 作者は修正候補の実ゲーム比較提示後に「ｙ」と返答し、ハンノキの**葉あり積雪修正版**を採用した。以前の「積雪してない」は旧画像に対する指摘であり、新画像には適用しない。
+- 採用原本：`Art/Sources/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png`。SHA-256 `5549f3a99c268211af103f4bf6036e61f36ff8034d01ddd45b00498b61724250`。本番`Textures/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png`と**同一バイト列**。対応DDSは256px/9 mip/BC3、SHA-256 `7c99559a18c6f4d48740bca8ef9211da25489f5870bc58a5016b4c5ea35a42bc`。
+- 旧版原画（雪2,477px）は`Art/Archive/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A_20261015.png`へ**原バイトを変えず保存**。従前の受入・不具合指摘を履歴として保持。現在採用した雪オーバーレイは6,771pxであり、採用済みハンノキ本体／葉／幹／輪郭を変更していない。
+- [実RimWorld 1.6.4871、正午・晴れ・一時停止／雪深0と1の同画面比較](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41270559182)で、葉あり樹冠の雪が視認でき、落葉時には枝雪なし、地面積雪あり、Unity ERROR0を確認。元スクリーンショットはActions Artifact、画像比較は`Docs/ValidationEvidence/Images/HannokiLeafySnow_BeforeAfterNative_20261101.png`。静止画は実際の1年間の季節推移を意味しない。
+- 本採用は`AMJ_Tree_Hannoki/snow`に限定し、`Docs/PlantVisualCoverage.json`でacceptedにする。後続の「候補」「未承認」「pending」という記載は**本採用より前の工程履歴**。落葉時の枝積雪は従来の透明オーバーレイ運用を継続。Workshop配布は別承認。
+
+
+## 2026-11-01 ハンノキ葉あり積雪の視認性修正候補（作者レビュー・実機受入待ち）
+**実機による候補の機能的確認（2026-11-01）:** [Project Actions #41270559182](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41270559182) で Environment PR #306 の候補SHA 6fecd5a25ca2279c79f94502bacda7ffcc2a9b9d をロード。RimWorld 1.6.4871／正午・晴れ・一時停止／積雪深1.0。修正前は黄緑色に見えたハンノキ葉あり樹冠に、修正後は白い雪が視認できる。落葉時の枝積雪なしも維持。Unity ERROR0、VisualCoverage台帳整合PASSだがハンノキ雪の作者レビューは引き続きpending。撮影2枚から同一範囲を6倍拡大した比較画像と条件は Docs/ValidationEvidence/HannokiLeafySnowVisibilityFixNative-20261101.md に記録。作者が候補を最終採用するまではマージしない。
+
+
+作者の「修正」に基づく**候補**。作者の採用済み葉あり画像 `Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png` は原バイト不変（SHA-256 `6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1`）。元の `Hannoki_Snow_A.png` は積雪2,477有効画素しかなく、2026-11-01のRimWorld 1.6実機画面では積雪を識別できなかった。
+
+- 比較した3つの本番DDS（ハンノキ葉あり本体、ハンノキ積雪、正常に見えるブナ積雪）はすべてPNGに対して**上下反転したDDS画素配置**だった。これはゲーム向けの既存方式と整合するので、**DDSの行配置を不具合原因と断定しない**。今回もDDS画素をPNG比で上下反転した形で用意した。
+- 採用済みの雪片画素をそのまま保持し、現物の葉画像の緑色領域と元雪片の支持位置を使い、上下各3px／左右各5px以内で既存の雪塊を広げた。雪以外のピクセルや葉あり本体を変更せず、既存の雪3色のみ使用。積雪有効画素2,477→6,771。局所的な拡大を行った**修正候補**であり、勝手に採用済みとしない。
+- **候補PNG:** `Art/Candidates/Hannoki_Snow_VisibilityFix/Hannoki_Snow_Candidate.png`、SHA-256 `5549f3a99c268211af103f4bf6036e61f36ff8034d01ddd45b00498b61724250`。本番試験用 `Textures/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png` にはそのバイト列を置いた。
+- **候補DDS:** 同名 `.dds`（256×256、9 MIP、DXT5/BC3、各MIPで反転配置）、SHA-256 `7c99559a18c6f4d48740bca8ef9211da25489f5870bc58a5016b4c5ea35a42bc`。DDS復号／上下反転PNGの平均絶対画素差0.40、アルファマスクIoU 1.0。元のBC7がDXT5に変更されるため、この差も実ゲームで確認する。
+- **画像比較:** `Art/Candidates/Hannoki_Snow_VisibilityFix/ReviewComposite_256.png` および `ReviewComposite_64px_x8.png`。これらは採用済み本体＋候補雪片の**静的合成プレビューであり、ゲームスクリーンショットではない**。
+- **保持:** 従来の積雪原画 `Art/Sources/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png` は無変更。本体 `Hannoki_A.png`／落葉画像／落葉時透明オーバーレイ／季節Defは無変更。
+- **受入ゲート:** (1) 凍結した実RimWorld 1.6の昼12時・晴れ・一時停止の通常倍率で葉ありハンノキの雪が視認できること、(2) 雪無し通常葉あり画像と幹・樹形が合致し、白い領域が浮かないこと、(3) 落葉時の枝積雪なしを維持、(4) 作者がこの**修正後**の見た目を採用と判断すること。これらが終わるまでは `Docs/PlantVisualCoverage.json` の `AMJ_Tree_Hannoki/snow=pending` を維持する。
+
 ## 2026-11-01 ハンノキ葉あり積雪の表示不備（最新の作者指摘）
 
 作者が実ゲーム撮影を見て「いや、積雪してない」と訂正した。右列のハンノキの葉あり樹冠は黄緑色のままで、雪景色における積雪が視認できない。従来の **Hannoki leafy snow visual PASS は撤回**する。`Hannoki_Snow_A.png` は実在しDefも登録されているが、点在する白い小片がゲーム縮尺で十分な雪景色になっていない。DDS描画方向や重なりの問題はまだ排除していない。葉あり積雪画像・DDSのバイト列は作者の新しい採用画像がない限り変更しない。**落葉時の枝積雪廃止は引き続き正常**。検証元は `Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md` とProject Actions #41267149034。台帳ではハンノキのsnow状態だけpendingとする。
