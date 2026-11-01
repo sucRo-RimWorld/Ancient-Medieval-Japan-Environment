@@ -189,7 +189,7 @@ AMJEでは、作者の既存セーブで繰り返しニューゲームが必要�
 | AMJE自然分布 | `AMJ_CoolTemperateForest` | `AMJ_SubalpineForest` |
 | 初期置換候補のwildPlants重み | 現行Birchの0.60を移管 | 現行Birchの0.50を移管 |
 | 植林 | `TreeSowing` 後、自然分布Biome内 | 同左 |
-| 季節 | 葉あり・落葉・秋色・葉あり積雪・落葉積雪 | 同左 |
+| 季節 | 葉あり・落葉・秋色・葉あり積雪（落葉時の枝積雪なし） | 同左 |
 
 **2026-10-30 作者訂正（ColdBogと旧Birchの役割）:** 旧 `Plant_TreeBirch` を残す目的は **既存セーブのDef参照互換だけ**であり、現在・将来のAMJE自然分布や植林候補として残す理由にはしない。`AMJ_CoolTemperateForest` と `AMJ_SubalpineForest` の旧Birchは上記の新種に置換する。**`ColdBog` でも旧Birch 0.45を自然発生枠として保持しない。** ColdBogの樺の木枠は**シラカバをほぼ主体、ダケカンバを少数**とする（2026-10-30 作者選択）。旧Birchの重み合計 `0.45` を維持する暫定的な配分案はシラカバ `0.40`／ダケカンバ `0.05`（約89%対11%）。これは自然発生枠内の比率案であり、実ゲームでの成木本数比の保証ではない。地域／標高別の湿原分布を持たない現行Biomeの近似とし、この数値自体の独立バランス受入は未完了。本番 `Patches/VanillaWetlandVegetation.xml` の切替は新種Def・画像接続と同じ実装単位で行う。正式実装時にはColdBogと該当する地域植林候補から旧Birchを外し、他Mod由来の植物を保護する。Vanilla `Plant_TreeBirch` Defそのものは削除・改名せず、旧セーブに残る個体・他Mod所有Biomeの参照は破壊しない。既存マップの樹木が即時置換されるとは主張しない。
 
