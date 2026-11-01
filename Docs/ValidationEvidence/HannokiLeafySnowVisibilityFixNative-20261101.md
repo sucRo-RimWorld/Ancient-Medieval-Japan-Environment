@@ -1,0 +1,16 @@
+# Hannoki leafy snow visibility candidate — actual RimWorld 1.6 review (2026-11-01)
+
+**Problem:** user observed no visible snow on the leafy Hannoki in the previous real game screenshot. Both PNG and DDS exist and the owning Def path is correct, but the old snow overlay had only 2,477 visible pixels.
+
+**Root-cause check:** the existing Beech snowy DDS, Hannoki base DDS and Hannoki snowy DDS all decode vertically flipped relative to their corresponding PNGs; this is the *existing consistent game-loading convention*, not a Hannoki-specific bug. Accepted Hannoki source foliage PNG remained unchanged (SHA-256 6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1).
+
+**Candidate implementation:** expand the original white/gray 3-color snow patches only in small regions supported by the existing foliage. All 2,477 original snow pixels preserved, new total 6,771 pixels. New snow PNG SHA-256 5549f3a99c268211af103f4bf6036e61f36ff8034d01ddd45b00498b61724250. New 256x256, 9 MIP DXT5 DDS SHA-256 7c99559a18c6f4d48740bca8ef9211da25489f5870bc58a5016b4c5ea35a42bc. DDS loaded pixels vs vertically flipped PNG: MAE 0.40, alpha mask IoU 1.000.
+
+**Actual game evidence:**
+- BEFORE: [Project Actions #41267149034](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034), real RimWorld 1.6.4871 screenshot.
+- AFTER: [Project Actions #41270559182](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41270559182), source-pinned Environment commit 6fecd5a25ca2279c79f94502bacda7ffcc2a9b9d, actual real RimWorld 1.6.4871, no game-error, screenshot produced.
+- Scene: Beech top / Hannoki bottom; for each species left=leafless dry, middle=leafless on snow depth 1.0, right=leafy snow depth 1.0. Noon / Clear / paused, camera rootSize=13.
+- Result: rightmost Hannoki now visibly displays white snow on leafy crown, whereas old screenshot did not. Middle Hannoki still has bare branches with no snow even over snow-covered ground. Beech snow unchanged. Unity ERROR0; [OK] visual ledger structurally consistent; one author visual-review pending.
+- Cropped actual-framebuffer comparison, nearest-neighbor 6x enlargement, **not AI-generated**: [Images/HannokiLeafySnow_BeforeAfterNative_20261101.png](Images/HannokiLeafySnow_BeforeAfterNative_20261101.png). Original full-frame screenshots and logs are retained in linked run artifacts.
+
+**Acceptance limit:** the user has not yet approved the proposed snowy cap appearance. This is a functional visual fix candidate, not an author-accepted final snow sprite. Keep AMJ_Tree_Hannoki/snow=pending, complete=false and PR #306 unmerged. Original accepted foliage and snow sources remain preserved; no Workshop publication or RimWorld 1.7 verification.

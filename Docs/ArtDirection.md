@@ -1,6 +1,8 @@
 # AMJ Environment — Final Art Direction
 
 ## 2026-11-01 ハンノキ葉あり積雪の視認性修正候補（作者レビュー・実機受入待ち）
+**実機による候補の機能的確認（2026-11-01）:** [Project Actions #41270559182](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41270559182) で Environment PR #306 の候補SHA 6fecd5a25ca2279c79f94502bacda7ffcc2a9b9d をロード。RimWorld 1.6.4871／正午・晴れ・一時停止／積雪深1.0。修正前は黄緑色に見えたハンノキ葉あり樹冠に、修正後は白い雪が視認できる。落葉時の枝積雪なしも維持。Unity ERROR0、VisualCoverage台帳整合PASSだがハンノキ雪の作者レビューは引き続きpending。撮影2枚から同一範囲を6倍拡大した比較画像と条件は Docs/ValidationEvidence/HannokiLeafySnowVisibilityFixNative-20261101.md に記録。作者が候補を最終採用するまではマージしない。
+
 
 作者の「修正」に基づく**候補**。作者の採用済み葉あり画像 `Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png` は原バイト不変（SHA-256 `6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1`）。元の `Hannoki_Snow_A.png` は積雪2,477有効画素しかなく、2026-11-01のRimWorld 1.6実機画面では積雪を識別できなかった。
 
