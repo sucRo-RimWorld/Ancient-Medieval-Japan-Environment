@@ -1,5 +1,10 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-01 落葉積雪廃止の実ゲーム検証
+
+作者決定どおり、落葉時は裸枝に雪なし、地表は積雪、葉ありの雪は従来維持。ブナ・ハンノキとも隔離RimWorld 1.6実画面・Unity ERROR0で確認（[Actions #41267149034](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034)）。ブナ落葉の原画作者採用と修正済DDSの上下方向についても、既存の実ゲーム証拠を合わせ現行画像に対応。季節切替の旧実機検証は挙動不変の範囲のみ継承し、今回の静止画を新たな1年動作試験とは扱わない。参照: `Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md`。
+
+
 ## 2026-11-01 落葉積雪の廃止（現行の優先仕様）
 
 ユーザー指示「落葉積雪廃止で」により、AMJE所有の落葉樹では**裸枝への積雪描画を廃止**する。対象は本番のブナ・ハンノキ、および将来追加する落葉樹の描画方針。地面の積雪・葉あり積雪・通常落葉画像はそのまま。落葉時の `leaflessSnowOverlayGraphicPath` には透明共通画像 `Things/Plant/AMJ/LeaflessNoSnow` を使い、葉あり用の積雪へフォールバックさせない。256×256の透明PNG（SHA-256 `70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c`）とDDS 9 mip DXT5（SHA-256 `b832ea2cc14a1da84be189c4bd5be36b1cc083d800151b24fc047cfd22aaebb5`）の全画素α=0。旧ブナ・ハンノキ落葉積雪の画像と以前の採用記録、シラカバ・ダケカンバで別途採用された**全木積雪原画そのもの**は消さず、制作史料として残すが、**現在以降の本番実装予定の落葉積雪グラフィックとしては使わない**。これより下の「落葉積雪の制作・保留・採用」の記載は、この決定より前の履歴であり、現行の制作必須条件ではない。対応する正本仕様は `Docs/Design.md`。

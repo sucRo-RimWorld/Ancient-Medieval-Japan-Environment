@@ -54,6 +54,8 @@ After an author accepts a state, update only the corresponding ledger rows,
 ArtDirection and main Coordination. Report completed states and remaining states
 explicitly. Do not label the whole plant or ENV-010 DONE from one accepted state.
 
+**2026-11-01 latest native acceptance:** [real 1.6 screenshot and logs](Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md) verify Beech/Hannoki snow-free bare branches over snowy ground, while unchanged leafy snow remains visible. The author's selected Beech leafless art and 2026-11-01 corrected DDS orientation were separately verified. The 2026-10-13 native Beech cold-transition mechanics are carried forward only because the underlying seasonal logic and temperature fields are unchanged; new screenshots demonstrate loaded endpoint art, not a repeated dynamic full-year simulation. Old branch-snow art is now archival and not an outstanding production task.
+
 **Historical 2026-10-17 Hannoki completion scope (superseded only for leafless snow by 2026-11-01 decision):** the author accepted the six
 static native appearance states on 2026-10-15 (normal, immature scaling,
 UI, forced autumn, forced leafless, leafy/leafless snow). The forced autumn

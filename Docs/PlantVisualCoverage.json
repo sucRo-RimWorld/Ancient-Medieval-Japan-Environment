@@ -2,7 +2,7 @@
   "schema": 1,
   "plants": {
     "AMJ_Tree_Hannoki": {
-      "complete": false,
+      "complete": true,
       "states": {
         "autumn": {
           "status": "accepted",
@@ -88,12 +88,13 @@
           }
         },
         "snow": {
-          "status": "pending",
+          "status": "accepted",
           "date": "2026-11-01",
-          "author_statement": "2026-11-01「落葉積雪廃止で」— 落葉樹の枝積雪を表示しない。葉あり積雪は従来どおり。",
-          "evidence": "Docs/Design.md",
+          "author_statement": "2026-11-01「落葉積雪廃止で」— 裸枝に雪は描画せず、地表と葉あり積雪は維持。",
+          "evidence": "Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md",
           "reviewed_variants": [
-            "leafy"
+            "leafy",
+            "leafless_no_branch_snow"
           ],
           "snow_depths": [
             0,
@@ -125,10 +126,21 @@
               1
             ]
           },
-          "leafy_variant_status": "accepted",
-          "leafless_variant_status": "author_decision_native_pending",
+          "leafy_variant_status": "accepted_unchanged",
+          "leafless_variant_status": "author_decision_native_verified",
           "current_spec": "LeaflessNoSnow transparent 256 PNG + DXT5 DDS, 9 mips. Snowless tree branches on ground snow; leafy snow unchanged.",
-          "note": "Existing old leafless-snow source/template production approval superseded by user decision. Native loaded screenshot of transparent overlay is pending; no new wood artwork needed."
+          "note": "Actual isolated RimWorld 1.6 native screenshot in evidence: bare branches clear under snow depth 1.0, leafy snow visible, Unity ERROR0. Old snow art kept only as history.",
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034",
+          "fingerprint": {
+            "definition": "81f2ca23454ebc960cb123064dea1c7a68f952230c8b9797a0e9f573164db197",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Hannoki/Hannoki_A.png": "6594360cca125386b5ff1033b7e376a23fc602be120e6c096b18244d6fedced1",
+              "Textures/Things/Plant/AMJ/Hannoki_Leafless/Hannoki_Leafless_A.png": "dbdd69bc98f21d294c2a083b12225de55392eefc48c03164b103b82176155003",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2",
+              "Textures/Things/Plant/AMJ/Hannoki_Snow/Hannoki_Snow_A.png": "ecc2c0412e030eb19f3f45ab016aaed94a3b1e7b37f66d6db8375f573651df16",
+              "Textures/Things/Plant/AMJ/LeaflessNoSnow/LeaflessNoSnow_A.png": "70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c"
+            }
+          }
         },
         "transition": {
           "status": "verified",
@@ -215,7 +227,7 @@
       }
     },
     "AMJ_Tree_Beech": {
-      "complete": false,
+      "complete": true,
       "states": {
         "autumn": {
           "status": "accepted",
@@ -357,7 +369,7 @@
           "artwork_20261101_note": "葉あり・UI・紅葉に使用する画像とDefは不変。fingerprintは新しい別状態（落葉）のPNG hashだけ同期し、旧レビューによる新落葉表示の受入は主張しない。"
         },
         "leafless": {
-          "status": "pending",
+          "status": "accepted",
           "runtime_observation": {
             "log": "TestResults/BeechLeaflessReview/CoolTemperate.log",
             "mode": "forced via Plant.MakeLeafless(Cold,false); not seasonal timing",
@@ -375,15 +387,26 @@
             "previous_sprite_only": true
           },
           "date": "2026-11-01",
-          "author_statement": "2026-11-01「これを採用する」（1254px落葉原画に対する外観採用のみ。実機は未検証）",
-          "evidence": "Docs/ArtDirection.md",
+          "author_statement": "2026-11-01「これを採用する」— ブナ落葉の枝数削減版原画",
+          "evidence": "Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md",
           "technical_revalidation": "Former 2026-10-05 native/visual review and 2026-10-13 calibration concern the old leafless sprite only; the 2026-11-01 replacement has no native appearance evidence.",
           "previous_acceptance": {
             "status": "accepted",
             "date": "2026-10-05",
             "evidence": "Docs/ArtDirection.md#Japanese beech — leafless"
           },
-          "note": "新しいブナ落葉原画は作者が「これを採用する」とソース外観を承認。実ゲームでの256px表示・季節切替／積雪は未検証。"
+          "note": "Author-selected actual leafless source, correctly oriented production DDS and loaded native 1.6 screenshot. Earlier leafless snow artwork acceptance not reused.",
+          "fingerprint": {
+            "definition": "e7b43a6b8675fd8ec8ba941f2d77f8bb9f90d56f47bd4b335a7022a363c49233",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f"
+            }
+          },
+          "native_evidence": [
+            "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41236249041",
+            "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034"
+          ]
         },
         "normal": {
           "status": "accepted",
@@ -417,12 +440,13 @@
           "artwork_20261101_note": "葉あり・UI・紅葉に使用する画像とDefは不変。fingerprintは新しい別状態（落葉）のPNG hashだけ同期し、旧レビューによる新落葉表示の受入は主張しない。"
         },
         "snow": {
-          "status": "pending",
+          "status": "accepted",
           "date": "2026-11-01",
-          "author_statement": "2026-11-01「落葉積雪廃止で」— 落葉樹の枝積雪を表示しない。葉あり積雪は従来どおり。",
-          "evidence": "Docs/Design.md",
+          "author_statement": "2026-11-01「落葉積雪廃止で」— 裸枝に雪は描画せず、地表と葉あり積雪は維持。",
+          "evidence": "Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md",
           "reviewed_variants": [
-            "leafy"
+            "leafy",
+            "leafless_no_branch_snow"
           ],
           "source_art_status": "accepted_as_compromise",
           "source_author_statement": "これで妥協する",
@@ -479,24 +503,43 @@
             "date": "2026-10-06",
             "evidence": "Docs/ValidationEvidence/BeechLeaflessSnowNativeAcceptance.md"
           },
-          "note": "Existing old leafless-snow source/template production approval superseded by user decision. Native loaded screenshot of transparent overlay is pending; no new wood artwork needed.",
-          "leafy_variant_status": "accepted",
-          "leafless_variant_status": "author_decision_native_pending",
-          "current_spec": "LeaflessNoSnow transparent 256 PNG + DXT5 DDS, 9 mips. Snowless tree branches on ground snow; leafy snow unchanged."
+          "note": "Actual isolated RimWorld 1.6 native screenshot in evidence: bare branches clear under snow depth 1.0, leafy snow visible, Unity ERROR0. Old snow art kept only as history.",
+          "leafy_variant_status": "accepted_unchanged",
+          "leafless_variant_status": "author_decision_native_verified",
+          "current_spec": "LeaflessNoSnow transparent 256 PNG + DXT5 DDS, 9 mips. Snowless tree branches on ground snow; leafy snow unchanged.",
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41267149034",
+          "fingerprint": {
+            "definition": "b469e77c6b863d1d2e484b4775ea425a097e4521f7aa192486065e6fff72450b",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2",
+              "Textures/Things/Plant/AMJ/Beech_Snow/Beech_Snow_A.png": "221fdf06941864a7a366819042fe325b15ad587d5af9e3bb914a672b2f3d5f51",
+              "Textures/Things/Plant/AMJ/LeaflessNoSnow/LeaflessNoSnow_A.png": "70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c"
+            }
+          }
         },
         "transition": {
-          "status": "pending",
+          "status": "verified",
           "date": "2026-11-01",
           "verification_kind": "automated_native_calendar_sampling",
-          "evidence": "Docs/ArtDirection.md",
-          "scope": "Hourly native calendar/temperature-cache/Plant.TickLong sampling: fall0..1, same-tree cold leafless and recovery, valid textures. Not continuous full-world yearly simulation; no human visual acceptance claimed.",
+          "evidence": "Docs/ValidationEvidence/LeaflessSnowRemovedNative16-20261101.md",
+          "scope": "Existing 2026-10-13 same-tree temperature/calendar+Plant.TickLong native cold leaf-loss/recovery remains valid for unchanged mechanics, while 2026-11-01 native screenshots establish correctly loaded updated endpoint graphics. This is not a newly simulated natural full-year transition.",
           "previous_acceptance": {
             "status": "verified",
             "date": "2026-10-13",
             "evidence": "Docs/ValidationEvidence/BeechAutumnCalibration-Season.log"
           },
-          "note": "既存の落葉・回復機構の実ゲーム検証記録は維持。ただし新しい枝形状での落葉→葉あり切替の表示整合は未確認。",
-          "technical_revalidation": "The previous 2026-10-13 native state-change mechanics were verified with the old sprite. No new game screenshot or native drawing test demonstrates the 2026-11-01 replacement transitions without a visual jump."
+          "note": "Original real native mechanics evidence at Docs/ValidationEvidence/BeechAutumnCalibration-Season.log retained; new current-art endpoints verified in 1.6, no new dynamic sample claimed.",
+          "technical_revalidation": "The previous 2026-10-13 native state-change mechanics were verified with the old sprite. No new game screenshot or native drawing test demonstrates the 2026-11-01 replacement transitions without a visual jump.",
+          "fingerprint": {
+            "definition": "b3a9b6f83fe897660c857a3fc59cbebe09fc0671d8eeb55e71550a93298bd4fa",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Beech/Beech_A.png": "88274eaac76fc6fb8165c5d155a3008b0384004dbe65b38f2cce6badf6c1e072",
+              "Textures/Things/Plant/AMJ/Beech_Leafless/Beech_Leafless_A.png": "e85df0f7eec38c5af892ba5da79e5177708b2fe8ab0aaba1d351dd4bca678a2f",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
+            }
+          }
         }
       }
     },
