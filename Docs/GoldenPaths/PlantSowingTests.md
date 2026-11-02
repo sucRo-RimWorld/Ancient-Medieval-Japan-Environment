@@ -76,7 +76,40 @@ maturity, combined planted-to-cut yield, old-save migration, MO/CCTO/1.7 or
 release acceptance. Existing prior cut/wood and growing-zone menu results
 retain their own separate limited evidence.
 
-## Existing-save plant and fruit-tree update E2E (planned, not implemented)
+## Birch actual old-version save -> candidate -> updated-save reload (PR #310, NOT RUN)
+
+The source Quickstart `AMJBirchLegacySaveQuickstart` runs with the genuine
+**pre-feature Environment commit**
+`b6ca638df7016a82c42606f0c73fb2470ce5f1b3` (ColdBog still naturally
+contains old `Plant_TreeBirch` at weight 0.45; neither new Birch ThingDef
+exists). The Project PR #1183 opt-in `test_focus=birch-save` uses the same
+original RimWorld 1.6 isolated game and a **clean, compiled, pinned old
+production package**, not fabricated save XML or a new PR candidate pretending
+to be the old version.
+
+1. Create a genuine ColdBog map under the old build; require naturally existing
+   legacy Birch, log its count and representative Thing ID, and save a real
+   `.rws`. Preserve its checksum.
+2. Replace only the copied disposable game's production Mod with the exact
+   same-run PR candidate; preserve the **same** existing game save, load
+   through RimWorld's entry/Play scene, require old Birch count and sample ID
+   unchanged and both new defs in ColdBog `wildPlants` at 0.40/0.05. Old Birch
+   must be absent **from new natural spawn eligibility**, not deleted as a Def.
+3. Save the upgraded map to a second real `.rws`, restart the game once more,
+   reload this updated save, and require the same old specimens and current new
+   spawn eligibility. Require zero genuine Unity ERROR in all three processes;
+   retain logs, per-stage results, source/ZIP/DLL/save SHA-256 fingerprints.
+
+**Scope limit:** this verifies old-tree persistence and the new *loaded*
+spawner pool after upgrade, **not actual natural regrowth of a new tree on that
+already-populated map** (nor full mature tree Job/harvest or four-profile/1.7
+compatibility). A real spawner regeneration observation is a separate remaining
+gate. All three phases and the new C# test fixture are currently **NOT RUN**
+and **not compiled**. The original/updated user saves and Workshop files are
+never touched.
+
+## Existing-save plant and fruit-tree update E2E (remaining full acceptance)
+
 
 Decision source: `Docs/Design.md` — Save-compatible vegetation development order.
 This gate is for **updating an existing save with AMJE already installed**, not
@@ -109,7 +142,7 @@ Use non-visible rendering-enabled Quickstarts/Pickle or RimTest Redux as
 appropriate, extending the existing `run-tests.bat` path and runtime ERROR
 gate. Current native growing-zone loaded-Def tests **do not** verify a planted
 pawn Job, real fruit harvest, save migration or plant natural spawning on an
-already generated map. None of the above E2E has been run or accepted yet.
+already generated map. The optional Birch pre-update/upgrade/reload source fixture exists as described above, but it has **not been executed or accepted**. No complete existing-save E2E has passed.
 Until its results exist, mid-save updates are a design target, not a
 verified public compatibility promise.
 
