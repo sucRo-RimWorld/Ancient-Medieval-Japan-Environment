@@ -7,10 +7,6 @@
       "cold_biome": "AMJ_CoolTemperateForest",
       "bloom_day": 7,
       "modes": [
-        "normal",
-        "bloom",
-        "autumn",
-        "leafless",
         "icon",
         "infocard"
       ],
@@ -28,7 +24,9 @@
           "AMJ_Tree_Shii",
           "AMJ_Tree_Beech"
         ]
-      }
+      },
+      "run_cold": false,
+      "run_save": true
     }
   }
 }
