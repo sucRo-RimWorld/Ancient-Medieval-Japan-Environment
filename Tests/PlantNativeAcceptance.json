@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "cases": {
+    "shirakaba": {
+      "def_name": "AMJ_Tree_Shirakaba",
+      "visual_biome": "AMJ_CoolTemperateForest",
+      "cold_biome": "AMJ_CoolTemperateForest",
+      "bloom_day": null,
+      "modes": [
+        "autumn",
+        "icon",
+        "infocard"
+      ],
+      "graphics": {
+        "normal": "/Shirakaba",
+        "leafless": "/Shirakaba_Leafless",
+        "leafless_snow_overlay": "/LeaflessNoSnow",
+        "normal_snow": "/Shirakaba_Snow"
+      },
+      "save": null,
+      "run_cold": true,
+      "run_save": false
+    },
+    "dakekanba": {
+      "def_name": "AMJ_Tree_Dakekanba",
+      "visual_biome": "AMJ_SubalpineForest",
+      "cold_biome": "AMJ_SubalpineForest",
+      "bloom_day": null,
+      "modes": [
+        "autumn",
+        "icon",
+        "infocard"
+      ],
+      "graphics": {
+        "normal": "/Dakekanba",
+        "leafless": "/Dakekanba_Leafless",
+        "leafless_snow_overlay": "/LeaflessNoSnow",
+        "normal_snow": "/Dakekanba_Snow"
+      },
+      "save": null,
+      "run_cold": true,
+      "run_save": false
+    }
+  }
+}
