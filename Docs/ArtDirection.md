@@ -914,3 +914,13 @@ Author: `ブナOKなのでPRマージして`. This explicitly closes the separat
 - **採用原画:** `Art/Sources/Things/Plant/AMJ/Dakekanba_Leafy_Snow/Dakekanba_Leafy_Snow_Source.png`。1024×1536 RGBA、1,918,063 bytes、SHA-256 `734b539452feac76dfa46996ed09b8a391a535a51dd9d79d398fc1ec4360a3f1`。採用されたPNGの原バイトを保持する。
 - **256px確認用派生:** `Art/Candidates/Dakekanba_Leafy_Snow/Dakekanba_Leafy_Snow_256_Review.png`。256×256 RGBA、SHA-256 `38ab287f36603468af153e034d637cf848695959ea478bb6a3905d5398c5d784`。LANCZOS比例縮小と透明余白による別ファイル。
 - **受入範囲:** 外観について妥協採用。元の葉あり樹木とのピクセル一致、季節切替、積雪位置、透過縁の実ゲーム表示、Def/Texturesへの本番接続は未検証・未実施。本追加はレビュー用原本保存であり、Workshop配布ではない。
+
+## 2026-11-02 ヤマザクラ実ゲーム4状態・積雪・未成熟表示の作者採用（PR #299）
+
+**現行判定（2026-11-02）:** [原本の実ゲーム外観記録](ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md)の通常葉・開花・紅葉・落葉4画面をユーザーに提示し、続く「ｙ」で採用承認を得た。RimWorld Linux 1.6の同一実装コミット `138d3328d8ab50cb0c50f0498ef39fb142d21671` に対し、成熟木の雪なし／雪深1.0、未成熟木（Growth 0.30）を実画面で比較済み。通常葉・開花の**全木積雪**、落葉時は枝に雪なしの透明オーバーレイ、同一幹の見た目、通常緑葉と秋色を承認範囲に含む。既存の原画・採用画像・制作手順は変更しない。
+
+この作者判断は `Docs/PlantVisualCoverage.json` の `AMJ_Tree_Yamazakura` の `normal/immature/snow/leafless/autumn` の5状態を採用する。ただし `bloom` は別行ではなく、`snow` と `transition` に含む。**未承認:** ゲーム内のインフォカード・選択UIアイコン（比較画像に写っていない）は `icon=pending`、したがって樹木全状態の `complete=false` を維持する。
+
+**別個の季節挙動証拠:** [Actions #41410634376](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41410634376)で同一個体の通常→開花→通常への復帰を実ゲームの加速暦で確認。[Actions #41416988103](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41416988103)で寒冷地同一個体が**強制落葉なし**に落葉・復葉することを確認した。台帳の `transition=verified` はこの範囲のみを意味する。紅葉画像比較ではシェーダー強度1、落葉画像比較では強制落葉を用いているため、各静止画だけから自然季節変化を主張しない。セーブ互換・通常速度全季節プレイ・1.7・配布済みWorkshopはこの証拠に含まれない。
+
+この節は上記日付以前の「本番に接続済みだが実画面未確認」等の**進捗記述のみ**を更新する。以前の画像制作履歴・作者の妥協採用条件、落葉枝の積雪廃止と今後の他樹種の仕様は維持する。
