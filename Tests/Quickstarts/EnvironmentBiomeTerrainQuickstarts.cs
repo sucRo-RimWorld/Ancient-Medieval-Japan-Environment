@@ -5231,6 +5231,163 @@ namespace AncientMedievalJapan.Environment.Quicktests
         }
     }
 
+
+    // Two-version native test only. The Project test runner first loads the
+    // pinned pre-PR Environment payload, then loads PR #310 in this same
+    // isolated saved-game folder. This fixture never ships with the Mod.
+    public sealed class AMJBirchLegacySaveQuickstart : BiomeTerrainQuickstartBase
+    {
+        public const string OriginalName = "AMJE_Birch_Legacy_Baseline16";
+        public const string UpdatedName = "AMJE_Birch_Updated16";
+        protected override string TargetBiomeDefName { get { return "ColdBog"; } }
+        protected override string TargetPlantDefName { get { return "Plant_TreeBirch"; } }
+        protected override bool ValidateAmjBiomeContracts { get { return false; } }
+
+        private bool baselineSaved;
+        private bool baselineLegacyPresent;
+        private bool baselineNewDefsAbsent;
+
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            Map map = Find.CurrentMap;
+            ThingDef legacy = DefDatabase<ThingDef>.GetNamedSilentFail("Plant_TreeBirch");
+            baselineNewDefsAbsent =
+                DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Shirakaba") == null &&
+                DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Dakekanba") == null;
+            int count = 0;
+            int sampleId = -1;
+            if (map != null && legacy != null)
+            {
+                foreach (Thing thing in map.listerThings.ThingsOfDef(legacy))
+                {
+                    Plant plant = thing as Plant;
+                    if (plant == null || plant.Destroyed) continue;
+                    count++;
+                    if (sampleId < 0) sampleId = plant.thingIDNumber;
+                }
+            }
+            baselineLegacyPresent = map != null && map.Biome.defName == "ColdBog" &&
+                count > 0 && sampleId >= 0;
+            if (baselineLegacyPresent && baselineNewDefsAbsent)
+            {
+                GameDataSaveLoader.SaveGame(OriginalName);
+                var method = typeof(GenFilePaths).GetMethod("FilePathForSavedGame",
+                    System.Reflection.BindingFlags.Static |
+                    System.Reflection.BindingFlags.Public |
+                    System.Reflection.BindingFlags.NonPublic);
+                string filename = method == null ? null :
+                    method.Invoke(null, new object[] { OriginalName }) as string;
+                baselineSaved = !string.IsNullOrEmpty(filename) &&
+                    System.IO.File.Exists(filename);
+            }
+            Log.Message("AMJE_BIRCH_BASELINE saved=" + baselineSaved +
+                " legacyCount=" + count + " specimenID=" + sampleId +
+                " newDefsAbsent=" + baselineNewDefsAbsent +
+                " biome=" + (map == null ? "<null>" : map.Biome.defName));
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = new QuickstartVerification();
+            result.Assert("pre-PR ColdBog contains original natural Birch",
+                delegate { return baselineLegacyPresent; });
+            result.Assert("pre-PR Environment does not define two new Birch species",
+                delegate { return baselineNewDefsAbsent; });
+            result.Assert("real pre-PR populated game save exists on disk",
+                delegate { return baselineSaved; });
+            return result;
+        }
+    }
+
+    // Use the same real entry-screen -> Play-scene save loader as the
+    // existing AMJE wetland save/reload Quickstart. No synthetic .rws XML edits.
+    [HarmonyPatch(typeof(Root_Entry), "Update")]
+    public static class AMJBirchLegacyReloadBoot
+    {
+        private static int entryFrames;
+        private static bool invoked;
+
+        [HarmonyPostfix]
+        public static void AfterEntryUpdate()
+        {
+            string stage = System.Environment.GetEnvironmentVariable(
+                "AMJ_BIRCH_SAVE_STAGE");
+            if (invoked || (stage != "upgrade" && stage != "verify")) return;
+            if (++entryFrames < 180) return;
+            invoked = true;
+            string saveName = stage == "upgrade" ?
+                AMJBirchLegacySaveQuickstart.OriginalName :
+                AMJBirchLegacySaveQuickstart.UpdatedName;
+            Log.Message("AMJE_BIRCH_RELOAD_START stage=" + stage +
+                " saveName=" + saveName);
+            LongEventHandler.QueueLongEvent(delegate
+            {
+                Current.Game = new Game
+                {
+                    InitData = new GameInitData { gameToLoad = saveName }
+                };
+            }, "Play", "LoadingLongEvent", true, null);
+        }
+    }
+
+    [HarmonyPatch(typeof(Game), "LoadGame")]
+    public static class AMJBirchLegacyReloadObserver
+    {
+        [HarmonyPostfix]
+        public static void Postfix()
+        {
+            string stage = System.Environment.GetEnvironmentVariable(
+                "AMJ_BIRCH_SAVE_STAGE");
+            if (stage != "upgrade" && stage != "verify") return;
+            LongEventHandler.ExecuteWhenFinished(delegate
+            {
+                Map map = Find.CurrentMap;
+                ThingDef oldDef = DefDatabase<ThingDef>.GetNamedSilentFail("Plant_TreeBirch");
+                ThingDef shira = DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Shirakaba");
+                ThingDef dake = DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Dakekanba");
+                int count = 0;
+                int firstId = -1;
+                if (map != null && oldDef != null)
+                {
+                    foreach (Thing thing in map.listerThings.ThingsOfDef(oldDef))
+                    {
+                        Plant plant = thing as Plant;
+                        if (plant == null || plant.Destroyed) continue;
+                        count++;
+                        if (firstId < 0) firstId = plant.thingIDNumber;
+                    }
+                }
+                bool newWild = false;
+                bool oldWild = false;
+                float shiraWeight = -1f;
+                float dakeWeight = -1f;
+                if (map != null && map.Biome != null)
+                    foreach (BiomePlantRecord record in map.Biome.wildPlants)
+                    {
+                        if (record.plant == shira) shiraWeight = record.commonality;
+                        if (record.plant == dake) dakeWeight = record.commonality;
+                        if (record.plant == oldDef) oldWild = true;
+                    }
+                newWild = Math.Abs(shiraWeight - 0.40f) < 0.001f &&
+                          Math.Abs(dakeWeight - 0.05f) < 0.001f;
+                bool passed = map != null && map.Biome.defName == "ColdBog" &&
+                    oldDef != null && shira != null && dake != null &&
+                    count > 0 && firstId >= 0 && newWild && !oldWild;
+                if (passed && stage == "upgrade")
+                    GameDataSaveLoader.SaveGame(
+                        AMJBirchLegacySaveQuickstart.UpdatedName);
+                Log.Message("AMJE_BIRCH_RELOAD stage=" + stage +
+                    " passed=" + passed + " legacyCount=" + count +
+                    " specimenID=" + firstId + " newWild=" + newWild +
+                    " oldWild=" + oldWild +
+                    " shiraWeight=" + shiraWeight + " dakeWeight=" + dakeWeight);
+                if (!passed) Log.Error("AMJE_BIRCH_RELOAD_FAILED stage=" + stage);
+                UnityEngine.Application.Quit();
+            });
+        }
+    }
+
     // Loading a save during PlayDataLoader's startup completion callback runs
     // before the entry-root's world audio manager is ready. Begin loading only
     // after the real entry UI has rendered, like the ordinary Load Game action.
