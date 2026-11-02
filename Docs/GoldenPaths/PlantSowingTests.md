@@ -51,6 +51,31 @@ In RimWorld 1.6, `AMJ_Shrub_Haimatsu` appears in the Alpine base-Biome
 not sowable. Therefore Alpine expects wild woody `{AMJ_Shrub_Haimatsu}`
 but grow-zone sowable `{}`. Never compare those different sets directly.
 
+## Birch sow-Job and sampled-growth focus (PR #310; NOT RUN)
+
+The source-owned `AMJShirakabaSowingJobQuickstart` and
+`AMJDakekanbaSowingJobQuickstart` exercise each new species in its own
+native AMJE biome. They choose the warmest eligible world tile of that biome,
+register a temporary one-cell growing zone, unlock TreeSowing only in the
+disposable test game, and ask Vanilla `WorkGiver_GrowerSow.JobOnCell` for a
+real pawn `Sow` Job. The Job must place the requested species, mark it sown,
+and complete its native sow work. A further hourly game-calendar + real
+`Plant.TickLong` probe must observe growth of **that same sown individual**.
+The zone, pawn, plant and research progress are disposed/restored in `finally`.
+Soil/obstacles around the probe are deliberately prepared for a reproducible
+sowing test; this is not a claim that an untouched map cell is always plantable.
+
+The optional Project-manual `test_focus=birch-sowing` adapter is proposed in
+Project PR #1183, for original RimWorld **1.6 Vanilla** only, exact owner PR
+HEAD and same-run candidate. A genuinely executed PASS requires **all four**
+native labels per species (growing season, real Sow Job, same-plant sampled
+growth, cleanup) plus the existing strict ERROR0 and build/source checks.
+The Quickstart/adapter sources **have not yet compiled or run in the game**.
+Do not count this as a continuous fully-ticked growing season, 20-day
+maturity, combined planted-to-cut yield, old-save migration, MO/CCTO/1.7 or
+release acceptance. Existing prior cut/wood and growing-zone menu results
+retain their own separate limited evidence.
+
 ## Existing-save plant and fruit-tree update E2E (planned, not implemented)
 
 Decision source: `Docs/Design.md` — Save-compatible vegetation development order.
