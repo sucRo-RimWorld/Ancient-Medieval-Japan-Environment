@@ -4551,7 +4551,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     AccessTools.Method(cached.GetType(), "CheckCache").Invoke(cached, null);
                     map.mapTemperature.TemperatureUpdate();
                     map.skyManager.SkyManagerUpdate();
-                    if (!PlantUtility.GrowthSeasonNow(cell, map, true)) continue;
+                    if (!PlantUtility.GrowthSeasonNow(cell, map, def)) continue;
                     Job job = giver.JobOnCell(pawn, cell, false);
                     if (job == null || job.def != JobDefOf.Sow ||
                         job.plantDefToSow != def) continue;
