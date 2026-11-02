@@ -4331,7 +4331,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
         }
     }
 
-    public sealed class AMJBeechSeasonalSampleQuickstart : BiomeTerrainQuickstartBase
+    public class AMJBeechSeasonalSampleQuickstart : BiomeTerrainQuickstartBase
     {
         private bool sawLeafless;
         private bool sawRecovery;
@@ -4385,7 +4385,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     }
                 }
             }
-            if (selected == null) { Log.Error("[AMJ Environment SeasonSample] No outdoor beech."); return; }
+            if (selected == null) { Log.Error("[AMJ Environment SeasonSample] No outdoor target plant: " + TargetPlantDefName); return; }
             AccessTools.Field(typeof(PlantFallColors), "FallIntensityOverride").SetValue(null, false);
             UnityEngine.Vector2 longLat = Find.WorldGrid.LongLatOf(map.Tile);
             int start = Find.TickManager.TicksGame;
@@ -4442,10 +4442,35 @@ namespace AncientMedievalJapan.Environment.Quicktests
         {
             QuickstartVerification result = base.Verify();
             result.Assert("natural calendar fall factor changes without override", delegate { return minFall < 0.1f && maxFall > 0.9f; });
-            result.Assert("same beech naturally becomes leafless", delegate { return sawLeafless; });
-            result.Assert("same beech naturally recovers leaves", delegate { return sawRecovery; });
+            result.Assert("same " + TargetPlantDefName + " naturally becomes leafless", delegate { return sawLeafless; });
+            result.Assert("same " + TargetPlantDefName + " naturally recovers leaves", delegate { return sawRecovery; });
             result.Assert("sampled live state textures are valid", delegate { return validTextures; });
             return result;
+        }
+    }
+
+    // These focused opt-in Quickstarts reuse the existing Beech native calendar
+    // sampling and same-tree recovery verification. They are not run by the
+    // normal 8-biome matrix and do not simulate a fully ticked game year.
+    // No changes to the real Beech Quickstart's selected biome or tree.
+    public sealed class AMJShirakabaSeasonalSampleQuickstart : AMJBeechSeasonalSampleQuickstart
+    {
+        protected override string TargetPlantDefName
+        {
+            get { return "AMJ_Tree_Shirakaba"; }
+        }
+    }
+
+    public sealed class AMJDakekanbaSeasonalSampleQuickstart : AMJBeechSeasonalSampleQuickstart
+    {
+        protected override string TargetBiomeDefName
+        {
+            get { return "AMJ_SubalpineForest"; }
+        }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "AMJ_Tree_Dakekanba"; }
         }
     }
 
