@@ -4474,6 +4474,170 @@ namespace AncientMedievalJapan.Environment.Quicktests
         }
     }
 
+    // Optional same-species planting Job and growth probe. Separate from coldest-tile
+    // seasonal sampling: a coldest winter tile need not permit sowing at all.
+    // This creates a real registered growing zone and runs the Vanilla Sow Job.
+    // Growth uses hourly calendar sampling + Plant.TickLong, NOT a full ticked year.
+    public abstract class AMJBirchSowingJobQuickstart : BiomeTerrainQuickstartBase
+    {
+        protected override bool ValidateAmjBiomeContracts { get { return false; } }
+        private bool growthWindow;
+        private bool sowJobRan;
+        private bool sownPlantGrew;
+        private bool cleanupComplete;
+
+        public override void PostApplyConfiguration()
+        {
+            base.PostApplyConfiguration();
+            // Use the warmest naturally eligible settlement tile of this species'
+            // own biome; unlike the leaf-loss test, sowing requires a growth season.
+            SurfaceTile best = null;
+            for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+            {
+                SurfaceTile tile = Find.WorldGrid[i] as SurfaceTile;
+                if (tile == null || tile.PrimaryBiome.defName != TargetBiomeDefName ||
+                    !TileFinder.IsValidTileForNewSettlement(tile.tile)) continue;
+                if (best == null || tile.temperature > best.temperature) best = tile;
+            }
+            if (best != null) Find.GameInitData.startingTile = best.tile;
+        }
+
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            Map map = Find.CurrentMap;
+            if (map == null) return;
+            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(TargetPlantDefName);
+            ResearchProjectDef research = DefDatabase<ResearchProjectDef>.GetNamedSilentFail("TreeSowing");
+            if (def == null || research == null) return;
+            IntVec3 cell = map.Center + new IntVec3(24, 0, 16);
+            if (!cell.InBounds(map) || cell.Roofed(map) || cell.IsPolluted(map)) return;
+            int originalTicks = Find.TickManager.TicksGame;
+            TerrainDef originalTerrain = map.terrainGrid.TerrainAt(cell);
+            Dictionary<ResearchProjectDef, float> progress =
+                (Dictionary<ResearchProjectDef, float>)AccessTools.Field(
+                    typeof(ResearchManager), "progress").GetValue(Find.ResearchManager);
+            Dictionary<ResearchProjectDef, float> saved =
+                new Dictionary<ResearchProjectDef, float>(progress);
+            Zone_Growing zone = null;
+            Pawn pawn = null;
+            Plant sown = null;
+            try
+            {
+                foreach (IntVec3 c in GenRadial.RadialCellsAround(cell, 2f, true))
+                {
+                    if (!c.InBounds(map)) continue;
+                    foreach (Thing t in c.GetThingList(map).ToArray())
+                        if (!(t is Pawn)) t.Destroy(DestroyMode.Vanish);
+                    map.terrainGrid.SetTerrain(c, TerrainDefOf.Soil);
+                }
+                zone = new Zone_Growing(map.zoneManager);
+                map.zoneManager.RegisterZone(zone);
+                zone.AddCell(cell);
+                zone.SetPlantDefToGrow(def);
+                progress[research] = research.Cost;
+                pawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
+                pawn.skills.GetSkill(SkillDefOf.Plants).Level = 20;
+                GenSpawn.Spawn(pawn, cell + IntVec3.North, map);
+                WorkGiver_GrowerSow giver = new WorkGiver_GrowerSow();
+                // This shared Vanilla cache must be recalculated for this exact cell.
+                AccessTools.Field(typeof(WorkGiver_Grower), "wantedPlantDef").SetValue(null, null);
+                for (int hour = 0; hour <= 1440; hour++)
+                {
+                    Find.TickManager.DebugSetTicksGame(originalTicks + hour * GenDate.TicksPerHour);
+                    Find.World.tileTemperatures.WorldComponentTick();
+                    object cached = AccessTools.Method(typeof(TileTemperaturesComp),
+                        "RetrieveCachedData").Invoke(Find.World.tileTemperatures, new object[] { map.Tile });
+                    AccessTools.Method(cached.GetType(), "CheckCache").Invoke(cached, null);
+                    map.mapTemperature.TemperatureUpdate();
+                    map.skyManager.SkyManagerUpdate();
+                    if (!PlantUtility.GrowthSeasonNow(cell, map, true)) continue;
+                    Job job = giver.JobOnCell(pawn, cell, false);
+                    if (job == null || job.def != JobDefOf.Sow ||
+                        job.plantDefToSow != def) continue;
+                    growthWindow = true;
+                    pawn.jobs.StartJob(job, JobCondition.InterruptForced);
+                    int ticks = 0;
+                    while (ticks++ < 15000)
+                    {
+                        pawn.pather.PatherTick();
+                        if (pawn.jobs.curDriver == null) break;
+                        pawn.jobs.curDriver.DriverTick();
+                        if (pawn.jobs.curDriver != null)
+                            pawn.jobs.curDriver.DriverTickInterval(1);
+                        sown = cell.GetPlant(map);
+                        if (sown != null && sown.def == def && sown.sown &&
+                            sown.Growth >= 0.05f) break;
+                    }
+                    sown = cell.GetPlant(map);
+                    sowJobRan = sown != null && sown.def == def && sown.sown &&
+                        sown.Growth >= 0.05f;
+                    break;
+                }
+                if (sowJobRan)
+                {
+                    float initialGrowth = sown.Growth;
+                    // Actual Plant.TickLong with sampled native temperature/daylight,
+                    // not a forced growth percentage or full map simulation.
+                    for (int hour = 0; hour <= 1440 && !sown.Destroyed; hour++)
+                    {
+                        Find.TickManager.DebugSetTicksGame(originalTicks + hour * GenDate.TicksPerHour);
+                        Find.World.tileTemperatures.WorldComponentTick();
+                        object cached = AccessTools.Method(typeof(TileTemperaturesComp),
+                            "RetrieveCachedData").Invoke(Find.World.tileTemperatures, new object[] { map.Tile });
+                        AccessTools.Method(cached.GetType(), "CheckCache").Invoke(cached, null);
+                        map.mapTemperature.TemperatureUpdate();
+                        map.skyManager.SkyManagerUpdate();
+                        sown.TickLong();
+                        if (sown.Growth > initialGrowth + 0.001f)
+                        {
+                            sownPlantGrew = true;
+                            break;
+                        }
+                    }
+                }
+                Log.Message("[AMJ Birch SowJob] def=" + TargetPlantDefName +
+                    " biome=" + map.Biome.defName + " growthWindow=" + growthWindow +
+                    " realPawnJob=" + sowJobRan + " sampledNativeGrowth=" + sownPlantGrew +
+                    " method=Vanilla-JobDriver-Sow-and-sampled-TickLong; not-full-year");
+            }
+            finally
+            {
+                Find.TickManager.DebugSetTicksGame(originalTicks);
+                if (pawn != null && pawn.Spawned) pawn.Destroy(DestroyMode.Vanish);
+                if (sown != null && sown.Spawned) sown.Destroy(DestroyMode.Vanish);
+                if (zone != null) map.zoneManager.DeregisterZone(zone);
+                map.terrainGrid.SetTerrain(cell, originalTerrain);
+                progress.Clear();
+                foreach (KeyValuePair<ResearchProjectDef, float> entry in saved)
+                    progress.Add(entry.Key, entry.Value);
+                cleanupComplete = true;
+            }
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            result.Assert("birch natural growing season exists in own biome", delegate { return growthWindow; });
+            result.Assert("real pawn sow Job plants selected birch", delegate { return sowJobRan; });
+            result.Assert("same sown birch grows through sampled native TickLong", delegate { return sownPlantGrew; });
+            result.Assert("birch sowing probe restores research and removes test zone", delegate { return cleanupComplete; });
+            return result;
+        }
+    }
+
+    public sealed class AMJShirakabaSowingJobQuickstart : AMJBirchSowingJobQuickstart
+    {
+        protected override string TargetBiomeDefName { get { return "AMJ_CoolTemperateForest"; } }
+        protected override string TargetPlantDefName { get { return "AMJ_Tree_Shirakaba"; } }
+    }
+
+    public sealed class AMJDakekanbaSowingJobQuickstart : AMJBirchSowingJobQuickstart
+    {
+        protected override string TargetBiomeDefName { get { return "AMJ_SubalpineForest"; } }
+        protected override string TargetPlantDefName { get { return "AMJ_Tree_Dakekanba"; } }
+    }
+
     public sealed class AMJCoolTemperateTerrainQuickstart : BiomeTerrainQuickstartBase
     {
         public override void PostLoaded()
