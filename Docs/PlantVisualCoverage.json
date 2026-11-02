@@ -692,32 +692,124 @@
       "complete": false,
       "states": {
         "normal": {
-          "status": "pending",
-          "note": "Source PNG accepted; production native rendered appearance not yet accepted."
+          "status": "accepted",
+          "date": "2026-11-02",
+          "author_statement": "「ｙ」（2026-11-02、原本ゲーム画面の通常・開花・紅葉・落葉、葉あり積雪・落葉雪なし・未成熟表示の比較提示後に採用承認）",
+          "evidence": "Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md",
+          "fingerprint": {
+            "definition": "6d8991fe18ad1bf4929a21b08663fac6cd1d788e8fb2d19676cea978962cdbaa",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Yamazakura/Yamazakura_A.png": "8129e6eb418c788d3801e1e69b0e94a3129d5c0023c798d3d528bcf152064ea3",
+              "Textures/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_A.png": "d445f39158f5b175ac4eb1204d28a08b8ca69a72ded21e9ed0d93f78d7a5c841"
+            }
+          },
+          "native_run": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41416988103"
         },
         "immature": {
-          "status": "pending",
-          "note": "Scaled mature graphic; in-game growth scale not yet verified."
+          "status": "accepted",
+          "date": "2026-11-02",
+          "author_statement": "「ｙ」（2026-11-02、原本ゲーム画面の通常・開花・紅葉・落葉、葉あり積雪・落葉雪なし・未成熟表示の比較提示後に採用承認）",
+          "evidence": "Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md",
+          "fingerprint": {
+            "definition": "6d8991fe18ad1bf4929a21b08663fac6cd1d788e8fb2d19676cea978962cdbaa",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Yamazakura/Yamazakura_A.png": "8129e6eb418c788d3801e1e69b0e94a3129d5c0023c798d3d528bcf152064ea3",
+              "Textures/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_A.png": "d445f39158f5b175ac4eb1204d28a08b8ca69a72ded21e9ed0d93f78d7a5c841"
+            }
+          },
+          "native_run": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41416988103",
+          "note": "Native screenshot: Growth=0.30 uses scaled green foliage (no separate immature sprite); mature rows are Growth=1."
         },
         "icon": {
           "status": "pending",
-          "note": "Actual info-card and selection UI icon not yet verified."
+          "note": "No actual Widgets.DefIcon / InfoCard UI scene was shown to author; map screenshot is not icon evidence."
         },
         "snow": {
-          "status": "pending",
-          "note": "Only leafy and bloom-window whole-tree snow is active; leafless branch snow is explicitly suppressed via transparent LeaflessNoSnow overlay. Native rendering and precedence remain pending."
+          "status": "accepted",
+          "date": "2026-11-02",
+          "author_statement": "「ｙ」（2026-11-02、原本ゲーム画面の通常・開花・紅葉・落葉、葉あり積雪・落葉雪なし・未成熟表示の比較提示後に採用承認）",
+          "evidence": "Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md",
+          "fingerprint": {
+            "definition": "b7699fba6723d889c2b23ba17f243ebfba99968f181a5a85d40b4eaf3bf8da77",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Yamazakura/Yamazakura_A.png": "8129e6eb418c788d3801e1e69b0e94a3129d5c0023c798d3d528bcf152064ea3",
+              "Textures/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_A.png": "d445f39158f5b175ac4eb1204d28a08b8ca69a72ded21e9ed0d93f78d7a5c841",
+              "Textures/Things/Plant/AMJ/LeaflessNoSnow/LeaflessNoSnow_A.png": "70a213096a8a3aa52d8b05ee5ff5f8d14305a01d51f9305d2555880a4a2b458c",
+              "Textures/Things/Plant/AMJ/Yamazakura_SnowFull/Yamazakura_SnowFull_A.png": "f0d30d3f65e1e7d50b24151042c8851a7a5303d789882f94578223451b1931be",
+              "Textures/Things/Plant/AMJ/Yamazakura_Bloom_SnowFull/Yamazakura_Bloom_SnowFull_A.png": "fbc5200baf42ba2e1dc286c66ff7a66aa1bd02322f75ba59266dad016c25cf41"
+            }
+          },
+          "native_run": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41416988103",
+          "reviewed_variants": [
+            "normal_leafy_full_snow",
+            "bloom_full_snow",
+            "leafless_no_branch_snow"
+          ],
+          "snow_depths": [
+            0,
+            1
+          ],
+          "note": "Native 1.6 full-tree snow/no-snow paths observed; forced bare branches suppress snow, the artificial rectangular ground snow is fixture only."
         },
         "leafless": {
-          "status": "pending",
-          "note": "Leafless PNG accepted as art; runtime transition and scale pending."
+          "status": "accepted",
+          "date": "2026-11-02",
+          "author_statement": "「ｙ」（2026-11-02、原本ゲーム画面の通常・開花・紅葉・落葉、葉あり積雪・落葉雪なし・未成熟表示の比較提示後に採用承認）",
+          "evidence": "Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md",
+          "fingerprint": {
+            "definition": "6d8991fe18ad1bf4929a21b08663fac6cd1d788e8fb2d19676cea978962cdbaa",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Yamazakura/Yamazakura_A.png": "8129e6eb418c788d3801e1e69b0e94a3129d5c0023c798d3d528bcf152064ea3",
+              "Textures/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_A.png": "d445f39158f5b175ac4eb1204d28a08b8ca69a72ded21e9ed0d93f78d7a5c841"
+            }
+          },
+          "native_run": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41416988103",
+          "note": "Visual screenshot endpoint uses test-forced MakeLeafless; separate native cold Quickstart proves natural loss and recovery."
         },
         "autumn": {
-          "status": "pending",
-          "note": "Fall tint under noon/Clear native renderer not yet reviewed."
+          "status": "accepted",
+          "date": "2026-11-02",
+          "author_statement": "「ｙ」（2026-11-02、原本ゲーム画面の通常・開花・紅葉・落葉、葉あり積雪・落葉雪なし・未成熟表示の比較提示後に採用承認）",
+          "evidence": "Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md",
+          "fingerprint": {
+            "definition": "6d8991fe18ad1bf4929a21b08663fac6cd1d788e8fb2d19676cea978962cdbaa",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Yamazakura/Yamazakura_A.png": "8129e6eb418c788d3801e1e69b0e94a3129d5c0023c798d3d528bcf152064ea3",
+              "Textures/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_A.png": "d445f39158f5b175ac4eb1204d28a08b8ca69a72ded21e9ed0d93f78d7a5c841",
+              "Textures/Other/AMJE_BeechFallGradient.png": "1ccc50e0619cd7dfa40d6e874f27f9c3a6a78b4871cc5f0d5182098d218ce8f2"
+            }
+          },
+          "native_run": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41416988103",
+          "review_kind": "color",
+          "color_conditions": {
+            "local_hour": 12,
+            "weather": "Clear",
+            "paused": true,
+            "weather_transition_complete": true,
+            "season": "Fall day 8 (game log day=7 zero-based; forced shader intensity)",
+            "shader_intensity": 1,
+            "zoom": 23,
+            "evidence": "Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md",
+            "verified": true
+          },
+          "note": "Autumn shader override applies only to the visual review scene; natural leaf-change is separately sampled."
         },
         "transition": {
-          "status": "pending",
-          "note": "Bloom source window configured for Spring days 6–8 (end 9 exclusive), using Yamazakura_Bloom and author-accepted Yamazakura_Bloom_SnowFull at snow depth >0.8. Native autumn/leafless/snow/bloom transition and timing remain untested; leafless full-tree snow is retired in favor of a transparent overlay."
+          "status": "verified",
+          "verification_kind": "automated_native_calendar_sampling",
+          "date": "2026-11-02",
+          "evidence": "Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md",
+          "scope": "RimWorld 1.6 source-pinned Vanilla; same mature tree native accelerated daily normal→bloom→normal and snow precedence (#41410634376), separately coldest cool-temperate same tree hourly natural leafless and recovery (#41416988103). Not a fully ticked annual world, no historical save.",
+          "fingerprint": {
+            "definition": "6d8991fe18ad1bf4929a21b08663fac6cd1d788e8fb2d19676cea978962cdbaa",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Yamazakura/Yamazakura_A.png": "8129e6eb418c788d3801e1e69b0e94a3129d5c0023c798d3d528bcf152064ea3",
+              "Textures/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_A.png": "d445f39158f5b175ac4eb1204d28a08b8ca69a72ded21e9ed0d93f78d7a5c841",
+              "Textures/Things/Plant/AMJ/Yamazakura_SnowFull/Yamazakura_SnowFull_A.png": "f0d30d3f65e1e7d50b24151042c8851a7a5303d789882f94578223451b1931be",
+              "Textures/Things/Plant/AMJ/Yamazakura_Bloom_SnowFull/Yamazakura_Bloom_SnowFull_A.png": "fbc5200baf42ba2e1dc286c66ff7a66aa1bd02322f75ba59266dad016c25cf41",
+              "Textures/Things/Plant/AMJ/Yamazakura_Bloom/Yamazakura_Bloom_A.png": "36daef64b191389c50bffa20e936181a9a220769ae049ac9c5967822d10caa54"
+            }
+          }
         }
       }
     }
