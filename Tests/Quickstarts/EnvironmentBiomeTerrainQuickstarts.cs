@@ -4576,12 +4576,13 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 }
                 if (sowJobRan)
                 {
+                    int sowTicks = Find.TickManager.TicksGame;
                     float initialGrowth = sown.Growth;
                     // Actual Plant.TickLong with sampled native temperature/daylight,
                     // not a forced growth percentage or full map simulation.
                     for (int hour = 0; hour <= 1440 && !sown.Destroyed; hour++)
                     {
-                        Find.TickManager.DebugSetTicksGame(originalTicks + hour * GenDate.TicksPerHour);
+                        Find.TickManager.DebugSetTicksGame(sowTicks + hour * GenDate.TicksPerHour);
                         Find.World.tileTemperatures.WorldComponentTick();
                         object cached = AccessTools.Method(typeof(TileTemperaturesComp),
                             "RetrieveCachedData").Invoke(Find.World.tileTemperatures, new object[] { map.Tile });
