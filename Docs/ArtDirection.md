@@ -1,11 +1,18 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-03 両樺の自然季節移行メカニクス：実ゲーム既存証拠で verified（最新）
+
+- **作者が承認した外観との区別:** `normal/snow/leafless/autumn/icon` はシラカバ・ダケカンバとも作者承認済み `accepted`。一方 `transition` は新たな作者承認と扱わず、**同一個体の秋色係数→自然落葉→再展葉および本番テクスチャ有効性を示す実ゲーム検証に基づき `verified`** とする。シラカバ75/75、ダケカンバ74/74、Unity ERROR0。証拠は[Project Actions #41432467721](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41432467721) と [BirchNative16の機構検証追記](ValidationEvidence/BirchNative16-20261101.md)。
+- **受入範囲:** 実RimWorld 1.6.4871 rev600、各樹種の自然植生木1個体、当時の本番Def/画像、`FallIntensityOverride=false`、hourly calendar + native `Plant.TickLong` 加速サンプリング。中間画像全フレームの見栄えを人間が承認したものでも、通常速度で1年連続走行した結果でもない。
+- **唯一の現行画像保留:** 両樹種それぞれの `immature=pending`。従来の`transition=pending`記述は、こちらで既存ゲーム証拠を評価する**前の履歴**であり、現在の正本は`Docs/PlantVisualCoverage.json`の`transition=verified`。両樹種とも7状態のうち**5 accepted + 1 verified + 1 pending**で `complete=false`。未熟像への作者受入や採用画像の再生成は行わない。
+- 本番樹木Def・通常/落葉/積雪PNG/DDS・画像サイズ・秋色パラメータ・季節判定コード・初期植生の数値に変更なし。Environment PR #310のマージやWorkshop公開は、この技術的な機構確認だけでは許可しない。
+
 ## 2026-11-03 ダケカンバ実ゲーム紅葉・UIアイコンの作者「OK」承認（最新）
 
 - **採用状態:** 作者は、提示された**シラカバ・ダケカンバの実ゲーム秋色比較と32/64pxアイコン比較**に対し「OK」と回答。シラカバはすでに独立承認済みのため、今回新たに採用するのは**ダケカンバの秋色とUIアイコン**のみ。
 - **原画・ゲーム表示の証拠:** [Project Actions #41621113921](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41621113921)、実機 1.6.4871 rev600 Vanilla、ネイティブArtifact `13224046122`。秋色画面SHA-256 `9861716f2422da7a81f70579b3b4695399c49e5e99260224199b9b288dc560ff`、32/64pxアイコン画面 `d446bce430b4df0fe5ad7d9273ea0c3ce62045cfecce03a554e2f049612362d5`。提示比較画像との一致を確認。
 - **撮影条件:** 秋色は正午／Clear／天候遷移完了／一時停止／Fall day 7／`PlantFallColors`強制強度1／カメラrootSize23、実木材質・成熟/未熟成長量を使った6本の描画。UIは元の`Widgets.DefIcon`32/64px。強制秋色の外観承認であり、年単位の自然遷移確認ではない。
-- **未承認:** ダケカンバの情報カードの表示内容、シラカバ・ダケカンバの独立した`immature`・`transition`状態、ゲームバランス、PR #310全体・Workshop配布。画像変更不要。状態別正式証拠は [DakekanbaNativeVisualApproval-20261103.md](ValidationEvidence/DakekanbaNativeVisualApproval-20261103.md)、台帳は `Docs/PlantVisualCoverage.json`。歴史的な古い「秋色/UI未承認」文言よりこちらの同一状態の最新承認を優先する。
+- **未承認:** ダケカンバの情報カードの外観・表示内容、シラカバ・ダケカンバの独立した`immature`画像の作者評価、季節移行の中間全フレームに対する作者の外観評価、ゲームバランス、PR #310全体・Workshop配布。**季節移行の機構は別の元ゲーム証拠により`verified`**。画像変更不要。状態別正式証拠は [DakekanbaNativeVisualApproval-20261103.md](ValidationEvidence/DakekanbaNativeVisualApproval-20261103.md)、台帳は `Docs/PlantVisualCoverage.json`。歴史的な古い「秋色/UI未承認」文言よりこちらの同一状態の最新承認を優先する。
 
 ## 2026-11-03 ダケカンバ実ゲーム紅葉・32/64px UIアイコンの作者承認（最新）
 
