@@ -1,5 +1,12 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-03 シラカバ実ゲーム紅葉・UIアイコン・情報カード外観の作者「OK」承認（最新）
+
+- **採用対象:** 作者は、直前に提示された**シラカバ1樹種**のRimWorld **1.6.4871 rev600 Vanilla**実ゲーム撮影3枚（紅葉・実`Widgets.DefIcon` 32px/64px・実`Dialog_InfoCard`）を見て**「OK」**と回答。画像バイトを元の[Project Actions #41435799301](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41435799301) Artifact `13195990324` の元フレームとSHA-256一致確認済み。正式な各画像のSHA/状態/撮影条件は[ShirakabaNativeVisualApproval-20261103.md](ValidationEvidence/ShirakabaNativeVisualApproval-20261103.md)に記録。
+- **紅葉（`autumn=accepted`）:** 正午12時、Clear、天候遷移完了、一時停止、秋day7、`FallIntensityOverride` 強制、秋色強度1、`rootSize=23`、1280×720の元フレーム。これは**実ゲームの強制フル秋色画像の外観受入**であり、通常速度で季節が移行する過程の独立した作者外観承認ではない。自然季節処理には別途同一個体の加速カレンダー・Native TickLong PASS根拠があるが、`transition`画像の作者承認とは混同しない。
+- **UI（`icon=accepted`）:** 元の32px/64px DefIconとInfoCardを視覚承認。InfoCardは追加の8番目の植物状態にはしない。InfoCard内の生育日数・収穫数等は**外観承認の対象外**で、数値の新承認・バランス変更を意味しない。
+- **継続未承認:** シラカバの`immature`・`transition`は`pending`、ダケカンバの`immature`・`icon`・`autumn`・`transition`も`pending`のまま。本番画像/Defs・DDS・樹種分布値・植林・収穫・セーブ仕様は一切変更しない。**環境PR #310の画像7状態完了・マージ・Workshop公開を認定しない。**
+
 ## 2026-11-01 カバノキ類の通常葉あり原画採用を画像状態台帳へ反映
 
 - 2026-10-30の原画採用記録に基づき、**シラカバ**「まあ妥協するか」および**ダケカンバ**「採用はこれだったと思う」「忘れず追加しろ」の現行葉あり原本を `normal` 状態として台帳へ反映した。PR #310が使用する256px PNGが採用済み `Art/Candidates/{Shirakaba,Dakekanba}/...` と同一SHA-256であることを、保存された実機候補ZIPから独立に確認した。
