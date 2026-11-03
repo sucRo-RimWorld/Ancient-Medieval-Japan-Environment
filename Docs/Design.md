@@ -80,7 +80,8 @@
 - **本番実装は不変:** `AMJ_Tree_Yamazakura` のPlantDef・春6～8日の開花・全木積雪と落葉枝無積雪・温度・木材・Biome・CCTO・植林の採用仕様は変更しない。
 - **実ゲーム描画と作者採用:** [実画面原本と作者承認](ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md)。RimWorld 1.6 Vanilla、成熟木の通常・開花・紅葉・落葉、地面雪なし／雪深1.0、未成熟Growth0.30を実画面比較して作者「ｙ」で受入済み。画像台帳の `normal/immature/snow/leafless/autumn=accepted`。開花は独立の台帳行ではなく季節遷移と積雪に含まれる。
 - **同一個体の季節動作:** 元の [Actions #41410634376](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41410634376) は春の通常→開花→通常を、次の [Actions #41416988103](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41416988103) は寒冷地で強制落葉なしの落葉→復葉を実ゲーム1.6で確認。ともに加速暦による観測で、60日間の通常速度プレイではない。台帳 `transition=verified` はこの限定範囲。
-- **未受入:** 実画面でUIアイコンは撮影しておらず `icon=pending`、全状態の `complete=false` を維持。PR #299以前の既存セーブを実際に読み込み、保存・再ロードした検証も未完了。今後の他樹種とWorkshop公開は別判断。上記より古い本節「ヤマザクラの実機未検証」という進捗文面は**当時の記録**であり、この最新の証拠には優先しない。
+- **残る外観受入:** UIアイコンとInfoCardの実画面はまだ作者に提示・採用されておらず `icon=pending`、樹木台帳 `complete=false` を維持。汎用テスト[Actions #41571798116](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41571798116)は**全体FAIL**（雪深1の全木積雪を共通テストが通常グラフィック＋別雪オーバーレイと誤期待）でUI画像は取得できなかった。これはProjectの共通fixture不具合で、[Project PR #1203](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/pull/1203)で修正済みだが、新実ゲームUI証拠は未取得。その他の本番画像や既存機能は変更しない。
+- **セーブ互換の実機証拠:** 同じ実行の独立した旧版セーブ工程は**PASS**。ヤマザクラが存在しない旧Environmentで保存したスダジイID7350・ブナID7351を、新候補でロード→保存→再ロードして維持、各工程エラー0。正式なSHA・限定範囲は[実機証拠](ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md)に記載。全世代・実ユーザー保有セーブや他プロファイルの一括互換を主張しない。次の汎用`yamazakura`ケースは失敗したUIのみ再実行し、成功済み旧セーブ／寒冷／四画面を繰り返さない。今後の本番互換変更時はその変更に必要なセーブ再評価を行う。今後の他樹種とWorkshop公開は別判断。上記より古い本節の未検証記述は**当時の記録**であり、この最新の証拠には優先しない。
 
 ## 2026-10-31 季節開花の実装方式（作者承認・実装前）
 
