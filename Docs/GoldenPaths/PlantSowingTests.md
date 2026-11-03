@@ -51,7 +51,7 @@ In RimWorld 1.6, `AMJ_Shrub_Haimatsu` appears in the Alpine base-Biome
 not sowable. Therefore Alpine expects wild woody `{AMJ_Shrub_Haimatsu}`
 but grow-zone sowable `{}`. Never compare those different sets directly.
 
-## Birch sow-Job and sampled-growth focus (PR #310; NOT RUN)
+## Birch sow-Job and sampled-growth focus (PR #310; generic native PASS)
 
 The source-owned `AMJShirakabaSowingJobQuickstart` and
 `AMJDakekanbaSowingJobQuickstart` exercise each new species in its own
@@ -70,11 +70,32 @@ Project PR #1183, for original RimWorld **1.6 Vanilla** only, exact owner PR
 HEAD and same-run candidate. A genuinely executed PASS requires **all four**
 native labels per species (growing season, real Sow Job, same-plant sampled
 growth, cleanup) plus the existing strict ERROR0 and build/source checks.
-The Quickstart/adapter sources **have not yet compiled or run in the game**.
-Do not count this as a continuous fully-ticked growing season, 20-day
-maturity, combined planted-to-cut yield, old-save migration, MO/CCTO/1.7 or
-release acceptance. Existing prior cut/wood and growing-zone menu results
-retain their own separate limited evidence.
+These **original species-specific owner Quickstarts and the unmerged
+Project PR #1183 adapter** have not separately run or been native-compiled.
+Do not reactivate that special-purpose route merely because it exists.
+
+**Real generic replacement tested 2026-11-03:** the Project's *existing*
+source-pinned, owner-case-driven manual dispatcher now supports
+`plant-sowing16`; the same non-species-specific `AMJPlantSowingQuickstart`
+ran against the PR #310 candidate at
+`0cf3564a4661408eb1ff5f3ad1fab1fb36ec6e3b`.
+[Shirakaba Actions #41576018463](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41576018463)
+and [Dakekanba Actions #41576354854](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41576354854)
+each returned **4/4 native assertions PASS**, with original RimWorld
+1.6.4871 rev600, exit0, Unity ERROR0, exact-case `def_name` and biome,
+genuine `WorkGiver_GrowerSow.JobOnCell` / Pawn Sow Job placing the
+target tree at native initial Growth `0.0001`, and sampled native
+`Plant.TickLong` growth of that same tree. Disposable research, pawn, zone
+and planted tree are cleaned up after the case. Formal original evidence
+is in [BirchNative16-20261101](../ValidationEvidence/BirchNative16-20261101.md).
+The earlier preflight/display/initial-seedling false-negative runs remain
+FAIL and are explained in that file.
+
+**Not established by this narrow PASS:** continuous fully-ticked growing
+season or 20-day maturity, planted-to-cut Job/wood yield, legacy save
+migration, natural repopulation in an already-loaded map, MO/CCTO/1.7,
+author visual acceptance or release readiness. Previously verified
+separate loaded-menu and cutting evidence remains unchanged.
 
 ## Birch actual old-version save -> candidate -> updated-save reload (PR #310, NOT RUN)
 
@@ -140,9 +161,14 @@ When the first new wild/fruit tree or harvestable herb is implemented:
 
 Use non-visible rendering-enabled Quickstarts/Pickle or RimTest Redux as
 appropriate, extending the existing `run-tests.bat` path and runtime ERROR
-gate. Current native growing-zone loaded-Def tests **do not** verify a planted
-pawn Job, real fruit harvest, save migration or plant natural spawning on an
-already generated map. The optional Birch pre-update/upgrade/reload source fixture exists as described above, but it has **not been executed or accepted**. No complete existing-save E2E has passed.
+gate. Earlier growing-zone loaded-Def tests alone do **not** prove an actual
+pawn Sow Job; the separate **2026-11-03 generic `plant-sowing16` native PASS**
+now proves actual planting and same-tree **sampled** growth for Shirakaba
+and Dakekanba in original 1.6 Vanilla. It does **not** prove real
+maturity/wood yield, pre-feature old save migration, newly naturally
+spawned Birch on an existing map or fruit harvest. The optional original
+Birch pre-update/upgrade/reload source fixture remains **NOT RUN** and no
+complete existing-save E2E has passed.
 Until its results exist, mid-save updates are a design target, not a
 verified public compatibility promise.
 
