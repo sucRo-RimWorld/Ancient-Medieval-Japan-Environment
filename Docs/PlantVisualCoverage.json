@@ -711,7 +711,28 @@
           "status": "pending"
         },
         "icon": {
-          "status": "pending"
+          "status": "accepted",
+          "date": "2026-11-03",
+          "author_statement": "「OK」— 直前に提示されたシラカバの実ゲーム32px/64px Widgets.DefIconと実際のDialog_InfoCard表示の外観を承認。カード掲載数値のゲームバランスは承認対象外。",
+          "evidence": "Docs/ValidationEvidence/ShirakabaNativeVisualApproval-20261103.md",
+          "review_kind": "native_ui_icon_and_infocard",
+          "reviewed_variants": [
+            "Widgets.DefIcon 32 px",
+            "Widgets.DefIcon 64 px",
+            "Dialog_InfoCard actual game"
+          ],
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41435799301",
+          "original_framebuffer_sha256": {
+            "icon": "c5b69ac4204a7669ff07e05dd908ed1a5672f8d0b1fa8c3314b2e0808059ff99",
+            "infocard": "e103728b85912874238ed442c79ffe1b2877ac057b8ed8811c3745336af4b808"
+          },
+          "fingerprint": {
+            "definition": "827e594196252e2eb94090dbf3311e62b12bdfcd805e8a6ebe345d01e7f2a2d4",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shirakaba/Shirakaba_A.png": "1aad44a80942c36926d6a8e2d41b139a493584924693210943582b983de122a2",
+              "Textures/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_A.png": "da293abfc3cc90bbfa015e19ceb49ba6ddb4a91fe65535ebc9e5e952d8d81485"
+            }
+          }
         },
         "snow": {
           "status": "accepted",
@@ -767,7 +788,31 @@
           }
         },
         "autumn": {
-          "status": "pending"
+          "status": "accepted",
+          "date": "2026-11-03",
+          "author_statement": "「OK」— 直前に提示されたシラカバRimWorld 1.6実ゲーム紅葉スクリーンショットの外観を承認。秋色最大強度の強制表示であり、連続経過した秋季の承認ではない。",
+          "evidence": "Docs/ValidationEvidence/ShirakabaNativeVisualApproval-20261103.md",
+          "review_kind": "color",
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41435799301",
+          "original_framebuffer_sha256": "1a5740dd429dc84aa2ba9235de294f7bef1693f81c91d6a70a566c36c2122554",
+          "color_conditions": {
+            "local_hour": 12,
+            "weather": "Clear",
+            "paused": true,
+            "weather_transition_complete": true,
+            "verified": true,
+            "season": "Fall day 7 (forced native autumn shader, not ordinary elapsed season)",
+            "shader_intensity": 1,
+            "zoom": "camera rootSize=23, original framebuffer 1280x720",
+            "evidence": "Docs/ValidationEvidence/ShirakabaNativeVisualApproval-20261103.md"
+          },
+          "fingerprint": {
+            "definition": "827e594196252e2eb94090dbf3311e62b12bdfcd805e8a6ebe345d01e7f2a2d4",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shirakaba/Shirakaba_A.png": "1aad44a80942c36926d6a8e2d41b139a493584924693210943582b983de122a2",
+              "Textures/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_A.png": "da293abfc3cc90bbfa015e19ceb49ba6ddb4a91fe65535ebc9e5e952d8d81485"
+            }
+          }
         },
         "transition": {
           "status": "pending"
