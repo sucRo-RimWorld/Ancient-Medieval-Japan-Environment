@@ -919,7 +919,7 @@ Author: `ブナOKなのでPRマージして`. This explicitly closes the separat
 
 **現行判定（2026-11-02）:** [原本の実ゲーム外観記録](ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md)の通常葉・開花・紅葉・落葉4画面をユーザーに提示し、続く「ｙ」で採用承認を得た。RimWorld Linux 1.6の同一実装コミット `138d3328d8ab50cb0c50f0498ef39fb142d21671` に対し、成熟木の雪なし／雪深1.0、未成熟木（Growth 0.30）を実画面で比較済み。通常葉・開花の**全木積雪**、落葉時は枝に雪なしの透明オーバーレイ、同一幹の見た目、通常緑葉と秋色を承認範囲に含む。既存の原画・採用画像・制作手順は変更しない。
 
-この作者判断は `Docs/PlantVisualCoverage.json` の `AMJ_Tree_Yamazakura` の `normal/immature/snow/leafless/autumn` の5状態を採用する。ただし `bloom` は別行ではなく、`snow` と `transition` に含む。**未承認:** ゲーム内のインフォカード・選択UIアイコン（比較画像に写っていない）は `icon=pending`、したがって樹木全状態の `complete=false` を維持する。
+この作者判断は `Docs/PlantVisualCoverage.json` の `AMJ_Tree_Yamazakura` の `normal/immature/snow/leafless/autumn` の5状態を採用する。ただし `bloom` は別行ではなく、`snow` と `transition` に含む。**2026-11-03追認:** [実ゲームUI撮影 #41573790164](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41573790164)で32px／64px `Widgets.DefIcon` と `Dialog_InfoCard` を原本撮影し、ユーザーが提示画像に「OK」と回答。`icon=accepted` に変更し、既存5状態と `transition=verified` を合わせた台帳7状態を `complete=true` とする。元画像・本番Def・描画処理は変更しない。詳細と元画像SHAは[受入証拠](ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md)。
 
 **別個の季節挙動証拠:** [Actions #41410634376](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41410634376)で同一個体の通常→開花→通常への復帰を実ゲームの加速暦で確認。[Actions #41416988103](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41416988103)で寒冷地同一個体が**強制落葉なし**に落葉・復葉することを確認した。台帳の `transition=verified` はこの範囲のみを意味する。紅葉画像比較ではシェーダー強度1、落葉画像比較では強制落葉を用いているため、各静止画だけから自然季節変化を主張しない。セーブ互換・通常速度全季節プレイ・1.7・配布済みWorkshopはこの証拠に含まれない。
 
