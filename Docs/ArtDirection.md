@@ -1,5 +1,12 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-03 両樺の未熟木（成長30%）：形状・大きさのみ作者承認（最新）
+
+- **対象と作者判断:** 直前に表示された実RimWorld 1.6の「シラカバ／ダケカンバ 成熟100%と未熟30%の比較」に対し、作者は形状と大きさの採用可否を問われて「ｙ」と回答。**両樹種の成長率0.30における樹形・相対サイズだけを採用**し、本番の通常/落葉/積雪PNG・DDSやDefの尺度を変更しない。正式な[比較画像のSHAと元ゲーム証拠](ValidationEvidence/BirchImmatureGeometryApproval-20261103.md)参照。
+- **色の明示的な除外:** 比較元は正午12時／Clear／一時停止、秋day7、`FallIntensityOverride=true`・強度1の**強制秋色**で撮影された。未熟木の**通常の緑葉色は見ていない**ので採用判断を追加しない。台帳の両樹種`immature`行には`partial_acceptance.geometry=accepted`を記録し、`partial_acceptance.normal_green_leaf_color=pending`のまま保つ。現時点で`immature.status=pending`、樹種`complete=false`を維持。
+- **既存の受入はそのまま:** 通常・葉あり積雪・落葉・強制秋色・UIアイコンの各状態は既存の作者`accepted`、自然季節切替機構はゲーム実測に基づく`transition=verified`。未熟木形状の今回の部分承認は、未熟木のゲーム内緑葉色・連続した季節移行のすべてのフレーム・Dakekanba InfoCard・長期成長バランスの承認ではない。
+- 完了未達のためEnvironment PR #310は**マージ保留**、Workshop公開は別途許可必須。新しい画像生成・バイナリ転送・実ゲーム起動は今回実施しない。
+
 ## 2026-11-03 両樺の自然季節移行メカニクス：実ゲーム既存証拠で verified（最新）
 
 - **作者が承認した外観との区別:** `normal/snow/leafless/autumn/icon` はシラカバ・ダケカンバとも作者承認済み `accepted`。一方 `transition` は新たな作者承認と扱わず、**同一個体の秋色係数→自然落葉→再展葉および本番テクスチャ有効性を示す実ゲーム検証に基づき `verified`** とする。シラカバ75/75、ダケカンバ74/74、Unity ERROR0。証拠は[Project Actions #41432467721](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41432467721) と [BirchNative16の機構検証追記](ValidationEvidence/BirchNative16-20261101.md)。
