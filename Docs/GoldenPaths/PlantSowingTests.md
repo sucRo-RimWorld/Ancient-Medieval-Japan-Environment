@@ -97,37 +97,56 @@ migration, natural repopulation in an already-loaded map, MO/CCTO/1.7,
 author visual acceptance or release readiness. Previously verified
 separate loaded-menu and cutting evidence remains unchanged.
 
-## Birch actual old-version save -> candidate -> updated-save reload (PR #310, NOT RUN)
+## Birch actual old-version save -> candidate -> updated-save reload (PR #310; real native PASS)
 
-The source Quickstart `AMJBirchLegacySaveQuickstart` runs with the genuine
-**pre-feature Environment commit**
-`b6ca638df7016a82c42606f0c73fb2470ce5f1b3` (ColdBog still naturally
-contains old `Plant_TreeBirch` at weight 0.45; neither new Birch ThingDef
-exists). The Project PR #1183 opt-in `test_focus=birch-save` uses the same
-original RimWorld 1.6 isolated game and a **clean, compiled, pinned old
-production package**, not fabricated save XML or a new PR candidate pretending
-to be the old version.
+The **existing** Project manual `plant-legacy-save16` suite selects
+owner `case_id=shirakaba` from the exact SHA's
+`Tests/PlantNativeAcceptance.json`, with no Birch-specific Project workflow
+or automatic game trigger. Source-owned
+`AMJBirchLegacySaveQuickstart` asserts the original ColdBog legacy
+`Plant_TreeBirch` and both new natural species; Project supplies the reusable
+real **three-process old-version → candidate → second reload** lifecycle.
+Its pinned old Environment source SHA is
+`b6ca638df7016a82c42606f0c73fb2470ce5f1b3`; the old product is
+**actually built**, not copied from a current Mod or fabricated save XML.
+The older, unmerged Project PR #1183 proposed a redundant
+`test_focus=birch-save`; it is **not** the approved manual test entry.
 
-1. Create a genuine ColdBog map under the old build; require naturally existing
-   legacy Birch, log its count and representative Thing ID, and save a real
-   `.rws`. Preserve its checksum.
-2. Replace only the copied disposable game's production Mod with the exact
-   same-run PR candidate; preserve the **same** existing game save, load
-   through RimWorld's entry/Play scene, require old Birch count and sample ID
-   unchanged and both new defs in ColdBog `wildPlants` at 0.40/0.05. Old Birch
-   must be absent **from new natural spawn eligibility**, not deleted as a Def.
-3. Save the upgraded map to a second real `.rws`, restart the game once more,
-   reload this updated save, and require the same old specimens and current new
-   spawn eligibility. Require zero genuine Unity ERROR in all three processes;
-   retain logs, per-stage results, source/ZIP/DLL/save SHA-256 fingerprints.
+1. Generate a populated **real ColdBog map** with naturally occurring old
+   Birch under old production. Require no new Birch Defs, save a real `.rws`,
+   preserve legacy tree count, a representative Thing ID and its SHA-256.
+2. Replace only the *disposable* game's production Mod with the exact
+   same-run PR package, load that **same old save** through entry→Play,
+   require unchanged old Birch count/ID and ColdBog new `wildPlants`
+   commonalities 0.40/0.05, with old Birch removed **only from natural spawn
+   eligibility**, not deleted as a ThingDef.
+3. Save the upgraded map to a second real `.rws`, restart the original game,
+   reload the updated save, require the same old individuals and new
+   loaded wild eligibility. Require zero Unity ERROR, exits0, correct game
+   version, no timeout, exact phase markers, preserved raw logs and both
+   original/updated save hashes.
 
-**Scope limit:** this verifies old-tree persistence and the new *loaded*
-spawner pool after upgrade, **not actual natural regrowth of a new tree on that
-already-populated map** (nor full mature tree Job/harvest or four-profile/1.7
-compatibility). A real spawner regeneration observation is a separate remaining
-gate. All three phases and the new C# test fixture are currently **NOT RUN**
-and **not compiled**. The original/updated user saves and Workshop files are
-never touched.
+**Actual PASS 2026-11-03:** [Project Actions #41591244191](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41591244191)
+executed all 3 phases under **RimWorld 1.6.4871 rev600 Vanilla** against exact
+owner source `f03bc91b2e752a626a99302946ac33d8e41e6923`, Project engine
+`29a9b3330322f196f97247f1d87419134a56aac3`, raw native artifact
+**13210631825**. Actual old ColdBog map contained **1,226**
+`Plant_TreeBirch`; representative Thing ID **8135** survived both
+update and second saved-file reload. Candidate new native pool:
+`AMJ_Tree_Shirakaba=0.40`, `AMJ_Tree_Dakekanba=0.05`,
+old natural Birch entry absent. All 3 original-game processes exit0,
+Unity ERROR0, baseline Quickstart 3/3 PASS. Real original and updated
+`.rws` files are retained as artifacts with SHA-256.
+[Formal per-phase log and digest evidence](../ValidationEvidence/BirchNative16-20261101.md).
+
+**Scope limit:** proves old naturally occurring tree persistence plus the
+*loaded* new spawner pool over a real update and two reloads, **not** actual
+natural new-tree appearance after elapsed wild-spawner ticks on that already
+populated map. The distinct mature-tree native CutPlant → 27 WoodLog
+case was previously verified under real 1.6 Vanilla/CCTO but is **not**
+a fully continuous sow→grow-to-maturity→cut chain.
+MO/CCTO/1.7 were not run for this particular old-save suite. No user save
+or Workshop distribution was changed.
 
 ## Existing-save plant and fruit-tree update E2E (remaining full acceptance)
 
@@ -166,9 +185,10 @@ pawn Sow Job; the separate **2026-11-03 generic `plant-sowing16` native PASS**
 now proves actual planting and same-tree **sampled** growth for Shirakaba
 and Dakekanba in original 1.6 Vanilla. It does **not** prove real
 maturity/wood yield, pre-feature old save migration, newly naturally
-spawned Birch on an existing map or fruit harvest. The optional original
-Birch pre-update/upgrade/reload source fixture remains **NOT RUN** and no
-complete existing-save E2E has passed.
+spawned Birch on an existing map or fruit harvest. The original Birch pre-update/upgrade/reload suite **has now passed**
+its specifically bounded real original 1.6 Vanilla E2E, as documented above;
+the **complete existing-save natural regrowth, product harvest, MO/CCTO/1.7
+matrix** is still unverified.
 Until its results exist, mid-save updates are a design target, not a
 verified public compatibility promise.
 
