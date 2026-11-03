@@ -5281,10 +5281,14 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 baselineSaved = !string.IsNullOrEmpty(filename) &&
                     System.IO.File.Exists(filename);
             }
-            Log.Message("AMJE_BIRCH_BASELINE saved=" + baselineSaved +
+            string evidence = " saved=" + baselineSaved +
                 " legacyCount=" + count + " specimenID=" + sampleId +
                 " newDefsAbsent=" + baselineNewDefsAbsent +
-                " biome=" + (map == null ? "<null>" : map.Biome.defName));
+                " biome=" + (map == null ? "<null>" : map.Biome.defName);
+            Log.Message("AMJE_BIRCH_BASELINE" + evidence);
+            // Common manual old-save adapter recognizes this stable,
+            // owner-controlled lifecycle marker; older reports remain valid.
+            Log.Message("AMJ_PLANT_LEGACY_BASELINE" + evidence);
         }
 
         public override QuickstartVerification Verify()
@@ -5312,7 +5316,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
         public static void AfterEntryUpdate()
         {
             string stage = System.Environment.GetEnvironmentVariable(
-                "AMJ_BIRCH_SAVE_STAGE");
+                "AMJ_PLANT_LEGACY_STAGE");
             if (invoked || (stage != "upgrade" && stage != "verify")) return;
             if (++entryFrames < 180) return;
             invoked = true;
@@ -5338,7 +5342,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
         public static void Postfix()
         {
             string stage = System.Environment.GetEnvironmentVariable(
-                "AMJ_BIRCH_SAVE_STAGE");
+                "AMJ_PLANT_LEGACY_STAGE");
             if (stage != "upgrade" && stage != "verify") return;
             LongEventHandler.ExecuteWhenFinished(delegate
             {
@@ -5377,11 +5381,13 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 if (passed && stage == "upgrade")
                     GameDataSaveLoader.SaveGame(
                         AMJBirchLegacySaveQuickstart.UpdatedName);
-                Log.Message("AMJE_BIRCH_RELOAD stage=" + stage +
+                string evidence = " stage=" + stage +
                     " passed=" + passed + " legacyCount=" + count +
                     " specimenID=" + firstId + " newWild=" + newWild +
                     " oldWild=" + oldWild +
-                    " shiraWeight=" + shiraWeight + " dakeWeight=" + dakeWeight);
+                    " shiraWeight=" + shiraWeight + " dakeWeight=" + dakeWeight;
+                Log.Message("AMJE_BIRCH_RELOAD" + evidence);
+                Log.Message("AMJ_PLANT_LEGACY_RELOAD" + evidence);
                 if (!passed) Log.Error("AMJE_BIRCH_RELOAD_FAILED stage=" + stage);
                 UnityEngine.Application.Quit();
             });
