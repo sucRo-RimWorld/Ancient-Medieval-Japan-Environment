@@ -1,5 +1,9 @@
 # Shirakaba / Dakekanba native RimWorld 1.6 verification — 2026-11-01
 
+## Current visual acceptance reconciliation (2026-11-03)
+
+Both `AMJ_Tree_Shirakaba` and `AMJ_Tree_Dakekanba` have author-accepted `normal`, `snow`, `leafless`, `autumn` and `icon` states, recorded in `Docs/PlantVisualCoverage.json`. `immature` and `transition` remain pending per species; Dakekanba's InfoCard visual appearance is separate and not approved. The autumn screenshots already include growth-0.30 test specimens, but the author approval covers forced autumn colors, **not** an independent immature-state appearance review. The same-tree calendar/leafless/recovery native assertions establish sampled seasonal mechanics, not a standalone human visual review of gradual natural transition. No additional game launch, source-art regeneration, production behavior change or release follows from this reconciliation. Any older `icon/autumn=pending` wording below is preserved solely as historical test-time context; the later formal approval records supersede it.
+
 ## Source and provenance
 
 - **Exact Environment owner source tested:** `56bfd6915935420c6e87872f58041e2d0e60e0ae` (PR #310). The following later documentation/artifact evidence commit does not alter runtime Defs or Textures.
