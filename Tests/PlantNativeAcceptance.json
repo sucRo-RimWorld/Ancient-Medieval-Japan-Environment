@@ -18,15 +18,9 @@
         "normal_snow": "/Yamazakura_SnowFull",
         "bloom_snow": "/Yamazakura_Bloom_SnowFull"
       },
-      "save": {
-        "prior_must_lack_target": true,
-        "anchor_defs": [
-          "AMJ_Tree_Shii",
-          "AMJ_Tree_Beech"
-        ]
-      },
+      "save": null,
       "run_cold": false,
-      "run_save": true
+      "run_save": false
     }
   }
 }
