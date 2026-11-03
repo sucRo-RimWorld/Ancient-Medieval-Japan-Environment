@@ -689,7 +689,7 @@
       }
     },
     "AMJ_Tree_Yamazakura": {
-      "complete": false,
+      "complete": true,
       "states": {
         "normal": {
           "status": "accepted",
@@ -721,14 +721,23 @@
           "note": "Native screenshot: Growth=0.30 uses scaled green foliage (no separate immature sprite); mature rows are Growth=1."
         },
         "icon": {
-          "status": "pending",
-          "note": "Original real RimWorld 1.6 UI icon 32/64 px and InfoCard successfully captured, evidence in Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md; author's acceptance of these two newly shown UI frames remains pending.",
+          "status": "accepted",
+          "note": "実RimWorld 1.6 Vanillaの32px/64px Widgets.DefIconとDialog_InfoCardを作者確認・採用。原本画像SHA-256はoriginal_png_sha256に保存。ゲーム本番C#/XML/PNGは変更しない。",
           "native_run": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41573790164",
           "native_capture": "PASS",
           "evidence": "Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md",
           "original_png_sha256": {
             "icon": "9875840599f7e2b8ee40e7a06a568f76861f66c1643a4b494eaae8e455b3f3b5",
             "infocard": "9848120a24b1c8098f851db75fa73b863f40cebe567117d6411d31a3d05f4172"
+          },
+          "date": "2026-11-03",
+          "author_statement": "「OK」（2026-11-03、実ゲームのヤマザクラ32px・64px UIアイコンおよび情報カード原本画像提示に対する採用承認）",
+          "fingerprint": {
+            "definition": "6d8991fe18ad1bf4929a21b08663fac6cd1d788e8fb2d19676cea978962cdbaa",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Yamazakura/Yamazakura_A.png": "8129e6eb418c788d3801e1e69b0e94a3129d5c0023c798d3d528bcf152064ea3",
+              "Textures/Things/Plant/AMJ/Yamazakura_Leafless/Yamazakura_Leafless_A.png": "d445f39158f5b175ac4eb1204d28a08b8ca69a72ded21e9ed0d93f78d7a5c841"
+            }
           }
         },
         "snow": {
