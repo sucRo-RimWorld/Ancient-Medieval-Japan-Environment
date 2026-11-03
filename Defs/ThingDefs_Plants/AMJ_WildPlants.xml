@@ -111,7 +111,7 @@
     <graphicData>
       <texPath>Things/Plant/AMJ/Shirakaba</texPath>
       <graphicClass>Graphic_Random</graphicClass>
-      <!-- Vanilla Birch fall-color baseline. New art color/appearance still awaits native review. -->
+      <!-- Vanilla Birch fall-color baseline; both Birch species' forced autumn appearance was author-accepted in native 1.6. Natural seasonal-transition appearance remains pending. -->
       <shaderParameters Inherit="False">
         <_FallColorSource>(0.3803, 0.4352, 0.1451)</_FallColorSource>
         <_FallColorDestination>/Other/TreeFallGradient</_FallColorDestination>
@@ -132,7 +132,7 @@
       <snowOverlayGraphicPath>Things/Plant/AMJ/Shirakaba_Snow</snowOverlayGraphicPath>
       <leaflessGraphicPath>Things/Plant/AMJ/Shirakaba_Leafless</leaflessGraphicPath>
       <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
-      <!-- Author-approved snow-only source is installed; loaded-game appearance remains unverified. -->
+      <!-- Author-accepted leafy snow and snow-free leafless appearances were reviewed in native 1.6; immature and transition appearances remain pending. -->
     </plant>
   </ThingDef>
 
@@ -143,7 +143,7 @@
     <graphicData>
       <texPath>Things/Plant/AMJ/Dakekanba</texPath>
       <graphicClass>Graphic_Random</graphicClass>
-      <!-- Vanilla Birch fall-color baseline. New art color/appearance still awaits native review. -->
+      <!-- Vanilla Birch fall-color baseline; both Birch species' forced autumn appearance was author-accepted in native 1.6. Natural seasonal-transition appearance remains pending. -->
       <shaderParameters Inherit="False">
         <_FallColorSource>(0.3803, 0.4352, 0.1451)</_FallColorSource>
         <_FallColorDestination>/Other/TreeFallGradient</_FallColorDestination>
@@ -164,7 +164,7 @@
       <snowOverlayGraphicPath>Things/Plant/AMJ/Dakekanba_Snow</snowOverlayGraphicPath>
       <leaflessGraphicPath>Things/Plant/AMJ/Dakekanba_Leafless</leaflessGraphicPath>
       <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
-      <!-- The leafy snow-only overlay is author-approved and connected; native rendering unverified. -->
+      <!-- Author-accepted leafy snow and snow-free leafless appearances were reviewed in native 1.6; immature and transition appearances remain pending. -->
     </plant>
   </ThingDef>
 
