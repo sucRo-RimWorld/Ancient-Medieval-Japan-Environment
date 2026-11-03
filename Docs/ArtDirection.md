@@ -1,5 +1,12 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-03 ダケカンバ実ゲーム紅葉・UIアイコンの作者「OK」承認（最新）
+
+- **採用状態:** 作者は、提示された**シラカバ・ダケカンバの実ゲーム秋色比較と32/64pxアイコン比較**に対し「OK」と回答。シラカバはすでに独立承認済みのため、今回新たに採用するのは**ダケカンバの秋色とUIアイコン**のみ。
+- **原画・ゲーム表示の証拠:** [Project Actions #41621113921](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41621113921)、実機 1.6.4871 rev600 Vanilla、ネイティブArtifact `13224046122`。秋色画面SHA-256 `9861716f2422da7a81f70579b3b4695399c49e5e99260224199b9b288dc560ff`、32/64pxアイコン画面 `d446bce430b4df0fe5ad7d9273ea0c3ce62045cfecce03a554e2f049612362d5`。提示比較画像との一致を確認。
+- **撮影条件:** 秋色は正午／Clear／天候遷移完了／一時停止／Fall day 7／`PlantFallColors`強制強度1／カメラrootSize23、実木材質・成熟/未熟成長量を使った6本の描画。UIは元の`Widgets.DefIcon`32/64px。強制秋色の外観承認であり、年単位の自然遷移確認ではない。
+- **未承認:** ダケカンバの情報カードの表示内容、シラカバ・ダケカンバの独立した`immature`・`transition`状態、ゲームバランス、PR #310全体・Workshop配布。画像変更不要。状態別正式証拠は [DakekanbaNativeVisualApproval-20261103.md](ValidationEvidence/DakekanbaNativeVisualApproval-20261103.md)、台帳は `Docs/PlantVisualCoverage.json`。歴史的な古い「秋色/UI未承認」文言よりこちらの同一状態の最新承認を優先する。
+
 ## 2026-11-03 シラカバ実ゲーム紅葉・UIアイコン・情報カード外観の作者「OK」承認（最新）
 
 - **採用対象:** 作者は、直前に提示された**シラカバ1樹種**のRimWorld **1.6.4871 rev600 Vanilla**実ゲーム撮影3枚（紅葉・実`Widgets.DefIcon` 32px/64px・実`Dialog_InfoCard`）を見て**「OK」**と回答。画像バイトを元の[Project Actions #41435799301](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41435799301) Artifact `13195990324` の元フレームとSHA-256一致確認済み。正式な各画像のSHA/状態/撮影条件は[ShirakabaNativeVisualApproval-20261103.md](ValidationEvidence/ShirakabaNativeVisualApproval-20261103.md)に記録。
