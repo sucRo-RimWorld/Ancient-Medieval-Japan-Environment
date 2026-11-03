@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "cases": {
+    "yamazakura": {
+      "def_name": "AMJ_Tree_Yamazakura",
+      "visual_biome": "AMJ_WarmTemperateForest",
+      "cold_biome": "AMJ_CoolTemperateForest",
+      "bloom_day": 7,
+      "modes": [
+        "icon",
+        "infocard"
+      ],
+      "graphics": {
+        "normal": "/Yamazakura",
+        "leafless": "/Yamazakura_Leafless",
+        "leafless_snow_overlay": "/LeaflessNoSnow",
+        "bloom": "/Yamazakura_Bloom",
+        "normal_snow": "/Yamazakura_SnowFull",
+        "bloom_snow": "/Yamazakura_Bloom_SnowFull"
+      },
+      "save": null,
+      "run_cold": false,
+      "run_save": false
+    }
+  }
+}

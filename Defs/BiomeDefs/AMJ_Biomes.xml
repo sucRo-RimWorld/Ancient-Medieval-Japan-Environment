@@ -62,7 +62,8 @@
       <Plant_TallGrass>2.5</Plant_TallGrass>
       <Plant_Brambles>0.5</Plant_Brambles>
       <Plant_Bush>1.0</Plant_Bush>
-      <AMJ_Tree_Shii>2.55</AMJ_Tree_Shii>
+      <AMJ_Tree_Shii>2.37</AMJ_Tree_Shii>
+      <AMJ_Tree_Yamazakura>0.18</AMJ_Tree_Yamazakura>
       <Plant_TreeMaple>0.25</Plant_TreeMaple>
       <Plant_TreeBamboo>0.5</Plant_TreeBamboo>
       <Plant_Berry>0.07</Plant_Berry>
@@ -135,7 +136,8 @@
       <Plant_Brambles>1</Plant_Brambles>
       <Plant_Moss>1</Plant_Moss>
       <Plant_Bush>1.2</Plant_Bush>
-      <AMJ_Tree_Beech>1.8</AMJ_Tree_Beech>
+      <AMJ_Tree_Beech>1.68</AMJ_Tree_Beech>
+      <AMJ_Tree_Yamazakura>0.12</AMJ_Tree_Yamazakura>
       <Plant_TreeOak>0.6</Plant_TreeOak>
       <Plant_TreeMaple>0.8</Plant_TreeMaple>
       <Plant_TreeBirch>0.6</Plant_TreeBirch>

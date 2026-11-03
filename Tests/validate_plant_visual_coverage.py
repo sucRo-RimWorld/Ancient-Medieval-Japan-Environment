@@ -39,12 +39,32 @@ def fingerprint(plant, state=None):
         path = plant.findtext("plant/" + field)
         if path and (ROOT / "Textures" / path).is_dir():
             paths.append(path)
+    # Seasonal opt-in graphics are not plant.graphicData/texPath: omitting
+    # them would allow reviewed bloom/full-tree snow art to change unnoticed.
+    if state in ("snow", "transition"):
+        selectors = ("modExtensions/li/fullSnowGraphicData/texPath",
+                     "modExtensions/li/windows/li/fullSnowGraphicData/texPath")
+        if state == "transition":
+            selectors += ("modExtensions/li/windows/li/graphicData/texPath",)
+        for selector in selectors:
+            for node in plant.findall(selector):
+                path = (node.text or "").strip()
+                if path:
+                    paths.append(path)
     assets = {}
     for path in paths:
         pngs = sorted((ROOT / "Textures" / path).glob("*.png"))
         assert pngs, f"Missing PNGs: {path}"
         for png in pngs:
             assets[png.relative_to(ROOT).as_posix()] = hashlib.sha256(png.read_bytes()).hexdigest()
+    if state == "autumn" and plant.findall(
+            "modExtensions/li/windows/li/graphicData/texPath"):
+        # This seasonal deciduous tree uses AMJE's shared autumn LUT, inherited
+        # from the DeciduousTreeBase graphic/shader contract.
+        fall = ROOT / "Textures/Other/AMJE_BeechFallGradient.png"
+        if fall.is_file():
+            assets[fall.relative_to(ROOT).as_posix()] = hashlib.sha256(
+                fall.read_bytes()).hexdigest()
     for parameter in plant.findall('graphicData/shaderParameters/*'):
         value = (parameter.text or '').strip()
         if value.startswith('/'):

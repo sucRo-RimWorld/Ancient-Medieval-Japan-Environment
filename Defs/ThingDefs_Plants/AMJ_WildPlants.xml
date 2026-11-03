@@ -32,6 +32,59 @@
   </ThingDef>
 
   <ThingDef ParentName="DeciduousTreeBase">
+    <!-- Seasonal native Yamazakura. Accepted source images, complete-sprite snow states.
+         Spring days 6..8 bloom (end day 9 exclusive); native leafless state is respected. -->
+    <defName>AMJ_Tree_Yamazakura</defName>
+    <label>yamazakura</label>
+    <graphicData>
+      <texPath>Things/Plant/AMJ/Yamazakura</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <shadowData>
+        <volume>(0.16, 0.33, 0.12)</volume>
+        <offset>(0,0,-0.44)</offset>
+      </shadowData>
+    </graphicData>
+    <statBases>
+      <Beauty>2</Beauty>
+    </statBases>
+    <plant>
+      <growDays>30</growDays>
+      <minGrowthTemperature>0</minGrowthTemperature>
+      <harvestWork>950</harvestWork>
+      <harvestYield>40</harvestYield>
+      <leaflessGraphicPath>Things/Plant/AMJ/Yamazakura_Leafless</leaflessGraphicPath>
+      <!-- Suppress branch snow explicitly; otherwise native Plant may reuse leafy snow. -->
+      <leaflessSnowOverlayGraphicPath>Things/Plant/AMJ/LeaflessNoSnow</leaflessSnowOverlayGraphicPath>
+      <!-- Leafy snow uses complete-tree graphics; do not specify snowOverlayGraphicPath. -->
+    </plant>
+    <modExtensions>
+      <li Class="AncientMedievalJapan.Environment.SeasonalPlantAppearanceExtension">
+        <!-- Three game days in mid spring, approximating the March-April bloom. -->
+        <windows>
+          <li>
+            <startSeason>Spring</startSeason>
+            <startDay>6</startDay>
+            <endSeason>Spring</endSeason>
+            <endDay>9</endDay>
+            <graphicData>
+              <texPath>Things/Plant/AMJ/Yamazakura_Bloom</texPath>
+              <graphicClass>Graphic_Random</graphicClass>
+            </graphicData>
+            <fullSnowGraphicData>
+              <texPath>Things/Plant/AMJ/Yamazakura_Bloom_SnowFull</texPath>
+              <graphicClass>Graphic_Random</graphicClass>
+            </fullSnowGraphicData>
+          </li>
+        </windows>
+        <fullSnowGraphicData>
+          <texPath>Things/Plant/AMJ/Yamazakura_SnowFull</texPath>
+          <graphicClass>Graphic_Random</graphicClass>
+        </fullSnowGraphicData>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="DeciduousTreeBase">
     <defName>AMJ_Tree_Beech</defName>
     <label>Japanese beech</label>
     <description>Japanese beech (buna; also called Shirobuna or Honbuna; written 山毛欅, 橅, or 椈 in Japanese) is a large deciduous tree representative of Japan's cool-temperate zone, where it forms extensive mountain forests.\n\nCool-temperate forests containing Fagus are also known from northern Honshu in the Jomon period, and examples from the late Heian through medieval period show Fagus wood being selectively used for turned wooden objects such as lacquerware.\n\nIn modern Japan it is also used for furniture, interior materials, mushroom-growing logs, and firewood.</description>

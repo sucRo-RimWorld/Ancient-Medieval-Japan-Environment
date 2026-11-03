@@ -7,7 +7,7 @@ are different evidence types. Never use one to satisfy another.
 
 Before resuming plant art, choosing the next target, reporting completion or
 handing off, run `python Tests/validate_plant_visual_coverage.py` and read every
-pending row. Before claiming that all five implemented AMJE plants are complete, run it with
+pending row. Before claiming that all six currently implemented AMJE plants are complete, run it with
 `--require-complete`; pending rows make that command fail. Ordinary PR/CI validation
 runs without `--require-complete`: pending image reviews are expected during
 incremental development and cannot by themselves block merging an unrelated or

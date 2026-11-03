@@ -11,8 +11,10 @@ ROOT = Path(__file__).resolve().parents[2]
 BIOME_XML = ROOT / "Defs" / "BiomeDefs" / "AMJ_Biomes.xml"
 
 APPROVED = {
-    ("AMJ_WarmTemperateForest", "AMJ_Tree_Shii"): 2.55,
-    ("AMJ_CoolTemperateForest", "AMJ_Tree_Beech"): 1.8,
+    ("AMJ_WarmTemperateForest", "AMJ_Tree_Shii"): 2.37,
+    ("AMJ_WarmTemperateForest", "AMJ_Tree_Yamazakura"): 0.18,
+    ("AMJ_CoolTemperateForest", "AMJ_Tree_Yamazakura"): 0.12,
+    ("AMJ_CoolTemperateForest", "AMJ_Tree_Beech"): 1.68,
     ("AMJ_SubalpineForest", "AMJ_Tree_Shirabiso"): 3.5,
     ("AMJ_AlpineZone", "AMJ_Shrub_Haimatsu"): 1.34,
 }
