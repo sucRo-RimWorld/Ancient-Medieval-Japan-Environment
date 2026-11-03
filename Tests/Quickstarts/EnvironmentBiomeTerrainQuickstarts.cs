@@ -5338,6 +5338,77 @@ namespace AncientMedievalJapan.Environment.Quicktests
     [HarmonyPatch(typeof(Game), "LoadGame")]
     public static class AMJBirchLegacyReloadObserver
     {
+        // Test only: this runs after a genuine old saved map was independently
+        // loaded, and only in the disposable verification process. No new tree
+        // is created directly. The original game's WildPlantSpawner must select
+        // the species and generate the Plant from the updated wildPlant pool.
+        private static bool ObserveNewWildBirch(Map map, ThingDef shira,
+            ThingDef dake, int protectedId)
+        {
+            if (map == null || map.wildPlantSpawner == null ||
+                shira == null || dake == null) return false;
+            int beforeShira = map.listerThings.ThingsOfDef(shira).Count;
+            int beforeDake = map.listerThings.ThingsOfDef(dake).Count;
+            // A bounded harvest-like clearing provides fresh regrowth slots;
+            // never touch the retained legacy specimen ID. This clearing is
+            // after the previously verified upgraded save was already written.
+            int cleared = 0;
+            foreach (IntVec3 cell in GenRadial.RadialCellsAround(
+                map.Center, 15f, true))
+            {
+                if (!cell.InBounds(map)) continue;
+                Plant plant = cell.GetPlant(map);
+                if (plant != null && !plant.Destroyed &&
+                    plant.thingIDNumber != protectedId)
+                {
+                    plant.Destroy(DestroyMode.Vanish);
+                    cleared++;
+                }
+            }
+            int originalTick = Find.TickManager.TicksGame;
+            int attempted = 0;
+            int newShira = 0;
+            int newDake = 0;
+            try
+            {
+                // Advance only the original ecology spawner's native tick
+                // loop; this is not a simulated fully ticked game year.
+                // 100000 native spawner ticks is a bounded trial, and an
+                // absence is a genuine inconclusive/failing observation.
+                for (attempted = 1; attempted <= 100000; attempted++)
+                {
+                    Find.TickManager.DebugSetTicksGame(
+                        originalTick + attempted);
+                    map.wildPlantSpawner.WildPlantSpawnerTick();
+                    if (attempted % 1000 == 0)
+                    {
+                        newShira = map.listerThings.ThingsOfDef(shira).Count -
+                            beforeShira;
+                        newDake = map.listerThings.ThingsOfDef(dake).Count -
+                            beforeDake;
+                        if (newShira > 0 && newDake > 0) break;
+                    }
+                }
+            }
+            finally
+            {
+                Find.TickManager.DebugSetTicksGame(originalTick);
+            }
+            newShira = map.listerThings.ThingsOfDef(shira).Count - beforeShira;
+            newDake = map.listerThings.ThingsOfDef(dake).Count - beforeDake;
+            bool passed = newShira > 0 || newDake > 0;
+            Log.Message("AMJE_BIRCH_WILD_REGROW passed=" + passed +
+                " method=WildPlantSpawnerTick" +
+                " nativeSpawnerTicks=" + attempted +
+                " clearedPlants=" + cleared +
+                " initialShirakaba=" + beforeShira +
+                " initialDakekanba=" + beforeDake +
+                " addedShirakaba=" + newShira +
+                " addedDakekanba=" + newDake +
+                " oldSaveMap=True directSpawn=False");
+            return passed;
+        }
+
         [HarmonyPostfix]
         public static void Postfix()
         {
@@ -5388,6 +5459,9 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     " shiraWeight=" + shiraWeight + " dakeWeight=" + dakeWeight;
                 Log.Message("AMJE_BIRCH_RELOAD" + evidence);
                 Log.Message("AMJ_PLANT_LEGACY_RELOAD" + evidence);
+                if (passed && stage == "verify" &&
+                    !ObserveNewWildBirch(map, shira, dake, firstId))
+                    Log.Error("AMJE_BIRCH_WILD_REGROW_FAILED old map did not naturally spawn new birch");
                 if (!passed) Log.Error("AMJE_BIRCH_RELOAD_FAILED stage=" + stage);
                 UnityEngine.Application.Quit();
             });
