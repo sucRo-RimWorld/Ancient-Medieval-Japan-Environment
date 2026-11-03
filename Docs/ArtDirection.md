@@ -7,12 +7,18 @@
 - **撮影条件:** 秋色は正午／Clear／天候遷移完了／一時停止／Fall day 7／`PlantFallColors`強制強度1／カメラrootSize23、実木材質・成熟/未熟成長量を使った6本の描画。UIは元の`Widgets.DefIcon`32/64px。強制秋色の外観承認であり、年単位の自然遷移確認ではない。
 - **未承認:** ダケカンバの情報カードの表示内容、シラカバ・ダケカンバの独立した`immature`・`transition`状態、ゲームバランス、PR #310全体・Workshop配布。画像変更不要。状態別正式証拠は [DakekanbaNativeVisualApproval-20261103.md](ValidationEvidence/DakekanbaNativeVisualApproval-20261103.md)、台帳は `Docs/PlantVisualCoverage.json`。歴史的な古い「秋色/UI未承認」文言よりこちらの同一状態の最新承認を優先する。
 
-## 2026-11-03 シラカバ実ゲーム紅葉・UIアイコン・情報カード外観の作者「OK」承認（最新）
+## 2026-11-03 ダケカンバ実ゲーム紅葉・32/64px UIアイコンの作者承認（最新）
+
+- 他の並行レビューで作者は、実RimWorld 1.6のシラカバ／ダケカンバ比較画像を見て「OK」と回答。**ダケカンバ**の秋色画面と`Widgets.DefIcon`32px／64pxの外観だけを追加承認した。元の[Project Actions #41621113921](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41621113921)、Artifact `13224046122` の原画像の一致・色条件は[正式な受入記録](ValidationEvidence/DakekanbaNativeVisualApproval-20261103.md)参照。
+- `AMJ_Tree_Dakekanba/autumn=accepted` は強制した最大秋色強度1の静止画、`icon=accepted` は実ゲームUIウィジェット。**InfoCardの外観はダケカンバの承認対象には含めない**。別途元の実ゲームキャプチャがあることは作者承認と同じではない。
+- シラカバも直後の独立記録により紅葉・UI/情報カードの外観を承認済み。**両樹種とも`normal/snow/leafless/autumn/icon=accepted`で、`immature/transition=pending`、`complete=false`**。動的季節移行の検証PASSは未熟・遷移画像の作者受入を意味しない。本番画像、Def、地域比率と配布状態は不変でありPR #310をマージ・公開しない。
+
+## 2026-11-03 シラカバ実ゲーム紅葉・UIアイコン・情報カード外観の作者「OK」承認
 
 - **採用対象:** 作者は、直前に提示された**シラカバ1樹種**のRimWorld **1.6.4871 rev600 Vanilla**実ゲーム撮影3枚（紅葉・実`Widgets.DefIcon` 32px/64px・実`Dialog_InfoCard`）を見て**「OK」**と回答。画像バイトを元の[Project Actions #41435799301](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41435799301) Artifact `13195990324` の元フレームとSHA-256一致確認済み。正式な各画像のSHA/状態/撮影条件は[ShirakabaNativeVisualApproval-20261103.md](ValidationEvidence/ShirakabaNativeVisualApproval-20261103.md)に記録。
 - **紅葉（`autumn=accepted`）:** 正午12時、Clear、天候遷移完了、一時停止、秋day7、`FallIntensityOverride` 強制、秋色強度1、`rootSize=23`、1280×720の元フレーム。これは**実ゲームの強制フル秋色画像の外観受入**であり、通常速度で季節が移行する過程の独立した作者外観承認ではない。自然季節処理には別途同一個体の加速カレンダー・Native TickLong PASS根拠があるが、`transition`画像の作者承認とは混同しない。
 - **UI（`icon=accepted`）:** 元の32px/64px DefIconとInfoCardを視覚承認。InfoCardは追加の8番目の植物状態にはしない。InfoCard内の生育日数・収穫数等は**外観承認の対象外**で、数値の新承認・バランス変更を意味しない。
-- **継続未承認:** シラカバの`immature`・`transition`は`pending`、ダケカンバの`immature`・`icon`・`autumn`・`transition`も`pending`のまま。本番画像/Defs・DDS・樹種分布値・植林・収穫・セーブ仕様は一切変更しない。**環境PR #310の画像7状態完了・マージ・Workshop公開を認定しない。**
+- **継続未承認:** シラカバの`immature`・`transition`は`pending`、ダケカンバも`immature`・`transition`が`pending`のまま（`icon`・`autumn`は別の並行レビューで`accepted`）。本番画像/Defs・DDS・樹種分布値・植林・収穫・セーブ仕様は一切変更しない。**環境PR #310の画像7状態完了・マージ・Workshop公開を認定しない。**
 
 ## 2026-11-01 カバノキ類の通常葉あり原画採用を画像状態台帳へ反映
 
