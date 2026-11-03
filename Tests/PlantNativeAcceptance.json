@@ -19,7 +19,13 @@
       },
       "save": null,
       "run_cold": true,
-      "run_save": false
+      "run_save": false,
+      "legacy_save": {
+        "baseline_source_sha": "b6ca638df7016a82c42606f0c73fb2470ce5f1b3",
+        "scenario": "AMJBirchLegacySaveQuickstart",
+        "original_save": "AMJE_Birch_Legacy_Baseline16",
+        "updated_save": "AMJE_Birch_Updated16"
+      }
     },
     "dakekanba": {
       "def_name": "AMJ_Tree_Dakekanba",
