@@ -125,6 +125,18 @@ The older, unmerged Project PR #1183 proposed a redundant
    loaded wild eligibility. Require zero Unity ERROR, exits0, correct game
    version, no timeout, exact phase markers, preserved raw logs and both
    original/updated save hashes.
+4. **Birch owner follow-up only (2026-11-03):** After the final unchanged
+   old-tree count/ID assertion and **after writing the updated `.rws`**,
+   clear a bounded 15-cell-radius zone of plants in the disposable loaded map,
+   protecting the representative old Birch. Run up to **100000 invocations
+   of the original game's native `WildPlantSpawnerTick`** with a sampled
+   incrementing game clock, returning it to the original value afterward.
+   Check actual new `ThingsOfDef` counts for both Birches from initial zero.
+   Do **not** use `GenSpawn.Spawn` or direct new-species placement; record
+   the number of cleared plants, call count and actual Shira/Dake individuals.
+   At least one native-produced new Birch is required; otherwise Log.Error
+   keeps strict native acceptance FAIL. This only accelerates the ecological
+   spawner, **not** normal full-map/world ticking or an undisturbed year.
 
 **Actual PASS 2026-11-03:** [Project Actions #41591244191](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41591244191)
 executed all 3 phases under **RimWorld 1.6.4871 rev600 Vanilla** against exact
@@ -139,14 +151,35 @@ Unity ERROR0, baseline Quickstart 3/3 PASS. Real original and updated
 `.rws` files are retained as artifacts with SHA-256.
 [Formal per-phase log and digest evidence](../ValidationEvidence/BirchNative16-20261101.md).
 
-**Scope limit:** proves old naturally occurring tree persistence plus the
-*loaded* new spawner pool over a real update and two reloads, **not** actual
-natural new-tree appearance after elapsed wild-spawner ticks on that already
-populated map. The distinct mature-tree native CutPlant → 27 WoodLog
-case was previously verified under real 1.6 Vanilla/CCTO but is **not**
-a fully continuous sow→grow-to-maturity→cut chain.
-MO/CCTO/1.7 were not run for this particular old-save suite. No user save
-or Workshop distribution was changed.
+**Further native spawner PASS 2026-11-03:** [Project Actions #41621071579
+attempt 2](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41621071579)
+tested exact owner source `33499eafbecd7c9dd37d7e90d4e4456dfb053ab2`,
+Project engine main `99fee16b9150251377409936c780b34c009b59e8`,
+native artifact **13222704870**. The new old ColdBog pre-version save
+contained **1,231 old Birch**, representative Thing ID **8134**;
+both survived candidate upgrade, new real save and second restart/reload,
+all exit0/Unity ERROR0. The test cleared **254** plants in a bounded
+central area and invoked the unmodified native `WildPlantSpawnerTick`
+**100000** times with an accelerated sampled clock, no direct placement.
+Observed after the actual original-game spawn process:
+**Shirakaba 0→17, Dakekanba 0→0**. The raw Unity log writes
+`nativeSpawnerTicks=100001` because that variable is the **loop's
+post-increment exit counter**, not the number of actual spawner calls.
+The original first attempt failed **before the baseline Quickstart started**
+due to Mono GC SIGSEGV exit139; retain original native artifact
+**13222384907** as FAIL, not a failed plant regrowth assertion. The
+same-source native-only attempt2 PASS is distinct.
+
+**Scope limit:** the prior 3-stage suite proves old natural Birch
+persistence/loaded updated wild eligibility; this focused follow-up
+additionally proves the unchanged **native spawner can generate Shirakaba
+on a *cleared* previously saved map**, not that rare Dakekanba was
+observed in the old map, nor that a normal uninterrupted year under
+ordinary simulation will have the same numbers or that the forest recovers
+unassisted after years. Mature-tree CutPlant → 27 WoodLog was independently
+verified under real 1.6 Vanilla/CCTO, but **not** a continuous same
+individual sow→full growth→cut chain. MO/CCTO/1.7 were not run for this
+particular old-save suite. No user save or Workshop distribution changed.
 
 ## Existing-save plant and fruit-tree update E2E (remaining full acceptance)
 
@@ -183,9 +216,11 @@ appropriate, extending the existing `run-tests.bat` path and runtime ERROR
 gate. Earlier growing-zone loaded-Def tests alone do **not** prove an actual
 pawn Sow Job; the separate **2026-11-03 generic `plant-sowing16` native PASS**
 now proves actual planting and same-tree **sampled** growth for Shirakaba
-and Dakekanba in original 1.6 Vanilla. It does **not** prove real
-maturity/wood yield, pre-feature old save migration, newly naturally
-spawned Birch on an existing map or fruit harvest. The original Birch pre-update/upgrade/reload suite **has now passed**
+and Dakekanba in original 1.6 Vanilla. It does **not** prove uninterrupted same-sown-tree maturity/wood
+harvest or fruit processing. Separately, the original Birch
+pre-update/upgrade/reload suite passed with actual old saves, and the
+follow-up native-spawner trial on a cleared saved map generated
+**17 Shirakaba but no Dakekanba**. The original Birch pre-update/upgrade/reload suite **has now passed**
 its specifically bounded real original 1.6 Vanilla E2E, as documented above;
 the **complete existing-save natural regrowth, product harvest, MO/CCTO/1.7
 matrix** is still unverified.
