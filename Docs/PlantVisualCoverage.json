@@ -842,7 +842,26 @@
           "status": "pending"
         },
         "icon": {
-          "status": "pending"
+          "status": "accepted",
+          "date": "2026-11-03",
+          "author_statement": "「OK」— 直前提示の実ゲーム比較におけるダケカンバのWidgets.DefIcon 32/64px外観を承認。InfoCardの表示・数値や未熟/遷移状態は未承認。",
+          "evidence": "Docs/ValidationEvidence/DakekanbaNativeVisualApproval-20261103.md",
+          "review_kind": "native_ui_icon",
+          "reviewed_variants": [
+            "Widgets.DefIcon 32 px",
+            "Widgets.DefIcon 64 px"
+          ],
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41621113921",
+          "original_framebuffer_sha256": {
+            "icon": "d446bce430b4df0fe5ad7d9273ea0c3ce62045cfecce03a554e2f049612362d5"
+          },
+          "fingerprint": {
+            "definition": "46d730c6d55c6d5b5d03be8c2d4102586f14337383c0fdd67ab8bdee96918007",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Dakekanba/Dakekanba_A.png": "8fdc5c4d394ec990b5ae962f7667b9e906817bfc8c226af524a30f2b51eaf164",
+              "Textures/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_A.png": "91942dc1d6563d26bad48bd26cce7bb1c73088c18fc3a014310e156acf85da04"
+            }
+          }
         },
         "snow": {
           "status": "accepted",
@@ -898,7 +917,31 @@
           }
         },
         "autumn": {
-          "status": "pending"
+          "status": "accepted",
+          "date": "2026-11-03",
+          "author_statement": "「OK」— 直前提示のシラカバ／ダケカンバのRimWorld 1.6実ゲーム秋色比較でダケカンバの外観を承認。秋色最大強度の強制表示であり、自然経過した秋季の承認ではない。",
+          "evidence": "Docs/ValidationEvidence/DakekanbaNativeVisualApproval-20261103.md",
+          "review_kind": "color",
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41621113921",
+          "original_framebuffer_sha256": "9861716f2422da7a81f70579b3b4695399c49e5e99260224199b9b288dc560ff",
+          "color_conditions": {
+            "local_hour": 12,
+            "weather": "Clear",
+            "paused": true,
+            "weather_transition_complete": true,
+            "verified": true,
+            "season": "Fall day 7 (forced native autumn shader, not ordinary elapsed season)",
+            "shader_intensity": 1,
+            "zoom": "camera rootSize=23, original framebuffer 1280x720",
+            "evidence": "Docs/ValidationEvidence/DakekanbaNativeVisualApproval-20261103.md"
+          },
+          "fingerprint": {
+            "definition": "46d730c6d55c6d5b5d03be8c2d4102586f14337383c0fdd67ab8bdee96918007",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Dakekanba/Dakekanba_A.png": "8fdc5c4d394ec990b5ae962f7667b9e906817bfc8c226af524a30f2b51eaf164",
+              "Textures/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_A.png": "91942dc1d6563d26bad48bd26cce7bb1c73088c18fc3a014310e156acf85da04"
+            }
+          }
         },
         "transition": {
           "status": "pending"
