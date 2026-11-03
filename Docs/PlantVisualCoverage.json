@@ -722,7 +722,14 @@
         },
         "icon": {
           "status": "pending",
-          "note": "No actual Widgets.DefIcon / InfoCard UI scene was shown to author; map screenshot is not icon evidence."
+          "note": "Original real RimWorld 1.6 UI icon 32/64 px and InfoCard successfully captured, evidence in Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md; author's acceptance of these two newly shown UI frames remains pending.",
+          "native_run": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41573790164",
+          "native_capture": "PASS",
+          "evidence": "Docs/ValidationEvidence/YamazakuraNativeVisualAcceptance-20261102.md",
+          "original_png_sha256": {
+            "icon": "9875840599f7e2b8ee40e7a06a568f76861f66c1643a4b494eaae8e455b3f3b5",
+            "infocard": "9848120a24b1c8098f851db75fa73b863f40cebe567117d6411d31a3d05f4172"
+          }
         },
         "snow": {
           "status": "accepted",
