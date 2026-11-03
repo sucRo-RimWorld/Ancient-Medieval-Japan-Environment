@@ -79,6 +79,8 @@ AMJEでは、作者の既存セーブで繰り返しニューゲームが必要�
 
 ### カバノキ類の2樹種化（2026-10-30 作者確定、2026-11-01 実装PR #310）
 
+**2026-11-03追加・状態別実機外観の作者承認:** 本番PNG/Defを変更せず、作者が提示済みの2樹種の比較画像に対し「OK」と返答したため、**ダケカンバの秋色（元ゲームの強制最大秋色）とWidgets.DefIcon 32/64px表示のみを採用**。シラカバの秋色・アイコン・InfoCard外観はすでに独立承認済みのため維持する。ダケカンバのInfoCard、両樹種の未熟・季節遷移画像、自然に経過する長期紅葉、独立バランスは未承認。最新の正本は [PlantVisualCoverage.json](PlantVisualCoverage.json) と [Dakekanba実ゲーム外観証拠](ValidationEvidence/DakekanbaNativeVisualApproval-20261103.md)／[Shirakaba実ゲーム外観証拠](ValidationEvidence/ShirakabaNativeVisualApproval-20261103.md)。既存セーブ/育成・伐採のゲーム受入とは別であり、PR #310のマージや配布は認めない。
+
 **目的:** 冷温帯林の白いシラカバと亜高山帯の灰白～淡褐色のダケカンバを、別のThingDef・名前・画像として表示し、植生帯の景観を区別する。単なるVanilla Birchの改名・全Biome共通リテクスチャではない。
 
 | 項目 | シラカバ | ダケカンバ |
