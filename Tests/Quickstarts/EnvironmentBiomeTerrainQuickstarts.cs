@@ -677,9 +677,9 @@ namespace AncientMedievalJapan.Environment.Quicktests
             switch (biome)
             {
                 case "AMJ_WarmTemperateForest":
-                    return new[] { "AMJ_Tree_Shii", "Plant_TreeMaple", "Plant_TreeBamboo" };
+                    return new[] { "AMJ_Tree_Shii", "AMJ_Tree_Yamazakura", "Plant_TreeMaple", "Plant_TreeBamboo" };
                 case "AMJ_CoolTemperateForest":
-                    return new[] { "AMJ_Tree_Beech", "Plant_TreeOak", "Plant_TreeMaple", "AMJ_Tree_Shirakaba", "Plant_TreePine" };
+                    return new[] { "AMJ_Tree_Beech", "AMJ_Tree_Yamazakura", "Plant_TreeOak", "Plant_TreeMaple", "AMJ_Tree_Shirakaba", "Plant_TreePine" };
                 case "AMJ_SubalpineForest":
                     return new[] { "AMJ_Tree_Shirabiso", "AMJ_Tree_Dakekanba" };
                 case "AMJ_AlpineZone":
@@ -734,7 +734,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     if (zone.cells.Count == 0)
                         throw new InvalidOperationException("No unpolluted test cell.");
 
-                    string[] ordinaryTrees = { "AMJ_Tree_Shii", "AMJ_Tree_Beech",
+                    string[] ordinaryTrees = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Yamazakura",
                         "AMJ_Tree_Shirabiso", "AMJ_Tree_Shirakaba", "AMJ_Tree_Dakekanba",
                         "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch",
                         "Plant_TreePine", "Plant_TreeBamboo", "Plant_TreePoplar" };

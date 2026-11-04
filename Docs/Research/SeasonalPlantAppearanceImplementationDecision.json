@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "feature": "AMJE five-species seasonal bloom/fruit/plume graphic switching",
+  "owner": "sucRo-RimWorld/Ancient-Medieval-Japan-Environment",
+  "scope": "Opt-in graphics for new Yamazakura/Ume/Kuri/Kaki/Susuki; no existing plant changes, added gameplay items or weather modifications",
+  "status": "ready",
+  "search": {
+    "date": "2026-10-31",
+    "queries": [
+      "RimWorld 1.6 plant seasonal bloom graphics",
+      "VEF Plant_Blooming and WinterBlooming C# source",
+      "RimWorld Cherry Blossom",
+      "Gauranlen Cherry Blossom Colors 1.6",
+      "OverflowingFlowers RimWorld 1.6"
+    ],
+    "ecosystems": [
+      "vanilla_mo",
+      "amj",
+      "ve",
+      "non_ve"
+    ],
+    "limitations": "MO current DLL and non-VE binaries not inspected; non-VE feature summaries only. No universal uniqueness claim; runtime co-load not tested."
+  },
+  "candidates": [
+    {
+      "name": "RimWorld 1.6 and optional Medieval Overhaul",
+      "ecosystem": "vanilla_mo",
+      "version": "RimWorld 1.6",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Leafless/snow autumn shaders but no arbitrary flower date config",
+        "historical_fit": "Not species-specific",
+        "dependencies": "Game only; MO optional",
+        "retention": "All current base rendering",
+        "progression_balance": "Preserve existing growth, harvest, temperature and visual balance",
+        "reuse": "Reuse Plant.Graphic and seasons",
+        "maintenance_license": "No external source or assets copied; independent maintenance"
+      },
+      "outcome": "not_applicable"
+    },
+    {
+      "name": "Existing AMJ Environment",
+      "ecosystem": "amj",
+      "version": "main 2026-10-31",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Current tree season visuals lack bloom/fruit windows",
+        "historical_fit": "Four new Japanese trees not represented",
+        "dependencies": "Harmony already required",
+        "retention": "Keep existing Defs and behavior",
+        "progression_balance": "Preserve existing growth, harvest, temperature and visual balance",
+        "reuse": "Opt-in extension for new plants only",
+        "maintenance_license": "No external source or assets copied; independent maintenance"
+      },
+      "outcome": "independent"
+    },
+    {
+      "name": "VEF Plant_Blooming, VPE Flowers",
+      "ecosystem": "ve",
+      "version": "public main source 2026-10-31; Flowers 1.6",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Timed bloom but suppresses graphic when LeaflessNow",
+        "historical_fit": "Ume needs flowers on bare branches",
+        "dependencies": "Would add VEF/VE content dependencies",
+        "retention": "Adds unrelated flowers/weed care",
+        "progression_balance": "Preserve existing growth, harvest, temperature and visual balance",
+        "reuse": "Prior-art for date windows only",
+        "maintenance_license": "No external source or assets copied; independent maintenance"
+      },
+      "outcome": "prior_art_only"
+    },
+    {
+      "name": "Cherry Blossom, Gauranlen Colors, OverflowingFlowers",
+      "ecosystem": "non_ve",
+      "version": "1.5/1.6 public descriptions",
+      "evidence": [
+        "audit"
+      ],
+      "comparison": {
+        "function": "Petals, DLC tree color, ground flowerbeds respectively",
+        "historical_fit": "No confirmed natural five-species timed controller",
+        "dependencies": "Separate content / optional Ideology DLC",
+        "retention": "Most content unnecessary",
+        "progression_balance": "Preserve existing growth, harvest, temperature and visual balance",
+        "reuse": "Prior art only",
+        "maintenance_license": "No external source or assets copied; independent maintenance"
+      },
+      "outcome": "prior_art_only"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "audit",
+      "path": "Docs/Research/SeasonalPlantAppearanceExistingModAudit-2026-10-31.md",
+      "sha256": "442a8e1e95f7c8c0cb2bd9b8cb919b12d10c53d2e3d67c32edc018f28287d47d"
+    }
+  ],
+  "decision": {
+    "kind": "independent",
+    "rationale": "A small Environment-owned visual hook uniquely meets date-driven bare-branch Ume and other seasonal trees without upstream content or mandatory VEF, retaining all current growth and weather gameplay.",
+    "specification": "Docs/Design.md",
+    "independent_gap": "Mature tree/grass calendar graphic switching with Ume winter leafless bloom, scoped to five opt-in Defs and independent of CCTO cold dormancy."
+  },
+  "unresolved": []
+}

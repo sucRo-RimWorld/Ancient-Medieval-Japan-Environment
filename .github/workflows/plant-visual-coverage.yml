@@ -1,6 +1,33 @@
 name: Plant visual coverage ledger
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'Docs/PlantVisualCoverage.json'
+      - 'Docs/ArtDirection.md'
+      - 'Docs/GoldenPaths/PlantVisualCoverage.md'
+      - 'Docs/ValidationEvidence/**'
+      - 'Art/**'
+      - 'Textures/**'
+      - 'Defs/ThingDefs_Plants/**'
+      - 'Tests/**'
+      - 'Scripts/Art/**'
+      - '.github/workflows/plant-visual-coverage.yml'
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review, converted_to_draft]
+    paths:
+      - 'Docs/PlantVisualCoverage.json'
+      - 'Docs/ArtDirection.md'
+      - 'Docs/GoldenPaths/PlantVisualCoverage.md'
+      - 'Docs/ValidationEvidence/**'
+      - 'Art/**'
+      - 'Textures/**'
+      - 'Defs/ThingDefs_Plants/**'
+      - 'Tests/**'
+      - 'Scripts/Art/**'
+      - '.github/workflows/plant-visual-coverage.yml'
 concurrency:
   group: plant-visual-coverage-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
@@ -14,6 +41,9 @@ jobs:
           python-version: '3.x'
       - name: Validate state inventory and evidence (pending reviews allowed)
         run: python Tests/validate_plant_visual_coverage.py --self-test
+      - name: Require complete author-reviewed visual states for ready PRs and main
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.draft == false }}
+        run: python Tests/validate_plant_visual_coverage.py --require-complete
       - name: Install fixed-template image validator dependency
         run: python -m pip install Pillow
       - name: Validate accepted production textures and snow registration
