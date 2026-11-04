@@ -28,6 +28,7 @@
       "cold_biome": "AMJ_CoolTemperateForest",
       "bloom_day": null,
       "modes": [
+        "normal",
         "autumn",
         "icon",
         "infocard"
@@ -54,6 +55,7 @@
       "cold_biome": "AMJ_SubalpineForest",
       "bloom_day": null,
       "modes": [
+        "normal",
         "autumn",
         "icon",
         "infocard"
