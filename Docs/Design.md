@@ -431,7 +431,7 @@ Detailed regional rainfall/monsoon/snow-country differences are a later detailed
 
 一年を通じた雨天・霧天の空の明るさ補正は、梅雨・秋雨の頻度補正とは**独立の既存機能**として扱い、今回の「梅雨・秋雨保留」だけを理由に削除・確定・係数変更しない。日照・作物影響の既存検証結果もその範囲に限定して保持する。リリース候補では、保留中の季節天候ロジックが実際に無効であることをソース／ビルドで確認する。将来の再検討には作者の別途決定を要する。
 
-## 4.1 Provisional Tsuyu/Akisame seasonal weather selection (2026-10-21)
+### 4.1 Provisional Tsuyu/Akisame seasonal weather selection (2026-10-21)
 
 **Ownership:** Environment's existing Japan-oriented root-surface biomes, including its four owned forests/altitude bands and the retained Vanilla `TemperateSwamp` / `ColdBog`. This is a first playable weather-frequency slice, not a final historical quantitative calibration or a new humidity statistic. Japan Sea/Pacific side or WorldMap projection corrections remain WorldMap future work. Non-AMJ biomes and non-root layers retain Vanilla/third-party weather.
 
