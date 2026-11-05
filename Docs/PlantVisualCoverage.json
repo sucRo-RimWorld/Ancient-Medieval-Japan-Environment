@@ -830,7 +830,7 @@
       }
     },
     "AMJ_Tree_Shirakaba": {
-      "complete": false,
+      "complete": true,
       "states": {
         "normal": {
           "status": "accepted",
@@ -849,7 +849,30 @@
           }
         },
         "immature": {
-          "status": "pending",
+          "status": "accepted",
+          "date": "2026-11-05",
+          "author_statement": "「OK」— 両樹種の成長30%・通常緑葉色を実RimWorld 1.6比較画像で確認し採用。2026-11-03の成長30%形状・相対サイズの承認と合わせ、未熟状態の外観を承認。",
+          "review_kind": "color",
+          "evidence": "Docs/ValidationEvidence/BirchNormalGreenImmatureNative16-20261105.md",
+          "reviewed_variants": [
+            "real normal green immature Growth 0.30",
+            "real mature comparison Growth 1.00",
+            "previously author-approved fall-color immature size/shape"
+          ],
+          "color_conditions": {
+            "local_hour": 12,
+            "weather": "Clear",
+            "paused": true,
+            "weather_transition_complete": true,
+            "verified": true,
+            "season": "Spring day10, controlled original-game normal green (FallIntensity override 0)",
+            "shader_intensity": 0,
+            "zoom": "camera rootSize=23; original screenshot 1280x720",
+            "evidence": "Docs/ValidationEvidence/BirchNormalGreenImmatureNative16-20261105.md"
+          },
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41987600388",
+          "original_framebuffer_sha256": "bf9aabd284e998ec4b38ee61f1f74bed942a9f5721285d51e5d221fafcc47f77",
+          "comparison_sha256": "5050b5d69afc419fa168d747b5dc5a3d3f098d5e1e037aef713d41573f4a8911",
           "partial_acceptance": {
             "geometry": {
               "status": "accepted",
@@ -888,8 +911,49 @@
               }
             },
             "normal_green_leaf_color": {
-              "status": "pending",
-              "reason": "Author reviewed the native growth-0.30 shape/size only while full autumn shader was enabled; no normal green-leaf immature view approved."
+              "status": "accepted",
+              "date": "2026-11-05",
+              "author_statement": "「OK」— 直前に提示された両樹種の実RimWorld 1.6の成長100%／30%・通常緑葉色の比較画像の外観を採用。既存の樹形・大きさ承認は維持し、本番原画や数値の変更は不要。",
+              "review_kind": "color",
+              "evidence": "Docs/ValidationEvidence/BirchNormalGreenImmatureNative16-20261105.md",
+              "reviewed_growth": 0.3,
+              "mature_reference_growth": 1,
+              "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41987600388",
+              "native_artifact_id": 13396488538,
+              "original_framebuffer": {
+                "path": "visual/normal.png",
+                "sha256": "bf9aabd284e998ec4b38ee61f1f74bed942a9f5721285d51e5d221fafcc47f77"
+              },
+              "comparison": {
+                "original_image": "Birch_NormalGreen_30pct_RealGame_20261105.png",
+                "sha256": "5050b5d69afc419fa168d747b5dc5a3d3f098d5e1e037aef713d41573f4a8911",
+                "processing": "Native original framebuffer crop/nearest-neighbor 4x only; no repaint or color adjustments"
+              },
+              "color_conditions": {
+                "local_hour": 12,
+                "weather": "Clear",
+                "paused": true,
+                "weather_transition_complete": true,
+                "verified": true,
+                "season": "Spring day10, controlled original-game normal green (FallIntensity override 0)",
+                "shader_intensity": 0,
+                "zoom": "camera rootSize=23; original screenshot 1280x720",
+                "evidence": "Docs/ValidationEvidence/BirchNormalGreenImmatureNative16-20261105.md"
+              },
+              "fingerprint": {
+                "definition": "827e594196252e2eb94090dbf3311e62b12bdfcd805e8a6ebe345d01e7f2a2d4",
+                "pngs": {
+                  "Textures/Things/Plant/AMJ/Shirakaba/Shirakaba_A.png": "1aad44a80942c36926d6a8e2d41b139a493584924693210943582b983de122a2",
+                  "Textures/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_A.png": "da293abfc3cc90bbfa015e19ceb49ba6ddb4a91fe65535ebc9e5e952d8d81485"
+                }
+              }
+            }
+          },
+          "fingerprint": {
+            "definition": "827e594196252e2eb94090dbf3311e62b12bdfcd805e8a6ebe345d01e7f2a2d4",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Shirakaba/Shirakaba_A.png": "1aad44a80942c36926d6a8e2d41b139a493584924693210943582b983de122a2",
+              "Textures/Things/Plant/AMJ/Shirakaba_Leafless/Shirakaba_Leafless_A.png": "da293abfc3cc90bbfa015e19ceb49ba6ddb4a91fe65535ebc9e5e952d8d81485"
             }
           }
         },
@@ -1022,7 +1086,7 @@
       }
     },
     "AMJ_Tree_Dakekanba": {
-      "complete": false,
+      "complete": true,
       "states": {
         "normal": {
           "status": "accepted",
@@ -1041,7 +1105,30 @@
           }
         },
         "immature": {
-          "status": "pending",
+          "status": "accepted",
+          "date": "2026-11-05",
+          "author_statement": "「OK」— 両樹種の成長30%・通常緑葉色を実RimWorld 1.6比較画像で確認し採用。2026-11-03の成長30%形状・相対サイズの承認と合わせ、未熟状態の外観を承認。",
+          "review_kind": "color",
+          "evidence": "Docs/ValidationEvidence/BirchNormalGreenImmatureNative16-20261105.md",
+          "reviewed_variants": [
+            "real normal green immature Growth 0.30",
+            "real mature comparison Growth 1.00",
+            "previously author-approved fall-color immature size/shape"
+          ],
+          "color_conditions": {
+            "local_hour": 12,
+            "weather": "Clear",
+            "paused": true,
+            "weather_transition_complete": true,
+            "verified": true,
+            "season": "Spring day10, controlled original-game normal green (FallIntensity override 0)",
+            "shader_intensity": 0,
+            "zoom": "camera rootSize=23; original screenshot 1280x720",
+            "evidence": "Docs/ValidationEvidence/BirchNormalGreenImmatureNative16-20261105.md"
+          },
+          "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41988280255",
+          "original_framebuffer_sha256": "33791e222f81a18b9d73927ed1939672f6c47abcc174bdf31abf166f6dca9018",
+          "comparison_sha256": "5050b5d69afc419fa168d747b5dc5a3d3f098d5e1e037aef713d41573f4a8911",
           "partial_acceptance": {
             "geometry": {
               "status": "accepted",
@@ -1080,8 +1167,49 @@
               }
             },
             "normal_green_leaf_color": {
-              "status": "pending",
-              "reason": "Author reviewed the native growth-0.30 shape/size only while full autumn shader was enabled; no normal green-leaf immature view approved."
+              "status": "accepted",
+              "date": "2026-11-05",
+              "author_statement": "「OK」— 直前に提示された両樹種の実RimWorld 1.6の成長100%／30%・通常緑葉色の比較画像の外観を採用。既存の樹形・大きさ承認は維持し、本番原画や数値の変更は不要。",
+              "review_kind": "color",
+              "evidence": "Docs/ValidationEvidence/BirchNormalGreenImmatureNative16-20261105.md",
+              "reviewed_growth": 0.3,
+              "mature_reference_growth": 1,
+              "native_evidence": "https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41988280255",
+              "native_artifact_id": 13396174100,
+              "original_framebuffer": {
+                "path": "visual/normal.png",
+                "sha256": "33791e222f81a18b9d73927ed1939672f6c47abcc174bdf31abf166f6dca9018"
+              },
+              "comparison": {
+                "original_image": "Birch_NormalGreen_30pct_RealGame_20261105.png",
+                "sha256": "5050b5d69afc419fa168d747b5dc5a3d3f098d5e1e037aef713d41573f4a8911",
+                "processing": "Native original framebuffer crop/nearest-neighbor 4x only; no repaint or color adjustments"
+              },
+              "color_conditions": {
+                "local_hour": 12,
+                "weather": "Clear",
+                "paused": true,
+                "weather_transition_complete": true,
+                "verified": true,
+                "season": "Spring day10, controlled original-game normal green (FallIntensity override 0)",
+                "shader_intensity": 0,
+                "zoom": "camera rootSize=23; original screenshot 1280x720",
+                "evidence": "Docs/ValidationEvidence/BirchNormalGreenImmatureNative16-20261105.md"
+              },
+              "fingerprint": {
+                "definition": "46d730c6d55c6d5b5d03be8c2d4102586f14337383c0fdd67ab8bdee96918007",
+                "pngs": {
+                  "Textures/Things/Plant/AMJ/Dakekanba/Dakekanba_A.png": "8fdc5c4d394ec990b5ae962f7667b9e906817bfc8c226af524a30f2b51eaf164",
+                  "Textures/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_A.png": "91942dc1d6563d26bad48bd26cce7bb1c73088c18fc3a014310e156acf85da04"
+                }
+              }
+            }
+          },
+          "fingerprint": {
+            "definition": "46d730c6d55c6d5b5d03be8c2d4102586f14337383c0fdd67ab8bdee96918007",
+            "pngs": {
+              "Textures/Things/Plant/AMJ/Dakekanba/Dakekanba_A.png": "8fdc5c4d394ec990b5ae962f7667b9e906817bfc8c226af524a30f2b51eaf164",
+              "Textures/Things/Plant/AMJ/Dakekanba_Leafless/Dakekanba_Leafless_A.png": "91942dc1d6563d26bad48bd26cce7bb1c73088c18fc3a014310e156acf85da04"
             }
           }
         },
