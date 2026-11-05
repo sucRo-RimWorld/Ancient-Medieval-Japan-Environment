@@ -1,4 +1,3 @@
-using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
@@ -11,7 +10,10 @@ namespace AncientMedievalJapan.Environment
     /// the annual tile rainfall used by world and river generation.
     /// All factors and day windows below are provisional pending game sampling.
     /// </summary>
-    [HarmonyPatch(typeof(WeatherDecider), "CurrentWeatherCommonality")]
+    // 2026-11-05 author HOLD: do not register this seasonal weather-weight
+    // postfix with Harmony. Keep the historical tuning and the shared biome
+    // predicate while Tsuyu/Akisame are deferred; year-round rain sky glow
+    // in RainWeatherDaylightPatch remains independently active.
     public static class SeasonalRainWeatherPatch
     {
         // 60-day year: ~7-day Tsuyu, autumn rains, post-rain summer/autumn sun.
