@@ -679,9 +679,9 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 case "AMJ_WarmTemperateForest":
                     return new[] { "AMJ_Tree_Shii", "AMJ_Tree_Yamazakura", "Plant_TreeMaple", "Plant_TreeBamboo" };
                 case "AMJ_CoolTemperateForest":
-                    return new[] { "AMJ_Tree_Beech", "AMJ_Tree_Yamazakura", "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch", "Plant_TreePine" };
+                    return new[] { "AMJ_Tree_Beech", "AMJ_Tree_Yamazakura", "Plant_TreeOak", "Plant_TreeMaple", "AMJ_Tree_Shirakaba", "Plant_TreePine" };
                 case "AMJ_SubalpineForest":
-                    return new[] { "AMJ_Tree_Shirabiso", "Plant_TreeBirch" };
+                    return new[] { "AMJ_Tree_Shirabiso", "AMJ_Tree_Dakekanba" };
                 case "AMJ_AlpineZone":
                     return new string[0];
                 default:
@@ -735,8 +735,9 @@ namespace AncientMedievalJapan.Environment.Quicktests
                         throw new InvalidOperationException("No unpolluted test cell.");
 
                     string[] ordinaryTrees = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Yamazakura",
-                        "AMJ_Tree_Shirabiso", "Plant_TreeOak", "Plant_TreeMaple",
-                        "Plant_TreeBirch", "Plant_TreePine", "Plant_TreeBamboo", "Plant_TreePoplar" };
+                        "AMJ_Tree_Shirabiso", "AMJ_Tree_Shirakaba", "AMJ_Tree_Dakekanba",
+                        "Plant_TreeOak", "Plant_TreeMaple", "Plant_TreeBirch",
+                        "Plant_TreePine", "Plant_TreeBamboo", "Plant_TreePoplar" };
                     foreach (string name in ordinaryTrees)
                     {
                         ThingDef tree = DefDatabase<ThingDef>.GetNamed(name);
@@ -803,8 +804,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
 
         private static void AddHarvestOutputAssertions(QuickstartVerification verification, Map map, string expected)
         {
-            string[] names = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu", "AMJ_Tree_Hannoki" };
-            int[] yields = { 42, 40, 30, 8, 24 };
+            string[] names = { "AMJ_Tree_Shii", "AMJ_Tree_Beech", "AMJ_Tree_Shirabiso", "AMJ_Shrub_Haimatsu", "AMJ_Tree_Hannoki", "AMJ_Tree_Shirakaba", "AMJ_Tree_Dakekanba" };
+            int[] yields = { 42, 40, 30, 8, 24, 27, 27 };
             float originalYieldFactor = Find.Storyteller.difficulty.cropYieldFactor;
             Find.Storyteller.difficulty.cropYieldFactor = 1f;
             try
@@ -4135,7 +4136,8 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 {
                     "Plant_Moss",
                     "Plant_TreeWillow",
-                    "Plant_TreeBirch",
+                    "AMJ_Tree_Shirakaba",
+                    "AMJ_Tree_Dakekanba",
                     "Plant_TreeMaple"
                 };
             }
@@ -4172,12 +4174,13 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 "AMJ_Plant_Mizugoke",
                 "Plant_Bush",
                 "Plant_TreeWillow",
-                "Plant_TreeBirch",
+                "AMJ_Tree_Shirakaba",
+                "AMJ_Tree_Dakekanba",
                 "Plant_TreeMaple",
                 "Plant_Berry",
                 "Plant_HealrootWild"
             };
-            float[] expected = { 1.70f, 0.60f, 1.10f, 1.40f, 1.20f, 0.3f, 0.45f, 0.45f, 0.45f, 0.07f, 0.05f };
+            float[] expected = { 1.70f, 0.60f, 1.10f, 1.40f, 1.20f, 0.3f, 0.45f, 0.40f, 0.05f, 0.45f, 0.07f, 0.05f };
             for (int i = 0; i < names.Length; i++)
             {
                 string name = names[i];
@@ -4328,7 +4331,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
         }
     }
 
-    public sealed class AMJBeechSeasonalSampleQuickstart : BiomeTerrainQuickstartBase
+    public class AMJBeechSeasonalSampleQuickstart : BiomeTerrainQuickstartBase
     {
         private bool sawLeafless;
         private bool sawRecovery;
@@ -4382,7 +4385,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                     }
                 }
             }
-            if (selected == null) { Log.Error("[AMJ Environment SeasonSample] No outdoor beech."); return; }
+            if (selected == null) { Log.Error("[AMJ Environment SeasonSample] No outdoor target plant: " + TargetPlantDefName); return; }
             AccessTools.Field(typeof(PlantFallColors), "FallIntensityOverride").SetValue(null, false);
             UnityEngine.Vector2 longLat = Find.WorldGrid.LongLatOf(map.Tile);
             int start = Find.TickManager.TicksGame;
@@ -4439,11 +4442,201 @@ namespace AncientMedievalJapan.Environment.Quicktests
         {
             QuickstartVerification result = base.Verify();
             result.Assert("natural calendar fall factor changes without override", delegate { return minFall < 0.1f && maxFall > 0.9f; });
-            result.Assert("same beech naturally becomes leafless", delegate { return sawLeafless; });
-            result.Assert("same beech naturally recovers leaves", delegate { return sawRecovery; });
+            result.Assert("same " + TargetPlantDefName + " naturally becomes leafless", delegate { return sawLeafless; });
+            result.Assert("same " + TargetPlantDefName + " naturally recovers leaves", delegate { return sawRecovery; });
             result.Assert("sampled live state textures are valid", delegate { return validTextures; });
             return result;
         }
+    }
+
+    // These focused opt-in Quickstarts reuse the existing Beech native calendar
+    // sampling and same-tree recovery verification. They are not run by the
+    // normal 8-biome matrix and do not simulate a fully ticked game year.
+    // No changes to the real Beech Quickstart's selected biome or tree.
+    public sealed class AMJShirakabaSeasonalSampleQuickstart : AMJBeechSeasonalSampleQuickstart
+    {
+        protected override string TargetPlantDefName
+        {
+            get { return "AMJ_Tree_Shirakaba"; }
+        }
+    }
+
+    public sealed class AMJDakekanbaSeasonalSampleQuickstart : AMJBeechSeasonalSampleQuickstart
+    {
+        protected override string TargetBiomeDefName
+        {
+            get { return "AMJ_SubalpineForest"; }
+        }
+
+        protected override string TargetPlantDefName
+        {
+            get { return "AMJ_Tree_Dakekanba"; }
+        }
+    }
+
+    // Optional same-species planting Job and growth probe. Separate from coldest-tile
+    // seasonal sampling: a coldest winter tile need not permit sowing at all.
+    // This creates a real registered growing zone and runs the Vanilla Sow Job.
+    // Growth uses hourly calendar sampling + Plant.TickLong, NOT a full ticked year.
+    public abstract class AMJBirchSowingJobQuickstart : BiomeTerrainQuickstartBase
+    {
+        protected override bool ValidateAmjBiomeContracts { get { return false; } }
+        private bool growthWindow;
+        private bool sowJobRan;
+        private bool sownPlantGrew;
+        private bool cleanupComplete;
+
+        public override void PostApplyConfiguration()
+        {
+            base.PostApplyConfiguration();
+            // Use the warmest naturally eligible settlement tile of this species'
+            // own biome; unlike the leaf-loss test, sowing requires a growth season.
+            SurfaceTile best = null;
+            for (int i = 0; i < Find.WorldGrid.TilesCount; i++)
+            {
+                SurfaceTile tile = Find.WorldGrid[i] as SurfaceTile;
+                if (tile == null || tile.PrimaryBiome.defName != TargetBiomeDefName ||
+                    !TileFinder.IsValidTileForNewSettlement(tile.tile)) continue;
+                if (best == null || tile.temperature > best.temperature) best = tile;
+            }
+            if (best != null) Find.GameInitData.startingTile = best.tile;
+        }
+
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            Map map = Find.CurrentMap;
+            if (map == null) return;
+            ThingDef def = DefDatabase<ThingDef>.GetNamedSilentFail(TargetPlantDefName);
+            ResearchProjectDef research = DefDatabase<ResearchProjectDef>.GetNamedSilentFail("TreeSowing");
+            if (def == null || research == null) return;
+            IntVec3 cell = map.Center + new IntVec3(24, 0, 16);
+            if (!cell.InBounds(map) || cell.Roofed(map) || cell.IsPolluted(map)) return;
+            int originalTicks = Find.TickManager.TicksGame;
+            TerrainDef originalTerrain = map.terrainGrid.TerrainAt(cell);
+            Dictionary<ResearchProjectDef, float> progress =
+                (Dictionary<ResearchProjectDef, float>)AccessTools.Field(
+                    typeof(ResearchManager), "progress").GetValue(Find.ResearchManager);
+            Dictionary<ResearchProjectDef, float> saved =
+                new Dictionary<ResearchProjectDef, float>(progress);
+            Zone_Growing zone = null;
+            Pawn pawn = null;
+            Plant sown = null;
+            try
+            {
+                foreach (IntVec3 c in GenRadial.RadialCellsAround(cell, 2f, true))
+                {
+                    if (!c.InBounds(map)) continue;
+                    foreach (Thing t in c.GetThingList(map).ToArray())
+                        if (!(t is Pawn)) t.Destroy(DestroyMode.Vanish);
+                    map.terrainGrid.SetTerrain(c, TerrainDefOf.Soil);
+                }
+                zone = new Zone_Growing(map.zoneManager);
+                map.zoneManager.RegisterZone(zone);
+                zone.AddCell(cell);
+                zone.SetPlantDefToGrow(def);
+                progress[research] = research.Cost;
+                pawn = PawnGenerator.GeneratePawn(PawnKindDefOf.Colonist, Faction.OfPlayer);
+                pawn.skills.GetSkill(SkillDefOf.Plants).Level = 20;
+                GenSpawn.Spawn(pawn, cell + IntVec3.North, map);
+                WorkGiver_GrowerSow giver = new WorkGiver_GrowerSow();
+                // This shared Vanilla cache must be recalculated for this exact cell.
+                AccessTools.Field(typeof(WorkGiver_Grower), "wantedPlantDef").SetValue(null, null);
+                for (int hour = 0; hour <= 1440; hour++)
+                {
+                    Find.TickManager.DebugSetTicksGame(originalTicks + hour * GenDate.TicksPerHour);
+                    Find.World.tileTemperatures.WorldComponentTick();
+                    object cached = AccessTools.Method(typeof(TileTemperaturesComp),
+                        "RetrieveCachedData").Invoke(Find.World.tileTemperatures, new object[] { map.Tile });
+                    AccessTools.Method(cached.GetType(), "CheckCache").Invoke(cached, null);
+                    map.mapTemperature.TemperatureUpdate();
+                    map.skyManager.SkyManagerUpdate();
+                    if (!PlantUtility.GrowthSeasonNow(cell, map, def)) continue;
+                    Job job = giver.JobOnCell(pawn, cell, false);
+                    if (job == null || job.def != JobDefOf.Sow ||
+                        job.plantDefToSow != def) continue;
+                    growthWindow = true;
+                    pawn.jobs.StartJob(job, JobCondition.InterruptForced);
+                    int ticks = 0;
+                    while (ticks++ < 15000)
+                    {
+                        pawn.pather.PatherTick();
+                        if (pawn.jobs.curDriver == null) break;
+                        pawn.jobs.curDriver.DriverTick();
+                        if (pawn.jobs.curDriver != null)
+                            pawn.jobs.curDriver.DriverTickInterval(1);
+                        sown = cell.GetPlant(map);
+                        if (sown != null && sown.def == def && sown.sown &&
+                            sown.Growth >= 0.05f) break;
+                    }
+                    sown = cell.GetPlant(map);
+                    sowJobRan = sown != null && sown.def == def && sown.sown &&
+                        sown.Growth >= 0.05f;
+                    break;
+                }
+                if (sowJobRan)
+                {
+                    int sowTicks = Find.TickManager.TicksGame;
+                    float initialGrowth = sown.Growth;
+                    // Actual Plant.TickLong with sampled native temperature/daylight,
+                    // not a forced growth percentage or full map simulation.
+                    for (int hour = 0; hour <= 1440 && !sown.Destroyed; hour++)
+                    {
+                        Find.TickManager.DebugSetTicksGame(sowTicks + hour * GenDate.TicksPerHour);
+                        Find.World.tileTemperatures.WorldComponentTick();
+                        object cached = AccessTools.Method(typeof(TileTemperaturesComp),
+                            "RetrieveCachedData").Invoke(Find.World.tileTemperatures, new object[] { map.Tile });
+                        AccessTools.Method(cached.GetType(), "CheckCache").Invoke(cached, null);
+                        map.mapTemperature.TemperatureUpdate();
+                        map.skyManager.SkyManagerUpdate();
+                        sown.TickLong();
+                        if (sown.Growth > initialGrowth + 0.001f)
+                        {
+                            sownPlantGrew = true;
+                            break;
+                        }
+                    }
+                }
+                Log.Message("[AMJ Birch SowJob] def=" + TargetPlantDefName +
+                    " biome=" + map.Biome.defName + " growthWindow=" + growthWindow +
+                    " realPawnJob=" + sowJobRan + " sampledNativeGrowth=" + sownPlantGrew +
+                    " method=Vanilla-JobDriver-Sow-and-sampled-TickLong; not-full-year");
+            }
+            finally
+            {
+                Find.TickManager.DebugSetTicksGame(originalTicks);
+                if (pawn != null && pawn.Spawned) pawn.Destroy(DestroyMode.Vanish);
+                if (sown != null && sown.Spawned) sown.Destroy(DestroyMode.Vanish);
+                if (zone != null) map.zoneManager.DeregisterZone(zone);
+                map.terrainGrid.SetTerrain(cell, originalTerrain);
+                progress.Clear();
+                foreach (KeyValuePair<ResearchProjectDef, float> entry in saved)
+                    progress.Add(entry.Key, entry.Value);
+                cleanupComplete = true;
+            }
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = base.Verify();
+            result.Assert("birch natural growing season exists in own biome", delegate { return growthWindow; });
+            result.Assert("real pawn sow Job plants selected birch", delegate { return sowJobRan; });
+            result.Assert("same sown birch grows through sampled native TickLong", delegate { return sownPlantGrew; });
+            result.Assert("birch sowing probe restores research and removes test zone", delegate { return cleanupComplete; });
+            return result;
+        }
+    }
+
+    public sealed class AMJShirakabaSowingJobQuickstart : AMJBirchSowingJobQuickstart
+    {
+        protected override string TargetBiomeDefName { get { return "AMJ_CoolTemperateForest"; } }
+        protected override string TargetPlantDefName { get { return "AMJ_Tree_Shirakaba"; } }
+    }
+
+    public sealed class AMJDakekanbaSowingJobQuickstart : AMJBirchSowingJobQuickstart
+    {
+        protected override string TargetBiomeDefName { get { return "AMJ_SubalpineForest"; } }
+        protected override string TargetPlantDefName { get { return "AMJ_Tree_Dakekanba"; } }
     }
 
     public sealed class AMJCoolTemperateTerrainQuickstart : BiomeTerrainQuickstartBase
@@ -4556,7 +4749,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
                 {
                     "Plant_TreeOak",
                     "Plant_TreeMaple",
-                    "Plant_TreeBirch",
+                    "AMJ_Tree_Shirakaba",
                     "Plant_TreePine"
                 };
             }
@@ -4581,7 +4774,7 @@ namespace AncientMedievalJapan.Environment.Quicktests
             {
                 return new string[]
                 {
-                    "Plant_TreeBirch"
+                    "AMJ_Tree_Dakekanba"
                 };
             }
         }
@@ -5035,6 +5228,243 @@ namespace AncientMedievalJapan.Environment.Quicktests
             result.Assert("native potato light-growth factor and solar desired power fall in rain", delegate
                 { return plantAndSolarRainResponseCorrect; });
             return result;
+        }
+    }
+
+
+    // Two-version native test only. The Project test runner first loads the
+    // pinned pre-PR Environment payload, then loads PR #310 in this same
+    // isolated saved-game folder. This fixture never ships with the Mod.
+    public sealed class AMJBirchLegacySaveQuickstart : BiomeTerrainQuickstartBase
+    {
+        public const string OriginalName = "AMJE_Birch_Legacy_Baseline16";
+        public const string UpdatedName = "AMJE_Birch_Updated16";
+        protected override string TargetBiomeDefName { get { return "ColdBog"; } }
+        protected override string TargetPlantDefName { get { return "Plant_TreeBirch"; } }
+        protected override bool ValidateAmjBiomeContracts { get { return false; } }
+
+        private bool baselineSaved;
+        private bool baselineLegacyPresent;
+        private bool baselineNewDefsAbsent;
+
+        public override void PostLoaded()
+        {
+            base.PostLoaded();
+            Map map = Find.CurrentMap;
+            ThingDef legacy = DefDatabase<ThingDef>.GetNamedSilentFail("Plant_TreeBirch");
+            baselineNewDefsAbsent =
+                DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Shirakaba") == null &&
+                DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Dakekanba") == null;
+            int count = 0;
+            int sampleId = -1;
+            if (map != null && legacy != null)
+            {
+                foreach (Thing thing in map.listerThings.ThingsOfDef(legacy))
+                {
+                    Plant plant = thing as Plant;
+                    if (plant == null || plant.Destroyed) continue;
+                    count++;
+                    if (sampleId < 0) sampleId = plant.thingIDNumber;
+                }
+            }
+            baselineLegacyPresent = map != null && map.Biome.defName == "ColdBog" &&
+                count > 0 && sampleId >= 0;
+            if (baselineLegacyPresent && baselineNewDefsAbsent)
+            {
+                GameDataSaveLoader.SaveGame(OriginalName);
+                var method = typeof(GenFilePaths).GetMethod("FilePathForSavedGame",
+                    System.Reflection.BindingFlags.Static |
+                    System.Reflection.BindingFlags.Public |
+                    System.Reflection.BindingFlags.NonPublic);
+                string filename = method == null ? null :
+                    method.Invoke(null, new object[] { OriginalName }) as string;
+                baselineSaved = !string.IsNullOrEmpty(filename) &&
+                    System.IO.File.Exists(filename);
+            }
+            string evidence = " saved=" + baselineSaved +
+                " legacyCount=" + count + " specimenID=" + sampleId +
+                " newDefsAbsent=" + baselineNewDefsAbsent +
+                " biome=" + (map == null ? "<null>" : map.Biome.defName);
+            Log.Message("AMJE_BIRCH_BASELINE" + evidence);
+            // Common manual old-save adapter recognizes this stable,
+            // owner-controlled lifecycle marker; older reports remain valid.
+            Log.Message("AMJ_PLANT_LEGACY_BASELINE" + evidence);
+        }
+
+        public override QuickstartVerification Verify()
+        {
+            QuickstartVerification result = new QuickstartVerification();
+            result.Assert("pre-PR ColdBog contains original natural Birch",
+                delegate { return baselineLegacyPresent; });
+            result.Assert("pre-PR Environment does not define two new Birch species",
+                delegate { return baselineNewDefsAbsent; });
+            result.Assert("real pre-PR populated game save exists on disk",
+                delegate { return baselineSaved; });
+            return result;
+        }
+    }
+
+    // Use the same real entry-screen -> Play-scene save loader as the
+    // existing AMJE wetland save/reload Quickstart. No synthetic .rws XML edits.
+    [HarmonyPatch(typeof(Root_Entry), "Update")]
+    public static class AMJBirchLegacyReloadBoot
+    {
+        private static int entryFrames;
+        private static bool invoked;
+
+        [HarmonyPostfix]
+        public static void AfterEntryUpdate()
+        {
+            string stage = System.Environment.GetEnvironmentVariable(
+                "AMJ_PLANT_LEGACY_STAGE");
+            if (invoked || (stage != "upgrade" && stage != "verify")) return;
+            if (++entryFrames < 180) return;
+            invoked = true;
+            string saveName = stage == "upgrade" ?
+                AMJBirchLegacySaveQuickstart.OriginalName :
+                AMJBirchLegacySaveQuickstart.UpdatedName;
+            Log.Message("AMJE_BIRCH_RELOAD_START stage=" + stage +
+                " saveName=" + saveName);
+            LongEventHandler.QueueLongEvent(delegate
+            {
+                Current.Game = new Game
+                {
+                    InitData = new GameInitData { gameToLoad = saveName }
+                };
+            }, "Play", "LoadingLongEvent", true, null);
+        }
+    }
+
+    [HarmonyPatch(typeof(Game), "LoadGame")]
+    public static class AMJBirchLegacyReloadObserver
+    {
+        // Test only: this runs after a genuine old saved map was independently
+        // loaded, and only in the disposable verification process. No new tree
+        // is created directly. The original game's WildPlantSpawner must select
+        // the species and generate the Plant from the updated wildPlant pool.
+        private static bool ObserveNewWildBirch(Map map, ThingDef shira,
+            ThingDef dake, int protectedId)
+        {
+            if (map == null || map.wildPlantSpawner == null ||
+                shira == null || dake == null) return false;
+            int beforeShira = map.listerThings.ThingsOfDef(shira).Count;
+            int beforeDake = map.listerThings.ThingsOfDef(dake).Count;
+            // A bounded harvest-like clearing provides fresh regrowth slots;
+            // never touch the retained legacy specimen ID. This clearing is
+            // after the previously verified upgraded save was already written.
+            int cleared = 0;
+            foreach (IntVec3 cell in GenRadial.RadialCellsAround(
+                map.Center, 15f, true))
+            {
+                if (!cell.InBounds(map)) continue;
+                Plant plant = cell.GetPlant(map);
+                if (plant != null && !plant.Destroyed &&
+                    plant.thingIDNumber != protectedId)
+                {
+                    plant.Destroy(DestroyMode.Vanish);
+                    cleared++;
+                }
+            }
+            int originalTick = Find.TickManager.TicksGame;
+            int attempted = 0;
+            int newShira = 0;
+            int newDake = 0;
+            try
+            {
+                // Advance only the original ecology spawner's native tick
+                // loop; this is not a simulated fully ticked game year.
+                // 100000 native spawner ticks is a bounded trial, and an
+                // absence is a genuine inconclusive/failing observation.
+                for (attempted = 1; attempted <= 100000; attempted++)
+                {
+                    Find.TickManager.DebugSetTicksGame(
+                        originalTick + attempted);
+                    map.wildPlantSpawner.WildPlantSpawnerTick();
+                    if (attempted % 1000 == 0)
+                    {
+                        newShira = map.listerThings.ThingsOfDef(shira).Count -
+                            beforeShira;
+                        newDake = map.listerThings.ThingsOfDef(dake).Count -
+                            beforeDake;
+                        if (newShira > 0 && newDake > 0) break;
+                    }
+                }
+            }
+            finally
+            {
+                Find.TickManager.DebugSetTicksGame(originalTick);
+            }
+            newShira = map.listerThings.ThingsOfDef(shira).Count - beforeShira;
+            newDake = map.listerThings.ThingsOfDef(dake).Count - beforeDake;
+            bool passed = newShira > 0 || newDake > 0;
+            Log.Message("AMJE_BIRCH_WILD_REGROW passed=" + passed +
+                " method=WildPlantSpawnerTick" +
+                " nativeSpawnerTicks=" + attempted +
+                " clearedPlants=" + cleared +
+                " initialShirakaba=" + beforeShira +
+                " initialDakekanba=" + beforeDake +
+                " addedShirakaba=" + newShira +
+                " addedDakekanba=" + newDake +
+                " oldSaveMap=True directSpawn=False");
+            return passed;
+        }
+
+        [HarmonyPostfix]
+        public static void Postfix()
+        {
+            string stage = System.Environment.GetEnvironmentVariable(
+                "AMJ_PLANT_LEGACY_STAGE");
+            if (stage != "upgrade" && stage != "verify") return;
+            LongEventHandler.ExecuteWhenFinished(delegate
+            {
+                Map map = Find.CurrentMap;
+                ThingDef oldDef = DefDatabase<ThingDef>.GetNamedSilentFail("Plant_TreeBirch");
+                ThingDef shira = DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Shirakaba");
+                ThingDef dake = DefDatabase<ThingDef>.GetNamedSilentFail("AMJ_Tree_Dakekanba");
+                int count = 0;
+                int firstId = -1;
+                if (map != null && oldDef != null)
+                {
+                    foreach (Thing thing in map.listerThings.ThingsOfDef(oldDef))
+                    {
+                        Plant plant = thing as Plant;
+                        if (plant == null || plant.Destroyed) continue;
+                        count++;
+                        if (firstId < 0) firstId = plant.thingIDNumber;
+                    }
+                }
+                bool newWild = false;
+                bool oldWild = false;
+                float shiraWeight = -1f;
+                float dakeWeight = -1f;
+                if (map != null && map.Biome != null)
+                    foreach (BiomePlantRecord record in map.Biome.wildPlants)
+                    {
+                        if (record.plant == shira) shiraWeight = record.commonality;
+                        if (record.plant == dake) dakeWeight = record.commonality;
+                        if (record.plant == oldDef) oldWild = true;
+                    }
+                newWild = Math.Abs(shiraWeight - 0.40f) < 0.001f &&
+                          Math.Abs(dakeWeight - 0.05f) < 0.001f;
+                bool passed = map != null && map.Biome.defName == "ColdBog" &&
+                    oldDef != null && shira != null && dake != null &&
+                    count > 0 && firstId >= 0 && newWild && !oldWild;
+                if (passed && stage == "upgrade")
+                    GameDataSaveLoader.SaveGame(
+                        AMJBirchLegacySaveQuickstart.UpdatedName);
+                string evidence = " stage=" + stage +
+                    " passed=" + passed + " legacyCount=" + count +
+                    " specimenID=" + firstId + " newWild=" + newWild +
+                    " oldWild=" + oldWild +
+                    " shiraWeight=" + shiraWeight + " dakeWeight=" + dakeWeight;
+                Log.Message("AMJE_BIRCH_RELOAD" + evidence);
+                Log.Message("AMJ_PLANT_LEGACY_RELOAD" + evidence);
+                if (passed && stage == "verify" &&
+                    !ObserveNewWildBirch(map, shira, dake, firstId))
+                    Log.Error("AMJE_BIRCH_WILD_REGROW_FAILED old map did not naturally spawn new birch");
+                if (!passed) Log.Error("AMJE_BIRCH_RELOAD_FAILED stage=" + stage);
+                UnityEngine.Application.Quit();
+            });
         }
     }
 

@@ -21,6 +21,54 @@
       "save": null,
       "run_cold": false,
       "run_save": false
+    },
+    "shirakaba": {
+      "def_name": "AMJ_Tree_Shirakaba",
+      "visual_biome": "AMJ_CoolTemperateForest",
+      "cold_biome": "AMJ_CoolTemperateForest",
+      "bloom_day": null,
+      "modes": [
+        "normal",
+        "autumn",
+        "icon",
+        "infocard"
+      ],
+      "graphics": {
+        "normal": "/Shirakaba",
+        "leafless": "/Shirakaba_Leafless",
+        "leafless_snow_overlay": "/LeaflessNoSnow",
+        "normal_snow": "/Shirakaba_Snow"
+      },
+      "save": null,
+      "run_cold": true,
+      "run_save": false,
+      "legacy_save": {
+        "baseline_source_sha": "b6ca638df7016a82c42606f0c73fb2470ce5f1b3",
+        "scenario": "AMJBirchLegacySaveQuickstart",
+        "original_save": "AMJE_Birch_Legacy_Baseline16",
+        "updated_save": "AMJE_Birch_Updated16"
+      }
+    },
+    "dakekanba": {
+      "def_name": "AMJ_Tree_Dakekanba",
+      "visual_biome": "AMJ_SubalpineForest",
+      "cold_biome": "AMJ_SubalpineForest",
+      "bloom_day": null,
+      "modes": [
+        "normal",
+        "autumn",
+        "icon",
+        "infocard"
+      ],
+      "graphics": {
+        "normal": "/Dakekanba",
+        "leafless": "/Dakekanba_Leafless",
+        "leafless_snow_overlay": "/LeaflessNoSnow",
+        "normal_snow": "/Dakekanba_Snow"
+      },
+      "save": null,
+      "run_cold": true,
+      "run_save": false
     }
   }
 }

@@ -16,6 +16,8 @@ APPROVED = {
     ("AMJ_CoolTemperateForest", "AMJ_Tree_Yamazakura"): 0.12,
     ("AMJ_CoolTemperateForest", "AMJ_Tree_Beech"): 1.68,
     ("AMJ_SubalpineForest", "AMJ_Tree_Shirabiso"): 3.5,
+    ("AMJ_CoolTemperateForest", "AMJ_Tree_Shirakaba"): 0.6,
+    ("AMJ_SubalpineForest", "AMJ_Tree_Dakekanba"): 0.5,
     ("AMJ_AlpineZone", "AMJ_Shrub_Haimatsu"): 1.34,
 }
 
