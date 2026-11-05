@@ -69,6 +69,7 @@
 - **色の明示的な除外:** 比較元は正午12時／Clear／一時停止、秋day7、`FallIntensityOverride=true`・強度1の**強制秋色**で撮影された。未熟木の**通常の緑葉色は見ていない**ので採用判断を追加しない。台帳の両樹種`immature`行には`partial_acceptance.geometry=accepted`を記録し、`partial_acceptance.normal_green_leaf_color=pending`のまま保つ。現時点で`immature.status=pending`、樹種`complete=false`を維持。
 - **既存の受入はそのまま:** 通常・葉あり積雪・落葉・強制秋色・UIアイコンの各状態は既存の作者`accepted`、自然季節切替機構はゲーム実測に基づく`transition=verified`。未熟木形状の今回の部分承認は、未熟木のゲーム内緑葉色・連続した季節移行のすべてのフレーム・Dakekanba InfoCard・長期成長バランスの承認ではない。
 - 完了未達のためEnvironment PR #310は**マージ保留**、Workshop公開は別途許可必須。新しい画像生成・バイナリ転送・実ゲーム起動は今回実施しない。
+- **2026-11-05 通常緑葉の元ゲーム撮影を追加実行済み:** Project手動[シラカバ #41987600388](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41987600388)と[ダケカンバ #41988280255](https://github.com/sucRo-RimWorld/Ancient-Medieval-Japan-Project/actions/runs/41988280255)で、本来のRimWorld 1.6描画（春・正午・Clear・一時停止・秋色強度0・実植物Growth1.00/0.30）を撮影し、両方ともビルド/実ゲームPASS、Unity ERROR0。原画像は[正式証拠](ValidationEvidence/BirchNormalGreenImmatureNative16-20261105.md)の元Artifactに保存。元PNGの切り出し・最近傍4倍で両樹種を同条件比較した。**作者の通常緑葉色の採否は未回答なので両方の`immature.status=pending`は維持**し、未熟状態全体を自動承認しない。
 
 ## 2026-11-03 両樺の自然季節移行メカニクス：実ゲーム既存証拠で verified（最新）
 
