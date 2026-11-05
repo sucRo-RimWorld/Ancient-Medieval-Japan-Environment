@@ -15,10 +15,12 @@ This live file contains **open owner handoffs and material release/acceptance bl
 
 
 
-### Rainy season, crop sunlight and Environment 0.3 — balance HOLD
-- **Owner:** [Design §4.1](Design.md), [seasonal rain research](Research/TsuyuAkisameClimateCalibration-2026-10-21.md) and [2026-10-28 native crop-rate evidence](ValidationEvidence/SeasonalCropRateNative16-20261028.md).
-- **Current source:** 0.3.0 development adds separate (a) selected-biome Tsuyu/Akisame weather-selection weights plus post-rain Clear weighting and (b) year-round rainy/foggy-weather sky-glow attenuation. The real 1.6 original-game 60-day *event-stepped* three-seed Potato/Rice `Plant.GrowthRate` comparison isolated **only (b)** under unchanged 0.3 weather schedules: ratios 0.9131 / 0.9067 / 0.9154 (mean 0.9117). **Not** a genuine fully ticked crop harvest or full 0.2-versus-0.3 weather-frequency comparison. Neither season removal nor a gameplay coefficient change is approved by this result.
-- **Open:** Author's weather/light decision; actual whole-season crop maturity/harvest, other climates/MO interactions and optional Dynamic Atmosphere co-load remain unaccepted. Do not turn one-off research PASS into a release acceptance. The current full bilingual Workshop description exceeds the 8,000-byte release gate; 0.3 candidate remains **release HOLD** until that separate source issue is corrected.
+### Tsuyu/Akisame on HOLD; year-round rain sunlight separate
+- **Owner:** [Design — 2026-11-05 hold decision](Design.md), §4.1 historical provisional source and [crop-rate native evidence](ValidationEvidence/SeasonalCropRateNative16-20261028.md).
+- **Author decision (2026-11-05):** **Both Tsuyu and Akisame remain on HOLD**. They are outside the five-plant seasonal update and are not prerequisites for Environment 0.3.0 release. Do not enable or distribute provisional seasonal rain-selection weights or their post-rain Clear multipliers while held. Existing provisional source does not confer approval; implementation disablement and packaged-byte verification are **OPEN**, not done by this documentation change.
+- **Distinct existing feature:** Year-round rainy/foggy weather sky-glow attenuation is not automatically removed or numerically retuned by the seasonal-rain HOLD. Under unchanged 0.3 weather schedules, the bounded original 1.6 event-stepped three-seed Potato/Rice growth-rate ratios were 0.9131 / 0.9067 / 0.9154 (mean 0.9117). This is not full crop harvest, weather-frequency comparison or independent release acceptance.
+- **Open:** Ensure the held seasonal weights are inactive in actual release builds, assess independent year-round light balance and release requirements when relevant. The bilingual Workshop description currently exceeds 8,000 bytes; the 0.3 candidate remains **release HOLD** until that separate gate is corrected. No Workshop publication authorized.
+
 
 ### Workshop publication — YADA restored; distributed bytes not verified
 - **Owner:** [active publication procedure](GoldenPaths/WorkshopPublication.md), [ReleaseCandidate](GoldenPaths/ReleaseCandidate.md), [ReleaseReadiness](ReleaseReadiness.md).
