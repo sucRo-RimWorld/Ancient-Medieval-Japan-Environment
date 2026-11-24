@@ -1,5 +1,22 @@
 # AMJ Environment — Final Art Direction
 
+## 2026-11-24 ウメ季節4状態 v6 — 作者採用（外観原画のみ）
+
+作者はv6の通常葉あり・落葉・白梅満開・葉あり積雪の4状態を「採用としてpush」と承認した。葉は枝に沿う互生表現を優先し、葉密度は既存ブナ／スダジイと比較して許容、開花部分の軽微な透過漏れは作者が外観上許容した。幹・主要分岐は概ね一致するが、画素一致ではなく、通常葉と積雪の葉位置にも差がある。**2026-11-05の採用原画・256px版は不変のまま履歴として保存する。今後のウメ季節実装はこの4状態を使用する。**
+
+- 原本（作者が承認した比較画像の正確な原バイト）：`Art/Sources/Things/Plant/AMJ/Ume/Ume_FourStates_Accepted_20261124.png`、1266×1242 RGBA、SHA-256 `9f86c9872bda3268eabfa00c969bca9baee35062c729afee480115c772844678`、Git blob `bd9b5848b3d7323bf0216cdc09587d29e63feda5`。
+- 分離は原画像の透明な区切り x=627, y=595 で切り出し、描画の画素を変更せず704×704透明キャンバス上に配置。α≥16の根元下端を共通y=680（排他的境界）に合わせ、256px派生はLANCZOS比例縮小。各PNGをPillowで復号検証し、α≥16の輪郭が分割境界に接しないこと、全4枚の256px表示を目視確認した。原本と分離画像は別物として保存する。
+
+| 状態 | 分離元 704px PNG | 256px派生 PNG |
+|---|---|---|
+| 通常葉 | `Art/Sources/Things/Plant/AMJ/Ume/Ume_Normal_V6_Split_20261124.png` (blob `700bde125a7396ea9777806473dde2f703d10104`) | `Textures/Things/Plant/AMJ/Ume/Ume_V6_A.png` (blob `f20654133cdb54cb4f03dc57b85811b476770f9d`) |
+| 落葉 | `Art/Sources/Things/Plant/AMJ/Ume_Leafless/Ume_Leafless_V6_Split_20261124.png` (blob `fcbc7329003a1bfcedb10731febbed00b6a220b3`) | `Textures/Things/Plant/AMJ/Ume_Leafless/Ume_Leafless_A.png` (blob `92210b9904ed9067a75f9b5ef0852da9b755cb7f`) |
+| 白梅満開 | `Art/Sources/Things/Plant/AMJ/Ume_Bloom/Ume_Bloom_V6_Split_20261124.png` (blob `f51651eac63876b8380ff6069a17efe1d9970dba`) | `Textures/Things/Plant/AMJ/Ume_Bloom/Ume_Bloom_A.png` (blob `ab5871c6d14b49ccf2664d945a8ab5ea036c026a`) |
+| 葉あり積雪 | `Art/Sources/Things/Plant/AMJ/Ume_SnowFull/Ume_SnowFull_V6_Split_20261124.png` (blob `00daf37f0c61e210d3e4e0c1b5300b411ce67b98`) | `Textures/Things/Plant/AMJ/Ume_SnowFull/Ume_SnowFull_A.png` (blob `c9caa9eca598ab97ea532cc855300687f0324fde`) |
+
+**実装方針（作者承認）：** 葉あり積雪はヤマザクラ形式の全木画像切替を用いる。雪単体オーバーレイを新規制作せず、全木画像を雪専用オーバーレイパスに指定しない。落葉時の裸枝は無積雪。具体的な切替条件、ThingDef接続、DDS、未成熟、UI、自然季節遷移、実ゲーム受入およびWorkshop配布は未実施で別ゲートとする。
+
+
 
 ## 2026-11-05 ウメ通常葉あり原画 — 作者採用（原画のみ、実ゲーム未受入）
 
